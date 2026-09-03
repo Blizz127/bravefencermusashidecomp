@@ -18,11 +18,20 @@ Task detail, acceptance criteria and verification steps are in
         split that the auto files do not list
   - [x] stale output cleared before building, after a failed build left bytes
         that `match_function` reported a false MATCH on
-- [ ] **A2** Resolve the compiler using the enlarged pool of matchable functions
-  - [ ] pick 2–3 structurally *independent* complex functions
-  - [ ] run `tools/discriminate.py` on each; elimination sets must agree
-  - [ ] examine return-delay-slot filling after `jr $ra` as the sharpest signal
-  - [ ] record the outcome in `docs/MATCHING.md`, including a null result
+- [x] **A2** Resolve the compiler using the enlarged pool of matchable functions
+  - [x] pick structurally *independent* functions
+  - [x] run `tools/discriminate.py` on each; elimination sets agree
+        (`func_80012E6C` and `func_80014128` both eliminate 4.3 / 4.4 / 4.5)
+  - [x] examine return-delay-slot filling after `jr $ra` — this is the concrete
+        difference: retail restores `$sp` before `jr $ra` and leaves the slot
+        empty; the 2.8.x line fills it with the restore
+  - [x] record the outcome in `docs/MATCHING.md`
+  - [x] eliminate on failure to reproduce a *verified* source, not only on
+        instruction count — a 100% match proves the C, making failure decisive
+  - [ ] **outcome: narrowed to three, not one.** PSY-Q 3.5 / 4.0 / 4.1 all
+        reproduce both verified functions exactly. Separating them needs a
+        verified match on a high-register-pressure function
+        (`func_800346D0`, `func_800435CC`), which requires type modelling.
 
 - [ ] **⏸ Checkpoint A** — review before starting Phase B
 

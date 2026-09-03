@@ -94,6 +94,59 @@ class SummaryTests(unittest.TestCase):
             discriminate.summarise([], RETAIL)
 
 
+class VerifiedSourceTests(unittest.TestCase):
+    """A 100% match proves the source, which makes failure to reproduce it fatal.
+
+    Instruction count is a weak criterion that only catches candidates emitting
+    the wrong shape. When some candidate reproduces retail exactly, the C is
+    known correct, so any candidate that cannot reproduce it is eliminated
+    outright — no "conditional on the decompilation" caveat applies.
+    """
+
+    def test_an_exact_match_marks_the_source_verified(self) -> None:
+        summary = discriminate.summarise(
+            [result("exact", RETAIL, 1.0), result("close", RETAIL, 0.75)], RETAIL
+        )
+        self.assertTrue(summary["source_verified"])
+
+    def test_candidates_below_an_exact_match_are_eliminated(self) -> None:
+        summary = discriminate.summarise(
+            [result("exact", RETAIL, 1.0), result("close", RETAIL, 0.75)], RETAIL
+        )
+        self.assertIn("close", summary["eliminated"])
+        self.assertEqual(summary["surviving"], ["exact"])
+        self.assertTrue(summary["discriminating"])
+
+    def test_several_exact_matches_all_survive(self) -> None:
+        summary = discriminate.summarise(
+            [
+                result("a", RETAIL, 1.0),
+                result("b", RETAIL, 1.0),
+                result("c", RETAIL, 0.75),
+            ],
+            RETAIL,
+        )
+        self.assertEqual(sorted(summary["surviving"]), ["a", "b"])
+        self.assertEqual(summary["eliminated"], ["c"])
+
+    def test_a_candidate_is_verified_by_its_best_configuration(self) -> None:
+        summary = discriminate.summarise(
+            [result("t", RETAIL, 0.5, "-O1"), result("t", RETAIL, 1.0, "-O2")], RETAIL
+        )
+        self.assertEqual(summary["surviving"], ["t"])
+        self.assertEqual(summary["eliminated"], [])
+
+    def test_without_an_exact_match_the_source_is_not_verified(self) -> None:
+        """Falls back to instruction count, which is the weaker criterion."""
+
+        summary = discriminate.summarise(
+            [result("a", RETAIL, 0.90), result("b", RETAIL, 0.30)], RETAIL
+        )
+        self.assertFalse(summary["source_verified"])
+        self.assertEqual(summary["eliminated"], [])
+        self.assertEqual(sorted(summary["surviving"]), ["a", "b"])
+
+
 class InconclusiveTests(unittest.TestCase):
     """No survivor means the decompilation is wrong, not that all compilers lost.
 

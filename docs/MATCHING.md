@@ -3,7 +3,8 @@
 ## Status
 
 Two functions are byte-verified against retail, one of them containing a call.
-The compiler is still
+The 6→3 elimination is **replicated** across two independent functions, one of
+them a verified-correct source. The compiler is still
 **unresolved**, but no longer unconstrained: half the candidate set has been
 eliminated by a complex function — see "First elimination" below. That result
 is **unreplicated**; a second function was attempted and came out inconclusive.
@@ -119,7 +120,66 @@ against a second complex function before being treated as settled.
 Per `docs/COMPILER-ID.md` the compiler therefore remains **unresolved**. This
 is recorded as candidates eliminated, not as an identification.
 
-## Replication attempt: inconclusive
+## Replication achieved on a verified source
+
+The 6→3 elimination is now **replicated**, on stronger evidence than the
+original.
+
+`func_80014128` matches retail byte-for-byte, so unlike a work-in-progress
+decompilation its C is *known correct*. That changes what a failure means: when
+some candidate reproduces retail exactly, any candidate that cannot is
+eliminated outright, with no "conditional on the decompilation" caveat.
+`discriminate.py` now applies that rule and reports which criterion it used.
+
+| toolchain | PSY-Q | `func_80014128` | verdict |
+| --- | --- | --- | --- |
+| `gcc-2.6.0-psx` | 3.5 | **100%** | survives |
+| `gcc-2.7.2-psx` | 4.0 | **100%** | survives |
+| `gcc-2.7.2-cdk-psx` | 4.1 | **100%** | survives |
+| `gcc-2.8.0-psx` | 4.3 | 75% | **eliminated** |
+| `gcc-2.8.1-psx` | 4.4 | 75% | **eliminated** |
+| `gcc-2.91.66-psx` | 4.5 | 75% | **eliminated** |
+
+The elimination set is **identical** to the one `func_80012E6C` produced, from
+an independent function using a different criterion. Two functions now agree.
+
+### The concrete difference: the return delay slot
+
+The two words 2.8.x gets wrong are the epilogue, and they are the
+return-delay-slot behaviour this document previously could not pin down:
+
+| | word 5 | word 6 | word 7 |
+| --- | --- | --- | --- |
+| retail, and 2.6.0 / 2.7.2 / 2.7.2-cdk | `addiu $sp, $sp, 0x18` | `jr $ra` | `nop` |
+| 2.8.0 / 2.8.1 / 2.91.66 | `nop` | `jr $ra` | `addiu $sp, $sp, 0x18` |
+
+**Retail restores the stack pointer before returning and leaves the return
+delay slot empty. The 2.8.x line fills that slot with the restore.** This is the
+documented discriminator — 2.8.1 fills the slot after `jr $ra`, 2.7.2 does not —
+finally observed in a real function where the scheduling choice is constrained,
+rather than in a trivial leaf where it is not.
+
+This also settles the caveat recorded further below. The heuristic is sound; it
+simply carries no signal in a function whose delay slot is trivially fillable.
+
+### Still not resolved
+
+`gcc-2.6.0-psx`, `gcc-2.7.2-psx` and `gcc-2.7.2-cdk-psx` all reproduce both
+verified functions **exactly**. Nothing separates PSY-Q 3.5 from 4.0 from 4.1
+so far, and `func_80012AB0` is non-discriminating for the familiar reason: at
+three instructions, all six candidates reproduce it.
+
+Separating the three survivors needs a verified match on a function with enough
+register pressure to force allocation choices. The high-pressure candidates are
+now reachable thanks to the link step — `func_800346D0` (8 saved registers, 15
+distinct) and `func_800435CC` (8 saved, 18 distinct) are the obvious next
+targets, but both index arrays of structures and need type modelling before
+they will compile.
+
+Per `docs/COMPILER-ID.md` the compiler remains **unresolved**: three candidates
+survive, and this is elimination rather than identification.
+
+## Earlier replication attempt: inconclusive
 
 The elimination above rests on a single function, so it was re-tested against a
 second one. **The replication did not succeed**, and the first result therefore
@@ -278,6 +338,12 @@ So the rule is not a flat property of the compiler. When the slot is trivially
 fillable, 2.7.2 fills it. The heuristic only carries signal where scheduling is
 genuinely constrained, which means the 17.81% aggregate cannot be read as
 "mostly 2.7.2" without segregating functions by scheduling difficulty first.
+
+**Resolved.** `func_80014128` supplies exactly that constrained case, and the
+rule holds there: retail leaves the slot empty and restores `$sp` before
+returning, while the 2.8.x line fills the slot with the restore. The heuristic
+is sound; the aggregate was simply the wrong way to apply it. See "Replication
+achieved on a verified source" above.
 
 ## Operational note
 

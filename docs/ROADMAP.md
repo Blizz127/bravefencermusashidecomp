@@ -36,12 +36,19 @@ records code-generation fingerprints in `provenance/compiler_evidence.json`;
 the executable carries no toolchain strings whatsoever, so identification rests
 entirely on structural evidence.
 
-`tools/discriminate.py` compiles one decompiled function against every
-candidate and eliminates those that cannot reach the retail instruction count.
-On `func_80012E6C` this cut the candidate set from six to three: PSY-Q 4.3, 4.4
-and 4.5 are out, leaving 3.5, 4.0 and 4.1. The survivors are not separated from
-each other, and the compiler remains `unresolved`. See
-[MATCHING.md](MATCHING.md).
+`tools/discriminate.py` compiles one function against every candidate and
+eliminates those that cannot reproduce retail. The candidate set is cut from
+six to three — PSY-Q 4.3, 4.4 and 4.5 are out, leaving 3.5, 4.0 and 4.1 — and
+that result is **replicated** across two independent functions.
+
+`func_80014128` carries the stronger evidence, because it matches retail
+byte-for-byte: its C is known correct, so failure to reproduce it is decisive
+rather than conditional on the decompilation. The difference is the return
+delay slot — retail restores `$sp` before `jr $ra` and leaves the slot empty,
+while the 2.8.x line fills it with the restore.
+
+The three survivors are not separated from each other and the compiler remains
+`unresolved`. See [MATCHING.md](MATCHING.md).
 
 Step 6 has its oracle. `tools/match_function.py` extracts a word-aligned range
 of retail text by runtime address and renders a verdict against rebuilt bytes,

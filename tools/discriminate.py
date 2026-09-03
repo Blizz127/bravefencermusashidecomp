@@ -79,11 +79,22 @@ def summarise(results: list[CandidateResult], retail_size: int) -> dict[str, obj
         if current is None or ratio > current:
             scores[result.toolchain] = ratio
 
+    # An exact match proves the source. Once the C is known correct, a
+    # candidate that cannot reproduce it is eliminated outright — a far
+    # stronger criterion than instruction count, and one that carries no
+    # "conditional on the decompilation" caveat.
+    source_verified = any(score == 1.0 for score in scores.values())
+
+    def survives(score: float | None) -> bool:
+        if source_verified:
+            return score == 1.0
+        return score is not None
+
     surviving = sorted(
-        (name for name, score in scores.items() if score is not None),
+        (name for name, score in scores.items() if survives(score)),
         key=lambda name: (-(scores[name] or 0.0), name),
     )
-    eliminated = sorted(name for name, score in scores.items() if score is None)
+    eliminated = sorted(name for name, score in scores.items() if not survives(score))
 
     best: tuple[str, float] | None = None
     spread = 0.0
@@ -103,6 +114,7 @@ def summarise(results: list[CandidateResult], retail_size: int) -> dict[str, obj
         "best": best,
         "spread": spread,
         "inconclusive": inconclusive,
+        "source_verified": source_verified,
         "discriminating": bool(eliminated) and not inconclusive,
     }
 
@@ -222,11 +234,23 @@ def main(argv: list[str] | None = None) -> int:
             print("  eliminate against. Refine the C and re-run.")
             return 0
 
-        if summary["eliminated"]:
-            print(f"ELIMINATED ({len(summary['eliminated'])}): {', '.join(summary['eliminated'])}")
-            print("  never reached the retail instruction count at any tested setting")
+        if summary["source_verified"]:
+            print("SOURCE VERIFIED: at least one candidate reproduces retail exactly,")
+            print("  so the C is known correct and failure to reproduce it is decisive.")
         else:
-            print("ELIMINATED (0): every candidate reached the retail instruction count")
+            print("SOURCE UNVERIFIED: no candidate reproduces retail exactly, so only")
+            print("  instruction count is usable and results depend on the C being close.")
+
+        if summary["eliminated"]:
+            reason = (
+                "did not reproduce the verified source exactly"
+                if summary["source_verified"]
+                else "never reached the retail instruction count at any tested setting"
+            )
+            print(f"ELIMINATED ({len(summary['eliminated'])}): {', '.join(summary['eliminated'])}")
+            print(f"  {reason}")
+        else:
+            print("ELIMINATED (0): no candidate was ruled out")
         print(f"SURVIVING ({len(summary['surviving'])}): {', '.join(summary['surviving'])}")
         best = summary["best"]
         print(f"  best {best[0]} at {best[1] * 100:.2f}%, spread {summary['spread'] * 100:.2f} points")
