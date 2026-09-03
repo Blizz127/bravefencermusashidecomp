@@ -97,6 +97,26 @@ every CD-XA Mode2/Form2 file on the disc. Any future substitution must be
 measured against the sizes recorded in [MILESTONE-1.md](MILESTONE-1.md), not
 assumed equivalent because it produces files without erroring.
 
+## Archive format
+
+Most of the game is not in `SLUS_007.26`. It streams from `.CD` archives, which
+`tools/extract_cd.py` unpacks.
+
+A `0x800` header holds a `u32` entry count, a `u32` pad, then eight bytes per
+entry — a `u32` start sector and a `u32` size. Offsets are sector-scaled
+(`sector * 0x800`) and relative to the archive itself; members are padded out to
+sector boundaries. At most 255 entries fit in the header.
+
+Verified against `MAIN.CD`: 49 members totalling 5,985,664 bytes of a 5,988,352
+byte archive, every entry landing inside the file.
+
+The archive carries no filenames, so members are written out by index. Inventing
+names would be fabrication, and the index is how the game addresses them.
+
+Parsing fails closed. A misparsed archive does not error, it yields
+plausible-looking garbage, so the declared count is checked against the header's
+real capacity and every entry against the real file size.
+
 ## Milestone 2 precondition
 
 Milestone 2 is compiler identification. It must not conclude from a plausible

@@ -37,10 +37,12 @@ Task detail, acceptance criteria and verification steps are in
 
 ## Phase B — Reach the overlays
 
-- [ ] **B1** `.CD` archive reader
-  - [ ] unit-tested header parsing (truncated header, entry past EOF, bad count)
-  - [ ] extracts `MAIN.CD`, reporting per-member size and SHA-256
-  - [ ] output untracked
+- [x] **B1** `.CD` archive reader
+  - [x] unit-tested header parsing (truncated header, entry past EOF, bad count,
+        zero count, entry starting inside the header)
+  - [x] extracts `MAIN.CD` — 49 members, 5,985,664 bytes — reporting per-member
+        size and SHA-256, with an optional JSON manifest
+  - [x] output untracked; refuses to overwrite an existing directory
 - [ ] **B2** Split and match one overlay function
   - [ ] load address **observed** from loader code or overlay header, not assumed
   - [ ] splat config for one overlay
