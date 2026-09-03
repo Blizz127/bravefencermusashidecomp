@@ -48,6 +48,11 @@ working: `cc1` from `gcc-2.7.2-psx` self-reports as
 binutils supplies `mips-linux-gnu-{as,ld,objcopy,objdump,nm}` driven with
 `-EL` for little-endian output.
 
+Step 6 has its first match. `func_80012AB0` rebuilds byte-identically from
+`src/main/80012ab0.c`, verified through the oracle. One function of 1334 is
+matched, and it carries no toolchain evidence: every locally available compiler
+at every optimization level reproduces it. See [MATCHING.md](MATCHING.md).
+
 No work toward step 7 has been attempted.
 
 ## Evidence tracks
