@@ -2,7 +2,8 @@
 
 ## Status
 
-One function is byte-verified against retail. The compiler is still
+Two functions are byte-verified against retail, one of them containing a call.
+The compiler is still
 **unresolved**, but no longer unconstrained: half the candidate set has been
 eliminated by a complex function — see "First elimination" below. That result
 is **unreplicated**; a second function was attempted and came out inconclusive.
@@ -10,6 +11,45 @@ is **unreplicated**; a second function was attempted and came out inconclusive.
 | vram | words | source | verdict |
 | --- | --- | --- | --- |
 | `0x80012AB0` | 3/3 | `src/main/80012ab0.c` | MATCH |
+| `0x80014128` | 8/8 | `src/main/80014128.c` | MATCH (first with a `jal`) |
+
+## Linking: why bytes from the object are not comparable
+
+Until now only relocation-free leaf functions could be matched at all. A
+function that calls another, or reads a global, compiles to an object whose
+bytes still contain unresolved relocations, so comparing them against retail —
+which is fully linked — is meaningless. That excluded the large majority of the
+1334 functions.
+
+`build_candidate.py` now links before extracting. The generated script defines
+external symbols and places `.text`, then the function's final bytes are cut
+from the linked image.
+
+Symbol addresses come from two sources:
+
+1. splat's `config/undefined_syms.auto.txt` and `undefined_funcs.auto.txt`,
+   which are already in `name = 0xADDR;` assignment syntax.
+2. The symbol name itself, for anything still undefined. splat names
+   unidentified symbols after their address, so `func_80042610` resolves to
+   `0x80042610`. This is needed because a callee *inside* the split is
+   undefined in a single compiled object yet absent from the auto files.
+
+A name carrying no address is reported as an unresolved external rather than
+guessed at.
+
+Two details that cost time and are worth keeping:
+
+- **`ld` needs `-EL`.** The toolchain's linker defaults to big-endian MIPS and
+  rejects a little-endian object outright.
+- **Placement only needs the right 256MB region.** Branches are PC-relative and
+  `%hi`/`%lo` carry absolute targets, so neither depends on where a function
+  sits. `jal` takes its top four address bits from the delay-slot PC, which is
+  the only reason a base address is needed at all.
+
+`build_candidate.py` also clears its output file before building. A failed
+build that left the previous run's bytes in place caused `match_function` to
+report a confident MATCH on stale data during this work — the exact false pass
+the oracle exists to prevent.
 
 Reproduce with:
 

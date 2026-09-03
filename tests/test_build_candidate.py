@@ -3,6 +3,7 @@ from __future__ import annotations
 import struct
 import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 from unittest import mock
@@ -89,6 +90,137 @@ class DefaultPathTests(unittest.TestCase):
         self.assertEqual(
             build_candidate.default_toolchain_root(repo), repo / "tools" / "psyq"
         )
+
+
+class SymbolDefinitionTests(unittest.TestCase):
+    """splat emits undefined symbols already in linker-assignment syntax.
+
+    config/undefined_syms.auto.txt and undefined_funcs.auto.txt hold
+    `name = 0xADDR;` lines, which feed a linker script directly. There are
+    ~2700 of them, far past what --defsym arguments can carry, so they are
+    rendered into a script instead.
+    """
+
+    def test_parses_a_hex_assignment(self) -> None:
+        self.assertEqual(
+            build_candidate.parse_symbol_definitions("func_80010204 = 0x80010204;\n"),
+            {"func_80010204": 0x80010204},
+        )
+
+    def test_parses_many_assignments(self) -> None:
+        text = "a = 0x1;\nb = 0x2;\nc = 0x3;\n"
+        self.assertEqual(build_candidate.parse_symbol_definitions(text), {"a": 1, "b": 2, "c": 3})
+
+    def test_blank_and_malformed_lines_are_skipped(self) -> None:
+        text = "\n// a comment\ngarbage without equals\nd = 0x4;\ne = notanumber;\n"
+        self.assertEqual(build_candidate.parse_symbol_definitions(text), {"d": 4})
+
+    def test_trailing_semicolon_is_optional(self) -> None:
+        self.assertEqual(build_candidate.parse_symbol_definitions("f = 0x5\n"), {"f": 5})
+
+    def test_later_definition_wins(self) -> None:
+        self.assertEqual(build_candidate.parse_symbol_definitions("g = 0x1;\ng = 0x2;\n"), {"g": 2})
+
+
+class DerivedAddressTests(unittest.TestCase):
+    """splat names carry their own address, which covers in-split callees.
+
+    undefined_funcs.auto.txt only lists symbols splat could not place. A call
+    to a function inside the split is undefined in the *object* but absent from
+    that file, so its address has to come from the name.
+    """
+
+    def test_function_name_yields_its_address(self) -> None:
+        self.assertEqual(build_candidate.derive_symbol_address("func_80042610"), 0x80042610)
+
+    def test_data_name_yields_its_address(self) -> None:
+        self.assertEqual(build_candidate.derive_symbol_address("D_800747C0"), 0x800747C0)
+
+    def test_lowercase_hex_is_accepted(self) -> None:
+        self.assertEqual(build_candidate.derive_symbol_address("func_80042610"), 0x80042610)
+        self.assertEqual(build_candidate.derive_symbol_address("D_800747c0"), 0x800747C0)
+
+    def test_a_name_without_an_embedded_address_yields_nothing(self) -> None:
+        self.assertIsNone(build_candidate.derive_symbol_address("memcpy"))
+        self.assertIsNone(build_candidate.derive_symbol_address("func_notahexnumber"))
+
+    def test_a_wrong_length_address_is_rejected(self) -> None:
+        """Eight hex digits exactly; anything else is not a splat address."""
+
+        self.assertIsNone(build_candidate.derive_symbol_address("func_8004"))
+
+
+class UndefinedSymbolTests(unittest.TestCase):
+    def test_parses_undefined_symbols_from_nm(self) -> None:
+        output = "         U func_80042610\n         U D_800747C0\n00000000 T func_80010938\n"
+        self.assertEqual(
+            build_candidate.parse_undefined_symbols(output), ["D_800747C0", "func_80042610"]
+        )
+
+    def test_no_undefined_symbols_yields_an_empty_list(self) -> None:
+        self.assertEqual(build_candidate.parse_undefined_symbols("00000000 T only\n"), [])
+
+
+class LinkCommandTests(unittest.TestCase):
+    def test_link_selects_little_endian(self) -> None:
+        """ld defaults to big-endian MIPS and rejects the object without -EL."""
+
+        command = build_candidate.ld_command(
+            Path("/usr/bin/mips-linux-gnu-ld"), Path("u.ld"), Path("u.o"), Path("u.elf")
+        )
+        self.assertIn("-EL", command)
+
+    def test_link_uses_the_generated_script(self) -> None:
+        command = build_candidate.ld_command(
+            Path("/usr/bin/mips-linux-gnu-ld"), Path("u.ld"), Path("u.o"), Path("u.elf")
+        )
+        self.assertIn("-T", command)
+        self.assertIn("u.ld", command)
+
+
+class StaleOutputTests(unittest.TestCase):
+    def test_failed_build_does_not_leave_a_stale_artifact(self) -> None:
+        """A failed build must not leave an earlier candidate in place.
+
+        match_function compares whatever file it is given. If a build fails and
+        the previous run's bytes survive, the comparison silently reports on
+        stale data — the exact false-pass this project exists to prevent.
+        """
+
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            output = root / "candidate.bin"
+            output.write_bytes(b"bytes from an earlier run")
+            code = build_candidate.main(
+                [
+                    str(root / "absent.c"),
+                    "--symbol",
+                    "func_x",
+                    "--toolchain",
+                    "definitely-not-a-toolchain",
+                    "--output",
+                    str(output),
+                ]
+            )
+            self.assertEqual(code, 2)
+            self.assertFalse(output.exists())
+
+
+class LinkerScriptTests(unittest.TestCase):
+    def test_places_text_at_the_function_address(self) -> None:
+        script = build_candidate.render_linker_script(0x80012E6C, {})
+        self.assertIn("0x80012E6C", script)
+        self.assertIn(".text", script)
+
+    def test_defines_every_supplied_symbol(self) -> None:
+        script = build_candidate.render_linker_script(0x80010000, {"sym": 0x80074750})
+        self.assertIn("sym = 0x80074750;", script)
+
+    def test_symbols_are_emitted_before_sections(self) -> None:
+        """Assignments must precede SECTIONS or ld cannot resolve them."""
+
+        script = build_candidate.render_linker_script(0x80010000, {"sym": 0x1})
+        self.assertLess(script.index("sym = "), script.index("SECTIONS"))
 
 
 class SymbolTableTests(unittest.TestCase):

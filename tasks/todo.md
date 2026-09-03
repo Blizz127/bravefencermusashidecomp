@@ -6,13 +6,18 @@ Task detail, acceptance criteria and verification steps are in
 
 ## Phase A — Unlock matching at scale
 
-- [ ] **A0** Fix the `docs/ROADMAP.md` contradiction (line 49 says no function
+- [x] **A0** Fix the `docs/ROADMAP.md` contradiction (line 49 says no function
       matched, line 57 says one is)
-- [ ] **A1** Link step: resolve relocations from splat's `*.auto.txt` so
+- [x] **A1** Link step: resolve relocations from splat's `*.auto.txt` so
       functions with `jal` / `%hi` / `%lo` become comparable
-  - [ ] unit-tested generation of linker symbol definitions, incl. malformed input
-  - [ ] one function containing a `jal` matches byte-exactly
-  - [ ] existing relocation-free matches unaffected
+  - [x] unit-tested generation of linker symbol definitions, incl. malformed input
+  - [x] one function containing a `jal` matches byte-exactly
+        (`func_80014128`, 8/8 words)
+  - [x] existing relocation-free matches unaffected
+  - [x] addresses also derived from splat symbol names, for callees inside the
+        split that the auto files do not list
+  - [x] stale output cleared before building, after a failed build left bytes
+        that `match_function` reported a false MATCH on
 - [ ] **A2** Resolve the compiler using the enlarged pool of matchable functions
   - [ ] pick 2–3 structurally *independent* complex functions
   - [ ] run `tools/discriminate.py` on each; elimination sets must agree
