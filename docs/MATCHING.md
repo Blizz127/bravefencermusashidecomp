@@ -82,27 +82,49 @@ retail bytes rather than a preference. `build_candidate.maspsx_command`
 therefore passes `--expand-div` by default, and `idiom_probe` keeps
 `--no-expand-div` only to reproduce the contrast above.
 
-**Not established: the compiler version.** With `--expand-div` enabled, all
-three locally installed toolchains reproduce the expansion identically:
+**Not established: the compiler version.** The full candidate set is now
+installed locally by `tools/fetch_toolchains.sh`, spanning PSY-Q 3.5 to 4.5.
+Every one of them reproduces the expansion identically:
 
-| toolchain | ASPSX | expansion |
-| --- | --- | --- |
-| `gcc-2.6.0-psx` | 2.34 | reproduces |
-| `gcc-2.7.2-psx` | 2.56 | reproduces |
-| `gcc-2.7.2-cdk-psx` | 2.67 | reproduces |
+| toolchain | PSY-Q | ASPSX | division guard | `a / 10` |
+| --- | --- | --- | --- | --- |
+| `gcc-2.6.0-psx` | 3.5 | 2.34 | reproduces | identical |
+| `gcc-2.7.2-psx` | 4.0 | 2.56 | reproduces | identical |
+| `gcc-2.7.2-cdk-psx` | 4.1 | 2.67 | reproduces | identical |
+| `gcc-2.8.0-psx` | 4.3 | 2.77 | reproduces | identical |
+| `gcc-2.8.1-psx` | 4.4 | 2.79 | reproduces | identical |
+| `gcc-2.91.66-psx` | 4.5 | 2.81 | reproduces | identical |
 
-ASPSX 2.34, 2.56, and 2.67 emit the same guard shape, so the idiom separates
-"guard" from "no guard" but not one ASPSX version from another. `gcc-2.8.0-psx`
-(ASPSX 2.77) and `gcc-2.8.1-psx` (2.79) are **not installed locally** and
-remain untested; they are the versions most likely to differ, since the 1999
-Square titles moved to them. Obtaining them is the next concrete step for this
-probe.
+Both idioms are **definitively non-discriminating** across the entire PSY-Q
+range. This closes the line of investigation rather than leaving it open.
 
-A sharper variant worth building: compare the *full* expansion window rather
-than a three-mnemonic prefix, including where the guard places `mflo`/`mfhi`
-relative to the branch, and how a division by a constant is strength-reduced.
-Constant division is the more promising discriminator, because magic-number
-multiplication changed across GCC 2.x.
+## Why synthetic idiom probes fail here
+
+The two results have different causes and together they generalise:
+
+- The divide-by-zero guard is an **assembler** macro. ASPSX expands it, so it
+  cannot separate compiler versions no matter which one emitted the `div`. The
+  probe was testing the wrong layer.
+- Constant division *is* a compiler transform, but magic-number strength
+  reduction for `a / 10` produces the same sequence from 2.6.0 through
+  2.91.66. These releases share a backend for straightforward code.
+
+The generalisation: **simple single-expression probes cannot discriminate these
+compilers.** Anything with one obvious encoding will be emitted identically by
+all of them, which is the same reason the first matched function proved
+nothing.
+
+Discrimination requires constructs where the compilers have room to disagree —
+register allocation under pressure with many simultaneously live values,
+instruction scheduling through non-trivial control flow, and delay-slot filling
+where the choice is genuinely constrained. Those are properties of *real*
+functions, not of synthetic one-liners.
+
+**Revised approach: stop building synthetic probes.** Decompile a genuinely
+complex function from the executable and compile it against all six
+candidates. The toolchains that fail to reproduce it are eliminated. This is
+what established PSX projects actually rely on, and the harness needed for it
+already exists.
 
 ## Caveat on the return-delay-slot heuristic
 

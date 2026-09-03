@@ -28,6 +28,11 @@ SLUS_*
 # and rebuilt locally; never redistributed from here.
 /tools/third_party/
 
+# Candidate compilers, fetched by tools/fetch_toolchains.sh. These are GPL
+# rebuilds of old GCC from decompals/old-gcc, not Sony binaries, but they are
+# large and reproducible so they are fetched rather than tracked.
+/tools/psyq/
+
 # Disassembly generated from the contributor's own retail executable. It is a
 # derivative of retail bytes, so it is regenerated locally rather than shared.
 /asm/functions/*

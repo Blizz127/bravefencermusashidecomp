@@ -28,6 +28,19 @@ class ToolchainTests(unittest.TestCase):
         self.assertEqual(build_candidate.resolve_toolchain("gcc-2.7.2-psx").aspsx_version, "2.56")
         self.assertEqual(build_candidate.resolve_toolchain("gcc-2.7.2-cdk-psx").aspsx_version, "2.67")
 
+    def test_registry_spans_the_psyq_releases_either_side_of_1998(self) -> None:
+        """Candidates must bracket the target, not just cluster on the guess.
+
+        BFM's executable is dated 1998-08-25. Stopping the registry at 2.7.2
+        would make a 2.7.2 result unfalsifiable, so the later releases the 1999
+        Square titles used are included as well.
+        """
+
+        self.assertEqual(build_candidate.resolve_toolchain("gcc-2.6.0-psx").aspsx_version, "2.34")
+        self.assertEqual(build_candidate.resolve_toolchain("gcc-2.8.0-psx").aspsx_version, "2.77")
+        self.assertEqual(build_candidate.resolve_toolchain("gcc-2.8.1-psx").aspsx_version, "2.79")
+        self.assertEqual(build_candidate.resolve_toolchain("gcc-2.91.66-psx").aspsx_version, "2.81")
+
     def test_unknown_toolchain_is_refused(self) -> None:
         with self.assertRaises(RetailError):
             build_candidate.resolve_toolchain("clang-19")

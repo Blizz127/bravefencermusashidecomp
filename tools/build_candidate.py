@@ -49,6 +49,7 @@ TOOLCHAINS: dict[str, Toolchain] = {
     "gcc-2.7.2-cdk-psx": Toolchain("gcc-2.7.2-cdk-psx", "2.67"),
     "gcc-2.8.0-psx": Toolchain("gcc-2.8.0-psx", "2.77"),
     "gcc-2.8.1-psx": Toolchain("gcc-2.8.1-psx", "2.79"),
+    "gcc-2.91.66-psx": Toolchain("gcc-2.91.66-psx", "2.81"),
 }
 
 TEXT_SYMBOL_TYPES = frozenset("Tt")
