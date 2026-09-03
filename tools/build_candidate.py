@@ -157,14 +157,27 @@ def maspsx_command(
     aspsx_version: str,
     gnu_as: Path,
     gp: str = "-G0",
+    expand_div: bool = True,
 ) -> list[str]:
-    return [
+    """Build the maspsx invocation.
+
+    Division expansion defaults on because retail requires it: all 69 division
+    sites in the executable carry the bnez/nop/break divide-by-zero guard, and
+    no candidate toolchain emits that guard without --expand-div. See
+    docs/MATCHING.md.
+    """
+
+    command = [
         sys.executable,
         str(maspsx),
         f"--aspsx-version={aspsx_version}",
         "--use-comm-section",
         "--run-assembler",
         f"--gnu-as-path={gnu_as}",
+    ]
+    if expand_div:
+        command.append("--expand-div")
+    command += [
         "-EL",
         gp,
         "-march=r3000",
@@ -174,6 +187,7 @@ def maspsx_command(
         str(obj),
         str(assembly),
     ]
+    return command
 
 
 def _run(command: list[str], label: str, *, stdout: Path | None = None) -> None:

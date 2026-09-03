@@ -148,6 +148,34 @@ class CommandTests(unittest.TestCase):
         self.assertIn("--run-assembler", command)
         self.assertIn("-EL", command)
 
+    def test_maspsx_expands_division_by_default(self) -> None:
+        """Retail guards every division, so the guard must be emitted by default.
+
+        All 69 division sites in the retail image expand to bnez/nop/break, and
+        no candidate emits that without --expand-div. Defaulting it off would
+        make any function containing a division unmatchable.
+        """
+
+        command = build_candidate.maspsx_command(
+            Path("/m/maspsx.py"),
+            Path("in.s"),
+            Path("out.o"),
+            aspsx_version="2.56",
+            gnu_as=Path("/usr/bin/mips-linux-gnu-as"),
+        )
+        self.assertIn("--expand-div", command)
+
+    def test_division_expansion_can_be_disabled_explicitly(self) -> None:
+        command = build_candidate.maspsx_command(
+            Path("/m/maspsx.py"),
+            Path("in.s"),
+            Path("out.o"),
+            aspsx_version="2.56",
+            gnu_as=Path("/usr/bin/mips-linux-gnu-as"),
+            expand_div=False,
+        )
+        self.assertNotIn("--expand-div", command)
+
     def test_cpp_command_defines_the_psx_target_macros(self) -> None:
         command = build_candidate.cpp_command(Path("/tc/cpp"), Path("in.c"), includes=[Path("/sdk")])
         self.assertIn("-undef", command)
