@@ -4,6 +4,10 @@
   "compiler": null,
   "reason": "measurement only; no toolchain conclusion may be drawn until these fingerprints are compared against candidate toolchain output per docs/COMPILER-ID.md",
   "toolchain_strings": [],
+  "caveats": [
+    "delay_slots is the aggregate over every control transfer and is NOT diagnostic of compiler version: every GCC 2.x at -O2 fills a large share of branch delay slots and no reference distribution exists. Use return_delay_slots instead.",
+    "Square PS1 executables routinely mix two to four compilers in one binary, so a single whole-image rate can blend distinct toolchain regions. Treat these figures as whole-image aggregates, not per-object evidence."
+  ],
   "metrics": {
     "function_count": 1334,
     "instruction_count": 86192,
@@ -12,6 +16,12 @@
       "filled": 6942,
       "nop": 4617,
       "fill_rate": 0.6005709836491046
+    },
+    "return_delay_slots": {
+      "total": 1482,
+      "filled": 264,
+      "nop": 1218,
+      "fill_rate": 0.17813765182186234
     },
     "div_zero_guards": 69,
     "gte_instructions": 4028,

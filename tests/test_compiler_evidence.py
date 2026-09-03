@@ -84,6 +84,51 @@ class DelaySlotTests(unittest.TestCase):
         self.assertEqual(measured["fill_rate"], 0.0)
 
 
+class ReturnDelaySlotTests(unittest.TestCase):
+    """The aggregate fill rate does not discriminate compilers; the return slot does.
+
+    GCC 2.8.1 fills the delay slot after `jr $ra`, 2.7.2 leaves it as a nop, so
+    this is measured separately from branch delay slots rather than blended in.
+    """
+
+    RETURNS = asm(
+        'glabel func_80010000',
+        '    /* 800 80010000 0800E003 */  jr         $ra',
+        '    /* 804 80010004 00000000 */   nop',
+        '',
+        'glabel func_80010020',
+        '    /* 820 80010020 0800E003 */  jr         $ra',
+        '    /* 824 80010024 21100000 */   addu       $v0, $zero, $zero',
+        '',
+        'glabel func_80010040',
+        '    /* 840 80010040 08002003 */  jr         $t9',
+        '    /* 844 80010044 00000000 */   nop',
+    )
+
+    def test_counts_only_returns_not_indirect_jumps(self) -> None:
+        functions = identify_compiler.parse_disassembly(self.RETURNS)
+        measured = identify_compiler.measure_return_delay_slots(functions)
+        self.assertEqual(measured["total"], 2)
+        self.assertEqual(measured["filled"], 1)
+        self.assertEqual(measured["nop"], 1)
+        self.assertAlmostEqual(measured["fill_rate"], 0.5, places=6)
+
+    def test_no_returns_yields_zero_rate_without_dividing_by_zero(self) -> None:
+        functions = identify_compiler.parse_disassembly(
+            asm('glabel func_80010000', '    /* 800 80010000 00000000 */  nop')
+        )
+        measured = identify_compiler.measure_return_delay_slots(functions)
+        self.assertEqual(measured["total"], 0)
+        self.assertEqual(measured["fill_rate"], 0.0)
+
+    def test_evidence_reports_return_slots_and_flags_the_aggregate_as_weak(self) -> None:
+        functions = identify_compiler.parse_disassembly(self.RETURNS)
+        evidence = identify_compiler.build_evidence(functions, toolchain_strings=[])
+        self.assertEqual(evidence["metrics"]["return_delay_slots"]["total"], 2)
+        caveats = " ".join(evidence["caveats"]).lower()
+        self.assertIn("not diagnostic", caveats)
+
+
 class IdiomTests(unittest.TestCase):
     def test_detects_div_break_zero_guard(self) -> None:
         functions = identify_compiler.parse_disassembly(

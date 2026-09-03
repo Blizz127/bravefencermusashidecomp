@@ -51,6 +51,20 @@ PRINTABLE_RUN_RE = re.compile(rb"[\x20-\x7e]{4,}")
 DIV_MNEMONICS = frozenset(("div", "divu"))
 DIV_GUARD_WINDOW = 3
 
+RETURN_REGISTER_RE = re.compile(r"\$ra\b")
+
+AGGREGATE_CAVEAT = (
+    "delay_slots is the aggregate over every control transfer and is NOT "
+    "diagnostic of compiler version: every GCC 2.x at -O2 fills a large share "
+    "of branch delay slots and no reference distribution exists. Use "
+    "return_delay_slots instead."
+)
+MIXING_CAVEAT = (
+    "Square PS1 executables routinely mix two to four compilers in one binary, "
+    "so a single whole-image rate can blend distinct toolchain regions. Treat "
+    "these figures as whole-image aggregates, not per-object evidence."
+)
+
 
 @dataclass(frozen=True)
 class Instruction:
@@ -99,6 +113,34 @@ def measure_delay_slots(functions: dict[str, list[Instruction]]) -> dict[str, fl
     for instructions in functions.values():
         for index, instruction in enumerate(instructions[:-1]):
             if instruction.mnemonic not in CONTROL_TRANSFER:
+                continue
+            if instructions[index + 1].mnemonic == "nop":
+                empty += 1
+            else:
+                filled += 1
+    total = filled + empty
+    return {
+        "total": total,
+        "filled": filled,
+        "nop": empty,
+        "fill_rate": (filled / total) if total else 0.0,
+    }
+
+
+def measure_return_delay_slots(functions: dict[str, list[Instruction]]) -> dict[str, float | int]:
+    """Count fills in the delay slot of `jr $ra` specifically.
+
+    This is the discriminating measurement. GCC 2.8.1 fills the slot after a
+    return; 2.7.2 leaves a nop. The aggregate branch fill rate does not separate
+    compiler versions, so returns are counted on their own and indirect jumps
+    through other registers are excluded.
+    """
+
+    filled = 0
+    empty = 0
+    for instructions in functions.values():
+        for index, instruction in enumerate(instructions[:-1]):
+            if instruction.mnemonic != "jr" or not RETURN_REGISTER_RE.search(instruction.operands):
                 continue
             if instructions[index + 1].mnemonic == "nop":
                 empty += 1
@@ -191,10 +233,12 @@ def build_evidence(
             "docs/COMPILER-ID.md"
         ),
         "toolchain_strings": toolchain_strings,
+        "caveats": [AGGREGATE_CAVEAT, MIXING_CAVEAT],
         "metrics": {
             "function_count": len(functions),
             "instruction_count": sum(mnemonics.values()),
             "delay_slots": delay_slots,
+            "return_delay_slots": measure_return_delay_slots(functions),
             "div_zero_guards": count_div_zero_guards(functions),
             "gte_instructions": count_gte_instructions(functions),
             "trailing_padding_histogram": {
@@ -259,9 +303,14 @@ def main(argv: list[str] | None = None) -> int:
         delay = metrics["delay_slots"]
         print(f"EVIDENCE status={evidence['status']} compiler=unresolved output={output_path}")
         print(f"  functions={metrics['function_count']} instructions={metrics['instruction_count']}")
+        returns = metrics["return_delay_slots"]
         print(
-            f"  delay slots: {delay['filled']}/{delay['total']} filled "
-            f"({delay['fill_rate'] * 100:.2f}%), {delay['nop']} wasted"
+            f"  return delay slots: {returns['filled']}/{returns['total']} filled "
+            f"({returns['fill_rate'] * 100:.2f}%)  <- discriminating measurement"
+        )
+        print(
+            f"  all delay slots:    {delay['filled']}/{delay['total']} filled "
+            f"({delay['fill_rate'] * 100:.2f}%)  (aggregate, not diagnostic)"
         )
         print(f"  gte_instructions={metrics['gte_instructions']} div_zero_guards={metrics['div_zero_guards']}")
         print(f"  toolchain_strings={len(evidence['toolchain_strings'])}")
