@@ -92,12 +92,18 @@ def summarise(results: list[CandidateResult], retail_size: int) -> dict[str, obj
         worst = scores[surviving[-1]] or 0.0
         spread = best[1] - worst
 
+    # With no survivor there is no baseline to eliminate anything against: the
+    # source failed to reproduce the retail shape under every candidate, which
+    # indicts the decompilation rather than the compilers.
+    inconclusive = not surviving
+
     return {
         "surviving": surviving,
         "eliminated": eliminated,
         "best": best,
         "spread": spread,
-        "discriminating": bool(eliminated),
+        "inconclusive": inconclusive,
+        "discriminating": bool(eliminated) and not inconclusive,
     }
 
 
@@ -209,15 +215,21 @@ def main(argv: list[str] | None = None) -> int:
 
         summary = summarise(results, size)
         print()
+        if summary["inconclusive"]:
+            print("INCONCLUSIVE: no candidate reached the retail instruction count.")
+            print("  This indicts the decompiled source, not the compilers: with no")
+            print("  candidate reproducing the retail shape there is nothing to")
+            print("  eliminate against. Refine the C and re-run.")
+            return 0
+
         if summary["eliminated"]:
             print(f"ELIMINATED ({len(summary['eliminated'])}): {', '.join(summary['eliminated'])}")
             print("  never reached the retail instruction count at any tested setting")
         else:
             print("ELIMINATED (0): every candidate reached the retail instruction count")
-        if summary["surviving"]:
-            print(f"SURVIVING ({len(summary['surviving'])}): {', '.join(summary['surviving'])}")
-            best = summary["best"]
-            print(f"  best {best[0]} at {best[1] * 100:.2f}%, spread {summary['spread'] * 100:.2f} points")
+        print(f"SURVIVING ({len(summary['surviving'])}): {', '.join(summary['surviving'])}")
+        best = summary["best"]
+        print(f"  best {best[0]} at {best[1] * 100:.2f}%, spread {summary['spread'] * 100:.2f} points")
         if not summary["discriminating"]:
             print("\nNOT DISCRIMINATING: no candidate was eliminated by this function")
         return 0

@@ -73,6 +73,17 @@ class DefaultPathTests(unittest.TestCase):
         self.assertEqual(first, build_candidate.default_maspsx_path(repo))
         self.assertNotIn("psyq", str(first))
 
+    def test_include_dir_is_on_the_default_search_path(self) -> None:
+        """Decompiled sources share PSX typedefs from include/.
+
+        cpp runs with -nostdinc, so src/shared/types.h is unusable in decomp
+        sources: it pulls in stdint.h. include/ carries freestanding typedefs
+        instead, and must be searched without every caller passing -I.
+        """
+
+        repo = Path("/somewhere/bfm")
+        self.assertIn(repo / "include", build_candidate.default_include_dirs(repo))
+
     def test_toolchain_root_default_is_repo_relative(self) -> None:
         repo = Path("/somewhere/bfm")
         self.assertEqual(

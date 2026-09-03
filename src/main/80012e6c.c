@@ -4,13 +4,12 @@
  * src/main/80012ab0.c; it is renamed once a real translation-unit boundary is
  * identified.
  *
- * Types are declared locally rather than included. The Psy-Q chain runs cpp
- * with -nostdinc, so src/shared/types.h is unusable here: it pulls in stdint.h.
- * Move these to a shared decomp header once a second file needs them.
+ * Types come from include/psx_types.h, which build_candidate.py places on the
+ * search path by default. src/shared/types.h is unusable here: it pulls in
+ * stdint.h, and the Psy-Q chain runs cpp with -nostdinc.
  */
 
-typedef short s16;
-typedef int s32;
+#include "psx_types.h"
 
 /* Angle delta with optional interpolation, at vram 0x80012E6C.
  *

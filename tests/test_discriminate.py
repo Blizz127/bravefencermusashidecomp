@@ -94,6 +94,34 @@ class SummaryTests(unittest.TestCase):
             discriminate.summarise([], RETAIL)
 
 
+class InconclusiveTests(unittest.TestCase):
+    """No survivor means the decompilation is wrong, not that all compilers lost.
+
+    Elimination is only meaningful relative to a candidate that *did* reproduce
+    the retail shape. If nothing did, the source is at fault and the run yields
+    no evidence about any toolchain.
+    """
+
+    def test_no_candidate_reaching_retail_size_is_inconclusive(self) -> None:
+        summary = discriminate.summarise(
+            [result("a", RETAIL + 4, None), result("b", RETAIL - 8, None)], RETAIL
+        )
+        self.assertTrue(summary["inconclusive"])
+
+    def test_an_inconclusive_run_does_not_claim_to_discriminate(self) -> None:
+        summary = discriminate.summarise(
+            [result("a", RETAIL + 4, None), result("b", RETAIL - 8, None)], RETAIL
+        )
+        self.assertFalse(summary["discriminating"])
+
+    def test_a_run_with_a_survivor_is_not_inconclusive(self) -> None:
+        summary = discriminate.summarise(
+            [result("a", RETAIL, 0.4), result("b", RETAIL + 4, None)], RETAIL
+        )
+        self.assertFalse(summary["inconclusive"])
+        self.assertTrue(summary["discriminating"])
+
+
 class OrderingTests(unittest.TestCase):
     def test_surviving_toolchains_are_ordered_by_descending_ratio(self) -> None:
         summary = discriminate.summarise(

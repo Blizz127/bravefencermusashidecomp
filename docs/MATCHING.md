@@ -4,7 +4,8 @@
 
 One function is byte-verified against retail. The compiler is still
 **unresolved**, but no longer unconstrained: half the candidate set has been
-eliminated by a complex function — see "First elimination" below.
+eliminated by a complex function — see "First elimination" below. That result
+is **unreplicated**; a second function was attempted and came out inconclusive.
 
 | vram | words | source | verdict |
 | --- | --- | --- | --- |
@@ -77,6 +78,49 @@ against a second complex function before being treated as settled.
 
 Per `docs/COMPILER-ID.md` the compiler therefore remains **unresolved**. This
 is recorded as candidates eliminated, not as an identification.
+
+## Replication attempt: inconclusive
+
+The elimination above rests on a single function, so it was re-tested against a
+second one. **The replication did not succeed**, and the first result therefore
+stands unreplicated.
+
+**Target choice.** `func_80013028` was rejected despite being the documented
+fallback: it has the same signature as `func_80012E6C` and the same +/-1 nudge
+logic, so a decompilation wrong in the same way would confirm itself.
+`func_80016714` was also rejected — it is a `memset`-style zero-fill with
+alignment handling, and if it is linked Psy-Q library code rather than Square's
+own it was built by Sony with different flags, which would contaminate the
+result.
+
+`func_80013154` was chosen instead: vram `0x80013154`, `0xAC` (43 words),
+relocation-free, and structurally independent — a different signature
+(`s32 f(s16, s16, s32)`), nested conditionals, and clearly game logic rather
+than a library routine.
+
+**Result.** No candidate reached 43 words from `src/main/80013154.c`:
+
+| toolchain | best word count |
+| --- | --- |
+| `gcc-2.6.0-psx` | 44 / 41 |
+| `gcc-2.7.2-psx` | 45 / 40 |
+| `gcc-2.7.2-cdk-psx` | 38 |
+| `gcc-2.8.0-psx` | 38 |
+| `gcc-2.8.1-psx` | 38 |
+| `gcc-2.91.66-psx` | 38 / 32 |
+
+This says nothing about any compiler. It says the decompilation is not yet
+close enough — the C is committed as work in progress rather than as evidence.
+
+**A tool defect this exposed.** `discriminate.py` initially reported this as
+"ELIMINATED (6)", which is badly wrong: eliminating every candidate is not a
+discrimination result. Elimination is only meaningful relative to a candidate
+that *did* reproduce the retail shape, so with no survivor the source is at
+fault. The tool now reports `INCONCLUSIVE` and says so explicitly.
+
+**Worth noting for the retry.** The word counts here spread from 32 to 45
+across candidates, far wider than on `func_80012E6C`. Once the C is accurate
+this function should discriminate *more* sharply, not less.
 
 ## A match is not a compiler identification
 

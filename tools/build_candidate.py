@@ -61,6 +61,16 @@ def default_toolchain_root(repo: Path) -> Path:
     return repo / "tools" / "psyq"
 
 
+def default_include_dirs(repo: Path) -> list[Path]:
+    """Include directories searched for every decompiled source.
+
+    cpp runs with -nostdinc, so decomp sources cannot use src/shared/types.h;
+    it pulls in stdint.h. include/ holds freestanding PSX typedefs instead.
+    """
+
+    return [repo / "include"]
+
+
 def default_maspsx_path(repo: Path) -> Path:
     """Where the vendored maspsx lives.
 
@@ -313,7 +323,8 @@ def main(argv: list[str] | None = None) -> int:
             obj = workspace / "unit.o"
             text = workspace / "unit.text.bin"
 
-            _run(cpp_command(cpp, source, args.include), "cpp", stdout=preprocessed)
+            includes = default_include_dirs(repo) + list(args.include)
+            _run(cpp_command(cpp, source, includes), "cpp", stdout=preprocessed)
             _run(
                 cc1_command(cc1, preprocessed, assembly, optimization=args.optimization, gp=args.gp),
                 "cc1",
