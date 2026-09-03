@@ -131,6 +131,89 @@ class CompareTests(unittest.TestCase):
             match_function.compare_words(b"", b"")
 
 
+class BlobTests(unittest.TestCase):
+    """Overlay code is not in the executable, so the oracle must accept a blob.
+
+    An overlay function's address lies outside SLUS_007.26's text range, so the
+    pinned-executable path refuses it. A blob is accepted instead, but only with
+    its load base and its hash, keeping the same fail-closed discipline: an
+    unpinned blob could be anything.
+    """
+
+    BASE = 0x800CEDF8
+
+    def _blob(self, root: Path) -> tuple[Path, bytes, str]:
+        payload = struct.pack("<8I", *range(0x10, 0x18))
+        path = root / "0007.bin"
+        path.write_bytes(payload)
+        return path, payload, hashlib.sha256(payload).hexdigest()
+
+    def test_extracts_a_range_relative_to_the_load_base(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            path, payload, _ = self._blob(root)
+            got = match_function.extract_blob_bytes(path, self.BASE, self.BASE + 0x8, 0x8)
+            self.assertEqual(got, payload[0x8:0x10])
+
+    def test_address_below_the_load_base_is_refused(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            path, _, _ = self._blob(root)
+            with self.assertRaises(RetailError):
+                match_function.extract_blob_bytes(path, self.BASE, self.BASE - 4, 0x4)
+
+    def test_range_past_the_blob_end_is_refused(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            path, payload, _ = self._blob(root)
+            with self.assertRaises(RetailError):
+                match_function.extract_blob_bytes(
+                    path, self.BASE, self.BASE + len(payload) - 4, 0x10
+                )
+
+    def test_blob_mode_requires_a_base_and_a_hash(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            path, _, _ = self._blob(root)
+            code = match_function.main(
+                ["--retail-file", str(path), "--vram", hex(self.BASE), "--size", "0x8"]
+            )
+            self.assertEqual(code, 2)
+
+    def test_hash_mismatch_on_the_blob_is_refused(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            path, _, _ = self._blob(root)
+            code = match_function.main(
+                [
+                    "--retail-file", str(path),
+                    "--base", hex(self.BASE),
+                    "--sha256", "0" * 64,
+                    "--vram", hex(self.BASE),
+                    "--size", "0x8",
+                ]
+            )
+            self.assertEqual(code, 2)
+
+    def test_matching_candidate_against_a_pinned_blob_exits_zero(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            path, payload, digest = self._blob(root)
+            candidate = root / "c.bin"
+            candidate.write_bytes(payload[:0x8])
+            code = match_function.main(
+                [
+                    "--retail-file", str(path),
+                    "--base", hex(self.BASE),
+                    "--sha256", digest,
+                    "--vram", hex(self.BASE),
+                    "--size", "0x8",
+                    "--candidate", str(candidate),
+                ]
+            )
+            self.assertEqual(code, 0)
+
+
 class CliTests(unittest.TestCase):
     def _fixture(self, root: Path) -> tuple[Path, bytes]:
         text = struct.pack("<8I", *range(8))

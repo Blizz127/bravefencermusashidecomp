@@ -43,10 +43,15 @@ Task detail, acceptance criteria and verification steps are in
   - [x] extracts `MAIN.CD` — 49 members, 5,985,664 bytes — reporting per-member
         size and SHA-256, with an optional JSON manifest
   - [x] output untracked; refuses to overwrite an existing directory
-- [ ] **B2** Split and match one overlay function
-  - [ ] load address **observed** from loader code or overlay header, not assumed
-  - [ ] splat config for one overlay
-  - [ ] one overlay function matches byte-exactly
+- [x] **B2** Split and match one overlay function
+  - [x] load address **observed** — `0x800CEDF8` for `MAIN.CD` member 0007,
+        derived from two independent lines of evidence, not from an external
+        memory map (see `docs/OVERLAYS.md`)
+  - [x] splat config for one overlay (`config/overlay_main_0007.yaml`),
+        splitting 100% of the member
+  - [x] one overlay function matches byte-exactly (`func_800CF3B0`, 22/22)
+  - [x] oracle extended to compare against a hash-pinned blob, since overlay
+        addresses fall outside the executable's text range
 
 - [ ] **⏸ Checkpoint B** — decide how much matching to pursue before porting
 

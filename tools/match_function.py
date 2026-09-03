@@ -78,6 +78,38 @@ def extract_retail_bytes(exe_path: Path, header: dict[str, Any], vram: int, size
     return data
 
 
+def extract_blob_bytes(blob: Path, base: int, vram: int, size: int) -> bytes:
+    """Read `size` bytes from a flat blob loaded at `base`.
+
+    Overlay code never appears in SLUS_007.26, so its addresses fall outside the
+    executable's text range. A blob is addressed by its load base instead, with
+    the same alignment and bounds refusals.
+    """
+
+    if size <= 0:
+        raise RetailError(f"size must be positive, got {size}")
+    if size % WORD_SIZE:
+        raise RetailError(f"size {size} is not a multiple of {WORD_SIZE}; MIPS instructions are words")
+    if vram % WORD_SIZE:
+        raise RetailError(f"vram 0x{vram:08X} is not word-aligned")
+    if vram < base:
+        raise RetailError(f"vram 0x{vram:08X} precedes the load base 0x{base:08X}")
+
+    blob_size = blob.stat().st_size
+    offset = vram - base
+    if offset + size > blob_size:
+        raise RetailError(
+            f"range 0x{vram:08X}+0x{size:X} overruns the blob, which ends at "
+            f"0x{base + blob_size:08X}"
+        )
+    with blob.open("rb") as stream:
+        stream.seek(offset)
+        data = stream.read(size)
+    if len(data) != size:
+        raise RetailError(f"short read at offset 0x{offset:X}: wanted {size} bytes, got {len(data)}")
+    return data
+
+
 def compare_words(candidate: bytes, retail: bytes) -> dict[str, Any]:
     """Compare two equal-length ranges word by word.
 
@@ -115,6 +147,13 @@ def compare_words(candidate: bytes, retail: bytes) -> dict[str, Any]:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--identity", type=Path, help="observed identity JSON (default: provenance/exe_identity.json)")
+    parser.add_argument(
+        "--retail-file",
+        type=Path,
+        help="compare against a flat blob instead of the pinned executable, for overlay code",
+    )
+    parser.add_argument("--base", help="load address of --retail-file, e.g. 0x800CEDF8")
+    parser.add_argument("--sha256", help="pinned digest of --retail-file")
     parser.add_argument("--vram", required=True, help="function start address, e.g. 0x80010000")
     parser.add_argument("--size", required=True, help="function size in bytes, e.g. 0xA0")
     parser.add_argument("--candidate", type=Path, help="rebuilt bytes to compare; omit to summarise the range")
@@ -149,26 +188,44 @@ def main(argv: list[str] | None = None) -> int:
     root = Path(__file__).resolve().parents[1]
     identity_path = (args.identity or root / "provenance/exe_identity.json").resolve()
     try:
-        identity = load_json(identity_path)
-        exe_path = _resolve_exe(root, identity)
-        header = identity.get("header")
-        if not isinstance(header, dict):
-            raise RetailError("executable identity lacks a header object")
-
         try:
             vram = int(str(args.vram), 0)
             size = int(str(args.size), 0)
         except ValueError as exc:
             raise RetailError(f"could not parse --vram/--size: {exc}") from exc
 
-        retail = extract_retail_bytes(exe_path, header, vram, size)
+        if args.retail_file is not None:
+            # Blob mode, for overlay code. The blob is pinned by hash for the
+            # same reason the executable is: an unpinned blob could be anything.
+            if args.base is None or args.sha256 is None:
+                raise RetailError("--retail-file requires both --base and --sha256")
+            try:
+                base = int(str(args.base), 0)
+            except ValueError as exc:
+                raise RetailError(f"could not parse --base: {exc}") from exc
+            if not args.retail_file.is_file():
+                raise RetailError(f"retail blob not found: {args.retail_file}")
+            actual = sha256_file(args.retail_file)
+            if actual.lower() != str(args.sha256).lower():
+                raise RetailError(
+                    f"blob SHA-256 mismatch for {args.retail_file}: expected {args.sha256}, got {actual}"
+                )
+            retail = extract_blob_bytes(args.retail_file, base, vram, size)
+            source = f"{args.retail_file.name} @ 0x{base:08X}"
+        else:
+            identity = load_json(identity_path)
+            exe_path = _resolve_exe(root, identity)
+            header = identity.get("header")
+            if not isinstance(header, dict):
+                raise RetailError("executable identity lacks a header object")
+            retail = extract_retail_bytes(exe_path, header, vram, size)
+            source = f"{exe_path.name} @ file offset 0x{vram_to_offset(vram, header):X}"
+
         digest = hashlib.sha256(retail).hexdigest()
 
         if args.candidate is None:
-            print(
-                f"RANGE vram=0x{vram:08X} size=0x{size:X} words={size // WORD_SIZE} "
-                f"offset=0x{vram_to_offset(vram, header):X}"
-            )
+            print(f"RANGE vram=0x{vram:08X} size=0x{size:X} words={size // WORD_SIZE}")
+            print(f"  source={source}")
             print(f"  retail sha256={digest}")
             print("  no candidate supplied; nothing compared")
             return 0

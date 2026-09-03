@@ -48,7 +48,8 @@ SLUS_*
 !/asm/labels/.gitkeep
 /asm/main/
 *.s
-config/SLUS_007.26.ld
+# splat regenerates linker scripts on every split.
+config/*.ld
 
 # splat regenerates these address lists from the retail executable on every
 # split, and they currently carry first-pass false positives. Curated symbol

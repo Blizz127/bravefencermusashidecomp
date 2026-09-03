@@ -69,6 +69,12 @@ links before extracting, so functions referencing globals or calling other
 functions are comparable at all — previously only relocation-free leaves were,
 which excluded most of the 1334 functions. See [MATCHING.md](MATCHING.md).
 
+Overlay code is now reachable and matchable. `MAIN.CD` unpacks into 49 members,
+member 0007 splits at an observed load address of `0x800CEDF8`, and
+`func_800CF3B0` inside it matches byte-exactly. See [OVERLAYS.md](OVERLAYS.md)
+for how that address was derived from the member's own bytes rather than taken
+from an external memory map.
+
 No work toward step 7 has been attempted.
 
 ## Evidence tracks
