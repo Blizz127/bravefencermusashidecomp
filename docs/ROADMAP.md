@@ -31,11 +31,17 @@ Steps 1 through 3 are complete and recorded in
 [MILESTONE-1.md](MILESTONE-1.md). Step 5 has a first pass: splat covers 99.50%
 of the executable as raw assembly.
 
-Step 4 is under way. `tools/identify_compiler.py` records code-generation
-fingerprints in `provenance/compiler_evidence.json`. The executable carries no
-toolchain strings whatsoever, so identification rests entirely on structural
-evidence, and the recorded compiler remains `unresolved` until those
-fingerprints are compared against candidate toolchain output.
+Step 4 is under way and has its first result. `tools/identify_compiler.py`
+records code-generation fingerprints in `provenance/compiler_evidence.json`;
+the executable carries no toolchain strings whatsoever, so identification rests
+entirely on structural evidence.
+
+`tools/discriminate.py` compiles one decompiled function against every
+candidate and eliminates those that cannot reach the retail instruction count.
+On `func_80012E6C` this cut the candidate set from six to three: PSY-Q 4.3, 4.4
+and 4.5 are out, leaving 3.5, 4.0 and 4.1. The survivors are not separated from
+each other, and the compiler remains `unresolved`. See
+[MATCHING.md](MATCHING.md).
 
 Step 6 has its oracle. `tools/match_function.py` extracts a word-aligned range
 of retail text by runtime address and renders a verdict against rebuilt bytes,

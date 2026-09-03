@@ -33,8 +33,10 @@ SLUS_*
 # large and reproducible so they are fetched rather than tracked.
 /tools/psyq/
 
-# maspsx assembler shim, cloned at a pinned commit by the same script.
+# maspsx assembler shim and the m2c decompiler, cloned at pinned commits by
+# the same script.
 /tools/maspsx/
+/tools/m2c/
 
 # Disassembly generated from the contributor's own retail executable. It is a
 # derivative of retail bytes, so it is regenerated locally rather than shared.

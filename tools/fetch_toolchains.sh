@@ -23,19 +23,30 @@ MASPSX_REPO="https://github.com/mkst/maspsx.git"
 MASPSX_COMMIT="746b895f02929ecd148af7b1f4ff05b69f973878"
 MASPSX_DIR="tools/maspsx"
 
+# m2c turns a function's disassembly into C to start a match from. Pinned so
+# its output does not shift under an in-progress decompilation.
+M2C_REPO="https://github.com/matt-kempster/m2c.git"
+M2C_COMMIT="a73bfba20a00db8a546ec84d6ebec76063ebcf60"
+M2C_DIR="tools/m2c"
+
 mkdir -p "$DEST"
 
-fetch_maspsx() {
-    if [ -f "$MASPSX_DIR/maspsx.py" ]; then
-        echo "maspsx already present"
+fetch_pinned() {
+    dir="$1"
+    repo="$2"
+    commit="$3"
+    marker="$4"
+    if [ -f "$dir/$marker" ]; then
+        echo "$(basename "$dir") already present"
         return
     fi
-    echo "fetching maspsx"
-    git clone --quiet "$MASPSX_REPO" "$MASPSX_DIR"
-    git -C "$MASPSX_DIR" checkout --quiet "$MASPSX_COMMIT"
+    echo "fetching $(basename "$dir")"
+    git clone --quiet "$repo" "$dir"
+    git -C "$dir" checkout --quiet "$commit"
 }
 
-fetch_maspsx
+fetch_pinned "$MASPSX_DIR" "$MASPSX_REPO" "$MASPSX_COMMIT" maspsx.py
+fetch_pinned "$M2C_DIR" "$M2C_REPO" "$M2C_COMMIT" m2c.py
 
 fetch() {
     name="$1"
@@ -81,3 +92,4 @@ for dir in "$DEST"/*/; do
     fi
 done
 echo "assembler shim: $MASPSX_DIR @ $MASPSX_COMMIT"
+echo "decompiler:     $M2C_DIR @ $M2C_COMMIT"

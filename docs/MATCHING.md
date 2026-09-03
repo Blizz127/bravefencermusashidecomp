@@ -2,9 +2,9 @@
 
 ## Status
 
-One function is byte-verified against retail. The original compiler is still
-**unresolved**, and the first match did nothing to change that — see the
-non-discrimination result below, which is the more important finding.
+One function is byte-verified against retail. The compiler is still
+**unresolved**, but no longer unconstrained: half the candidate set has been
+eliminated by a complex function — see "First elimination" below.
 
 | vram | words | source | verdict |
 | --- | --- | --- | --- |
@@ -19,6 +19,64 @@ python3 tools/build_candidate.py src/main/80012ab0.c \
   --symbol func_80012AB0 --toolchain gcc-2.7.2-psx --output /tmp/candidate.bin
 python3 tools/match_function.py --vram 0x80012AB0 --size 0xC --candidate /tmp/candidate.bin
 ```
+
+## First elimination: `func_80012E6C`
+
+The approach that worked is the one the negative results pointed at: take a
+real function with room for compilers to disagree, compile it against the whole
+candidate set, and see who cannot produce it.
+
+**Target.** `func_80012E6C`, vram `0x80012E6C`, `0x108` bytes (66 words). A
+relocation-free leaf — no `jal`, no `%hi`/`%lo` — so its compiled `.text` is
+final and needs no linking. 9 distinct registers with a mix of multiply,
+divide, shift, load, compare and branch. Decompiled with m2c and cleaned into
+`src/main/80012e6c.c`.
+
+Selection note: branch count is a poor proxy for discrimination.
+`func_8001923C` has 25 branches but only 4 distinct registers and no loads,
+shifts or multiplies — a repetitive compare chain every compiler encodes
+identically. Instruction *variety* and register count matter more.
+
+**Result**, via `tools/discriminate.py` over `-O0..-O3` x `-G0/-G4/-G8`
+(12 configurations per toolchain):
+
+| toolchain | PSY-Q | best word count | verdict |
+| --- | --- | --- | --- |
+| `gcc-2.7.2-cdk-psx` | 4.1 | **66** | survives, 36.36% |
+| `gcc-2.7.2-psx` | 4.0 | **66** | survives, 34.85% |
+| `gcc-2.6.0-psx` | 3.5 | **66** | survives, 34.85% |
+| `gcc-2.8.0-psx` | 4.3 | 67 | **eliminated** |
+| `gcc-2.8.1-psx` | 4.4 | 67 | **eliminated** |
+| `gcc-2.91.66-psx` | 4.5 | 63 | **eliminated** |
+
+Retail is 66 words. Three candidates hit it exactly; three never reach it at
+any tested setting. The 2.8.x pair bottom out at 67 words and 2.91.66 at 63.
+
+**Candidate set: 6 -> 3.** The surviving set is PSY-Q 3.5, 4.0 and 4.1. This
+corroborates the 1998 Square cluster around GCC 2.7.2 / PSY-Q 4.0 without
+having assumed it: the registry deliberately included the later releases so a
+2.7.2 answer could have been falsified, and they failed on their own.
+
+### What this does and does not establish
+
+**Instruction count is the load-bearing signal, not the ratio.** It is
+structural: it asks only whether a compiler can reach the right shape from this
+source, which survives an imperfect decompilation. The ratios (34-36%) show the
+C is plainly not the original source yet.
+
+**The three survivors are not separated.** Their spread is 1.52 points, well
+inside the noise of an imperfect decompilation. Nothing here distinguishes
+2.6.0 from 2.7.2 from 2.7.2-cdk.
+
+**The elimination is conditional on the decompiled C being approximately
+correct.** If the C is wrong in a way that systematically suits the older
+backend, the result would be an artifact. Two things argue against that: the
+count match is exact rather than close, and it holds across all 12 flag
+configurations rather than at one lucky setting. It should still be re-checked
+against a second complex function before being treated as settled.
+
+Per `docs/COMPILER-ID.md` the compiler therefore remains **unresolved**. This
+is recorded as candidates eliminated, not as an identification.
 
 ## A match is not a compiler identification
 
