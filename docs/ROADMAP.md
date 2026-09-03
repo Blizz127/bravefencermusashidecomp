@@ -45,8 +45,7 @@ each other, and the compiler remains `unresolved`. See
 
 Step 6 has its oracle. `tools/match_function.py` extracts a word-aligned range
 of retail text by runtime address and renders a verdict against rebuilt bytes,
-exiting 0 on a match, 1 on a mismatch, and 2 on any refusal. No function has
-been matched through it yet.
+exiting 0 on a match, 1 on a mismatch, and 2 on any refusal.
 
 The local toolchain needed to produce candidates is present and verified
 working: `cc1` from `gcc-2.7.2-psx` self-reports as
