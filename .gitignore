@@ -1,0 +1,73 @@
+# Licensed retail inputs are supplied out-of-band and must never be committed.
+/retail/
+/disc/
+/extracted/
+/payload/
+/build/
+/out/
+/artifacts/
+/tmp/
+*.chd
+*.cue
+*.bin
+*.img
+*.iso
+*.ecm
+*.CHD
+*.CUE
+*.BIN
+*.IMG
+*.ISO
+SCUS_*
+SLPS_*
+SLES_*
+SCES_*
+SLUS_*
+
+# Vendored third-party tool checkouts. Pinned by commit in docs/MILESTONE-1.md
+# and rebuilt locally; never redistributed from here.
+/tools/third_party/
+
+# Disassembly generated from the contributor's own retail executable. It is a
+# derivative of retail bytes, so it is regenerated locally rather than shared.
+/asm/functions/*
+!/asm/functions/.gitkeep
+/asm/data/*
+!/asm/data/.gitkeep
+/asm/labels/*
+!/asm/labels/.gitkeep
+/asm/main/
+*.s
+config/SLUS_007.26.ld
+
+# splat regenerates these address lists from the retail executable on every
+# split, and they currently carry first-pass false positives. Curated symbol
+# knowledge belongs in config/symbol_addrs.txt, which is tracked.
+config/*.auto.txt
+
+# Generated decompilation and compiler output.
+*.o
+*.a
+*.elf
+*.exe
+*.EXE
+*.map
+*.sym
+*.lst
+*.d
+*.gcda
+*.gcno
+compile_commands.json
+
+# Local provenance captures and logs.
+/provenance/local/
+/provenance/captures/
+*.log
+
+# Editor and Python cache files.
+.pytest_cache/
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.DS_Store

@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "status": "observed",
+  "reason": "PS-X EXE observed from extracted SYSTEM.CNF BOOT target",
+  "source_manifest": "provenance/manifest.json",
+  "path": "extracted/disc/files/SLUS_007.26",
+  "file_size_bytes": 413696,
+  "sha256": "66371c3a7517e9eabd7cb6cf0c5abffe7296bd4bac29c85b8bf7bb9db349714a",
+  "header_sha256": "dd59bf27b7c9ca361501ebcfa77f307b7016b98ccf4bcb861d6d5ab305df5f9e",
+  "header": {
+    "magic": "PS-X EXE",
+    "initial_pc": 2147549184,
+    "initial_gp": 0,
+    "text_address": 2147549184,
+    "text_size_bytes": 411648,
+    "data_address": 0,
+    "data_size_bytes": 0,
+    "bss_address": 0,
+    "bss_size_bytes": 0,
+    "initial_sp_base": 2149580784,
+    "initial_sp_offset": 0
+  }
+}
