@@ -29,8 +29,15 @@ backed by an observed retail executable.
 
 Steps 1 through 3 are complete and recorded in
 [MILESTONE-1.md](MILESTONE-1.md). Step 5 has a first pass: splat covers 99.50%
-of the executable as raw assembly. Step 4 has not started, and no work toward
-step 6 or 7 has been attempted.
+of the executable as raw assembly.
+
+Step 4 is under way. `tools/identify_compiler.py` records code-generation
+fingerprints in `provenance/compiler_evidence.json`. The executable carries no
+toolchain strings whatsoever, so identification rests entirely on structural
+evidence, and the recorded compiler remains `unresolved` until those
+fingerprints are compared against candidate toolchain output.
+
+No work toward step 6 or 7 has been attempted.
 
 ## Evidence tracks
 
