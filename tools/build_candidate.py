@@ -55,6 +55,22 @@ TOOLCHAINS: dict[str, Toolchain] = {
 TEXT_SYMBOL_TYPES = frozenset("Tt")
 
 
+def default_toolchain_root(repo: Path) -> Path:
+    """Where fetch_toolchains.sh installs the candidate compilers."""
+
+    return repo / "tools" / "psyq"
+
+
+def default_maspsx_path(repo: Path) -> Path:
+    """Where the vendored maspsx lives.
+
+    Resolved from the repository root rather than from the toolchain root:
+    pointing --toolchain-root elsewhere must not move the assembler shim.
+    """
+
+    return repo / "tools" / "maspsx" / "maspsx.py"
+
+
 def resolve_toolchain(name: str) -> Toolchain:
     toolchain = TOOLCHAINS.get(name)
     if toolchain is None:
@@ -275,13 +291,15 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     try:
+        repo = Path(__file__).resolve().parents[1]
         toolchain = resolve_toolchain(args.toolchain)
-        root = args.toolchain_root or Path(os.environ.get(DEFAULT_TOOLCHAIN_ROOT_ENV, "tools/psyq"))
+        env_root = os.environ.get(DEFAULT_TOOLCHAIN_ROOT_ENV)
+        root = args.toolchain_root or (Path(env_root) if env_root else default_toolchain_root(repo))
         toolchain_dir = Path(root).expanduser() / toolchain.name
-        cpp = _require(toolchain_dir / "cpp", "cpp")
-        cc1 = _require(toolchain_dir / "cc1", "cc1")
+        cpp = _require(toolchain_dir / "cpp", f"cpp for {toolchain.name} (run tools/fetch_toolchains.sh)")
+        cc1 = _require(toolchain_dir / "cc1", f"cc1 for {toolchain.name} (run tools/fetch_toolchains.sh)")
         maspsx = _require(
-            args.maspsx or Path(root).expanduser().parent / "maspsx" / "maspsx.py", "maspsx.py"
+            args.maspsx or default_maspsx_path(repo), "maspsx.py (run tools/fetch_toolchains.sh)"
         )
         gnu_as = _resolve_binutil("mips-linux-gnu-as")
         nm = _resolve_binutil("mips-linux-gnu-nm")

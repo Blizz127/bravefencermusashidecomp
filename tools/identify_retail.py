@@ -112,7 +112,13 @@ def main(argv: list[str] | None = None) -> int:
         manifest = load_json(manifest_path)
         extraction = manifest.get("extraction")
         default_payload = extraction.get("output_directory") if isinstance(extraction, dict) else None
-        payload = (args.payload or Path(str(default_payload or ""))).expanduser().resolve()
+        # The manifest records in-repo paths relative to the repository, so a
+        # relative payload resolves against the repo root rather than the
+        # working directory.
+        payload = (args.payload or Path(str(default_payload or ""))).expanduser()
+        if not payload.is_absolute():
+            payload = root / payload
+        payload = payload.resolve()
         if not payload.is_dir():
             raise RetailError(f"extracted payload directory does not exist: {payload}")
         system_cnf = find_system_cnf(payload)

@@ -36,6 +36,21 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
+def repo_relative(path: Path, root: Path) -> str:
+    """Record a path relative to the repository when it lies inside it.
+
+    A committed manifest full of one machine's absolute paths is unreadable from
+    a fresh clone. Paths outside the repository stay absolute, since which
+    external binary ran is provenance a relative path would destroy.
+    """
+
+    try:
+        relative = path.relative_to(root)
+    except ValueError:
+        return str(path)
+    return str(relative) if relative.parts else "."
+
+
 def _run(command: list[str], label: str) -> None:
     try:
         completed = subprocess.run(command, check=False)
@@ -130,9 +145,12 @@ def main(argv: list[str] | None = None) -> int:
         extraction.update(
             {
                 "status": "extracted",
-                "tool": {"chdman": str(chdman), "dumpsxiso": str(dumpsxiso)},
-                "output_directory": str(output_dir),
-                "layout_xml": str((output_dir / "layout.xml").relative_to(root)),
+                "tool": {
+                    "chdman": repo_relative(Path(chdman), root),
+                    "dumpsxiso": repo_relative(Path(dumpsxiso), root),
+                },
+                "output_directory": repo_relative(output_dir, root),
+                "layout_xml": repo_relative(output_dir / "layout.xml", root),
                 "file_count": len(extracted_files),
                 "observed_at": None,
             }

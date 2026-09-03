@@ -213,12 +213,13 @@ def main(argv: list[str] | None = None) -> int:
         print(f"  dominant expansion: div + {' '.join(retail_prefix)}  ({share * 100:.1f}% of sites)")
         print()
 
-        root = args.toolchain_root or Path(
-            os.environ.get(build_candidate.DEFAULT_TOOLCHAIN_ROOT_ENV, "tools/psyq")
+        env_root = os.environ.get(build_candidate.DEFAULT_TOOLCHAIN_ROOT_ENV)
+        root = args.toolchain_root or (
+            Path(env_root) if env_root else build_candidate.default_toolchain_root(repo)
         )
-        maspsx = args.maspsx or Path(root).parent / "maspsx" / "maspsx.py"
+        maspsx = args.maspsx or build_candidate.default_maspsx_path(repo)
         if not Path(maspsx).is_file():
-            raise RetailError(f"maspsx.py not found: {maspsx}")
+            raise RetailError(f"maspsx.py not found: {maspsx}; run tools/fetch_toolchains.sh")
 
         workspace = Path(tempfile.mkdtemp(prefix="idiom."))
         reproduced: list[str] = []

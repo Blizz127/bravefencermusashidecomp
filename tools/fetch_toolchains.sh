@@ -1,21 +1,41 @@
 #!/bin/sh
-# Fetch the candidate compilers used to produce matching candidates.
+# Fetch everything needed to build matching candidates: the candidate compilers
+# and the maspsx assembler shim.
 #
-# These are GPL rebuilds of old GCC from decompals/old-gcc, not Sony Psy-Q
-# binaries, so they are freely redistributable. They are fetched rather than
-# tracked because they are large and this script reproduces them exactly.
+# The compilers are GPL rebuilds of old GCC from decompals/old-gcc, not Sony
+# Psy-Q binaries, so they are freely redistributable. Nothing here is tracked,
+# because it is large and this script reproduces it exactly.
 #
 # The registry in tools/build_candidate.py pairs each compiler with its ASPSX
 # assembler version; keep the two in step when adding a compiler here.
 #
-# Usage:  ./tools/fetch_toolchains.sh [destination]     (default: tools/psyq)
+# Run from the repository root:
+#   ./tools/fetch_toolchains.sh [compiler-destination]   (default: tools/psyq)
 
 set -eu
 
 BASE="https://github.com/decompals/old-gcc/releases/download"
 DEST="${1:-tools/psyq}"
 
+# maspsx reproduces ASPSX macro expansion between cc1 and GNU as. Pinned so a
+# change in its expansion behaviour cannot silently alter match results.
+MASPSX_REPO="https://github.com/mkst/maspsx.git"
+MASPSX_COMMIT="746b895f02929ecd148af7b1f4ff05b69f973878"
+MASPSX_DIR="tools/maspsx"
+
 mkdir -p "$DEST"
+
+fetch_maspsx() {
+    if [ -f "$MASPSX_DIR/maspsx.py" ]; then
+        echo "maspsx already present"
+        return
+    fi
+    echo "fetching maspsx"
+    git clone --quiet "$MASPSX_REPO" "$MASPSX_DIR"
+    git -C "$MASPSX_DIR" checkout --quiet "$MASPSX_COMMIT"
+}
+
+fetch_maspsx
 
 fetch() {
     name="$1"
@@ -51,7 +71,7 @@ fetch gcc-2.8.1-psx     "$BASE/0.12/gcc-2.8.1-psx.tar.gz"
 fetch gcc-2.91.66-psx   "$BASE/0.12/gcc-2.91.66-psx.tar.gz"
 
 echo
-echo "installed under $DEST:"
+echo "compilers under $DEST:"
 for dir in "$DEST"/*/; do
     name="$(basename "$dir")"
     if [ -x "$dir/cc1" ]; then
@@ -60,3 +80,4 @@ for dir in "$DEST"/*/; do
         echo "  $name (INCOMPLETE: no cc1)"
     fi
 done
+echo "assembler shim: $MASPSX_DIR @ $MASPSX_COMMIT"

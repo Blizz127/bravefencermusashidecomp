@@ -12,13 +12,11 @@ non-discrimination result below, which is the more important finding.
 
 Reproduce with:
 
+After `./tools/fetch_toolchains.sh`, every path resolves from the repository:
+
 ```sh
 python3 tools/build_candidate.py src/main/80012ab0.c \
-  --symbol func_80012AB0 \
-  --toolchain gcc-2.7.2-psx \
-  --toolchain-root "$PSYQ_TOOLCHAIN_ROOT" \
-  --maspsx "$PSYQ_TOOLCHAIN_ROOT/maspsx/maspsx.py" \
-  --output /tmp/candidate.bin
+  --symbol func_80012AB0 --toolchain gcc-2.7.2-psx --output /tmp/candidate.bin
 python3 tools/match_function.py --vram 0x80012AB0 --size 0xC --candidate /tmp/candidate.bin
 ```
 

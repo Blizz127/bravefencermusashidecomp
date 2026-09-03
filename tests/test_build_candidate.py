@@ -51,6 +51,35 @@ class ToolchainTests(unittest.TestCase):
         self.assertIn("gcc-2.7.2-psx", str(caught.exception))
 
 
+class DefaultPathTests(unittest.TestCase):
+    """Vendored tool locations are repo-relative, not derived from other options.
+
+    maspsx used to be resolved as the toolchain root's sibling, so pointing
+    --toolchain-root at a directory elsewhere silently broke the assembler
+    lookup. The two are independent and resolve independently.
+    """
+
+    def test_maspsx_default_is_repo_relative(self) -> None:
+        repo = Path("/somewhere/bfm")
+        self.assertEqual(
+            build_candidate.default_maspsx_path(repo),
+            repo / "tools" / "maspsx" / "maspsx.py",
+        )
+
+    def test_maspsx_default_ignores_the_toolchain_root(self) -> None:
+        repo = Path("/somewhere/bfm")
+        first = build_candidate.default_maspsx_path(repo)
+        # Resolving again must not depend on any toolchain-root state.
+        self.assertEqual(first, build_candidate.default_maspsx_path(repo))
+        self.assertNotIn("psyq", str(first))
+
+    def test_toolchain_root_default_is_repo_relative(self) -> None:
+        repo = Path("/somewhere/bfm")
+        self.assertEqual(
+            build_candidate.default_toolchain_root(repo), repo / "tools" / "psyq"
+        )
+
+
 class SymbolTableTests(unittest.TestCase):
     def test_parses_sized_text_symbols(self) -> None:
         output = "00000000 00000018 T add2\n00000018 00000040 T mul3\n"

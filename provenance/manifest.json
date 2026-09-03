@@ -14,9 +14,9 @@
     "status": "extracted",
     "tool": {
       "chdman": "/home/linuxbrew/.linuxbrew/bin/chdman",
-      "dumpsxiso": "/var/home/blizz/Projects/brave-fencer-musashi-decomp/tools/third_party/mkpsxiso/build/dumpsxiso"
+      "dumpsxiso": "tools/third_party/mkpsxiso/build/dumpsxiso"
     },
-    "output_directory": "/var/home/blizz/Projects/brave-fencer-musashi-decomp/extracted/disc",
+    "output_directory": "extracted/disc",
     "observed_at": null,
     "layout_xml": "extracted/disc/layout.xml",
     "file_count": 28

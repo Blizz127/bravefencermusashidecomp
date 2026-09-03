@@ -99,6 +99,32 @@ class RetailCommonTests(unittest.TestCase):
             self.assertEqual(manifest.read_bytes(), before)
 
 
+class RepoRelativeTests(unittest.TestCase):
+    """Committed provenance must not hard-code one machine's filesystem.
+
+    Paths inside the repository are recorded relative to it so a fresh clone can
+    read the manifest. Paths outside stay absolute, because which chdman binary
+    ran is genuine provenance that a relative path would lose.
+    """
+
+    def test_path_inside_the_repo_is_recorded_relative(self) -> None:
+        root = Path("/somewhere/bfm")
+        self.assertEqual(
+            extract_retail.repo_relative(root / "extracted" / "disc", root),
+            "extracted/disc",
+        )
+
+    def test_path_outside_the_repo_stays_absolute(self) -> None:
+        root = Path("/somewhere/bfm")
+        self.assertEqual(
+            extract_retail.repo_relative(Path("/usr/bin/chdman"), root), "/usr/bin/chdman"
+        )
+
+    def test_the_repo_root_itself_is_recorded_as_dot(self) -> None:
+        root = Path("/somewhere/bfm")
+        self.assertEqual(extract_retail.repo_relative(root, root), ".")
+
+
 class ExtractionTests(unittest.TestCase):
     def _manifest(self, root: Path) -> Path:
         path = root / "manifest.json"
