@@ -37,7 +37,18 @@ toolchain strings whatsoever, so identification rests entirely on structural
 evidence, and the recorded compiler remains `unresolved` until those
 fingerprints are compared against candidate toolchain output.
 
-No work toward step 6 or 7 has been attempted.
+Step 6 has its oracle. `tools/match_function.py` extracts a word-aligned range
+of retail text by runtime address and renders a verdict against rebuilt bytes,
+exiting 0 on a match, 1 on a mismatch, and 2 on any refusal. No function has
+been matched through it yet.
+
+The local toolchain needed to produce candidates is present and verified
+working: `cc1` from `gcc-2.7.2-psx` self-reports as
+`GNU C 2.7.2 [AL 1.1, MM 40] Sony Playstation`, `maspsx` is available, and
+binutils supplies `mips-linux-gnu-{as,ld,objcopy,objdump,nm}` driven with
+`-EL` for little-endian output.
+
+No work toward step 7 has been attempted.
 
 ## Evidence tracks
 
