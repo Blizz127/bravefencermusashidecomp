@@ -36,12 +36,17 @@ the task is committed.
 
 ## Phase A — Assets (carried forward from the second plan, unchanged)
 
-- [ ] **A1** Reverse-engineer the PAC chunk layout from `SC01.CD` — the
-      researched claim is wrong; acceptance is a gap-free, overlap-free walk of
-      all 199 chunks, recorded in `docs/ASSETS.md`
-  - [ ] likely key from D1: the `u32` at `+12` of a PAC header points at the
-        next chunk
-- [ ] **A2** `tools/extract_pac.py`, fail-closed, unit-tested, output untracked
+- [x] **A1** PAC layout walked: `SC01.CD` is itself a `.CD` archive of 86
+      members, 78 of them PAC containers holding 199 chunks. 100.0000% of the
+      PAC region covered, zero gaps, zero overlaps. Recorded in
+      `docs/ASSETS.md`
+  - [x] D1's key was half right: the `u32` at `+12` is a **length**, not a
+        pointer. The two coincide for 56 of 198 chunks, which is why the
+        pointer reading survived casual checking
+  - [x] the framing was the real error — a flat scan finds all 199 headers but
+        no walk closes until the archive is read as nested
+- [x] **A2** `tools/extract_pac.py`, fail-closed, 16 unit tests, output
+      untracked; extracts all 199 chunks with per-chunk SHA-256
 
 - [ ] **⏸ Checkpoint A** — decide on LZSS if type-4 chunks require it
 

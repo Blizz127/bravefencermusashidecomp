@@ -126,6 +126,12 @@ Parsing fails closed. A misparsed archive does not error, it yields
 plausible-looking garbage, so the declared count is checked against the header's
 real capacity and every entry against the real file size.
 
+Archives nest. `SC01.CD` is a `.CD` archive whose members are themselves PAC
+containers, and `tools/extract_pac.py` walks those: 199 chunks across 78 of its
+86 members, covering 100% of the PAC region with no gaps or overlaps. See
+[ASSETS.md](ASSETS.md) for the chunk header and for the external claim it
+corrects.
+
 ## Milestone 2 precondition
 
 Milestone 2 is compiler identification. It must not conclude from a plausible

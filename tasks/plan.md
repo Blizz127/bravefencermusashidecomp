@@ -1,7 +1,8 @@
 # Plan (third)
 
 Supersedes the second plan. Its hygiene and decomp tasks (H0–H1, D1–D4) and P1
-are complete. **A1 and A2 are carried forward unchanged**, still pending.
+are complete. **A1 and A2 are now complete as well**; every task in this
+plan is done.
 
 ## Context
 
@@ -133,7 +134,7 @@ frame; the existing `render_quad` test and all decomp matches still pass.
 
 ## Phase A — Assets (carried forward unchanged)
 
-### A1. Reverse-engineer the PAC chunk format
+### ✅ A1. Reverse-engineer the PAC chunk format
 
 The researched layout does not match the bytes: neither candidate length field
 walks from one chunk to the next across `SC01.CD`'s 199 chunks. Establish the
@@ -148,8 +149,11 @@ sits.
 archive's PAC region with zero gaps or overlaps, and the observed type-byte set
 recorded in `docs/ASSETS.md`.
 *Verify:* the walk script's coverage report.
+*Result:* met. 199 chunks, 17,707,008 of 17,707,008 bytes, all 78 PAC members
+closing on their exact declared end. `+12` is a length, not a pointer, and
+`SC01.CD` is a nested `.CD` archive — see docs/ASSETS.md.
 
-### A2. PAC parser
+### ✅ A2. PAC parser
 
 `tools/extract_pac.py`, fail-closed like `extract_cd.py`: refuse a truncated
 header, a chunk past end of file, and a walk that does not reach the archive
@@ -158,6 +162,8 @@ end.
 *Acceptance:* unit-tested with synthetic fixtures; extracts every chunk from
 `SC01.CD` with per-chunk size and SHA-256; output untracked.
 *Verify:* `python3 tools/extract_pac.py extracted/disc/files/SC01.CD --output …`.
+*Result:* met. 16 unit tests; the real run reports 199 chunks at 100.0000%
+coverage and skips the eight `.sqv` members by magic rather than forcing them.
 
 ### ✅ Checkpoint A — assets reachable; decide on LZSS if type-4 chunks need it
 
