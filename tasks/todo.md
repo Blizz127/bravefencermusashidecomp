@@ -8,7 +8,7 @@
 
 ## Phase D — matching at scale
 - [x] **D1** `asm/` regenerated for main and both overlays; commands in MATCHING.md; `tools/verify_registry.py` re-verifies 25/25
-- [ ] **D2** `tools/batch_match.py` — scratch-dir only, refuses existing `src/` paths, promotes exact matches
+- [x] **D2** `tools/batch_match.py`: scratch-dir only, refuses existing `src/` paths, promotes exact matches; 14 tests
 - [ ] **D3** sweep the main executable; commit matches; substantive count > 3
 - [ ] **D4** one hand match on the boot path
 - [ ] **⏸ Checkpoint D**
