@@ -164,5 +164,30 @@ if(MUSASHI_BUILD_PC_PORT)
         # Without xvfb-run the check exits 77, which ctest reports as skipped
         # rather than passed vacuously or failed spuriously.
         set_tests_properties(render_quad PROPERTIES SKIP_RETURN_CODE 77)
+
+        # Draws a real model from the disc. Needs the extracted model, which is
+        # retail-derived and untracked, so the test is registered only when it
+        # is present and is otherwise skipped rather than failed.
+        add_executable(musashi_render_tmd pc_port/render_tmd.c)
+        target_compile_features(musashi_render_tmd PRIVATE c_std_99)
+        target_link_libraries(musashi_render_tmd PRIVATE musashi_pc_port)
+
+        set(MUSASHI_TMD_MODEL ${CMAKE_CURRENT_SOURCE_DIR}/extracted/models/sc01_a97000.tmd)
+        add_test(
+            NAME render_tmd
+            COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tools/render_check.py
+                    $<TARGET_FILE:musashi_render_tmd>
+                    --argument ${MUSASHI_TMD_MODEL}
+                    --expect-inside 240,197,152
+                    --expect-outside 0,0,255
+            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        )
+        set_tests_properties(render_tmd PROPERTIES SKIP_RETURN_CODE 77)
+        if(NOT EXISTS ${MUSASHI_TMD_MODEL})
+            set_tests_properties(render_tmd PROPERTIES DISABLED TRUE)
+            message(STATUS
+                "render_tmd disabled: extract the model first with "
+                "tools/extract_tmd.py --offset 0xA97000")
+        endif()
     endif()
 endif()

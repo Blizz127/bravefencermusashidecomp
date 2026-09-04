@@ -27,19 +27,20 @@ from retail_common import RetailError  # noqa: E402
 SKIP_EXIT_CODE = 77
 CHILD_TIMEOUT_SECONDS = 180
 
-# What pc_port/render_quad.c draws: a red quad on a blue field.
-EXPECT_INSIDE = vram_pixel.from_rgb8(248, 0, 0)
-EXPECT_OUTSIDE = vram_pixel.from_rgb8(0, 0, 255)
+# Defaults describe pc_port/render_quad.c: a red quad on a blue field. Other
+# targets pass their own colours.
+DEFAULT_INSIDE = "248,0,0"
+DEFAULT_OUTSIDE = "0,0,255"
 
 
-def run_headless(binary: Path) -> str:
+def run_headless(binary: Path, arguments: list[str] | None = None) -> str:
     xvfb = shutil.which("xvfb-run")
     if xvfb is None:
         raise RetailError("xvfb-run is not installed; the headless render check cannot run")
     env = dict(os.environ, LIBGL_ALWAYS_SOFTWARE="1")
     try:
         completed = subprocess.run(
-            [xvfb, "-a", str(binary)],
+            [xvfb, "-a", str(binary), *(arguments or [])],
             check=False,
             capture_output=True,
             text=True,
@@ -60,6 +61,10 @@ def run_headless(binary: Path) -> str:
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("binary", type=Path, help="the render target executable")
+    parser.add_argument("--expect-inside", default=DEFAULT_INSIDE, help="R,G,B expected inside the shape")
+    parser.add_argument("--expect-outside", default=DEFAULT_OUTSIDE, help="R,G,B expected for the clear colour")
+    parser.add_argument("--argument", action="append", default=[], dest="arguments",
+                        help="extra argument passed through to the render target, repeatable")
     return parser
 
 
@@ -71,9 +76,11 @@ def main(argv: list[str] | None = None) -> int:
     try:
         if not args.binary.is_file():
             raise RetailError(f"render target not found: {args.binary}")
-        output = run_headless(args.binary)
+        expect_inside = vram_pixel.from_rgb8(*vram_pixel.parse_rgb8(args.expect_inside))
+        expect_outside = vram_pixel.from_rgb8(*vram_pixel.parse_rgb8(args.expect_outside))
+        output = run_headless(args.binary, args.arguments)
         samples = vram_pixel.parse_report(output)
-        problems = vram_pixel.judge(samples, EXPECT_INSIDE, EXPECT_OUTSIDE)
+        problems = vram_pixel.judge(samples, expect_inside, expect_outside)
         inside, outside = vram_pixel.decode(samples["inside"]), vram_pixel.decode(samples["outside"])
         if problems:
             print("RENDER CHECK FAILED", file=sys.stderr)

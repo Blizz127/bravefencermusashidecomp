@@ -106,5 +106,58 @@ class JudgeTests(unittest.TestCase):
         self.assertEqual(len(vram_pixel.judge({"inside": dim, "outside": self.BLUE}, self.RED, self.BLUE)), 1)
 
 
+class ColourArgTests(unittest.TestCase):
+    """The harness serves more than one render target, each with its own colours."""
+
+    def test_parses_an_r_g_b_triple(self) -> None:
+        self.assertEqual(vram_pixel.parse_rgb8("240,197,152"), (240, 197, 152))
+
+    def test_whitespace_is_tolerated(self) -> None:
+        self.assertEqual(vram_pixel.parse_rgb8(" 0 , 0 , 255 "), (0, 0, 255))
+
+    def test_a_component_out_of_range_is_refused(self) -> None:
+        with self.assertRaises(RetailError):
+            vram_pixel.parse_rgb8("256,0,0")
+
+    def test_a_malformed_triple_is_refused(self) -> None:
+        with self.assertRaises(RetailError):
+            vram_pixel.parse_rgb8("240,197")
+
+    def test_non_numeric_is_refused(self) -> None:
+        with self.assertRaises(RetailError):
+            vram_pixel.parse_rgb8("red,0,0")
+
+
+class ArbitraryColourTests(unittest.TestCase):
+    """A model's authored colour is not a saturated primary.
+
+    An earlier judge asked for one dominant channel and near-zero others, which
+    is fine for a red quad and wrong for the beige the target model is authored
+    in. Judging is a per-channel tolerance instead, which covers both.
+    """
+
+    BEIGE = vram_pixel.from_rgb8(240, 197, 152)
+    BLUE = vram_pixel.from_rgb8(0, 0, 255)
+
+    def test_a_beige_model_pixel_passes(self) -> None:
+        sampled = vram_pixel.encode(29, 24, 18)   # what the GPU actually returned
+        self.assertEqual(vram_pixel.judge({"inside": sampled, "outside": self.BLUE},
+                                          self.BEIGE, self.BLUE), [])
+
+    def test_the_clear_colour_where_the_model_should_be_fails(self) -> None:
+        problems = vram_pixel.judge({"inside": self.BLUE, "outside": self.BLUE},
+                                    self.BEIGE, self.BLUE)
+        self.assertEqual(len(problems), 1)
+        self.assertIn("inside", problems[0])
+
+    def test_a_channel_beyond_tolerance_fails(self) -> None:
+        off = vram_pixel.encode(30, 24, 8)        # blue channel far off
+        self.assertEqual(len(vram_pixel.judge({"inside": off, "outside": self.BLUE},
+                                              self.BEIGE, self.BLUE)), 1)
+
+    def test_the_tolerance_is_explicit(self) -> None:
+        self.assertEqual(vram_pixel.CHANNEL_TOLERANCE, 3)
+
+
 if __name__ == "__main__":
     unittest.main()

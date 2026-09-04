@@ -65,22 +65,20 @@ def parse_report(output: str) -> dict[str, int]:
 
 
 # Colours round-trip 8-bit -> 5-bit VRAM -> 8-bit GL and back, so an exact
-# comparison is the wrong bar: red 248 came back as 241 on llvmpipe. In 5-bit
-# units, the expected channel must dominate and the others stay near zero.
-DOMINANT_MIN = 24
-QUIET_MAX = 3
+# comparison is the wrong bar: red 248 came back as 241 on llvmpipe. Judging is
+# a per-channel tolerance in 5-bit units.
+#
+# An earlier version asked for one dominant channel and near-zero others. That
+# works for a red quad on blue and is wrong for anything else: the target model
+# is authored in a beige, whose three channels are all substantial. A tolerance
+# covers both cases without special-casing either.
+CHANNEL_TOLERANCE = 3
 
 
 def _matches(actual: int, expected: int) -> bool:
     got = decode(actual)
     want = decode(expected)
-    for channel in range(3):
-        if want[channel] >= DOMINANT_MIN:
-            if got[channel] < DOMINANT_MIN:
-                return False
-        elif got[channel] > QUIET_MAX:
-            return False
-    return True
+    return all(abs(got[channel] - want[channel]) <= CHANNEL_TOLERANCE for channel in range(3))
 
 
 def judge(samples: dict[str, int], expect_inside: int, expect_outside: int) -> list[str]:
@@ -98,3 +96,20 @@ def judge(samples: dict[str, int], expect_inside: int, expect_outside: int) -> l
                 f"{name}: expected rgb5 {decode(expected)} but sampled {decode(actual)} (0x{actual:04X})"
             )
     return problems
+
+
+def parse_rgb8(text: str) -> tuple[int, int, int]:
+    """Read an `R,G,B` triple of 8-bit components from the command line."""
+
+    parts = [part.strip() for part in text.split(",")]
+    if len(parts) != 3:
+        raise RetailError(f"expected three comma-separated components, got {text!r}")
+    values = []
+    for part in parts:
+        if not part.isdigit():
+            raise RetailError(f"colour component {part!r} is not a number")
+        value = int(part)
+        if not 0 <= value <= 255:
+            raise RetailError(f"colour component {value} is outside 0..255")
+        values.append(value)
+    return (values[0], values[1], values[2])

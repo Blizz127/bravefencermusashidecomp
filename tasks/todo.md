@@ -20,14 +20,17 @@ the task is committed.
   - [x] length measured by walking the model, since a TMD carries no total size
   - [x] refuses a non-TMD offset, a truncated model, an offset past the archive,
         and overwriting an existing output
-- [ ] **P2c** Render it: `RotTransPers` per vertex, `POLY_G3`/`POLY_G4` via
-      `addPrim`, `DrawOTag`; verified headless
-  - [ ] a sample inside the projected model differs from the clear colour, and
-        a corner still holds the clear colour — proves it drew, not just exited
-  - [ ] new ctest target; skips loudly without `xvfb-run`; `--screenshot` works
-  - [ ] `render_quad` and all decomp matches still pass
-  - [ ] **`USE_PGXP` stays off** — turning it on needs `_HF()` on every
-        `VERTTYPE` write in C, and buys nothing until sub-pixel precision does
+- [x] **P2c** Renders the model: `RotTransPers` per vertex, `POLY_G3`/`POLY_G4`
+      via `addPrim`, `DrawOTag`; verified headless as ctest `render_tmd`
+  - [x] inside sampled rgb5 (29,24,18) against the model's authored (30,24,19);
+        corner still the clear colour — proves it drew, not just exited
+  - [x] skips (not fails) when the untracked model is absent or `xvfb-run` is
+        missing; `--screenshot` works; `render_quad` and all matches still pass
+  - [x] **`USE_PGXP` stays off**, as planned
+  - [x] fixed the 64-bit width hazard a third time: `RotTransPers` takes `int*`,
+        not `long*`
+  - [x] pixel judge rewritten as a per-channel tolerance — the dominant-channel
+        heuristic rejected the model's beige as wrong
 
 - [ ] **⏸ Checkpoint P**
 

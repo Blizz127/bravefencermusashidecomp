@@ -162,6 +162,45 @@ There was one fault, not two.
 as `241`. The judge asks for the expected channel to dominate and the others to
 stay near zero, in 5-bit units, rather than for an exact value.
 
+## A real model renders, without libgs
+
+`musashi_render_tmd` loads a model extracted from `SC01.CD`, transforms it
+through the GTE and draws it as ordinary `libgpu` primitives. ctest verifies it
+headlessly alongside the quad. The target at `0xA97000` is a hexagonal column,
+18 primitives, drawn in its authored beige `(240,197,152)`; sampled inside as
+rgb5 `(29,24,18)` against an expected `(30,24,19)`.
+
+This is the `libgs`-free path the project chose. No permissively licensed
+`libgs` exists, so the model is walked here and emitted as `POLY_G3` and
+`POLY_G4` into an ordering table, which is what `libgs` would have done
+internally.
+
+**Lighting is not set up.** Every vertex takes its primitive's own colour, so
+the model draws flat rather than shaded. That is enough to prove geometry
+reaches the screen, which is what this target exists for.
+
+**`tools/tmd.py` is the tested reference for the format**, and refuses the
+variants it does not read. The C reader in the port covers the same subset and
+refuses the same cases, rather than drawing garbage from a packet shape it does
+not understand.
+
+### The 64-bit width hazard, a third time
+
+`RotTransPers` takes an `int*` for the packed screen coordinate, not a `long*`.
+Using a `long` on x86-64 writes eight bytes where four are expected and
+corrupts the neighbouring entry. This is the same class of bug as the ordering
+table being `OT_TAG[]` rather than `u_long[]`. Screen coordinates are now
+unpacked explicitly into `setXY3`/`setXY4` instead of being punned through a
+pointer.
+
+### Judging arbitrary colours
+
+The pixel judge originally asked for one dominant channel and near-zero others.
+That suits a red quad on blue and is wrong for anything else: this model's
+beige has three substantial channels, and the judge rejected a correct frame.
+It is now a per-channel tolerance of 3 in 5-bit units, which covers both the
+primaries and authored colours without special-casing either.
+
 ### Ordering tables must not be declared `u_long`
 
 Found while getting this far, and it applies to all ported code.
