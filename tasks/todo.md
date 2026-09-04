@@ -6,8 +6,8 @@ the task is committed.
 
 ## Hygiene
 
-- [ ] **H0** Delete the stray `pc_port/psycross.cmake` — **needs explicit
-      confirmation first**; it is not ours and it carries the silent glob bug
+- [x] **H0** Deleted the stray `pc_port/psycross.cmake` (confirmed by the user);
+      nothing referenced it and the build is unaffected
 - [ ] **H1** Build-time guard against using `ResetCallback`/`VSyncCallback`
       return values from decomp code (64-bit pointer truncation in `LIBETC.C`)
 
