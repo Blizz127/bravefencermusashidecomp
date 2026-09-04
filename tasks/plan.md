@@ -1,224 +1,233 @@
-# Plan
+# Plan (second)
+
+Supersedes the first plan, whose implementation tasks (A0–C1) are all done.
 
 ## Context
 
-Eleven commits in. Provenance is pinned, the disc extracts faithfully, splat
-covers 99.50% of `SLUS_007.26`, and a verified build-and-compare loop exists.
-`docs/ROADMAP.md` is the spec; there is no `SPEC.md`.
+Sixteen commits in. Three functions match byte-exactly, one of them inside an
+overlay. The compiler is narrowed to three candidates (PSY-Q 3.5 / 4.0 / 4.1)
+on replicated evidence. The PC port links against PsyCross and reaches a real
+Psy-Q layer, proven headlessly.
 
-What actually blocks progress is narrower than it looks:
+Two decisions, made by the user, shape this plan:
 
-- **Only relocation-free leaf functions can be matched at all.** Anything with
-  a `jal` or a `%hi`/`%lo` global reference compiles to bytes containing
-  unresolved relocations, which cannot be compared with linked retail bytes.
-  That is the large majority of the 1334 static functions. 1 is matched.
-- **Most of the game is not in those 1334 functions.** Gameplay logic streams
-  from disc overlays loaded past `0x80074800`. The `.CD` archive format is
-  documented and verified — `LIST.CD` parses to 49 entries — but nothing reads
-  it yet.
-- **The compiler is narrowed to three, unreplicated.** PSY-Q 3.5 / 4.0 / 4.1
-  survive; 4.3 / 4.4 / 4.5 are eliminated on one function. A replication
-  attempt was inconclusive.
-- **The PC port is 55 lines of plumbing** with no Psy-Q shims, so nothing can
-  render.
+- **Both tracks proceed in parallel.** Decomp depth and port rendering are
+  independent, and each has unblocked work.
+- **TMD rendering is built on `libgpu` primitives.** No permissively licensed
+  `libgs` exists; rather than adopt the GPL-3.0 one, the port walks TMDs
+  itself using `RotTransPers` and `addPrim`. More work; no license constraint.
 
-The ordering below is deliberate: the link step is placed ahead of finishing
-compiler identification, because it unlocks ~1300 more matchable functions and
-every additional match is free compiler evidence. Grinding on the compiler
-first optimises the wrong constraint.
+Facts established during planning that change what to build — several of
+them *correct* earlier assumptions:
+
+- **Member 0012 of `MAIN.CD` is the real code payload.** Of 49 members only
+  two are code. Member 0007 is 9.6 KB; member 0012 is **548 KB with ~1,865
+  stack-frame prologues**, more functions than the entire static executable.
+  The static `SLUS_007.26` split is the minority of the game.
+- **Its load address is `0x80100158`, and it is one segment.** The
+  call-target-to-prologue method used for member 0007 gives a clear winner
+  (102 sampled hits against 12 for the runner-up) but only 72% full
+  verification. That gap is explained, not ignored: the missed targets begin
+  with `lui`/`load`/`alu` — real first instructions of **frameless leaf
+  functions**, which produce no prologue. Prologue count is a floor. The 60
+  out-of-span targets cluster at `0x800C…`/`0x800D…`, exactly where member 0007
+  lives, so they are calls to the other overlay, not a second segment.
+- **The researched PAC chunk layout is wrong for this disc.** Neither
+  candidate length field walks from one chunk to the next. A PAC parser must
+  begin by reverse-engineering the format against the bytes, not by
+  implementing the research claim.
+- **Real TMD models exist at raw offsets in `SC01.CD`** — one with 92
+  primitives, one with 18. This decouples "render a model" from the PAC work
+  entirely.
+- **Headless rendering is proven, not assumed.** `xvfb-run` plus Mesa
+  llvmpipe yields a GL 4.6 core context on this machine, and PsyCross
+  publicly exports `GR_ReadVRAM`/`GR_SaveVRAM`. Rendering tasks can assert on
+  pixels in CI.
+- **The `libgs` gap is empirical.** The built archive exports zero `Gs*`
+  symbols against 399 Psy-Q functions.
 
 ## Dependency graph
 
 ```
-[0] roadmap contradiction fix ── independent, trivial
+[H0] stray psycross.cmake ── user confirms delete ── independent
+[H1] 64-bit callback hazard guard ───────────────── independent
 
-[1] link/relocation step ──┬─→ [2] compiler resolution (more evidence available)
-                           └─→ [4] overlay function matching
+Decomp track
+[D1] 0012 symbol discovery ──→ [D2] 0012 split + first match ──→ [D3] scale matching
+                                                                └─→ [D4] compiler separation (optional)
 
-[3] .CD archive reader ────────→ [4] overlay split + match
-
-[5] PsyCross shim layer ───────→ [6] first rendered artifact
-     (independent of 1-4; needs no decomp progress)
+Port track                                  Asset track
+[P1] first quad, headless-verified          [A1] PAC format reverse-engineered
+        │                                          │
+        └──→ [P2] TMD walker on libgpu      [A2] PAC parser ──→ (feeds P3 later)
+              (uses raw SC01.CD TMD;
+               does NOT depend on A1/A2)
 ```
 
-Phases 1–2 and phase 3 are independent tracks. Phase 3 can proceed in parallel
-or be deferred entirely.
+D, P and A are independent of one another. P2 deliberately sources its model
+from a raw `SC01.CD` offset so the port is not blocked behind PAC work.
 
 ---
 
-## Phase A — Unlock matching at scale
+## Hygiene
 
-### A0. Fix the roadmap contradiction
+### H0. Resolve the stray `pc_port/psycross.cmake`
 
-`docs/ROADMAP.md` line 49 states no function has been matched; line 57 states
-one has. Leftover from incremental edits.
+A second PsyCross integration appeared mid-session, authored by something
+other than this work. It is wired into nothing and carries the case-sensitive
+glob bug that silently drops the whole Psy-Q layer. It should be deleted, but
+it is not ours to delete unasked.
 
-*Acceptance:* the file states the matched count once, consistently.
-*Verify:* read the file; `grep -c "first match"`.
+*Acceptance:* file removed **after explicit confirmation**, and
+`git status` clean.
+*Verify:* `test ! -e pc_port/psycross.cmake && ./tools/run_tests.sh`.
 
-### A1. Link step so relocated functions can be matched
+### H1. Guard the 64-bit callback truncation
 
-Today `build_candidate.py` extracts a symbol's bytes straight from the `.o`,
-so any `jal` or `%hi`/`%lo` reference is an unresolved relocation and the
-comparison is meaningless. Add a link stage that resolves those against known
-addresses and emits final, comparable bytes.
+`LIBETC.C` returns a callback pointer as an `int`; on x86-64 that truncates.
+The build downgrades the error, but any decomp code that stores and re-installs
+the value from `ResetCallback`/`VSyncCallback` would silently corrupt a
+pointer. Without patching the vendored tree, add a compile-time or link-time
+guard that fails if those two symbols are referenced from decomp-owned C.
 
-Splat already emits exactly the needed inputs in linker-assignment syntax:
-`config/undefined_syms.auto.txt` and `config/undefined_funcs.auto.txt` contain
-`name = 0xADDR;` lines. Feed them to `mips-linux-gnu-ld` with the section
-placed at the function's vram, then `objcopy -O binary`.
+*Acceptance:* referencing either from `src/` or `pc_port/` fails the build
+with a message naming the hazard; the smoke target is unaffected.
+*Verify:* a temporary reference fails; removing it restores green.
 
-Reuse: `build_candidate._run`/`_capture` (already carry the `stdin=DEVNULL`
-and timeout guards that `maspsx` requires), `parse_nm_symbols`, `slice_symbol`,
-`default_toolchain_root`, `default_maspsx_path`.
+---
+
+## Phase D — Decomp depth
+
+### D1. Symbol discovery for member 0012
+
+splat labels only what it can infer without symbols; on member 0007 that was
+2 of 19 functions. Generate `config/symbol_addrs.main_0012.txt` from two
+sources, in splat's `name = 0xADDR; // type:func` syntax:
+
+1. every stack-frame prologue offset;
+2. every in-span `jal` target — this is what catches frameless leaf
+   functions, which have no prologue and are otherwise invisible.
+
+Reuse `identify_compiler.parse_disassembly` and the `jal`-decoding logic
+already used in planning. Pure generation logic gets unit tests with a
+synthetic member; the real run is verification.
 
 *Acceptance:*
-- Pure, unit-tested generation of the linker script / `--defsym` set from the
-  auto symbol files, including a malformed-line case.
-- One function containing a `jal` matches byte-exactly end to end.
-- Existing relocation-free matches are unaffected.
+- unit-tested generator, including refusal on an entry outside the member;
+- a `splat` config `config/overlay_main_0012.yaml` at base `0x80100158`
+  (evidence recorded in the file as for member 0007) splits **100%** of the
+  member and labels **≥ 2,000** functions.
+*Verify:* `python3 -m splat split config/overlay_main_0012.yaml` reports 100%;
+`grep -c ^glabel asm/overlays/main_0012/main_0012.s`.
 
-*Verify:*
-```sh
-python3 -m pytest tests/ -q && ./tools/run_tests.sh
-python3 tools/build_candidate.py src/main/80012ab0.c --symbol func_80012AB0 --output /tmp/a.bin
-python3 tools/match_function.py --vram 0x80012AB0 --size 0xC --candidate /tmp/a.bin   # still MATCH
-```
+### D2. First byte-exact match inside member 0012
 
-### A2. Resolve the compiler with the enlarged candidate pool
+Pick a small, relocation-light function, decompile with m2c, match through the
+oracle in blob mode against the hash-pinned member. This proves the 0012 path
+end to end; the load address is confirmed by a function matching at all.
 
-With relocated functions matchable, pick two or three genuinely complex,
-structurally *independent* functions and run `tools/discriminate.py` on each.
-Independence matters: the previous replication attempt initially reached for
-`func_80013028`, which shares a signature and logic with the first target and
-would have confirmed itself.
+*Acceptance:* one function in 0012 reports `MATCH`, with `--link-base` set to
+the function's address.
+*Verify:* the `build_candidate`/`match_function` pair as in `docs/OVERLAYS.md`.
 
-The sharpest known signal is return-delay-slot filling after `jr $ra` —
-2.8.1 fills it, 2.7.2 does not — and retail leaves it unfilled in
-`func_80012E6C` while gcc-2.7.2 filled it. Worth a dedicated look.
+### D3. Scale matching
 
-*Acceptance:* either the surviving set narrows below three with agreement
-across at least two independent functions, or the ambiguity is recorded with
-the reason it cannot be resolved by this method. A null result is a valid
-outcome and must not be dressed up as identification — `docs/COMPILER-ID.md`
-governs.
+With ~2,000 functions labelled, match in volume. Track progress honestly per
+the rr-decomp lesson recorded in `docs/MATCHING.md`: count **functions in real
+C**, never `objdiff` percentage or `__asm__` transcription. Add a
+`tools/progress.py` that reports matched-function count and bytes, with tests.
 
-*Verify:* `tools/discriminate.py` output recorded in `docs/MATCHING.md` for
-each function; elimination sets agree.
+*Acceptance:* ≥ 25 functions matched across the executable and both overlays;
+`progress.py` output recorded in `docs/MATCHING.md`.
+*Verify:* `python3 tools/progress.py`; every listed function re-verifies
+through the oracle.
 
-### ✅ Checkpoint A
+### D4. Separate the last three compiler candidates (optional)
 
-Relocated functions are matchable and the compiler question is either resolved
-or explicitly parked with evidence. **Stop and review before Phase B** — if the
-compiler narrows to one, matching flags are settled and later work is cheaper;
-if not, decide whether to proceed on the three-candidate set.
+Only if D3 surfaces a verified match on which the three survivors *disagree*
+— `discriminate.py` will show it. Do not go hunting; the answer arrives free
+as matching proceeds. If it never does, record that PSY-Q 3.5/4.0/4.1 are
+indistinguishable on this codebase and move on.
+
+### ✅ Checkpoint D — review before scaling further
 
 ---
 
-## Phase B — Reach the overlays
+## Phase P — Port rendering
 
-### B1. `.CD` archive reader
+### P1. One flat-shaded quad, verified headless
 
-Format (documented, and `LIST.CD` verified to parse): `0x800` header holding
-`u32 file_count`, `u32 pad`, then 8 bytes per entry — `u32 start_sector`
-(× `0x800`) and `u32 size`. Sub-files are padded to `0x800`. `LIST.CD` holds
-the headers of the other `.CD` files and is loaded at boot.
+Decomp-owned C initialises PsyCross, submits a `POLY_F4` via `setPolyF4`,
+`setRGB0`, `setXY4`, `addPrim` into an ordering table, draws with `DrawOTag`
+and syncs. Verification reads the framebuffer back with `GR_ReadVRAM` and
+asserts the quad's colour at a covered pixel and the clear colour outside it.
 
-*Acceptance:*
-- Pure, unit-tested header parsing with synthetic fixtures, including refusal
-  on a truncated header, an entry running past end-of-file, and a count that
-  disagrees with the data present.
-- Extracts `MAIN.CD` into an ignored directory and reports each member's size
-  and SHA-256.
-- Extracted output stays untracked, consistent with the retail-data policy in
-  `LICENSE-NOTES.md`.
+Runs under `xvfb-run` with `LIBGL_ALWAYS_SOFTWARE=1`, so it is a real CI test,
+not a screenshot someone has to look at. Add it as a `ctest` target separate
+from the smoke test; the smoke test must stay display-free.
 
-*Verify:*
-```sh
-python3 tools/extract_cd.py extracted/disc/files/MAIN.CD --output extracted/overlays/main
-python3 -m pytest tests/ -q
-```
+*Acceptance:* new `ctest` target passes headless; `run_tests.sh` runs it when
+`xvfb-run` is present and skips loudly when not.
+*Verify:* `xvfb-run -a ctest --test-dir build -R render_quad`.
 
-### B2. Split and match one overlay function
+### P2. Render one TMD model through `libgpu` primitives
 
-Add a splat config for one extracted overlay at its load address, produce a
-disassembly, and match one function inside it through the existing oracle.
-This is the vertical proof that the overlay path works end to end — not just
-that files can be unpacked.
+The `libgs`-free path chosen by the user. Write a TMD walker that reads the
+header (`FIXP` flag, object table), transforms vertices with `SetRotMatrix`,
+`SetTransMatrix`, `RotTransPers`, and emits `POLY_F3`/`POLY_F4` primitives via
+`addPrim`. Source the model from the **18-primitive TMD at `SC01.CD` offset
+`0xA97000`** — a raw, verified header — so this does not wait on PAC work.
 
-Load addresses are a genuine unknown. They must be **observed**, not assumed:
-derive them from the loader code in the static executable, or from the overlay
-header if one exists. Do not copy addresses from third-party notes without
-verifying them against the bytes.
+The TMD parser is pure and unit-tested against a synthetic TMD (header,
+object table, one flat triangle). Rendering is verified headless as in P1 by
+asserting that the model's covered pixels differ from the clear colour.
 
-*Acceptance:* one overlay function matches byte-exactly, with its load address
-justified by evidence recorded alongside the config.
+*Acceptance:* unit-tested parser refuses a bad `id`, an object table past EOF,
+and a primitive count that disagrees with the data; the 18-primitive model
+renders headlessly with ≥ 1 non-clear pixel in the expected region.
+*Verify:* `xvfb-run -a ctest --test-dir build -R render_tmd`.
 
-*Verify:* `tools/match_function.py` reports MATCH for that function.
-
-### ✅ Checkpoint B
-
-The majority of the game's code is reachable and provably matchable. **Stop and
-review** — this is the point to decide how much matching to pursue before
-shifting effort toward the port.
+### ✅ Checkpoint P — the port path is proven; decide how far to take it
 
 ---
 
-## Phase C — First runnable output (independent track)
+## Phase A — Assets
 
-Deliberately scoped to *prove the shim path*, not to port the game. This can
-run in parallel with A and B, or be skipped.
+### A1. Reverse-engineer the PAC chunk format
 
-### C1. Vendor PsyCross and link decomp C against it
+The research claim does not match the bytes. Establish the real layout by
+walking `SC01.CD`: for each `PAC\0` header, find the field that advances to
+the next header with no gaps and no overlaps across all 199 chunks. Record the
+type byte values observed and what each seems to contain.
 
-PsyCross (MIT) reimplements libgpu, libgte, libspu, libcd, libetc, libapi and
-libpad for PC and is used by REDRIVER2 and CTR Native. Vendor it at a pinned
-commit via `tools/fetch_toolchains.sh`, following the existing `fetch_pinned`
-pattern, and gitignore the checkout.
+*Acceptance:* a documented layout under which a walk covers **100%** of the
+archive's PAC region with zero gaps or overlaps; the observed type set
+recorded in `docs/ASSETS.md`.
+*Verify:* the walk script's coverage report.
 
-**Licensing constraints established by research and recorded here so they are
-not rediscovered the hard way:** libValkyrie has no LICENSE file — do not
-vendor. psyz is split-licensed and its `include/` and `src/psyq` are
-unlicensed Sony-derived headers. PSXRecomp and MusashiRecomp are PolyForm
-Noncommercial, so no code may be taken from them.
+### A2. PAC parser
 
-*Acceptance:* the existing CMake target builds and links against PsyCross on
-Linux with the smoke binary still passing.
+Implement the layout from A1 as `tools/extract_pac.py`, fail-closed in the
+style of `extract_cd.py`: refuse a truncated header, a chunk past EOF, and a
+walk that does not reach the archive end.
 
-*Verify:* `./tools/run_tests.sh`.
+*Acceptance:* unit-tested with synthetic fixtures; extracts every chunk from
+`SC01.CD` with per-chunk size and SHA-256; output untracked.
+*Verify:* `python3 tools/extract_pac.py extracted/disc/files/SC01.CD --output …`.
 
-### C2. One visible artifact
-
-Render a single primitive or decode one asset through the shim layer — enough
-to prove the path from decomp-owned C to pixels. Not a game loop.
-
-**Known gap, unavoidable:** no permissively-licensed `libgs` exists. BFM is 3D
-and will need TMD rendering eventually. The only working PC `libgs` is in the
-Silent Hill decomp and is GPL-3.0. Options are to design around it at the
-libgpu/ordering-table level, treat that implementation as a specification to
-study rather than copy, or accept GPL-3.0. **This is a licensing decision for
-the user, not a technical one — surface it before writing TMD code.**
-
-*Acceptance:* a window renders one primitive, driven by decomp-owned C.
-*Verify:* run it and capture a screenshot.
-
-### ✅ Checkpoint C
-
-The port path is proven viable, or its blocking constraint (libgs licensing) is
-surfaced for a decision.
+### ✅ Checkpoint A — assets reachable; decide on LZSS if type-4 chunks need it
 
 ---
 
-## Conventions that apply to every task
+## Conventions
 
-- RED before GREEN: a failing test first, minimum code to pass, then the full
-  suite and `./tools/run_tests.sh`.
-- One commit per task so any point is a clean rollback; stage only that task's
-  files, never `git add -A`.
-- Pure logic gets unit tests; subprocess glue stays thin. Every child process
-  gets explicit `stdin=DEVNULL` and a timeout — `maspsx` reads stdin when it is
-  not a tty and otherwise hangs forever.
-- Retail-derived data — disassembly, extracted files, overlays, fetched
-  toolchains — stays untracked.
-- Claims are bounded by evidence. A build that succeeds is not a match, a match
-  is not a compiler identification, and a null result gets recorded as one.
+- RED before GREEN on every task; one commit per task; stage only that task's
+  files.
+- Pure logic gets unit tests; subprocess glue stays thin; every child process
+  gets `stdin=DEVNULL` and a timeout.
+- Load addresses and formats are **observed from bytes**, never copied from
+  external notes — two of those notes were wrong during this planning pass.
+- Retail-derived data — disassembly, extracted members, chunks, models — stays
+  untracked.
+- A build is not a match; a match is not a compiler identification; matched
+  progress is counted in functions of real C.
