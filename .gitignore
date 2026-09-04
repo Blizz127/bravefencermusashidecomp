@@ -82,3 +82,6 @@ __pycache__/
 .venv/
 venv/
 .DS_Store
+# Local-only staging: unverified m2c/Sanitizer outputs awaiting an oracle
+# promotion sweep. Regenerable via tools/batch_match.py; never committed.
+/staging/

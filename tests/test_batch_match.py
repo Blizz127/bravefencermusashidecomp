@@ -278,6 +278,19 @@ class SanitizeTests(unittest.TestCase):
         self.assertNotIn("void target();", out)
         self.assertNotIn("extern", out)
 
+    def test_m2c_warning_lines_are_dropped(self) -> None:
+        """m2c prints `Warning: ...` diagnostics into its stdout, which the
+        harness captures as the candidate body (15+ files in the 0012
+        <=64 bucket, e.g. `missing "jr $ra" in last block`). A warning is
+        not C and always breaks compilation; drop those lines."""
+
+        out = batch_match._sanitize(
+            'Warning: missing "jr $ra" in last block of func_80128288 (initial).\n'
+            "void func_80128288(void) {\n}\n"
+        )
+        self.assertNotIn("Warning:", out)
+        self.assertIn("void func_80128288(void) {", out)
+
     def test_bare_unknown_parameter_becomes_s32(self) -> None:
         """A lone `?` parameter is an unknown word-sized argument, not the
         C89 unchecked-args `(?)` form, which keeps its own empty-parens

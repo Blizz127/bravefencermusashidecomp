@@ -196,7 +196,17 @@ def _sanitize(source: str) -> str:
     * A prototype `? (*name(args))(retargs);` becomes
       `s32 (*name(args))(retargs);`. Only the `?` changes, so a call
       through the returned pointer is undisturbed.
+    * An m2c `Warning: ...` diagnostic line is dropped. It is emitted on
+      stdout, so the harness captures it as part of the candidate body,
+      and it is never valid C.
     """
+
+    # m2c diagnostics ride along on captured stdout; they are never C.
+    source = "\n".join(
+        line for line in source.splitlines() if not line.startswith("Warning:")
+    )
+    if source:
+        source += "\n"
 
     # Called-ness is decided from the body only: the `?` declaration itself
     # is `NAME(...)`, so scanning the whole source would always find NAME
