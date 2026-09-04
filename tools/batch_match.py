@@ -224,7 +224,54 @@ def _sanitize(source: str) -> str:
     # m2c spells the zero address NULL, but -nostdinc leaves it undefined.
     # A plain 0 generates identical code wherever a null pointer fits.
     source = NULL_MACRO_RE.sub("0", source)
-    return _refine_extern_pointers(source)
+    return _declare_missing_symbols(_refine_extern_pointers(source))
+
+
+def _declare_missing_symbols(source: str) -> str:
+    """Declare referenced-but-undeclared D_/func_ symbols.
+
+    m2c occasionally uses a symbol it never declares. A bare use that is
+    called (`NAME(`) gets the unchecked `void NAME();` prototype; any
+    other bare use gets `extern s32 NAME;`. Anything already declared —
+    plain declarations, `extern`, and `(*NAME)` callback forms — is
+    evidence the symbol is known and is left alone, so this pass can
+    neither duplicate nor contradict an existing declaration.
+    """
+
+    declared = set()
+    for pattern in (
+        r"^(\s*)(?:extern\s+)?(?:s32|void|u32|u16|u8|s16|s8|char|int|short|long|unsigned)\b[^(;{}]*\b((?:D_|func_)\w+)\b",
+        r"\(\*\s*((?:D_|func_)\w+)\b",
+    ):
+        declared.update(
+            match.group(2 if pattern.startswith("^") else 1)
+            for match in re.finditer(pattern, source, re.M)
+        )
+    missing = []
+    for match in re.finditer(r"\b((?:D_|func_)\w+)\b", source):
+        name = match.group(1)
+        if name in declared or name in missing:
+            continue
+        missing.append(name)
+    if not missing:
+        return source
+    body = re.sub(r"/\*.*?\*/", "", source, flags=re.S)
+    decls = []
+    for name in missing:
+        # Skip names whose only sites vanished with the comments.
+        if re.search(r"\b" + name + r"\b", body) is None:
+            continue
+        if re.search(r"\b" + name + r"\s*\(", body) is not None:
+            decls.append(f"void {name}();")
+        else:
+            decls.append(f"extern s32 {name};")
+    if not decls:
+        return source
+    anchor = re.search(r"^#include.*$", source, re.M)
+    if anchor is None:
+        return "\n".join(decls) + "\n" + source
+    at = anchor.end()
+    return source[:at] + "\n" + "\n".join(decls) + source[at:]
 
 
 def _refine_extern_pointers(source: str) -> str:

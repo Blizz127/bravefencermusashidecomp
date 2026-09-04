@@ -246,6 +246,38 @@ class SanitizeTests(unittest.TestCase):
         )
         self.assertIn("extern s32 (*D)();", out)
 
+    def test_called_but_undeclared_func_gets_void_prototype(self) -> None:
+        """m2c sometimes references a callee it never declares
+        (D_80072780-class omissions in 4 files). A `void f();` unchecked
+        prototype matches the convention used for seen-but-unknown
+        callees."""
+
+        out = batch_match._sanitize("void f(void) {\n    func_80072780(1);\n}\n")
+        self.assertIn("void func_80072780();", out)
+
+    def test_value_used_but_undeclared_data_gets_extern(self) -> None:
+        out = batch_match._sanitize("void f(void) {\n    g(D_80072788);\n}\n")
+        self.assertIn("extern s32 D_80072788;", out)
+
+    def test_no_duplicate_decl_for_callback_prototype(self) -> None:
+        """`s32 (*f(..))(..);` already declares f: the missing-symbol
+        pass must recognise the `(*f` form as a declaration, or it
+        would append a conflicting `void f();` and break a file that
+        currently compiles."""
+
+        src = "s32 (*func_80131CF4(s32))(void *);\nvoid f(void) {\n}\n"
+        out = batch_match._sanitize(src)
+        self.assertEqual(out.count("func_80131CF4"), 1)
+
+    def test_no_decl_for_the_defined_function_itself(self) -> None:
+        """A recursive call must not conjure a prototype that conflicts
+        with the definition's return type."""
+
+        src = "s32 target(s32 x) {\n    return target(x - 1);\n}\n"
+        out = batch_match._sanitize(src)
+        self.assertNotIn("void target();", out)
+        self.assertNotIn("extern", out)
+
     def test_bare_unknown_parameter_becomes_s32(self) -> None:
         """A lone `?` parameter is an unknown word-sized argument, not the
         C89 unchecked-args `(?)` form, which keeps its own empty-parens
