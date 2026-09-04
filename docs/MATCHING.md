@@ -445,3 +445,53 @@ and `-G` arguments must use the `=` form:
 --optimization=-O2 --gp=-G0      # correct
 --optimization -O2               # error: expected one argument
 ```
+
+
+## D4: not every function is -O2
+
+`func_80010A98`, on the boot chain just after crt0's constructor-table loop,
+registers two callbacks. m2c's decompilation needed real types before it would
+compile at all -- its placeholders for the callback parameters left `?` where
+a function pointer belonged -- but even cleaned up, the natural C did not
+match at -O2: GCC drops the frame pointer this function never uses, producing
+56 bytes against retail's 72.
+
+It matches byte-exactly at -O0. `provenance/compiler_identity.json` identifies
+-O2 for the executable, established from two functions, neither of which is
+this one. That identification was never claimed to hold per-function, and this
+is the first direct evidence it does not: short, unconditional init code is
+exactly what a build might reasonably compile at a lower level than the hot
+path. `provenance/matches.json` entries now carry an optional `optimization`
+field for exactly this case; `tools/verify_registry.py` passes it through
+when present and otherwise assumes the identified default.
+
+Two automation gaps surfaced while landing this one function, both fixed
+alongside it:
+
+* argparse reads a bare `-O0` value as another flag, because it starts with
+  `-`. The fix is the `--optimization=-O0` single-token form.
+* That argparse failure calls `sys.exit()` rather than returning, and
+  `tools/verify_registry.py` was running every build inside a stdout/stderr
+  capture that did not catch `SystemExit` -- one malformed entry silently
+  killed the entire sweep with no output at all, not even a stack trace.
+  `_quiet` now catches it and reports a normal failure for that one entry.
+
+## Boot-chain functions set aside
+
+Two other functions examined for D4 turned out to be poor fits and were left
+alone rather than forced:
+
+* `func_80010000`, the crt0 entry itself, is flagged `/* Handwritten function
+  */` by splat and directly manipulates `$sp`/`$fp`/`$gp`/`$ra` in ways no C
+  compiler emits from ordinary source. It belongs in hand-written assembly,
+  not decompiled C.
+* `func_800100A0`, immediately after it, loads a count of `0` with a bare
+  immediate (`lui/addiu`, no relocation) and then still emits the full
+  runtime loop guard instead of folding the always-false branch away. The
+  likely explanation is a classic `__CTOR_LIST__`-style idiom: the true source
+  computes the count from a pair of extern symbols the compiler cannot fold,
+  and the *linker* resolved them to an identical address only in this
+  particular build, leaving no relocation for the disassembler to show.
+  Reproducing that requires placing two symbols at the same address through a
+  custom symbol file, not just cleaning up C, and was set aside rather than
+  guessed at.

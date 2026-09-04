@@ -21,6 +21,14 @@
   },
   "matches": [
     {
+      "name": "func_80010A98",
+      "vram": 2147551896,
+      "size": 72,
+      "region": "main",
+      "source": "src/main/80010a98.c",
+      "optimization": "-O0"
+    },
+    {
       "name": "func_80012AB0",
       "vram": 2147560112,
       "size": 12,

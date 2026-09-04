@@ -10,8 +10,8 @@
 - [x] **D1** `asm/` regenerated for main and both overlays; commands in MATCHING.md; `tools/verify_registry.py` re-verifies 25/25
 - [x] **D2** `tools/batch_match.py`: scratch-dir only, refuses existing `src/` paths, promotes exact matches; 14 tests
 - [x] **D3** swept main (168 matches) and main_0012 (58 matches); 251/251 registry entries re-verify; substantive count 225 (was 3)
-- [ ] **D4** one hand match on the boot path
-- [ ] **⏸ Checkpoint D**
+- [x] **D4** `func_80010A98` matched by hand at -O0 (not the identified -O2 default); fixed two verify_registry bugs it exposed
+- [x] **⏸ Checkpoint D** — 252 matches (226 substantive), report and hand off
 
 ## Standing constraints
 - [ ] RED before GREEN; one commit per task; stage only that task's files

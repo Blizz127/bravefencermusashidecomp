@@ -25,6 +25,23 @@ class PlanTests(unittest.TestCase):
         self.assertEqual(build[build.index("--link-base") + 1], "0x80012AB0")
         self.assertEqual(build[build.index("--symbol") + 1], "func_80012AB0")
 
+    def test_optimization_defaults_when_the_entry_omits_it(self) -> None:
+        """Every entry recorded before this field existed must still build.
+
+        The identified default for the executable is -O2, so an entry with no
+        recorded optimization is assumed to have used it.
+        """
+
+        build, _ = verify_registry.plan(MAIN_ENTRY, TARGETS, Path("/scratch/c.bin"))
+        self.assertNotIn("--optimization", build)
+
+    def test_optimization_is_passed_through_when_the_entry_records_one(self) -> None:
+        """func_80010A98 matches only at -O0, not the identified -O2 default."""
+
+        entry = {**MAIN_ENTRY, "optimization": "-O0"}
+        build, _ = verify_registry.plan(entry, TARGETS, Path("/scratch/c.bin"))
+        self.assertIn("--optimization=-O0", build)
+
     def test_executable_match_uses_no_blob_arguments(self) -> None:
         _, match = verify_registry.plan(MAIN_ENTRY, TARGETS, Path("/scratch/c.bin"))
         self.assertNotIn("--retail-file", match)
@@ -44,6 +61,37 @@ class PlanTests(unittest.TestCase):
     def test_an_unknown_target_kind_is_refused(self) -> None:
         with self.assertRaises(RetailError):
             verify_registry.plan(MAIN_ENTRY, {"main": {"kind": "hologram"}}, Path("/s"))
+
+
+class QuietTests(unittest.TestCase):
+    """A malformed argv must fail as one entry, not abort the whole sweep.
+
+    argparse calls sys.exit() rather than returning on a bad argument list.
+    An unquoted "-O0"-shaped optimization value hit exactly this once and
+    silently killed the run with zero output.
+    """
+
+    def test_a_system_exit_becomes_a_normal_failure_code(self) -> None:
+        def raises(argv):
+            raise SystemExit(2)
+
+        code, out = verify_registry._quiet(raises, [])
+        self.assertEqual(code, 2)
+
+    def test_output_before_the_exit_is_still_captured(self) -> None:
+        def raises(argv):
+            print("partial output")
+            raise SystemExit(2)
+
+        _, out = verify_registry._quiet(raises, [])
+        self.assertIn("partial output", out)
+
+    def test_a_non_integer_exit_code_still_counts_as_failure(self) -> None:
+        def raises(argv):
+            raise SystemExit("some usage message")
+
+        code, _ = verify_registry._quiet(raises, [])
+        self.assertNotEqual(code, 0)
 
 
 if __name__ == "__main__":

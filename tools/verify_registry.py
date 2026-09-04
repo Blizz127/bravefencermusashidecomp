@@ -38,6 +38,14 @@ def plan(entry: dict[str, Any], targets: dict[str, Any], candidate: Path) -> tup
         "--link-base", f"0x{int(entry['vram']):X}",
         "--output", str(candidate),
     ]
+    # Most of the executable is identified as -O2; an entry only needs this
+    # when it does not match at that default, which build_candidate.py itself
+    # already assumes.
+    optimization = entry.get("optimization")
+    if optimization:
+        # The "=" form is required: argparse reads a bare "-O0" as another
+        # flag rather than this one's value, since it starts with "-".
+        build += [f"--optimization={optimization}"]
     match = [
         "--vram", f"0x{int(entry['vram']):X}",
         "--size", f"0x{int(entry['size']):X}",
@@ -58,9 +66,21 @@ def plan(entry: dict[str, Any], targets: dict[str, Any], candidate: Path) -> tup
 
 
 def _quiet(fn, argv: list[str]) -> tuple[int, str]:
+    """Run one tool's main() with its output captured instead of printed.
+
+    argparse calls sys.exit() on a bad argument list rather than returning, so
+    a malformed argv here would otherwise raise SystemExit and abort the
+    whole sweep with no diagnostic — the captured output would still be sitting
+    in the discarded StringIO, printed nowhere. One bad entry must fail as
+    one entry, not take down every entry after it.
+    """
+
     sink = io.StringIO()
-    with contextlib.redirect_stdout(sink), contextlib.redirect_stderr(sink):
-        code = fn(argv)
+    try:
+        with contextlib.redirect_stdout(sink), contextlib.redirect_stderr(sink):
+            code = fn(argv)
+    except SystemExit as exc:
+        code = exc.code if isinstance(exc.code, int) else 1
     return code, sink.getvalue()
 
 
