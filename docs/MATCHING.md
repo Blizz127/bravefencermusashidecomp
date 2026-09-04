@@ -2,7 +2,8 @@
 
 ## Status
 
-Two functions are byte-verified against retail, one of them containing a call.
+25 functions are byte-verified against retail — but only 3 are substantive;
+the other 22 are two-instruction stubs. See "Counting honestly" below.
 The 6→3 elimination is **replicated** across two independent functions, one of
 them a verified-correct source. The compiler is still
 **unresolved**, but no longer unconstrained: half the candidate set has been
@@ -15,6 +16,40 @@ is **unreplicated**; a second function was attempted and came out inconclusive.
 | `0x80014128` | 8/8 | `src/main/80014128.c` | MATCH (first with a `jal`) |
 | `0x800CF3B0` | 22/22 | `src/overlays/main_0007/800cf3b0.c` | MATCH (first in an overlay) |
 | `0x8012BF4C` | 2/2 | `src/overlays/main_0012/8012bf4c.c` | MATCH (first in member 0012) |
+
+21 further stubs in member 0012 are recorded in `provenance/matches.json`
+rather than listed here.
+
+## Counting honestly
+
+`tools/progress.py` reports functions rebuilt from C and verified equal to
+retail. It never reports a diff percentage: a project counting `objdiff` match
+rate can show 100% while the "C" is verbatim `__asm__` transcription, and one
+PSX project publicly retracted exactly such a figure as "true but meaningless".
+
+That guard is not sufficient on its own. Reaching 25 matches took 22
+two-instruction stubs — empty functions, single stores, plain returns. They are
+genuine matches, and they are not meaningful progress. The tool therefore splits
+the total, so the headline number cannot flatter:
+
+```text
+MATCHED 25 functions, 308 bytes
+  of which trivial (<= 8 bytes): 22    substantive: 3
+```
+
+308 bytes against roughly 800KB of code is the honest picture.
+
+## A destructive automation bug, caught only by re-verification
+
+Batch-matching wrote each candidate's source, then deleted it when the build or
+comparison failed. `func_8012BF4C` already had a hand-written, committed,
+verified source; the batch overwrote it with m2c output, failed, and deleted the
+file — destroying work already in git.
+
+Nothing in the matching flow noticed. It surfaced only because every registry
+entry is re-verified through the oracle after a batch, which is why that step
+exists. Any future batch must refuse to overwrite an existing source rather than
+assume it owns the path.
 
 ## Linking: why bytes from the object are not comparable
 

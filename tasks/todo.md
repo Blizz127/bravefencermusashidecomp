@@ -28,8 +28,13 @@ the task is committed.
   - [x] fixed a silent-wrong-bytes bug it exposed: the linked image starts at
         `.text`'s real address, not the requested base, since `ld` rounds up to
         the section alignment
-- [ ] **D3** Scale matching to ≥ 25 functions; `tools/progress.py` counts
-      functions in real C, never match percentage
+- [x] **D3** 25 functions matched, all re-verified through the oracle;
+      `tools/progress.py` counts functions in real C, never match percentage
+  - [x] **the bar was met thinly**: 22 of 25 are two-instruction stubs, 308
+        bytes total. progress.py now splits trivial from substantive so the
+        headline cannot flatter
+  - [x] batch matching destroyed a committed source by overwriting then deleting
+        it on failure; caught only by re-verification, and recorded
 - [ ] **D4** *(optional)* separate PSY-Q 3.5 / 4.0 / 4.1 — only if a verified
       match happens to disagree; do not hunt
 
