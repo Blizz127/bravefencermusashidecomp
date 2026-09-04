@@ -188,5 +188,27 @@ class OrderingTests(unittest.TestCase):
         self.assertEqual(summary["surviving"], ["top", "mid", "bottom"])
 
 
+class RetailSourceTests(unittest.TestCase):
+    """Discrimination must work on overlay code too.
+
+    The most complex verified-correct sources live in overlays, whose addresses
+    fall outside the executable's text range. Restricting discrimination to the
+    executable would exclude exactly the functions most likely to separate
+    candidates.
+    """
+
+    def test_blob_arguments_require_a_base_and_a_hash(self) -> None:
+        code = discriminate.main(
+            [
+                "src/main/80012ab0.c",
+                "--symbol", "func_80012AB0",
+                "--vram", "0x80012AB0",
+                "--size", "0xC",
+                "--retail-file", "extracted/overlays/main/0007.bin",
+            ]
+        )
+        self.assertEqual(code, 2)
+
+
 if __name__ == "__main__":
     unittest.main()

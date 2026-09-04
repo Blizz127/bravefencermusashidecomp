@@ -2,6 +2,8 @@
 
 ## Status
 
+The compiler is **resolved: GCC 2.7.2 / PSY-Q 4.0 / ASPSX 2.56**.
+
 25 functions are byte-verified against retail — but only 3 are substantive;
 the other 22 are two-instruction stubs. See "Counting honestly" below.
 The 6→3 elimination is **replicated** across two independent functions, one of
@@ -19,6 +21,42 @@ is **unreplicated**; a second function was attempted and came out inconclusive.
 
 21 further stubs in member 0012 are recorded in `provenance/matches.json`
 rather than listed here.
+
+## The compiler is resolved: gcc-2.7.2-psx
+
+`func_800CF3B0` settles it. Its C is verified correct — it matches retail
+byte-for-byte — so a candidate that cannot reproduce it is eliminated outright,
+with no dependence on the decompilation being right.
+
+Of six candidates bracketing PSY-Q 3.5 through 4.5, exactly one reproduces it:
+
+| toolchain | PSY-Q | `func_800CF3B0` |
+| --- | --- | --- |
+| **`gcc-2.7.2-psx`** | **4.0** | **22/22** |
+| `gcc-2.7.2-cdk-psx` | 4.1 | 19/22 |
+| `gcc-2.6.0-psx` | 3.5 | 19/22 |
+| `gcc-2.8.0-psx` | 4.3 | 21 words, wrong length |
+| `gcc-2.8.1-psx` | 4.4 | 21 words, wrong length |
+| `gcc-2.91.66-psx` | 4.5 | 21 words, wrong length |
+
+The margin is three of twenty-two words against the closest rivals, not noise.
+
+**Conclusion: GCC 2.7.2 / PSY-Q 4.0 / ASPSX 2.56**, with `-O2 -G0` and maspsx
+division expansion. Recorded in `provenance/compiler_identity.json`.
+
+This is consistent with everything measured earlier rather than replacing it.
+`func_80014128` left 2.6.0, 2.7.2 and 2.7.2-cdk standing; `func_80012E6C`
+eliminated 4.3, 4.4 and 4.5. `gcc-2.7.2-psx` is the only candidate surviving
+every verified-correct source, and the intersection is a single toolchain.
+
+It also confirms the 1998 Square cluster around GCC 2.7.2 that the research
+suggested — but derived from these bytes rather than assumed from it. The
+candidate set deliberately included later releases so a 2.7.2 answer could have
+been falsified; they failed on their own.
+
+**Scope.** One decisive function plus two corroborating results. Worth
+re-checking as further substantive matches land, which `discriminate.py` now
+does on overlay code as well as the executable.
 
 ## Counting honestly
 

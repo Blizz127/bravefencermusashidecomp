@@ -32,7 +32,7 @@ from pathlib import Path
 
 import build_candidate
 import match_function
-from retail_common import RetailError, load_json
+from retail_common import RetailError, load_json, sha256_file
 
 DEFAULT_OPTIMIZATIONS = ("-O1", "-O2")
 DEFAULT_GP = ("-G0",)
@@ -158,6 +158,13 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--vram", required=True, help="retail address, e.g. 0x80012E6C")
     parser.add_argument("--size", required=True, help="retail size in bytes, e.g. 0x108")
     parser.add_argument("--identity", type=Path, help="observed identity JSON")
+    parser.add_argument(
+        "--retail-file",
+        type=Path,
+        help="compare against a flat blob instead of the executable, for overlay code",
+    )
+    parser.add_argument("--base", help="load address of --retail-file")
+    parser.add_argument("--sha256", help="pinned digest of --retail-file")
     parser.add_argument("--toolchain-root", type=Path)
     parser.add_argument("--maspsx", type=Path)
     parser.add_argument(
@@ -175,16 +182,32 @@ def main(argv: list[str] | None = None) -> int:
     repo = Path(__file__).resolve().parents[1]
     identity_path = (args.identity or repo / "provenance/exe_identity.json").resolve()
     try:
-        identity = load_json(identity_path)
-        exe = match_function._resolve_exe(repo, identity)
-        header = identity.get("header")
-        if not isinstance(header, dict):
-            raise RetailError("executable identity lacks a header object")
         vram = int(str(args.vram), 0)
         size = int(str(args.size), 0)
-        retail = match_function.extract_retail_bytes(exe, header, vram, size)
 
-        extra: list[str] = []
+        if args.retail_file is not None:
+            # Overlay code, addressed by its load base and pinned by hash for the
+            # same reason the executable is.
+            if args.base is None or args.sha256 is None:
+                raise RetailError("--retail-file requires both --base and --sha256")
+            base = int(str(args.base), 0)
+            if not args.retail_file.is_file():
+                raise RetailError(f"retail blob not found: {args.retail_file}")
+            actual = sha256_file(args.retail_file)
+            if actual.lower() != str(args.sha256).lower():
+                raise RetailError(
+                    f"blob SHA-256 mismatch for {args.retail_file}: expected {args.sha256}, got {actual}"
+                )
+            retail = match_function.extract_blob_bytes(args.retail_file, base, vram, size)
+        else:
+            identity = load_json(identity_path)
+            exe = match_function._resolve_exe(repo, identity)
+            header = identity.get("header")
+            if not isinstance(header, dict):
+                raise RetailError("executable identity lacks a header object")
+            retail = match_function.extract_retail_bytes(exe, header, vram, size)
+
+        extra: list[str] = ["--link-base", hex(vram)]
         if args.toolchain_root:
             extra += ["--toolchain-root", str(args.toolchain_root)]
         if args.maspsx:

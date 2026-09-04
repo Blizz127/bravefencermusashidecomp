@@ -35,8 +35,12 @@ the task is committed.
         headline cannot flatter
   - [x] batch matching destroyed a committed source by overwriting then deleting
         it on failure; caught only by re-verification, and recorded
-- [ ] **D4** *(optional)* separate PSY-Q 3.5 / 4.0 / 4.1 — only if a verified
-      match happens to disagree; do not hunt
+- [x] **D4** **Compiler resolved: gcc-2.7.2-psx / PSY-Q 4.0 / ASPSX 2.56.**
+      `func_800CF3B0`, a verified-correct source, is reproduced by exactly one
+      candidate of six (22/22; closest rivals 19/22). The answer arrived from a
+      function already matched, as predicted — no hunting required
+  - [x] `discriminate.py` extended to overlay blobs, which is what made the
+        decisive function reachable
 
 - [ ] **⏸ Checkpoint D**
 

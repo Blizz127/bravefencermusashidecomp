@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "status": "resolved",
+  "compiler": "gcc-2.7.2-psx",
+  "psyq_release": "4.0",
+  "aspsx_version": "2.56",
+  "flags": {
+    "optimization": "-O2",
+    "gp": "-G0",
+    "notes": "maspsx division expansion required; see docs/MATCHING.md"
+  },
+  "reason": "Only candidate reproducing a verified-correct source exactly, across a set bracketing PSY-Q 3.5 to 4.5.",
+  "evidence": {
+    "decisive_function": {
+      "name": "func_800CF3B0",
+      "vram": "0x800CF3B0",
+      "size": "0x58",
+      "source": "src/overlays/main_0007/800cf3b0.c",
+      "result": "gcc-2.7.2-psx 22/22; every other candidate below"
+    },
+    "closest_rivals": {
+      "gcc-2.7.2-cdk-psx": "19/22",
+      "gcc-2.6.0-psx": "19/22"
+    },
+    "corroborating": {
+      "func_80014128": "survivors gcc-2.6.0-psx, gcc-2.7.2-psx, gcc-2.7.2-cdk-psx",
+      "func_80012E6C": "eliminated PSY-Q 4.3, 4.4, 4.5 on instruction count"
+    },
+    "intersection": "gcc-2.7.2-psx is the only candidate surviving every verified-correct source"
+  },
+  "scope": "Rests on one decisive function plus two corroborating results. Re-check as further substantive matches land."
+}

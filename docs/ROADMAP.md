@@ -47,8 +47,11 @@ rather than conditional on the decompilation. The difference is the return
 delay slot — retail restores `$sp` before `jr $ra` and leaves the slot empty,
 while the 2.8.x line fills it with the restore.
 
-The three survivors are not separated from each other and the compiler remains
-`unresolved`. See [MATCHING.md](MATCHING.md).
+Step 4 is now **complete**. `func_800CF3B0`, whose C is verified correct by a
+byte-exact match, is reproduced by exactly one candidate out of six:
+**gcc-2.7.2-psx, PSY-Q 4.0, ASPSX 2.56**, at `-O2 -G0`. Its closest rivals
+manage 19 of 22 words. The identification is recorded in
+`provenance/compiler_identity.json`; see [MATCHING.md](MATCHING.md).
 
 Step 6 has its oracle. `tools/match_function.py` extracts a word-aligned range
 of retail text by runtime address and renders a verdict against rebuilt bytes,
