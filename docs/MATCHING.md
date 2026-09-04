@@ -495,3 +495,50 @@ alone rather than forced:
   Reproducing that requires placing two symbols at the same address through a
   custom symbol file, not just cleaning up C, and was set aside rather than
   guessed at.
+
+## Batch triage: the 65-128 bucket
+
+With the oracle unavailable, 861 pending functions in the 65-128 bucket
+(267 main, 594 main_0012) were m2c-decompiled and sanitized in parallel
+by subagents into scratch (never `src/`, never the registry), then gated
+through `gcc -fsyntax-only -std=c89` — C89 specifically, because modern
+GCC reads `f()` as `(void)` while gcc-2.7.2 reads it as unchecked args,
+so the default dialect false-rejects the harness's own convention.
+
+Result: 313 parse-OK, banked for promotion the moment the toolchain runs
+again (9 need no linking at all). The sanitizer rules this forced are in
+`tools/batch_match.py::_sanitize`, each RED-tested: `? (*name)()`
+locals, `extern ? D`, bare and named `?` params, callback
+declarators, NULL to 0, missing-symbol declarations, and extern-pointer
+refinement. A corpus OK-set diff proved zero regressions.
+
+The remaining 541 fail almost entirely on one pattern, which is the hand-work
+playbook for this bucket:
+
+```c
+*((D_800AF630.unkA3D2 * 4) + &D_800AE810) = func_8004239C(1);   /* func_8001099C */
+```
+
+m2c models a table at an unknown global as a struct and names members by
+byte offset (`unkA3D2` = +0xA3D2). The `extern s32` default cannot take
+member access, and no mechanical declaration can: member sizes are unknown,
+so synthesising a padded struct would be guessing at layout. These need
+per-function struct modeling — read the indexed offsets off the
+disassembly, write the minimal struct that places them, match through the
+oracle. Smaller mechanical classes also remain: `spNN` stack-slot
+temporaries (stack-passed varargs need real signatures),
+`saved_reg_*`, `unaligned` accesses, and `M2C_ERROR` markers, all hand
+work by the same reasoning.
+
+## Environment watch: 32-bit toolchain execution
+
+The vendored Psy-Q compilers are 32-bit statically linked i386 binaries.
+They die with SIGSYS (exit 159, empty output, not even `--version`) in a
+sandbox whose seccomp profile rejects a legacy startup syscall; `cc1`
+fails identically while `m2c`, `maspsx`, and binutils (all Python or
+64-bit) are unaffected. When this holds, `tools/verify_registry.py`
+correctly fails closed at 0/252 rather than claiming anything. `personality()`
+itself works (`setarch`/`linux32` exit 0), so the block is syscall-specific,
+not a missing compat layer. If a session shows this, do not work around it
+by weakening the oracle: bank verified-ready candidates and wait for an
+environment where the toolchain executes.
