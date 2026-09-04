@@ -76,6 +76,53 @@ class SafetyTests(unittest.TestCase):
             self.assertTrue(batch_match.should_attempt(Path(scratch) / "absent.c"))
 
 
+class HeaderTests(unittest.TestCase):
+    """A candidate must never claim verification it has not undergone.
+
+    run_m2c used to stamp every candidate "verified byte-exact" at
+    creation time, before the oracle ran. Failed and banked candidates
+    kept the claim: 513 promotion-pending files in staging/ asserted a
+    verification that never happened. The draft header now says
+    unverified; only stamp_verified (called after an oracle MATCH)
+    may assert verification."""
+
+    STUB = "import sys; sys.stdout.write('void f(void) {}\\n')\n"
+
+    def _run_m2c(self, scratch: Path) -> Path:
+        stub = scratch / "stub_m2c.py"
+        stub.write_text(self.STUB)
+        out = scratch / "func.c"
+        self.assertTrue(
+            batch_match.run_m2c(stub, scratch / "x.s", "func", out)
+        )
+        return out
+
+    def test_candidate_header_claims_no_verification(self) -> None:
+        with tempfile.TemporaryDirectory() as scratch:
+            out = self._run_m2c(Path(scratch))
+            text = out.read_text()
+            self.assertNotIn("verified byte-exact", text)
+            self.assertIn("NOT verified", text)
+
+    def test_stamp_verified_replaces_the_draft_header(self) -> None:
+        with tempfile.TemporaryDirectory() as scratch:
+            out = self._run_m2c(Path(scratch))
+            batch_match.stamp_verified(out, "x.s")
+            text = out.read_text()
+            self.assertIn("verified byte-exact", text)
+            self.assertNotIn("not verified", text)
+            self.assertIn("void f(void) {}", text)
+
+    def test_stamp_verified_prepends_when_no_draft_header(self) -> None:
+        with tempfile.TemporaryDirectory() as scratch:
+            bare = Path(scratch) / "bare.c"
+            bare.write_text("void f(void) {}\n")
+            batch_match.stamp_verified(bare, "x.s")
+            text = bare.read_text()
+            self.assertIn("verified byte-exact", text)
+            self.assertIn("void f(void) {}", text)
+
+
 class SourcePathTests(unittest.TestCase):
     def test_a_main_function_maps_to_its_address(self) -> None:
         path = batch_match.source_path(Path("/repo"), "main", 0x80012AB0)

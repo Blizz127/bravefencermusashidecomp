@@ -323,8 +323,27 @@ def _refine_extern_pointers(source: str) -> str:
     return source
 
 
+DRAFT_HEADER_TEMPLATE = (
+    "/* m2c draft from {asm}: NOT verified against retail. C89-gated only;\n"
+    " * promotion requires an oracle MATCH (tools/match_function.py). Types\n"
+    " * and signatures are whatever the decompiler guessed; they are not\n"
+    " * evidence of the original declaration. */\n"
+)
+
+VERIFIED_HEADER_TEMPLATE = (
+    "/* Decompiled by m2c from {asm}, then verified byte-exact\n"
+    " * against retail by tools/match_function.py. Types and signatures are\n"
+    " * whatever reproduces the bytes; they are not evidence of the\n"
+    " * original declaration. */\n"
+)
+
+
 def run_m2c(m2c: Path, asm: Path, function: str, output: Path) -> bool:
-    """Decompile one function. Every child gets a closed stdin and a timeout."""
+    """Decompile one function. Every child gets a closed stdin and a timeout.
+
+    The candidate is stamped as an unverified draft: the verified claim
+    is only ever added by stamp_verified, after the oracle MATCH.
+    """
 
     try:
         result = subprocess.run(
@@ -340,12 +359,28 @@ def run_m2c(m2c: Path, asm: Path, function: str, output: Path) -> bool:
         return False
     output.write_text(
         '#include "psx_types.h"\n\n'
-        f"/* Decompiled by m2c from {asm.name}, then verified byte-exact\n"
-        " * against retail by tools/match_function.py. Types and signatures are\n"
-        " * whatever reproduces the bytes; they are not evidence of the\n"
-        " * original declaration. */\n\n" + _sanitize(result.stdout)
+        + DRAFT_HEADER_TEMPLATE.format(asm=asm.name)
+        + "\n"
+        + _sanitize(result.stdout)
     )
     return True
+
+
+def stamp_verified(produced: Path, asm_name: str) -> None:
+    """Replace the draft header with the verified claim, in place.
+
+    Called only after the oracle MATCH for this exact file. A file
+    without the draft block (e.g. hand-provided) gets the verified
+    header prepended instead of a second copy.
+    """
+
+    draft = DRAFT_HEADER_TEMPLATE.format(asm=asm_name)
+    verified = VERIFIED_HEADER_TEMPLATE.format(asm=asm_name)
+    text = produced.read_text()
+    if draft in text:
+        produced.write_text(text.replace(draft, verified, 1))
+    else:
+        produced.write_text(verified + "\n" + text)
 
 
 def _quiet(fn, argv: list[str]) -> int:
@@ -402,6 +437,7 @@ def attempt(
     if _quiet(match_function.main, match_argv) != 0:
         return Outcome(function.name, "mismatch")
 
+    stamp_verified(produced, asm.name)
     promote(produced, target)
     return Outcome(function.name, "match")
 
