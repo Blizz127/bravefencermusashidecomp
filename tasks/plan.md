@@ -1,215 +1,159 @@
-# Plan (second)
+# Plan (third)
 
-Supersedes the first plan, whose implementation tasks (A0–C1) are all done.
+Supersedes the second plan. Its hygiene and decomp tasks (H0–H1, D1–D4) and P1
+are complete. **A1 and A2 are carried forward unchanged**, still pending.
 
 ## Context
 
-Sixteen commits in. Three functions match byte-exactly, one of them inside an
-overlay. The compiler is narrowed to three candidates (PSY-Q 3.5 / 4.0 / 4.1)
-on replicated evidence. The PC port links against PsyCross and reaches a real
-Psy-Q layer, proven headlessly.
+Twenty commits in. The compiler is resolved (GCC 2.7.2 / PSY-Q 4.0 / ASPSX
+2.56), 25 functions match byte-exactly, member 0012 of `MAIN.CD` is split with
+2431 functions labelled, and the PC port renders a quad through the Psy-Q layer
+verified headlessly in CI.
 
-Two decisions, made by the user, shape this plan:
+P2 renders a real model from the disc, walking a TMD onto `libgpu` primitives
+rather than adopting the GPL-3.0 `libgs`.
 
-- **Both tracks proceed in parallel.** Decomp depth and port rendering are
-  independent, and each has unblocked work.
-- **TMD rendering is built on `libgpu` primitives.** No permissively licensed
-  `libgs` exists; rather than adopt the GPL-3.0 one, the port walks TMDs
-  itself using `RotTransPers` and `addPrim`. More work; no license constraint.
+### The TMD format is already solved
 
-Facts established during planning that change what to build — several of
-them *correct* earlier assumptions:
+Planning derived and verified it, so P2 does not have to. **Offsets in the
+object table are relative to `base + 12`** — the start of the object table
+itself, not the file base and not the end of the header. That interpretation
+was found by noticing that a naive walk overshot `vert_top` by exactly 12 bytes
+on *two* independent models of very different sizes, which is systematic rather
+than noise.
 
-- **Member 0012 of `MAIN.CD` is the real code payload.** Of 49 members only
-  two are code. Member 0007 is 9.6 KB; member 0012 is **548 KB with ~1,865
-  stack-frame prologues**, more functions than the entire static executable.
-  The static `SLUS_007.26` split is the minority of the game.
-- **Its load address is `0x80100158`, and it is one segment.** The
-  call-target-to-prologue method used for member 0007 gives a clear winner
-  (102 sampled hits against 12 for the runner-up) but only 72% full
-  verification. That gap is explained, not ignored: the missed targets begin
-  with `lui`/`load`/`alu` — real first instructions of **frameless leaf
-  functions**, which produce no prologue. Prologue count is a floor. The 60
-  out-of-span targets cluster at `0x800C…`/`0x800D…`, exactly where member 0007
-  lives, so they are calls to the other overlay, not a second segment.
-- **The researched PAC chunk layout is wrong for this disc.** Neither
-  candidate length field walks from one chunk to the next. A PAC parser must
-  begin by reverse-engineering the format against the bytes, not by
-  implementing the research claim.
-- **Real TMD models exist at raw offsets in `SC01.CD`** — one with 92
-  primitives, one with 18. This decouples "render a model" from the PAC work
-  entirely.
-- **Headless rendering is proven, not assumed.** `xvfb-run` plus Mesa
-  llvmpipe yields a GL 4.6 core context on this machine, and PsyCross
-  publicly exports `GR_ReadVRAM`/`GR_SaveVRAM`. Rendering tasks can assert on
-  pixels in CI.
-- **The `libgs` gap is empirical.** The built archive exports zero `Gs*`
-  symbols against 399 Psy-Q functions.
+Four checks pass on both `0xA97000` (18 primitives) and `0x685800` (92):
+
+- `prim_top` lands exactly at the end of the object table;
+- walking `n_primitive` packets, each `4 + ilen*4` bytes, ends exactly at
+  `vert_top`;
+- the vertex block is `n_vert` eight-byte vectors ending exactly at
+  `normal_top`;
+- every packet's mode byte is a polygon.
+
+### The target model needs no textures
+
+`SC01.CD` at `0xA97000`: one object, 18 vertices, 16 normals, 18 primitives.
+Its mode bytes are **only** `0x30` (gouraud triangle, ×2) and `0x38` (gouraud
+quad, ×16). Nothing textured, nothing semi-transparent.
+
+So P2 needs `POLY_G3` and `POLY_G4` and no TIM loading at all. The other model
+at `0x685800` carries four textured quads (`0x3C`) and is deliberately *not*
+the target, keeping textures out of this slice.
+
+### One decision this forces
+
+`USE_PGXP` is currently off, because with it on `VERTTYPE` is a 16-bit half
+float in C++ and a `short` in C, so coordinates written from C are read as
+float16 denormals. P1 records that it stays off "until the port has real GTE
+transforms". P2 introduces exactly those.
+
+**It stays off.** Turning it on requires every `VERTTYPE` write in decomp C to
+go through PsyCross's `_HF()` macro, which is invasive and buys nothing until
+sub-pixel precision matters. P2 records the constraint rather than paying for
+it now.
 
 ## Dependency graph
 
 ```
-[H0] stray psycross.cmake ── user confirms delete ── independent
-[H1] 64-bit callback hazard guard ───────────────── independent
+[P2a] TMD parser (pure, tested) ──┐
+                                  ├──→ [P2c] render the model, verified headless
+[P2b] extract + pin the model ────┘
 
-Decomp track
-[D1] 0012 symbol discovery ──→ [D2] 0012 split + first match ──→ [D3] scale matching
-                                                                └─→ [D4] compiler separation (optional)
-
-Port track                                  Asset track
-[P1] first quad, headless-verified          [A1] PAC format reverse-engineered
-        │                                          │
-        └──→ [P2] TMD walker on libgpu      [A2] PAC parser ──→ (feeds P3 later)
-              (uses raw SC01.CD TMD;
-               does NOT depend on A1/A2)
+[A1] PAC format reverse-engineered ──→ [A2] PAC parser
 ```
 
-D, P and A are independent of one another. P2 deliberately sources its model
-from a raw `SC01.CD` offset so the port is not blocked behind PAC work.
+P2a and P2b are independent of each other. Phase A is independent of all of P2
+and unblocked; D1 already found its likely key, that the `u32` at `+12` of a
+PAC header points at the next chunk.
 
 ---
 
-## Hygiene
+## Phase P — Render a real model
 
-### H0. Resolve the stray `pc_port/psycross.cmake`
+### P2a. TMD parser
 
-A second PsyCross integration appeared mid-session, authored by something
-other than this work. It is wired into nothing and carries the case-sensitive
-glob bug that silently drops the whole Psy-Q layer. It should be deleted, but
-it is not ours to delete unasked.
+`tools/tmd.py`, pure and unit-tested against synthetic fixtures. Parse the
+header, the object table, and the primitive packets using the verified
+`base + 12` offset rule.
 
-*Acceptance:* file removed **after explicit confirmation**, and
-`git status` clean.
-*Verify:* `test ! -e pc_port/psycross.cmake && ./tools/run_tests.sh`.
-
-### H1. Guard the 64-bit callback truncation
-
-`LIBETC.C` returns a callback pointer as an `int`; on x86-64 that truncates.
-The build downgrades the error, but any decomp code that stores and re-installs
-the value from `ResetCallback`/`VSyncCallback` would silently corrupt a
-pointer. Without patching the vendored tree, add a compile-time or link-time
-guard that fails if those two symbols are referenced from decomp-owned C.
-
-*Acceptance:* referencing either from `src/` or `pc_port/` fails the build
-with a message naming the hazard; the smoke target is unaffected.
-*Verify:* a temporary reference fails; removing it restores green.
-
----
-
-## Phase D — Decomp depth
-
-### D1. Symbol discovery for member 0012
-
-splat labels only what it can infer without symbols; on member 0007 that was
-2 of 19 functions. Generate `config/symbol_addrs.main_0012.txt` from two
-sources, in splat's `name = 0xADDR; // type:func` syntax:
-
-1. every stack-frame prologue offset;
-2. every in-span `jal` target — this is what catches frameless leaf
-   functions, which have no prologue and are otherwise invisible.
-
-Reuse `identify_compiler.parse_disassembly` and the `jal`-decoding logic
-already used in planning. Pure generation logic gets unit tests with a
-synthetic member; the real run is verification.
+Fail closed in the style of `extract_cd.py`. A misparsed model does not error,
+it produces plausible garbage geometry.
 
 *Acceptance:*
-- unit-tested generator, including refusal on an entry outside the member;
-- a `splat` config `config/overlay_main_0012.yaml` at base `0x80100158`
-  (evidence recorded in the file as for member 0007) splits **100%** of the
-  member and labels **≥ 2,000** functions.
-*Verify:* `python3 -m splat split config/overlay_main_0012.yaml` reports 100%;
-`grep -c ^glabel asm/overlays/main_0012/main_0012.s`.
+- refuses a wrong `id`, an object table running past end of file, a primitive
+  walk that does not end exactly at `vert_top`, a non-polygon mode byte, and a
+  vertex block that does not end at `normal_top`;
+- parses the real model at `0xA97000` into 18 vertices, 16 normals and 18
+  primitives classified as 2 gouraud triangles and 16 gouraud quads;
+- reports vertex indices and per-vertex colours per primitive.
 
-### D2. First byte-exact match inside member 0012
+*Verify:* `python3 -m pytest tests/test_tmd.py -q`, then run it against the
+real model and check the counts above.
 
-Pick a small, relocation-light function, decompile with m2c, match through the
-oracle in blob mode against the hash-pinned member. This proves the 0012 path
-end to end; the load address is confirmed by a function matching at all.
+### P2b. Extract and pin the model
 
-*Acceptance:* one function in 0012 reports `MATCH`, with `--link-base` set to
-the function's address.
-*Verify:* the `build_candidate`/`match_function` pair as in `docs/OVERLAYS.md`.
+The renderer must not read `SC01.CD` directly; retail data is addressed by hash
+everywhere else in this project and models should be no different. Add a mode
+to extract a TMD by offset into an ignored directory, recording size and
+SHA-256, exactly as `extract_cd.py` does for archive members.
 
-### D3. Scale matching
+*Acceptance:* the model at `0xA97000` extracts to a standalone file with its
+digest recorded; the output is untracked; extracting a range that is not a TMD
+is refused.
 
-With ~2,000 functions labelled, match in volume. Track progress honestly per
-the rr-decomp lesson recorded in `docs/MATCHING.md`: count **functions in real
-C**, never `objdiff` percentage or `__asm__` transcription. Add a
-`tools/progress.py` that reports matched-function count and bytes, with tests.
+*Verify:* the tool's own output, plus `git status` staying clean.
 
-*Acceptance:* ≥ 25 functions matched across the executable and both overlays;
-`progress.py` output recorded in `docs/MATCHING.md`.
-*Verify:* `python3 tools/progress.py`; every listed function re-verifies
-through the oracle.
+### P2c. Render the model, verified headless
 
-### D4. Separate the last three compiler candidates (optional)
+Extend the port with a TMD walker over `libgpu`: `InitGeom`, `SetGeomOffset`,
+`SetGeomScreen`, a rotation and translation via `SetRotMatrix`/`SetTransMatrix`,
+`RotTransPers` per vertex, then `POLY_G3`/`POLY_G4` emitted with `addPrim` into
+the ordering table and drawn with `DrawOTag`.
 
-Only if D3 surfaces a verified match on which the three survivors *disagree*
-— `discriminate.py` will show it. Do not go hunting; the answer arrives free
-as matching proceeds. If it never does, record that PSY-Q 3.5/4.0/4.1 are
-indistinguishable on this codebase and move on.
+Reuse what P1 established: the ordering table is `OT_TAG[]`, `ClearOTagR` chains
+backwards so the head is `ot[n-1]`, and verification reads framebuffer 0 with
+`glReadPixels` before `PsyX_EndScene`.
 
-### ✅ Checkpoint D — review before scaling further
+Verification asserts the model is actually on screen, not merely that the
+program exited: a sample inside the projected model differs from the clear
+colour, and a corner sample still holds the clear colour. Judging stays in
+`tools/vram_pixel.py` so it remains unit-tested.
 
----
+*Acceptance:* a new ctest target passes headless under `xvfb-run`, skipping
+loudly where no virtual display exists; `--screenshot` produces a viewable
+frame; the existing `render_quad` test and all decomp matches still pass.
 
-## Phase P — Port rendering
+*Verify:* `./tools/run_tests.sh`, then
+`xvfb-run -a ctest --test-dir build -R render_tmd`.
 
-### P1. One flat-shaded quad, verified headless
-
-Decomp-owned C initialises PsyCross, submits a `POLY_F4` via `setPolyF4`,
-`setRGB0`, `setXY4`, `addPrim` into an ordering table, draws with `DrawOTag`
-and syncs. Verification reads the framebuffer back with `GR_ReadVRAM` and
-asserts the quad's colour at a covered pixel and the clear colour outside it.
-
-Runs under `xvfb-run` with `LIBGL_ALWAYS_SOFTWARE=1`, so it is a real CI test,
-not a screenshot someone has to look at. Add it as a `ctest` target separate
-from the smoke test; the smoke test must stay display-free.
-
-*Acceptance:* new `ctest` target passes headless; `run_tests.sh` runs it when
-`xvfb-run` is present and skips loudly when not.
-*Verify:* `xvfb-run -a ctest --test-dir build -R render_quad`.
-
-### P2. Render one TMD model through `libgpu` primitives
-
-The `libgs`-free path chosen by the user. Write a TMD walker that reads the
-header (`FIXP` flag, object table), transforms vertices with `SetRotMatrix`,
-`SetTransMatrix`, `RotTransPers`, and emits `POLY_F3`/`POLY_F4` primitives via
-`addPrim`. Source the model from the **18-primitive TMD at `SC01.CD` offset
-`0xA97000`** — a raw, verified header — so this does not wait on PAC work.
-
-The TMD parser is pure and unit-tested against a synthetic TMD (header,
-object table, one flat triangle). Rendering is verified headless as in P1 by
-asserting that the model's covered pixels differ from the clear colour.
-
-*Acceptance:* unit-tested parser refuses a bad `id`, an object table past EOF,
-and a primitive count that disagrees with the data; the 18-primitive model
-renders headlessly with ≥ 1 non-clear pixel in the expected region.
-*Verify:* `xvfb-run -a ctest --test-dir build -R render_tmd`.
-
-### ✅ Checkpoint P — the port path is proven; decide how far to take it
+### ✅ Checkpoint P — a real asset renders; decide how much further the port goes
 
 ---
 
-## Phase A — Assets
+## Phase A — Assets (carried forward unchanged)
 
 ### A1. Reverse-engineer the PAC chunk format
 
-The research claim does not match the bytes. Establish the real layout by
-walking `SC01.CD`: for each `PAC\0` header, find the field that advances to
-the next header with no gaps and no overlaps across all 199 chunks. Record the
-type byte values observed and what each seems to contain.
+The researched layout does not match the bytes: neither candidate length field
+walks from one chunk to the next across `SC01.CD`'s 199 chunks. Establish the
+real layout by walking the archive and finding the field that advances with no
+gaps and no overlaps.
 
-*Acceptance:* a documented layout under which a walk covers **100%** of the
-archive's PAC region with zero gaps or overlaps; the observed type set
+D1 supplies the likely key. In `MAIN.CD` member 0012 the `u32` at `+12` of the
+first PAC header holds `0x27800`, which is exactly where the second header
+sits.
+
+*Acceptance:* a documented layout under which a walk covers 100% of the
+archive's PAC region with zero gaps or overlaps, and the observed type-byte set
 recorded in `docs/ASSETS.md`.
 *Verify:* the walk script's coverage report.
 
 ### A2. PAC parser
 
-Implement the layout from A1 as `tools/extract_pac.py`, fail-closed in the
-style of `extract_cd.py`: refuse a truncated header, a chunk past EOF, and a
-walk that does not reach the archive end.
+`tools/extract_pac.py`, fail-closed like `extract_cd.py`: refuse a truncated
+header, a chunk past end of file, and a walk that does not reach the archive
+end.
 
 *Acceptance:* unit-tested with synthetic fixtures; extracts every chunk from
 `SC01.CD` with per-chunk size and SHA-256; output untracked.
@@ -223,11 +167,12 @@ walk that does not reach the archive end.
 
 - RED before GREEN on every task; one commit per task; stage only that task's
   files.
-- Pure logic gets unit tests; subprocess glue stays thin; every child process
-  gets `stdin=DEVNULL` and a timeout.
-- Load addresses and formats are **observed from bytes**, never copied from
-  external notes — two of those notes were wrong during this planning pass.
-- Retail-derived data — disassembly, extracted members, chunks, models — stays
+- Pure logic gets unit tests; subprocess and GL glue stays thin; every child
+  process gets `stdin=DEVNULL` and a timeout.
+- Formats and addresses are **observed from bytes**, never taken from external
+  notes. Three notes have now been wrong: the PAC layout, an overlay load
+  address, and the TMD offset base.
+- Retail-derived data — disassembly, extracted members, models, chunks — stays
   untracked.
-- A build is not a match; a match is not a compiler identification; matched
-  progress is counted in functions of real C.
+- A build is not a match; a match is not a compiler identification; a program
+  that exits cleanly has not necessarily drawn anything.

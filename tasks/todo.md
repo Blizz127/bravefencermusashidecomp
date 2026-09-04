@@ -1,76 +1,39 @@
-# Todo (second plan)
+# Todo (third plan)
 
 Detail, acceptance criteria and verification are in [plan.md](plan.md).
 Check an item off only once the full suite and `./tools/run_tests.sh` pass and
 the task is committed.
 
-## Hygiene
+## Phase P — Render a real model
 
-- [x] **H0** Deleted the stray `pc_port/psycross.cmake` (confirmed by the user);
-      nothing referenced it and the build is unaffected
-- [x] **H1** Build-time guard against `ResetCallback`/`VSyncCallback` references
-      from decomp code (64-bit pointer truncation in `LIBETC.C`); proven to fire
-      by introducing a reference, then restored
-
-## Phase D — Decomp depth
-
-- [x] **D1** Symbol discovery for `MAIN.CD` member 0012
-  - [x] generator from prologues **and** in-span `jal` targets, unit-tested
-        (17 tests); 2215 starts found, 350 of them frameless leaves invisible
-        to prologue scanning
-  - [x] **correction: the member is a PAC container, not raw.** splat
-        disassembling it as data exposed it. Data chunk at `0x0`, code chunk at
-        `0x28000` loading at `0x80128158`; discovery is region-restricted
-  - [x] `config/overlay_main_0012.yaml` with the container structure recorded
-  - [x] whole member accounted for (`unknown: 0 B`; the 70.15% figure is the
-        code chunk's share, not a gap) and **2431 functions labelled**
-- [x] **D2** First byte-exact match inside member 0012 (`func_8012BF4C`, 2/2)
-  - [x] fixed a silent-wrong-bytes bug it exposed: the linked image starts at
-        `.text`'s real address, not the requested base, since `ld` rounds up to
-        the section alignment
-- [x] **D3** 25 functions matched, all re-verified through the oracle;
-      `tools/progress.py` counts functions in real C, never match percentage
-  - [x] **the bar was met thinly**: 22 of 25 are two-instruction stubs, 308
-        bytes total. progress.py now splits trivial from substantive so the
-        headline cannot flatter
-  - [x] batch matching destroyed a committed source by overwriting then deleting
-        it on failure; caught only by re-verification, and recorded
-- [x] **D4** **Compiler resolved: gcc-2.7.2-psx / PSY-Q 4.0 / ASPSX 2.56.**
-      `func_800CF3B0`, a verified-correct source, is reproduced by exactly one
-      candidate of six (22/22; closest rivals 19/22). The answer arrived from a
-      function already matched, as predicted — no hunting required
-  - [x] `discriminate.py` extended to overlay blobs, which is what made the
-        decisive function reachable
-
-- [ ] **⏸ Checkpoint D**
-
-## Phase P — Port rendering
-
-- [x] **P1** One `POLY_F4` quad, verified headless — red inside, blue outside,
-      under `xvfb-run` + llvmpipe; ctest `render_quad`, skipped (not passed)
-      where no virtual display exists; smoke test stays display-free
-  - [x] root cause: `USE_EXTENDED_PRIM_POINTERS` is a consumer-side define, and
-        `USE_PGXP` defaults on with it, turning vertex shorts into float16
-        denormals — degenerate triangles, no error. Both now set PUBLIC
-  - [x] `GR_ReadVRAM` can never see a render (`update_vram=0`); framebuffer 0
-        is read via `glReadPixels` before `EndScene`
-  - [x] corrected two earlier wrong conclusions in `docs/PC-PORT.md`: the
-        "decisive" black `GR_SaveVRAM` capture was meaningless, and the
-        ordering-table walk was never broken — one fault, not two
-  - [x] ordering table must be `OT_TAG[]`; `ClearOTagR` chains `ot[i]->ot[i-1]`
-  - [x] `tools/vram_pixel.py` (16 tests) + `tools/render_check.py`
-
-- [ ] **P2** TMD walker on `libgpu` primitives (`RotTransPers` + `addPrim`),
-      unit-tested parser, renders the 18-primitive model at `SC01.CD`
-      `0xA97000` headlessly — does **not** wait on PAC work
+- [ ] **P2a** `tools/tmd.py` — TMD parser, pure and unit-tested
+  - [ ] offsets resolve relative to `base + 12`, the object table start
+        (derived and verified during planning on two models)
+  - [ ] refusals: wrong `id`, object table past EOF, primitive walk not ending
+        exactly at `vert_top`, non-polygon mode byte, vertex block not ending
+        at `normal_top`
+  - [ ] parses the real model at `SC01.CD` `0xA97000` into 18 vertices,
+        16 normals, 18 primitives — 2 gouraud triangles, 16 gouraud quads
+- [ ] **P2b** Extract and pin the model to a standalone file, size + SHA-256
+      recorded, output untracked; a range that is not a TMD is refused
+- [ ] **P2c** Render it: `RotTransPers` per vertex, `POLY_G3`/`POLY_G4` via
+      `addPrim`, `DrawOTag`; verified headless
+  - [ ] a sample inside the projected model differs from the clear colour, and
+        a corner still holds the clear colour — proves it drew, not just exited
+  - [ ] new ctest target; skips loudly without `xvfb-run`; `--screenshot` works
+  - [ ] `render_quad` and all decomp matches still pass
+  - [ ] **`USE_PGXP` stays off** — turning it on needs `_HF()` on every
+        `VERTTYPE` write in C, and buys nothing until sub-pixel precision does
 
 - [ ] **⏸ Checkpoint P**
 
-## Phase A — Assets
+## Phase A — Assets (carried forward from the second plan, unchanged)
 
-- [ ] **A1** Reverse-engineer the PAC chunk layout from `SC01.CD` — research
-      claim is wrong; acceptance is a gap-free, overlap-free walk of all 199
-      chunks, recorded in `docs/ASSETS.md`
+- [ ] **A1** Reverse-engineer the PAC chunk layout from `SC01.CD` — the
+      researched claim is wrong; acceptance is a gap-free, overlap-free walk of
+      all 199 chunks, recorded in `docs/ASSETS.md`
+  - [ ] likely key from D1: the `u32` at `+12` of a PAC header points at the
+        next chunk
 - [ ] **A2** `tools/extract_pac.py`, fail-closed, unit-tested, output untracked
 
 - [ ] **⏸ Checkpoint A** — decide on LZSS if type-4 chunks require it
@@ -79,6 +42,8 @@ the task is committed.
 
 - [ ] RED before GREEN; one commit per task; stage only that task's files
 - [ ] every child process gets `stdin=DEVNULL` and a timeout
-- [ ] addresses and formats observed from bytes, never copied from notes
+- [ ] formats and addresses observed from bytes, never taken from notes —
+      three notes have now been wrong (PAC layout, an overlay base, TMD offsets)
 - [ ] retail-derived data stays untracked
-- [ ] a build is not a match; a match is not a compiler identification
+- [ ] a build is not a match; a match is not a compiler identification; a clean
+      exit is not a rendered frame
