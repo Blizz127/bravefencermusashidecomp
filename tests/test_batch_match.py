@@ -139,6 +139,36 @@ class SanitizeTests(unittest.TestCase):
         out = batch_match._sanitize("void func_80010938(void) {\n    func_80042610(0);\n}\n")
         self.assertIn("func_80042610(0)", out)
 
+    def test_unknown_function_pointer_local_becomes_s32(self) -> None:
+        """The 65-128 bucket failure: m2c emits `? (*name)()` locals for
+        callbacks (e.g. func_800100A0's ctor-loop `? (*temp_t0)();`), which
+        no existing rule matches, so cpp fails on every such function."""
+
+        out = batch_match._sanitize(
+            "void func_800100A0(void) {\n    ? (*temp_t0)();\n    temp_t0();\n}\n"
+        )
+        self.assertIn("s32 (*temp_t0)();", out)
+        self.assertNotIn("? (*temp_t0)()", out)
+
+    def test_unknown_extern_data_declaration_becomes_s32(self) -> None:
+        """`extern ? D_*;` is the same register-width-unknown data case as
+        `? name;` locals, just spelled as an extern declaration."""
+
+        out = batch_match._sanitize("extern ? D_800AF630;\nvoid f(void) {\n}\n")
+        self.assertIn("extern s32 D_800AF630;", out)
+        self.assertNotIn("extern ? ", out)
+
+    def test_bare_unknown_parameter_becomes_s32(self) -> None:
+        """A lone `?` parameter is an unknown word-sized argument, not the
+        C89 unchecked-args `(?)` form, which keeps its own empty-parens
+        mapping."""
+
+        out = batch_match._sanitize(
+            "void func_8002D4C8(?, ?);\nvoid f(void) {\n}\n"
+        )
+        self.assertIn("void func_8002D4C8(s32, s32);", out)
+        self.assertNotIn("(?,", out)
+
 
 class RegisterTests(unittest.TestCase):
     """A kill mid-sweep must not orphan a promoted match from the registry.

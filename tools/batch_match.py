@@ -147,6 +147,9 @@ PROTO_RE = re.compile(r"^\?\s+(\w+)\((.*)\);(.*)$", re.MULTILINE)
 LOCAL_VAR_RE = re.compile(r"^([ \t]+)\?\s+(\w+);\s*$", re.MULTILINE)
 UNKNOWN_POINTER_RE = re.compile(r"\?\s*\*")
 UNKNOWN_ARGS_RE = re.compile(r"\(\?\)")
+FUNCPTR_RE = re.compile(r"\?\s*\(\*(\w+)\)\s*\([^;()]*\)")
+EXTERN_UNKNOWN_RE = re.compile(r"^(\s*extern\s+)\?\s+(\w+\s*;)", re.MULTILINE)
+BARE_PARAM_RE = re.compile(r"([(,]\s*)\?(?=\s*[,)])")
 CALL_RE = re.compile(r"\b(\w+)\(")
 
 
@@ -155,7 +158,7 @@ def _sanitize(source: str) -> str:
 
     m2c cannot see a symbol defined outside the functions it was asked to
     decompile, so it marks its type `?`, which is not valid C. `?` shows up in
-    three shapes here, and they need different fixes:
+    six shapes here, and they need different fixes:
 
     * A top-level `? NAME(...)` declaration is m2c's guess that the symbol is
       a function. That guess is wrong for a symbol that is only ever assigned
@@ -171,6 +174,14 @@ def _sanitize(source: str) -> str:
       still passes whatever registers the assembly loaded.
     * A local `? name;` with no further type information becomes `s32 name;`,
       for the same register-sized-default reason as the data case above.
+    * A function-pointer `? (*name)(...)` — local or parameter — becomes
+      `s32 (*name)()`. The return type is unknowable and the call sequence
+      is identical either way when the caller ignores `$v0`, while `s32`
+      also compiles when the value is used. This runs before the `? *`
+      rule, which would otherwise match the `? *` prefix and leave garbage.
+    * `extern ? NAME;` becomes `extern s32 NAME;`, the same default as above.
+    * A bare `?` parameter becomes `s32`. This runs after `(?)` → `()`
+      so the C89 unchecked-args form keeps its empty-parens mapping.
     """
 
     # Called-ness is decided from the body only: the `?` declaration itself
@@ -181,14 +192,18 @@ def _sanitize(source: str) -> str:
     def proto(match: "re.Match[str]") -> str:
         name, params, trailing = match.group(1), match.group(2), match.group(3)
         if name in called:
+            params = FUNCPTR_RE.sub(r"s32 (*\1)()", params)
             params = UNKNOWN_POINTER_RE.sub("void *", params)
             return f"void {name}({params});{trailing}"
         return f"extern s32 {name};"
 
+    source = FUNCPTR_RE.sub(r"s32 (*\1)()", source)
     source = PROTO_RE.sub(proto, source)
     source = LOCAL_VAR_RE.sub(lambda m: f"{m.group(1)}s32 {m.group(2)};", source)
     source = UNKNOWN_ARGS_RE.sub("()", source)
     source = UNKNOWN_POINTER_RE.sub("void *", source)
+    source = EXTERN_UNKNOWN_RE.sub(r"\1s32 \2", source)
+    source = BARE_PARAM_RE.sub(r"\1s32", source)
     return source
 
 
