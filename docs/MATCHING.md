@@ -77,6 +77,22 @@ MATCHED 25 functions, 308 bytes
 
 308 bytes against roughly 800KB of code is the honest picture.
 
+## Regenerating the disassembly
+
+`asm/` is retail-derived and untracked, and it has been found empty once
+already. It comes back with:
+
+```sh
+python3 -m splat split config/slus_007.26.yaml
+python3 -m splat split config/overlay_main_0007.yaml
+python3 -m splat split config/overlay_main_0012.yaml
+python3 tools/verify_registry.py
+```
+
+The last line rebuilds every registry entry and puts it through the oracle
+again. The registry is a claim, not a record, and after anything touches the
+tree it is re-earned rather than remembered.
+
 ## A destructive automation bug, caught only by re-verification
 
 Batch-matching wrote each candidate's source, then deleted it when the build or
