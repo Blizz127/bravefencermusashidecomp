@@ -6,14 +6,15 @@ the task is committed.
 
 ## Phase P — Render a real model
 
-- [ ] **P2a** `tools/tmd.py` — TMD parser, pure and unit-tested
-  - [ ] offsets resolve relative to `base + 12`, the object table start
-        (derived and verified during planning on two models)
-  - [ ] refusals: wrong `id`, object table past EOF, primitive walk not ending
-        exactly at `vert_top`, non-polygon mode byte, vertex block not ending
-        at `normal_top`
-  - [ ] parses the real model at `SC01.CD` `0xA97000` into 18 vertices,
-        16 normals, 18 primitives — 2 gouraud triangles, 16 gouraud quads
+- [x] **P2a** `tools/tmd.py` — TMD parser, pure and unit-tested (14 tests)
+  - [x] offsets resolve relative to `base + 12`, the object table start
+  - [x] refusals: wrong `id`, object table past EOF, primitive walk not ending
+        exactly at `vert_top`, non-polygon mode, vertex block not ending at
+        `normal_top`, out-of-range indices, and the two payload variants it
+        does not read (textured, and `flag & 0x04` per-vertex colour)
+  - [x] parses `SC01.CD` `0xA97000` into 18 vertices, 16 normals, 18
+        primitives — 2 gouraud triangles, 16 gouraud quads; bounds
+        x[-5,5] y[-10,0] z[-5,5]
 - [ ] **P2b** Extract and pin the model to a standalone file, size + SHA-256
       recorded, output untracked; a range that is not a TMD is refused
 - [ ] **P2c** Render it: `RotTransPers` per vertex, `POLY_G3`/`POLY_G4` via
