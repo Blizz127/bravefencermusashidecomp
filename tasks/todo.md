@@ -8,8 +8,9 @@ the task is committed.
 
 - [x] **H0** Deleted the stray `pc_port/psycross.cmake` (confirmed by the user);
       nothing referenced it and the build is unaffected
-- [ ] **H1** Build-time guard against using `ResetCallback`/`VSyncCallback`
-      return values from decomp code (64-bit pointer truncation in `LIBETC.C`)
+- [x] **H1** Build-time guard against `ResetCallback`/`VSyncCallback` references
+      from decomp code (64-bit pointer truncation in `LIBETC.C`); proven to fire
+      by introducing a reference, then restored
 
 ## Phase D — Decomp depth
 

@@ -19,4 +19,11 @@ cmake -S . -B "$test_root/build" -DMUSASHI_BUILD_PC_PORT=ON \
     ${prefix:+-DCMAKE_PREFIX_PATH="$prefix"}
 cmake --build "$test_root/build"
 ctest --test-dir "$test_root/build" --output-on-failure
+
+# Decomp-owned objects must not reference a Psy-Q callback whose return value
+# truncates on 64-bit. PsyCross itself legitimately defines these, so only our
+# archives are checked.
+python3 tools/check_port_symbols.py \
+    "$test_root/build/libmusashi_pc_port.a" \
+    "$test_root/build/libmusashi_shared.a"
 "$test_root/build/musashi_pc_smoke"
