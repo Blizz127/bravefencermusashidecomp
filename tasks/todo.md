@@ -14,11 +14,16 @@ the task is committed.
 
 ## Phase D — Decomp depth
 
-- [ ] **D1** Symbol discovery for `MAIN.CD` member 0012
-  - [ ] generator from prologues **and** in-span `jal` targets (frameless
-        leaves have no prologue), unit-tested
-  - [ ] `config/overlay_main_0012.yaml` at base `0x80100158`, evidence recorded
-  - [ ] splat splits 100% and labels ≥ 2,000 functions
+- [x] **D1** Symbol discovery for `MAIN.CD` member 0012
+  - [x] generator from prologues **and** in-span `jal` targets, unit-tested
+        (17 tests); 2215 starts found, 350 of them frameless leaves invisible
+        to prologue scanning
+  - [x] **correction: the member is a PAC container, not raw.** splat
+        disassembling it as data exposed it. Data chunk at `0x0`, code chunk at
+        `0x28000` loading at `0x80128158`; discovery is region-restricted
+  - [x] `config/overlay_main_0012.yaml` with the container structure recorded
+  - [x] whole member accounted for (`unknown: 0 B`; the 70.15% figure is the
+        code chunk's share, not a gap) and **2431 functions labelled**
 - [ ] **D2** First byte-exact match inside member 0012 (proves the path)
 - [ ] **D3** Scale matching to ≥ 25 functions; `tools/progress.py` counts
       functions in real C, never match percentage
