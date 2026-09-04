@@ -152,6 +152,7 @@ FUNCPTR_DEF_RE = re.compile(r"^(\s*)\?\s*\(\*(\w+)\(([^;()]*)\)\)\(\)\s*\{", re.
 FUNCPTR_PROTO_RE = re.compile(r"\?(\s*\(\*\w+\([^;()]*\)\)\([^;()]*\)\s*;)")
 NAMED_PARAM_RE = re.compile(r"([(,]\s*)\?(\s+\w+)")
 NULL_MACRO_RE = re.compile(r"\bNULL\b")
+EXTERN_S32_RE = re.compile(r"^(\s*)extern s32 (\w+);", re.MULTILINE)
 EXTERN_UNKNOWN_RE = re.compile(r"^(\s*extern\s+)\?\s+(\w+\s*;)", re.MULTILINE)
 BARE_PARAM_RE = re.compile(r"([(,]\s*)\?(?=\s*[,)])")
 CALL_RE = re.compile(r"\b(\w+)\(")
@@ -223,6 +224,45 @@ def _sanitize(source: str) -> str:
     # m2c spells the zero address NULL, but -nostdinc leaves it undefined.
     # A plain 0 generates identical code wherever a null pointer fits.
     source = NULL_MACRO_RE.sub("0", source)
+    return _refine_extern_pointers(source)
+
+
+def _refine_extern_pointers(source: str) -> str:
+    """Narrow `extern s32` to a pointer when every use demands it.
+
+    A symbol m2c only ever dereferences (`*D = v`) holds an address, so
+    `extern s32` cannot compile and `extern s32 *D` is forced. One called
+    through (`(*D)(x)`) is a callback and needs `extern s32 (*D)()`.
+    A symbol with any plain value-use (`D = v`, `f(D)`) keeps s32: mixed
+    uses are contradictory without layout knowledge and stay loud for
+    hand work. Comments are ignored so `/* static */` cannot vote.
+    """
+
+    found = EXTERN_S32_RE.findall(source)
+    if not found:
+        return source
+    scrubbed = re.sub(r"/\*.*?\*/", "", source, flags=re.S)
+    nodecl = EXTERN_S32_RE.sub("", scrubbed)
+    for _indent, name in found:
+        called_through = (
+            re.search(r"\(\*\s*" + name + r"\s*\)\s*\(", nodecl) is not None
+        )
+        stripped = re.sub(r"\*\s*" + name + r"\b", "", nodecl)
+        stripped = re.sub(r"\b" + name + r"\s*\[", "", stripped)
+        stripped = re.sub(r"&\s*" + name + r"\b", "", stripped)
+        value_use = re.search(r"\b" + name + r"\b", stripped) is not None
+        if called_through:
+            replacement = f"extern s32 (*{name})();"
+        elif stripped != nodecl and not value_use:
+            replacement = f"extern s32 *{name};"
+        else:
+            continue
+        source = re.sub(
+            r"^(\s*)extern s32 " + name + r";",
+            lambda match: match.group(1) + replacement,
+            source,
+            flags=re.M,
+        )
     return source
 
 

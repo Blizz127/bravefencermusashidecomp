@@ -215,6 +215,37 @@ class SanitizeTests(unittest.TestCase):
         self.assertIn("return 0;", out)
         self.assertNotIn("NULL", out)
 
+    def test_deref_only_extern_data_becomes_pointer(self) -> None:
+        """`*D = v` with no value-use means D holds an address
+        (func_80042C90's `*D_8006CBBC = 0x107`). Declaring the pointer
+        compiles; the s32 guess cannot dereference."""
+
+        out = batch_match._sanitize(
+            "extern s32 D_8006CBBC;\nvoid f(void) {\n    *D_8006CBBC = 0x107;\n}\n"
+        )
+        self.assertIn("extern s32 *D_8006CBBC;", out)
+
+    def test_mixed_deref_and_assign_stays_s32(self) -> None:
+        """`*D` plus a plain `D = v` is contradictory — no declaration
+        satisfies both without knowing the layout. Leave it failing
+        loudly for hand work rather than guess."""
+
+        out = batch_match._sanitize(
+            "extern s32 D;\nvoid f(void) {\n    D = 1;\n    *D = 2;\n}\n"
+        )
+        self.assertIn("extern s32 D;", out)
+        self.assertNotIn("s32 *D;", out)
+
+    def test_called_through_extern_becomes_function_pointer(self) -> None:
+        """`(*D)(x)` calls through D, so D is a callback, not data.
+        `s32 *D` would not compile there; `s32 (*D)()` does, with the
+        same jalr sequence either way."""
+
+        out = batch_match._sanitize(
+            "extern s32 D;\nvoid f(void) {\n    (*D)(1);\n}\n"
+        )
+        self.assertIn("extern s32 (*D)();", out)
+
     def test_bare_unknown_parameter_becomes_s32(self) -> None:
         """A lone `?` parameter is an unknown word-sized argument, not the
         C89 unchecked-args `(?)` form, which keeps its own empty-parens
