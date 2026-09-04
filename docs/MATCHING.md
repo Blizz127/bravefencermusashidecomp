@@ -530,6 +530,28 @@ temporaries (stack-passed varargs need real signatures),
 `saved_reg_*`, `unaligned` accesses, and `M2C_ERROR` markers, all hand
 work by the same reasoning.
 
+## Batch triage, continued: the <=64 buckets and the durable bank
+
+The same pipeline later swept both <=64 buckets: main <=64 yielded ~70%
+C89-clean, main_0012 <=64 ~46-59% (later slices cleaner than earlier
+ones). One new sanitizer rule came out of it, RED-tested in
+`SanitizeTests`: m2c prints `Warning: ...` diagnostics (e.g. `missing "jr
+$ra" in last block`) to stdout, so the harness captures them as candidate
+body — `_sanitize` now drops those lines, recovering ~13% of the 0012
+small bucket alone.
+
+Two operational lessons, both now structural:
+
+- The durable bank is `staging/candidates/` (gitignored, local-only),
+  plus `staging/pend_*.txt`. An earlier `/tmp`-only bank of ~1500 files
+  partly evaporated mid-session — `/tmp` here is shared with at least one
+  other active agent and files vanish. Gate passes into `staging/`
+  promptly; treat `/tmp` as scratch. `docs/RECOVERY.md` holds the regen
+  one-liners and the oracle probe.
+- Coverage honesty: "attempted" means a gated pass exists in
+  `staging/candidates/` under the function's name. Raw m2c outputs in
+  `/tmp` are not coverage — they evaporate and were never gated.
+
 ## Environment watch: 32-bit toolchain execution
 
 The vendored Psy-Q compilers are 32-bit statically linked i386 binaries.
