@@ -2,6 +2,10 @@
 
 #include "musashi_port.h"
 
+#if MUSASHI_WITH_PSYCROSS
+#include "musashi_psyq.h"
+#endif
+
 int main(void) {
     static const mus_u8 probe[4] = {0x12, 0x34, 0x56, 0x78};
     MusashiRuntimeState state;
@@ -16,6 +20,18 @@ int main(void) {
         fputs("musashi_pc_smoke: little-endian probe failed\n", stderr);
         return 1;
     }
+
+#if MUSASHI_WITH_PSYCROSS
+    {
+        MusashiPsyqProbe psyq;
+        if (!musashi_psyq_probe(&psyq)) {
+            fputs("musashi_pc_smoke: Psy-Q fixed-point probe failed\n", stderr);
+            return 1;
+        }
+        printf("musashi_pc_smoke: psyq rcos(0)=%d rsin(0)=%d rcos(1/4)=%d rsin(1/4)=%d\n",
+               psyq.cos_zero, psyq.sin_zero, psyq.cos_quarter, psyq.sin_quarter);
+    }
+#endif
 
     printf("musashi_pc_smoke: platform=%s frame=%u pad=%u le32=0x%08x\n",
            musashi_port_platform_name(),

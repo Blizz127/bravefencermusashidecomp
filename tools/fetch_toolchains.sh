@@ -29,6 +29,15 @@ M2C_REPO="https://github.com/matt-kempster/m2c.git"
 M2C_COMMIT="a73bfba20a00db8a546ec84d6ebec76063ebcf60"
 M2C_DIR="tools/m2c"
 
+# PsyCross (MIT) reimplements the Psy-Q libraries on SDL2/OpenAL/OpenGL and is
+# what the port links against. Pinned so the shim under the port cannot drift.
+# Its own CMakeLists.txt is not used; the integration lives in CMakeLists.txt.
+# Needs SDL2 and OpenAL-soft, e.g. from Homebrew:
+#   brew install sdl2 openal-soft
+PSYCROSS_REPO="https://github.com/OpenDriver2/PsyCross.git"
+PSYCROSS_COMMIT="e56e4cde1c2b8a15e0d4e38b26cdd9202e0d17e6"
+PSYCROSS_DIR="tools/third_party/psycross"
+
 mkdir -p "$DEST"
 
 fetch_pinned() {
@@ -47,6 +56,8 @@ fetch_pinned() {
 
 fetch_pinned "$MASPSX_DIR" "$MASPSX_REPO" "$MASPSX_COMMIT" maspsx.py
 fetch_pinned "$M2C_DIR" "$M2C_REPO" "$M2C_COMMIT" m2c.py
+fetch_pinned "$PSYCROSS_DIR" "$PSYCROSS_REPO" "$PSYCROSS_COMMIT" include/PsyX/PsyX_public.h
+fetch_pinned "$PSYCROSS_DIR" "$PSYCROSS_REPO" "$PSYCROSS_COMMIT" CMakeLists.txt
 
 fetch() {
     name="$1"
@@ -93,3 +104,4 @@ for dir in "$DEST"/*/; do
 done
 echo "assembler shim: $MASPSX_DIR @ $MASPSX_COMMIT"
 echo "decompiler:     $M2C_DIR @ $M2C_COMMIT"
+echo "psy-q for pc:   $PSYCROSS_DIR @ $PSYCROSS_COMMIT"

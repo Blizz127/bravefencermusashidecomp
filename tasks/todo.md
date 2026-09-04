@@ -57,14 +57,23 @@ Task detail, acceptance criteria and verification steps are in
 
 ## Phase C — First runnable output (independent track)
 
-- [ ] **C1** Vendor PsyCross (MIT) at a pinned commit; link the CMake target
+- [x] **C1** Vendor PsyCross (MIT) at a pinned commit; link the CMake target
       against it
-  - [ ] do **not** vendor libValkyrie (no LICENSE), psyz `include/` or
+  - [x] vendored at `e56e4cde`, fetched by `tools/fetch_toolchains.sh`
+  - [x] decomp-owned C calls into the Psy-Q layer and gets verified results
+        (`rcos(0)=4096`, `rsin(1024)=4096`); headless, so CI needs no GPU
+  - [x] `-DMUSASHI_WITH_PSYCROSS=OFF` path verified, so the decomp tooling still
+        builds on a machine with no graphics stack
+  - [x] four upstream defects worked around; see `docs/PC-PORT.md`
+  - [x] did **not** vendor libValkyrie (no LICENSE), psyz `include/` or
         `src/psyq` (unlicensed Sony-derived), or anything from PSXRecomp /
         MusashiRecomp (PolyForm Noncommercial)
 - [ ] **C2** Render one primitive from decomp-owned C
-  - [ ] surface the `libgs` licensing decision **before** writing TMD code —
-        no permissive implementation exists
+  - [x] `libgs` gap now confirmed empirically, not just from research: the built
+        archive exports **zero** `Gs*` symbols against 399 Psy-Q functions
+  - [ ] **decision needed from the user before any TMD code is written** —
+        build on `libgpu`/ordering-table primitives, study the GPL-3.0 Silent
+        Hill implementation as a spec without copying, or accept GPL-3.0
 
 - [ ] **⏸ Checkpoint C** — port path proven, or its blocker surfaced
 

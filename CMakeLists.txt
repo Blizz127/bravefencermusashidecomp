@@ -1,8 +1,94 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(brave_fencer_musashi_decomp LANGUAGES C)
+# CXX is required by PsyCross, whose renderer and GTE are C++.
+project(brave_fencer_musashi_decomp LANGUAGES C CXX)
 
 option(MUSASHI_BUILD_PC_PORT "Build the platform-neutral PC port smoke target" ON)
+option(MUSASHI_WITH_PSYCROSS "Link the PC port against the PsyCross Psy-Q reimplementation" ON)
+
+# PsyCross (MIT) reimplements libgpu, libgte, libspu, libcd, libetc, libapi and
+# libpad for PC. It is vendored at a pinned commit by tools/fetch_toolchains.sh
+# and its checkout is ignored.
+#
+# Its own CMakeLists.txt is deliberately not used. It calls find_package(OPENAL)
+# in upper case, which only resolves on case-insensitive filesystems, and links
+# a bare `OpenAL` target that modern config packages do not export. Owning the
+# integration here avoids carrying a patch against an ignored checkout: the
+# upstream build file is only a source glob and two find_package calls.
+if(MUSASHI_BUILD_PC_PORT AND MUSASHI_WITH_PSYCROSS)
+    set(MUSASHI_PSYCROSS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/tools/third_party/psycross")
+    if(NOT EXISTS "${MUSASHI_PSYCROSS_DIR}/include/PsyX/PsyX_public.h")
+        message(FATAL_ERROR
+            "PsyCross not found under tools/third_party/psycross; run "
+            "./tools/fetch_toolchains.sh, or configure with -DMUSASHI_WITH_PSYCROSS=OFF")
+    endif()
+
+    find_package(SDL2 REQUIRED)
+    find_package(OpenAL REQUIRED)
+    # GLAD loads GL entry points at runtime, but the library must still link.
+    find_package(OpenGL REQUIRED)
+
+    # src/psx holds the Psy-Q implementations (LIBGPU, LIBGTE, LIBCD, ...) in
+    # files named with an uppercase .C. Globbing only "*.c" is case-sensitive on
+    # Linux and silently drops all eleven, producing a library that links but
+    # exports none of the Psy-Q API. Upstream's own CMakeLists.txt has this bug;
+    # REDRIVER2 builds with premake instead, which is why it goes unnoticed.
+    #
+    # GCC treats .C as C++, so the language is forced back to C to keep these
+    # symbols unmangled and callable from the decomp's C.
+    file(GLOB_RECURSE MUSASHI_PSYCROSS_SOURCES_C
+        "${MUSASHI_PSYCROSS_DIR}/src/*.c"
+        "${MUSASHI_PSYCROSS_DIR}/src/*.C"
+    )
+    file(GLOB_RECURSE MUSASHI_PSYCROSS_SOURCES_CXX
+        "${MUSASHI_PSYCROSS_DIR}/src/*.cpp"
+    )
+    if(NOT MUSASHI_PSYCROSS_SOURCES_C MATCHES "LIBGPU")
+        message(FATAL_ERROR
+            "PsyCross source glob did not pick up src/psx/LIBGPU.C; the Psy-Q "
+            "layer would be missing from the build")
+    endif()
+    set_source_files_properties(${MUSASHI_PSYCROSS_SOURCES_C} PROPERTIES LANGUAGE C)
+    add_library(psycross_static STATIC
+        ${MUSASHI_PSYCROSS_SOURCES_C}
+        ${MUSASHI_PSYCROSS_SOURCES_CXX}
+    )
+    set_target_properties(psycross_static PROPERTIES OUTPUT_NAME "psycross")
+    target_include_directories(psycross_static
+        PUBLIC
+            "${MUSASHI_PSYCROSS_DIR}/include"
+            "${MUSASHI_PSYCROSS_DIR}/include/psx"
+    )
+    target_compile_features(psycross_static PUBLIC cxx_std_11)
+    # Two Linux/GCC build breaks in upstream, corrected here rather than by
+    # patching the ignored checkout. Upstream is built with MSVC, where neither
+    # surfaces.
+    #  - Brace-initialised narrowing: PsyX_GPU.cpp initialises a uintptr_t from
+    #    -1, and gte/rcossin_tbl.h fills short tables with values above
+    #    SHRT_MAX, relying on implementation-defined wraparound. GCC 16 rejects
+    #    both, in C as well as C++ now that C23 is the default, so the
+    #    diagnostic is downgraded for this target in both languages.
+    #  - include/psx ships a Psy-Q compatibility strings.h stub. Being on the
+    #    -I path it shadows glibc's, so strcasecmp is never declared even though
+    #    PsyX_main.cpp includes the header. pc_port/compat/psycross_compat.h
+    #    declares the prototype directly; see that file for the full account.
+    #  - LIBETC.C returns a callback pointer as an int (`(int)vsync_callback`),
+    #    which truncates on x86-64. GCC 14+ makes that an error in C. It is
+    #    downgraded to build, but the truncation is real: the handle returned by
+    #    ResetCallback/VSyncCallback must not be cast back to a pointer on a
+    #    64-bit host. See docs/PC-PORT.md.
+    target_compile_options(psycross_static PRIVATE
+        -Wno-narrowing
+        -fpermissive
+        -include "${CMAKE_CURRENT_SOURCE_DIR}/pc_port/compat/psycross_compat.h"
+    )
+    target_link_libraries(psycross_static
+        PUBLIC
+            SDL2::SDL2
+            OpenAL::OpenAL
+            OpenGL::GL
+    )
+endif()
 
 if(MUSASHI_BUILD_PC_PORT)
     add_library(musashi_shared STATIC
@@ -35,6 +121,11 @@ if(MUSASHI_BUILD_PC_PORT)
     )
     target_compile_features(musashi_pc_port PUBLIC c_std_99)
     target_link_libraries(musashi_pc_port PUBLIC musashi_shared)
+    if(MUSASHI_WITH_PSYCROSS)
+        target_sources(musashi_pc_port PRIVATE pc_port/psyq_probe.c)
+        target_link_libraries(musashi_pc_port PUBLIC psycross_static)
+        target_compile_definitions(musashi_pc_port PUBLIC MUSASHI_WITH_PSYCROSS=1)
+    endif()
 
     add_executable(musashi_pc_smoke pc_port/main.c)
     target_compile_features(musashi_pc_smoke PRIVATE c_std_99)
