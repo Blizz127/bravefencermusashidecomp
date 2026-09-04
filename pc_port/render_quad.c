@@ -8,6 +8,10 @@
  * harness, so the comparison logic stays unit-tested in tools/vram_pixel.py
  * rather than hiding in a binary that needs a display to run.
  *
+ * `--screenshot PATH` additionally writes the frame as a BMP, for looking at
+ * with human eyes. It is off by default so the automated check stays a pixel
+ * comparison rather than something that quietly depends on file output.
+ *
  * Two hazards this file had to learn the hard way, both recorded in
  * docs/PC-PORT.md: the ordering table must be OT_TAG[] (a tag is 12 bytes on
  * x86-64, not the one word PS1 source assumes), and the rendered frame cannot
@@ -16,6 +20,8 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include <SDL.h>
 
@@ -76,10 +82,59 @@ static int sample(ReadPixelsFn read_pixels, int x, int y, unsigned *out) {
     return 1;
 }
 
-int main(void) {
+/* Save the whole frame as a BMP. GL reads bottom-up, so rows are flipped. */
+static int save_screenshot(ReadPixelsFn read_pixels, const char *path) {
+    SDL_Surface *surface;
+    unsigned char *frame;
+    int window_w = 0;
+    int window_h = 0;
+    int row;
+
+    SDL_GetWindowSize(SDL_GL_GetCurrentWindow(), &window_w, &window_h);
+    if (window_w <= 0 || window_h <= 0) {
+        return 0;
+    }
+    frame = (unsigned char *)malloc((size_t)window_w * window_h * 4);
+    if (frame == 0) {
+        return 0;
+    }
+    read_pixels(0, 0, window_w, window_h, GL_RGBA, GL_UNSIGNED_BYTE, frame);
+
+    surface = SDL_CreateRGBSurfaceWithFormat(0, window_w, window_h, 32, SDL_PIXELFORMAT_ABGR8888);
+    if (surface == 0) {
+        free(frame);
+        return 0;
+    }
+    for (row = 0; row < window_h; row++) {
+        memcpy((unsigned char *)surface->pixels + (size_t)row * surface->pitch,
+               frame + (size_t)(window_h - 1 - row) * window_w * 4,
+               (size_t)window_w * 4);
+    }
+    if (SDL_SaveBMP(surface, path) != 0) {
+        SDL_FreeSurface(surface);
+        free(frame);
+        return 0;
+    }
+    SDL_FreeSurface(surface);
+    free(frame);
+    return 1;
+}
+
+int main(int argc, char **argv) {
     ReadPixelsFn read_pixels;
+    const char *screenshot_path = 0;
     unsigned inside = 0;
     unsigned outside = 0;
+    int i;
+
+    for (i = 1; i < argc; i++) {
+        if (strcmp(argv[i], "--screenshot") == 0 && i + 1 < argc) {
+            screenshot_path = argv[++i];
+        } else {
+            fprintf(stderr, "usage: %s [--screenshot PATH]\n", argv[0]);
+            return 2;
+        }
+    }
 
     PsyX_Initialise("musashi_render_quad", SCREEN_W, SCREEN_H, 0);
 
@@ -113,6 +168,13 @@ int main(void) {
         || !sample(read_pixels, (QUAD_X0 + QUAD_X1) / 2, (QUAD_Y0 + QUAD_Y1) / 2, &inside)
         || !sample(read_pixels, 8, 8, &outside)) {
         fputs("musashi_render_quad: could not read the framebuffer\n", stderr);
+        PsyX_EndScene();
+        PsyX_Shutdown();
+        return 1;
+    }
+
+    if (screenshot_path != 0 && !save_screenshot(read_pixels, screenshot_path)) {
+        fprintf(stderr, "musashi_render_quad: could not write %s\n", screenshot_path);
         PsyX_EndScene();
         PsyX_Shutdown();
         return 1;

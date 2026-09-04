@@ -102,6 +102,14 @@ them with `tools/vram_pixel.py`. Sampled: inside `rgb5=(30,0,0)`, outside
 `rgb5=(0,0,31)`. Without `xvfb-run` the ctest is reported as **skipped**, never
 as passed.
 
+`--screenshot PATH` writes the frame as a BMP for looking at with human eyes.
+It is off by default, so the automated check stays a pixel comparison rather
+than something that quietly depends on file output.
+
+Verified on real hardware as well as software: on Mesa Intel (ARL) the sampled
+values are identical to llvmpipe's, so the CI result is not an artefact of the
+software renderer.
+
 Getting a single quad on screen took a long chain of measurements, and several
 of my own intermediate conclusions were wrong. They are corrected here because
 the wrong ones were plausible.
