@@ -551,6 +551,13 @@ Two operational lessons, both now structural:
 - Coverage honesty: "attempted" means a gated pass exists in
   `staging/candidates/` under the function's name. Raw m2c outputs in
   `/tmp` are not coverage — they evaporate and were never gated.
+- As of 2026-09-04 the full pending set (3765: main 1334, main_0012
+  2431) is triaged to zero fresh: 1848 gated passes banked (49%),
+  the rest in `staging/fails_*.txt` by bucket. The fails are dominated
+  by struct-table member access (`unkXXX` on `extern s32`), then
+  `M2C_ERROR`, `spNN`/`saved_reg_*` temporaries, and arity-mismatched
+  static prototypes. Nothing mechanical is left; the remaining work is
+  per-function struct modeling plus the oracle sweep.
 
 ## Environment watch: 32-bit toolchain execution
 
