@@ -314,6 +314,28 @@ def maspsx_command(
     return command
 
 
+SECTION_HEADER_RE = re.compile(
+    r"^\s*\d+\s+(?P<name>\.\S+)\s+(?P<size>[0-9a-fA-F]+)\s+(?P<vma>[0-9a-fA-F]+)\s"
+)
+
+
+def parse_section_address(objdump_output: str, section: str) -> int:
+    """Read a section's actual load address from `objdump -h`.
+
+    The linked image does not necessarily begin at the requested base: ld
+    honours the section's alignment, so a base that is not sufficiently aligned
+    is rounded up. Slicing relative to the requested base would then be off by
+    the padding — and for a function that still fits inside the section, it
+    would be off silently.
+    """
+
+    for line in objdump_output.splitlines():
+        match = SECTION_HEADER_RE.match(line)
+        if match and match.group("name") == section:
+            return int(match.group("vma"), 16)
+    raise RetailError(f"section {section!r} not found in the linked image")
+
+
 def ld_command(ld: Path, script: Path, obj: Path, elf: Path) -> list[str]:
     """Link one object against the generated script.
 
@@ -439,6 +461,7 @@ def main(argv: list[str] | None = None) -> int:
         ld = _resolve_binutil("mips-linux-gnu-ld")
         nm = _resolve_binutil("mips-linux-gnu-nm")
         objcopy = _resolve_binutil("mips-linux-gnu-objcopy")
+        objdump = _resolve_binutil("mips-linux-gnu-objdump")
         source = _require(args.source, "source")
         # Missing symbol files are tolerated: a function with no external
         # references links without them. One that does have references fails
@@ -517,9 +540,13 @@ def main(argv: list[str] | None = None) -> int:
                 [str(objcopy), "-O", "binary", "--only-section=.text", str(elf), str(text)],
                 "objcopy",
             )
-            # nm reports absolute addresses after linking; the binary image
-            # starts at the link base.
-            extracted = slice_symbol(text.read_bytes(), address - args.link_base, size)
+            # nm reports absolute addresses after linking. The image starts at
+            # .text's actual address, which is not necessarily the requested
+            # base: ld rounds up to the section's alignment.
+            text_address = parse_section_address(
+                _capture([str(objdump), "-h", str(elf)], "objdump -h"), ".text"
+            )
+            extracted = slice_symbol(text.read_bytes(), address - text_address, size)
             args.output.parent.mkdir(parents=True, exist_ok=True)
             args.output.write_bytes(extracted)
 

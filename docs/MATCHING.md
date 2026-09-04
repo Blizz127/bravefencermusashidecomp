@@ -14,6 +14,7 @@ is **unreplicated**; a second function was attempted and came out inconclusive.
 | `0x80012AB0` | 3/3 | `src/main/80012ab0.c` | MATCH |
 | `0x80014128` | 8/8 | `src/main/80014128.c` | MATCH (first with a `jal`) |
 | `0x800CF3B0` | 22/22 | `src/overlays/main_0007/800cf3b0.c` | MATCH (first in an overlay) |
+| `0x8012BF4C` | 2/2 | `src/overlays/main_0012/8012bf4c.c` | MATCH (first in member 0012) |
 
 ## Linking: why bytes from the object are not comparable
 

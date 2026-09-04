@@ -24,7 +24,10 @@ the task is committed.
   - [x] `config/overlay_main_0012.yaml` with the container structure recorded
   - [x] whole member accounted for (`unknown: 0 B`; the 70.15% figure is the
         code chunk's share, not a gap) and **2431 functions labelled**
-- [ ] **D2** First byte-exact match inside member 0012 (proves the path)
+- [x] **D2** First byte-exact match inside member 0012 (`func_8012BF4C`, 2/2)
+  - [x] fixed a silent-wrong-bytes bug it exposed: the linked image starts at
+        `.text`'s real address, not the requested base, since `ld` rounds up to
+        the section alignment
 - [ ] **D3** Scale matching to ≥ 25 functions; `tools/progress.py` counts
       functions in real C, never match percentage
 - [ ] **D4** *(optional)* separate PSY-Q 3.5 / 4.0 / 4.1 — only if a verified

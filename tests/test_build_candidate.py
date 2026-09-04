@@ -368,5 +368,35 @@ class CommandTests(unittest.TestCase):
         self.assertIn("-I/sdk", command)
 
 
+class SectionAddressTests(unittest.TestCase):
+    """The linked image does not necessarily start at the requested base.
+
+    ld honours the section's alignment, so requesting a base that is not
+    sufficiently aligned bumps .text forward. Assuming the image starts at the
+    requested base then slices at the wrong offset — and for a function large
+    enough to still fit, it does so silently.
+    """
+
+    SAMPLE = "\n".join([
+        "unit.elf:     file format elf32-tradlittlemips",
+        "",
+        "Sections:",
+        "Idx Name          Size      VMA       LMA       File off  Algn",
+        "  0 .text         00000008  8012bf50  8012bf50  00001000  2**3",
+        "                  CONTENTS, ALLOC, LOAD, READONLY, CODE",
+        "  1 .comment      00000012  00000000  00000000  00001008  2**0",
+    ])
+
+    def test_reads_the_actual_section_address(self) -> None:
+        self.assertEqual(build_candidate.parse_section_address(self.SAMPLE, ".text"), 0x8012BF50)
+
+    def test_a_missing_section_is_refused(self) -> None:
+        with self.assertRaises(RetailError):
+            build_candidate.parse_section_address(self.SAMPLE, ".nosuch")
+
+    def test_another_section_is_not_confused_for_text(self) -> None:
+        self.assertEqual(build_candidate.parse_section_address(self.SAMPLE, ".comment"), 0)
+
+
 if __name__ == "__main__":
     unittest.main()
