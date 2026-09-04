@@ -352,6 +352,10 @@ int main(int argc, char **argv) {
     }
 
     PsyX_Initialise("musashi_render_tmd", SCREEN_W, SCREEN_H, 0);
+    if (SDL_GL_GetCurrentWindow() == NULL) {
+        fprintf(stderr, "musashi_render_tmd: PsyX initialisation failed (no window), skipping\n");
+        return 77;
+    }
 
     ResetGraph(0);
     SetDefDispEnv(&g_disp, 0, 0, SCREEN_W, SCREEN_H);

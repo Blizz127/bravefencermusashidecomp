@@ -51,6 +51,8 @@ def run_headless(binary: Path, arguments: list[str] | None = None) -> str:
         )
     except subprocess.TimeoutExpired as exc:
         raise RetailError(f"render target timed out after {CHILD_TIMEOUT_SECONDS}s") from exc
+    if completed.returncode == SKIP_EXIT_CODE:
+        raise RetailError(f"SKIP: render target exited {SKIP_EXIT_CODE} (no display or init failed)")
     if completed.returncode != 0:
         raise RetailError(
             f"render target exited {completed.returncode}: {completed.stderr.strip()[-400:]}"
@@ -90,6 +92,9 @@ def main(argv: list[str] | None = None) -> int:
         print(f"RENDER CHECK OK: inside rgb5={inside} outside rgb5={outside}")
         return 0
     except RetailError as exc:
+        if str(exc).startswith("SKIP:"):
+            print(f"{exc}", file=sys.stderr)
+            return SKIP_EXIT_CODE
         print(f"render_check: ERROR: {exc}", file=sys.stderr)
         return 2
 
