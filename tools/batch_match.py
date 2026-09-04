@@ -113,6 +113,24 @@ def should_attempt(target: Path) -> bool:
     return not target.exists()
 
 
+def register(registry: dict[str, Any], registry_path: Path, entry: dict[str, Any]) -> None:
+    """Append one match and persist immediately, so a kill loses at most one.
+
+    The first version of this harness only wrote provenance/matches.json once,
+    after the whole sweep finished. A kill mid-sweep — which happened twice
+    running this over the largest overlay — left every already-promoted source
+    on disk with no registry entry, needing hand recovery. Writing after each
+    promotion means the file on disk is never behind what src/ actually holds.
+    """
+
+    key = (entry["name"], entry["region"])
+    if any((m["name"], m["region"]) == key for m in registry["matches"]):
+        return
+    registry["matches"].append(entry)
+    registry["matches"].sort(key=lambda m: (m["region"], m["vram"]))
+    write_json_atomic(registry_path, registry)
+
+
 def promote(produced: Path, target: Path) -> None:
     """Install a matched source, refusing to overwrite anything."""
 
@@ -310,6 +328,17 @@ def main(argv: list[str] | None = None) -> int:
                 outcomes.append(outcome)
                 if outcome.promoted:
                     promoted.append(function)
+                    register(
+                        registry,
+                        registry_path,
+                        {
+                            "name": function.name,
+                            "vram": function.vram,
+                            "size": function.size,
+                            "region": args.region,
+                            "source": str(source_path(repo, args.region, function.vram).relative_to(repo)),
+                        },
+                    )
                     print(f"  [{index}/{len(pending)}] MATCH {function.name} "
                           f"({function.size} bytes) -> {source_path(repo, args.region, function.vram)}")
                 elif index % 25 == 0:
@@ -323,21 +352,6 @@ def main(argv: list[str] | None = None) -> int:
             print(f"  {status:<18}{tally[status]}")
 
         if promoted:
-            known = {(m["name"], m["region"]) for m in registry["matches"]}
-            for function in promoted:
-                if (function.name, args.region) in known:
-                    continue
-                registry["matches"].append(
-                    {
-                        "name": function.name,
-                        "vram": function.vram,
-                        "size": function.size,
-                        "region": args.region,
-                        "source": str(source_path(repo, args.region, function.vram).relative_to(repo)),
-                    }
-                )
-            registry["matches"].sort(key=lambda m: (m["region"], m["vram"]))
-            write_json_atomic(registry_path, registry)
             print(f"\n{len(promoted)} new matches appended to {registry_path}")
             print("Re-verify with tools/verify_registry.py before committing.")
         return 0

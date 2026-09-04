@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import sys
 import tempfile
 import unittest
@@ -137,6 +138,49 @@ class SanitizeTests(unittest.TestCase):
     def test_the_call_site_itself_is_left_untouched(self) -> None:
         out = batch_match._sanitize("void func_80010938(void) {\n    func_80042610(0);\n}\n")
         self.assertIn("func_80042610(0)", out)
+
+
+class RegisterTests(unittest.TestCase):
+    """A kill mid-sweep must not orphan a promoted match from the registry.
+
+    Two live runs were killed by the environment partway through, and each
+    time left matched sources on disk with no registry entry, requiring hand
+    recovery. The registry is now written after every single promotion
+    instead of once at the end, so a kill can only cost the in-flight
+    function, never the ones already promoted.
+    """
+
+    def test_register_appends_and_persists_immediately(self) -> None:
+        with tempfile.TemporaryDirectory() as scratch:
+            registry_path = Path(scratch) / "matches.json"
+            registry = {"matches": []}
+            entry = {"name": "func_80012AB0", "vram": 0x80012AB0, "size": 12,
+                      "region": "main", "source": "src/main/80012ab0.c"}
+            batch_match.register(registry, registry_path, entry)
+            self.assertTrue(registry_path.is_file())
+            reloaded = json.loads(registry_path.read_text())
+            self.assertEqual(reloaded["matches"], [entry])
+
+    def test_register_does_not_duplicate_an_existing_entry(self) -> None:
+        with tempfile.TemporaryDirectory() as scratch:
+            registry_path = Path(scratch) / "matches.json"
+            entry = {"name": "func_80012AB0", "vram": 0x80012AB0, "size": 12,
+                      "region": "main", "source": "src/main/80012ab0.c"}
+            registry = {"matches": [dict(entry)]}
+            batch_match.register(registry, registry_path, entry)
+            self.assertEqual(len(registry["matches"]), 1)
+
+    def test_register_keeps_matches_sorted_by_region_then_vram(self) -> None:
+        with tempfile.TemporaryDirectory() as scratch:
+            registry_path = Path(scratch) / "matches.json"
+            registry = {"matches": [
+                {"name": "func_80012AB8", "vram": 0x80012AB8, "size": 4, "region": "main", "source": "a"},
+            ]}
+            batch_match.register(
+                registry, registry_path,
+                {"name": "func_80012AB0", "vram": 0x80012AB0, "size": 4, "region": "main", "source": "b"},
+            )
+            self.assertEqual([m["vram"] for m in registry["matches"]], [0x80012AB0, 0x80012AB8])
 
 
 class OutcomeTests(unittest.TestCase):
