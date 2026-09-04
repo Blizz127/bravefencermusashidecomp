@@ -15,8 +15,11 @@ the task is committed.
   - [x] parses `SC01.CD` `0xA97000` into 18 vertices, 16 normals, 18
         primitives — 2 gouraud triangles, 16 gouraud quads; bounds
         x[-5,5] y[-10,0] z[-5,5]
-- [ ] **P2b** Extract and pin the model to a standalone file, size + SHA-256
-      recorded, output untracked; a range that is not a TMD is refused
+- [x] **P2b** `tools/extract_tmd.py` — extracts the model to a standalone file
+      (736 bytes, sha256 `5f1ad117…`), output untracked, 8 tests
+  - [x] length measured by walking the model, since a TMD carries no total size
+  - [x] refuses a non-TMD offset, a truncated model, an offset past the archive,
+        and overwriting an existing output
 - [ ] **P2c** Render it: `RotTransPers` per vertex, `POLY_G3`/`POLY_G4` via
       `addPrim`, `DrawOTag`; verified headless
   - [ ] a sample inside the projected model differs from the clear colour, and
