@@ -62,3 +62,39 @@ def parse_report(output: str) -> dict[str, int]:
             f"render report is missing {', '.join(missing)}; got {sorted(samples) or 'nothing'}"
         )
     return samples
+
+
+# Colours round-trip 8-bit -> 5-bit VRAM -> 8-bit GL and back, so an exact
+# comparison is the wrong bar: red 248 came back as 241 on llvmpipe. In 5-bit
+# units, the expected channel must dominate and the others stay near zero.
+DOMINANT_MIN = 24
+QUIET_MAX = 3
+
+
+def _matches(actual: int, expected: int) -> bool:
+    got = decode(actual)
+    want = decode(expected)
+    for channel in range(3):
+        if want[channel] >= DOMINANT_MIN:
+            if got[channel] < DOMINANT_MIN:
+                return False
+        elif got[channel] > QUIET_MAX:
+            return False
+    return True
+
+
+def judge(samples: dict[str, int], expect_inside: int, expect_outside: int) -> list[str]:
+    """Return a problem per sample that does not show the expected colour.
+
+    An empty list is a pass. The render target only samples and prints; this
+    is where the verdict is made, so it stays unit-tested without a display.
+    """
+
+    problems = []
+    for name, expected in (("inside", expect_inside), ("outside", expect_outside)):
+        actual = samples[name]
+        if not _matches(actual, expected):
+            problems.append(
+                f"{name}: expected rgb5 {decode(expected)} but sampled {decode(actual)} (0x{actual:04X})"
+            )
+    return problems

@@ -93,29 +93,66 @@ returned by `ResetCallback` and `VSyncCallback` must not be cast back to a
 pointer on a 64-bit host. Anything relying on those return values needs fixing
 before it can be trusted.
 
-## Rendering: blocked, and what is established
+## Rendering: one quad, verified headless
 
-P1 set out to draw one quad and assert its pixels headlessly. **It does not
-render.** The work below is real and the failure is precisely located, but no
-pixel has been produced.
+P1 draws a red `POLY_F4` on a blue field through the Psy-Q layer and verifies
+it in CI with no display. `tools/render_check.py` runs `musashi_render_quad`
+under `xvfb-run` with Mesa's llvmpipe, reads the pixels it reports, and judges
+them with `tools/vram_pixel.py`. Sampled: inside `rgb5=(30,0,0)`, outside
+`rgb5=(0,0,31)`. Without `xvfb-run` the ctest is reported as **skipped**, never
+as passed.
 
-What is established:
+Getting a single quad on screen took a long chain of measurements, and several
+of my own intermediate conclusions were wrong. They are corrected here because
+the wrong ones were plausible.
 
-- **PsyCross initialises headlessly.** Under `xvfb-run` with
-  `LIBGL_ALWAYS_SOFTWARE=1` it reports llvmpipe and an OpenGL 4.6 core context,
-  and `PsyX_Initialise`/`ResetGraph`/`PsyX_Shutdown` complete cleanly.
-- **VRAM read-back works.** Writing a colour with `GR_ClearVRAM` and reading it
-  through `GR_ReadVRAM` round-trips, so the sampling half of the check is sound.
-- **Nothing reaches the framebuffer.** After `ClearOTagR`, `addPrim`, `DrawOTag`
-  and `DrawSync` — with and without `PsyX_BeginScene`/`PsyX_EndScene`, and with
-  `GR_StoreFrameBuffer` plus `GR_ReadFramebufferDataToVRAM` — every sampled
-  pixel is zero. PsyCross's own `GR_SaveVRAM(..., bReadFromFrameBuffer=1)`
-  writes a 1MB TGA in which all 524,288 pixels are zero. The render, not the
-  read-back, is what is failing.
+### Root cause: two consumer-side defines
 
-Untested next steps: whether an offscreen GL context under llvmpipe ever
-populates the path PsyCross reads from, whether a window swap is required
-before the framebuffer is valid, and whether a real display changes the result.
+**`USE_EXTENDED_PRIM_POINTERS` must be defined by the consumer.** The
+primitive-tag macros (`setaddr`, `getaddr`, `nextPrim`, `isendprim`) are gated
+on it — *not* on the 64-bit check that sizes the tag struct. Without it, on
+x86-64, a 12-byte tag holding a `uintptr_t` is filled by macros that truncate
+every pointer to 32 bits and test for a 24-bit terminator. PsyCross never
+defines it; upstream sets it in premake. It is now PUBLIC on `psycross_static`
+because the macros expand in our code too.
+
+**`USE_PGXP` defaults to that same value, and must be held off for now.** With
+PGXP on, `VERTTYPE` is a 16-bit `half` float under C++ and a `short` in C.
+Same byte layout, different type: the shorts our C writes are reinterpreted as
+float16 denormals, so `80` becomes ~5e-6 and every vertex normalises to
+exactly `-0.5` — two degenerate triangles that rasterise nothing, with no error
+anywhere. PsyCross's `_HF()` macro exists precisely to convert in C mode. PGXP
+stays off until the port has real GTE transforms to feed it.
+
+### Verification must read framebuffer 0, not VRAM
+
+`GR_ReadVRAM` can never observe a rendered frame. Its backing array is uploaded
+*to* the GPU as texture source; both places that copy GL output toward it pass
+`update_vram=0`. And `GR_SaveVRAM`'s `bReadFromFrameBuffer` argument is unused —
+it dumps that same array. An earlier note here called an all-black `GR_SaveVRAM`
+capture "decisive" evidence that rendering failed. It was not evidence of
+anything; it only showed the CPU array was empty, which it always is.
+
+The render target therefore reads framebuffer 0 with `glReadPixels`, fetched
+through `SDL_GL_GetProcAddress`, after `DrawSync` and before `PsyX_EndScene`
+presents the frame, and packs the 8-bit sample the way VRAM stores it so the
+harness judges one format.
+
+### A measurement trap
+
+`DrawOTag` calls `DrawAllSplits` internally, which ends in `ClearSplits()`.
+Reading `g_splitIndex` after `DrawOTag` therefore always shows zero, and an
+earlier note here concluded from that reading that the ordering-table walk was
+broken — a second, separate fault. It was never broken. Measured correctly, by
+calling `ParsePrimitivesLinkedList` directly before anything draws, the walk
+produces one split and six vertices, identical to the single-primitive path.
+There was one fault, not two.
+
+### Colours round-trip lossily
+
+8-bit colour becomes 5-bit VRAM and comes back through GL: red `248` sampled
+as `241`. The judge asks for the expected channel to dominate and the others to
+stay near zero, in 5-bit units, rather than for an exact value.
 
 ### Ordering tables must not be declared `u_long`
 

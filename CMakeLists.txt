@@ -60,6 +60,18 @@ if(MUSASHI_BUILD_PC_PORT AND MUSASHI_WITH_PSYCROSS)
             "${MUSASHI_PSYCROSS_DIR}/include/psx"
     )
     target_compile_features(psycross_static PUBLIC cxx_std_11)
+    # The primitive-tag pointer macros (setaddr, getaddr, nextPrim, isendprim)
+    # are gated on USE_EXTENDED_PRIM_POINTERS, not on the 64-bit check that
+    # sizes the tag struct. Without it, on x86-64, a 12-byte tag holding a
+    # uintptr_t is filled by macros that truncate every pointer to 32 bits and
+    # test for a 24-bit terminator, so an ordering-table walk yields nothing.
+    # Upstream sets this in premake. PUBLIC because the macros expand in our
+    # code as well as in the library.
+    # USE_PGXP defaults to USE_EXTENDED_PRIM_POINTERS, so the line above would
+    # also switch PGXP on. It is held off explicitly: the port has no GTE
+    # transforms yet, and with PGXP on a primitive without a cache entry has
+    # its positions zeroed rather than left alone. Revisit when 3D lands.
+    target_compile_definitions(psycross_static PUBLIC USE_EXTENDED_PRIM_POINTERS=1 USE_PGXP=0)
     # Two Linux/GCC build breaks in upstream, corrected here rather than by
     # patching the ignored checkout. Upstream is built with MSVC, where neither
     # surfaces.
@@ -133,4 +145,24 @@ if(MUSASHI_BUILD_PC_PORT)
 
     enable_testing()
     add_test(NAME musashi_pc_smoke COMMAND musashi_pc_smoke)
+
+    if(MUSASHI_WITH_PSYCROSS)
+        # Draws one quad through the Psy-Q layer and reports sampled pixels.
+        # The verdict is made by tools/render_check.py so the comparison stays
+        # unit-tested; the smoke test above stays display-free on purpose.
+        add_executable(musashi_render_quad pc_port/render_quad.c)
+        target_compile_features(musashi_render_quad PRIVATE c_std_99)
+        target_link_libraries(musashi_render_quad PRIVATE musashi_pc_port)
+
+        find_package(Python3 COMPONENTS Interpreter REQUIRED)
+        add_test(
+            NAME render_quad
+            COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tools/render_check.py
+                    $<TARGET_FILE:musashi_render_quad>
+            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        )
+        # Without xvfb-run the check exits 77, which ctest reports as skipped
+        # rather than passed vacuously or failed spuriously.
+        set_tests_properties(render_quad PROPERTIES SKIP_RETURN_CODE 77)
+    endif()
 endif()

@@ -70,5 +70,41 @@ class RenderReportTests(unittest.TestCase):
             vram_pixel.parse_report("segfault\n")
 
 
+class JudgeTests(unittest.TestCase):
+    """The render target only samples; this decides pass or fail.
+
+    Colours round-trip 8-bit -> 5-bit VRAM -> 8-bit GL, so an exact match is
+    the wrong bar: red 248 came back as 241 on llvmpipe. The judge asks for the
+    expected channel to dominate and the others to be near zero, in 5-bit units.
+    """
+
+    RED = vram_pixel.from_rgb8(248, 0, 0)
+    BLUE = vram_pixel.from_rgb8(0, 0, 255)
+
+    def test_correct_inside_and_outside_pass(self) -> None:
+        samples = {"inside": vram_pixel.from_rgb8(241, 0, 0), "outside": self.BLUE}
+        self.assertEqual(vram_pixel.judge(samples, self.RED, self.BLUE), [])
+
+    def test_clear_colour_inside_the_quad_fails(self) -> None:
+        samples = {"inside": self.BLUE, "outside": self.BLUE}
+        problems = vram_pixel.judge(samples, self.RED, self.BLUE)
+        self.assertEqual(len(problems), 1)
+        self.assertIn("inside", problems[0])
+
+    def test_quad_colour_bleeding_outside_fails(self) -> None:
+        samples = {"inside": self.RED, "outside": self.RED}
+        problems = vram_pixel.judge(samples, self.RED, self.BLUE)
+        self.assertEqual(len(problems), 1)
+        self.assertIn("outside", problems[0])
+
+    def test_small_rounding_is_tolerated(self) -> None:
+        nearly_red = vram_pixel.encode(29, 1, 1)
+        self.assertEqual(vram_pixel.judge({"inside": nearly_red, "outside": self.BLUE}, self.RED, self.BLUE), [])
+
+    def test_dim_red_is_not_red_enough(self) -> None:
+        dim = vram_pixel.encode(12, 0, 0)
+        self.assertEqual(len(vram_pixel.judge({"inside": dim, "outside": self.BLUE}, self.RED, self.BLUE)), 1)
+
+
 if __name__ == "__main__":
     unittest.main()

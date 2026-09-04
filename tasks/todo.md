@@ -46,17 +46,20 @@ the task is committed.
 
 ## Phase P — Port rendering
 
-- [ ] **P1** One `POLY_F4` quad, verified headless — **BLOCKED: renders nothing**
-  - [x] PsyCross initialises headless (llvmpipe, GL 4.6 core under `xvfb-run`)
-  - [x] VRAM read-back verified: a direct `GR_ClearVRAM` write round-trips
-  - [x] `tools/vram_pixel.py` pins the PS1 16-bit packing, 11 tests
-  - [x] ordering table must be `OT_TAG[]` not `u_long[]` — 12 bytes vs 8 on
-        x86-64, so `ClearOTagR` overruns and crashes. Applies to all port code
-  - [x] `ClearOTagR` chains `ot[i]->ot[i-1]`; the head is `ot[n-1]`
-  - [ ] **blocker**: after `DrawOTag`/`DrawSync`, with or without
-        `PsyX_BeginScene`/`EndScene` and `GR_StoreFrameBuffer`, every pixel is
-        zero. PsyCross's own `GR_SaveVRAM` capture is entirely black, so the
-        render is failing, not the read-back. See `docs/PC-PORT.md`
+- [x] **P1** One `POLY_F4` quad, verified headless — red inside, blue outside,
+      under `xvfb-run` + llvmpipe; ctest `render_quad`, skipped (not passed)
+      where no virtual display exists; smoke test stays display-free
+  - [x] root cause: `USE_EXTENDED_PRIM_POINTERS` is a consumer-side define, and
+        `USE_PGXP` defaults on with it, turning vertex shorts into float16
+        denormals — degenerate triangles, no error. Both now set PUBLIC
+  - [x] `GR_ReadVRAM` can never see a render (`update_vram=0`); framebuffer 0
+        is read via `glReadPixels` before `EndScene`
+  - [x] corrected two earlier wrong conclusions in `docs/PC-PORT.md`: the
+        "decisive" black `GR_SaveVRAM` capture was meaningless, and the
+        ordering-table walk was never broken — one fault, not two
+  - [x] ordering table must be `OT_TAG[]`; `ClearOTagR` chains `ot[i]->ot[i-1]`
+  - [x] `tools/vram_pixel.py` (16 tests) + `tools/render_check.py`
+
 - [ ] **P2** TMD walker on `libgpu` primitives (`RotTransPers` + `addPrim`),
       unit-tested parser, renders the 18-primitive model at `SC01.CD`
       `0xA97000` headlessly — does **not** wait on PAC work
