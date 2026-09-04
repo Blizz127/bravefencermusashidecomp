@@ -7,9 +7,48 @@ pinned commit by `tools/fetch_toolchains.sh` and its checkout is ignored.
 
 ## Status
 
-Plumbing only. Decomp-owned C reaches the Psy-Q layer and gets correct results,
-which is what phase C1 set out to prove. Nothing renders yet, and no game code
-is wired in.
+The port is an **asset viewer**, and stops there for now. Decomp-owned C
+reaches the Psy-Q layer, real geometry from the disc reaches the screen through
+the GTE and `libgpu`, and every pixel claim is verified headless. No game code
+is wired in, because no substantive game code has been matched yet; the port
+resumes when the decompilation supplies something to host. That is the
+Checkpoint P decision, taken on 2026-09-03.
+
+What runs, all from the repository root after `./tools/run_tests.sh`:
+
+```sh
+# link check, pure fixed-point maths, no display needed
+build/musashi_pc_smoke
+
+# one quad, verified by reading the framebuffer back
+xvfb-run -a build/musashi_render_quad --screenshot quad.bmp
+
+# any TMD model from the disc, auto-fitted, spun for N frames
+xvfb-run -a build/musashi_render_tmd extracted/models/sc01_a97000.tmd \
+    --frames 12 --screenshot model.bmp
+```
+
+Drop `xvfb-run -a` to see the window on a desktop. To find more models:
+
+```sh
+python3 tools/extract_cd.py  extracted/disc/files/SC01.CD --output extracted/sc01
+python3 tools/extract_pac.py extracted/disc/files/SC01.CD --output extracted/pac/sc01
+python3 tools/find_tmd.py    extracted/pac/sc01/0037_000.bin
+python3 tools/extract_tmd.py extracted/pac/sc01/0037_000.bin --offset 0x87F0 \
+    --output extracted/models/some_model.tmd
+```
+
+What does not run:
+
+- **Any game logic.** There is no main loop, input, audio, or scene code.
+- **Textured or per-vertex-coloured models.** The viewer and `tools/tmd.py`
+  refuse them rather than draw garbage; that is the next viewer feature if the
+  port resumes.
+- **Lighting.** Every polygon takes its authored colour, flat.
+- **Windows.** The roadmap names a Windows port. It is unverified: no MinGW
+  cross-compiler is installed on the development machine, so nothing here
+  has ever been built for it. Do not read "Linux and Windows" elsewhere in the
+  docs as a claim that the Windows path works.
 
 The smoke target verifies the link with pure fixed-point maths, so it runs
 headless — requiring a window, display and GPU would make the build check

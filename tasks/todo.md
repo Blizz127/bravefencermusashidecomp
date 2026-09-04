@@ -3,8 +3,8 @@
 ## Phase W — port wrap-up
 - [x] **W1** viewer fits any TMD from its vertex bounds; `--frames N` spins it; ctest unchanged
 - [x] **W2** `tools/find_tmd.py`: 8 tests; finds 4 models in member 37 chunk 0, the P2 one at payload offset 0x87F0
-- [ ] **W3** `docs/PC-PORT.md` status section; Windows recorded as unverified (no MinGW)
-- [ ] **⏸ Checkpoint W**
+- [x] **W3** `docs/PC-PORT.md` status rewritten: what runs, what does not, Windows unverified (no MinGW)
+- [x] **⏸ Checkpoint W** — port paused as a viewer on 2026-09-03; effort moves to matching
 
 ## Phase D — matching at scale
 - [ ] **D1** regenerate `asm/` from the splat template; command recorded; registry re-verifies
