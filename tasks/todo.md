@@ -46,9 +46,17 @@ the task is committed.
 
 ## Phase P — Port rendering
 
-- [ ] **P1** One `POLY_F4` quad, verified headless via `GR_ReadVRAM` under
-      `xvfb-run` + llvmpipe; separate `ctest` target, smoke test stays
-      display-free
+- [ ] **P1** One `POLY_F4` quad, verified headless — **BLOCKED: renders nothing**
+  - [x] PsyCross initialises headless (llvmpipe, GL 4.6 core under `xvfb-run`)
+  - [x] VRAM read-back verified: a direct `GR_ClearVRAM` write round-trips
+  - [x] `tools/vram_pixel.py` pins the PS1 16-bit packing, 11 tests
+  - [x] ordering table must be `OT_TAG[]` not `u_long[]` — 12 bytes vs 8 on
+        x86-64, so `ClearOTagR` overruns and crashes. Applies to all port code
+  - [x] `ClearOTagR` chains `ot[i]->ot[i-1]`; the head is `ot[n-1]`
+  - [ ] **blocker**: after `DrawOTag`/`DrawSync`, with or without
+        `PsyX_BeginScene`/`EndScene` and `GR_StoreFrameBuffer`, every pixel is
+        zero. PsyCross's own `GR_SaveVRAM` capture is entirely black, so the
+        render is failing, not the read-back. See `docs/PC-PORT.md`
 - [ ] **P2** TMD walker on `libgpu` primitives (`RotTransPers` + `addPrim`),
       unit-tested parser, renders the 18-primitive model at `SC01.CD`
       `0xA97000` headlessly — does **not** wait on PAC work

@@ -92,3 +92,56 @@ downgraded so the build completes, **but the truncation is real**: the handle
 returned by `ResetCallback` and `VSyncCallback` must not be cast back to a
 pointer on a 64-bit host. Anything relying on those return values needs fixing
 before it can be trusted.
+
+## Rendering: blocked, and what is established
+
+P1 set out to draw one quad and assert its pixels headlessly. **It does not
+render.** The work below is real and the failure is precisely located, but no
+pixel has been produced.
+
+What is established:
+
+- **PsyCross initialises headlessly.** Under `xvfb-run` with
+  `LIBGL_ALWAYS_SOFTWARE=1` it reports llvmpipe and an OpenGL 4.6 core context,
+  and `PsyX_Initialise`/`ResetGraph`/`PsyX_Shutdown` complete cleanly.
+- **VRAM read-back works.** Writing a colour with `GR_ClearVRAM` and reading it
+  through `GR_ReadVRAM` round-trips, so the sampling half of the check is sound.
+- **Nothing reaches the framebuffer.** After `ClearOTagR`, `addPrim`, `DrawOTag`
+  and `DrawSync` — with and without `PsyX_BeginScene`/`PsyX_EndScene`, and with
+  `GR_StoreFrameBuffer` plus `GR_ReadFramebufferDataToVRAM` — every sampled
+  pixel is zero. PsyCross's own `GR_SaveVRAM(..., bReadFromFrameBuffer=1)`
+  writes a 1MB TGA in which all 524,288 pixels are zero. The render, not the
+  read-back, is what is failing.
+
+Untested next steps: whether an offscreen GL context under llvmpipe ever
+populates the path PsyCross reads from, whether a window swap is required
+before the framebuffer is valid, and whether a real display changes the result.
+
+### Ordering tables must not be declared `u_long`
+
+Found while getting this far, and it applies to all ported code.
+
+PS1 source declares an ordering table as `u_long ot[N]`, because a tag was
+exactly one 32-bit word. On x86-64 an `OT_TAG` is **12 bytes**: `DECLARE_P_ADDR`
+carries a `uintptr_t` plus bitfields, and `P_LEN` becomes 3. `u_long` is 8.
+
+So `u_long ot[8]` hands `ClearOTagR` a 64-byte buffer for 96 bytes of writes.
+It corrupts memory and crashes. Every ordering table in ported code must be
+declared `OT_TAG[]`, casting at the `ClearOTagR` and `DrawOTag` call sites,
+which take `u_long *`. This is the "structs containing pointers change size on
+64-bit" hazard in its most concrete form.
+
+### Ordering table direction
+
+`ClearOTagR` chains `ot[i]` to `ot[i-1]`, making `ot[0]` the terminator and
+`ot[n-1]` the head. Drawing with `DrawOTag(ot)` walks nothing and fails
+silently.
+
+### Two inconsistent VRAM packings in PsyCross
+
+The framebuffer path packs a pixel as `r | (g << 5) | (b << 10) | (a << 15)`
+with 5-bit components, which is the PS1 format and what `tools/vram_pixel.py`
+implements. `GR_ClearVRAM` instead writes `r | (g << 5) | (b << 11)` with
+*unmasked 8-bit* components, so clearing to red 255 yields `0x00FF` rather than
+`0x001F`. Read-back of rendered content follows the first; do not calibrate
+against `GR_ClearVRAM`.
