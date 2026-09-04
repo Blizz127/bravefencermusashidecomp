@@ -125,26 +125,52 @@ def promote(produced: Path, target: Path) -> None:
     shutil.copyfile(produced, target)
 
 
-UNKNOWN_RETURN_RE = re.compile(r"^\?(\s+\w+\()", re.MULTILINE)
+PROTO_RE = re.compile(r"^\?\s+(\w+)\((.*)\);(.*)$", re.MULTILINE)
+LOCAL_VAR_RE = re.compile(r"^([ \t]+)\?\s+(\w+);\s*$", re.MULTILINE)
+UNKNOWN_POINTER_RE = re.compile(r"\?\s*\*")
 UNKNOWN_ARGS_RE = re.compile(r"\(\?\)")
+CALL_RE = re.compile(r"\b(\w+)\(")
 
 
 def _sanitize(source: str) -> str:
-    """Replace m2c's `?` placeholders with the old-style K&R declaration.
+    """Replace m2c's `?` placeholders with something the compiler accepts.
 
-    m2c cannot see a callee defined outside the functions it was asked to
-    decompile, so it cannot infer that callee's return type or parameters and
-    marks both `?`. `?` is not valid C. The convention already used in
-    src/main/80014128.c for an external call is `extern void f(void);`, but
-    that only applies when the call site truly passes no arguments. An
-    unspecified-parameter declaration — empty parens, no `void` keyword — is
-    the C89 form for "arguments unchecked", which is what an unknown callee
-    with unknown parameters actually is, and the real call at the use site
-    still passes whatever registers the assembly loaded.
+    m2c cannot see a symbol defined outside the functions it was asked to
+    decompile, so it marks its type `?`, which is not valid C. `?` shows up in
+    three shapes here, and they need different fixes:
+
+    * A top-level `? NAME(...)` declaration is m2c's guess that the symbol is
+      a function. That guess is wrong for a symbol that is only ever assigned
+      to, never called — declaring it as a function and then assigning to it
+      is not a valid lvalue. So the body decides: if `NAME(` appears anywhere
+      in the function being compiled, it really is called, and the
+      declaration becomes `void NAME(...)`. Otherwise it is external data and
+      the declaration becomes `extern s32 NAME;`, a plain register-sized
+      global. Register width is the only fact known about it.
+    * `?` where a pointee type belongs (`? *`) becomes `void *`.
+    * `(?)` as a whole parameter list — "arguments unchecked" — is the C89
+      old-style declaration: empty parens, no `void` keyword. The call itself
+      still passes whatever registers the assembly loaded.
+    * A local `? name;` with no further type information becomes `s32 name;`,
+      for the same register-sized-default reason as the data case above.
     """
 
-    source = UNKNOWN_RETURN_RE.sub(r"void\1", source)
+    # Called-ness is decided from the body only: the `?` declaration itself
+    # is `NAME(...)`, so scanning the whole source would always find NAME
+    # "called" right there in its own prototype.
+    called = set(CALL_RE.findall(PROTO_RE.sub("", source)))
+
+    def proto(match: "re.Match[str]") -> str:
+        name, params, trailing = match.group(1), match.group(2), match.group(3)
+        if name in called:
+            params = UNKNOWN_POINTER_RE.sub("void *", params)
+            return f"void {name}({params});{trailing}"
+        return f"extern s32 {name};"
+
+    source = PROTO_RE.sub(proto, source)
+    source = LOCAL_VAR_RE.sub(lambda m: f"{m.group(1)}s32 {m.group(2)};", source)
     source = UNKNOWN_ARGS_RE.sub("()", source)
+    source = UNKNOWN_POINTER_RE.sub("void *", source)
     return source
 
 

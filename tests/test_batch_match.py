@@ -86,14 +86,51 @@ class SourcePathTests(unittest.TestCase):
 
 
 class SanitizeTests(unittest.TestCase):
-    """m2c's `?` placeholder for an unseen callee is not valid C."""
+    """m2c's `?` placeholder for an unseen symbol is not valid C.
 
-    def test_unknown_return_type_becomes_void(self) -> None:
-        out = batch_match._sanitize("? func_80010204();                                  /* extern */\n")
-        self.assertTrue(out.startswith("void func_80010204();"))
+    m2c cannot always tell an uncalled data symbol from a called function, so
+    the sanitizer decides from the body: a declared name that is never
+    followed by `(` anywhere in the function is data, not a callee.
+    """
+
+    def test_a_called_name_keeps_its_function_declaration(self) -> None:
+        out = batch_match._sanitize(
+            "? func_80010204();                                  /* extern */\n\n"
+            "void func_80010938(void) {\n    func_80010204();\n}\n"
+        )
+        self.assertIn("void func_80010204();", out)
+        self.assertIn("func_80010204();\n}", out)
+
+    def test_an_uncalled_name_becomes_extern_data(self) -> None:
+        """The failure this guards: an unknown symbol only ever assigned to,
+        never called, must not be declared as a function -- assigning to a
+        function name is not a valid lvalue."""
+
+        out = batch_match._sanitize(
+            "? D_80074778();                                     /* static */\n\n"
+            "void func_80010AE0(s32 arg0) {\n    D_80074778 = arg0;\n}\n"
+        )
+        self.assertIn("extern s32 D_80074778;", out)
+        self.assertNotIn("D_80074778()", out)
+
+    def test_unknown_pointer_parameter_becomes_void_star(self) -> None:
+        out = batch_match._sanitize(
+            "? func_80014070(? *);                               /* static */\n\n"
+            "void func_800128B4(void) {\n    func_80014070(0);\n}\n"
+        )
+        self.assertIn("void func_80014070(void *);", out)
+
+    def test_unknown_local_variable_type_becomes_s32(self) -> None:
+        out = batch_match._sanitize(
+            "void func_800128B4(void) {\n    ? sp10;\n\n    func_80014070(&sp10);\n}\n"
+        )
+        self.assertIn("    s32 sp10;", out)
 
     def test_unknown_argument_list_becomes_empty_parens(self) -> None:
-        out = batch_match._sanitize("? func_80042610(?);                                 /* static */\n")
+        out = batch_match._sanitize(
+            "? func_80042610(?);                                 /* static */\n\n"
+            "void func_80010938(void) {\n    func_80042610(0);\n}\n"
+        )
         self.assertIn("func_80042610()", out)
         self.assertNotIn("(?)", out)
 
