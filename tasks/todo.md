@@ -1,8 +1,8 @@
 # Todo — plan 4
 
 ## Phase W — port wrap-up
-- [ ] **W1** `render_tmd --model PATH`, continuous rotation, pinned default unchanged
-- [ ] **W2** `tools/find_tmd.py` finds parseable TMDs inside a PAC chunk; unit-tested
+- [x] **W1** viewer fits any TMD from its vertex bounds; `--frames N` spins it; ctest unchanged
+- [x] **W2** `tools/find_tmd.py`: 8 tests; finds 4 models in member 37 chunk 0, the P2 one at payload offset 0x87F0
 - [ ] **W3** `docs/PC-PORT.md` status section; Windows recorded as unverified (no MinGW)
 - [ ] **⏸ Checkpoint W**
 

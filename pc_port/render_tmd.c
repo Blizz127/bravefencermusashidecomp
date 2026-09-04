@@ -35,11 +35,13 @@
 #define SCREEN_H 240
 #define OT_LENGTH 16
 
-/* The model spans roughly ten units, so it is scaled up to cover a useful part
- * of the screen, and pushed far enough away to sit inside the near plane. */
-#define MODEL_SCALE 26
+/* Models are not one size. The viewer measures each one's bounding box and
+ * maps its largest extent onto FIT_EXTENT model units, centred on the origin,
+ * so any TMD lands at the same place on screen at the same apparent size. */
+#define FIT_EXTENT 200
 #define MODEL_DISTANCE 600
 #define PROJECTION_DISTANCE 320
+#define YAW_STEP 24
 
 #define CLEAR_R 0
 #define CLEAR_G 0
@@ -70,6 +72,12 @@ static int g_prim_count;
 
 static unsigned char *g_model;
 static long g_model_size;
+
+/* Fit derived from the vertex bounds: subtract the centre, then scale by
+ * g_fit_num / g_fit_den. Integer throughout, as the GTE would want. */
+static int g_center[3];
+static int g_fit_num = 1;
+static int g_fit_den = 1;
 
 static unsigned read_u32(long offset) {
     const unsigned char *p = g_model + offset;
@@ -102,6 +110,46 @@ static int load_model(const char *path) {
     return read_u32(0) == TMD_ID;
 }
 
+/* Measure every object's vertices and derive the centring and scale. */
+static int fit_model(void) {
+    const unsigned n_object = read_u32(8);
+    int lo[3] = {32767, 32767, 32767};
+    int hi[3] = {-32768, -32768, -32768};
+    int extent = 0;
+    unsigned object;
+    int axis;
+
+    for (object = 0; object < n_object; object++) {
+        const long entry = OBJECT_TABLE_OFFSET + (long)object * OBJECT_ENTRY_SIZE;
+        const long vertex_block = OBJECT_TABLE_OFFSET + (long)read_u32(entry + 0);
+        const unsigned n_vert = read_u32(entry + 4);
+        unsigned index;
+
+        if (vertex_block + (long)n_vert * VECTOR_SIZE > g_model_size) {
+            return 0;
+        }
+        for (index = 0; index < n_vert; index++) {
+            for (axis = 0; axis < 3; axis++) {
+                int value = read_s16(vertex_block + index * VECTOR_SIZE + axis * 2);
+                if (value < lo[axis]) lo[axis] = value;
+                if (value > hi[axis]) hi[axis] = value;
+            }
+        }
+    }
+    for (axis = 0; axis < 3; axis++) {
+        if (hi[axis] < lo[axis]) {
+            return 0;               /* no vertices at all */
+        }
+        g_center[axis] = (lo[axis] + hi[axis]) / 2;
+        if (hi[axis] - lo[axis] > extent) {
+            extent = hi[axis] - lo[axis];
+        }
+    }
+    g_fit_num = FIT_EXTENT;
+    g_fit_den = extent > 0 ? extent : 1;
+    return 1;
+}
+
 /* Transform one model vertex to screen space.
  *
  * RotTransPers takes an int* for the packed screen coordinate, not a long*.
@@ -113,9 +161,9 @@ static void project(long vertex_block, int index, int *sxy) {
     long point;
     long flag;
 
-    v.vx = (short)(read_s16(vertex_block + index * VECTOR_SIZE + 0) * MODEL_SCALE);
-    v.vy = (short)(read_s16(vertex_block + index * VECTOR_SIZE + 2) * MODEL_SCALE);
-    v.vz = (short)(read_s16(vertex_block + index * VECTOR_SIZE + 4) * MODEL_SCALE);
+    v.vx = (short)((read_s16(vertex_block + index * VECTOR_SIZE + 0) - g_center[0]) * g_fit_num / g_fit_den);
+    v.vy = (short)((read_s16(vertex_block + index * VECTOR_SIZE + 2) - g_center[1]) * g_fit_num / g_fit_den);
+    v.vz = (short)((read_s16(vertex_block + index * VECTOR_SIZE + 4) - g_center[2]) * g_fit_num / g_fit_den);
     v.pad = 0;
 
     RotTransPers(&v, sxy, &point, &flag);
@@ -262,6 +310,8 @@ static int save_screenshot(ReadPixelsFn read_pixels, const char *path) {
 int main(int argc, char **argv) {
     const char *model_path = 0;
     const char *screenshot_path = 0;
+    int frames = 1;
+    int frame;
     ReadPixelsFn read_pixels;
     MATRIX rotation;
     SVECTOR angle;
@@ -275,19 +325,29 @@ int main(int argc, char **argv) {
     for (i = 1; i < argc; i++) {
         if (strcmp(argv[i], "--screenshot") == 0 && i + 1 < argc) {
             screenshot_path = argv[++i];
+        } else if (strcmp(argv[i], "--frames") == 0 && i + 1 < argc) {
+            frames = atoi(argv[++i]);
+            if (frames < 1) {
+                fprintf(stderr, "render_tmd: --frames must be at least 1\n");
+                return 2;
+            }
         } else if (model_path == 0) {
             model_path = argv[i];
         } else {
-            fprintf(stderr, "usage: %s MODEL.tmd [--screenshot PATH]\n", argv[0]);
+            fprintf(stderr, "usage: %s MODEL.tmd [--frames N] [--screenshot PATH]\n", argv[0]);
             return 2;
         }
     }
     if (model_path == 0) {
-        fprintf(stderr, "usage: %s MODEL.tmd [--screenshot PATH]\n", argv[0]);
+        fprintf(stderr, "usage: %s MODEL.tmd [--frames N] [--screenshot PATH]\n", argv[0]);
         return 2;
     }
     if (!load_model(model_path)) {
         fprintf(stderr, "render_tmd: %s is not a readable TMD\n", model_path);
+        return 1;
+    }
+    if (!fit_model()) {
+        fprintf(stderr, "render_tmd: %s has no vertices to fit\n", model_path);
         return 1;
     }
 
@@ -306,35 +366,41 @@ int main(int argc, char **argv) {
     SetGeomOffset(SCREEN_W / 2, SCREEN_H / 2);
     SetGeomScreen(PROJECTION_DISTANCE);
 
-    /* Turn the model slightly so it is obviously three-dimensional, and push it
-     * back far enough to sit wholly on screen. */
-    angle.vx = 0;
-    angle.vy = 512;
-    angle.vz = 0;
-    angle.pad = 0;
-    RotMatrix(&angle, &rotation);
-    translation.vx = 0;
-    translation.vy = 5 * MODEL_SCALE;   /* the model hangs below its origin */
-    translation.vz = MODEL_DISTANCE;
-    TransMatrix(&rotation, &translation);
-    SetRotMatrix(&rotation);
-    SetTransMatrix(&rotation);
-
-    ClearOTagR((u_long *)g_ot, OT_LENGTH);
-
+    read_pixels = (ReadPixelsFn)SDL_GL_GetProcAddress("glReadPixels");
     n_object = read_u32(8);
-    for (object = 0; object < n_object; object++) {
-        if (!draw_object(OBJECT_TABLE_OFFSET + (long)object * OBJECT_ENTRY_SIZE)) {
-            PsyX_Shutdown();
-            return 1;
+
+    /* The model is tilted a little and turns YAW_STEP each frame, so a run
+     * with --frames shows every side. Each frame rebuilds the ordering table
+     * from scratch; primitives are not reusable once linked into it. */
+    for (frame = 0; frame < frames; frame++) {
+        angle.vx = 256;
+        angle.vy = (short)(512 + frame * YAW_STEP);
+        angle.vz = 0;
+        angle.pad = 0;
+        RotMatrix(&angle, &rotation);
+        translation.vx = 0;
+        translation.vy = 0;
+        translation.vz = MODEL_DISTANCE;
+        TransMatrix(&rotation, &translation);
+        SetRotMatrix(&rotation);
+        SetTransMatrix(&rotation);
+
+        ClearOTagR((u_long *)g_ot, OT_LENGTH);
+        g_prim_count = 0;
+        for (object = 0; object < n_object; object++) {
+            if (!draw_object(OBJECT_TABLE_OFFSET + (long)object * OBJECT_ENTRY_SIZE)) {
+                PsyX_Shutdown();
+                return 1;
+            }
+        }
+        DrawOTag((u_long *)&g_ot[OT_LENGTH - 1]);
+        DrawSync(0);
+        if (frame + 1 < frames) {
+            PsyX_EndScene();
         }
     }
     printf("PRIMITIVES %d\n", g_prim_count);
 
-    DrawOTag((u_long *)&g_ot[OT_LENGTH - 1]);
-    DrawSync(0);
-
-    read_pixels = (ReadPixelsFn)SDL_GL_GetProcAddress("glReadPixels");
     if (read_pixels == 0
         || !sample(read_pixels, SCREEN_W / 2, SCREEN_H / 2, &inside)
         || !sample(read_pixels, 8, 8, &outside)) {
