@@ -147,7 +147,11 @@ PROTO_RE = re.compile(r"^\?\s+(\w+)\((.*)\);(.*)$", re.MULTILINE)
 LOCAL_VAR_RE = re.compile(r"^([ \t]+)\?\s+(\w+);\s*$", re.MULTILINE)
 UNKNOWN_POINTER_RE = re.compile(r"\?\s*\*")
 UNKNOWN_ARGS_RE = re.compile(r"\(\?\)")
-FUNCPTR_RE = re.compile(r"\?\s*\(\*(\w+)\)\s*\([^;()]*\)")
+FUNCPTR_RE = re.compile(r"\?\s*\(\*\s*(\w*)\s*\)\s*\([^;()]*\)")
+FUNCPTR_DEF_RE = re.compile(r"^(\s*)\?\s*\(\*(\w+)\(([^;()]*)\)\)\(\)\s*\{", re.MULTILINE)
+FUNCPTR_PROTO_RE = re.compile(r"\?(\s*\(\*\w+\([^;()]*\)\)\([^;()]*\)\s*;)")
+NAMED_PARAM_RE = re.compile(r"([(,]\s*)\?(\s+\w+)")
+NULL_MACRO_RE = re.compile(r"\bNULL\b")
 EXTERN_UNKNOWN_RE = re.compile(r"^(\s*extern\s+)\?\s+(\w+\s*;)", re.MULTILINE)
 BARE_PARAM_RE = re.compile(r"([(,]\s*)\?(?=\s*[,)])")
 CALL_RE = re.compile(r"\b(\w+)\(")
@@ -158,7 +162,8 @@ def _sanitize(source: str) -> str:
 
     m2c cannot see a symbol defined outside the functions it was asked to
     decompile, so it marks its type `?`, which is not valid C. `?` shows up in
-    six shapes here, and they need different fixes:
+    several shapes here, and they need different fixes. A final rule maps
+    the NULL macro to 0 (-nostdinc provides no definition):
 
     * A top-level `? NAME(...)` declaration is m2c's guess that the symbol is
       a function. That guess is wrong for a symbol that is only ever assigned
@@ -182,6 +187,14 @@ def _sanitize(source: str) -> str:
     * `extern ? NAME;` becomes `extern s32 NAME;`, the same default as above.
     * A bare `?` parameter becomes `s32`. This runs after `(?)` → `()`
       so the C89 unchecked-args form keeps its empty-parens mapping.
+    * A named `? arg` parameter becomes `s32 arg`. A ternary cannot match:
+      the `?` must directly follow `(` or `,` and be followed by a name.
+    * A definition `? (*name(args))() {` becomes `s32 name(args) {`. m2c
+      spells a function it believes returns a function pointer this way;
+      the observed bodies return a register value, which s32 carries.
+    * A prototype `? (*name(args))(retargs);` becomes
+      `s32 (*name(args))(retargs);`. Only the `?` changes, so a call
+      through the returned pointer is undisturbed.
     """
 
     # Called-ness is decided from the body only: the `?` declaration itself
@@ -197,13 +210,19 @@ def _sanitize(source: str) -> str:
             return f"void {name}({params});{trailing}"
         return f"extern s32 {name};"
 
+    source = FUNCPTR_DEF_RE.sub(r"\1s32 \2(\3) {", source)
     source = FUNCPTR_RE.sub(r"s32 (*\1)()", source)
+    source = FUNCPTR_PROTO_RE.sub(r"s32\1", source)
     source = PROTO_RE.sub(proto, source)
     source = LOCAL_VAR_RE.sub(lambda m: f"{m.group(1)}s32 {m.group(2)};", source)
     source = UNKNOWN_ARGS_RE.sub("()", source)
     source = UNKNOWN_POINTER_RE.sub("void *", source)
     source = EXTERN_UNKNOWN_RE.sub(r"\1s32 \2", source)
+    source = NAMED_PARAM_RE.sub(r"\1s32\2", source)
     source = BARE_PARAM_RE.sub(r"\1s32", source)
+    # m2c spells the zero address NULL, but -nostdinc leaves it undefined.
+    # A plain 0 generates identical code wherever a null pointer fits.
+    source = NULL_MACRO_RE.sub("0", source)
     return source
 
 

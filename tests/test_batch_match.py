@@ -158,6 +158,63 @@ class SanitizeTests(unittest.TestCase):
         self.assertIn("extern s32 D_800AF630;", out)
         self.assertNotIn("extern ? ", out)
 
+    def test_anonymous_function_pointer_parameter_becomes_s32(self) -> None:
+        """`? (*)()` with no name — an anonymous callback parameter — is
+        the residual shape the 65-128 re-sanitize found (func_8001BC6C,
+        func_8001534C, func_8012F568). The named rule's `(\w+)` cannot
+        match it, and the `? *` rule needs a literal `*` after `?`."""
+
+        out = batch_match._sanitize(
+            "void func_8001BC6C(? (*)(), s32);\nvoid f(void) {\n}\n"
+        )
+        self.assertIn("void func_8001BC6C(s32 (*)(), s32);", out)
+        self.assertNotIn("? (*)()", out)
+
+    def test_named_unknown_parameter_becomes_s32(self) -> None:
+        """`? arg1` — m2c names the parameter but not its type — is the
+        common residual (func_80020248, func_80045C94, func_8012F14C and
+        ~20 more). Same register-width default as the bare form."""
+
+        out = batch_match._sanitize(
+            "void func_80020248(? arg1, s32 arg2, ? arg3) {\n}\n"
+        )
+        self.assertIn("void func_80020248(s32 arg1, s32 arg2, s32 arg3) {", out)
+        self.assertNotIn("? arg", out)
+
+    def test_function_definition_with_unknown_return_becomes_s32(self) -> None:
+        """`? (*name(void))() {` is m2c's spelling of a definition whose
+        return it reads as a function pointer (func_80042C90 returns the
+        address func_80042D60). The body returns a register value, so a
+        plain s32 definition compiles and generates identical code."""
+
+        out = batch_match._sanitize("? (*func_80042C90(void))() {\n}\n")
+        self.assertIn("s32 func_80042C90(void) {", out)
+
+    def test_callback_prototype_keeps_its_shape_with_s32_return(self) -> None:
+        """`? (*f(s32))(void *);` declares a callback factory (func_80131CA8
+        stores the result in `s32 (*)()` and calls through it). Only the
+        `?` becomes s32; the shape stays, so the call through the
+        returned pointer is unchanged."""
+
+        out = batch_match._sanitize(
+            "? (*func_80131CF4(s32))(void *);\nvoid f(void) {\n}\n"
+        )
+        self.assertIn("s32 (*func_80131CF4(s32))(void *);", out)
+        self.assertNotIn("? (*func_80131CF4", out)
+
+    def test_null_macro_becomes_zero(self) -> None:
+        """m2c emits NULL for null pointers (14 files in the 65-128
+        bucket), but the Psy-Q chain runs cpp with -nostdinc so no hosted
+        header provides it. NULL as a value is always the zero address,
+        which 0 spells with identical codegen."""
+
+        out = batch_match._sanitize(
+            "s32 f(s32 *p) {\n    if (p == NULL) {\n        return NULL;\n    }\n    return 1;\n}\n"
+        )
+        self.assertIn("if (p == 0) {", out)
+        self.assertIn("return 0;", out)
+        self.assertNotIn("NULL", out)
+
     def test_bare_unknown_parameter_becomes_s32(self) -> None:
         """A lone `?` parameter is an unknown word-sized argument, not the
         C89 unchecked-args `(?)` form, which keeps its own empty-parens
