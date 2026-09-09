@@ -927,6 +927,9 @@ static const uint32_t kOverlaySc02_80180DB0Words[] = {
 static const uint32_t kOverlaySc02_80181224Words[] = {
 #include "80181224_sc02_0031_words.inc"
 };
+static const uint32_t kOverlaySc02_801599A4Words[] = {
+#include "801599a4_sc02_0031_words.inc"
+};
 static const uint32_t kOverlaySc02_8016EE40Words[] = {
 #include "8016ee40_sc02_0031_words.inc"
 };
@@ -7170,6 +7173,9 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
     else if (g_overlay_sc02_0031_words &&
              cpu->pc >= 0x80181224u && cpu->pc < 0x8018124cu)
         instruction = kOverlaySc02_80181224Words[(cpu->pc - 0x80181224u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x801599a4u && cpu->pc < 0x801599e0u)
+        instruction = kOverlaySc02_801599A4Words[(cpu->pc - 0x801599a4u)/4u];
     else if (g_overlay_sc02_0031_words &&
              cpu->pc >= 0x8016ee40u && cpu->pc < 0x8016ee94u)
         instruction = kOverlaySc02_8016EE40Words[(cpu->pc - 0x8016ee40u)/4u];
