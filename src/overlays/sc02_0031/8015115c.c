@@ -1,0 +1,7 @@
+/* SC02.CD member31 [8015115C,80151164); exact word export. */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0xA485016C)
+#else
+/* Matched C deferred. */
+#endif
