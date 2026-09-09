@@ -366,6 +366,14 @@ if(MUSASHI_BUILD_PC_PORT)
     endif()
     execute_process(
         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tools/extract_asm_words.py
+                ${CMAKE_CURRENT_SOURCE_DIR}/src/overlays/main_0010/800d1f58.c
+                ${MUSASHI_GENERATED_DIR}/800d1f58_overlay0010_words.inc --expected-words 14
+        RESULT_VARIABLE MUSASHI_OV10_800D1F58_RESULT)
+    if(NOT MUSASHI_OV10_800D1F58_RESULT EQUAL 0)
+        message(FATAL_ERROR "Cannot extract MAIN10 800d1f58 words")
+    endif()
+    execute_process(
+        COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tools/extract_asm_words.py
                 ${CMAKE_CURRENT_SOURCE_DIR}/src/overlays/main_0010/800d05e8.c
                 ${MUSASHI_GENERATED_DIR}/800d05e8_overlay0010_words.inc --expected-words 18
         RESULT_VARIABLE MUSASHI_OV10_800D05E8_RESULT)

@@ -839,6 +839,11 @@ static const uint32_t kOverlay0010_800D1938Words[] = {
 };
 _Static_assert(sizeof(kOverlay0010_800D1938Words) / sizeof(uint32_t) == 19,
                "overlay 0010 800D1938 source span changed");
+static const uint32_t kOverlay0010_800D1F58Words[] = {
+#include "800d1f58_overlay0010_words.inc"
+};
+_Static_assert(sizeof(kOverlay0010_800D1F58Words) / sizeof(uint32_t) == 14,
+               "overlay 0010 800D1F58 source span changed");
 static const uint32_t kOverlay0010_800D02C0Words[] = {
 #include "800d02c0_overlay0010_words.inc"
 };
@@ -6657,6 +6662,8 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
         instruction = kOverlay0010_800D18DCWords[(cpu->pc - 0x800d18dcu)/4u];
     else if (g_overlay_0010_words && cpu->pc >= 0x800d1938u && cpu->pc < 0x800d1984u)
         instruction = kOverlay0010_800D1938Words[(cpu->pc - 0x800d1938u)/4u];
+    else if (g_overlay_0010_words && cpu->pc >= 0x800d1f58u && cpu->pc < 0x800d1f90u)
+        instruction = kOverlay0010_800D1F58Words[(cpu->pc - 0x800d1f58u)/4u];
     else if (g_overlay_0010_words && cpu->pc >= 0x800d02c0u && cpu->pc < 0x800d02d0u)
         instruction = kOverlay0010_800D02C0Words[(cpu->pc - 0x800d02c0u)/4u];
     else if (g_overlay_0010_words &&
@@ -8155,6 +8162,7 @@ static int formatter_step(MusashiBootMemory *memory, FormatterCpu *cpu) {
                                   (cpu->pc >= 0x800d1e20u && cpu->pc < 0x800d1e28u) ||
                                   (cpu->pc >= 0x800d18dcu && cpu->pc < 0x800d1938u) ||
                                   (cpu->pc >= 0x800d1938u && cpu->pc < 0x800d1984u) ||
+                                  (cpu->pc >= 0x800d1f58u && cpu->pc < 0x800d1f90u) ||
                                   (cpu->pc >= 0x800d0588u && cpu->pc < 0x800d0630u) ||
                                   (cpu->pc >= 0x800cf854u && cpu->pc < 0x800cf864u)))) {
         uint32_t loaded;
