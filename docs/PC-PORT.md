@@ -128,12 +128,30 @@ carve the enclosing function from that member's image the same way.
 
 ## Gate status
 
-`tools/run_tests.sh` passes on `21e91dd33` (and passed on `d9b2e7e5e` before
-the last five leaves): **538 tests OK**, out-of-tree configure/build, **22/22
-CTests** (including `native_startup_boundary`), archive symbol checks and the
-smoke run all clean, script exit 0. The earlier aborted run is superseded;
-re-run it after any further formatter or CMake change, because those are the
-files this lane edits most.
+`tools/run_tests.sh` passes on `536e94e1a` (and on `21e91dd33` earlier the same
+day): **538 tests OK**, out-of-tree configure/build, **22/22 CTests** (including
+`native_startup_boundary`), archive symbol checks and the smoke run all clean,
+script exit 0. The earlier aborted run is superseded; re-run it after any
+further formatter or CMake change, because those are the files this lane edits
+most.
+
+## Merge availability and the GTE library path (2026-09-10)
+
+`merge_memory_available` judged availability with `musashi_boot_ram_span`, which
+refuses the 1 KB scratchpad, while the access itself uses `cpu_ram_span`, which
+maps it. The guest runs its kernel stack at `sp=1f8003xx`, so every
+LWL/LWR/SWL/SWR that touched the stack was refused. It now judges with the same
+mapping the access uses; MMIO still fails closed.
+
+`func_80012558` is a PSY-Q GTE library routine (26 COP2 sites: CTC2 control 0..4,
+MTC2/MFC2 data 9..11, the `4A49E012` command) that the guest reaches by
+fall-through, so RA is stale and cannot gate it. Its sites are admitted by exact
+PC/word with the transfer binding, its three MFC2 chains were added to both
+pending-load successor tables (the `reg/pc/word` one and the PC-only list the run
+loop consults before stepping), and the CTC2 sites bypass the index-based caller
+checks. Library routines the walk calls but that have no registry entry
+(`ratan2` at `8004CFEC`, `func_8001282C`) are exported as words with an explicit
+no-C-claim header.
 No decomp claim is withdrawn for MAIN member 0012 — those registry entries were
 verified against member 0012 and remain valid there; only their SC02_031
 retargeting was built from the wrong image.
