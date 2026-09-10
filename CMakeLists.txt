@@ -526,6 +526,22 @@ if(MUSASHI_BUILD_PC_PORT)
     endif()
     execute_process(
         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tools/extract_asm_words.py
+                ${CMAKE_CURRENT_SOURCE_DIR}/src/overlays/sc02_0031/8015a2d8.c
+                ${MUSASHI_GENERATED_DIR}/8015a2d8_sc02_0031_words.inc --expected-words 60
+        RESULT_VARIABLE MUSASHI_SC02_8015A2D8_RESULT)
+    if(NOT MUSASHI_SC02_8015A2D8_RESULT EQUAL 0)
+        message(FATAL_ERROR "Cannot extract SC02 8015a2d8 words")
+    endif()
+    execute_process(
+        COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tools/extract_asm_words.py
+                ${CMAKE_CURRENT_SOURCE_DIR}/src/overlays/sc02_0031/801619a4.c
+                ${MUSASHI_GENERATED_DIR}/801619a4_sc02_0031_words.inc --expected-words 11
+        RESULT_VARIABLE MUSASHI_SC02_801619A4_RESULT)
+    if(NOT MUSASHI_SC02_801619A4_RESULT EQUAL 0)
+        message(FATAL_ERROR "Cannot extract SC02 801619a4 words")
+    endif()
+    execute_process(
+        COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tools/extract_asm_words.py
                 ${CMAKE_CURRENT_SOURCE_DIR}/src/overlays/sc02_0031/80161b18.c
                 ${MUSASHI_GENERATED_DIR}/80161b18_sc02_0031_words.inc --expected-words 27
         RESULT_VARIABLE MUSASHI_SC02_80161B18_RESULT)
