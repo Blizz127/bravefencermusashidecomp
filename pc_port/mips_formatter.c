@@ -33,6 +33,9 @@ static const uint32_t kMain80028A48Words[] = {
 static const uint32_t kMain80028C50Words[] = {
 #include "80028c50_words.inc"
 };
+static const uint32_t kMain80029104Words[] = {
+#include "80029104_words.inc"
+};
 static const uint32_t kMain80014928Words[] = {
 #include "80014928_words.inc"
 };
@@ -9706,6 +9709,8 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
         instruction = kMain80028A48Words[(cpu->pc - 0x80028a48u) / 4u];
     else if (cpu->pc >= 0x80028c50u && cpu->pc < 0x80028d58u)
         instruction = kMain80028C50Words[(cpu->pc - 0x80028c50u) / 4u];
+    else if (cpu->pc >= 0x80029104u && cpu->pc < 0x80029124u)
+        instruction = kMain80029104Words[(cpu->pc - 0x80029104u) / 4u];
     else if (cpu->pc >= 0x80014928u && cpu->pc < 0x80014960u)
         instruction = kMain80014928Words[(cpu->pc - 0x80014928u) / 4u];
     else if (cpu->pc >= 0x8005ce18u && cpu->pc < 0x8005ce24u)
