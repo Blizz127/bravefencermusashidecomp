@@ -1,0 +1,9 @@
+/* Complete SC02 retail span [801490E0,801490E8).
+ * PAC0 member31 words.
+ */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0xA4850108)
+#else
+/* Matched C deferred. */
+#endif

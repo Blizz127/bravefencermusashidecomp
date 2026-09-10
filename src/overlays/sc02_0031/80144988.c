@@ -1,0 +1,35 @@
+/* Complete SC02 retail span [80144988,801449C8).
+ * Matched C: Druthulu shared ov/func_80144988.h (local leaf word export).
+ * Words from pinned SC02.CD member31 PAC0 decode (live-guest identity).
+ */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x9482000A)
+MUSASHI_NATIVE_MIPS_WORD(0x8C830064)
+MUSASHI_NATIVE_MIPS_WORD(0x2442FFC0)
+MUSASHI_NATIVE_MIPS_WORD(0xA482000A)
+MUSASHI_NATIVE_MIPS_WORD(0x8C620010)
+MUSASHI_NATIVE_MIPS_WORD(0x8C830064)
+MUSASHI_NATIVE_MIPS_WORD(0xAC820010)
+MUSASHI_NATIVE_MIPS_WORD(0x8C620014)
+MUSASHI_NATIVE_MIPS_WORD(0x8C830064)
+MUSASHI_NATIVE_MIPS_WORD(0xAC820014)
+MUSASHI_NATIVE_MIPS_WORD(0x94820002)
+MUSASHI_NATIVE_MIPS_WORD(0x8C630018)
+MUSASHI_NATIVE_MIPS_WORD(0x24420001)
+MUSASHI_NATIVE_MIPS_WORD(0xA4820002)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0xAC830018)
+#else
+#include "psx_types.h"
+
+void func_80144988(s32 obj) {
+    s32 t;
+
+    *(u16 *)(obj + 0xA) = *(u16 *)(obj + 0xA) - 0x40;
+    *(s32 *)(obj + 0x10) = *(s32 *)(*(s32 *)(obj + 0x64) + 0x10);
+    *(s32 *)(obj + 0x14) = *(s32 *)(*(s32 *)(obj + 0x64) + 0x14);
+    t = *(s32 *)(*(s32 *)(obj + 0x64) + 0x18);
+    *(u16 *)(obj + 0x2) = *(u16 *)(obj + 0x2) + 1;
+    *(s32 *)(obj + 0x18) = t;
+}
+#endif

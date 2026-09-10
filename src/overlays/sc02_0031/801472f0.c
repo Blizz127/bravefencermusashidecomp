@@ -1,0 +1,19 @@
+/* Complete SC02 retail span [801472F0,80147300).
+ * Ahead leaf.
+ * Words from pinned SC02.CD member31 PAC0 decode (live-guest identity).
+ */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x3C018012)
+MUSASHI_NATIVE_MIPS_WORD(0xAC24707C)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+#include "psx_types.h"
+
+
+extern s32 D_8012707C;
+
+void func_801472F0(s32 a0) {
+    D_8012707C = a0;
+}
+#endif

@@ -478,6 +478,131 @@ alongside it:
 
 ## Boot-chain functions set aside
 
+### Startup function boundary evidence
+
+The generated `asm/main.s` labels split the startup routine into ranges that
+cannot be independently treated as ordinary C functions. At `0x80010178`,
+the prologue allocates a `0x38`-byte frame and saves `$ra`, `$fp`, `$s1`, and
+`$s0`. It initializes `$s0` and `$s1`, then jumps from `0x80010204` to
+`0x80010214` without a call or frame teardown. That block uses the existing
+saved-register state. Its loop jumps from `0x80010930` to `0x80010234`.
+The block at `0x80010938` calls a helper and jumps back to `0x80010204`.
+The epilogue at `0x8001094C` restores exactly the frame established at
+`0x80010178`; the next prologue starts at `0x8001096C`.
+
+This supports recovering the bounded range `[0x80010178, 0x8001096C)` as one
+startup routine with internal labels, subject to checking references into
+the range. The banked `func_80010178.c` instead ends in a C call to
+`func_80010214`, so its mismatch does not establish that the compiler cannot
+reproduce the complete routine. The batch enumerator's current heuristic
+also splits at these jumps. Recovery must preserve the internal control flow
+and verify the entire range before claiming startup source parity.
+No full-range C match or native execution is established by this analysis.
+
+A scratch reconstruction using `m2c_assembly_text` exposed a newline bug:
+the whole-line label regex consumed the newline and joined the next
+instruction to the replacement label. The helper now replaces only the
+directive, with LF and CRLF regression coverage. After this fix, requesting
+the complete startup range yields a 137-line draft instead of the old
+33-line wrapper. Both `-O2` and `-O0` builds currently fail on unresolved
+`sp` state and missing structure fields (including `unkA3D4` and `unkA3D2`).
+The draft has not been promoted. Stack-variable recovery and retail-backed
+structure declarations are the next prerequisites for comparing its bytes.
+
+`config/context/startup.c` now provides a partial state view for m2c: eight
+fields with retail-observed offsets/widths, plus two 12-byte descriptors at
+offset zero. The descriptor's address word is `u32`, preserving the PS1
+layout on a 64-bit host. Unknown bytes remain padding and the view's end is
+not a claim about the complete object's size. Preprocess this file with
+`cc -E -P -I include` and pass the result to m2c with `--context` and
+`--no-cache`, together with the coalesced startup assembly. The resulting
+draft resolves the eight fields and descriptor stores; it still contains
+unresolved stack expressions and other buffer accesses. The context is
+recovery metadata, not a matched source or native runtime object.
+
+The stack expressions correspond to explicit scratchpad-stack switches:
+
+| Retail instruction range (inclusive) | Helper called on scratchpad stack |
+| --- | --- |
+| `0x800105EC`–`0x80010610` | `func_80015498` |
+| `0x80010614`–`0x80010638` | `func_8001C00C` |
+| `0x8001071C`–`0x80010740` | `func_800D25FC` |
+
+Each sequence stores the original `$sp` at `0x1F8003FC`, sets `$sp` to
+`0x1F8003F8`, calls the helper, then restores `$sp` through that saved word.
+Consequently, adding a C local named `sp` would not recover its behavior.
+The exact PS1 reconstruction needs to preserve these assembly sequences;
+the native boundary needs a separate account of helper stack/scratchpad
+dependencies before choosing its implementation. Neither has yet been
+verified. `tests/test_startup_context.py` checks field offsets, widths and
+descriptor stride, including rejection of a narrowed address word.
+
+The context also describes startup's four 20-byte-stride address-table views
+and byte-addressed buffers. These views overlap: `A6528 = A651C+12`,
+`AE7C8 = AE7BC+12`, `AA60C = A6610+0x3FFC`, and `BA0E4 = BA0D8+12`.
+They must not become separately allocated objects in a native implementation.
+Opaque two-element blocks at state offsets `0x38` (stride `0x5C`) and
+`0x14C` (stride `0x14`) preserve the observed layout without assigning
+unverified library types.
+
+m2c with this context produces typed address-table indexing and byte-scaled
+buffer arithmetic. To prepare a scratch compile, pass the preprocessed
+context **together with** m2c output through `_sanitize`; sanitizing output
+alone inserts guessed declarations for context-owned globals. The sanitizer
+now recognizes typedef/tagged-struct extern declarations instead of
+contradicting them with `extern s32`. The resulting `-O0` compile reaches
+only the unresolved `sp`, `subroutine_arg0`, and void-expression stack
+placeholders. This is not source parity: the state-relative opaque-block
+arguments still contain m2c byte-offset pseudocode that needs explicit C
+addressing before behavioral or byte-level verification.
+
+### Mixed startup compile probe
+
+`include/retail_scratch_call.h` preserves the three scratchpad sequences as
+explicit MIPS assembly with caller-clobbered registers and memory declared.
+It rejects native compilation. The original stack pointer is restored after
+each call; the fixed save cell makes this operation non-reentrant. The
+pinned maspsx parser requires tab-separated `.set` directives: space-separated
+ones in the first probe left extra delay-slot instructions in the output.
+
+The local, ignored `staging/startup/80010178-mixed.c` combines that fragment
+with recovered C and explicit byte-pointer arithmetic for the two opaque
+state-block arguments. Build the probe with:
+
+```sh
+python3 tools/build_candidate.py staging/startup/80010178-mixed.c \
+  --symbol func_80010178 --link-base 0x80010178 --optimization=-O0 \
+  --output /tmp/musashi-startup-probe.bin
+python3 tools/match_function.py --vram 0x80010178 --size 0x7F4 \
+  --candidate /tmp/musashi-startup-probe.bin
+```
+
+The initial full candidate was **not a match**: `-O0` emitted 1,936 bytes versus retail's
+2,036, and `-O2` emitted 1,424 bytes. In each compiled candidate, all three
+40-byte stack-switch sequences occur exactly once and equal the respective
+retail sequences, including their helper call targets. This proves those
+assembly fragments only. Their relocated positions, the differing prologue
+and surrounding C still require matching work; runtime behavior remains
+unverified. No new entry was added to the pure-C match registry.
+
+The subsequent ignored `staging/startup/80010178-registers.c` probe uses
+ordinary C `register` locals for the addresses initialized into `$s0` and
+`$s1` at retail `0x80010198..0x800101A4`. At `-O0`, GCC emits those same
+initializations. No hard-coded register bindings or artificial stack padding
+were introduced. The frame still differs (candidate `0x28`, retail `0x38`).
+
+Inspection of `func_800189A8` at `0x800189A8..0x80018A1C` found no direct
+use of incoming argument registers; it initializes its loop state and supplies
+its own `$a0` for each helper call. The type context now declares it with
+`(void)`. With that context, m2c stops passing the two incidental live values
+that it had inferred at startup's `0x800103BC` call. This eliminates 13
+unnecessary setup instructions in the candidate. Explicit 16-bit assignments
+and multiplication-form byte offsets also reproduce more of the unoptimized
+retail code generation. The revised register-local probe builds to 2,016
+bytes; the complete 2,036-byte retail comparison still refuses the differing
+length. Loop branching, frame layout, and expression ordering remain
+unresolved; the size difference is not a parity percentage.
+
 Two other functions examined for D4 turned out to be poor fits and were left
 alone rather than forced:
 
@@ -558,6 +683,47 @@ Two operational lessons, both now structural:
   `M2C_ERROR`, `spNN`/`saved_reg_*` temporaries, and arity-mismatched
   static prototypes. Nothing mechanical is left; the remaining work is
   per-function struct modeling plus the oracle sweep.
+
+## Exact placement and structured startup probe
+
+The candidate linker previously rounded word-aligned retail bases up to the
+input `.text` alignment. Correct extraction offsets did not correct internal
+absolute jump relocations: a startup build requested at `0x80010178` actually
+linked at `0x80010180`. The script now fixes the output address explicitly and
+uses `SUBALIGN(4)`. A real assembler/linker regression checks internal jump
+targets at two non-16-byte-aligned bases and one aligned control. Both
+unaligned cases failed before the fix and all three pass afterward. All
+362 existing registry entries re-verified with the corrected linker; the full
+suite passed 317 tests plus 5 subtests on 2026-09-04.
+
+The local, ignored `staging/startup/80010178-postincrement.c` probe replaces
+the recovered gotos with nested `while` loops, uses a global counter ternary
+without a spill temporary, and restores postfix halfword increments.
+Compiled at `-O0` with base `0x80010178`, it is exactly 2036 bytes, with
+496 of 509 instruction words equal at the same addresses. The remaining
+13 words are ten frame-allocation/save/restore differences (candidate frame
+`0x20`, retail `0x38`) and three reversed addition operand orders at
+`0x800104C4`, `0x8001059C`, and `0x800106D4`. No padding locals have been
+invented to force the frame. Original local declarations remain unresolved.
+Casting the address bases before addition in the separate `addresswords`
+probe did not change these differences.
+
+A subsequent `staging/startup/80010178-integer-add.c` probe uses
+`offset + (u32)address_base` for those three additions. Unlike pointer
+addition or base-first integer addition, it reproduces their operand order.
+It matches 499/509 words at identical addresses; only the ten frame words
+above remain different. This does not resolve the original local declarations
+or qualify the mixed-assembly probe for the pure-C registry.
+
+These are static recovery observations only. The probe still includes three
+retail scratch-stack assembly fragments and is neither a pure-C registry
+match nor native boot evidence. Reproduce the compile with:
+
+```sh
+python3 tools/build_candidate.py staging/startup/80010178-postincrement.c \
+  --symbol func_80010178 --link-base 0x80010178 --optimization=-O0 \
+  --output /tmp/musashi-startup-postincrement.bin
+```
 
 ## Environment watch: 32-bit toolchain execution
 

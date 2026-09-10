@@ -5,7 +5,9 @@
  * enough to recover real source filenames, so files are named for the address
  * they start at and renamed once a boundary is actually identified.
  *
- * Every function here is byte-verified against retail. Do not add a function
+ * Every function here is byte-verified against retail.
+ * Cross-checked against vendor/bfm-decomp/src/800.c (Druthulu); this
+ * house-style body is preferred over the vendor TU dump form. Do not add a function
  * to this file until tools/match_function.py reports a match for it.
  */
 

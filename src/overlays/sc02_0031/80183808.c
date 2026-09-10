@@ -1,0 +1,9 @@
+/* Complete SC02 retail span [80183808,80183810).
+ * Live STOP 83AC8 cluster; PAC0 member31.
+ */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+/* Matched C deferred. */
+#endif

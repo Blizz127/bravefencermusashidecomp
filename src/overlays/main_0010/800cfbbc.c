@@ -1,0 +1,9 @@
+/* Exact retail overlay 0010 export [800CFBBC,800CFBCC), offset 0x20DC4. */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x3C018011)
+MUSASHI_NATIVE_MIPS_WORD(0xA4204E70)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+/* No matched C implementation is claimed for this overlay stream. */
+#endif

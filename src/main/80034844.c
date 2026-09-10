@@ -1,0 +1,56 @@
+/* Exact retail word export for [80034844,800348A8); EXE and assembly verified. */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x3C04800A)
+MUSASHI_NATIVE_MIPS_WORD(0x248446E8)
+MUSASHI_NATIVE_MIPS_WORD(0x00002821)
+MUSASHI_NATIVE_MIPS_WORD(0x24080005)
+MUSASHI_NATIVE_MIPS_WORD(0x24070001)
+MUSASHI_NATIVE_MIPS_WORD(0x24060220)
+MUSASHI_NATIVE_MIPS_WORD(0x2483001A)
+MUSASHI_NATIVE_MIPS_WORD(0x94820000)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x14480008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x9062001D)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x30420002)
+MUSASHI_NATIVE_MIPS_WORD(0x14400003)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0xA067FFFC)
+MUSASHI_NATIVE_MIPS_WORD(0xA4660000)
+MUSASHI_NATIVE_MIPS_WORD(0x24A50001)
+MUSASHI_NATIVE_MIPS_WORD(0x24630054)
+MUSASHI_NATIVE_MIPS_WORD(0x28A20008)
+MUSASHI_NATIVE_MIPS_WORD(0x1440FFF1)
+MUSASHI_NATIVE_MIPS_WORD(0x24840054)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+/* Decompiled by m2c from main.s, then verified byte-exact
+ * against retail by tools/match_function.py. Types and signatures are
+ * whatever reproduces the bytes; they are not evidence of the
+ * original declaration. */
+
+#include "psx_types.h"
+typedef struct {
+    u16 flags;
+    u8 pad[0x16-2];
+    u8 unk16;
+    u8 pad17[0x1A-0x17];
+    s16 unk1A;
+    u8 pad1C[0x37-0x1C];
+    u8 unk37;
+    u8 rest[0x54-0x38];
+} T;
+extern T D_800A46E8[];
+void func_80034844(void) {
+    s32 i;
+    T *p = D_800A46E8;
+    for (i = 0; i < 8; i++, p++) {
+        if (p->flags == 5 && (p->unk37 & 2) == 0) {
+            p->unk16 = 1;
+            p->unk1A = 0x220;
+        }
+    }
+}
+#endif

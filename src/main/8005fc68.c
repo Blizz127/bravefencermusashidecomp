@@ -1,0 +1,29 @@
+#include "psx_types.h"
+
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x27bdffe8)
+MUSASHI_NATIVE_MIPS_WORD(0xafbf0010)
+MUSASHI_NATIVE_MIPS_WORD(0x3c018008)
+MUSASHI_NATIVE_MIPS_WORD(0xac208c7c)
+MUSASHI_NATIVE_MIPS_WORD(0x3c018008)
+MUSASHI_NATIVE_MIPS_WORD(0xac208cc0)
+MUSASHI_NATIVE_MIPS_WORD(0x0c01861b)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x8fbf0010)
+MUSASHI_NATIVE_MIPS_WORD(0x27bd0018)
+MUSASHI_NATIVE_MIPS_WORD(0x03e00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#endif
+
+extern s32 D_80078C7C;
+extern s32 D_80078CC0;
+extern void func_8006186C(void);
+extern void func_80061A80(void);
+
+/* The generated retail label grouped two adjacent callable ranges.  These
+ * source functions retain their actual boundaries. */
+void func_8005FC68(void) {
+    D_80078C7C = 0;
+    D_80078CC0 = 0;
+    func_8006186C();
+}

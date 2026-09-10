@@ -6,6 +6,10 @@
 #include "musashi_psyq.h"
 #endif
 
+extern int func_80012AB0(int a, int b);
+extern short func_80012E6C(int arg0, int arg1, short arg2, short arg3, short *arg4);
+extern short func_8001311C(short arg0, short arg1, short arg2);
+
 int main(void) {
     static const mus_u8 probe[4] = {0x12, 0x34, 0x56, 0x78};
     MusashiRuntimeState state;
@@ -18,6 +22,22 @@ int main(void) {
     }
     if (!musashi_port_decode_probe(probe, &decoded) || decoded != 0x78563412u) {
         fputs("musashi_pc_smoke: little-endian probe failed\n", stderr);
+        return 1;
+    }
+    if (func_80012AB0(7, 3) != 4) {
+        fputs("musashi_pc_smoke: matched decomp function failed\n", stderr);
+        return 1;
+    }
+    {
+        short interpolation = 1;
+        if (func_80012E6C(0x0FF0, 0x0010, 0, 0, &interpolation) != 32) {
+            fputs("musashi_pc_smoke: matched angle function failed\n", stderr);
+            return 1;
+        }
+    }
+    if (func_8001311C(10, 20, 3) != 3 || func_8001311C(20, 10, 3) != -3 ||
+        func_8001311C(10, 12, 5) != 2) {
+        fputs("musashi_pc_smoke: matched step function failed\n", stderr);
         return 1;
     }
 

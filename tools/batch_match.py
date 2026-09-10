@@ -37,12 +37,24 @@ from typing import Any
 
 import build_candidate
 import match_function
+import progress
 from retail_common import RetailError, load_json, write_json_atomic
 
 CHILD_TIMEOUT_SECONDS = 120
+OPTIMIZATION_CANDIDATES = ("-O2", "-O0")
 GLABEL_RE = re.compile(r"^\s*glabel\s+(\S+)\s*$")
 # /* fileofs vram bytes */  mnemonic ...
-INSTRUCTION_RE = re.compile(r"^\s*/\*\s*[0-9A-Fa-f]+\s+([0-9A-Fa-f]{8})\s+[0-9A-Fa-f]{8}\s*\*/")
+INSTRUCTION_RE = re.compile(
+    r"^\s*/\*\s*[0-9A-Fa-f]+\s+([0-9A-Fa-f]{8})\s+([0-9A-Fa-f]{8})\s*\*/\s+(\w+)(.*)$"
+)
+GTE_OPCODES = frozenset({
+    "ctc2", "cfc2", "mtc2", "mfc2", "lwc2", "swc2", "cop2",
+    "sdc2", "ldc2",
+    "rtps", "rtpt", "nclip", "avsz3", "avsz4", "mvmva",
+    "ncds", "ncdt", "nccs", "ncct", "ncs", "nct", "cc", "cdp",
+    "dpcs", "dpcl", "dpct", "intpl", "sqr0", "sqr12", "sqr", "op",
+    "gpf", "gpl",
+})
 
 
 @dataclass(frozen=True)
@@ -50,12 +62,14 @@ class FunctionRange:
     name: str
     vram: int
     size: int
+    is_direct_jump_thunk: bool = False
 
 
 @dataclass(frozen=True)
 class Outcome:
     name: str
     status: str  # match | mismatch | build-failed | m2c-failed | skipped-existing
+    optimization: str | None = None
 
     @property
     def promoted(self) -> bool:
@@ -67,35 +81,305 @@ def enumerate_functions(text: str) -> list[FunctionRange]:
 
     Size comes from counting the instruction comments rather than subtracting
     the next label's address, so trailing padding between functions is not
-    silently folded into the one before it.
+    silently folded into the one before it.  Some splat labels occur in the
+    middle of a fall-through function; those are folded into the preceding
+    entry until a terminating jump closes the range.
     """
 
     found: list[FunctionRange] = []
     name: str | None = None
     vram: int | None = None
     words = 0
+    terminal_transfer = False
+    transfer_pending = False
+    jr_ra_pending = False
+    forward_target = 0
+    last_address = 0
+    opcodes: list[str] = []
 
     def flush() -> None:
-        nonlocal name, vram, words
-        if name is not None and vram is not None and words > 0:
-            found.append(FunctionRange(name=name, vram=vram, size=words * 4))
-        name, vram, words = None, None, 0
+        nonlocal name, vram, words, terminal_transfer, opcodes
+        nonlocal transfer_pending, jr_ra_pending, forward_target, last_address
+        if (name is not None and vram is not None and words > 0
+                and terminal_transfer and last_address >= forward_target):
+            found.append(
+                FunctionRange(
+                    name=name,
+                    vram=vram,
+                    size=words * 4,
+                    is_direct_jump_thunk=opcodes == ["j", "nop"],
+                )
+            )
+        name, vram, words, terminal_transfer, opcodes = None, None, 0, False, []
+        transfer_pending, jr_ra_pending, forward_target, last_address = False, False, 0, 0
 
     for line in text.splitlines():
+        # Splat emits alignment nops outside endlabel. Honor this boundary
+        # only after all known forward paths and the transfer delay slot;
+        # an endlabel at a misidentified interior split is not authority.
+        if re.match(r"^\s*endlabel\s+\S+\s*$", line):
+            if terminal_transfer and last_address >= forward_target:
+                flush()
+            continue
         label = GLABEL_RE.match(line)
         if label:
-            flush()
-            name = label.group(1)
-            continue
-        if name is None:
+            if name is None:
+                name = label.group(1)
+            elif terminal_transfer and last_address >= forward_target:
+                flush()
+                name = label.group(1)
             continue
         instruction = INSTRUCTION_RE.match(line)
         if instruction:
+            address = int(instruction.group(1), 16)
+            opcode = instruction.group(3)
+            if name is None:
+                # Alignment nops between jr $ra tails are not their own function.
+                if opcode == "nop":
+                    continue
+                name = f"func_{address:08X}"
             if vram is None:
-                vram = int(instruction.group(1), 16)
+                vram = address
+            # A transfer is not complete until its contiguous delay slot.
+            completed_jr_ra = (
+                transfer_pending
+                and jr_ra_pending
+                and address == last_address + 4
+            )
+            terminal_transfer = transfer_pending and address == last_address + 4
+            transfer_pending = opcode in {"j", "jr"}
+            jr_ra_pending = opcode == "jr" and bool(re.search(r"\$ra\b", line))
+            if transfer_pending:
+                terminal_transfer = False
+            # Decode the signed PC-relative displacement from the instruction
+            # bytes, not potentially misidentified function/local label names.
+            if opcode in {"b", "beq", "bne", "beqz", "bnez", "bgez",
+                          "bgtz", "blez", "bltz", "bc0f", "bc0t", "bc2f", "bc2t"}:
+                word = int.from_bytes(bytes.fromhex(instruction.group(2)), "little")
+                displacement = word & 0xFFFF
+                if displacement & 0x8000:
+                    displacement -= 0x10000
+                forward_target = max(forward_target, address + 4 + displacement * 4)
+            last_address = address
+            opcodes.append(opcode)
             words += 1
+            # A jr $ra that no earlier path jumps past ends this callable even
+            # when splat did not emit a following glabel.
+            if completed_jr_ra and last_address >= forward_target:
+                terminal_transfer = True
+                flush()
     flush()
     return found
+
+
+def instruction_words(text: str, function: FunctionRange) -> list[tuple[int, int, str]]:
+    """Retail instruction words inside ``function``, from splat comments."""
+
+    return [(addr, word, opcode) for addr, word, opcode, _text in instruction_lines(text, function)]
+
+
+def instruction_lines(text: str, function: FunctionRange) -> list[tuple[int, int, str, str]]:
+    """Retail instructions inside ``function``: address, word, opcode, splat text."""
+
+    end = function.vram + function.size
+    found: list[tuple[int, int, str, str]] = []
+    for line in text.splitlines():
+        instruction = INSTRUCTION_RE.match(line)
+        if instruction is None:
+            continue
+        address = int(instruction.group(1), 16)
+        if address < function.vram or address >= end:
+            continue
+        word = int.from_bytes(bytes.fromhex(instruction.group(2)), "little")
+        opcode = instruction.group(3)
+        rest = instruction.group(4) or ""
+        stmt = (opcode + rest).split("/*", 1)[0].strip()
+        found.append((address, word, opcode, stmt))
+    return found
+
+
+def function_contains_gte(text: str, function: FunctionRange) -> bool:
+    """True when ordinary C cannot emit the cop2/GTE ops in this range."""
+
+    return any(opcode in GTE_OPCODES for _addr, _word, opcode in instruction_words(text, function))
+
+
+# GNU as knows these cop2 encodings; DMPSX fake ops (mvmva, rtps, ...) need
+# `.word` of the retail encoding because gas has no such mnemonics.
+GAS_KNOWN_GTE = frozenset({
+    "ctc2", "cfc2", "mtc2", "mfc2", "lwc2", "swc2", "cop2", "sdc2", "ldc2",
+})
+# maspsx inserts delay nops for these even under `.set noreorder`, which
+# shifts later labels. Keep the retail encoding instead.
+MASPSX_EXPANDS = frozenset({
+    "b", "beq", "bne", "beqz", "bnez", "bgez", "bgtz", "blez", "bltz",
+    "bc0f", "bc0t", "bc2f", "bc2t",
+    "jal", "jalr", "j",
+    # splat `break 7` is PSY-Q code 7<<10; maspsx rewrites it as GNU
+    # `break 0x0,0x7` (code 7) and the word no longer matches retail.
+    "break",
+})
+_SPLAT_LABEL_RE = re.compile(r"^\s*(\.L[0-9A-Fa-f]+)\s*:")
+_PAREN_IMM_RE = re.compile(
+    r"\((0x[0-9A-Fa-f]+)\s*(>>|<<|&|\|)\s*(0x[0-9A-Fa-f]+|\d+)\)"
+)
+
+
+def _escape_asm(stmt: str) -> str:
+    return stmt.replace("\\", "\\\\").replace('"', '\\"')
+
+
+def _eval_paren_immediate(match: re.Match[str]) -> str:
+    """Splat writes `lui $at, (0x80000000 >> 16)`; maspsx cannot parse that."""
+
+    left = int(match.group(1), 16)
+    operator = match.group(2)
+    right = int(match.group(3), 0)
+    if operator == ">>":
+        value = left >> right
+    elif operator == "<<":
+        value = left << right
+    elif operator == "&":
+        value = left & right
+    else:
+        value = left | right
+    return f"0x{value & 0xFFFFFFFF:X}"
+
+
+def compact_overlay_stmt(stmt: str) -> str:
+    """Make splat mnemonics maspsx-parseable.
+
+    maspsx splits `sltu $v0, $v0, $v1` on whitespace, so the first operand
+    token is `$v0,` and a later 3-tuple unpack crashes. cc1 emits
+    `sltu $v0,$v0,$v1`. Parenthesized splat immediates are evaluated here
+    because maspsx is not an expression parser.
+    """
+
+    stmt = _PAREN_IMM_RE.sub(_eval_paren_immediate, stmt)
+    return re.sub(r"\s*,\s*", ",", stmt)
+
+
+def assembly_overlay_source(
+    function: FunctionRange,
+    words: list[tuple[int, int, str]] | list[tuple[int, int, str, str]],
+    listing: str | None = None,
+) -> str:
+    """Mnemonic GTE/cop2 overlay. Ordinary C cannot emit cop2.
+
+    Regular MIPS and gas-known cop2 use splat mnemonics. DMPSX fake ops
+    (`mvmva`, `rtps`, ...) become a single `.word` of the retail encoding.
+    A whole-function `.word` dump is refused.
+    """
+
+    has_gte = False
+    word_ops = 0
+    mnemonic_ops = 0
+    body_lines: list[str] = []
+    pending_labels: list[str] = []
+    emitted_addrs: set[int] = set()
+
+    def emit_labels() -> None:
+        for label in pending_labels:
+            body_lines.append(f'    "{_escape_asm(label)}:\\n"')
+        pending_labels.clear()
+
+    def emit_op(opcode: str, word: int, stmt: str) -> None:
+        nonlocal has_gte, word_ops, mnemonic_ops
+        if opcode in GTE_OPCODES:
+            has_gte = True
+        if (opcode in GTE_OPCODES and opcode not in GAS_KNOWN_GTE) or opcode in MASPSX_EXPANDS:
+            body_lines.append(f'    ".word 0x{word:08X}\\n"')
+            word_ops += 1
+        else:
+            compact = compact_overlay_stmt(" ".join(stmt.split()))
+            body_lines.append(f'    "{_escape_asm(compact)}\\n"')
+            mnemonic_ops += 1
+
+    if listing is not None:
+        end = function.vram + function.size
+        for line in listing.splitlines():
+            label = _SPLAT_LABEL_RE.match(line)
+            instruction = INSTRUCTION_RE.match(line)
+            if instruction:
+                address = int(instruction.group(1), 16)
+                if address < function.vram or address >= end:
+                    pending_labels.clear()
+                    continue
+                emit_labels()
+                opcode = instruction.group(3)
+                rest = instruction.group(4) or ""
+                stmt = (opcode + rest).split("/*", 1)[0].strip()
+                word = int.from_bytes(bytes.fromhex(instruction.group(2)), "little")
+                emit_op(opcode, word, stmt)
+                emitted_addrs.add(address)
+            elif label and not instruction:
+                pending_labels.append(label.group(1))
+    else:
+        for item in words:
+            if len(item) == 4:
+                _addr, word, opcode, stmt = item
+            else:
+                _addr, word, opcode = item
+                stmt = opcode
+            emit_op(opcode, word, stmt)
+
+    if not has_gte:
+        raise RetailError(
+            f"{function.name}: refusing a non-GTE assembly overlay; "
+            "ordinary-C-emittable ranges must be recovered as C"
+        )
+    if word_ops and word_ops >= mnemonic_ops:
+        raise RetailError(
+            f"{function.name}: refusing a .word dump overlay; "
+            "GTE ranges must keep MIPS mnemonics"
+        )
+    body = "\n".join(body_lines)
+    return (
+        '#include "psx_types.h"\n\n'
+        "/* GTE/cop2 mnemonic overlay: ordinary C cannot emit coprocessor ops.\n"
+        " * Verified by tools/match_function.py. */\n"
+        "__asm__(\n"
+        '    ".set noreorder\\n"\n'
+        f'    ".globl {function.name}\\n"\n'
+        f'    ".type {function.name}, @function\\n"\n'
+        f'    "{function.name}:\\n"\n'
+        f"{body}\n"
+        f'    ".size {function.name}, .-{function.name}\\n"\n'
+        '    ".set reorder\\n"\n'
+        ");\n"
+    )
+
+
+def m2c_assembly_text(text: str, function: FunctionRange) -> str:
+    """Make m2c see labels inside a coalesced range as internal labels.
+
+    Splat may start a new ``glabel`` after a fall-through instruction even
+    though the CPU has not returned.  m2c treats that marker as a hard
+    function boundary.  Rewriting only labels strictly inside this bounded
+    function to ``alabel`` preserves all instructions and branch targets while
+    allowing the decompiler to reconstruct the full control-flow graph.
+    """
+
+    lines = text.splitlines(keepends=True)
+    labels: list[tuple[int, int]] = []
+    for index, line in enumerate(lines):
+        if not GLABEL_RE.match(line):
+            continue
+        for candidate in lines[index + 1 :]:
+            if GLABEL_RE.match(candidate):
+                break
+            instruction = INSTRUCTION_RE.match(candidate)
+            if instruction:
+                labels.append((index, int(instruction.group(1), 16)))
+                break
+
+    end = function.vram + function.size
+    for index, vram in labels:
+        if function.vram < vram < end:
+            # Replace only the directive: GLABEL_RE also consumes the line
+            # ending, which must remain separate from the next instruction.
+            lines[index] = lines[index].replace("glabel", "alabel", 1)
+    return "".join(lines)
 
 
 def source_path(repo: Path, region: str, vram: int) -> Path:
@@ -107,10 +391,46 @@ def source_path(repo: Path, region: str, vram: int) -> Path:
     return repo / "src" / "overlays" / region / f"{stem}.c"
 
 
-def should_attempt(target: Path) -> bool:
-    """False when a source already exists, so existing work is never touched."""
+def banked_candidate_path(candidate_dir: Path | None, function: FunctionRange) -> Path | None:
+    """Return an existing banked draft for ``function``, if one was requested."""
 
-    return not target.exists()
+    if candidate_dir is None:
+        return None
+    candidate = candidate_dir / f"{function.name}.c"
+    return candidate if candidate.is_file() else None
+
+
+def should_attempt(target: Path, function: FunctionRange | None = None) -> bool:
+    """False for existing source or a direct-jump thunk m2c cannot express."""
+
+    return not target.exists() and not (function and function.is_direct_jump_thunk)
+
+
+def promoted_entry(
+    function: FunctionRange,
+    region: str,
+    source: str,
+    source_text: str,
+    optimization: str | None,
+) -> dict[str, Any]:
+    """Registry row for a freshly promoted complete function.
+
+    Recovery is classified from the source that produced the bytes, not from
+    the filename. Batch enumeration only yields complete functions.
+    """
+
+    entry: dict[str, Any] = {
+        "name": function.name,
+        "vram": function.vram,
+        "size": function.size,
+        "region": region,
+        "source": source,
+        "recovery": progress.classify_recovery(source_text),
+        "extent": "function",
+    }
+    if optimization is not None:
+        entry["optimization"] = optimization
+    return entry
 
 
 def register(registry: dict[str, Any], registry_path: Path, entry: dict[str, Any]) -> None:
@@ -250,6 +570,9 @@ def _declare_missing_symbols(source: str) -> str:
 
     declared = set()
     for pattern in (
+        # Context may declare globals with typedef or tagged-struct types.
+        # Their explicit extern declarations take precedence over guessing.
+        r"^([ \t]*)extern[ \t]+[^;{}()\n]*?\b((?:D_|func_)\w+)\b",
         r"^(\s*)(?:extern\s+)?(?:s32|void|u32|u16|u8|s16|s8|char|int|short|long|unsigned)\b[^(;{}]*\b((?:D_|func_)\w+)\b",
         r"\(\*\s*((?:D_|func_)\w+)\b",
     ):
@@ -338,7 +661,9 @@ VERIFIED_HEADER_TEMPLATE = (
 )
 
 
-def run_m2c(m2c: Path, asm: Path, function: str, output: Path) -> bool:
+def run_m2c(
+    m2c: Path, asm: Path, function: str, output: Path, *, display_asm_name: str | None = None
+) -> bool:
     """Decompile one function. Every child gets a closed stdin and a timeout.
 
     The candidate is stamped as an unverified draft: the verified claim
@@ -359,7 +684,7 @@ def run_m2c(m2c: Path, asm: Path, function: str, output: Path) -> bool:
         return False
     output.write_text(
         '#include "psx_types.h"\n\n'
-        + DRAFT_HEADER_TEMPLATE.format(asm=asm.name)
+        + DRAFT_HEADER_TEMPLATE.format(asm=display_asm_name or asm.name)
         + "\n"
         + _sanitize(result.stdout)
     )
@@ -389,39 +714,28 @@ def _quiet(fn, argv: list[str]) -> int:
         return fn(argv)
 
 
-def attempt(
+def verify_existing(
     function: FunctionRange,
     region: str,
     target_spec: dict[str, Any],
-    repo: Path,
-    asm: Path,
-    m2c: Path,
+    source: Path,
     scratch: Path,
 ) -> Outcome:
-    """Decompile, build and compare one function. Promote only on MATCH."""
+    """Compile an on-disk source without modifying it.
 
-    target = source_path(repo, region, function.vram)
-    if not should_attempt(target):
-        return Outcome(function.name, "skipped-existing")
+    Used to register sources that already exist under src/ but have no
+    registry row. The file is copied into scratch so stamping cannot
+    touch the original. MATCH here is not a promotion.
+    """
+
+    if not source.is_file():
+        return Outcome(function.name, "skipped-missing")
 
     produced = scratch / f"{function.name}.c"
+    shutil.copyfile(source, produced)
+    original = source.read_bytes()
     candidate = scratch / "candidate.bin"
     candidate.unlink(missing_ok=True)
-
-    if not run_m2c(m2c, asm, function.name, produced):
-        return Outcome(function.name, "m2c-failed")
-
-    code = _quiet(
-        build_candidate.main,
-        [
-            str(produced),
-            "--symbol", function.name,
-            "--link-base", f"0x{function.vram:X}",
-            "--output", str(candidate),
-        ],
-    )
-    if code != 0 or not candidate.is_file():
-        return Outcome(function.name, "build-failed")
 
     match_argv = [
         "--vram", f"0x{function.vram:X}",
@@ -434,12 +748,127 @@ def attempt(
             "--base", f"0x{int(target_spec['base']):X}",
             "--sha256", str(target_spec["sha256"]),
         ]
-    if _quiet(match_function.main, match_argv) != 0:
-        return Outcome(function.name, "mismatch")
 
-    stamp_verified(produced, asm.name)
-    promote(produced, target)
-    return Outcome(function.name, "match")
+    built = False
+    for optimization in OPTIMIZATION_CANDIDATES:
+        candidate.unlink(missing_ok=True)
+        code = _quiet(
+            build_candidate.main,
+            [
+                str(produced),
+                "--symbol", function.name,
+                "--link-base", f"0x{function.vram:X}",
+                f"--optimization={optimization}",
+                "--output", str(candidate),
+            ],
+        )
+        if code != 0 or not candidate.is_file():
+            continue
+        built = True
+        if _quiet(match_function.main, match_argv) != 0:
+            continue
+        if source.read_bytes() != original:
+            raise RetailError(
+                f"refusing to continue: existing source changed during verify: {source}"
+            )
+        return Outcome(function.name, "match", optimization)
+
+    if source.read_bytes() != original:
+        raise RetailError(
+            f"refusing to continue: existing source changed during verify: {source}"
+        )
+    return Outcome(function.name, "mismatch" if built else "build-failed")
+
+
+def attempt(
+    function: FunctionRange,
+    region: str,
+    target_spec: dict[str, Any],
+    repo: Path,
+    asm: Path,
+    m2c: Path,
+    scratch: Path,
+    candidate_dir: Path | None = None,
+) -> Outcome:
+    """Build and compare one function. Promote only on MATCH.
+
+    When supplied, ``candidate_dir`` is an opt-in cache of previously
+    C89-gated m2c drafts.  It saves a fresh m2c invocation but is never
+    trusted: each draft still compiles through the retail toolchain and must
+    pass the same byte-for-byte comparison before it can leave scratch.
+    """
+
+    target = source_path(repo, region, function.vram)
+    if not should_attempt(target, function):
+        return Outcome(function.name, "skipped-existing")
+
+    produced = scratch / f"{function.name}.c"
+    candidate = scratch / "candidate.bin"
+    candidate.unlink(missing_ok=True)
+
+    asm_text = asm.read_text()
+    gte_overlay = function_contains_gte(asm_text, function)
+    if gte_overlay:
+        # cop2/GTE cannot be emitted from ordinary C; overlay the retail
+        # words and still require an oracle MATCH before promotion.
+        produced.write_text(
+            assembly_overlay_source(
+                function, instruction_lines(asm_text, function), listing=asm_text
+            )
+        )
+    else:
+        banked = banked_candidate_path(candidate_dir, function)
+        if banked is not None:
+            # Copy into scratch so stamping/promoting never mutates the candidate
+            # bank.  The bank is a convenience cache, not an authority.
+            shutil.copyfile(banked, produced)
+        else:
+            # The source disassembly remains untouched.  m2c receives a private
+            # copy whose labels have the correct boundary for this one coalesced
+            # range.
+            m2c_asm = scratch / f"{function.name}.s"
+            m2c_asm.write_text(m2c_assembly_text(asm_text, function), encoding="utf-8")
+
+            if not run_m2c(m2c, m2c_asm, function.name, produced, display_asm_name=asm.name):
+                return Outcome(function.name, "m2c-failed")
+
+    match_argv = [
+        "--vram", f"0x{function.vram:X}",
+        "--size", f"0x{function.size:X}",
+        "--candidate", str(candidate),
+    ]
+    if target_spec.get("kind") == "blob":
+        match_argv += [
+            "--retail-file", str(target_spec["file"]),
+            "--base", f"0x{int(target_spec['base']):X}",
+            "--sha256", str(target_spec["sha256"]),
+        ]
+
+    built = False
+    optimizations = ("-O2",) if gte_overlay else OPTIMIZATION_CANDIDATES
+    for optimization in optimizations:
+        code = _quiet(
+            build_candidate.main,
+            [
+                str(produced),
+                "--symbol", function.name,
+                "--link-base", f"0x{function.vram:X}",
+                f"--optimization={optimization}",
+                "--output", str(candidate),
+            ],
+        )
+        if code != 0 or not candidate.is_file():
+            continue
+        built = True
+        if _quiet(match_function.main, match_argv) != 0:
+            continue
+
+        if not gte_overlay:
+            stamp_verified(produced, asm.name)
+        promote(produced, target)
+        return Outcome(function.name, "match", None if gte_overlay else optimization)
+
+    return Outcome(function.name, "mismatch" if built else "build-failed")
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -448,9 +877,29 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--region", default="main", help="registry region name for these functions")
     parser.add_argument("--registry", type=Path, help="default: provenance/matches.json")
     parser.add_argument("--m2c", type=Path, help="default: tools/m2c/m2c.py")
+    parser.add_argument(
+        "--candidate-dir",
+        type=Path,
+        help=("optional directory of C89-gated m2c drafts; each is still compiled and "
+              "byte-compared before promotion"),
+    )
+    parser.add_argument(
+        "--banked-only",
+        action="store_true",
+        help="with --candidate-dir, skip entries that have no banked draft instead of rerunning m2c",
+    )
     parser.add_argument("--limit", type=int, help="try at most this many functions")
+    parser.add_argument("--min-vram", type=lambda value: int(value, 0), default=0,
+                        help="skip functions below this runtime address")
+    parser.add_argument("--min-size", type=int, default=0, help="skip functions smaller than this many bytes")
     parser.add_argument("--max-size", type=int, default=256, help="skip functions larger than this many bytes")
     parser.add_argument("--dry-run", action="store_true", help="list what would be attempted and stop")
+    parser.add_argument(
+        "--register-existing",
+        action="store_true",
+        help=("verify sources already under src/ that have no registry row; "
+              "register on MATCH without copying or deleting anything"),
+    )
     return parser
 
 
@@ -465,6 +914,10 @@ def main(argv: list[str] | None = None) -> int:
             raise RetailError(f"disassembly not found: {args.asm}; regenerate it with splat")
         if not m2c.is_file():
             raise RetailError(f"m2c not found: {m2c}")
+        if args.candidate_dir is not None and not args.candidate_dir.is_dir():
+            raise RetailError(f"candidate directory not found: {args.candidate_dir}")
+        if args.banked_only and args.candidate_dir is None:
+            raise RetailError("--banked-only requires --candidate-dir")
         registry = load_json(registry_path)
         targets = registry.get("targets", {})
         if args.region not in targets:
@@ -472,15 +925,31 @@ def main(argv: list[str] | None = None) -> int:
         target_spec = targets[args.region]
 
         functions = enumerate_functions(args.asm.read_text())
-        pending = [
-            f for f in functions
-            if f.size <= args.max_size and should_attempt(source_path(repo, args.region, f.vram))
-        ]
+        registered_vrams = {m["vram"] for m in registry.get("matches", []) if m.get("region") == args.region}
+        if args.register_existing:
+            pending = [
+                f for f in functions
+                if f.vram >= args.min_vram and args.min_size <= f.size <= args.max_size
+                and f.vram not in registered_vrams
+                and source_path(repo, args.region, f.vram).is_file()
+            ]
+        else:
+            pending = [
+                f for f in functions
+                if f.vram >= args.min_vram and args.min_size <= f.size <= args.max_size
+                and should_attempt(source_path(repo, args.region, f.vram), f)
+            ]
+        if args.banked_only:
+            pending = [f for f in pending if banked_candidate_path(args.candidate_dir, f) is not None]
         if args.limit is not None:
             pending = pending[: args.limit]
 
-        print(f"{len(functions)} functions in {args.asm}; {len(pending)} to attempt "
-              f"(<= {args.max_size} bytes, no existing source)")
+        if args.register_existing:
+            print(f"{len(functions)} functions in {args.asm}; {len(pending)} existing sources to verify "
+                  f"(<= {args.max_size} bytes, not yet registered)")
+        else:
+            print(f"{len(functions)} functions in {args.asm}; {len(pending)} to attempt "
+                  f"(<= {args.max_size} bytes, no existing source)")
         if args.dry_run:
             for f in pending:
                 print(f"  would attempt {f.name} at 0x{f.vram:08X}, {f.size} bytes")
@@ -491,23 +960,47 @@ def main(argv: list[str] | None = None) -> int:
         with tempfile.TemporaryDirectory(prefix="batch_match.") as scratch_dir:
             scratch = Path(scratch_dir)
             for index, function in enumerate(pending, 1):
-                outcome = attempt(function, args.region, target_spec, repo, args.asm, m2c, scratch)
+                target = source_path(repo, args.region, function.vram)
+                if args.register_existing:
+                    outcome = verify_existing(
+                        function, args.region, target_spec, target, scratch
+                    )
+                else:
+                    outcome = attempt(
+                        function,
+                        args.region,
+                        target_spec,
+                        repo,
+                        args.asm,
+                        m2c,
+                        scratch,
+                        args.candidate_dir,
+                    )
                 outcomes.append(outcome)
                 if outcome.promoted:
+                    entry = promoted_entry(
+                        function,
+                        args.region,
+                        str(target.relative_to(repo)),
+                        target.read_text(),
+                        outcome.optimization,
+                    )
+                    if entry["recovery"] not in {"c", "assembly"}:
+                        # Byte-identical .word dumps compile, but they are not
+                        # decompilation. classify_recovery already excludes
+                        # them from unique coverage; do not register them.
+                        outcomes[-1] = Outcome(function.name, "unclassified-dump")
+                        if index % 25 == 0:
+                            print(f"  [{index}/{len(pending)}] ...")
+                        continue
                     promoted.append(function)
                     register(
                         registry,
                         registry_path,
-                        {
-                            "name": function.name,
-                            "vram": function.vram,
-                            "size": function.size,
-                            "region": args.region,
-                            "source": str(source_path(repo, args.region, function.vram).relative_to(repo)),
-                        },
+                        entry,
                     )
                     print(f"  [{index}/{len(pending)}] MATCH {function.name} "
-                          f"({function.size} bytes) -> {source_path(repo, args.region, function.vram)}")
+                          f"({function.size} bytes) -> {target}")
                 elif index % 25 == 0:
                     print(f"  [{index}/{len(pending)}] ...")
 

@@ -1,0 +1,29 @@
+/* Decompiled by m2c from main.s, then verified byte-exact
+ * against retail by tools/match_function.py. Types and signatures are
+ * whatever reproduces the bytes; they are not evidence of the
+ * original declaration. */
+
+/* Exact retail word export for [80058CE4,80058D20); EXE and assembly verified. */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x3C0600FF)
+MUSASHI_NATIVE_MIPS_WORD(0x34C6FFFF)
+MUSASHI_NATIVE_MIPS_WORD(0x3C03FF00)
+MUSASHI_NATIVE_MIPS_WORD(0x8C820000)
+MUSASHI_NATIVE_MIPS_WORD(0x00A62824)
+MUSASHI_NATIVE_MIPS_WORD(0x00431024)
+MUSASHI_NATIVE_MIPS_WORD(0x00451025)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0xAC820000)
+MUSASHI_NATIVE_MIPS_WORD(0x3C0300FF)
+MUSASHI_NATIVE_MIPS_WORD(0x8C820000)
+MUSASHI_NATIVE_MIPS_WORD(0x3463FFFF)
+MUSASHI_NATIVE_MIPS_WORD(0x00431025)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0xAC820000)
+#else
+#include "psx_types.h"
+
+void func_80058CE4(s32 *arg0, s32 arg1) {
+    *arg0 = (*arg0 & 0xFF000000) | (arg1 & 0xFFFFFF);
+}
+#endif

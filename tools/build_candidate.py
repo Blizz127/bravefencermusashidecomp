@@ -99,6 +99,12 @@ def parse_symbol_definitions(text: str) -> dict[str, int]:
     return symbols
 
 
+def discard_candidate_definition(definitions: dict[str, int], symbol: str) -> None:
+    """Keep the object text symbol authoritative during candidate linking."""
+
+    definitions.pop(symbol, None)
+
+
 SPLAT_NAME_RE = re.compile(r"^(?:func_|D_)(?P<address>[0-9a-fA-F]{8})$")
 
 
@@ -131,18 +137,21 @@ def parse_undefined_symbols(nm_output: str) -> list[str]:
     return sorted(undefined)
 
 
-def render_linker_script(base: int, symbols: dict[str, int]) -> str:
+def render_linker_script(base: int, symbols: dict[str, int],
+                         rodata_base: int | None = None) -> str:
     """Build a script that resolves external references and places .text.
 
     Assignments must precede SECTIONS or ld cannot resolve references to them.
 
-    Placement only has to land in the right 256MB region. Branches are
-    PC-relative, and %hi/%lo carry absolute targets, so neither depends on where
-    the function sits. `jal` takes its top four address bits from the delay-slot
-    PC, which is why the base must share a region with the executable rather
-    than being arbitrary.
+    Placement must be exact for internal absolute jumps and text addresses.
+    Override input-section alignment: a retail function may only be word
+    aligned even when GNU as gives its standalone .text 16-byte alignment.
     """
 
+    if rodata_base is not None and (not 0 <= rodata_base <= 0xFFFFFFFC or rodata_base % 4):
+        raise RetailError("rodata base must be a word-aligned 32-bit address")
+    rodata = (f"    .rodata 0x{rodata_base:08X} : SUBALIGN(4) {{ *(.rdata) *(.rodata*) }}\n"
+              if rodata_base is not None else "")
     assignments = "".join(
         f"{name} = 0x{address:08X};\n" for name, address in sorted(symbols.items())
     )
@@ -152,7 +161,8 @@ def render_linker_script(base: int, symbols: dict[str, int]) -> str:
         "SECTIONS\n"
         "{\n"
         f"    . = 0x{base:08X};\n"
-        "    .text : { *(.text) }\n"
+        f"    .text 0x{base:08X} : SUBALIGN(4) {{ *(.text) }}\n"
+        f"{rodata}"
         "    /DISCARD/ : { *(.pdr) *(.comment) *(.reginfo) *(.mdebug*) }\n"
         "}\n"
     )
@@ -437,6 +447,9 @@ def build_parser() -> argparse.ArgumentParser:
         help="symbol definition file, repeatable; defaults to splat's auto files",
     )
     parser.add_argument("--keep-intermediates", action="store_true")
+    parser.add_argument("--rodata-base", type=lambda value: int(value, 0),
+                        help="explicit read-only data address for switch-table recovery; "
+                             "does not verify the table or register a match")
     return parser
 
 
@@ -504,6 +517,12 @@ def main(argv: list[str] | None = None) -> int:
                 if path.is_file():
                     definitions.update(parse_symbol_definitions(path.read_text(encoding="utf-8")))
 
+            # The generated address table can contain the function currently
+            # being built. Its absolute assignment would override the object
+            # symbol and make ld report the candidate as type A instead of
+            # text, so remove only this symbol and let the object define it.
+            discard_candidate_definition(definitions, args.symbol)
+
             # Anything still undefined that carries its address in its name is
             # resolved from the name. A name without one is a genuine external
             # dependency and is reported rather than guessed at.
@@ -523,8 +542,14 @@ def main(argv: list[str] | None = None) -> int:
                     + ", ".join(unresolved)
                 )
 
-            script.write_text(render_linker_script(args.link_base, definitions), encoding="utf-8")
+            script.write_text(render_linker_script(args.link_base, definitions,
+                                                   args.rodata_base), encoding="utf-8")
             _run(ld_command(ld, script, obj, elf), "ld")
+            if args.rodata_base is not None:
+                actual = parse_section_address(
+                    _capture([str(objdump), "-h", str(elf)], "objdump -h"), ".rodata")
+                if actual != args.rodata_base:
+                    raise RetailError("linked read-only data address differs from requested base")
 
             symbols = parse_nm_symbols(_capture([str(nm), "-S", str(elf)], "nm"))
             if args.symbol not in symbols:

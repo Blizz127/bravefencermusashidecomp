@@ -1,0 +1,14 @@
+#include "psx_types.h"
+
+/* Decompiled by m2c from main.s, then verified byte-exact
+ * against retail by tools/match_function.py. Types and signatures are
+ * whatever reproduces the bytes; they are not evidence of the
+ * original declaration. */
+
+void func_800627F8();                                  /* static */
+void func_80062808();                                  /* static */
+
+void func_80062360(void) {
+    func_800627F8();
+    func_80062808();
+}

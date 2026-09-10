@@ -56,6 +56,14 @@ class DefaultsTests(unittest.TestCase):
             check_port_symbols.TRUNCATING_CALLBACKS, frozenset({"ResetCallback", "VSyncCallback"})
         )
 
+    def test_vsync_exception_is_opt_in_and_keeps_reset_callback_guarded(self) -> None:
+        self.assertEqual(
+            check_port_symbols.forbidden_callbacks(True), frozenset({"ResetCallback"})
+        )
+        self.assertEqual(
+            check_port_symbols.forbidden_callbacks(False), check_port_symbols.TRUNCATING_CALLBACKS
+        )
+
 
 class CliTests(unittest.TestCase):
     def test_missing_object_is_refused(self) -> None:

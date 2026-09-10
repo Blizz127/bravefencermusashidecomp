@@ -85,3 +85,19 @@ venv/
 # Local-only staging: unverified m2c/Sanitizer outputs awaiting an oracle
 # promotion sweep. Regenerable via tools/batch_match.py; never committed.
 /staging/
+
+# Vendored upstream trees (fetch/rsync locally; do not publish as a mirror)
+vendor/
+
+# Local reference clones outside normal workflow
+# (sibling path is outside this repo; listed for clarity if ever nested)
+
+# Regenerable parser output and in-source test/build droppings
+/Testing/
+/parser.out
+/yacctab.py
+/native_vram_display.png
+/native_vram_display.ppm
+
+# Local agent session transcripts: keep local, never publish
+/codex-session-*.md

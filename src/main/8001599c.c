@@ -1,0 +1,24 @@
+/* Decompiled by m2c from main.s, then verified byte-exact
+ * against retail by tools/match_function.py. Types and signatures are
+ * whatever reproduces the bytes; they are not evidence of the
+ * original declaration. */
+
+#include "psx_types.h"
+
+/* HAND MODEL from m2c draft of func_8001599C (main.s): NOT
+ * verified against retail. C89-gated only; promotion requires an
+ * oracle MATCH. Three-word copy (lw/sw x3). NOTE: func_800159C0 disassembles identically; shared body. Body is m2c's verbatim with types
+ * filled in. */
+
+struct data_8001599C {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+};
+
+void func_8001599C(struct data_8001599C *arg0, struct data_8001599C *arg1) {
+    arg1->unk0 = (s32) arg0->unk0;
+    arg1->unk4 = (s32) arg0->unk4;
+    arg1->unk8 = (s32) arg0->unk8;
+}
+

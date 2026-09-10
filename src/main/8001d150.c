@@ -1,3 +1,15 @@
+/* Exact retail [8001D150,8001D16C).
+ * Words from pinned SLUS_007.26.
+ */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x00052880)
+MUSASHI_NATIVE_MIPS_WORD(0x00A42821)
+MUSASHI_NATIVE_MIPS_WORD(0x8CA20000)
+MUSASHI_NATIVE_MIPS_WORD(0x3C030100)
+MUSASHI_NATIVE_MIPS_WORD(0x00431025)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0xACA20000)
+#else
 #include "psx_types.h"
 
 /* Decompiled by m2c from main.s, then verified byte-exact
@@ -11,3 +23,4 @@ void func_8001D150(s32 arg0, s32 arg1) {
     temp_a1 = (arg1 * 4) + arg0;
     *temp_a1 |= 0x01000000;
 }
+#endif

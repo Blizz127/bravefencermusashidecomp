@@ -61,8 +61,23 @@ tools/psyq/gcc-2.8.1-psx/cc1 < /dev/null >/dev/null 2>&1; echo "cc1 rc=$?"
 ```
 
 When `rc=0` stops being 159, run the promotion sweep per `docs/MATCHING.md`
-(`tools/batch_match.py --asm ... --region ...`). The sweep regenerates its
-own candidates; the bank then serves as a cross-check, not the input.
+(`tools/batch_match.py --asm ... --region ...`). To exercise this saved bank
+without re-running m2c, add `--candidate-dir staging/candidates`. The harness
+copies each available draft into scratch; it still compiles the draft with the
+retail toolchain and compares the resulting bytes before promotion. A missing
+banked draft falls back to a fresh m2c run. The bank is therefore a cache, not
+an authority, and remains unmodified by a sweep.
+
+To sweep only drafts already in the cache (and never spend time on a fresh m2c
+fallback), combine it with `--banked-only`. This flag requires
+`--candidate-dir` and does not weaken the compiler or retail-byte gates.
+
+For bounded sweeps, capture the dry-run list **before** promotion and resume
+after its last attempted address, including failed candidates. Recomputing
+the same limited dry run after promotion produces a different list: matched
+entries have disappeared and later untested entries fill their places.
+Using that new last address as a cursor skips untested candidates. A single
+unlimited run over the selected bank avoids this cursor issue entirely.
 
 ## Operational notes (learned 2026-09-04)
 

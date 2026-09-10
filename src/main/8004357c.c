@@ -1,3 +1,14 @@
+/* Exact retail word export for [8004357C,8004359C); EXE-verified. */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x27bdffe8)
+MUSASHI_NATIVE_MIPS_WORD(0xafbf0010)
+MUSASHI_NATIVE_MIPS_WORD(0x0c0110e9)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x8fbf0010)
+MUSASHI_NATIVE_MIPS_WORD(0x27bd0018)
+MUSASHI_NATIVE_MIPS_WORD(0x03e00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
 #include "psx_types.h"
 
 /* Decompiled by m2c from main.s, then verified byte-exact
@@ -10,3 +21,4 @@ void func_800443A4();                                  /* static */
 void func_8004357C(void) {
     func_800443A4();
 }
+#endif

@@ -5,6 +5,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
@@ -28,8 +29,129 @@ glabel func_80012AB8
     /* 38C0 80012AC0 00000000 */   nop
 """
 
+FALLTHROUGH_LABEL = """\
+.section .text, "ax"
+
+glabel func_80012AF4
+    /* 38F4 80012AF4 3412033C */  lui        $v1, 0x1234
+    /* 38F8 80012AF8 78566394 */  lhu        $v1, 0x5678($v1)
+
+glabel func_80012AFC
+    /* 38FC 80012AFC 0800E003 */  jr         $ra
+    /* 3900 80012B00 00000000 */   nop
+"""
+
+DIRECT_JUMP_THUNK = """\
+.section .text, "ax"
+
+glabel func_8001020C
+    /* A0C 8001020C 53420008 */  j          func_8001094C
+    /* A10 80010210 00000000 */   nop
+"""
+
 
 class EnumerateTests(unittest.TestCase):
+    def test_completed_endlabel_excludes_alignment_padding(self) -> None:
+        text = '''glabel first
+/* 0 80010000 0800E003 */ jr $ra
+/* 4 80010004 00000000 */ nop
+endlabel first
+/* 8 80010008 00000000 */ nop
+glabel second
+/* C 8001000C E8FFBD27 */ addiu $sp, $sp, -0x18
+/* 10 80010010 0800E003 */ jr $ra
+/* 14 80010014 00000000 */ nop
+'''
+        funcs = batch_match.enumerate_functions(text)
+        self.assertEqual([(f.name, f.size) for f in funcs],
+                         [("first", 8), ("second", 12)])
+
+    def test_endlabel_before_delay_slot_does_not_truncate(self) -> None:
+        text = DIRECT_JUMP_THUNK.replace(
+            "    /* A10", "endlabel func_8001020C\n    /* A10")
+        funcs = batch_match.enumerate_functions(text)
+        self.assertEqual([(f.name, f.size) for f in funcs], [("func_8001020C", 8)])
+
+    def test_label_in_jump_delay_slot_does_not_end_range(self) -> None:
+        text = DIRECT_JUMP_THUNK.replace(
+            "    /* A10", "glabel delay_slot\n    /* A10")
+        funcs = batch_match.enumerate_functions(text)
+        self.assertEqual([(f.name, f.size) for f in funcs], [("func_8001020C", 8)])
+
+    def test_missing_jump_delay_slot_is_not_a_complete_function(self) -> None:
+        text = DIRECT_JUMP_THUNK.split("    /* A10")[0]
+        self.assertEqual(batch_match.enumerate_functions(text), [])
+
+    def test_noncontiguous_instruction_cannot_supply_jump_delay_slot(self) -> None:
+        text = DIRECT_JUMP_THUNK.replace("A10 80010210", "A14 80010214")
+        self.assertEqual(batch_match.enumerate_functions(text), [])
+
+    def test_forward_target_beyond_input_is_not_a_complete_function(self) -> None:
+        text = '''glabel entry
+/* 0 80010000 04008010 */ beqz $a0, missing_target
+/* 4 80010004 00000000 */ nop
+/* 8 80010008 0800E003 */ jr $ra
+/* C 8001000C 00000000 */ nop
+'''
+        self.assertEqual(batch_match.enumerate_functions(text), [])
+
+    def test_uncrossed_jr_ra_splits_even_without_a_second_glabel(self) -> None:
+        """Frameless GTE helpers are often one splat label with many jr $ra tails."""
+
+        text = """\
+glabel func_8004D504
+/* 0 8004D504 00000000 */ nop
+/* 4 8004D508 0800E003 */ jr $ra
+/* 8 8004D50C 00000000 */ nop
+/* C 8004D510 00000000 */ nop
+/* 10 8004D514 00008284 */ lh $v0, 0x0($a0)
+/* 14 8004D518 0800E003 */ jr $ra
+/* 18 8004D51C 00000000 */ nop
+"""
+        funcs = batch_match.enumerate_functions(text)
+        self.assertEqual(
+            [(f.name, f.vram, f.size) for f in funcs],
+            [
+                ("func_8004D504", 0x8004D504, 12),
+                ("func_8004D514", 0x8004D514, 12),
+            ],
+        )
+
+    def test_early_return_with_forward_branch_is_not_split(self) -> None:
+        text = """\
+glabel entry
+/* 0 80010000 04008014 */ bnez $a0, body
+/* 4 80010004 00000000 */ nop
+/* 8 80010008 0800E003 */ jr $ra
+/* C 8001000C 00000000 */ nop
+glabel body
+/* 10 80010010 21080000 */ addu $t0, $zero, $zero
+/* 14 80010014 0800E003 */ jr $ra
+/* 18 80010018 00000000 */ nop
+"""
+        funcs = batch_match.enumerate_functions(text)
+        self.assertEqual([(f.name, f.size) for f in funcs], [("entry", 28)])
+
+    def test_forward_branch_keeps_alternate_path_and_shared_return(self) -> None:
+        text = '''glabel entry
+/* 0 80010000 04008010 */ beqz $a0, shared_return
+/* 4 80010004 00000000 */ nop
+/* 8 80010008 05400008 */ j shared_return
+glabel jump_delay
+/* C 8001000C 00000000 */ nop
+glabel alternate
+/* 10 80010010 00000000 */ nop
+alabel shared_return
+/* 14 80010014 0800E003 */ jr $ra
+/* 18 80010018 00000000 */ nop
+glabel next_function
+/* 1C 8001001C 0800E003 */ jr $ra
+/* 20 80010020 00000000 */ nop
+'''
+        funcs = batch_match.enumerate_functions(text)
+        self.assertEqual([(f.name, f.size) for f in funcs],
+                         [("entry", 28), ("next_function", 8)])
+
     def test_functions_are_found_with_their_addresses(self) -> None:
         funcs = batch_match.enumerate_functions(ASM)
         self.assertEqual([f.name for f in funcs], ["func_80012AB0", "func_80012AB8"])
@@ -42,6 +164,31 @@ class EnumerateTests(unittest.TestCase):
 
     def test_a_file_with_no_functions_yields_nothing(self) -> None:
         self.assertEqual(batch_match.enumerate_functions(".section .text\n"), [])
+
+    def test_a_fallthrough_split_is_coalesced_at_its_real_entry(self) -> None:
+        """A fall-through label belongs to the preceding callable entry."""
+
+        funcs = batch_match.enumerate_functions(FALLTHROUGH_LABEL)
+        self.assertEqual([f.name for f in funcs], ["func_80012AF4"])
+        self.assertEqual(funcs[0].size, 16)
+
+    def test_m2c_input_rewrites_inner_glabels_as_alabels(self) -> None:
+        function = batch_match.enumerate_functions(FALLTHROUGH_LABEL)[0]
+        rewritten = batch_match.m2c_assembly_text(FALLTHROUGH_LABEL, function)
+        self.assertIn("glabel func_80012AF4", rewritten)
+        self.assertIn("alabel func_80012AFC", rewritten)
+
+    def test_direct_jump_thunk_is_not_a_c_candidate(self) -> None:
+        thunk = batch_match.enumerate_functions(DIRECT_JUMP_THUNK)[0]
+        self.assertTrue(thunk.is_direct_jump_thunk)
+        self.assertFalse(batch_match.should_attempt(Path("missing.c"), thunk))
+
+    def test_internal_label_rewrite_preserves_instruction_lines(self) -> None:
+        function = batch_match.enumerate_functions(FALLTHROUGH_LABEL)[0]
+        for text in (FALLTHROUGH_LABEL, FALLTHROUGH_LABEL.replace("\n", "\r\n")):
+            with self.subTest(crlf="\r\n" in text):
+                rewritten = batch_match.m2c_assembly_text(text, function)
+                self.assertEqual(rewritten, text.replace("glabel func_80012AFC", "alabel func_80012AFC"))
 
 
 class SafetyTests(unittest.TestCase):
@@ -350,6 +497,139 @@ class SanitizeTests(unittest.TestCase):
         self.assertNotIn("(?,", out)
 
 
+GTE_SNIPPET = """\
+glabel func_8004D504
+/* 0 8004D504 00008884 */ lh $t0, 0x0($a0)
+/* 4 8004D508 0000C848 */ ctc2 $t0, $0
+/* 8 8004D50C 0800E003 */ jr $ra
+/* C 8004D510 00000000 */ nop
+"""
+
+
+class GteOverlayTests(unittest.TestCase):
+    def test_instruction_words_are_little_endian_retail_words(self) -> None:
+        function = batch_match.FunctionRange("func_8004D504", 0x8004D504, 16)
+        words = batch_match.instruction_words(GTE_SNIPPET, function)
+        self.assertEqual(
+            [(addr, word, op) for addr, word, op in words],
+            [
+                (0x8004D504, 0x84880000, "lh"),
+                (0x8004D508, 0x48C80000, "ctc2"),
+                (0x8004D50C, 0x03E00008, "jr"),
+                (0x8004D510, 0x00000000, "nop"),
+            ],
+        )
+
+    def test_gte_opcode_is_detected(self) -> None:
+        function = batch_match.FunctionRange("func_8004D504", 0x8004D504, 16)
+        self.assertTrue(batch_match.function_contains_gte(GTE_SNIPPET, function))
+        self.assertFalse(batch_match.function_contains_gte(ASM, batch_match.FunctionRange("func_80012AB0", 0x80012AB0, 8)))
+
+    def test_overlay_source_emits_gte_mnemonics_not_word_dumps(self) -> None:
+        function = batch_match.FunctionRange("func_8004D504", 0x8004D504, 16)
+        lines = batch_match.instruction_lines(GTE_SNIPPET, function)
+        source = batch_match.assembly_overlay_source(function, lines)
+        self.assertIn("ctc2 $t0,$0", source)
+        self.assertIn("lh $t0,0x0($a0)", source)
+        self.assertNotIn(".word 0x", source)
+        self.assertIn("func_8004D504:", source)
+        self.assertEqual(batch_match.progress.classify_recovery(source), "assembly")
+
+    def test_overlay_uses_word_only_for_dmpsx_fake_ops(self) -> None:
+        listing = """\
+glabel func_8004D600
+/* 0 8004D600 00008848 */ mtc2 $t0, $0
+/* 4 8004D604 1260404A */ mvmva 0, 0, 0, 3, 0
+/* 8 8004D608 0800E003 */ jr $ra
+/* C 8004D60C 00000000 */ nop
+"""
+        function = batch_match.FunctionRange("func_8004D600", 0x8004D600, 16)
+        source = batch_match.assembly_overlay_source(
+            function, batch_match.instruction_lines(listing, function), listing=listing
+        )
+        self.assertIn("mtc2 $t0,$0", source)
+        self.assertIn(".word 0x4A406012", source)
+        self.assertIn("jr $ra", source)
+        self.assertEqual(source.count(".word 0x"), 1)
+        self.assertEqual(batch_match.progress.classify_recovery(source), "assembly")
+
+    def test_overlay_compacts_commas_and_evaluates_splat_immediates(self) -> None:
+        listing = """\
+glabel func_8004D700
+/* 0 8004D700 2B104300 */ sltu $v0, $v0, $v1
+/* 4 8004D704 0000803C */ lui $at, (0x80000000 >> 16)
+/* 8 8004D708 00008848 */ mtc2 $t0, $0
+/* C 8004D70C 0800E003 */ jr $ra
+/* 10 8004D710 00000000 */ nop
+"""
+        function = batch_match.FunctionRange("func_8004D700", 0x8004D700, 20)
+        source = batch_match.assembly_overlay_source(
+            function, batch_match.instruction_lines(listing, function), listing=listing
+        )
+        self.assertIn("sltu $v0,$v0,$v1", source)
+        self.assertIn("lui $at,0x8000", source)
+        self.assertNotIn("(0x80000000 >> 16)", source)
+        self.assertIn("mtc2 $t0,$0", source)
+        self.assertEqual(batch_match.progress.classify_recovery(source), "assembly")
+
+    def test_overlay_encodes_break_as_retail_word(self) -> None:
+        listing = """\
+glabel func_8004D800
+/* 0 8004D800 00008848 */ mtc2 $t0, $0
+/* 4 8004D804 0D000700 */ break 7
+/* 8 8004D808 0800E003 */ jr $ra
+/* C 8004D80C 00000000 */ nop
+"""
+        function = batch_match.FunctionRange("func_8004D800", 0x8004D800, 16)
+        source = batch_match.assembly_overlay_source(
+            function, batch_match.instruction_lines(listing, function), listing=listing
+        )
+        self.assertIn("mtc2 $t0,$0", source)
+        self.assertIn(".word 0x0007000D", source)
+        self.assertNotIn("break", source)
+        self.assertEqual(batch_match.progress.classify_recovery(source), "assembly")
+
+    def test_non_gte_overlay_is_refused(self) -> None:
+        function = batch_match.FunctionRange("func_80012AB0", 0x80012AB0, 8)
+        words = batch_match.instruction_words(ASM, function)
+        with self.assertRaises(batch_match.RetailError):
+            batch_match.assembly_overlay_source(function, words)
+
+    def test_gte_opcodes_do_not_include_cpu_priv_ops(self) -> None:
+        self.assertNotIn("mfc0", batch_match.GTE_OPCODES)
+        self.assertNotIn("mtc0", batch_match.GTE_OPCODES)
+        self.assertNotIn("syscall", batch_match.GTE_OPCODES)
+        self.assertIn("ctc2", batch_match.GTE_OPCODES)
+
+
+class PromotedEntryTests(unittest.TestCase):
+    def test_promoted_c_is_classified_as_a_complete_c_function(self) -> None:
+        function = batch_match.FunctionRange("func_80012AB0", 0x80012AB0, 12)
+        entry = batch_match.promoted_entry(
+            function,
+            "main",
+            "src/main/80012ab0.c",
+            "int func_80012AB0(int a, int b) { return (a - b) & 0xFFF; }\n",
+            "-O2",
+        )
+        self.assertEqual(entry["recovery"], "c")
+        self.assertEqual(entry["extent"], "function")
+        self.assertEqual(entry["optimization"], "-O2")
+
+    def test_promoted_asm_overlay_is_classified_as_assembly(self) -> None:
+        function = batch_match.FunctionRange("func_800100A0", 0x800100A0, 112)
+        entry = batch_match.promoted_entry(
+            function,
+            "main",
+            "src/main/800100a0.c",
+            '__asm__("jr $ra\\nnop\\n");\n',
+            None,
+        )
+        self.assertEqual(entry["recovery"], "assembly")
+        self.assertEqual(entry["extent"], "function")
+        self.assertNotIn("optimization", entry)
+
+
 class RegisterTests(unittest.TestCase):
     """A kill mid-sweep must not orphan a promoted match from the registry.
 
@@ -404,6 +684,209 @@ class OutcomeTests(unittest.TestCase):
 
     def test_a_build_failure_is_not_promoted(self) -> None:
         self.assertFalse(batch_match.Outcome("func_x", "build-failed").promoted)
+
+
+class OptimizationFallbackTests(unittest.TestCase):
+    def test_attempt_promotes_only_after_the_o0_retry_matches(self) -> None:
+        """A failed default build may be recoverable under the retail -O0 lane."""
+
+        function = batch_match.FunctionRange("func_80010000", 0x80010000, 8)
+        with tempfile.TemporaryDirectory() as temporary:
+            repo = Path(temporary)
+            asm = repo / "main.s"
+            asm.write_text("glabel func_80010000\n/* 0 80010000 00000000 */ nop\n")
+            m2c = repo / "m2c.py"
+            m2c.write_text("")
+            scratch = repo / "scratch"
+            scratch.mkdir()
+
+            def fake_m2c(_m2c, _asm, _name, output, **_kwargs):
+                output.write_text("void func_80010000(void) {}\n")
+                return True
+
+            build_optimizations: list[str] = []
+            match_results = iter([1, 0])
+
+            def fake_quiet(fn, argv):
+                if fn is batch_match.build_candidate.main:
+                    build_optimizations.append(next(item for item in argv if item.startswith("--optimization=")))
+                    Path(argv[argv.index("--output") + 1]).write_bytes(b"\0" * 8)
+                    return 0
+                self.assertIs(fn, batch_match.match_function.main)
+                return next(match_results)
+
+            with mock.patch.object(batch_match, "run_m2c", side_effect=fake_m2c), mock.patch.object(
+                batch_match, "_quiet", side_effect=fake_quiet
+            ):
+                outcome = batch_match.attempt(
+                    function, "main", {"kind": "executable"}, repo, asm, m2c, scratch
+                )
+
+            self.assertTrue(outcome.promoted)
+            self.assertEqual(outcome.optimization, "-O0")
+            self.assertEqual(build_optimizations, ["--optimization=-O2", "--optimization=-O0"])
+            self.assertTrue((repo / "src/main/80010000.c").is_file())
+
+
+class GteAttemptTests(unittest.TestCase):
+    def test_gte_function_promotes_an_overlay_without_m2c(self) -> None:
+        function = batch_match.FunctionRange("func_8004D504", 0x8004D504, 16)
+        with tempfile.TemporaryDirectory() as temporary:
+            repo = Path(temporary)
+            asm = repo / "main.s"
+            asm.write_text(GTE_SNIPPET)
+            m2c = repo / "m2c.py"
+            m2c.write_text("")
+            scratch = repo / "scratch"
+            scratch.mkdir()
+
+            def fake_quiet(fn, argv):
+                if fn is batch_match.build_candidate.main:
+                    Path(argv[argv.index("--output") + 1]).write_bytes(b"\0" * 16)
+                    return 0
+                self.assertIs(fn, batch_match.match_function.main)
+                return 0
+
+            with mock.patch.object(batch_match, "run_m2c") as run_m2c, mock.patch.object(
+                batch_match, "_quiet", side_effect=fake_quiet
+            ):
+                outcome = batch_match.attempt(
+                    function, "main", {"kind": "executable"}, repo, asm, m2c, scratch
+                )
+
+            run_m2c.assert_not_called()
+            self.assertTrue(outcome.promoted)
+            self.assertIsNone(outcome.optimization)
+            text = (repo / "src/main/8004d504.c").read_text()
+            self.assertIn("ctc2 $t0,$0", text)
+            self.assertNotIn(".word 0x", text)
+            self.assertNotIn("Decompiled by m2c", text)
+            self.assertEqual(batch_match.progress.classify_recovery(text), "assembly")
+
+
+class VerifyExistingTests(unittest.TestCase):
+    """Existing src/ files can be registered on MATCH but must never be rewritten."""
+
+    def test_match_does_not_modify_the_existing_source(self) -> None:
+        function = batch_match.FunctionRange("func_80010000", 0x80010000, 8)
+        with tempfile.TemporaryDirectory() as temporary:
+            repo = Path(temporary)
+            source = repo / "src/main/80010000.c"
+            source.parent.mkdir(parents=True)
+            original = "void func_80010000(void) {}\n"
+            source.write_text(original)
+            scratch = repo / "scratch"
+            scratch.mkdir()
+
+            def fake_quiet(fn, argv):
+                if fn is batch_match.build_candidate.main:
+                    Path(argv[argv.index("--output") + 1]).write_bytes(b"\0" * 8)
+                    return 0
+                self.assertIs(fn, batch_match.match_function.main)
+                return 0
+
+            with mock.patch.object(batch_match, "_quiet", side_effect=fake_quiet):
+                outcome = batch_match.verify_existing(
+                    function, "main", {"kind": "executable"}, source, scratch
+                )
+
+            self.assertTrue(outcome.promoted)
+            self.assertEqual(outcome.optimization, "-O2")
+            self.assertEqual(source.read_text(), original)
+
+    def test_mismatch_is_not_promoted_and_leaves_the_file(self) -> None:
+        function = batch_match.FunctionRange("func_80010000", 0x80010000, 8)
+        with tempfile.TemporaryDirectory() as temporary:
+            source = Path(temporary) / "src.c"
+            source.write_text("void func_80010000(void) {}\n")
+            scratch = Path(temporary) / "scratch"
+            scratch.mkdir()
+
+            def fake_quiet(fn, argv):
+                if fn is batch_match.build_candidate.main:
+                    Path(argv[argv.index("--output") + 1]).write_bytes(b"\0" * 8)
+                    return 0
+                return 1
+
+            with mock.patch.object(batch_match, "_quiet", side_effect=fake_quiet):
+                outcome = batch_match.verify_existing(
+                    function, "main", {"kind": "executable"}, source, scratch
+                )
+
+            self.assertFalse(outcome.promoted)
+            self.assertEqual(outcome.status, "mismatch")
+            self.assertTrue(source.is_file())
+
+    def test_missing_source_is_skipped(self) -> None:
+        function = batch_match.FunctionRange("func_80010000", 0x80010000, 8)
+        with tempfile.TemporaryDirectory() as temporary:
+            outcome = batch_match.verify_existing(
+                function,
+                "main",
+                {"kind": "executable"},
+                Path(temporary) / "missing.c",
+                Path(temporary),
+            )
+        self.assertEqual(outcome.status, "skipped-missing")
+        self.assertFalse(outcome.promoted)
+
+
+class CandidateBankTests(unittest.TestCase):
+    def test_sanitizer_preserves_typed_context_externs(self) -> None:
+        source = (
+            'typedef struct State { int field; } State;\n'
+            'extern State D_state;\n'
+            'extern struct State D_table[2];\n'
+            'void func_test(void) { D_state.field = D_table[1].field; }\n'
+        )
+        self.assertEqual(batch_match._sanitize(source), source)
+
+    def test_banked_candidate_lookup_requires_an_existing_draft(self) -> None:
+        function = batch_match.FunctionRange("func_80010000", 0x80010000, 8)
+        with tempfile.TemporaryDirectory() as temporary:
+            bank = Path(temporary)
+            self.assertIsNone(batch_match.banked_candidate_path(None, function))
+            self.assertIsNone(batch_match.banked_candidate_path(bank, function))
+            candidate = bank / "func_80010000.c"
+            candidate.write_text("void func_80010000(void) {}\n")
+            self.assertEqual(batch_match.banked_candidate_path(bank, function), candidate)
+
+    def test_banked_draft_is_oracle_checked_without_rerunning_m2c(self) -> None:
+        """The candidate cache is only an input optimization, never authority."""
+
+        function = batch_match.FunctionRange("func_80010000", 0x80010000, 8)
+        with tempfile.TemporaryDirectory() as temporary:
+            repo = Path(temporary)
+            asm = repo / "main.s"
+            asm.write_text("glabel func_80010000\n/* 0 80010000 00000000 */ nop\n")
+            m2c = repo / "m2c.py"
+            m2c.write_text("")
+            scratch = repo / "scratch"
+            scratch.mkdir()
+            bank = repo / "bank"
+            bank.mkdir()
+            banked = bank / "func_80010000.c"
+            original = "void func_80010000(void) {}\n"
+            banked.write_text(original)
+
+            def fake_quiet(fn, argv):
+                if fn is batch_match.build_candidate.main:
+                    Path(argv[argv.index("--output") + 1]).write_bytes(b"\0" * 8)
+                    return 0
+                self.assertIs(fn, batch_match.match_function.main)
+                return 0
+
+            with mock.patch.object(batch_match, "run_m2c") as run_m2c, mock.patch.object(
+                batch_match, "_quiet", side_effect=fake_quiet
+            ):
+                outcome = batch_match.attempt(
+                    function, "main", {"kind": "executable"}, repo, asm, m2c, scratch, bank
+                )
+
+            run_m2c.assert_not_called()
+            self.assertTrue(outcome.promoted)
+            self.assertEqual(banked.read_text(), original)
+            self.assertIn("verified byte-exact", (repo / "src/main/80010000.c").read_text())
 
 
 if __name__ == "__main__":

@@ -1,3 +1,10 @@
+/* Exact retail word export [8002F648,8002F658); verified against pinned EXE and asm. */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x3C02800A)
+MUSASHI_NATIVE_MIPS_WORD(0x84424EF0)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
 #include "psx_types.h"
 
 /* Decompiled by m2c from main.s, then verified byte-exact
@@ -10,3 +17,5 @@ extern s16 D_800A4EF0;
 s16 func_8002F648(void) {
     return D_800A4EF0;
 }
+
+#endif

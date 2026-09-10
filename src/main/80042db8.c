@@ -1,0 +1,42 @@
+#include "psx_types.h"
+
+/* Exact matched stream for the bounded callback-initialization diagnostic. */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x27bdffe8)
+MUSASHI_NATIVE_MIPS_WORD(0x3c048007)
+MUSASHI_NATIVE_MIPS_WORD(0x2484cbc4)
+MUSASHI_NATIVE_MIPS_WORD(0xafbf0010)
+MUSASHI_NATIVE_MIPS_WORD(0x0c010c0d)
+MUSASHI_NATIVE_MIPS_WORD(0x24050008)
+MUSASHI_NATIVE_MIPS_WORD(0x24040003)
+MUSASHI_NATIVE_MIPS_WORD(0x3c028007)
+MUSASHI_NATIVE_MIPS_WORD(0x8c42cbc0)
+MUSASHI_NATIVE_MIPS_WORD(0x3c058004)
+MUSASHI_NATIVE_MIPS_WORD(0x24a52e08)
+MUSASHI_NATIVE_MIPS_WORD(0xac400000)
+MUSASHI_NATIVE_MIPS_WORD(0x0c01096c)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x3c028004)
+MUSASHI_NATIVE_MIPS_WORD(0x24422f8c)
+MUSASHI_NATIVE_MIPS_WORD(0x8fbf0010)
+MUSASHI_NATIVE_MIPS_WORD(0x27bd0018)
+MUSASHI_NATIVE_MIPS_WORD(0x03e00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#endif
+
+/* Initialization returns a dispatch address for the caller to install.
+ * Callback words and this pointer-bearing ABI are PS1-width, not host-width. */
+typedef s32 (*ChannelDispatch)(s32, s32);
+extern s32 func_80042F8C(s32, s32);
+extern void func_80042E08(void);
+extern void func_80043034(void *, s32);
+extern s32 func_800425B0(s32, void (*)(void));
+extern u32 D_8006CBC4[];
+extern volatile u32 *D_8006CBC0;
+
+ChannelDispatch func_80042DB8(void) {
+    func_80043034(D_8006CBC4, 8);
+    *D_8006CBC0 = 0;
+    func_800425B0(3, func_80042E08);
+    return func_80042F8C;
+}

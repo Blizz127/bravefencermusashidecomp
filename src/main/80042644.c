@@ -1,0 +1,29 @@
+#include "psx_types.h"
+
+/* Exact callback-table dispatch [80042644,80042674). */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x3c028007)
+MUSASHI_NATIVE_MIPS_WORD(0x8c42cb84)
+MUSASHI_NATIVE_MIPS_WORD(0x27bdffe8)
+MUSASHI_NATIVE_MIPS_WORD(0xafbf0010)
+MUSASHI_NATIVE_MIPS_WORD(0x8c420014)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x0040f809)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x8fbf0010)
+MUSASHI_NATIVE_MIPS_WORD(0x27bd0018)
+MUSASHI_NATIVE_MIPS_WORD(0x03e00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#endif
+
+typedef void (*CallbackDispatch)(s32, void *);
+typedef struct {
+    u8 opaque00[0x14];
+    CallbackDispatch callback14;
+} CallbackTable;
+
+extern CallbackTable *D_8006CB84;
+
+void func_80042644(s32 index, void *value) {
+    D_8006CB84->callback14(index, value);
+}

@@ -1,0 +1,31 @@
+/* Exact retail word export for [80015310,8001534C); EXE and assembly verified. */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x3C03800C)
+MUSASHI_NATIVE_MIPS_WORD(0x246393D8)
+MUSASHI_NATIVE_MIPS_WORD(0x3C04800C)
+MUSASHI_NATIVE_MIPS_WORD(0x248497D8)
+MUSASHI_NATIVE_MIPS_WORD(0x0064102B)
+MUSASHI_NATIVE_MIPS_WORD(0x10400006)
+MUSASHI_NATIVE_MIPS_WORD(0x27BDFFF8)
+MUSASHI_NATIVE_MIPS_WORD(0xA4600000)
+MUSASHI_NATIVE_MIPS_WORD(0x24630010)
+MUSASHI_NATIVE_MIPS_WORD(0x0064102B)
+MUSASHI_NATIVE_MIPS_WORD(0x1440FFFC)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x27BD0008)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+/* Retail [80015310,8001534C): clear first halfwords in 16-byte entries. */
+typedef struct Entry { short active; unsigned char remaining[14]; } Entry;
+extern Entry D_800B93D8[], D_800B97D8[];
+void func_80015310(void)
+{
+    Entry *entry;
+    /* Preserve the observed otherwise-unused 8-byte stack allocation. */
+    volatile int unused;
+    for (entry = D_800B93D8; entry < D_800B97D8; ++entry)
+        entry->active = 0;
+}
+
+#endif

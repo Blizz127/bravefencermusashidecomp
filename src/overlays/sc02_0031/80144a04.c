@@ -1,0 +1,25 @@
+/* Complete SC02 retail span [80144A04,80144A2C).
+ * Matched C: Druthulu shared ov/func_80144A04.h (local leaf word export).
+ * Words from pinned SC02.CD member31 PAC0 decode (live-guest identity).
+ */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE8)
+MUSASHI_NATIVE_MIPS_WORD(0xAFBF0010)
+MUSASHI_NATIVE_MIPS_WORD(0x8C8200DC)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x0040F809)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x8FBF0010)
+MUSASHI_NATIVE_MIPS_WORD(0x27BD0018)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+#include "psx_types.h"
+
+void func_80144A04(s32 *obj) {
+    void (*fp)(void);
+
+    fp = (void (*)(void))*(s32 *)((s32)obj + 0xDC);
+    fp();
+}
+#endif

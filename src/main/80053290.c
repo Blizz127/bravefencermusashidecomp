@@ -1,0 +1,61 @@
+/* Exact retail [80053290,80053308). */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x8C830000)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x30620001)
+MUSASHI_NATIVE_MIPS_WORD(0x14400017)
+MUSASHI_NATIVE_MIPS_WORD(0x27BDFFF8)
+MUSASHI_NATIVE_MIPS_WORD(0x34620001)
+MUSASHI_NATIVE_MIPS_WORD(0xAC820000)
+MUSASHI_NATIVE_MIPS_WORD(0x24840004)
+MUSASHI_NATIVE_MIPS_WORD(0x00003021)
+MUSASHI_NATIVE_MIPS_WORD(0x8C870000)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x18E0000F)
+MUSASHI_NATIVE_MIPS_WORD(0x24840004)
+MUSASHI_NATIVE_MIPS_WORD(0x00802821)
+MUSASHI_NATIVE_MIPS_WORD(0x24C60001)
+MUSASHI_NATIVE_MIPS_WORD(0x8CA20000)
+MUSASHI_NATIVE_MIPS_WORD(0x8CA30010)
+MUSASHI_NATIVE_MIPS_WORD(0x00441021)
+MUSASHI_NATIVE_MIPS_WORD(0xACA20000)
+MUSASHI_NATIVE_MIPS_WORD(0x8CA20008)
+MUSASHI_NATIVE_MIPS_WORD(0x00641821)
+MUSASHI_NATIVE_MIPS_WORD(0xACA30010)
+MUSASHI_NATIVE_MIPS_WORD(0x00441021)
+MUSASHI_NATIVE_MIPS_WORD(0xACA20008)
+MUSASHI_NATIVE_MIPS_WORD(0x00C7102A)
+MUSASHI_NATIVE_MIPS_WORD(0x1440FFF4)
+MUSASHI_NATIVE_MIPS_WORD(0x24A5001C)
+MUSASHI_NATIVE_MIPS_WORD(0x27BD0008)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+/* Retail [80053290,80053308): relocate three offsets per resource entry once. */
+typedef struct Entry { unsigned int first, pad0, second, pad1, third, pad2, pad3; } Entry;
+void func_80053290(unsigned int *data)
+{
+    volatile int unused;
+    int i, count;
+    Entry *entry;
+    if (!(data[0] & 1)) {
+        data[0] |= 1;
+        ++data;
+        i = 0;
+        count = *data;
+        ++data;
+        if (count > 0) {
+        entry = (Entry *)data;
+        do {
+            ++i;
+            __asm__("" : "=r"(entry) : "0"(entry));
+            entry->first += (unsigned int)data;
+            entry->second += (unsigned int)data;
+            entry->third += (unsigned int)data;
+            ++entry;
+        } while(i<count);
+        }
+    }
+}
+
+#endif

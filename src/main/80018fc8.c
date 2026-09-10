@@ -1,0 +1,47 @@
+#include "psx_types.h"
+
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x00002021)
+MUSASHI_NATIVE_MIPS_WORD(0x3c038008)
+MUSASHI_NATIVE_MIPS_WORD(0x24638d98)
+MUSASHI_NATIVE_MIPS_WORD(0x24020040)
+MUSASHI_NATIVE_MIPS_WORD(0x3c018007)
+MUSASHI_NATIVE_MIPS_WORD(0xa02047b9)
+MUSASHI_NATIVE_MIPS_WORD(0x3c018007)
+MUSASHI_NATIVE_MIPS_WORD(0xa02047b8)
+MUSASHI_NATIVE_MIPS_WORD(0x3c018006)
+MUSASHI_NATIVE_MIPS_WORD(0xa0222bbc)
+MUSASHI_NATIVE_MIPS_WORD(0x3c018006)
+MUSASHI_NATIVE_MIPS_WORD(0xa0202bbd)
+MUSASHI_NATIVE_MIPS_WORD(0xa060004b)
+MUSASHI_NATIVE_MIPS_WORD(0xa060004a)
+MUSASHI_NATIVE_MIPS_WORD(0x24840001)
+MUSASHI_NATIVE_MIPS_WORD(0x28820002)
+MUSASHI_NATIVE_MIPS_WORD(0x1440fffb)
+MUSASHI_NATIVE_MIPS_WORD(0x2463004c)
+MUSASHI_NATIVE_MIPS_WORD(0x03e00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#endif
+
+/* Partial view of the same 76-byte records used by startup. Volatile byte
+ * fields reproduce retail stores; this does not establish original types. */
+typedef struct {
+    u8 opaque00[0x4A];
+    volatile u8 flag4A, flag4B;
+} RecordResetView;
+extern RecordResetView D_80078D98[2];
+extern u8 D_800747B9, D_800747B8, D_80062BBC, D_80062BBD;
+
+void func_80018FC8(void) {
+    s32 i = 0;
+    RecordResetView *record = D_80078D98;
+    D_800747B9 = 0;
+    D_800747B8 = 0;
+    D_80062BBC = 0x40;
+    D_80062BBD = 0;
+    for (; i < 2; i++) {
+        record->flag4B = 0;
+        record->flag4A = 0;
+        record++;
+    }
+}

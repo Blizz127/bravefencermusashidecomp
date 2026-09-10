@@ -7,18 +7,141 @@ pinned commit by `tools/fetch_toolchains.sh` and its checkout is ignored.
 
 ## Status
 
-The port is an **asset viewer**, and stops there for now. Decomp-owned C
-reaches the Psy-Q layer, real geometry from the disc reaches the screen through
-the GTE and `libgpu`, and every pixel claim is verified headless. No game code
-is wired in, because no substantive game code has been matched yet; the port
-resumes when the decompilation supplies something to host. That is the
-Checkpoint P decision, taken on 2026-09-03.
+Cleared REFUSED `800D18DC` (MAIN10 `[800D18DC,800D1938)` 23 words). Tip xvfb
+2026-09-09 ~16:15 CT STOP **`pc=800d1938`** (`CPU_BOUNDARY` `ra=800d1928`
+`a0=800ae6a8` `a1=800d19dc`) / **menu=VISUAL_CHECK_REQUIRED** /
+`startup=PARTIAL` / `EXIT:2`. Folded SC02 PAC0 `8014E934…80150EC4` (60 leaves /
+2404 words from `8e857c7f0`) onto tip with D18 retained. Remaining SC02 hole
+`80150EC4…80153C8C`; next MAIN10 hole `800D1938+`. Scanout enabled.
+
+
+The new checked descriptor derives width from the horizontal video-clock range
+and selected mode, preserving the real transient 256-pixel state before mode 1
+selects 320 pixels. Reset restores 256×240. GP1 buffer reset preserves display
+registers; GPUSTAT reflects accepted mode bits. The adapter validates raw and
+derived fields, ownership and actual queued work before updating `activeDispEnv`
+and `currentDispEnv`. Refused commands cannot publish source cache writes.
+Supported modes are 0/1/2/3/40, NTSC progressive 15-bit, with the existing fixed
+V `[16,256)` timing profile. Other modes/windows and enabled scanout still refuse.
+No display setter clears VRAM, invokes a substitute SDK call, or presents a frame.
+
+The preceding real DMA2 transfer remains intact: one header and six ordered GP0
+commands reach PsyCross, complete at the declared device deadline, and return
+through the source queue with `v0=0` and `I_MASK=0D`. E2..E6 drawing-register
+ownership, inclusive bounds, signed offsets, raw info latches and accepted-prefix
+accounting are retained. Timing remains the declared native reference model;
+physical GPU/FIFO/raster timing and hardware parity are unproven.
+
+Validation so far: 38 GPU controller tests pass, including all 256 mode encodings,
+refusal and reentry boundaries. Three source tests execute the actual display
+instructions and cache copy, cover four refusal prefixes, and reject compiled
+store mutations; their Clang ASan/UBSan probe passes. The fresh full regression
+passes 957 tests plus 92 subtests in 521.76 seconds. All 22 graphics tests, 11
+headless tests and symbol checks pass. The earlier shared fixture initializer
+failure is fixed; its failure log remains in the previous checkpoint. Independent
+source/owner/native review accepts this bounded display milestone.
+
+Current native evidence: `artifacts/spu-startup-20260906/native/gpu-registers-final/`.
+Aggregate verification: `artifacts/spu-startup-20260906/gpu-register-verification.json`.
+The immutable `gpu-display-verification.json` retains the prior GP1(05) refusal;
+`draw-verification.json` retains the earlier no-DMA boundary. Existing 18 source
+streams remain 1147 EXE/assembly-exact exported words (1047 mapped). These exports
+do not claim newly matched C, full BIOS parity or a complete decompilation.
+
+Next: execute the real BIOS exception-prefix patch and FlushCache publication,
+then initialize persistent CP0/GTE state through source instructions. The
+source audit identifies 108 additional words and 12 CTC2 writes; these are not
+yet bound. See `gpu-gte-init-source-plan.md` and the CP0 startup authority follow-up
+in the artifact directory. The audit corrects the earlier short plan: controls
+21–23 are far color, not background color. Enabled scanout, actual title/menu
+assets and primitive rendering, launcher and human acceptance remain open.
+
+Mounted native startup now completes the full sound initializer and returns
+naturally to `800101FC`, then enters file loading at `8001971C`. All fourteen
+remaining sound/TOC streams (575 words) are mapped and byte-checked against the
+pinned EXE. Actual GetTN/GetTD commands read all four mounted disc tracks; source
+code writes the complete track table and restores its caller stack. Xenogears'
+MIT PsyCross ADSR helper supplies configurable envelopes in the shared SPU owner.
+Actual mode4 reverb feedback RAM writes are observed at the final sound return.
+
+The sound checkpoint passes707 pytest tests plus84 subtests,21 graphics and10
+headless CTests. Its final trace checker passes108 focused tests, including
+malformed logs, packet/order/deadline mutations and missing real reverb work.
+See `artifacts/spu-startup-20260906/outer-verification.json`. The retained binary
+below belongs to that checkpoint; the working build continues beyond it.
+
+```sh
+python3 tools/native_spu_boot_check.py --sound-outer \
+    artifacts/spu-startup-20260906/native/sound-outer-native-boot \
+    extracted/disc/files/SLUS_007.26 extracted/disc/disc.cue extracted/disc/disc.bin
+```
+
+The retained sound checkpoint is historical; the current draw continuation
+stops at BIOS/GTE initialization `80053CF8` after DMA2 and display setup. Progressive VSync remains conditional on actual source/GPU
+state, while the interlaced `XOR` path is unsupported. Hardware timing/DSP
+rounding, audible game sound and the menu remain unproven.
+
+**Menu: NOT_REACHED.** The four-input check below opens the pinned disc and real
+SDL audio owner; the one-EXE diagnostic intentionally retains its unmounted
+`80044DBC` boundary.
+
+In the preceding CD phase, the game issues `01`, `0A`, `0C`, drains four source
+CD interrupts, and publishes
+main gains `7FFE`, CD gains `3FFF`, and control `C001`. CD, SPU, Timer1, Timer2,
+SIO and real VBlank events share the existing device epoch; reads do not create
+time. Full digital input callbacks now return through their source, with
+256-byte BIOS scratch `[84D8,85D8)`, eight return records and a counted
+16384-instruction limit. The cold fixture covers three rejected `43` attempts
+and recovery; native polling is timing-dependent and is not that fixture trace.
+
+Validation: 633 pytest tests plus 84 subtests, 21 graphics CTests, 10 headless
+CTests and symbol checks pass. The final SPU checker additionally passes 32
+focused tests after its hardening; the historical CD checkpoint retains its own
+580-test evidence. Four new
+compiled digital-IRQ mutants and a live SDL no-queue mutant are rejected.
+Real PipeWire queue/drain proves output progress; audible game sound, complete
+BIOS/hardware cycle parity, the menu and launcher acceptance remain unproven.
+The shared SPU now performs two actual 16-byte uploads, clocks all 24 voices,
+registers DMA callback `3AA18` once, and opens/enables one polling event. Final
+main gains are `7FFE`, CD gains are zero, and control is `C000`; sound RAM at
+`1000..100F` contains the source-uploaded `07` bytes. The bounded synthesis subset
+supports filter 0 and active ADSR `0000/0000`, with explicit refusals outside it.
+Manual writes commit actual RAM synchronously under the documented native
+policy; physical FIFO/key subphase and measured Gaussian rounding remain unproven.
+The next common-attribute call also returns naturally at `8002C974`: seven actual
+register writes restore CD gains `3FFF` and control `C001`, retaining the event
+and uploaded RAM. Its live checker and 47 focused tests pass; evidence is sealed
+in `artifacts/spu-startup-20260906/common-verification.json`. Reverb processing
+and CD track-table commands remain ahead in the outer sound initializer.
+
+Historical common-attribute checkpoint command (requires its earlier binary):
+```sh
+python3 tools/native_spu_boot_check.py --common-attributes \
+    build/menu-resume/musashi_native_boot extracted/disc/files/SLUS_007.26 \
+    extracted/disc/disc.cue extracted/disc/disc.bin
+```
+
+See [menu continuation](MENU-BOOT-CONTINUATION.md) and
+`artifacts/cd-native-owner-20260906/` for source authority, logs and reviews.
+
+The native targets are **diagnostics and an asset viewer**, not a bootable game.
+Matched fixed-point functions are linked, but `pc_port/main.c` does not execute
+the retail startup loop. Native startup executes through CD initialization; later game startup and
+scene dependencies remain incomplete.
+
+The earlier Checkpoint P viewer pause (2026-09-03) is historical. The current
+priority is genuine native menu boot: see `tasks/plan.md` and the freshly
+byte-checked [entry contract](NATIVE-BOOT-ENTRY.md). The viewer/GTE checks do
+not establish native boot, a visible retail menu, or launcher acceptance.
 
 What runs, all from the repository root after `./tools/run_tests.sh`:
 
 ```sh
 # link check, pure fixed-point maths, no display needed
 build/musashi_pc_smoke
+
+# pinned EXE entry-data setup only; explicit synthetic return address, no game boot
+build/musashi_boot_data_probe extracted/disc/files/SLUS_007.26
 
 # one quad, verified by reading the framebuffer back
 xvfb-run -a build/musashi_render_quad --screenshot quad.bmp
@@ -40,10 +163,11 @@ python3 tools/extract_tmd.py extracted/pac/sc01/0037_000.bin --offset 0x87F0 \
 
 What does not run:
 
-- **Any game logic.** There is no main loop, input, audio, or scene code.
+- **Integrated game execution.** The native executable does not run the game
+  main loop or its input, audio, and scene paths.
 - **Textured or per-vertex-coloured models.** The viewer and `tools/tmd.py`
-  refuse them rather than draw garbage; that is the next viewer feature if the
-  port resumes.
+  refuse them rather than draw garbage. Viewer expansion is not the current
+  menu-boot milestone.
 - **Lighting.** Every polygon takes its authored colour, flat.
 - **Windows.** The roadmap names a Windows port. It is unverified: no MinGW
   cross-compiler is installed on the development machine, so nothing here
@@ -63,6 +187,13 @@ point uses 4096 for 1.0 and 4096 units for a full turn, so cosine falls to zero
 exactly where sine reaches one.
 
 ## Building
+
+Native builds also require OpenSSL development headers and `libcrypto` for
+the entry-data loader's pinned-image check. CMake uses `OpenSSL::Crypto`;
+no TLS component is linked. When using Homebrew graphics dependencies, pass
+`-DOPENSSL_ROOT_DIR=/home/linuxbrew/.linuxbrew` in a fresh build directory to
+keep the dependency prefix consistent. Existing cached `OPENSSL_INCLUDE_DIR`
+and `OPENSSL_CRYPTO_LIBRARY` selections must also point to that installation.
 
 ```sh
 brew install sdl2 openal-soft     # or the system equivalents
@@ -131,6 +262,100 @@ downgraded so the build completes, **but the truncation is real**: the handle
 returned by `ResetCallback` and `VSyncCallback` must not be cast back to a
 pointer on a 64-bit host. Anything relying on those return values needs fixing
 before it can be trusted.
+
+The VBlank scheduler is the only reviewed registration exception: it calls
+`VSyncCallback` to install or remove its single callback, discards the returned
+value, refuses to replace an existing callback, and never restores one. The
+archive checker still rejects both APIs by default; its
+`--allow-vsync-discard` switch is required explicitly by the native test
+runner and leaves `ResetCallback` forbidden. That exception proves only that
+the unsafe return is ignored, not that a host VBlank or game boot occurred.
+
+`pc_port/irq_controller.c` supplies the native `I_STAT`/`I_MASK` storage used
+by the display-backed scheduler probes. VBlank raises bit zero, the recovered
+dispatcher acknowledges it with the retail mask write, and unknown addresses
+are refused. This removes test-local IRQ register semantics; cold-start
+ownership and general guest callback execution are still unfinished.
+
+The native cleanup boundary is split across `pc_port/bios_events.c` and
+`pc_port/bios_kernel.c`. They own a 22-record event pool and priority registry,
+create the CD session through five class `F0000003` polling events plus IO/DMA
+nodes, and remove only those owned resources at A0:72. The run closes five
+handles, unlinks two nodes, preserves game RAM, and leaves
+`bios_event_used=0` and `bios_cd_installed=0`. The actual CD handler is still
+unsupported and refuses closed-loop execution if reached.
+
+SYS(2) enables guest IRQ eligibility after cleanup. `pc_port/irq_scheduler.c`
+keeps PsyCross's worker as a VBlank queue producer.
+The owner pump consumes and coalesces pending edges at live FormatterCpu
+instruction/call checkpoints, then runs the recovered dispatcher and consumes
+the B0:17 continuation. The worker does not write guest RAM or hold a broad
+host mutex across guest execution. The earlier cleanup gate reported guest IRQ
+enabled with zero cold-prefix deliveries; the current StartCARD check reports
+guest IRQ enabled with no fault. A separate live fixture covers scheduler
+delivery. Production HBlank input and GPU_cw remain open. The optional serial
+integration uses a dedicated 112-byte BIOS scratch frame `[8568,85D8)`, executes
+five exact SIO configuration writes around a paced Timer2 sample before refusing
+`F830` at `8005DB04` when only 16-bit providers are supplied. The current
+byte-enabled metadata fixture instead reaches `8005DC04 -> 8005EAE8`;
+`read16` does not advance Timer2. It is not a
+natural controller transaction. The source ledger accounts for startup/input
+instructions while Timer2 and bound SIO advance from actual host-time cuts;
+CD and video deadlines remain disconnected. The source ledger reaches `950315`;
+the earlier source-only Timer2 count `8039` is historical. Current Timer2 counts
+vary with elapsed host time; retail phase parity is unproven. See
+`artifacts/cd-init-device-20260905/contract.md` for the
+source-authoritative three-boot CD contract.
+
+The current native SIO owner is bound to digital port 1 and an SDL keyboard
+provider on the same paced epoch. Startup reports `keyboard_polls=0` and no
+DATA-pad packet, so provider binding is not natural input proof. Six metadata
+edges are mapped, four new metadata arrays are integrated, and the legacy
+16-bit path remains refused at `8005DB04`. The selected-device identity fix
+and focused probe pass; the synthetic fixture reaches `DC04`/`EAE8` refusal
+with metadata stores. See
+`artifacts/controller-protocol-20260905/integration-contract.md` for the
+bounded retail and native contract.
+
+The graphics gate reports `GPUREAD=00000400` and query-7 leaves `GPUREAD=400`;
+the physical GPU revision response is unproven. Blank-only presentation is
+available while geometry, VRAM transfer, enabled scanout, and production HBlank
+input remain unsupported. The latest validation is **557 passed plus 84
+subtests** and **21/21 CTest tests**, with graphics/headless builds, archive
+symbol verification, focused NTSC/live checks, and diff checks passing. The
+Timer2 owner is integrated under a paced host-time device epoch with variable
+phase; six additional Timer2 focused tests pass, including the large-
+`UINT64_MAX` case. The native final check still stops at the CD byte boundary.
+The independent source check covers 26 newer exports and 1,528 exact words;
+24 of these exports remain source-only, with two used by the metadata stage. This source proof is separate
+from native mapped/runtime proof.
+Source exports include **121/66**
+word-exact event-registration/helper exports and eight five-word callback exports; **40/28/37** remains
+historical.
+
+The native continuation CPU comparison covers all 32 GPRs plus HI/LO at five
+interim boundaries. The historical StartCARD comparison reports 13/15/14 GPR differences at
+ENTRY/RETURN/NEXT; the selected frame agrees except RETURN `a0` (native `1`,
+retail `2`, following the SYS2 source value). Full CPU parity is unestablished;
+the native initial GPR/HI/LO profile and incoming RA are zeroed, not
+retail-seeded.
+
+The cleanup validation is deliberately scoped to owned state: five CD records
+(140 bytes) and all 22 status words match before and after cleanup. The full
+616-byte initial table does not match because retail unused slots retain prior
+BIOS payloads and stale stack words; native startup does not seed those values.
+Separate allocation serials/leases detect replacement of owned slots while
+preserving guest handles and the B0 low-16-bit alias. The full-table comparison
+in `tests/test_bios_events.py` remains a same-input cleanup test; the kernel
+test's negative control records why it is not initial-RAM parity.
+
+The preceding event milestone prepared native input C0 kernel ownership. The eight
+event records match retail's first five words and the registration `v0=1` is a
+source comparison literal for a void path, not successful API proof. BU state
+matches; CPU comparison has 15/12 GPR differences and HI/LO differences while
+selected `v0/gp/sp/fp/ra` match. The eight callback flag stores pass focused executor tests; their delivery
+was not observed during this short boot window. Menu, hardware, full BIOS cold-boot, cycle, low-RAM,
+and whole-CPU parity remain unproven.
 
 ## Rendering: one quad, verified headless
 
@@ -268,3 +493,36 @@ implements. `GR_ClearVRAM` instead writes `r | (g << 5) | (b << 11)` with
 *unmasked 8-bit* components, so clearing to red 255 yields `0x00FF` rather than
 `0x001F`. Read-back of rendered content follows the first; do not calibrate
 against `GR_ClearVRAM`.
+
+## Vendor matched intake (cleaned)
+
+Raw Druthulu matched sources live under `vendor/bfm-decomp/` (see `VENDOR.md`).
+The PC port does **not** compile those giant TUs directly.
+
+Smoke-matched symbols (`func_80012AB0`, `func_80012E6C`, `func_8001311C`,
+`func_80013154`) link from cleaned house-style files:
+
+- `src/main/80012ab0.c`
+- `src/main/80012e6c.c`
+- `src/main/8001311c.c`
+- `src/main/80013154.c`
+
+Local cleaned forms win over vendor `__asm__("$0")` / dump style. Cleanup rules:
+`docs/VENDOR-CLEANUP.md`.
+
+```sh
+# default: cleaned src/main leaves (same as before)
+cmake -S . -B build
+cmake --build build --target musashi_pc_smoke
+
+# vendor-aware configure: asserts vendor/bfm-decomp exists; still links cleaned leaves
+cmake -S . -B build -DMUSASHI_USE_VENDOR_BFM=ON
+cmake --build build --target musashi_pc_smoke
+ctest --test-dir build -R musashi_pc_smoke --output-on-failure
+```
+
+`musashi_native_boot` remains on the address-file / word-array interpreter path for
+most of the EXE; only the smoke-matched leaves above are compiled as host C today.
+Widening intake means cleaning more vendor functions into `src/main/800*.c` and
+adding them to CMake — not flipping on all of `vendor/bfm-decomp/src/`.
+

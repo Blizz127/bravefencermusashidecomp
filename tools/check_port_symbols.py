@@ -33,6 +33,14 @@ TRUNCATING_CALLBACKS = frozenset({"ResetCallback", "VSyncCallback"})
 CHILD_TIMEOUT_SECONDS = 60
 
 
+def forbidden_callbacks(allow_vsync_discard: bool) -> frozenset[str]:
+    """Keep the VBlank-registration exception explicit at each call site."""
+
+    if allow_vsync_discard:
+        return TRUNCATING_CALLBACKS - {"VSyncCallback"}
+    return TRUNCATING_CALLBACKS
+
+
 def find_forbidden_references(nm_output: str, forbidden: frozenset[str] | set[str]) -> list[str]:
     """Return forbidden symbols this object *references* but does not define.
 
@@ -80,13 +88,19 @@ def check_objects(paths: list[Path], forbidden: frozenset[str] | set[str]) -> li
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("objects", nargs="+", type=Path, help="decomp-owned objects or archives")
+    parser.add_argument(
+        "--allow-vsync-discard",
+        action="store_true",
+        help=("allow VSyncCallback only for the reviewed scheduler that discards "
+              "its truncated return value"),
+    )
     return parser
 
 
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     try:
-        hits = check_objects(args.objects, TRUNCATING_CALLBACKS)
+        hits = check_objects(args.objects, forbidden_callbacks(args.allow_vsync_discard))
         if not hits:
             print(f"PORT SYMBOLS OK: {len(args.objects)} object(s), no truncating callback used")
             return 0

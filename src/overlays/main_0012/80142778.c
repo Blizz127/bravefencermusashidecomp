@@ -1,0 +1,21 @@
+/* Decompiled by m2c from main.s, then verified byte-exact
+ * against retail by tools/match_function.py. Types and signatures are
+ * whatever reproduces the bytes; they are not evidence of the
+ * original declaration. */
+
+#include "psx_types.h"
+void func_8012C218();
+typedef struct Inner { u8 pad[0x18]; s16 u18, u1A; } Inner;
+typedef struct {
+    u8 pad[0xA]; s16 uA;
+    u8 padC[0x14]; Inner *inner;
+} T;
+void func_80142778(T *p) {
+    Inner *in = p->inner;
+    in->u18 -= 0x800;
+    in->u1A -= 0x800;
+    p->uA += 0x10;
+    if (in->u18 <= 0) {
+        func_8012C218(p);
+    }
+}

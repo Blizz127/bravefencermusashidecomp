@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import struct
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -207,6 +208,53 @@ class StaleOutputTests(unittest.TestCase):
 
 
 class LinkerScriptTests(unittest.TestCase):
+    @unittest.skipUnless(all(shutil.which("mips-linux-gnu-" + tool)
+                            for tool in ("as", "ld", "objcopy")), "requires MIPS binutils")
+    def test_read_only_table_placement_and_relocations(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            obj, elf, binary = (root / name for name in ("unit.o", "unit.elf", "table.bin"))
+            script = root / "unit.ld"
+            assembly = (".text\n.align 4\n.set noreorder\nprobe:\njr $31\nnop\n"
+                        ".section .rodata\n.align 3\ntable:\n.word probe\n.word table\n")
+            subprocess.run(["mips-linux-gnu-as", "-EL", "-march=r3000", "-o", str(obj)],
+                           input=assembly, text=True, check=True, capture_output=True)
+            for address in (0x800742B4, 0x80075000):
+                script.write_text(build_candidate.render_linker_script(0x8005C640, {}, address))
+                subprocess.run(build_candidate.ld_command(Path("mips-linux-gnu-ld"), script, obj, elf),
+                               check=True, capture_output=True)
+                subprocess.run(["mips-linux-gnu-objcopy", "-O", "binary", "--only-section=.rodata",
+                                str(elf), str(binary)], check=True, capture_output=True)
+                self.assertEqual(struct.unpack("<II", binary.read_bytes()), (0x8005C640, address))
+
+    def test_invalid_read_only_addresses_are_rejected(self) -> None:
+        for address in (-4, 0x100000000, 0x800742B5):
+            with self.assertRaises(build_candidate.RetailError):
+                build_candidate.render_linker_script(0x8005C640, {}, address)
+
+    @unittest.skipUnless(shutil.which("mips-linux-gnu-as") and shutil.which("mips-linux-gnu-ld") and shutil.which("mips-linux-gnu-objcopy"), "requires MIPS binutils")
+    def test_internal_jump_uses_exact_word_aligned_retail_base(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            obj, elf, binary = (root / name for name in ("unit.o", "unit.elf", "unit.bin"))
+            script = root / "unit.ld"
+            assembly = ".text\n.align 4\n.set noreorder\n.globl probe\nprobe:\nj target\nnop\ntarget:\njr $31\nnop\n"
+            subprocess.run(["mips-linux-gnu-as", "-EL", "-march=r3000", "-o", str(obj)], input=assembly, text=True, check=True, capture_output=True)
+            for base in (0x80010178, 0x80012E6C, 0x80010000):
+                with self.subTest(base=hex(base)):
+                    script.write_text(build_candidate.render_linker_script(base, {}))
+                    subprocess.run(build_candidate.ld_command(Path("mips-linux-gnu-ld"), script, obj, elf), check=True, capture_output=True)
+                    subprocess.run(["mips-linux-gnu-objcopy", "-O", "binary", "--only-section=.text", str(elf), str(binary)], check=True, capture_output=True)
+                    jump = struct.unpack_from("<I", binary.read_bytes())[0]
+                    target = ((base + 4) & 0xF0000000) | ((jump & 0x03FFFFFF) << 2)
+                    self.assertEqual(target, base + 8)
+
+    def test_candidate_definition_does_not_override_object_text_symbol(self) -> None:
+        definitions = {"func_801281D8": 0x801281D8, "callee": 0x8013E67C}
+        build_candidate.discard_candidate_definition(definitions, "func_801281D8")
+        self.assertNotIn("func_801281D8", definitions)
+        self.assertEqual(definitions["callee"], 0x8013E67C)
+
     def test_places_text_at_the_function_address(self) -> None:
         script = build_candidate.render_linker_script(0x80012E6C, {})
         self.assertIn("0x80012E6C", script)

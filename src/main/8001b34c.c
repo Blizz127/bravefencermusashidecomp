@@ -1,5 +1,18 @@
 #include "psx_types.h"
 
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x3c01800a)
+MUSASHI_NATIVE_MIPS_WORD(0xac20654c)
+MUSASHI_NATIVE_MIPS_WORD(0x3c018007)
+MUSASHI_NATIVE_MIPS_WORD(0xac2047f8)
+MUSASHI_NATIVE_MIPS_WORD(0x3c01800a)
+MUSASHI_NATIVE_MIPS_WORD(0xac202b70)
+MUSASHI_NATIVE_MIPS_WORD(0x3c01800c)
+MUSASHI_NATIVE_MIPS_WORD(0xac20a0fc)
+MUSASHI_NATIVE_MIPS_WORD(0x03e00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#endif
+
 /* Decompiled by m2c from main.s, then verified byte-exact
  * against retail by tools/match_function.py. Types and signatures are
  * whatever reproduces the bytes; they are not evidence of the

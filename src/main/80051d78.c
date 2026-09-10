@@ -1,0 +1,32 @@
+#include "psx_types.h"
+
+/* GTE/cop2 mnemonic overlay: ordinary C cannot emit coprocessor ops.
+ * Verified by tools/match_function.py. */
+__asm__(
+    ".set noreorder\n"
+    ".globl func_80051D78\n"
+    ".type func_80051D78, @function\n"
+    "func_80051D78:\n"
+    "lw $t0, 0x0($a0)\n"
+    "lw $t1, 0x4($a0)\n"
+    "lw $t2, 0x8($a0)\n"
+    "lw $t3, 0xC($a0)\n"
+    "lw $t4, 0x10($a0)\n"
+    "ctc2 $t0, $0\n"
+    "ctc2 $t1, $1\n"
+    "ctc2 $t2, $2\n"
+    "ctc2 $t3, $3\n"
+    "ctc2 $t4, $4\n"
+    "lwc2 $0, 0x0($a1)\n"
+    "lwc2 $1, 0x4($a1)\n"
+    "nop\n"
+    ".word 0x4A486012\n"
+    "swc2 $25, 0x0($a2)\n"
+    "swc2 $26, 0x4($a2)\n"
+    "swc2 $27, 0x8($a2)\n"
+    "addu $v0, $a2, $zero\n"
+    "jr $ra\n"
+    "nop\n"
+    ".size func_80051D78, .-func_80051D78\n"
+    ".set reorder\n"
+);
