@@ -29,6 +29,43 @@ SC02 decompilation rather than an adaptation; seven of them have Druthulu
 hole `800D1938+`.
 Scanout enabled.
 
+## SC02 word-lane provenance (2026-09-10)
+
+The SC02 word lane's authority is **the image the guest itself loads**, not
+`artifacts/bfm-takeover-20260907/sc01-title-code.bin`. That capture is a
+different member: its overlay words match SC01.CD/extracted `sc01` data and
+diverge from the resident image at the first data reference (word 48 of
+`func_80128288`, `3C02801A` vs the resident `3C02801B`).
+
+`MUSASHI_DUMP_RAM=<path>` captures the guest's 2 MiB main RAM at the boundary
+stop, so the resident overlay can be compared directly. Run with the disc
+arguments and auto-start to reach it:
+
+```sh
+SDL_VIDEODRIVER=x11 MUSASHI_BOOT_AUTO_START=1 MUSASHI_HOLD_WINDOW_MS=1000 \
+MUSASHI_DUMP_RAM=/tmp/ram.bin \
+xvfb-run -a build/musashi_native_boot extracted/disc/files/SLUS_007.26 \
+  extracted/disc/disc.cue extracted/disc/disc.bin
+```
+
+Measured against that resident image (2026-09-10, stop `pc=801282ac`):
+
+| streams | vs resident image |
+| --- | --- |
+| 1613 pre-existing (leaves folded before the batch work) | all match |
+| 284 added by the member-0012 retargeting batches | all mismatch |
+
+The port's `OVERLAY_WORD_MISMATCH` guard is why the run refuses there: it
+compares each carved word with guest RAM and fails closed on a difference, so
+no wrong word can execute. `src/overlays/sc02_0031/80128288.c` has been
+re-derived from the resident image (dispatch table `D_80184F08`, oracle MATCH
+17/17) as the first repair; the run then advances to the next mismatch at
+`pc=80143b4c`. The remaining 283 batch streams still need the same treatment:
+words from the resident image and the C retargeted to that member's addresses.
+No decomp claim is withdrawn for MAIN member 0012 — those registry entries were
+verified against member 0012 and remain valid there; only their SC02_031
+retargeting was built from the wrong image.
+
 
 The new checked descriptor derives width from the horizontal video-clock range
 and selected mode, preserving the real transient 256-pixel state before mode 1

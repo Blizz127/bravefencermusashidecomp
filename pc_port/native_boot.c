@@ -2555,6 +2555,24 @@ int main(int argc, char **argv) {
         fputc('\n', stderr);
     }
     {
+        /* Opt-in capture of the guest's own 2 MiB main RAM at the stop. A
+         * member's loaded code must be compared against this image rather than
+         * against another member's extracted blob. */
+        const char *ram_path = getenv("MUSASHI_DUMP_RAM");
+        if (ram_path && ram_path[0]) {
+            uint8_t *ram = musashi_boot_ram_span(&boot.memory, 0x80000000u, MUSASHI_RAM_SIZE);
+            FILE *out = ram ? fopen(ram_path, "wb") : NULL;
+            if (!out) {
+                fprintf(stderr, "native_boot: RAM_DUMP refused path=%s\n", ram_path);
+            } else {
+                size_t written = fwrite(ram, 1u, MUSASHI_RAM_SIZE, out);
+                fclose(out);
+                fprintf(stderr, "native_boot: RAM_DUMP path=%s base=80000000 bytes=%u written=%u\n",
+                        ram_path, (unsigned)MUSASHI_RAM_SIZE, (unsigned)written);
+            }
+        }
+    }
+    {
         /* Boot-progress diagnostic: the 80044DBC initializer's first store
          * targets the live v1 pointer loaded from [0x8006CF4C]. */
         uint32_t initializer_pointer = 0;
