@@ -86,11 +86,23 @@ closed with exact retail evidence:
   from `merge_kind_for`; they are now listed with the resident image's exact
   words, and the first pair executes.
 
-Current stop: `pc=8014f5dc`, the pending-LWR successor policy in
-`merge_pending_matches` — interleaved pairs (`LWL v0, LWR v0, LWL v1, LWR v1,
-SWL v0, SWR v0, ...`) need the same kind of audited table the
-`8013d5fc…8013d680` copy already has. `func_80133AB0` (137/137) was carved on
-the way.
+The interleaved copy blocks were closed by listing the 98 missing
+pending-LWR successors in `merge_pending_matches` with the resident image's
+exact PC, word and register. From there the walk chained through the retail
+code and each stop was resolved in turn:
+
+| stop | resolution |
+| --- | --- |
+| `8014f5dc` | 98 interleaved merge successors admitted |
+| `80159be4` | leaf `func_80159BE4` carved 40/40 (donor shape, one data symbol retargeted) |
+| `8015444c` | leaf `func_8015444C` carved 363/363 — the per-location interpreter, from the donor's 260-line shared body, switch lowered to `0x801B5ACC` |
+| `80155458` | leaf `func_80155458` carved 24/24 (dispatch table `D_80186ADC`) |
+| `80029104` | main-exec `func_80029104` had a registry C recovery but no native word export; its eight retail EXE words are now wired (CMake entry range + formatter array/range) |
+
+Current stop: `pc=80161a90`, an uncarved function whose Druthulu
+`shared/ov/func_80161A90.h` shape exists — the next leaf, following the same
+recipe (donor body, retarget the member's data, oracle MATCH against
+`artifacts/sc02-resident-20260910`, then wire and continue).
 No decomp claim is withdrawn for MAIN member 0012 — those registry entries were
 verified against member 0012 and remain valid there; only their SC02_031
 retargeting was built from the wrong image.
