@@ -1,6 +1,8 @@
-/* Complete SC02 retail span [80147514,80147628).
- * Ahead leaf.
- * Words from pinned SC02.CD member31 PAC0 decode (live-guest identity).
+/* SC02 resident retail span [80147514,80147628). Offset 0x1F3BC at base 80128158.
+ * SHA256(span)=478ccbb0333aac6de5316ea64e3d6b3af5121f22afda55a18864057a0e36bd88.
+ * Words are the guest's loaded image (artifacts/sc02-resident-20260910);
+ * the C is the Druthulu shared/ov func_80147514 shape (h_exact 875787c3) with its V4s struct defined here; oracle MATCH 69/69.
+ * Not MAIN10.
  */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFD0)
@@ -75,17 +77,14 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
 #include "psx_types.h"
 
+struct V4s80147514 { s16 x, y, z, w; };
 
 extern s32 func_80012C6C(s32 a0, s32 a1, s32 a2);
-extern void func_800129CC(s32 a0, s32 a1);
+extern s32 func_800129CC(s32 a0, s32 a1);
 
 void func_80147514(s32 arg0) {
     s16 buf[8];
-
-    buf[0] = *(s16 *)(arg0 + 0x120);
-    buf[1] = *(s16 *)(arg0 + 0x122);
-    buf[2] = *(s16 *)(arg0 + 0x124);
-    buf[3] = *(s16 *)(arg0 + 0x126);
+    *(struct V4s80147514 *)buf = *(struct V4s80147514 *)(arg0 + 0x120);
     if (((u16)buf[0] | (u16)buf[1] | (u16)buf[2]) == 0) {
         buf[1] = -0xFFF;
     }

@@ -33,6 +33,15 @@ static const uint32_t kMain80028A48Words[] = {
 static const uint32_t kMain80028C50Words[] = {
 #include "80028c50_words.inc"
 };
+static const uint32_t kMain80012558Words[] = {
+#include "80012558_words.inc"
+};
+static const uint32_t kMain80013F3CWords[] = {
+#include "80013f3c_words.inc"
+};
+static const uint32_t kMain800129CCWords[] = {
+#include "800129cc_words.inc"
+};
 static const uint32_t kMain8004CFECWords[] = {
 #include "8004cfec_words.inc"
 };
@@ -9707,8 +9716,11 @@ static int merge_memory_available(MusashiBootMemory *memory,
                                   const FormatterCpu *cpu, int kind,
                                   uint32_t address) {
     (void)kind;
-    return musashi_boot_ram_span(memory, address & ~3u, 4u) != NULL &&
-           cpu_ram_span(memory, cpu, address & ~3u, 4u) != NULL;
+    /* Judge availability with the same mapping the access itself uses. The
+     * guest runs its kernel stack in the 1 KB scratchpad (sp=1f8003xx), which
+     * musashi_boot_ram_span refuses but cpu_ram_span maps; MMIO still fails
+     * closed here because cpu_ram_span does not map it. */
+    return cpu_ram_span(memory, cpu, address & ~3u, 4u) != NULL;
 }
 
 static uint32_t merge_lwl_value(uint32_t memory, uint32_t prior, unsigned shift) {
@@ -9762,6 +9774,12 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
         instruction = kMain80028A48Words[(cpu->pc - 0x80028a48u) / 4u];
     else if (cpu->pc >= 0x80028c50u && cpu->pc < 0x80028d58u)
         instruction = kMain80028C50Words[(cpu->pc - 0x80028c50u) / 4u];
+    else if (cpu->pc >= 0x80012558u && cpu->pc < 0x800126c4u)
+        instruction = kMain80012558Words[(cpu->pc - 0x80012558u) / 4u];
+    else if (cpu->pc >= 0x80013f3cu && cpu->pc < 0x80013f68u)
+        instruction = kMain80013F3CWords[(cpu->pc - 0x80013f3cu) / 4u];
+    else if (cpu->pc >= 0x800129ccu && cpu->pc < 0x80012a60u)
+        instruction = kMain800129CCWords[(cpu->pc - 0x800129ccu) / 4u];
     else if (cpu->pc >= 0x8004cfecu && cpu->pc < 0x8004d16cu)
         instruction = kMain8004CFECWords[(cpu->pc - 0x8004cfecu) / 4u];
     else if (cpu->pc >= 0x8002d8a8u && cpu->pc < 0x8002d8d4u)
@@ -16562,7 +16580,16 @@ static int gte_load_successor(uint8_t reg, uint32_t pc, uint32_t word) {
         {13, 0x800485b8u, 0x48884800u},
         {8, 0x80048624u, 0x4809d000u},
         {9, 0x80048628u, 0x480ad800u},
-        {10, 0x8004862cu, 0x010b4021u}
+        {10, 0x8004862cu, 0x010b4021u},
+        {12, 0x80012608u, 0x480d5000u},
+        {13, 0x8001260cu, 0x480e5800u},
+        {14, 0x80012610u, 0xa62c0000u},
+        {12, 0x8001264cu, 0x480d5000u},
+        {13, 0x80012650u, 0x480e5800u},
+        {14, 0x80012654u, 0xa44c0000u},
+        {12, 0x80012690u, 0x480d5000u},
+        {13, 0x80012694u, 0x480e5800u},
+        {14, 0x80012698u, 0xa44c0000u}
     };
     unsigned i;
     for (i = 0; i < sizeof(successors)/sizeof(successors[0]); ++i)
@@ -16589,6 +16616,40 @@ static int gte_47d3c_caller(uint32_t ra) {
      * applies. */
     return ra == 0x80054050u || ra == 0x800540d8u || ra == 0x800533e4u ||
            ra == 0x801338a4u;
+}
+
+/* func_80012558 is a PSY-Q GTE library routine (26 COP2 sites: CTC2 control
+ * 0..4, MTC2 data 9..11, the 4A49E012 command, MFC2 data 9..11) that the guest
+ * reaches by fall-through, so RA is stale and cannot gate it. Slots:
+ * 0 = control write, 1 = data read, 3 = data write, 4 = command. */
+static int gte_12558_site(uint32_t pc, uint32_t word, unsigned *slot) {
+    static const struct { uint32_t pc, word; uint8_t slot; } sites[] = {
+        {0x800125bcu,0x48cc0000u,0}, {0x800125c0u,0x48cd0800u,0},
+        {0x800125d0u,0x48cc1000u,0}, {0x800125d4u,0x48cd1800u,0},
+        {0x800125d8u,0x48ce2000u,0},
+        {0x800125ecu,0x488c4800u,3}, {0x800125f0u,0x488d5000u,3},
+        {0x800125f4u,0x488e5800u,3},
+        {0x80012600u,0x4a49e012u,4},
+        {0x80012604u,0x480c4800u,1}, {0x80012608u,0x480d5000u,1},
+        {0x8001260cu,0x480e5800u,1},
+        {0x8001262cu,0x488c4800u,3}, {0x80012630u,0x488d5000u,3},
+        {0x80012634u,0x488e5800u,3},
+        {0x80012640u,0x4a49e012u,4},
+        {0x80012648u,0x480c4800u,1}, {0x8001264cu,0x480d5000u,1},
+        {0x80012650u,0x480e5800u,1},
+        {0x80012670u,0x488c4800u,3}, {0x80012674u,0x488d5000u,3},
+        {0x80012678u,0x488e5800u,3},
+        {0x80012684u,0x4a49e012u,4},
+        {0x8001268cu,0x480c4800u,1}, {0x80012690u,0x480d5000u,1},
+        {0x80012694u,0x480e5800u,1}
+    };
+    unsigned i;
+    for (i = 0; i < sizeof(sites)/sizeof(sites[0]); ++i)
+        if (sites[i].pc == pc && sites[i].word == word) {
+            if (slot) *slot = sites[i].slot;
+            return 1;
+        }
+    return 0;
 }
 
 static int gte_48d9c_site(uint32_t pc, uint32_t word, unsigned *slot) {
@@ -16660,7 +16721,11 @@ static int gte_load_successor_pc(uint32_t pc) {
         0x80048e38u, 0x80048e3cu, 0x80048e40u,
         0x80048e74u, 0x80048e78u,
         0x800485b0u, 0x800485b4u, 0x800485b8u,
-        0x80048624u, 0x80048628u, 0x8004862cu
+        0x80048624u, 0x80048628u, 0x8004862cu,
+        /* func_80012558's three MFC2 chains (data 9..11 each round). */
+        0x80012608u, 0x8001260cu, 0x80012610u,
+        0x8001264cu, 0x80012650u, 0x80012654u,
+        0x80012690u, 0x80012694u, 0x80012698u
     };
     unsigned i;
     for (i = 0; i < sizeof(pcs)/sizeof(pcs[0]); ++i)
@@ -16952,7 +17017,16 @@ static int formatter_step(MusashiBootMemory *memory, FormatterCpu *cpu) {
          * delay-slot successor above already published it. */
         unsigned slot = 99;
         int leaf = 0, camera = 0, camera2 = 0, transform = 0, vector_command = 0;
+        int lib_gte = 0;
         if (cpu->cpu_transfer) {
+            /* The func_80012558 library sites carry a stale RA, so they are
+             * admitted by exact PC/word with the transfer binding the site
+             * needs (slot 1 = data read, 3 = data write, 4 = command). */
+            unsigned lib_slot = 99;
+            lib_gte = gte_12558_site(cpu->pc, instruction, &lib_slot) &&
+                ((lib_slot == 1u && cpu->cpu_transfer->read_data != NULL) ||
+                 (lib_slot == 3u && cpu->cpu_transfer->write_data != NULL) ||
+                 (lib_slot == 4u && cpu->cpu_transfer->command != NULL));
             /* func_80133CD4's vector load completes with the 0x80133FFC GTE
              * command (word 4AA00428). RA is the same clobbered 80133FB8 as the
              * three admitted LWC2 sites, so the gate is the exact site plus a
@@ -16990,7 +17064,8 @@ static int formatter_step(MusashiBootMemory *memory, FormatterCpu *cpu) {
         if (!cpu->cpu_transfer || cpu->merge_pending ||
             cpu->npc != cpu->pc+4u ||
             cpu->delay_slot || cpu->branch_pc ||
-            (!leaf && !camera && !camera2 && !transform && !vector_command)) return 0;
+            (!leaf && !camera && !camera2 && !transform && !vector_command &&
+             !lib_gte)) return 0;
     } else if (opcode == 18u) {
         static const uint32_t sites[][2] = {
             {0x80047ce8u,0x48c8e800u},{0x80047cf4u,0x48c8f000u},
@@ -17015,7 +17090,14 @@ static int formatter_step(MusashiBootMemory *memory, FormatterCpu *cpu) {
             {0x800491bcu,0x48c93000u},{0x800491c0u,0x48ca3800u}
         };
         unsigned i;
+        unsigned lib_slot = 99;
         if (!cpu->cpu_transfer || !cpu->cpu_transfer->write_control) return 0;
+        /* The func_80012558 control writes carry a stale RA, so exact PC/word
+         * plus the bound control transfer is the whole gate for them; every
+         * other CTC2 site keeps its index-based caller check. */
+        if (gte_12558_site(cpu->pc, instruction, &lib_slot) && lib_slot == 0u) {
+            /* admitted */
+        } else {
         for (i=0;i<sizeof(sites)/sizeof(sites[0]);++i)
             if (sites[i][0]==cpu->pc && sites[i][1]==instruction) break;
         if (i==sizeof(sites)/sizeof(sites[0])) return 0;
@@ -17040,6 +17122,7 @@ static int formatter_step(MusashiBootMemory *memory, FormatterCpu *cpu) {
                    cpu->r[31] != (i < 36u ? 0x8012f170u : 0x8012f178u) ||
                    cpu->merge_pending || cpu->gte_load_pending ||
                    cpu->npc != cpu->pc+4u || cpu->delay_slot || cpu->branch_pc) return 0;
+        }
     }
     if (opcode == 50u || (opcode == 58u &&
                           (cpu->pc == 0x80049474u ||
