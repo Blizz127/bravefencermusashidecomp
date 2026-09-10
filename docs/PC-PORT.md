@@ -18,7 +18,15 @@ mistaken for a reached menu. Folded SC02 PAC0 `8014E934…80150EC4` (60 leaves /
 `80150EC4…80153C8C` is closed: its 13 differing spans are recovered, each a
 single data reference shifted by the member's `+0x888` block offset, and all
 re-earned MATCH against the SC02 blob. Remaining SC02 work is 272 known spans
-(27,136 bytes), starting at `80128C98…80128D60`; next MAIN10 hole `800D1938+`.
+— now 16 known spans (1,416 bytes) where the two members hold different code
+rather than a retargeted data reference: `8013C9C4`, `8013D330`, `80164E40`,
+`8017BEBC`, `8017BEE4`, `8017BF70`, `8017BFF8`, `8017C080`, `8017C0DC`,
+`8017C120`, `8017C24C`, `8017DF18`, `8017E22C`, `8017E254`, `8017E298`,
+`8017E324`. For example `8017BFF8` returns `D_801857E8` in member 0012 while
+SC02_031 holds an unrelated store/`lwc2` sequence there, so these need their own
+SC02 decompilation rather than an adaptation; seven of them have Druthulu
+`shared/ov` donor shapes that still need their extern declarations. Next MAIN10
+hole `800D1938+`.
 Scanout enabled.
 
 
