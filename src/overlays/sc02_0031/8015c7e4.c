@@ -1,8 +1,8 @@
-/* SC02.CD FILE_031 / ov_SC02_031 retail span [8015C7E4,8015C944).
- * Offset 0x3468C at overlay base 80128158. SHA256(span)=a40eb76af87ee7c362e8c83e197500398dd2bf2455ab1a943130b3f012a5183f.
- * Same shape as the registry-verified MAIN member 0012 carve with only the
- * listed data references retargeted for this member: D_801809C0->D_80181248; D_80180A1C->D_801812A4.
- * Oracle MATCH re-earned on this file; Not MAIN10.
+/* SC02 resident retail span [8015C7E4,8015C944). Offset 0x3468C at base 80128158.
+ * SHA256(span)=f11bd9e19d36ab7aecbcfc4fbfdcc4fdd6b49cfe132fdb29e94dfb8cee0bedec.
+ * Words are the guest's loaded image (artifacts/sc02-resident-20260910).
+ * Member-0012 C shape retargeted to this member: D_801809C0->D_801872B0; D_80180A1C->D_8018730C.
+ * Oracle MATCH re-earned against the resident image; Not MAIN10.
  */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE8)
@@ -25,7 +25,7 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 MUSASHI_NATIVE_MIPS_WORD(0x00021080)
 MUSASHI_NATIVE_MIPS_WORD(0x3C018018)
 MUSASHI_NATIVE_MIPS_WORD(0x00220821)
-MUSASHI_NATIVE_MIPS_WORD(0x8C2212A4)
+MUSASHI_NATIVE_MIPS_WORD(0x8C22730C)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 MUSASHI_NATIVE_MIPS_WORD(0x0040F809)
 MUSASHI_NATIVE_MIPS_WORD(0x02002021)
@@ -47,7 +47,7 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 MUSASHI_NATIVE_MIPS_WORD(0x00021080)
 MUSASHI_NATIVE_MIPS_WORD(0x3C018018)
 MUSASHI_NATIVE_MIPS_WORD(0x00220821)
-MUSASHI_NATIVE_MIPS_WORD(0x8C2212A4)
+MUSASHI_NATIVE_MIPS_WORD(0x8C22730C)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 MUSASHI_NATIVE_MIPS_WORD(0x0040F809)
 MUSASHI_NATIVE_MIPS_WORD(0x02002021)
@@ -69,7 +69,7 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 MUSASHI_NATIVE_MIPS_WORD(0x0C0522AB)
 MUSASHI_NATIVE_MIPS_WORD(0x02002021)
 MUSASHI_NATIVE_MIPS_WORD(0x3C058018)
-MUSASHI_NATIVE_MIPS_WORD(0x24A51248)
+MUSASHI_NATIVE_MIPS_WORD(0x24A572B0)
 MUSASHI_NATIVE_MIPS_WORD(0x0C051B6E)
 MUSASHI_NATIVE_MIPS_WORD(0x02002021)
 MUSASHI_NATIVE_MIPS_WORD(0x02002021)
@@ -96,7 +96,7 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
 #include "psx_types.h"
 typedef void (*CB)();
-extern CB D_801812A4[];
+extern CB D_8018730C[];
 s32 func_80161B18();
 s32 func_80161B84();
 s32 func_801496D4();
@@ -113,7 +113,7 @@ void func_80146E90();
 void func_80146CA0();
 void func_80161C24();
 void func_8014C010();
-extern s32 D_80181248;
+extern s32 D_801872B0;
 typedef struct {
     u16 idx;
     u8 pad2[0xB6]; u16 b8;
@@ -127,12 +127,12 @@ void func_8015C7E4(T *p) {
         return;
     }
     if (func_801496D4(p)) {
-        D_801812A4[p->idx](p);
+        D_8018730C[p->idx](p);
         func_80149704(p);
         return;
     }
     if ((func_801487F4(p) & 0x80) == 0 && func_801488A8(p) == 0) {
-        D_801812A4[p->idx](p);
+        D_8018730C[p->idx](p);
         func_80147078(p, 0);
         func_80159B70(p);
         return;
@@ -142,7 +142,7 @@ void func_8015C7E4(T *p) {
     }
     if (func_80146E98(p)) {
         func_80148AAC(p);
-        func_80146DB8(p, &D_80181248);
+        func_80146DB8(p, &D_801872B0);
         func_80146E90(p, 0x14);
         func_80146CA0(p);
     }

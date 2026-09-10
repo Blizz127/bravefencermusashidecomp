@@ -1,8 +1,8 @@
-/* SC02.CD FILE_031 / ov_SC02_031 retail span [80137D08,80137DD4).
- * Offset 0xFBB0 at overlay base 80128158. SHA256(span)=3f5cf4347c647cdcd9727b9251000f5c31c9ae1e467a6456f97f9f9f6794fddc.
- * Differs from the registry-verified MAIN member 0012 carve in exactly one
- * data reference: D_8017E980 here is D_8017F208 (+0x888 member
- * data-block shift). Oracle MATCH re-earned on this file; Not MAIN10.
+/* SC02 resident retail span [80137D08,80137DD4). Offset 0xFBB0 at base 80128158.
+ * SHA256(span)=f9fe98c071797d2daf1db33faecc91af200177bc8f568bed140e74971c6e375e.
+ * Words are the guest's loaded image (artifacts/sc02-resident-20260910).
+ * Member-0012 C shape retargeted to this member: D_8017E980->D_80185270.
+ * Oracle MATCH re-earned against the resident image; Not MAIN10.
  */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFD8)
@@ -41,7 +41,7 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 MUSASHI_NATIVE_MIPS_WORD(0x14620009)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 MUSASHI_NATIVE_MIPS_WORD(0x3C028018)
-MUSASHI_NATIVE_MIPS_WORD(0x8C42F208)
+MUSASHI_NATIVE_MIPS_WORD(0x8C425270)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 MUSASHI_NATIVE_MIPS_WORD(0x30420004)
 MUSASHI_NATIVE_MIPS_WORD(0x10400003)
@@ -66,7 +66,7 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
  * D_800A5E60 = a0; D_80126A0A = (u16)a2;
  * func_801392FC(s1, D_80126A0E, s0). If (D_801269F4[0] == 7):
  * func_80137DD4(s1, {0x39,0xFF,0x71}-buf, s0) (third byte rides
- * the jal delay slot); else if (== 3 and (D_8017F208 & 4)):
+ * the jal delay slot); else if (== 3 and (D_80185270 & 4)):
  * func_80139680(s1, s0) (a1 set in the jal delay slot).
  * Returns the reloaded D_800A5E60 (the sole retail caller adds
  * $v0 onward, pinning the s32 return; the word is not clobbered
@@ -78,7 +78,7 @@ extern s32 D_800A5E60;
 extern u16 D_80126A0A;
 extern u8 D_80126A0E;
 extern s16 D_801269F4[];
-extern s32 D_8017F208;
+extern s32 D_80185270;
 extern void func_801392FC(void *arg0, s32 arg1, void *arg2);
 extern void func_80137DD4(void *arg0, void *arg1, void *arg2);
 extern void func_80139680(void *arg0, void *arg1);
@@ -97,7 +97,7 @@ s32 func_80137D08(s32 arg0, void *arg1, s32 arg2) {
         buf[2] = 0x71;
         func_80137DD4(s1v, buf, arg1);
     } else if (D_801269F4[0] == 3) {
-        if ((D_8017F208 & 4) != 0) {
+        if ((D_80185270 & 4) != 0) {
             func_80139680(s1v, arg1);
         }
     }

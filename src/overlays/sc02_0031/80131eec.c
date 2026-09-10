@@ -1,8 +1,8 @@
-/* SC02.CD FILE_031 / ov_SC02_031 retail span [80131EEC,80131F28).
- * Offset 0x9D94 at overlay base 80128158. SHA256(span)=6f14920fa7752d0bac0859c5e31bd12d11b3aca8188d2b4b05445e89f7a86c7f.
- * Differs from the registry-verified MAIN member 0012 carve in exactly one
- * data reference: D_8017E8A8 here is D_8017F130 (+0x888 member
- * data-block shift). Oracle MATCH re-earned on this file; Not MAIN10.
+/* SC02 resident retail span [80131EEC,80131F28). Offset 0x9D94 at base 80128158.
+ * SHA256(span)=2eb44c06f60955d6a59135c3f089364d414954f98436ac6a9d5e818cc73859f6.
+ * Words are the guest's loaded image (artifacts/sc02-resident-20260910).
+ * Member-0012 C shape retargeted to this member: D_8017E8A8->D_80185198.
+ * Oracle MATCH re-earned against the resident image; Not MAIN10.
  */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE8)
@@ -12,7 +12,7 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 MUSASHI_NATIVE_MIPS_WORD(0x00021080)
 MUSASHI_NATIVE_MIPS_WORD(0x3C018018)
 MUSASHI_NATIVE_MIPS_WORD(0x00220821)
-MUSASHI_NATIVE_MIPS_WORD(0x8C22F130)
+MUSASHI_NATIVE_MIPS_WORD(0x8C225198)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 MUSASHI_NATIVE_MIPS_WORD(0x0040F809)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
@@ -27,7 +27,7 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
  * asm (fully visible; NOT verified against retail; C89-gated
  * only, promotion requires an oracle MATCH): indirect tail
  * dispatcher, 0x18 frame, s32 result. Calls the code pointer at
- * D_8017F130[(u16)arg0[1]] (lhu + sll-2 + lw) via jalr with a0 still
+ * D_80185198[(u16)arg0[1]] (lhu + sll-2 + lw) via jalr with a0 still
  * live (no a-reg writes precede it) and returns its . Table
  * contents unstaged; the s32(void*)-typed view matches the
  * func_80042580 callback precedent. */
@@ -39,9 +39,9 @@ struct h_80131EEC {
 
 typedef s32 (*tgt_80131EEC)(struct h_80131EEC *);
 
-extern tgt_80131EEC D_8017F130[];
+extern tgt_80131EEC D_80185198[];
 
 s32 func_80131EEC(struct h_80131EEC *arg0) {
-    return D_8017F130[arg0->unk2](arg0);
+    return D_80185198[arg0->unk2](arg0);
 }
 #endif

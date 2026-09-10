@@ -1,8 +1,8 @@
-/* SC02.CD FILE_031 / ov_SC02_031 retail span [8015F9A4,8015FA24).
- * Offset 0x3784C at overlay base 80128158. SHA256(span)=ee31b1018f9100caea736661df5b5568e94b3c200a2de873111f3745f0cc5cf3.
- * Differs from the registry-verified MAIN member 0012 carve in exactly one
- * data reference: D_80180A1C here is D_801812A4 (+0x888 member
- * data-block shift). Oracle MATCH re-earned on this file; Not MAIN10.
+/* SC02 resident retail span [8015F9A4,8015FA24). Offset 0x3784C at base 80128158.
+ * SHA256(span)=2d2dedac2197135e19829a03ab000931630eac1ff468f5023c63bdd1af10cffa.
+ * Words are the guest's loaded image (artifacts/sc02-resident-20260910).
+ * Member-0012 C shape retargeted to this member: D_80180A1C->D_8018730C.
+ * Oracle MATCH re-earned against the resident image; Not MAIN10.
  */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE8)
@@ -19,7 +19,7 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 MUSASHI_NATIVE_MIPS_WORD(0x00021080)
 MUSASHI_NATIVE_MIPS_WORD(0x3C018018)
 MUSASHI_NATIVE_MIPS_WORD(0x00220821)
-MUSASHI_NATIVE_MIPS_WORD(0x8C2212A4)
+MUSASHI_NATIVE_MIPS_WORD(0x8C22730C)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 MUSASHI_NATIVE_MIPS_WORD(0x0040F809)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
@@ -43,7 +43,7 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 /* HAND MODEL from m2c draft of func_8015F9A4 (main_0012.s): NOT verified
  * against retail. C89-gated only; promotion requires an oracle MATCH.
  * m2c shapes: arg0->unkB8 and arg0->unk0 on a void*, plus a callback
- * table call `*(D_801812A4 + (unk0 * 4))()`. The disassembly loads both
+ * table call `*(D_8018730C + (unk0 * 4))()`. The disassembly loads both
  * members as halfwords (lhu +0xB8 and +0x0) and calls the table via
  * sll-2/addu/lw/jalr, so the model declares two u16 members and an
  * extern table of unchecked-prototype function pointers indexed by
@@ -56,7 +56,7 @@ struct data_8015F9A4 {
 };
 
 typedef void (*callback_8015F9A4)();
-extern callback_8015F9A4 D_801812A4[];
+extern callback_8015F9A4 D_8018730C[];
 
 void func_80147078(void *, s32);
 void func_80159B70(void *);
@@ -64,7 +64,7 @@ void func_80161208(void *);
 
 void func_8015F9A4(struct data_8015F9A4 *arg0) {
     if (arg0->unkB8 & 0x8000) {
-        D_801812A4[arg0->unk0]();
+        D_8018730C[arg0->unk0]();
         func_80147078(arg0, 0);
         func_80159B70(arg0);
         return;

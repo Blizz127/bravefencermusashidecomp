@@ -1,8 +1,8 @@
-/* SC02.CD FILE_031 / ov_SC02_031 retail span [8012E9C0,8012EA90).
- * Offset 0x6868 at overlay base 80128158. SHA256(span)=8602cd27f031824fe3b3f54f09ea4ebb74e3a4128f5cd3453246f706d1994008.
- * Differs from the registry-verified MAIN member 0012 carve in exactly one
- * data reference: D_8017E6D4 here is D_8017EF5C (+0x888 member
- * data-block shift). Oracle MATCH re-earned on this file; Not MAIN10.
+/* SC02 resident retail span [8012E9C0,8012EA90). Offset 0x6868 at base 80128158.
+ * SHA256(span)=81eb6e3b05411d858a96e28358bfb87bd270ca29af34003aff57b61b4ad99641.
+ * Words are the guest's loaded image (artifacts/sc02-resident-20260910).
+ * Member-0012 C shape retargeted to this member: D_8017E6D4->D_80184FC4.
+ * Oracle MATCH re-earned against the resident image; Not MAIN10.
  */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE8)
@@ -49,7 +49,7 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 MUSASHI_NATIVE_MIPS_WORD(0x0C05AD0A)
 MUSASHI_NATIVE_MIPS_WORD(0x02002021)
 MUSASHI_NATIVE_MIPS_WORD(0x3C048018)
-MUSASHI_NATIVE_MIPS_WORD(0x2484EF5C)
+MUSASHI_NATIVE_MIPS_WORD(0x24844FC4)
 MUSASHI_NATIVE_MIPS_WORD(0x0C006419)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 MUSASHI_NATIVE_MIPS_WORD(0x8FBF0014)
@@ -62,7 +62,7 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 void func_8016AA50();
 void func_8016B428();
 void func_80019064();
-extern s32 D_8017EF5C;
+extern s32 D_80184FC4;
 typedef struct Q { u8 pad[0x30]; s16 u30; } Q;
 typedef struct {
     u8 pad[6]; u16 u6;
@@ -95,7 +95,7 @@ void func_8012E9C0(T *p) {
     func_8016AA50(p, a1);
     if (p->u82 & 1) {
         func_8016B428(p);
-        func_80019064(&D_8017EF5C);
+        func_80019064(&D_80184FC4);
     }
 }
 #endif

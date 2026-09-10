@@ -1,8 +1,8 @@
-/* SC02.CD FILE_031 / ov_SC02_031 retail span [80137B80,80137BD8).
- * Offset 0xFA28 at overlay base 80128158. SHA256(span)=97fdaffef510ff000e20d0803ab21dca350b397d409f860917e4dc82196cfb40.
- * Same shape as the registry-verified MAIN member 0012 carve with only the
- * listed data references retargeted for this member: D_8017E980->D_8017F208.
- * Oracle MATCH re-earned on this file; Not MAIN10.
+/* SC02 resident retail span [80137B80,80137BD8). Offset 0xFA28 at base 80128158.
+ * SHA256(span)=8ea263b70ff00ebe9f1d145aacea2fecb66468074fd5c7ed40bfddcde663658c.
+ * Words are the guest's loaded image (artifacts/sc02-resident-20260910).
+ * Member-0012 C shape retargeted to this member: D_8017E980->D_80185270.
+ * Oracle MATCH re-earned against the resident image; Not MAIN10.
  */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE8)
@@ -18,11 +18,11 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 MUSASHI_NATIVE_MIPS_WORD(0x0C04E2F8)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 MUSASHI_NATIVE_MIPS_WORD(0x3C028018)
-MUSASHI_NATIVE_MIPS_WORD(0x8C42F208)
+MUSASHI_NATIVE_MIPS_WORD(0x8C425270)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 MUSASHI_NATIVE_MIPS_WORD(0x24420001)
 MUSASHI_NATIVE_MIPS_WORD(0x3C018018)
-MUSASHI_NATIVE_MIPS_WORD(0xAC22F208)
+MUSASHI_NATIVE_MIPS_WORD(0xAC225270)
 MUSASHI_NATIVE_MIPS_WORD(0x8FBF0010)
 MUSASHI_NATIVE_MIPS_WORD(0x27BD0018)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
@@ -35,7 +35,7 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
  * only, promotion requires an oracle MATCH): void (void), 0x18
  * frame. D_80127548 = 0x24, then if (D_801269F0[0].w0 != 0)
  * func_80138BE0(&D_801269F0[0]) (a0 = base throughout, no a-reg
- * writes precede the jal), then D_8017F208++ (asm order: the
+ * writes precede the jal), then D_80185270++ (asm order: the
  * store precedes the call). Results ignored. Slot
  * view (0x4C stride, word 0) matches func_801379FC's; 38BE0 decl
  * likewise. */
@@ -47,7 +47,7 @@ struct slot_80137B80 {
 
 extern struct slot_80137B80 D_801269F0[];
 extern u32 D_80127548;
-extern s32 D_8017F208;
+extern s32 D_80185270;
 extern void func_80138BE0(struct slot_80137B80 *arg0);
 
 void func_80137B80(void) {
@@ -55,6 +55,6 @@ void func_80137B80(void) {
     if (D_801269F0[0].w0 != 0) {
         func_80138BE0(&D_801269F0[0]);
     }
-    D_8017F208++;
+    D_80185270++;
 }
 #endif

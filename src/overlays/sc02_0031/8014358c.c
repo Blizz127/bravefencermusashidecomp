@@ -1,8 +1,8 @@
-/* SC02.CD FILE_031 / ov_SC02_031 retail span [8014358C,80143640).
- * Offset 0x1B434 at overlay base 80128158. SHA256(span)=d168e0ef979a76a675d5af435cac36241b1dc4365c510ab93ce116a5e7a8fc64.
- * Same shape as the registry-verified MAIN member 0012 carve with only the
- * listed data references retargeted for this member: D_8017FB8C->D_80180414; D_8017FC88->D_80180510.
- * Oracle MATCH re-earned on this file; Not MAIN10.
+/* SC02 resident retail span [8014358C,80143640). Offset 0x1B434 at base 80128158.
+ * SHA256(span)=61739139e51f421f26539120293d54288f56e37d81fca90537264cba3763fb7c.
+ * Words are the guest's loaded image (artifacts/sc02-resident-20260910).
+ * Member-0012 C shape retargeted to this member: D_8017FB8C->D_8018647C; D_8017FC88->D_80186578.
+ * Oracle MATCH re-earned against the resident image; Not MAIN10.
  */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE8)
@@ -11,7 +11,7 @@ MUSASHI_NATIVE_MIPS_WORD(0x00808021)
 MUSASHI_NATIVE_MIPS_WORD(0xAFBF0014)
 MUSASHI_NATIVE_MIPS_WORD(0x8E020020)
 MUSASHI_NATIVE_MIPS_WORD(0x3C038018)
-MUSASHI_NATIVE_MIPS_WORD(0x24630414)
+MUSASHI_NATIVE_MIPS_WORD(0x2463647C)
 MUSASHI_NATIVE_MIPS_WORD(0xAC430020)
 MUSASHI_NATIVE_MIPS_WORD(0x8E030020)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
@@ -38,7 +38,7 @@ MUSASHI_NATIVE_MIPS_WORD(0x30420003)
 MUSASHI_NATIVE_MIPS_WORD(0x00021080)
 MUSASHI_NATIVE_MIPS_WORD(0x3C018018)
 MUSASHI_NATIVE_MIPS_WORD(0x00220821)
-MUSASHI_NATIVE_MIPS_WORD(0x8C260510)
+MUSASHI_NATIVE_MIPS_WORD(0x8C266578)
 MUSASHI_NATIVE_MIPS_WORD(0x0C04A3AA)
 MUSASHI_NATIVE_MIPS_WORD(0x26050024)
 MUSASHI_NATIVE_MIPS_WORD(0x96020002)
@@ -53,8 +53,8 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
 #include "psx_types.h"
 void func_80128EA8();
-extern u8 D_80180414[];
-extern void *D_80180510[];
+extern u8 D_8018647C[];
+extern void *D_80186578[];
 typedef struct {
     u8 pad[4]; s32 u4;
     u8 pad8[0x10]; s16 u18, u1A;
@@ -69,7 +69,7 @@ typedef struct {
 void func_8014358C(T *p) {
     Inner *in;
     u16 v;
-    p->inner->u20 = D_80180414;
+    p->inner->u20 = D_8018647C;
     in = p->inner;
     if (in->u4 == 0) {
         in->u4 = 0x50000000;
@@ -81,7 +81,7 @@ void func_8014358C(T *p) {
         in->u1A = v;
         in->u18 = v;
     }
-    func_80128EA8(p->inner, (u8 *)p + 0x24, D_80180510[p->u34 & 3]);
+    func_80128EA8(p->inner, (u8 *)p + 0x24, D_80186578[p->u34 & 3]);
     p->u2 = p->u2 + 1;
 }
 #endif

@@ -1,21 +1,21 @@
-/* SC02.CD FILE_031 / ov_SC02_031 retail span [8013AD38,8013AF20).
- * Offset 0x12BE0 at overlay base 80128158. SHA256(span)=98e6df02f4017269947e9b8bd8a94b03e321b43adcf03dd39869728568ca0bae.
- * Same shape as the registry-verified MAIN member 0012 carve with only the
- * listed data references retargeted for this member: D_8017EA50->D_8017F2D8; D_8017EA8C->D_8017F314.
- * Oracle MATCH re-earned on this file; Not MAIN10.
+/* SC02 resident retail span [8013AD38,8013AF20). Offset 0x12BE0 at base 80128158.
+ * SHA256(span)=2d3bd0e1a44dda3353f22996d2f7b07b71c1c59380bc48de438d2d9143f4fe2d.
+ * Words are the guest's loaded image (artifacts/sc02-resident-20260910).
+ * Member-0012 C shape retargeted to this member: D_8017EA50->D_80185340; D_8017EA8C->D_8018537C.
+ * Oracle MATCH re-earned against the resident image; Not MAIN10.
  */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFD8)
 MUSASHI_NATIVE_MIPS_WORD(0x00807021)
 MUSASHI_NATIVE_MIPS_WORD(0x3C0F8018)
-MUSASHI_NATIVE_MIPS_WORD(0x25EFF314)
+MUSASHI_NATIVE_MIPS_WORD(0x25EF537C)
 MUSASHI_NATIVE_MIPS_WORD(0x00052C00)
 MUSASHI_NATIVE_MIPS_WORD(0x00052C03)
 MUSASHI_NATIVE_MIPS_WORD(0x28A20C00)
 MUSASHI_NATIVE_MIPS_WORD(0x10400003)
 MUSASHI_NATIVE_MIPS_WORD(0x00C0C021)
 MUSASHI_NATIVE_MIPS_WORD(0x3C0F8018)
-MUSASHI_NATIVE_MIPS_WORD(0x25EFF2D8)
+MUSASHI_NATIVE_MIPS_WORD(0x25EF5340)
 MUSASHI_NATIVE_MIPS_WORD(0x00004821)
 MUSASHI_NATIVE_MIPS_WORD(0x01E03021)
 MUSASHI_NATIVE_MIPS_WORD(0x00E02021)
@@ -139,15 +139,15 @@ __asm__(
     "func_8013AD38:\n"
     "addiu $sp, $sp, -0x28\n"
     "addu $t6, $a0, $zero\n"
-    "lui $t7, %hi(D_8017F314)\n"
-    "addiu $t7, $t7, %lo(D_8017F314)\n"
+    "lui $t7, %hi(D_8018537C)\n"
+    "addiu $t7, $t7, %lo(D_8018537C)\n"
     "sll $a1, $a1, 16\n"
     "sra $a1, $a1, 16\n"
     "slti $v0, $a1, 0xC00\n"
     ".word 0x10400003\n"
     "addu $t8, $a2, $zero\n"
-    "lui $t7, %hi(D_8017F2D8)\n"
-    "addiu $t7, $t7, %lo(D_8017F2D8)\n"
+    "lui $t7, %hi(D_80185340)\n"
+    "addiu $t7, $t7, %lo(D_80185340)\n"
     ".L8013AD64:\n"
     "addu $t1, $zero, $zero\n"
     "addu $a2, $t7, $zero\n"

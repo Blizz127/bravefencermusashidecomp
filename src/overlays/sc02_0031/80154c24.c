@@ -1,9 +1,8 @@
-/* SC02.CD FILE_031 / ov_SC02_031 retail span [80154C24,80154ED8).
- * Offset 0x2CACC at overlay base 80128158. SHA256(span)=b5885a7e08325ffa0177ab9822cd1cedf711864ee8fd494e6f4428992189eff6.
- * Shape from Druthulu shared/ov donor func_80154C24__9e672a70.h (h_exact 9e672a70); re-earned through the oracle on the retail blob:
- * 173/173 words at -O2 -G0 with --rodata-base 0x801A3CB4
- * (the 9-case switch lowers to the retail jump table at 0x801A3CB4).
- * Not MAIN10.
+/* SC02 resident retail span [80154C24,80154ED8). Offset 0x2CACC at base 80128158.
+ * SHA256(span)=b239c927e5b6986f50632c020a174fcc8dc4cd814d2f2258617bba700ffe1f9b.
+ * Words are the guest's loaded image (artifacts/sc02-resident-20260910);
+ * retargeted for this member: jump table at 0x801B5BA8 (--rodata-base).
+ * Oracle MATCH re-earned against the resident image; Not MAIN10.
  */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE0)
@@ -40,9 +39,9 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 MUSASHI_NATIVE_MIPS_WORD(0x2C620009)
 MUSASHI_NATIVE_MIPS_WORD(0x10400064)
 MUSASHI_NATIVE_MIPS_WORD(0x00031080)
-MUSASHI_NATIVE_MIPS_WORD(0x3C01801A)
+MUSASHI_NATIVE_MIPS_WORD(0x3C01801B)
 MUSASHI_NATIVE_MIPS_WORD(0x00220821)
-MUSASHI_NATIVE_MIPS_WORD(0x8C223CB4)
+MUSASHI_NATIVE_MIPS_WORD(0x8C225BA8)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 MUSASHI_NATIVE_MIPS_WORD(0x00400008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)

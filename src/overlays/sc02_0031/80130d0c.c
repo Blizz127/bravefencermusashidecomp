@@ -1,8 +1,8 @@
-/* SC02.CD FILE_031 / ov_SC02_031 retail span [80130D0C,80130D48).
- * Offset 0x8BB4 at overlay base 80128158. SHA256(span)=086545abbcff389b44af7cb04fdd299ac4c27970ed17c495547903f89bacb690.
- * Differs from the registry-verified MAIN member 0012 carve in exactly one
- * data reference: D_8017E710 here is D_8017EF98 (+0x888 member
- * data-block shift). Oracle MATCH re-earned on this file; Not MAIN10.
+/* SC02 resident retail span [80130D0C,80130D48). Offset 0x8BB4 at base 80128158.
+ * SHA256(span)=6b945002f7550b7b2b93e750b56b292636aa116d21c0ae456aa608e8da6ca503.
+ * Words are the guest's loaded image (artifacts/sc02-resident-20260910).
+ * Member-0012 C shape retargeted to this member: D_8017E710->D_80185000.
+ * Oracle MATCH re-earned against the resident image; Not MAIN10.
  */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE8)
@@ -12,7 +12,7 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 MUSASHI_NATIVE_MIPS_WORD(0x00021080)
 MUSASHI_NATIVE_MIPS_WORD(0x3C018018)
 MUSASHI_NATIVE_MIPS_WORD(0x00220821)
-MUSASHI_NATIVE_MIPS_WORD(0x8C22EF98)
+MUSASHI_NATIVE_MIPS_WORD(0x8C225000)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 MUSASHI_NATIVE_MIPS_WORD(0x0040F809)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
@@ -26,7 +26,7 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 /* HAND MODEL of func_80130D0C (main_0012.s), decoded manually from
  * raw asm (fully visible; NOT verified against retail; C89-gated
  * only, promotion requires an oracle MATCH): dispatches through
- * D_8017EF98[u8 arg0->unkC1] (word table; index 0 holds 0x80000,
+ * D_80185000[u8 arg0->unkC1] (word table; index 0 holds 0x80000,
  * handlers start at 1) via jalr with a nop delay slot, so both
  * live regs pass through. Modelled as a uniform 2-arg indirect
  * call: the table mixes 1-arg and 2-arg handlers, but on MIPS o32
@@ -41,9 +41,9 @@ struct obj_80130D0C {
 
 typedef s32 (*handler_80130D0C)(void *arg0, s32 arg1);
 
-extern handler_80130D0C D_8017EF98[];
+extern handler_80130D0C D_80185000[];
 
 s32 func_80130D0C(struct obj_80130D0C *arg0, s32 arg1) {
-    return D_8017EF98[arg0->unkC1](arg0, arg1);
+    return D_80185000[arg0->unkC1](arg0, arg1);
 }
 #endif

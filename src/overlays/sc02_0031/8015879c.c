@@ -1,8 +1,8 @@
-/* SC02.CD FILE_031 / ov_SC02_031 retail span [8015879C,80158814).
- * Offset 0x30644 at overlay base 80128158. SHA256(span)=1b6a2d6fd9fe87861bc7ca8e8c09dc2f9ba1a56303daf193066f1130300da68f.
- * Same shape as the registry-verified MAIN member 0012 carve with only the
- * listed data references retargeted for this member: D_80184288->D_801A45B0; D_80184294->D_801A45BC; D_80184298->D_801A45C0.
- * Oracle MATCH re-earned on this file; Not MAIN10.
+/* SC02 resident retail span [8015879C,80158814). Offset 0x30644 at base 80128158.
+ * SHA256(span)=36f897cafed81f796a86e59e792b4769d00e3ae9168956fce84500bc6f808461.
+ * Words are the guest's loaded image (artifacts/sc02-resident-20260910).
+ * Member-0012 C shape retargeted to this member: D_80184288->D_801B6440; D_80184294->D_801B644C; D_80184298->D_801B6450.
+ * Oracle MATCH re-earned against the resident image; Not MAIN10.
  */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE8)
@@ -10,12 +10,12 @@ MUSASHI_NATIVE_MIPS_WORD(0xAFB00010)
 MUSASHI_NATIVE_MIPS_WORD(0x00808021)
 MUSASHI_NATIVE_MIPS_WORD(0x24020001)
 MUSASHI_NATIVE_MIPS_WORD(0xAFBF0014)
-MUSASHI_NATIVE_MIPS_WORD(0x3C01801A)
-MUSASHI_NATIVE_MIPS_WORD(0xAC2045B0)
-MUSASHI_NATIVE_MIPS_WORD(0x3C01801A)
-MUSASHI_NATIVE_MIPS_WORD(0xAC2245BC)
-MUSASHI_NATIVE_MIPS_WORD(0x3C01801A)
-MUSASHI_NATIVE_MIPS_WORD(0xAC2045C0)
+MUSASHI_NATIVE_MIPS_WORD(0x3C01801B)
+MUSASHI_NATIVE_MIPS_WORD(0xAC206440)
+MUSASHI_NATIVE_MIPS_WORD(0x3C01801B)
+MUSASHI_NATIVE_MIPS_WORD(0xAC22644C)
+MUSASHI_NATIVE_MIPS_WORD(0x3C01801B)
+MUSASHI_NATIVE_MIPS_WORD(0xAC206450)
 MUSASHI_NATIVE_MIPS_WORD(0x0C051C21)
 MUSASHI_NATIVE_MIPS_WORD(0xA20000A8)
 MUSASHI_NATIVE_MIPS_WORD(0x0C051C26)
@@ -43,7 +43,7 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
  * m2c shape: arg0->unkA8 on a void*. The disassembly stores it as a
  * BYTE (sb $zero, 0xA8), so the model declares one u8 at +0xA8 — a
  * word member would miscompile. The three globals are word stores
- * (sw %lo(...)); D_801A45B0 was missing from the draft's declarations
+ * (sw %lo(...)); D_801B6440 was missing from the draft's declarations
  * and is added per the repo pipeline convention. Body is m2c's
  * verbatim. */
 
@@ -52,9 +52,9 @@ struct data_8015879C {
     u8 unkA8;
 };
 
-extern s32 D_801A45B0;
-extern s32 D_801A45BC;
-extern s32 D_801A45C0;
+extern s32 D_801B6440;
+extern s32 D_801B644C;
+extern s32 D_801B6450;
 void func_80146C98(void *, s32);
 void func_80147078(void *, s32);
 void func_80147084();
@@ -63,9 +63,9 @@ void func_801470AC(void *);
 void func_80158880(void *);
 
 void func_8015879C(struct data_8015879C *arg0) {
-    D_801A45B0 = 0;
-    D_801A45BC = 1;
-    D_801A45C0 = 0;
+    D_801B6440 = 0;
+    D_801B644C = 1;
+    D_801B6450 = 0;
     arg0->unkA8 = 0;
     func_80147084();
     func_80147098(arg0);

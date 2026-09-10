@@ -1,8 +1,8 @@
-/* SC02.CD FILE_031 / ov_SC02_031 retail span [8012F8C8,8012F91C).
- * Offset 0x7770 at overlay base 80128158. SHA256(span)=fa5059e98900c616ff2a0f8189e23e26622f064202398292f8b3f2469839372a.
- * Differs from the registry-verified MAIN member 0012 carve in exactly one
- * data reference: D_8017E6FC here is D_8017EF84 (+0x888 member
- * data-block shift). Oracle MATCH re-earned on this file; Not MAIN10.
+/* SC02 resident retail span [8012F8C8,8012F91C). Offset 0x7770 at base 80128158.
+ * SHA256(span)=23b035b8c5b9814bfa3e34acd228edfd76e3ca5443a4ce3d957e85dcac21977e.
+ * Words are the guest's loaded image (artifacts/sc02-resident-20260910).
+ * Member-0012 C shape retargeted to this member: D_8017E6FC->D_80184FEC.
+ * Oracle MATCH re-earned against the resident image; Not MAIN10.
  */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE8)
@@ -15,7 +15,7 @@ MUSASHI_NATIVE_MIPS_WORD(0x30420080)
 MUSASHI_NATIVE_MIPS_WORD(0x10400005)
 MUSASHI_NATIVE_MIPS_WORD(0xA20300C1)
 MUSASHI_NATIVE_MIPS_WORD(0x3C058018)
-MUSASHI_NATIVE_MIPS_WORD(0x24A5EF84)
+MUSASHI_NATIVE_MIPS_WORD(0x24A54FEC)
 MUSASHI_NATIVE_MIPS_WORD(0x0C04C45C)
 MUSASHI_NATIVE_MIPS_WORD(0x2406000B)
 MUSASHI_NATIVE_MIPS_WORD(0x02002021)
@@ -34,7 +34,7 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
  * promotion requires an oracle MATCH): F828-sibling:
  * unconditionally sets byte unkC1 = 7 (sb in the beqz delay
  * slot); when word unkB4 & 0x80 calls 80131170(obj,
- * &D_8017EF84, 0xB) (pass-through a0); ends with 31CA8(obj,
+ * &D_80184FEC, 0xB) (pass-through a0); ends with 31CA8(obj,
  * 0x16). */
 
 struct obj_8012F8C8 {
@@ -44,14 +44,14 @@ struct obj_8012F8C8 {
     u8 unkC1;
 };
 
-extern u8 D_8017EF84;
+extern u8 D_80184FEC;
 extern void func_80131170(void *arg0, void *arg1, s32 arg2);
 extern void func_80131CA8(void *arg0, s32 arg1);
 
 void func_8012F8C8(struct obj_8012F8C8 *arg0) {
     arg0->unkC1 = 7;
     if (arg0->unkB4 & 0x80) {
-        func_80131170(arg0, &D_8017EF84, 0xB);
+        func_80131170(arg0, &D_80184FEC, 0xB);
     }
     func_80131CA8(arg0, 0x16);
 }
