@@ -128,11 +128,12 @@ carve the enclosing function from that member's image the same way.
 
 ## Gate status
 
-`tools/run_tests.sh` passes on `d9b2e7e5e`: **538 tests OK**, out-of-tree
-configure/build, **22/22 CTests** (including `native_startup_boundary`),
-archive symbol checks and the smoke run all clean, script exit 0. The earlier
-aborted run is superseded; re-run it after any further formatter or CMake
-change, because those are the files this lane edits most.
+`tools/run_tests.sh` passes on `21e91dd33` (and passed on `d9b2e7e5e` before
+the last five leaves): **538 tests OK**, out-of-tree configure/build, **22/22
+CTests** (including `native_startup_boundary`), archive symbol checks and the
+smoke run all clean, script exit 0. The earlier aborted run is superseded;
+re-run it after any further formatter or CMake change, because those are the
+files this lane edits most.
 No decomp claim is withdrawn for MAIN member 0012 — those registry entries were
 verified against member 0012 and remain valid there; only their SC02_031
 retargeting was built from the wrong image.
