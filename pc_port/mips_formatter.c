@@ -1017,6 +1017,594 @@ static const uint32_t kOverlaySc02_80153060Words[] = {
 static const uint32_t kOverlaySc02_80153320Words[] = {
 #include "80153320_sc02_0031_words.inc"
 };
+static const uint32_t kOverlaySc02_80128288Words[] = {
+#include "80128288_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8012E9C0Words[] = {
+#include "8012e9c0_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8012F828Words[] = {
+#include "8012f828_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8012F8C8Words[] = {
+#include "8012f8c8_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8012FCC4Words[] = {
+#include "8012fcc4_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80130D0CWords[] = {
+#include "80130d0c_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80131E00Words[] = {
+#include "80131e00_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80131EECWords[] = {
+#include "80131eec_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80131F28Words[] = {
+#include "80131f28_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80131F64Words[] = {
+#include "80131f64_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80131FA0Words[] = {
+#include "80131fa0_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_801320D8Words[] = {
+#include "801320d8_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80132144Words[] = {
+#include "80132144_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_801321B0Words[] = {
+#include "801321b0_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80136C54Words[] = {
+#include "80136c54_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80137D08Words[] = {
+#include "80137d08_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80138BE0Words[] = {
+#include "80138be0_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8013BC7CWords[] = {
+#include "8013bc7c_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80141788Words[] = {
+#include "80141788_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80141C0CWords[] = {
+#include "80141c0c_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_801425CCWords[] = {
+#include "801425cc_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_801427ECWords[] = {
+#include "801427ec_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8014292CWords[] = {
+#include "8014292c_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80142978Words[] = {
+#include "80142978_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_801429C4Words[] = {
+#include "801429c4_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80142A10Words[] = {
+#include "80142a10_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80143458Words[] = {
+#include "80143458_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80143B30Words[] = {
+#include "80143b30_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80143C38Words[] = {
+#include "80143c38_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80143C98Words[] = {
+#include "80143c98_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80143E68Words[] = {
+#include "80143e68_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80155580Words[] = {
+#include "80155580_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_801563ECWords[] = {
+#include "801563ec_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80156A1CWords[] = {
+#include "80156a1c_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80157544Words[] = {
+#include "80157544_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_801578C0Words[] = {
+#include "801578c0_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80157D20Words[] = {
+#include "80157d20_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80157DC4Words[] = {
+#include "80157dc4_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80157FC4Words[] = {
+#include "80157fc4_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80158038Words[] = {
+#include "80158038_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8015824CWords[] = {
+#include "8015824c_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80158880Words[] = {
+#include "80158880_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80159698Words[] = {
+#include "80159698_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80159968Words[] = {
+#include "80159968_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80159B70Words[] = {
+#include "80159b70_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8015A264Words[] = {
+#include "8015a264_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8015AC48Words[] = {
+#include "8015ac48_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8015AD3CWords[] = {
+#include "8015ad3c_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8015BE38Words[] = {
+#include "8015be38_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8015BFF4Words[] = {
+#include "8015bff4_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8015C714Words[] = {
+#include "8015c714_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8015C944Words[] = {
+#include "8015c944_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8015CC74Words[] = {
+#include "8015cc74_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8015CFC0Words[] = {
+#include "8015cfc0_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8015D01CWords[] = {
+#include "8015d01c_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8015D104Words[] = {
+#include "8015d104_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8015D414Words[] = {
+#include "8015d414_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8015D4E8Words[] = {
+#include "8015d4e8_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8015DAF8Words[] = {
+#include "8015daf8_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8015DBD4Words[] = {
+#include "8015dbd4_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8015DE58Words[] = {
+#include "8015de58_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8015DF34Words[] = {
+#include "8015df34_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8015E1B8Words[] = {
+#include "8015e1b8_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8015E344Words[] = {
+#include "8015e344_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8015E588Words[] = {
+#include "8015e588_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8015E698Words[] = {
+#include "8015e698_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8015E8E8Words[] = {
+#include "8015e8e8_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8015EE08Words[] = {
+#include "8015ee08_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8015EE7CWords[] = {
+#include "8015ee7c_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8015EEE0Words[] = {
+#include "8015eee0_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8015F00CWords[] = {
+#include "8015f00c_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8015F118Words[] = {
+#include "8015f118_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8015F324Words[] = {
+#include "8015f324_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8015F7D4Words[] = {
+#include "8015f7d4_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8015F9A4Words[] = {
+#include "8015f9a4_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8015FAACWords[] = {
+#include "8015faac_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8015FBE0Words[] = {
+#include "8015fbe0_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8015FCC8Words[] = {
+#include "8015fcc8_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8015FD74Words[] = {
+#include "8015fd74_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8015FE70Words[] = {
+#include "8015fe70_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80160138Words[] = {
+#include "80160138_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_801602A4Words[] = {
+#include "801602a4_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8016039CWords[] = {
+#include "8016039c_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8016084CWords[] = {
+#include "8016084c_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80160920Words[] = {
+#include "80160920_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_801609B8Words[] = {
+#include "801609b8_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80160B34Words[] = {
+#include "80160b34_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80160EA4Words[] = {
+#include "80160ea4_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80161034Words[] = {
+#include "80161034_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80161C98Words[] = {
+#include "80161c98_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80161CD0Words[] = {
+#include "80161cd0_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80161D20Words[] = {
+#include "80161d20_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80161D88Words[] = {
+#include "80161d88_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80162330Words[] = {
+#include "80162330_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80162834Words[] = {
+#include "80162834_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80162870Words[] = {
+#include "80162870_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80163A58Words[] = {
+#include "80163a58_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80164744Words[] = {
+#include "80164744_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80164BA0Words[] = {
+#include "80164ba0_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80164EA4Words[] = {
+#include "80164ea4_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80165580Words[] = {
+#include "80165580_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80165658Words[] = {
+#include "80165658_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80165670Words[] = {
+#include "80165670_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_801656D0Words[] = {
+#include "801656d0_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_801656E8Words[] = {
+#include "801656e8_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80165700Words[] = {
+#include "80165700_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80165AC8Words[] = {
+#include "80165ac8_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80165B28Words[] = {
+#include "80165b28_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80166018Words[] = {
+#include "80166018_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_801663FCWords[] = {
+#include "801663fc_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80166618Words[] = {
+#include "80166618_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80166654Words[] = {
+#include "80166654_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_801678B4Words[] = {
+#include "801678b4_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80167A9CWords[] = {
+#include "80167a9c_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80168744Words[] = {
+#include "80168744_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_801689D8Words[] = {
+#include "801689d8_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80168AA8Words[] = {
+#include "80168aa8_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80168D58Words[] = {
+#include "80168d58_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8016901CWords[] = {
+#include "8016901c_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_801693CCWords[] = {
+#include "801693cc_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80169830Words[] = {
+#include "80169830_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80169B80Words[] = {
+#include "80169b80_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80169F00Words[] = {
+#include "80169f00_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8016A020Words[] = {
+#include "8016a020_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8016A700Words[] = {
+#include "8016a700_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8016AB30Words[] = {
+#include "8016ab30_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8016B4BCWords[] = {
+#include "8016b4bc_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8016BBA4Words[] = {
+#include "8016bba4_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8016C14CWords[] = {
+#include "8016c14c_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8016CB84Words[] = {
+#include "8016cb84_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8016D19CWords[] = {
+#include "8016d19c_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8016D428Words[] = {
+#include "8016d428_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8016DA30Words[] = {
+#include "8016da30_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8016DEA4Words[] = {
+#include "8016dea4_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8016DF20Words[] = {
+#include "8016df20_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8016E5B8Words[] = {
+#include "8016e5b8_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8016EAC0Words[] = {
+#include "8016eac0_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8016F6E0Words[] = {
+#include "8016f6e0_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8016F798Words[] = {
+#include "8016f798_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8016F834Words[] = {
+#include "8016f834_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8016F8E4Words[] = {
+#include "8016f8e4_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8016F9C4Words[] = {
+#include "8016f9c4_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8016FA84Words[] = {
+#include "8016fa84_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8016FB7CWords[] = {
+#include "8016fb7c_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8016FC90Words[] = {
+#include "8016fc90_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8016FDB4Words[] = {
+#include "8016fdb4_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8016FF30Words[] = {
+#include "8016ff30_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8016FFDCWords[] = {
+#include "8016ffdc_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80170150Words[] = {
+#include "80170150_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80170240Words[] = {
+#include "80170240_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_801702FCWords[] = {
+#include "801702fc_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_801703E0Words[] = {
+#include "801703e0_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_801704B0Words[] = {
+#include "801704b0_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80170548Words[] = {
+#include "80170548_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_801705F8Words[] = {
+#include "801705f8_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_801706ACWords[] = {
+#include "801706ac_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80170748Words[] = {
+#include "80170748_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80170810Words[] = {
+#include "80170810_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80170AD8Words[] = {
+#include "80170ad8_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80170BD8Words[] = {
+#include "80170bd8_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80170C74Words[] = {
+#include "80170c74_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80170D68Words[] = {
+#include "80170d68_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80170E34Words[] = {
+#include "80170e34_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80170EFCWords[] = {
+#include "80170efc_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80170FB0Words[] = {
+#include "80170fb0_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80171064Words[] = {
+#include "80171064_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80171120Words[] = {
+#include "80171120_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_801711C0Words[] = {
+#include "801711c0_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80171260Words[] = {
+#include "80171260_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_801714E4Words[] = {
+#include "801714e4_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_801727D0Words[] = {
+#include "801727d0_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_801728E4Words[] = {
+#include "801728e4_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_801729F0Words[] = {
+#include "801729f0_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80172B44Words[] = {
+#include "80172b44_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80172CA0Words[] = {
+#include "80172ca0_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80172DACWords[] = {
+#include "80172dac_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80173078Words[] = {
+#include "80173078_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8017319CWords[] = {
+#include "8017319c_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80173220Words[] = {
+#include "80173220_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80173544Words[] = {
+#include "80173544_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_801736FCWords[] = {
+#include "801736fc_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_801737E8Words[] = {
+#include "801737e8_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8017390CWords[] = {
+#include "8017390c_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80173B4CWords[] = {
+#include "80173b4c_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_801742A4Words[] = {
+#include "801742a4_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80174384Words[] = {
+#include "80174384_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80174474Words[] = {
+#include "80174474_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_801747CCWords[] = {
+#include "801747cc_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80174888Words[] = {
+#include "80174888_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8017496CWords[] = {
+#include "8017496c_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80174BF4Words[] = {
+#include "80174bf4_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80174F28Words[] = {
+#include "80174f28_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80175184Words[] = {
+#include "80175184_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8017553CWords[] = {
+#include "8017553c_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80175690Words[] = {
+#include "80175690_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8017BE60Words[] = {
+#include "8017be60_sc02_0031_words.inc"
+};
 static const uint32_t kOverlaySc02_80128178Words[] = {
 #include "80128178_sc02_0031_words.inc"
 };
@@ -10527,6 +11115,594 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
     else if (g_overlay_sc02_0031_words &&
              cpu->pc >= 0x80153320u && cpu->pc < 0x8015335cu)
         instruction = kOverlaySc02_80153320Words[(cpu->pc - 0x80153320u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80128288u && cpu->pc < 0x801282ccu)
+        instruction = kOverlaySc02_80128288Words[(cpu->pc - 0x80128288u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8012e9c0u && cpu->pc < 0x8012ea90u)
+        instruction = kOverlaySc02_8012E9C0Words[(cpu->pc - 0x8012e9c0u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8012f828u && cpu->pc < 0x8012f87cu)
+        instruction = kOverlaySc02_8012F828Words[(cpu->pc - 0x8012f828u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8012f8c8u && cpu->pc < 0x8012f91cu)
+        instruction = kOverlaySc02_8012F8C8Words[(cpu->pc - 0x8012f8c8u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8012fcc4u && cpu->pc < 0x8012fda8u)
+        instruction = kOverlaySc02_8012FCC4Words[(cpu->pc - 0x8012fcc4u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80130d0cu && cpu->pc < 0x80130d48u)
+        instruction = kOverlaySc02_80130D0CWords[(cpu->pc - 0x80130d0cu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80131e00u && cpu->pc < 0x80131e38u)
+        instruction = kOverlaySc02_80131E00Words[(cpu->pc - 0x80131e00u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80131eecu && cpu->pc < 0x80131f28u)
+        instruction = kOverlaySc02_80131EECWords[(cpu->pc - 0x80131eecu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80131f28u && cpu->pc < 0x80131f64u)
+        instruction = kOverlaySc02_80131F28Words[(cpu->pc - 0x80131f28u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80131f64u && cpu->pc < 0x80131fa0u)
+        instruction = kOverlaySc02_80131F64Words[(cpu->pc - 0x80131f64u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80131fa0u && cpu->pc < 0x80131fdcu)
+        instruction = kOverlaySc02_80131FA0Words[(cpu->pc - 0x80131fa0u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x801320d8u && cpu->pc < 0x80132144u)
+        instruction = kOverlaySc02_801320D8Words[(cpu->pc - 0x801320d8u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80132144u && cpu->pc < 0x801321b0u)
+        instruction = kOverlaySc02_80132144Words[(cpu->pc - 0x80132144u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x801321b0u && cpu->pc < 0x8013221cu)
+        instruction = kOverlaySc02_801321B0Words[(cpu->pc - 0x801321b0u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80136c54u && cpu->pc < 0x80136c90u)
+        instruction = kOverlaySc02_80136C54Words[(cpu->pc - 0x80136c54u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80137d08u && cpu->pc < 0x80137dd4u)
+        instruction = kOverlaySc02_80137D08Words[(cpu->pc - 0x80137d08u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80138be0u && cpu->pc < 0x80138c30u)
+        instruction = kOverlaySc02_80138BE0Words[(cpu->pc - 0x80138be0u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8013bc7cu && cpu->pc < 0x8013bcdcu)
+        instruction = kOverlaySc02_8013BC7CWords[(cpu->pc - 0x8013bc7cu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80141788u && cpu->pc < 0x801417c4u)
+        instruction = kOverlaySc02_80141788Words[(cpu->pc - 0x80141788u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80141c0cu && cpu->pc < 0x80141c50u)
+        instruction = kOverlaySc02_80141C0CWords[(cpu->pc - 0x80141c0cu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x801425ccu && cpu->pc < 0x80142608u)
+        instruction = kOverlaySc02_801425CCWords[(cpu->pc - 0x801425ccu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x801427ecu && cpu->pc < 0x80142838u)
+        instruction = kOverlaySc02_801427ECWords[(cpu->pc - 0x801427ecu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8014292cu && cpu->pc < 0x80142978u)
+        instruction = kOverlaySc02_8014292CWords[(cpu->pc - 0x8014292cu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80142978u && cpu->pc < 0x801429c4u)
+        instruction = kOverlaySc02_80142978Words[(cpu->pc - 0x80142978u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x801429c4u && cpu->pc < 0x80142a10u)
+        instruction = kOverlaySc02_801429C4Words[(cpu->pc - 0x801429c4u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80142a10u && cpu->pc < 0x80142a80u)
+        instruction = kOverlaySc02_80142A10Words[(cpu->pc - 0x80142a10u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80143458u && cpu->pc < 0x8014350cu)
+        instruction = kOverlaySc02_80143458Words[(cpu->pc - 0x80143458u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80143b30u && cpu->pc < 0x80143b6cu)
+        instruction = kOverlaySc02_80143B30Words[(cpu->pc - 0x80143b30u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80143c38u && cpu->pc < 0x80143c74u)
+        instruction = kOverlaySc02_80143C38Words[(cpu->pc - 0x80143c38u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80143c98u && cpu->pc < 0x80143cd4u)
+        instruction = kOverlaySc02_80143C98Words[(cpu->pc - 0x80143c98u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80143e68u && cpu->pc < 0x80143ea4u)
+        instruction = kOverlaySc02_80143E68Words[(cpu->pc - 0x80143e68u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80155580u && cpu->pc < 0x801555bcu)
+        instruction = kOverlaySc02_80155580Words[(cpu->pc - 0x80155580u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x801563ecu && cpu->pc < 0x8015640cu)
+        instruction = kOverlaySc02_801563ECWords[(cpu->pc - 0x801563ecu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80156a1cu && cpu->pc < 0x80156a88u)
+        instruction = kOverlaySc02_80156A1CWords[(cpu->pc - 0x80156a1cu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80157544u && cpu->pc < 0x80157580u)
+        instruction = kOverlaySc02_80157544Words[(cpu->pc - 0x80157544u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x801578c0u && cpu->pc < 0x8015795cu)
+        instruction = kOverlaySc02_801578C0Words[(cpu->pc - 0x801578c0u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80157d20u && cpu->pc < 0x80157d74u)
+        instruction = kOverlaySc02_80157D20Words[(cpu->pc - 0x80157d20u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80157dc4u && cpu->pc < 0x80157e00u)
+        instruction = kOverlaySc02_80157DC4Words[(cpu->pc - 0x80157dc4u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80157fc4u && cpu->pc < 0x80158000u)
+        instruction = kOverlaySc02_80157FC4Words[(cpu->pc - 0x80157fc4u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80158038u && cpu->pc < 0x801580b4u)
+        instruction = kOverlaySc02_80158038Words[(cpu->pc - 0x80158038u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8015824cu && cpu->pc < 0x80158288u)
+        instruction = kOverlaySc02_8015824CWords[(cpu->pc - 0x8015824cu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80158880u && cpu->pc < 0x801588ccu)
+        instruction = kOverlaySc02_80158880Words[(cpu->pc - 0x80158880u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80159698u && cpu->pc < 0x801596d4u)
+        instruction = kOverlaySc02_80159698Words[(cpu->pc - 0x80159698u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80159968u && cpu->pc < 0x801599a4u)
+        instruction = kOverlaySc02_80159968Words[(cpu->pc - 0x80159968u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80159b70u && cpu->pc < 0x80159bacu)
+        instruction = kOverlaySc02_80159B70Words[(cpu->pc - 0x80159b70u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8015a264u && cpu->pc < 0x8015a2a0u)
+        instruction = kOverlaySc02_8015A264Words[(cpu->pc - 0x8015a264u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8015ac48u && cpu->pc < 0x8015ac90u)
+        instruction = kOverlaySc02_8015AC48Words[(cpu->pc - 0x8015ac48u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8015ad3cu && cpu->pc < 0x8015ad78u)
+        instruction = kOverlaySc02_8015AD3CWords[(cpu->pc - 0x8015ad3cu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8015be38u && cpu->pc < 0x8015be74u)
+        instruction = kOverlaySc02_8015BE38Words[(cpu->pc - 0x8015be38u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8015bff4u && cpu->pc < 0x8015c030u)
+        instruction = kOverlaySc02_8015BFF4Words[(cpu->pc - 0x8015bff4u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8015c714u && cpu->pc < 0x8015c750u)
+        instruction = kOverlaySc02_8015C714Words[(cpu->pc - 0x8015c714u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8015c944u && cpu->pc < 0x8015ca28u)
+        instruction = kOverlaySc02_8015C944Words[(cpu->pc - 0x8015c944u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8015cc74u && cpu->pc < 0x8015ccb0u)
+        instruction = kOverlaySc02_8015CC74Words[(cpu->pc - 0x8015cc74u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8015cfc0u && cpu->pc < 0x8015cffcu)
+        instruction = kOverlaySc02_8015CFC0Words[(cpu->pc - 0x8015cfc0u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8015d01cu && cpu->pc < 0x8015d104u)
+        instruction = kOverlaySc02_8015D01CWords[(cpu->pc - 0x8015d01cu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8015d104u && cpu->pc < 0x8015d1b8u)
+        instruction = kOverlaySc02_8015D104Words[(cpu->pc - 0x8015d104u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8015d414u && cpu->pc < 0x8015d480u)
+        instruction = kOverlaySc02_8015D414Words[(cpu->pc - 0x8015d414u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8015d4e8u && cpu->pc < 0x8015d524u)
+        instruction = kOverlaySc02_8015D4E8Words[(cpu->pc - 0x8015d4e8u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8015daf8u && cpu->pc < 0x8015db34u)
+        instruction = kOverlaySc02_8015DAF8Words[(cpu->pc - 0x8015daf8u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8015dbd4u && cpu->pc < 0x8015dc84u)
+        instruction = kOverlaySc02_8015DBD4Words[(cpu->pc - 0x8015dbd4u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8015de58u && cpu->pc < 0x8015de94u)
+        instruction = kOverlaySc02_8015DE58Words[(cpu->pc - 0x8015de58u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8015df34u && cpu->pc < 0x8015dfe4u)
+        instruction = kOverlaySc02_8015DF34Words[(cpu->pc - 0x8015df34u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8015e1b8u && cpu->pc < 0x8015e1f4u)
+        instruction = kOverlaySc02_8015E1B8Words[(cpu->pc - 0x8015e1b8u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8015e344u && cpu->pc < 0x8015e40cu)
+        instruction = kOverlaySc02_8015E344Words[(cpu->pc - 0x8015e344u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8015e588u && cpu->pc < 0x8015e5b0u)
+        instruction = kOverlaySc02_8015E588Words[(cpu->pc - 0x8015e588u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8015e698u && cpu->pc < 0x8015e714u)
+        instruction = kOverlaySc02_8015E698Words[(cpu->pc - 0x8015e698u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8015e8e8u && cpu->pc < 0x8015e924u)
+        instruction = kOverlaySc02_8015E8E8Words[(cpu->pc - 0x8015e8e8u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8015ee08u && cpu->pc < 0x8015ee44u)
+        instruction = kOverlaySc02_8015EE08Words[(cpu->pc - 0x8015ee08u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8015ee7cu && cpu->pc < 0x8015eee0u)
+        instruction = kOverlaySc02_8015EE7CWords[(cpu->pc - 0x8015ee7cu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8015eee0u && cpu->pc < 0x8015ef9cu)
+        instruction = kOverlaySc02_8015EEE0Words[(cpu->pc - 0x8015eee0u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8015f00cu && cpu->pc < 0x8015f048u)
+        instruction = kOverlaySc02_8015F00CWords[(cpu->pc - 0x8015f00cu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8015f118u && cpu->pc < 0x8015f260u)
+        instruction = kOverlaySc02_8015F118Words[(cpu->pc - 0x8015f118u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8015f324u && cpu->pc < 0x8015f360u)
+        instruction = kOverlaySc02_8015F324Words[(cpu->pc - 0x8015f324u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8015f7d4u && cpu->pc < 0x8015f810u)
+        instruction = kOverlaySc02_8015F7D4Words[(cpu->pc - 0x8015f7d4u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8015f9a4u && cpu->pc < 0x8015fa24u)
+        instruction = kOverlaySc02_8015F9A4Words[(cpu->pc - 0x8015f9a4u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8015faacu && cpu->pc < 0x8015fae8u)
+        instruction = kOverlaySc02_8015FAACWords[(cpu->pc - 0x8015faacu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8015fbe0u && cpu->pc < 0x8015fcc8u)
+        instruction = kOverlaySc02_8015FBE0Words[(cpu->pc - 0x8015fbe0u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8015fcc8u && cpu->pc < 0x8015fd74u)
+        instruction = kOverlaySc02_8015FCC8Words[(cpu->pc - 0x8015fcc8u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8015fd74u && cpu->pc < 0x8015fdccu)
+        instruction = kOverlaySc02_8015FD74Words[(cpu->pc - 0x8015fd74u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8015fe70u && cpu->pc < 0x8015ff20u)
+        instruction = kOverlaySc02_8015FE70Words[(cpu->pc - 0x8015fe70u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80160138u && cpu->pc < 0x80160174u)
+        instruction = kOverlaySc02_80160138Words[(cpu->pc - 0x80160138u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x801602a4u && cpu->pc < 0x8016032cu)
+        instruction = kOverlaySc02_801602A4Words[(cpu->pc - 0x801602a4u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8016039cu && cpu->pc < 0x801603d8u)
+        instruction = kOverlaySc02_8016039CWords[(cpu->pc - 0x8016039cu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8016084cu && cpu->pc < 0x80160888u)
+        instruction = kOverlaySc02_8016084CWords[(cpu->pc - 0x8016084cu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80160920u && cpu->pc < 0x801609b8u)
+        instruction = kOverlaySc02_80160920Words[(cpu->pc - 0x80160920u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x801609b8u && cpu->pc < 0x80160a28u)
+        instruction = kOverlaySc02_801609B8Words[(cpu->pc - 0x801609b8u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80160b34u && cpu->pc < 0x80160b70u)
+        instruction = kOverlaySc02_80160B34Words[(cpu->pc - 0x80160b34u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80160ea4u && cpu->pc < 0x80160ee0u)
+        instruction = kOverlaySc02_80160EA4Words[(cpu->pc - 0x80160ea4u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80161034u && cpu->pc < 0x80161094u)
+        instruction = kOverlaySc02_80161034Words[(cpu->pc - 0x80161034u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80161c98u && cpu->pc < 0x80161cd0u)
+        instruction = kOverlaySc02_80161C98Words[(cpu->pc - 0x80161c98u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80161cd0u && cpu->pc < 0x80161d20u)
+        instruction = kOverlaySc02_80161CD0Words[(cpu->pc - 0x80161cd0u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80161d20u && cpu->pc < 0x80161d58u)
+        instruction = kOverlaySc02_80161D20Words[(cpu->pc - 0x80161d20u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80161d88u && cpu->pc < 0x80161e08u)
+        instruction = kOverlaySc02_80161D88Words[(cpu->pc - 0x80161d88u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80162330u && cpu->pc < 0x8016236cu)
+        instruction = kOverlaySc02_80162330Words[(cpu->pc - 0x80162330u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80162834u && cpu->pc < 0x80162870u)
+        instruction = kOverlaySc02_80162834Words[(cpu->pc - 0x80162834u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80162870u && cpu->pc < 0x801628f4u)
+        instruction = kOverlaySc02_80162870Words[(cpu->pc - 0x80162870u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80163a58u && cpu->pc < 0x80163a94u)
+        instruction = kOverlaySc02_80163A58Words[(cpu->pc - 0x80163a58u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80164744u && cpu->pc < 0x801647a4u)
+        instruction = kOverlaySc02_80164744Words[(cpu->pc - 0x80164744u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80164ba0u && cpu->pc < 0x80164bdcu)
+        instruction = kOverlaySc02_80164BA0Words[(cpu->pc - 0x80164ba0u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80164ea4u && cpu->pc < 0x80164ee0u)
+        instruction = kOverlaySc02_80164EA4Words[(cpu->pc - 0x80164ea4u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80165580u && cpu->pc < 0x801655e4u)
+        instruction = kOverlaySc02_80165580Words[(cpu->pc - 0x80165580u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80165658u && cpu->pc < 0x80165670u)
+        instruction = kOverlaySc02_80165658Words[(cpu->pc - 0x80165658u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80165670u && cpu->pc < 0x80165694u)
+        instruction = kOverlaySc02_80165670Words[(cpu->pc - 0x80165670u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x801656d0u && cpu->pc < 0x801656e8u)
+        instruction = kOverlaySc02_801656D0Words[(cpu->pc - 0x801656d0u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x801656e8u && cpu->pc < 0x80165700u)
+        instruction = kOverlaySc02_801656E8Words[(cpu->pc - 0x801656e8u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80165700u && cpu->pc < 0x80165718u)
+        instruction = kOverlaySc02_80165700Words[(cpu->pc - 0x80165700u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80165ac8u && cpu->pc < 0x80165b08u)
+        instruction = kOverlaySc02_80165AC8Words[(cpu->pc - 0x80165ac8u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80165b28u && cpu->pc < 0x80165b6cu)
+        instruction = kOverlaySc02_80165B28Words[(cpu->pc - 0x80165b28u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80166018u && cpu->pc < 0x80166054u)
+        instruction = kOverlaySc02_80166018Words[(cpu->pc - 0x80166018u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x801663fcu && cpu->pc < 0x80166438u)
+        instruction = kOverlaySc02_801663FCWords[(cpu->pc - 0x801663fcu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80166618u && cpu->pc < 0x80166654u)
+        instruction = kOverlaySc02_80166618Words[(cpu->pc - 0x80166618u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80166654u && cpu->pc < 0x80166690u)
+        instruction = kOverlaySc02_80166654Words[(cpu->pc - 0x80166654u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x801678b4u && cpu->pc < 0x801678f0u)
+        instruction = kOverlaySc02_801678B4Words[(cpu->pc - 0x801678b4u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80167a9cu && cpu->pc < 0x80167ad8u)
+        instruction = kOverlaySc02_80167A9CWords[(cpu->pc - 0x80167a9cu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80168744u && cpu->pc < 0x80168780u)
+        instruction = kOverlaySc02_80168744Words[(cpu->pc - 0x80168744u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x801689d8u && cpu->pc < 0x80168a14u)
+        instruction = kOverlaySc02_801689D8Words[(cpu->pc - 0x801689d8u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80168aa8u && cpu->pc < 0x80168ae4u)
+        instruction = kOverlaySc02_80168AA8Words[(cpu->pc - 0x80168aa8u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80168d58u && cpu->pc < 0x80168d94u)
+        instruction = kOverlaySc02_80168D58Words[(cpu->pc - 0x80168d58u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8016901cu && cpu->pc < 0x80169058u)
+        instruction = kOverlaySc02_8016901CWords[(cpu->pc - 0x8016901cu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x801693ccu && cpu->pc < 0x80169408u)
+        instruction = kOverlaySc02_801693CCWords[(cpu->pc - 0x801693ccu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80169830u && cpu->pc < 0x8016986cu)
+        instruction = kOverlaySc02_80169830Words[(cpu->pc - 0x80169830u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80169b80u && cpu->pc < 0x80169bbcu)
+        instruction = kOverlaySc02_80169B80Words[(cpu->pc - 0x80169b80u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80169f00u && cpu->pc < 0x80169f3cu)
+        instruction = kOverlaySc02_80169F00Words[(cpu->pc - 0x80169f00u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8016a020u && cpu->pc < 0x8016a05cu)
+        instruction = kOverlaySc02_8016A020Words[(cpu->pc - 0x8016a020u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8016a700u && cpu->pc < 0x8016a73cu)
+        instruction = kOverlaySc02_8016A700Words[(cpu->pc - 0x8016a700u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8016ab30u && cpu->pc < 0x8016ab6cu)
+        instruction = kOverlaySc02_8016AB30Words[(cpu->pc - 0x8016ab30u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8016b4bcu && cpu->pc < 0x8016b4f8u)
+        instruction = kOverlaySc02_8016B4BCWords[(cpu->pc - 0x8016b4bcu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8016bba4u && cpu->pc < 0x8016bbe0u)
+        instruction = kOverlaySc02_8016BBA4Words[(cpu->pc - 0x8016bba4u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8016c14cu && cpu->pc < 0x8016c188u)
+        instruction = kOverlaySc02_8016C14CWords[(cpu->pc - 0x8016c14cu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8016cb84u && cpu->pc < 0x8016cbc0u)
+        instruction = kOverlaySc02_8016CB84Words[(cpu->pc - 0x8016cb84u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8016d19cu && cpu->pc < 0x8016d1d8u)
+        instruction = kOverlaySc02_8016D19CWords[(cpu->pc - 0x8016d19cu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8016d428u && cpu->pc < 0x8016d464u)
+        instruction = kOverlaySc02_8016D428Words[(cpu->pc - 0x8016d428u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8016da30u && cpu->pc < 0x8016da7cu)
+        instruction = kOverlaySc02_8016DA30Words[(cpu->pc - 0x8016da30u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8016dea4u && cpu->pc < 0x8016dee0u)
+        instruction = kOverlaySc02_8016DEA4Words[(cpu->pc - 0x8016dea4u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8016df20u && cpu->pc < 0x8016df5cu)
+        instruction = kOverlaySc02_8016DF20Words[(cpu->pc - 0x8016df20u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8016e5b8u && cpu->pc < 0x8016e5f4u)
+        instruction = kOverlaySc02_8016E5B8Words[(cpu->pc - 0x8016e5b8u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8016eac0u && cpu->pc < 0x8016eb3cu)
+        instruction = kOverlaySc02_8016EAC0Words[(cpu->pc - 0x8016eac0u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8016f6e0u && cpu->pc < 0x8016f71cu)
+        instruction = kOverlaySc02_8016F6E0Words[(cpu->pc - 0x8016f6e0u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8016f798u && cpu->pc < 0x8016f7d4u)
+        instruction = kOverlaySc02_8016F798Words[(cpu->pc - 0x8016f798u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8016f834u && cpu->pc < 0x8016f870u)
+        instruction = kOverlaySc02_8016F834Words[(cpu->pc - 0x8016f834u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8016f8e4u && cpu->pc < 0x8016f920u)
+        instruction = kOverlaySc02_8016F8E4Words[(cpu->pc - 0x8016f8e4u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8016f9c4u && cpu->pc < 0x8016fa00u)
+        instruction = kOverlaySc02_8016F9C4Words[(cpu->pc - 0x8016f9c4u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8016fa84u && cpu->pc < 0x8016fac0u)
+        instruction = kOverlaySc02_8016FA84Words[(cpu->pc - 0x8016fa84u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8016fb7cu && cpu->pc < 0x8016fbb8u)
+        instruction = kOverlaySc02_8016FB7CWords[(cpu->pc - 0x8016fb7cu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8016fc90u && cpu->pc < 0x8016fcccu)
+        instruction = kOverlaySc02_8016FC90Words[(cpu->pc - 0x8016fc90u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8016fdb4u && cpu->pc < 0x8016fdf0u)
+        instruction = kOverlaySc02_8016FDB4Words[(cpu->pc - 0x8016fdb4u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8016ff30u && cpu->pc < 0x8016ff6cu)
+        instruction = kOverlaySc02_8016FF30Words[(cpu->pc - 0x8016ff30u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8016ffdcu && cpu->pc < 0x80170018u)
+        instruction = kOverlaySc02_8016FFDCWords[(cpu->pc - 0x8016ffdcu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80170150u && cpu->pc < 0x8017018cu)
+        instruction = kOverlaySc02_80170150Words[(cpu->pc - 0x80170150u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80170240u && cpu->pc < 0x8017027cu)
+        instruction = kOverlaySc02_80170240Words[(cpu->pc - 0x80170240u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x801702fcu && cpu->pc < 0x80170338u)
+        instruction = kOverlaySc02_801702FCWords[(cpu->pc - 0x801702fcu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x801703e0u && cpu->pc < 0x8017041cu)
+        instruction = kOverlaySc02_801703E0Words[(cpu->pc - 0x801703e0u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x801704b0u && cpu->pc < 0x801704ecu)
+        instruction = kOverlaySc02_801704B0Words[(cpu->pc - 0x801704b0u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80170548u && cpu->pc < 0x80170584u)
+        instruction = kOverlaySc02_80170548Words[(cpu->pc - 0x80170548u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x801705f8u && cpu->pc < 0x80170634u)
+        instruction = kOverlaySc02_801705F8Words[(cpu->pc - 0x801705f8u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x801706acu && cpu->pc < 0x801706e8u)
+        instruction = kOverlaySc02_801706ACWords[(cpu->pc - 0x801706acu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80170748u && cpu->pc < 0x80170784u)
+        instruction = kOverlaySc02_80170748Words[(cpu->pc - 0x80170748u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80170810u && cpu->pc < 0x8017084cu)
+        instruction = kOverlaySc02_80170810Words[(cpu->pc - 0x80170810u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80170ad8u && cpu->pc < 0x80170b14u)
+        instruction = kOverlaySc02_80170AD8Words[(cpu->pc - 0x80170ad8u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80170bd8u && cpu->pc < 0x80170c14u)
+        instruction = kOverlaySc02_80170BD8Words[(cpu->pc - 0x80170bd8u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80170c74u && cpu->pc < 0x80170cb0u)
+        instruction = kOverlaySc02_80170C74Words[(cpu->pc - 0x80170c74u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80170d68u && cpu->pc < 0x80170da4u)
+        instruction = kOverlaySc02_80170D68Words[(cpu->pc - 0x80170d68u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80170e34u && cpu->pc < 0x80170e70u)
+        instruction = kOverlaySc02_80170E34Words[(cpu->pc - 0x80170e34u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80170efcu && cpu->pc < 0x80170f38u)
+        instruction = kOverlaySc02_80170EFCWords[(cpu->pc - 0x80170efcu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80170fb0u && cpu->pc < 0x80170fecu)
+        instruction = kOverlaySc02_80170FB0Words[(cpu->pc - 0x80170fb0u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80171064u && cpu->pc < 0x801710a0u)
+        instruction = kOverlaySc02_80171064Words[(cpu->pc - 0x80171064u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80171120u && cpu->pc < 0x8017115cu)
+        instruction = kOverlaySc02_80171120Words[(cpu->pc - 0x80171120u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x801711c0u && cpu->pc < 0x801711fcu)
+        instruction = kOverlaySc02_801711C0Words[(cpu->pc - 0x801711c0u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80171260u && cpu->pc < 0x8017129cu)
+        instruction = kOverlaySc02_80171260Words[(cpu->pc - 0x80171260u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x801714e4u && cpu->pc < 0x80171520u)
+        instruction = kOverlaySc02_801714E4Words[(cpu->pc - 0x801714e4u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x801727d0u && cpu->pc < 0x8017280cu)
+        instruction = kOverlaySc02_801727D0Words[(cpu->pc - 0x801727d0u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x801728e4u && cpu->pc < 0x80172920u)
+        instruction = kOverlaySc02_801728E4Words[(cpu->pc - 0x801728e4u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x801729f0u && cpu->pc < 0x80172a2cu)
+        instruction = kOverlaySc02_801729F0Words[(cpu->pc - 0x801729f0u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80172b44u && cpu->pc < 0x80172b80u)
+        instruction = kOverlaySc02_80172B44Words[(cpu->pc - 0x80172b44u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80172ca0u && cpu->pc < 0x80172cdcu)
+        instruction = kOverlaySc02_80172CA0Words[(cpu->pc - 0x80172ca0u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80172dacu && cpu->pc < 0x80172de8u)
+        instruction = kOverlaySc02_80172DACWords[(cpu->pc - 0x80172dacu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80173078u && cpu->pc < 0x801730b4u)
+        instruction = kOverlaySc02_80173078Words[(cpu->pc - 0x80173078u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8017319cu && cpu->pc < 0x801731d8u)
+        instruction = kOverlaySc02_8017319CWords[(cpu->pc - 0x8017319cu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80173220u && cpu->pc < 0x80173294u)
+        instruction = kOverlaySc02_80173220Words[(cpu->pc - 0x80173220u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80173544u && cpu->pc < 0x80173580u)
+        instruction = kOverlaySc02_80173544Words[(cpu->pc - 0x80173544u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x801736fcu && cpu->pc < 0x80173738u)
+        instruction = kOverlaySc02_801736FCWords[(cpu->pc - 0x801736fcu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x801737e8u && cpu->pc < 0x80173824u)
+        instruction = kOverlaySc02_801737E8Words[(cpu->pc - 0x801737e8u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8017390cu && cpu->pc < 0x80173948u)
+        instruction = kOverlaySc02_8017390CWords[(cpu->pc - 0x8017390cu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80173b4cu && cpu->pc < 0x80173b88u)
+        instruction = kOverlaySc02_80173B4CWords[(cpu->pc - 0x80173b4cu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x801742a4u && cpu->pc < 0x801742e0u)
+        instruction = kOverlaySc02_801742A4Words[(cpu->pc - 0x801742a4u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80174384u && cpu->pc < 0x801743c0u)
+        instruction = kOverlaySc02_80174384Words[(cpu->pc - 0x80174384u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80174474u && cpu->pc < 0x801744b0u)
+        instruction = kOverlaySc02_80174474Words[(cpu->pc - 0x80174474u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x801747ccu && cpu->pc < 0x80174808u)
+        instruction = kOverlaySc02_801747CCWords[(cpu->pc - 0x801747ccu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80174888u && cpu->pc < 0x801748c4u)
+        instruction = kOverlaySc02_80174888Words[(cpu->pc - 0x80174888u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8017496cu && cpu->pc < 0x801749a8u)
+        instruction = kOverlaySc02_8017496CWords[(cpu->pc - 0x8017496cu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80174bf4u && cpu->pc < 0x80174c60u)
+        instruction = kOverlaySc02_80174BF4Words[(cpu->pc - 0x80174bf4u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80174f28u && cpu->pc < 0x80174f64u)
+        instruction = kOverlaySc02_80174F28Words[(cpu->pc - 0x80174f28u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80175184u && cpu->pc < 0x801751d8u)
+        instruction = kOverlaySc02_80175184Words[(cpu->pc - 0x80175184u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8017553cu && cpu->pc < 0x80175590u)
+        instruction = kOverlaySc02_8017553CWords[(cpu->pc - 0x8017553cu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80175690u && cpu->pc < 0x801756e4u)
+        instruction = kOverlaySc02_80175690Words[(cpu->pc - 0x80175690u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x8017be60u && cpu->pc < 0x8017be9cu)
+        instruction = kOverlaySc02_8017BE60Words[(cpu->pc - 0x8017be60u)/4u];
     else if (g_overlay_sc02_0031_words &&
              cpu->pc >= 0x80128178u && cpu->pc < 0x80128198u)
         instruction = kOverlaySc02_80128178Words[(cpu->pc - 0x80128178u)/4u];
