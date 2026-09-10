@@ -59,9 +59,19 @@ The port's `OVERLAY_WORD_MISMATCH` guard is why the run refuses there: it
 compares each carved word with guest RAM and fails closed on a difference, so
 no wrong word can execute. `src/overlays/sc02_0031/80128288.c` has been
 re-derived from the resident image (dispatch table `D_80184F08`, oracle MATCH
-17/17) as the first repair; the run then advances to the next mismatch at
-`pc=80143b4c`. The remaining 283 batch streams still need the same treatment:
-words from the resident image and the C retargeted to that member's addresses.
+17/17) as the first repair. All 283 remaining batch streams have since been
+re-derived the same way (279 by automatic retargeting, 4 by hand: the
+jump-table base `0x801B5BA8` for `func_80154C24` and the data blocks for
+`func_8013C9C4`/`func_8013D330`/`func_80164E40`), each re-earning MATCH against
+the resident image. **All 1907 wired SC02 streams now equal the resident
+image** and the guard has no mismatch to report.
+
+The walk then continues: `func_801612B8` (21/21) and `func_80133784`
+(203/203, donor register pins retargeted to this member's boxes and counters)
+were carved from the resident image as the next leaves, and the run now clears
+the SC02 path entirely. It stops at `pc=80047d3c` in the main executable on an
+unsupported GTE move (`mtc2 $a0, $30`) called from `func_80133784`, which is a
+device-layer gap rather than a carve gap — the next port task.
 No decomp claim is withdrawn for MAIN member 0012 — those registry entries were
 verified against member 0012 and remain valid there; only their SC02_031
 retargeting was built from the wrong image.
