@@ -106,16 +106,25 @@ whose two published variants already match this member) and `func_8016F1C4`
 recovery but no native word export, so its 20 retail EXE words are now wired
 through the CMake entry list and the formatter, exactly as `func_80029104`.
 
-Current stop: `pc=800cf8b4`, which is MAIN member 0007 code. Its fetch range is
-already wired (`g_overlay_0007_words` covers `0x800cf02c…0x800d1378`), but the
-port defines `musashi_boot_select_overlay_0007_words` and **never calls it** —
-only members 4 and 10 are selected, each by a guest-RAM signature at a known
-PC. So every 0007 fetch fails closed at
-`else if (g_overlay_0004_words || g_overlay_0007_words || g_overlay_0010_words)
-return 0;`. Next task: find the guest's own 0007 load/entry point, take its
-signature from the loaded image (a code word, not the blob's leading string
-table), and add a signature-gated selection call in the same style as the
-member-4 site at `0x800ceec8` and the member-10 sites at `0x800cedfc`.
+The `pc=800cf8b4` stop was **not** a missing 0007 selection — the loaded image
+at that moment is member 0010. A `MUSASHI_DUMP_RAM` capture at the stop shows
+guest RAM `@800cedf8` holding the member-0010 signature
+(`00000036 3C03800C 946399F0 27BDFFE8`), and the 64 bytes at `0x800cf8b4` match
+`extracted/overlays/main/0010.bin` at offset `0x20abc`, i.e. base `0x800aedf8`
+(the same base the MAIN10 leaves use). The address simply sat outside the
+port's member-0010 ranges. `func_800CF8B4` `[800CF8B4,800CF8CC)` is now carved
+from that image (6/6 words, C written from the disassembly since no registry
+entry exists) and wired under `g_overlay_0010_words`. The 0007 selector remains
+unused, but nothing yet requires it — a 0007-loaded image would say so in a
+RAM capture.
+
+Two more SC02 leaves followed: `func_8016F14C` (24/24, donor `edf31e68`) and
+`func_801719A4` (24/24, donor `7890648e`, whose `D_8011F738` already matches).
+
+Current stop: `pc=800d2844`, which is past the last wired member-0004 range
+(`0x800d24d0`). Next step: capture guest RAM at the stop with
+`MUSASHI_DUMP_RAM`, identify which member is loaded and at which base, then
+carve the enclosing function from that member's image the same way.
 No decomp claim is withdrawn for MAIN member 0012 — those registry entries were
 verified against member 0012 and remain valid there; only their SC02_031
 retargeting was built from the wrong image.

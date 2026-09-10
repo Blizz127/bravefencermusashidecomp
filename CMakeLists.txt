@@ -241,6 +241,14 @@ if(MUSASHI_BUILD_PC_PORT)
                 ${CMAKE_CURRENT_SOURCE_DIR}/src/overlays/main_0010/800cedfc.c
                 ${MUSASHI_GENERATED_DIR}/800cedfc_overlay0010_words.inc --expected-words 194
         RESULT_VARIABLE MUSASHI_OV10_DISPATCH_WORDS_RESULT)
+    execute_process(
+        COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tools/extract_asm_words.py
+                ${CMAKE_CURRENT_SOURCE_DIR}/src/overlays/main_0010/800cf8b4.c
+                ${MUSASHI_GENERATED_DIR}/800cf8b4_overlay0010_words.inc --expected-words 6
+        RESULT_VARIABLE MUSASHI_OV10_800CF8B4_WORDS_RESULT)
+    if(NOT MUSASHI_OV10_800CF8B4_WORDS_RESULT EQUAL 0)
+        message(FATAL_ERROR "Cannot extract overlay 0010 800cf8b4 words")
+    endif()
     if(NOT MUSASHI_OV10_DISPATCH_WORDS_RESULT EQUAL 0)
         message(FATAL_ERROR "Cannot extract overlay 0010 800CEDFC words")
     endif()
@@ -515,6 +523,22 @@ if(MUSASHI_BUILD_PC_PORT)
         RESULT_VARIABLE MUSASHI_SC02_801552F4_RESULT)
     if(NOT MUSASHI_SC02_801552F4_RESULT EQUAL 0)
         message(FATAL_ERROR "Cannot extract SC02 801552f4 words")
+    endif()
+    execute_process(
+        COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tools/extract_asm_words.py
+                ${CMAKE_CURRENT_SOURCE_DIR}/src/overlays/sc02_0031/801719a4.c
+                ${MUSASHI_GENERATED_DIR}/801719a4_sc02_0031_words.inc --expected-words 24
+        RESULT_VARIABLE MUSASHI_SC02_801719A4_RESULT)
+    if(NOT MUSASHI_SC02_801719A4_RESULT EQUAL 0)
+        message(FATAL_ERROR "Cannot extract SC02 801719a4 words")
+    endif()
+    execute_process(
+        COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tools/extract_asm_words.py
+                ${CMAKE_CURRENT_SOURCE_DIR}/src/overlays/sc02_0031/8016f14c.c
+                ${MUSASHI_GENERATED_DIR}/8016f14c_sc02_0031_words.inc --expected-words 24
+        RESULT_VARIABLE MUSASHI_SC02_8016F14C_RESULT)
+    if(NOT MUSASHI_SC02_8016F14C_RESULT EQUAL 0)
+        message(FATAL_ERROR "Cannot extract SC02 8016f14c words")
     endif()
     execute_process(
         COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tools/extract_asm_words.py
