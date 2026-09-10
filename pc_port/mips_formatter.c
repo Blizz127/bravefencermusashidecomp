@@ -1029,6 +1029,9 @@ static const uint32_t kOverlaySc02_80133784Words[] = {
 static const uint32_t kOverlaySc02_80133AB0Words[] = {
 #include "80133ab0_sc02_0031_words.inc"
 };
+static const uint32_t kOverlaySc02_80159BE4Words[] = {
+#include "80159be4_sc02_0031_words.inc"
+};
 static const uint32_t kOverlaySc02_80128218Words[] = {
 #include "80128218_sc02_0031_words.inc"
 };
@@ -9526,6 +9529,111 @@ static int merge_pending_matches(const FormatterCpu *cpu, uint32_t instruction) 
          (cpu->pc == 0x8017c55cu && instruction == 0x88c4000bu && cpu->merge_reg == 3u) ||
          (cpu->pc == 0x8017c564u && instruction == 0xa8e20003u && cpu->merge_reg == 4u)))
         return 1;
+    /* Resident-image interleaved copy blocks: the compiler emits
+     * LWL/LWR pairs for two registers back to back and then their SWL/SWR
+     * stores, so a pending LWR is retired by the next pair's LWL (or by the
+     * first store). Every entry below is that instruction's exact word at
+     * that PC in artifacts/sc02-resident-20260910. */
+    if (        (cpu->merge_kind == MERGE_LWR &&
+         ((cpu->pc == 0x80134268u && instruction == 0x8a630007u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x80134270u && instruction == 0xa8a20003u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x80136ca8u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x80136cb0u && instruction == 0x80a40008u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x80146168u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x80146170u && instruction == 0xa8820003u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x80146490u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x80146498u && instruction == 0xa8820003u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x80147008u && instruction == 0x8a030007u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x80147010u && instruction == 0xaa22008bu && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x80147530u && instruction == 0x8a030127u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x80147538u && instruction == 0xaba20013u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x8014be1cu && instruction == 0x8a03009fu && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x8014be24u && instruction == 0xaba20013u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x8014c520u && instruction == 0x88e30007u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x8014c528u && instruction == 0xa902007fu && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x8014c758u && instruction == 0x88440017u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x8014c760u && instruction == 0xaa030167u && cpu->merge_reg == 4u) ||
+             (cpu->pc == 0x8014c868u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x8014c870u && instruction == 0xa8820157u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x8014c8d0u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x8014c8d8u && instruction == 0xa882015fu && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x8014c8f8u && instruction == 0x88830097u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x8014c900u && instruction == 0xa882015fu && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x8014cbacu && instruction == 0x88830007u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x8014cbb4u && instruction == 0xa8c20003u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x8014db78u && instruction == 0x8ba3002fu && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x8014db80u && instruction == 0xaba20033u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x8014ea8cu && instruction == 0x8a230007u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x8014ea94u && instruction == 0xaba20023u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x8014f5dcu && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x8014f5e4u && instruction == 0xaa020123u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x8014f614u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x8014f61cu && instruction == 0xaa020123u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x8014f670u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x8014f678u && instruction == 0xa8820003u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x8014f6acu && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x8014f6b4u && instruction == 0xaa020123u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x8014f874u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x8014f87cu && instruction == 0xaa020123u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x8014f8acu && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x8014f8b4u && instruction == 0xaa020123u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x8014f908u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x8014f910u && instruction == 0xa8820003u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x8014f944u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x8014f94cu && instruction == 0xaa020123u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x8014fb64u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x8014fb6cu && instruction == 0xa8820003u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x8014ff20u && instruction == 0x8ba30027u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x8014ff28u && instruction == 0xaa020083u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x8014ff74u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x8014ff7cu && instruction == 0xaa020083u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x80150008u && instruction == 0x8a430007u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x80150010u && instruction == 0xaba20013u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x80150080u && instruction == 0x8ba30017u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x80150088u && instruction == 0xaba2001bu && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x801500d0u && instruction == 0x8ba3001fu && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x801500d8u && instruction == 0xaa420003u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x801500f8u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x80150100u && instruction == 0xaa820003u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x80150230u && instruction == 0x8ba30027u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x80150238u && instruction == 0xaa020083u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x80150284u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x8015028cu && instruction == 0xaa020083u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x80150318u && instruction == 0x8a430007u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x80150320u && instruction == 0xaba20013u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x80150390u && instruction == 0x8ba30017u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x80150398u && instruction == 0xaba2001bu && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x801503e0u && instruction == 0x8ba3001fu && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x801503e8u && instruction == 0xaa420003u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x80150408u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x80150410u && instruction == 0xaa820003u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x80163420u && instruction == 0x89230007u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x80163428u && instruction == 0xaba2001bu && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x801634f4u && instruction == 0x89480007u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x801634fcu && instruction == 0xaba2001bu && cpu->merge_reg == 8u) ||
+             (cpu->pc == 0x80172384u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x8017238cu && instruction == 0xa8820093u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x801723a4u && instruction == 0x88830097u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x801723acu && instruction == 0xa882008bu && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x80172798u && instruction == 0x88830007u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x801727a0u && instruction == 0xa8c20003u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x801728acu && instruction == 0x88830007u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x801728b4u && instruction == 0xa8c20003u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x80172c68u && instruction == 0x88830007u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x80172c70u && instruction == 0xa8c20003u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x80173420u && instruction == 0x8a030007u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x80173428u && instruction == 0xa8a20003u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x80173484u && instruction == 0x8a030007u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x8017348cu && instruction == 0xa8a20003u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x8017b8f8u && instruction == 0x88830007u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x8017b900u && instruction == 0xa8c20003u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x8017b920u && instruction == 0x8883000fu && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x8017b928u && instruction == 0xa8c20003u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x801826b4u && instruction == 0x8a630007u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x801826bcu && instruction == 0xaba20013u && cpu->merge_reg == 3u) ||
+             (cpu->pc == 0x8018288cu && instruction == 0x8a630007u && cpu->merge_reg == 2u) ||
+             (cpu->pc == 0x80182894u && instruction == 0xaba20013u && cpu->merge_reg == 3u))))
+        return 1;
     if (cpu->merge_kind == MERGE_LWR)
         return (cpu->pc == 0x80045728u || cpu->pc == 0x800457ecu ||
                 cpu->pc == 0x80045aecu || cpu->pc == 0x80045b14u ||
@@ -11752,6 +11860,9 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
     else if (g_overlay_sc02_0031_words &&
              cpu->pc >= 0x80133ab0u && cpu->pc < 0x80133cd4u)
         instruction = kOverlaySc02_80133AB0Words[(cpu->pc - 0x80133ab0u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80159be4u && cpu->pc < 0x80159c84u)
+        instruction = kOverlaySc02_80159BE4Words[(cpu->pc - 0x80159be4u)/4u];
     else if (g_overlay_sc02_0031_words &&
              cpu->pc >= 0x80128218u && cpu->pc < 0x80128228u)
         instruction = kOverlaySc02_80128218Words[(cpu->pc - 0x80128218u)/4u];
