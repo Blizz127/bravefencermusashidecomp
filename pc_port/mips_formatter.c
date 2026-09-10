@@ -1026,6 +1026,9 @@ static const uint32_t kOverlaySc02_801612B8Words[] = {
 static const uint32_t kOverlaySc02_80133784Words[] = {
 #include "80133784_sc02_0031_words.inc"
 };
+static const uint32_t kOverlaySc02_80133AB0Words[] = {
+#include "80133ab0_sc02_0031_words.inc"
+};
 static const uint32_t kOverlaySc02_80128218Words[] = {
 #include "80128218_sc02_0031_words.inc"
 };
@@ -11350,6 +11353,9 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
              cpu->pc >= 0x80133784u && cpu->pc < 0x80133ab0u)
         instruction = kOverlaySc02_80133784Words[(cpu->pc - 0x80133784u)/4u];
     else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80133ab0u && cpu->pc < 0x80133cd4u)
+        instruction = kOverlaySc02_80133AB0Words[(cpu->pc - 0x80133ab0u)/4u];
+    else if (g_overlay_sc02_0031_words &&
              cpu->pc >= 0x80128218u && cpu->pc < 0x80128228u)
         instruction = kOverlaySc02_80128218Words[(cpu->pc - 0x80128218u)/4u];
     else if (g_overlay_sc02_0031_words &&
@@ -15949,7 +15955,14 @@ static int gte_48d9c_caller(uint32_t ra) {
 }
 
 static int gte_47d3c_caller(uint32_t ra) {
-    return ra == 0x80054050u || ra == 0x800540d8u || ra == 0x800533e4u;
+    /* 0x801338A4 is func_80133784's return alias: the SC02_031 function is
+     * carved from the resident image and oracle-verified byte-for-byte, and its
+     * 0x8013389C jal 0x80047D3C with an addu delay slot is the same call shape
+     * as the three main-executable callers. Everything else in this gate
+     * (transfer binding, no pending merge, npc/delay/branch state) still
+     * applies. */
+    return ra == 0x80054050u || ra == 0x800540d8u || ra == 0x800533e4u ||
+           ra == 0x801338a4u;
 }
 
 static int gte_48d9c_site(uint32_t pc, uint32_t word, unsigned *slot) {
@@ -16039,6 +16052,22 @@ static int sc02_entry_matches(MusashiBootMemory *memory) {
     return 1;
 }
 
+/* A DIV is only admitted when the retail image carries GCC's canonical
+ * divide-by-zero guard for that exact instruction: BNE divisor,$zero to the
+ * instruction after BREAK 7, with a NOP in between. Every audited main-exec
+ * site has that shape, and the SC02 code reaches many more divide sites than a
+ * hand list can carry; a DIV without the guard stays refused. */
+static int div_guard_present(MusashiBootMemory *memory, uint32_t pc, uint32_t instruction) {
+    uint32_t divisor = (instruction >> 16) & 31u;
+    uint32_t branch, nop, brk;
+    if (!musashi_boot_read32(memory, pc + 4u, &branch) ||
+        !musashi_boot_read32(memory, pc + 8u, &nop) ||
+        !musashi_boot_read32(memory, pc + 12u, &brk)) return 0;
+    return (branch >> 26) == 5u && ((branch >> 21) & 31u) == divisor &&
+           ((branch >> 16) & 31u) == 0u && (branch & 0xffffu) == 2u &&
+           nop == 0u && brk == 0x0007000du;
+}
+
 static int formatter_step(MusashiBootMemory *memory, FormatterCpu *cpu) {
     uint32_t instruction, opcode, rs, rt, rd, immediate, old_npc;
     uint32_t target_npc;
@@ -16119,7 +16148,8 @@ static int formatter_step(MusashiBootMemory *memory, FormatterCpu *cpu) {
           (cpu->pc == 0x800535e4u && instruction == 0x00c4001au) ||
           (cpu->pc == 0x80053680u && instruction == 0x0044001au) ||
           (cpu->pc == 0x800536c4u && instruction == 0x0044001au) ||
-          (cpu->pc == 0x80053708u && instruction == 0x00c4001au))) return 0;
+          (cpu->pc == 0x80053708u && instruction == 0x00c4001au)) &&
+        !div_guard_present(memory, cpu->pc, instruction)) return 0;
     /* These optional debug-call branches have no admitted host target yet. */
     if (cpu->pc == 0x8005937cu || cpu->pc == 0x80059698u ||
         cpu->pc == 0x80059844u || cpu->pc == 0x8005986cu) return 0;
@@ -16295,8 +16325,16 @@ static int formatter_step(MusashiBootMemory *memory, FormatterCpu *cpu) {
          * aliases; a pending MFC2 load is fine there because the admitted
          * delay-slot successor above already published it. */
         unsigned slot = 99;
-        int leaf = 0, camera = 0, camera2 = 0, transform = 0;
+        int leaf = 0, camera = 0, camera2 = 0, transform = 0, vector_command = 0;
         if (cpu->cpu_transfer) {
+            /* func_80133CD4's vector load completes with the 0x80133FFC GTE
+             * command (word 4AA00428). RA is the same clobbered 80133FB8 as the
+             * three admitted LWC2 sites, so the gate is the exact site plus a
+             * bound command transfer. */
+            vector_command = g_overlay_sc02_0031_words &&
+                cpu->cpu_transfer->command != NULL &&
+                cpu->pc == 0x80133ffcu && instruction == 0x4aa00428u &&
+                cpu->r[31] == 0x80133fb8u;
             transform = g_overlay_sc02_0031_words && cpu->r[31] == 0x8012f188u &&
                 (((cpu->pc == 0x8004946cu && instruction == 0x48024800u) ||
                   (cpu->pc == 0x80049470u && instruction == 0x48035000u)) ?
@@ -16326,7 +16364,7 @@ static int formatter_step(MusashiBootMemory *memory, FormatterCpu *cpu) {
         if (!cpu->cpu_transfer || cpu->merge_pending ||
             cpu->npc != cpu->pc+4u ||
             cpu->delay_slot || cpu->branch_pc ||
-            (!leaf && !camera && !camera2 && !transform)) return 0;
+            (!leaf && !camera && !camera2 && !transform && !vector_command)) return 0;
     } else if (opcode == 18u) {
         static const uint32_t sites[][2] = {
             {0x80047ce8u,0x48c8e800u},{0x80047cf4u,0x48c8f000u},
@@ -16377,17 +16415,35 @@ static int formatter_step(MusashiBootMemory *memory, FormatterCpu *cpu) {
                    cpu->merge_pending || cpu->gte_load_pending ||
                    cpu->npc != cpu->pc+4u || cpu->delay_slot || cpu->branch_pc) return 0;
     }
-    if (opcode == 50u || (opcode == 58u && cpu->pc == 0x80049474u)) {
+    if (opcode == 50u || (opcode == 58u &&
+                          (cpu->pc == 0x80049474u ||
+                           (cpu->pc >= 0x8013400cu && cpu->pc <= 0x80134014u)))) {
         uint32_t address = cpu->r[rs] + (uint32_t)(int32_t)signed_immediate;
         int load = opcode == 50u;
-        if (!g_overlay_sc02_0031_words || cpu->r[31] != 0x8012f188u ||
+        /* func_80133CD4 loads a 12-byte vector into GTE data registers 9-11.
+         * Its own 0x80133FB0 jal overwrote RA, so this trio is admitted by
+         * exact PC/word/rt instead of by caller alias, with the same transfer
+         * and CPU-state requirements as the audited transform site. */
+        int vector = load && cpu->cpu_transfer && cpu->cpu_transfer->write_data &&
+            ((cpu->pc == 0x80133fe8u && instruction == 0xc9090000u && rt == 9u) ||
+             (cpu->pc == 0x80133fecu && instruction == 0xc90a0004u && rt == 10u) ||
+             (cpu->pc == 0x80133ff0u && instruction == 0xc90b0008u && rt == 11u));
+        /* The matching stores publish the transformed IR1..3 back out; same
+         * clobbered RA, same exact-site discipline. */
+        int store_vector = !load && cpu->cpu_transfer && cpu->cpu_transfer->read_data &&
+            ((cpu->pc == 0x8013400cu && instruction == 0xe9190000u && rt == 25u) ||
+             (cpu->pc == 0x80134010u && instruction == 0xe91a0004u && rt == 26u) ||
+             (cpu->pc == 0x80134014u && instruction == 0xe91b0008u && rt == 27u));
+        if (!g_overlay_sc02_0031_words ||
+            (!vector && !store_vector && cpu->r[31] != 0x8012f188u) ||
             !cpu->cpu_transfer || cpu->merge_pending ||
             cpu->npc != cpu->pc+4u || cpu->delay_slot || cpu->branch_pc ||
             (address & 3u) || !cpu_ram_span(memory, cpu, address, 4u) ||
             (load ? (!cpu->cpu_transfer->write_data ||
                      !((cpu->pc == 0x8004945cu && instruction == 0xc8800000u) ||
-                       (cpu->pc == 0x80049460u && instruction == 0xc8810004u))) :
-                    (!cpu->cpu_transfer->read_data || instruction != 0xe8ab0004u))) return 0;
+                       (cpu->pc == 0x80049460u && instruction == 0xc8810004u))) && !vector :
+                    (!cpu->cpu_transfer->read_data ||
+                     (!store_vector && instruction != 0xe8ab0004u)))) return 0;
     } else if (opcode == 58u) {
         /* Sole admitted SWC2: the 80048E98 store of light-matrix control
          * 11 under an audited 80048D9C caller. No pending MFC2 load may
@@ -16578,9 +16634,12 @@ static int formatter_step(MusashiBootMemory *memory, FormatterCpu *cpu) {
             if (!cpu->cpu_transfer->read_control(cpu->cpu_transfer->userdata,
                                                 &context, rd, &scheduled_gte_load)) goto gte_transfer_refused;
             schedule_gte_load = 1;
-        } else if (rs == 18u) {
+        } else if (rs == 18u ||
+                   (cpu->pc == 0x80133ffcu && (instruction & 0x02000000u) != 0u)) {
             /* Admitted MVMVA sites run the shared operator synchronously, no load
-             * delay since later MFC2 reads observe the live bank. */
+             * delay since later MFC2 reads observe the live bank. The SC02 SQR
+             * site has CO set but rs=21, so the COP2 command bit decides there;
+             * rs==18 is only the MVMVA word's own encoding. */
             if (!cpu->cpu_transfer->command(cpu->cpu_transfer->userdata,
                                             &context, instruction)) goto gte_transfer_refused;
         } else {
@@ -16675,7 +16734,8 @@ static int formatter_step(MusashiBootMemory *memory, FormatterCpu *cpu) {
         /* The SC02 transform stores data IR3; the earlier admitted site
          * retains its separate control-bank transfer. */
         if (!musashi_boot_cpu_context(cpu, MUSASHI_CPU_CONTEXT_SOURCE, &context)) goto gte_transfer_refused;
-        if (cpu->pc == 0x80049474u) {
+        if (cpu->pc == 0x80049474u ||
+            (cpu->pc >= 0x8013400cu && cpu->pc <= 0x80134014u)) {
             if (!cpu->cpu_transfer->read_data(cpu->cpu_transfer->userdata,
                                              &context, rt, &control)) goto gte_transfer_refused;
         } else if (!cpu->cpu_transfer->read_control(cpu->cpu_transfer->userdata,
