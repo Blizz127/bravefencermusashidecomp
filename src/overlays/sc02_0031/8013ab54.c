@@ -1,0 +1,267 @@
+/* SC02.CD FILE_031 / ov_SC02_031 retail span [8013AB54,8013AD38).
+ * Offset 0x129FC at overlay base 80128158. SHA256(span)=221735f53cf7f705d2e0fa9557c981a4988166322fddbf6f01fec1894e8cfb8c.
+ * Re-carve of the registry-verified MAIN member 0012 source
+ * src/overlays/main_0012/8013ab54.c (recovery=assembly, -O2); the span is
+ * byte-identical between member 0012 and SC02_031.
+ * Not MAIN10.
+ */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x27BDFEE8)
+MUSASHI_NATIVE_MIPS_WORD(0xAFB5010C)
+MUSASHI_NATIVE_MIPS_WORD(0x0080A821)
+MUSASHI_NATIVE_MIPS_WORD(0xAFB40108)
+MUSASHI_NATIVE_MIPS_WORD(0x00A0A021)
+MUSASHI_NATIVE_MIPS_WORD(0xAFB20100)
+MUSASHI_NATIVE_MIPS_WORD(0x00C09021)
+MUSASHI_NATIVE_MIPS_WORD(0xAFBF0110)
+MUSASHI_NATIVE_MIPS_WORD(0xAFB30104)
+MUSASHI_NATIVE_MIPS_WORD(0xAFB100FC)
+MUSASHI_NATIVE_MIPS_WORD(0xAFB000F8)
+MUSASHI_NATIVE_MIPS_WORD(0x86430004)
+MUSASHI_NATIVE_MIPS_WORD(0x00E09821)
+MUSASHI_NATIVE_MIPS_WORD(0x00031040)
+MUSASHI_NATIVE_MIPS_WORD(0x00431021)
+MUSASHI_NATIVE_MIPS_WORD(0x00022080)
+MUSASHI_NATIVE_MIPS_WORD(0x24820010)
+MUSASHI_NATIVE_MIPS_WORD(0xA7A200F0)
+MUSASHI_NATIVE_MIPS_WORD(0x86420006)
+MUSASHI_NATIVE_MIPS_WORD(0x32668000)
+MUSASHI_NATIVE_MIPS_WORD(0x00021840)
+MUSASHI_NATIVE_MIPS_WORD(0x00621821)
+MUSASHI_NATIVE_MIPS_WORD(0x00031880)
+MUSASHI_NATIVE_MIPS_WORD(0x2442FFFF)
+MUSASHI_NATIVE_MIPS_WORD(0x00021040)
+MUSASHI_NATIVE_MIPS_WORD(0x00621821)
+MUSASHI_NATIVE_MIPS_WORD(0x24620008)
+MUSASHI_NATIVE_MIPS_WORD(0x14C00005)
+MUSASHI_NATIVE_MIPS_WORD(0xA7A200F2)
+MUSASHI_NATIVE_MIPS_WORD(0x24820038)
+MUSASHI_NATIVE_MIPS_WORD(0xA7A200F0)
+MUSASHI_NATIVE_MIPS_WORD(0x24620010)
+MUSASHI_NATIVE_MIPS_WORD(0xA7A200F2)
+MUSASHI_NATIVE_MIPS_WORD(0x3C023531)
+MUSASHI_NATIVE_MIPS_WORD(0x87A300F0)
+MUSASHI_NATIVE_MIPS_WORD(0x3442DEC1)
+MUSASHI_NATIVE_MIPS_WORD(0x00031B00)
+MUSASHI_NATIVE_MIPS_WORD(0x00620018)
+MUSASHI_NATIVE_MIPS_WORD(0x3C0430C3)
+MUSASHI_NATIVE_MIPS_WORD(0x87A200F2)
+MUSASHI_NATIVE_MIPS_WORD(0x00002810)
+MUSASHI_NATIVE_MIPS_WORD(0x34840C31)
+MUSASHI_NATIVE_MIPS_WORD(0x00021300)
+MUSASHI_NATIVE_MIPS_WORD(0x00440018)
+MUSASHI_NATIVE_MIPS_WORD(0x00031FC3)
+MUSASHI_NATIVE_MIPS_WORD(0x00052143)
+MUSASHI_NATIVE_MIPS_WORD(0x00832023)
+MUSASHI_NATIVE_MIPS_WORD(0x000217C3)
+MUSASHI_NATIVE_MIPS_WORD(0xA7A400F0)
+MUSASHI_NATIVE_MIPS_WORD(0x00004810)
+MUSASHI_NATIVE_MIPS_WORD(0x000918C3)
+MUSASHI_NATIVE_MIPS_WORD(0x00621823)
+MUSASHI_NATIVE_MIPS_WORD(0x10C00003)
+MUSASHI_NATIVE_MIPS_WORD(0xA7A300F2)
+MUSASHI_NATIVE_MIPS_WORD(0x00041023)
+MUSASHI_NATIVE_MIPS_WORD(0xA7A200F0)
+MUSASHI_NATIVE_MIPS_WORD(0xA7A300D8)
+MUSASHI_NATIVE_MIPS_WORD(0x97A300F0)
+MUSASHI_NATIVE_MIPS_WORD(0x24021000)
+MUSASHI_NATIVE_MIPS_WORD(0xA7A000D2)
+MUSASHI_NATIVE_MIPS_WORD(0xA7A000D4)
+MUSASHI_NATIVE_MIPS_WORD(0xA7A000D6)
+MUSASHI_NATIVE_MIPS_WORD(0xA7A000DA)
+MUSASHI_NATIVE_MIPS_WORD(0xA7A000DC)
+MUSASHI_NATIVE_MIPS_WORD(0xA7A000DE)
+MUSASHI_NATIVE_MIPS_WORD(0xA7A200E0)
+MUSASHI_NATIVE_MIPS_WORD(0xA7A300D0)
+MUSASHI_NATIVE_MIPS_WORD(0x86420000)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0xAFA200E4)
+MUSASHI_NATIVE_MIPS_WORD(0x86420002)
+MUSASHI_NATIVE_MIPS_WORD(0xAFA000EC)
+MUSASHI_NATIVE_MIPS_WORD(0xAFA200E8)
+MUSASHI_NATIVE_MIPS_WORD(0x27A200D0)
+MUSASHI_NATIVE_MIPS_WORD(0x8C4C0000)
+MUSASHI_NATIVE_MIPS_WORD(0x8C4D0004)
+MUSASHI_NATIVE_MIPS_WORD(0x48CC0000)
+MUSASHI_NATIVE_MIPS_WORD(0x48CD0800)
+MUSASHI_NATIVE_MIPS_WORD(0x8C4C0008)
+MUSASHI_NATIVE_MIPS_WORD(0x8C4D000C)
+MUSASHI_NATIVE_MIPS_WORD(0x8C4E0010)
+MUSASHI_NATIVE_MIPS_WORD(0x48CC1000)
+MUSASHI_NATIVE_MIPS_WORD(0x48CD1800)
+MUSASHI_NATIVE_MIPS_WORD(0x48CE2000)
+MUSASHI_NATIVE_MIPS_WORD(0x8C4C0014)
+MUSASHI_NATIVE_MIPS_WORD(0x8C4D0018)
+MUSASHI_NATIVE_MIPS_WORD(0x48CC2800)
+MUSASHI_NATIVE_MIPS_WORD(0x8C4E001C)
+MUSASHI_NATIVE_MIPS_WORD(0x48CD3000)
+MUSASHI_NATIVE_MIPS_WORD(0x48CE3800)
+MUSASHI_NATIVE_MIPS_WORD(0x27B000F0)
+MUSASHI_NATIVE_MIPS_WORD(0x02002021)
+MUSASHI_NATIVE_MIPS_WORD(0x00002821)
+MUSASHI_NATIVE_MIPS_WORD(0x27A60010)
+MUSASHI_NATIVE_MIPS_WORD(0x27B10090)
+MUSASHI_NATIVE_MIPS_WORD(0x0C04EB4E)
+MUSASHI_NATIVE_MIPS_WORD(0x02203821)
+MUSASHI_NATIVE_MIPS_WORD(0x3C01800A)
+MUSASHI_NATIVE_MIPS_WORD(0xAC355E60)
+MUSASHI_NATIVE_MIPS_WORD(0x12600004)
+MUSASHI_NATIVE_MIPS_WORD(0x02802021)
+MUSASHI_NATIVE_MIPS_WORD(0x24050080)
+MUSASHI_NATIVE_MIPS_WORD(0x0C04EC9D)
+MUSASHI_NATIVE_MIPS_WORD(0x02003021)
+MUSASHI_NATIVE_MIPS_WORD(0x02802021)
+MUSASHI_NATIVE_MIPS_WORD(0x02402821)
+MUSASHI_NATIVE_MIPS_WORD(0x27A60010)
+MUSASHI_NATIVE_MIPS_WORD(0x0C04EBC8)
+MUSASHI_NATIVE_MIPS_WORD(0x02203821)
+MUSASHI_NATIVE_MIPS_WORD(0x3C02800A)
+MUSASHI_NATIVE_MIPS_WORD(0x8C425E60)
+MUSASHI_NATIVE_MIPS_WORD(0x8FBF0110)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB5010C)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB40108)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB30104)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB20100)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB100FC)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB000F8)
+MUSASHI_NATIVE_MIPS_WORD(0x27BD0118)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+#include "psx_types.h"
+
+/* GTE/cop2 mnemonic overlay: ordinary C cannot emit coprocessor ops.
+ * Verified by tools/match_function.py. */
+__asm__(
+    ".set noreorder\n"
+    ".globl func_8013AB54\n"
+    ".type func_8013AB54, @function\n"
+    "func_8013AB54:\n"
+    "addiu $sp, $sp, -0x118\n"
+    "sw $s5, 0x10C($sp)\n"
+    "addu $s5, $a0, $zero\n"
+    "sw $s4, 0x108($sp)\n"
+    "addu $s4, $a1, $zero\n"
+    "sw $s2, 0x100($sp)\n"
+    "addu $s2, $a2, $zero\n"
+    "sw $ra, 0x110($sp)\n"
+    "sw $s3, 0x104($sp)\n"
+    "sw $s1, 0xFC($sp)\n"
+    "sw $s0, 0xF8($sp)\n"
+    "lh $v1, 0x4($s2)\n"
+    "addu $s3, $a3, $zero\n"
+    "sll $v0, $v1, 1\n"
+    "addu $v0, $v0, $v1\n"
+    "sll $a0, $v0, 2\n"
+    "addiu $v0, $a0, 0x10\n"
+    "sh $v0, 0xF0($sp)\n"
+    "lh $v0, 0x6($s2)\n"
+    "andi $a2, $s3, 0x8000\n"
+    "sll $v1, $v0, 1\n"
+    "addu $v1, $v1, $v0\n"
+    "sll $v1, $v1, 2\n"
+    "addiu $v0, $v0, -0x1\n"
+    "sll $v0, $v0, 1\n"
+    "addu $v1, $v1, $v0\n"
+    "addiu $v0, $v1, 0x8\n"
+    ".word 0x14C00005\n"
+    "sh $v0, 0xF2($sp)\n"
+    "addiu $v0, $a0, 0x38\n"
+    "sh $v0, 0xF0($sp)\n"
+    "addiu $v0, $v1, 0x10\n"
+    "sh $v0, 0xF2($sp)\n"
+    ".L8013ABD8:\n"
+    "lui $v0, (0x3531DEC1 >> 16)\n"
+    "lh $v1, 0xF0($sp)\n"
+    "ori $v0, $v0, (0x3531DEC1 & 0xFFFF)\n"
+    "sll $v1, $v1, 12\n"
+    "mult $v1, $v0\n"
+    "lui $a0, (0x30C30C31 >> 16)\n"
+    "lh $v0, 0xF2($sp)\n"
+    "mfhi $a1\n"
+    "ori $a0, $a0, (0x30C30C31 & 0xFFFF)\n"
+    "sll $v0, $v0, 12\n"
+    "mult $v0, $a0\n"
+    "sra $v1, $v1, 31\n"
+    "sra $a0, $a1, 5\n"
+    "subu $a0, $a0, $v1\n"
+    "sra $v0, $v0, 31\n"
+    "sh $a0, 0xF0($sp)\n"
+    "mfhi $t1\n"
+    "sra $v1, $t1, 3\n"
+    "subu $v1, $v1, $v0\n"
+    ".word 0x10C00003\n"
+    "sh $v1, 0xF2($sp)\n"
+    "negu $v0, $a0\n"
+    "sh $v0, 0xF0($sp)\n"
+    ".L8013AC34:\n"
+    "sh $v1, 0xD8($sp)\n"
+    "lhu $v1, 0xF0($sp)\n"
+    "addiu $v0, $zero, 0x1000\n"
+    "sh $zero, 0xD2($sp)\n"
+    "sh $zero, 0xD4($sp)\n"
+    "sh $zero, 0xD6($sp)\n"
+    "sh $zero, 0xDA($sp)\n"
+    "sh $zero, 0xDC($sp)\n"
+    "sh $zero, 0xDE($sp)\n"
+    "sh $v0, 0xE0($sp)\n"
+    "sh $v1, 0xD0($sp)\n"
+    "lh $v0, 0x0($s2)\n"
+    "nop\n"
+    "sw $v0, 0xE4($sp)\n"
+    "lh $v0, 0x2($s2)\n"
+    "sw $zero, 0xEC($sp)\n"
+    "sw $v0, 0xE8($sp)\n"
+    "addiu $v0, $sp, 0xD0\n"
+    "lw $t4, 0x0($v0)\n"
+    "lw $t5, 0x4($v0)\n"
+    "ctc2 $t4, $0\n"
+    "ctc2 $t5, $1\n"
+    "lw $t4, 0x8($v0)\n"
+    "lw $t5, 0xC($v0)\n"
+    "lw $t6, 0x10($v0)\n"
+    "ctc2 $t4, $2\n"
+    "ctc2 $t5, $3\n"
+    "ctc2 $t6, $4\n"
+    "lw $t4, 0x14($v0)\n"
+    "lw $t5, 0x18($v0)\n"
+    "ctc2 $t4, $5\n"
+    "lw $t6, 0x1C($v0)\n"
+    "ctc2 $t5, $6\n"
+    "ctc2 $t6, $7\n"
+    "addiu $s0, $sp, 0xF0\n"
+    "addu $a0, $s0, $zero\n"
+    "addu $a1, $zero, $zero\n"
+    "addiu $a2, $sp, 0x10\n"
+    "addiu $s1, $sp, 0x90\n"
+    ".word 0x0C04EB4E\n"
+    "addu $a3, $s1, $zero\n"
+    "lui $at, %hi(D_800A5E60)\n"
+    "sw $s5, %lo(D_800A5E60)($at)\n"
+    ".word 0x12600004\n"
+    "addu $a0, $s4, $zero\n"
+    "addiu $a1, $zero, 0x80\n"
+    ".word 0x0C04EC9D\n"
+    "addu $a2, $s0, $zero\n"
+    ".L8013ACF4:\n"
+    "addu $a0, $s4, $zero\n"
+    "addu $a1, $s2, $zero\n"
+    "addiu $a2, $sp, 0x10\n"
+    ".word 0x0C04EBC8\n"
+    "addu $a3, $s1, $zero\n"
+    "lui $v0, %hi(D_800A5E60)\n"
+    "lw $v0, %lo(D_800A5E60)($v0)\n"
+    "lw $ra, 0x110($sp)\n"
+    "lw $s5, 0x10C($sp)\n"
+    "lw $s4, 0x108($sp)\n"
+    "lw $s3, 0x104($sp)\n"
+    "lw $s2, 0x100($sp)\n"
+    "lw $s1, 0xFC($sp)\n"
+    "lw $s0, 0xF8($sp)\n"
+    "addiu $sp, $sp, 0x118\n"
+    "jr $ra\n"
+    "nop\n"
+    ".size func_8013AB54, .-func_8013AB54\n"
+    ".set reorder\n"
+);
+#endif

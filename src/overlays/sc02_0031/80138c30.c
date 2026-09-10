@@ -1,0 +1,31 @@
+/* SC02.CD FILE_031 / ov_SC02_031 retail span [80138C30,80138C60).
+ * Offset 0x10AD8 at overlay base 80128158. SHA256(span)=8c18d5bb21e4f558c7922a2bb661ba9867a55159267f0832384faf19f9254a78.
+ * Re-carve of the registry-verified MAIN member 0012 source
+ * src/overlays/main_0012/80138c30.c (recovery=c, -O2); the span is
+ * byte-identical between member 0012 and SC02_031.
+ * Not MAIN10.
+ */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x84830004)
+MUSASHI_NATIVE_MIPS_WORD(0x24020004)
+MUSASHI_NATIVE_MIPS_WORD(0x14620003)
+MUSASHI_NATIVE_MIPS_WORD(0x24020002)
+MUSASHI_NATIVE_MIPS_WORD(0x0804E316)
+MUSASHI_NATIVE_MIPS_WORD(0xA4820004)
+MUSASHI_NATIVE_MIPS_WORD(0x8C820008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x34420800)
+MUSASHI_NATIVE_MIPS_WORD(0xAC820008)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+#include "psx_types.h"
+typedef struct { u8 pad[4]; s16 u4; u8 pad6[2]; s32 u8; } T;
+void func_80138C30(T *p) {
+    if (p->u4 == 4) {
+        p->u4 = 2;
+    } else {
+        p->u8 |= 0x800;
+    }
+}
+#endif

@@ -1,0 +1,31 @@
+/* SC02.CD FILE_031 / ov_SC02_031 retail span [801733CC,801733FC).
+ * Offset 0x4B274 at overlay base 80128158. SHA256(span)=35d12ff224126d4b122e551b9407542b91f9df72a3dcaaf83e428ca725ada274.
+ * Re-carve of the registry-verified MAIN member 0012 source
+ * src/overlays/main_0012/801733cc.c (recovery=c, -O2); the span is
+ * byte-identical between member 0012 and SC02_031.
+ * Not MAIN10.
+ */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE8)
+MUSASHI_NATIVE_MIPS_WORD(0xAFB00010)
+MUSASHI_NATIVE_MIPS_WORD(0xAFBF0014)
+MUSASHI_NATIVE_MIPS_WORD(0x0C05BCC3)
+MUSASHI_NATIVE_MIPS_WORD(0x00808021)
+MUSASHI_NATIVE_MIPS_WORD(0x0C05D194)
+MUSASHI_NATIVE_MIPS_WORD(0x02002021)
+MUSASHI_NATIVE_MIPS_WORD(0x8FBF0014)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB00010)
+MUSASHI_NATIVE_MIPS_WORD(0x27BD0018)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+#include "psx_types.h"
+
+void func_8016F30C();                                  /* static */
+void func_80174650(s32);                               /* static */
+
+void func_801733CC(s32 arg0) {
+    func_8016F30C();
+    func_80174650(arg0);
+}
+#endif

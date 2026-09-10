@@ -1,0 +1,109 @@
+/* SC02.CD FILE_031 / ov_SC02_031 retail span [80142BB4,80142C7C).
+ * Offset 0x1AA5C at overlay base 80128158. SHA256(span)=0d3ff7f589cd414a4864477c55319b9445672c0a225e0c70d1181c29cbe9d978.
+ * Re-carve of the registry-verified MAIN member 0012 source
+ * src/overlays/main_0012/80142bb4.c (recovery=c, -O2); the span is
+ * byte-identical between member 0012 and SC02_031.
+ * Not MAIN10.
+ */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE0)
+MUSASHI_NATIVE_MIPS_WORD(0xAFB00010)
+MUSASHI_NATIVE_MIPS_WORD(0x00808021)
+MUSASHI_NATIVE_MIPS_WORD(0xAFB10014)
+MUSASHI_NATIVE_MIPS_WORD(0xAFBF0018)
+MUSASHI_NATIVE_MIPS_WORD(0x860300FC)
+MUSASHI_NATIVE_MIPS_WORD(0x24020001)
+MUSASHI_NATIVE_MIPS_WORD(0x14620018)
+MUSASHI_NATIVE_MIPS_WORD(0x00C08821)
+MUSASHI_NATIVE_MIPS_WORD(0x14A00005)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x86020100)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x1440001E)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x9602005C)
+MUSASHI_NATIVE_MIPS_WORD(0x8E040020)
+MUSASHI_NATIVE_MIPS_WORD(0x3042FEFE)
+MUSASHI_NATIVE_MIPS_WORD(0xA602005C)
+MUSASHI_NATIVE_MIPS_WORD(0x8C820004)
+MUSASHI_NATIVE_MIPS_WORD(0x3C038000)
+MUSASHI_NATIVE_MIPS_WORD(0x00431025)
+MUSASHI_NATIVE_MIPS_WORD(0xAC820004)
+MUSASHI_NATIVE_MIPS_WORD(0x8E0400CC)
+MUSASHI_NATIVE_MIPS_WORD(0x0C050E70)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x02002021)
+MUSASHI_NATIVE_MIPS_WORD(0x00112C00)
+MUSASHI_NATIVE_MIPS_WORD(0x0C04AB51)
+MUSASHI_NATIVE_MIPS_WORD(0x00052C03)
+MUSASHI_NATIVE_MIPS_WORD(0x08050B19)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x14A00005)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x86020100)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x14400005)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x0C04B086)
+MUSASHI_NATIVE_MIPS_WORD(0x02002021)
+MUSASHI_NATIVE_MIPS_WORD(0x08050B19)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x0C04B026)
+MUSASHI_NATIVE_MIPS_WORD(0x02002021)
+MUSASHI_NATIVE_MIPS_WORD(0x8FBF0018)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB10014)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB00010)
+MUSASHI_NATIVE_MIPS_WORD(0x27BD0020)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+#include "psx_types.h"
+
+extern void func_801439C0(void *arg0);
+extern void func_8012AD44(void *arg0, s32 arg1);
+extern void func_8012C218(void *arg0);
+extern void func_8012C098(void *arg0);
+
+/* HAND MODEL of func_80142BB4 (main_0012.s), decoded manually from
+ * raw asm (fully visible; NOT verified against retail; C89-gated
+ * only, promotion requires an oracle MATCH): void (u8 *, s32,
+ * s32), 0x20 frame. s1 = a2 via the first bne delay slot. When
+ * lh(s0+0xFC) == 1: a nonzero a1, or a zero lh(s0+0x100), takes
+ * the 42BF0 path (mask lhu(s0+0x5C) &= ~0x101, set bit 31 of
+ * [[s0+0x20]+4], run 801439C0([s0+0xCC]), then 8012AD44(s0,
+ * sext(s1))); otherwise returns via 42C64. When != 1: a nonzero
+ * a1 or a zero lh(s0+0x100) runs 8012C218(s0), else 8012C098(s0);
+ * both join 42C64. Callee decls provisional. */
+void func_80142BB4(u8 *arg0, s32 arg1, s32 arg2)
+{
+    u8 *s0 = arg0;
+    s32 s1 = arg2;
+
+    if (*(s16 *)(s0 + 0xFC) == 1) {
+        if (arg1 == 0 && *(s16 *)(s0 + 0x100) != 0) {
+            return;
+        }
+        *(u16 *)(s0 + 0x5C) = (u16)(*(u16 *)(s0 + 0x5C) & 0xFEFE);
+        *(u32 *)(*(u8 **)(s0 + 0x20) + 4) |= 0x80000000;
+        func_801439C0(*(void **)(s0 + 0xCC));
+        func_8012AD44(s0, (s1 << 16) >> 16);
+        return;
+    }
+    if (arg1 != 0 || *(s16 *)(s0 + 0x100) == 0) {
+        func_8012C218(s0);
+        return;
+    }
+    func_8012C098(s0);
+}
+
+/* HAND MODEL of func_80142C84 (main_0012.s): void (u8 *), leaf.
+ * Stores 0xFFF40000 to a0+0x14, 0x20000 to a0+0x48, and zero to
+ * a0+0x102 (the sh is the jr delay slot, i.e. before the
+ * return). */
+void func_80142C84(u8 *arg0)
+{
+    *(u32 *)(arg0 + 0x14) = 0xFFF40000;
+    *(u32 *)(arg0 + 0x48) = 0x20000;
+    *(u16 *)(arg0 + 0x102) = 0;
+}
+#endif

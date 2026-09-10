@@ -1,0 +1,30 @@
+/* SC02.CD FILE_031 / ov_SC02_031 retail span [8017051C,80170548).
+ * Offset 0x483C4 at overlay base 80128158. SHA256(span)=3f094c4d97f80e6def3c3b920f5976a9126d0c4310ed91868b676e5d11fef8d4.
+ * Re-carve of the registry-verified MAIN member 0012 source
+ * src/overlays/main_0012/8017051c.c (recovery=c, -O2); the span is
+ * byte-identical between member 0012 and SC02_031.
+ * Not MAIN10.
+ */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE8)
+MUSASHI_NATIVE_MIPS_WORD(0xAFBF0010)
+MUSASHI_NATIVE_MIPS_WORD(0x8C830020)
+MUSASHI_NATIVE_MIPS_WORD(0x3C02800B)
+MUSASHI_NATIVE_MIPS_WORD(0x9442E6DC)
+MUSASHI_NATIVE_MIPS_WORD(0x0C05C64A)
+MUSASHI_NATIVE_MIPS_WORD(0xA4620012)
+MUSASHI_NATIVE_MIPS_WORD(0x8FBF0010)
+MUSASHI_NATIVE_MIPS_WORD(0x27BD0018)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+#include "psx_types.h"
+void func_80171928();
+extern u16 D_800AE6DC;
+typedef struct Inner { u8 pad[0x12]; u16 unk12; } Inner;
+typedef struct { u8 pad[0x20]; Inner *inner; } T;
+void func_8017051C(T *p) {
+    p->inner->unk12 = D_800AE6DC;
+    func_80171928(p);
+}
+#endif

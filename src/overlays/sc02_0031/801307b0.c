@@ -1,0 +1,98 @@
+/* SC02.CD FILE_031 / ov_SC02_031 retail span [801307B0,80130858).
+ * Offset 0x8658 at overlay base 80128158. SHA256(span)=e818a68ac4823b82e44aaa410cd55313534af233433732a723693da9296df753.
+ * Re-carve of the registry-verified MAIN member 0012 source
+ * src/overlays/main_0012/801307b0.c (recovery=c, -O2); the span is
+ * byte-identical between member 0012 and SC02_031.
+ * Not MAIN10.
+ */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x27BDFFD0)
+MUSASHI_NATIVE_MIPS_WORD(0xAFB00028)
+MUSASHI_NATIVE_MIPS_WORD(0x00808021)
+MUSASHI_NATIVE_MIPS_WORD(0x27A50020)
+MUSASHI_NATIVE_MIPS_WORD(0x24020010)
+MUSASHI_NATIVE_MIPS_WORD(0xAFBF002C)
+MUSASHI_NATIVE_MIPS_WORD(0xA20200C1)
+MUSASHI_NATIVE_MIPS_WORD(0x0C04C4B4)
+MUSASHI_NATIVE_MIPS_WORD(0xA600005C)
+MUSASHI_NATIVE_MIPS_WORD(0x24040010)
+MUSASHI_NATIVE_MIPS_WORD(0x96060006)
+MUSASHI_NATIVE_MIPS_WORD(0x97A80020)
+MUSASHI_NATIVE_MIPS_WORD(0x9607000A)
+MUSASHI_NATIVE_MIPS_WORD(0x97A90022)
+MUSASHI_NATIVE_MIPS_WORD(0x9602000E)
+MUSASHI_NATIVE_MIPS_WORD(0x97A30024)
+MUSASHI_NATIVE_MIPS_WORD(0x02002821)
+MUSASHI_NATIVE_MIPS_WORD(0xAFA00014)
+MUSASHI_NATIVE_MIPS_WORD(0xAFA00018)
+MUSASHI_NATIVE_MIPS_WORD(0x00431021)
+MUSASHI_NATIVE_MIPS_WORD(0x00021400)
+MUSASHI_NATIVE_MIPS_WORD(0x00021403)
+MUSASHI_NATIVE_MIPS_WORD(0x00C83021)
+MUSASHI_NATIVE_MIPS_WORD(0x00063400)
+MUSASHI_NATIVE_MIPS_WORD(0x00E93821)
+MUSASHI_NATIVE_MIPS_WORD(0x00073C00)
+MUSASHI_NATIVE_MIPS_WORD(0x00063403)
+MUSASHI_NATIVE_MIPS_WORD(0x00073C03)
+MUSASHI_NATIVE_MIPS_WORD(0x0C051A9B)
+MUSASHI_NATIVE_MIPS_WORD(0xAFA20010)
+MUSASHI_NATIVE_MIPS_WORD(0x24040531)
+MUSASHI_NATIVE_MIPS_WORD(0x00002821)
+MUSASHI_NATIVE_MIPS_WORD(0x2402001E)
+MUSASHI_NATIVE_MIPS_WORD(0xAE02001C)
+MUSASHI_NATIVE_MIPS_WORD(0xAE000018)
+MUSASHI_NATIVE_MIPS_WORD(0x0C00B532)
+MUSASHI_NATIVE_MIPS_WORD(0xAE000010)
+MUSASHI_NATIVE_MIPS_WORD(0x8FBF002C)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB00028)
+MUSASHI_NATIVE_MIPS_WORD(0x27BD0030)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+#include "psx_types.h"
+
+/* HAND MODEL of func_801307B0 (main_0012.s), decoded manually from
+ * raw asm (fully visible; NOT verified against retail; C89-gated
+ * only, promotion requires an oracle MATCH): s0->unkC1 = 0x10;
+ * s0->unk5C = 0 (jal delay slot, lands before the call);
+ * func_801312D0(s0, buf) fills 3 u16 halves; then
+ * func_80146A6C(0x10, s0, (s16)(s0->unk6 + buf[0]),
+ * (s16)(s0->unkA + buf[1]), (s16)(s0->unkE + buf[2]), 0, 0)
+ * (first stack word in the jal delay slot, others pre-zeroed);
+ * s0->unk1C = 0x1E; s0->unk18 = 0; s0->unk10 = 0 (jal delay slot);
+ * func_8002D4C8(0x531, 0). Returns void. */
+
+struct obj_801307B0 {
+    u8 pad[0x6];
+    u16 unk6;
+    u16 pad6;
+    u16 unkA;
+    u16 padA;
+    u16 unkE;
+    s32 unk10;
+    u8 pad2[0x18 - 0x14];
+    s32 unk18;
+    s32 unk1C;
+    u8 pad3[0x5C - 0x20];
+    u16 unk5C;
+    u8 pad4[0xC1 - 0x5E];
+    u8 unkC1;
+};
+
+extern void func_801312D0(void *arg0, u16 *arg1);
+extern void func_80146A6C(s32 arg0, void *arg1, s16 arg2, s16 arg3, s32 arg4, s32 arg5, s32 arg6);
+extern void func_8002D4C8(s32 arg0, s32 arg1);
+
+void func_801307B0(struct obj_801307B0 *arg0) {
+    u16 buf[4];
+
+    arg0->unkC1 = 0x10;
+    arg0->unk5C = 0;
+    func_801312D0(arg0, buf);
+    func_80146A6C(0x10, arg0, (s16)(arg0->unk6 + buf[0]), (s16)(arg0->unkA + buf[1]), (s16)(arg0->unkE + buf[2]), 0, 0);
+    arg0->unk1C = 0x1E;
+    arg0->unk18 = 0;
+    arg0->unk10 = 0;
+    func_8002D4C8(0x531, 0);
+}
+#endif

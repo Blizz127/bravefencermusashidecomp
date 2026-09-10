@@ -1,0 +1,67 @@
+/* SC02.CD FILE_031 / ov_SC02_031 retail span [8012BD3C,8012BDBC).
+ * Offset 0x3BE4 at overlay base 80128158. SHA256(span)=f063951aa369f933e66706f1140f5969f2c0a77c872882de2b1206d46fb6db95.
+ * Re-carve of the registry-verified MAIN member 0012 source
+ * src/overlays/main_0012/8012bd3c.c (recovery=c, -O2); the span is
+ * byte-identical between member 0012 and SC02_031.
+ * Not MAIN10.
+ */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x3C028012)
+MUSASHI_NATIVE_MIPS_WORD(0x84426CBA)
+MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE0)
+MUSASHI_NATIVE_MIPS_WORD(0xAFB00010)
+MUSASHI_NATIVE_MIPS_WORD(0x00808021)
+MUSASHI_NATIVE_MIPS_WORD(0xAFB10014)
+MUSASHI_NATIVE_MIPS_WORD(0x00C08821)
+MUSASHI_NATIVE_MIPS_WORD(0xAFB20018)
+MUSASHI_NATIVE_MIPS_WORD(0x00A09021)
+MUSASHI_NATIVE_MIPS_WORD(0x10400004)
+MUSASHI_NATIVE_MIPS_WORD(0xAFBF001C)
+MUSASHI_NATIVE_MIPS_WORD(0x3C027FFF)
+MUSASHI_NATIVE_MIPS_WORD(0x0804AF61)
+MUSASHI_NATIVE_MIPS_WORD(0x3442FFFF)
+MUSASHI_NATIVE_MIPS_WORD(0x3C058012)
+MUSASHI_NATIVE_MIPS_WORD(0x24A56CB4)
+MUSASHI_NATIVE_MIPS_WORD(0x0C004D1E)
+MUSASHI_NATIVE_MIPS_WORD(0x26040004)
+MUSASHI_NATIVE_MIPS_WORD(0x0222102A)
+MUSASHI_NATIVE_MIPS_WORD(0x14400005)
+MUSASHI_NATIVE_MIPS_WORD(0x00001021)
+MUSASHI_NATIVE_MIPS_WORD(0x02002021)
+MUSASHI_NATIVE_MIPS_WORD(0x00122C00)
+MUSASHI_NATIVE_MIPS_WORD(0x0C04AF6F)
+MUSASHI_NATIVE_MIPS_WORD(0x00052C03)
+MUSASHI_NATIVE_MIPS_WORD(0x8FBF001C)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB20018)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB10014)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB00010)
+MUSASHI_NATIVE_MIPS_WORD(0x27BD0020)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+#include "psx_types.h"
+
+/* HAND MODEL from m2c draft of func_8012BD3C (main_0012.s): NOT
+ * verified against retail. C89-gated only; promotion requires an
+ * oracle MATCH. Single function with entry at 0x8012BD3C (same prefix-fallthrough shape as func_8012A328: lh D_80126CBA with no jr, falling into the body range labelled func_8012BD44, which is a mid-function label with no separate file). No direct callers found in main_0012; reached via table or another overlay. Second BDBC argument is a sign-extended half (sll/sra pair in raw). */
+
+extern s16 D_80126CBA;
+extern u8 D_80126CB4;
+
+extern s32 func_80013478(void *arg0, void *arg1);
+extern s32 func_8012BDBC(s32 arg0, s16 arg1);
+
+s32 func_8012BD3C(s32 arg0, s16 arg1, s32 arg2) {
+    s32 v;
+
+    if (D_80126CBA != 0) {
+        v = 0x7FFFFFFF;
+    } else {
+        v = func_80013478((void *) (arg0 + 4), &D_80126CB4);
+    }
+    if (arg2 < v) {
+        return 0;
+    }
+    return func_8012BDBC(arg0, arg1);
+}
+#endif

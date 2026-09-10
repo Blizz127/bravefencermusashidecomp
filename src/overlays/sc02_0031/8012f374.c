@@ -1,0 +1,96 @@
+/* SC02.CD FILE_031 / ov_SC02_031 retail span [8012F374,8012F40C).
+ * Offset 0x721C at overlay base 80128158. SHA256(span)=989a0eea98492ec07e3a22135047bbee0624278d7ebdc04b53bc056c81d7375a.
+ * Re-carve of the registry-verified MAIN member 0012 source
+ * src/overlays/main_0012/8012f374.c (recovery=c, -O2); the span is
+ * byte-identical between member 0012 and SC02_031.
+ * Not MAIN10.
+ */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x27BDFFC8)
+MUSASHI_NATIVE_MIPS_WORD(0xAFB00030)
+MUSASHI_NATIVE_MIPS_WORD(0x00A08021)
+MUSASHI_NATIVE_MIPS_WORD(0xAFBF0034)
+MUSASHI_NATIVE_MIPS_WORD(0x8C840020)
+MUSASHI_NATIVE_MIPS_WORD(0x3C028012)
+MUSASHI_NATIVE_MIPS_WORD(0x84426CB4)
+MUSASHI_NATIVE_MIPS_WORD(0x8C830048)
+MUSASHI_NATIVE_MIPS_WORD(0x27A50010)
+MUSASHI_NATIVE_MIPS_WORD(0x00431023)
+MUSASHI_NATIVE_MIPS_WORD(0xAFA20010)
+MUSASHI_NATIVE_MIPS_WORD(0x3C028012)
+MUSASHI_NATIVE_MIPS_WORD(0x84426CB6)
+MUSASHI_NATIVE_MIPS_WORD(0x8C83004C)
+MUSASHI_NATIVE_MIPS_WORD(0x27A60020)
+MUSASHI_NATIVE_MIPS_WORD(0x00431023)
+MUSASHI_NATIVE_MIPS_WORD(0xAFA20014)
+MUSASHI_NATIVE_MIPS_WORD(0x3C028012)
+MUSASHI_NATIVE_MIPS_WORD(0x84426CB8)
+MUSASHI_NATIVE_MIPS_WORD(0x8C830050)
+MUSASHI_NATIVE_MIPS_WORD(0x24840034)
+MUSASHI_NATIVE_MIPS_WORD(0x00431023)
+MUSASHI_NATIVE_MIPS_WORD(0x0C013541)
+MUSASHI_NATIVE_MIPS_WORD(0xAFA20018)
+MUSASHI_NATIVE_MIPS_WORD(0x8FA20020)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0xA6020000)
+MUSASHI_NATIVE_MIPS_WORD(0x8FA20024)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0xA6020002)
+MUSASHI_NATIVE_MIPS_WORD(0x8FA20028)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0xA6020004)
+MUSASHI_NATIVE_MIPS_WORD(0x8FBF0034)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB00030)
+MUSASHI_NATIVE_MIPS_WORD(0x27BD0038)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+#include "psx_types.h"
+
+/* HAND MODEL of func_8012F374 (main_0012.s), decoded manually from
+ * raw asm (0x98 bytes; NOT verified against retail; C89-gated
+ * only, promotion requires an oracle MATCH): F2E8-family with
+ * global seeds: builds an s32 triple of s16 {D_80126CB4,
+ * D_80126CB6, D_80126CB8} (lh) minus target words +0x48/+0x4C/
+ * +0x50 (lw/subu), runs func_8004D504(unk20 + 0x34, in, out)
+ * (a0 = unk20 + 0x34 in the jal delay slot), and stores the three
+ * result words as halfwords to out[0/2/4] (lw/sh). */
+
+struct obj_8012F374 {
+    u8 pad[0x20];
+    void *unk20;
+};
+
+struct tgt_8012F374 {
+    u8 pad[0x48];
+    s32 unk48;
+    s32 unk4C;
+    s32 unk50;
+};
+
+struct out_8012F374 {
+    s16 unk0;
+    s16 unk2;
+    s16 unk4;
+};
+
+extern s16 D_80126CB4;
+extern s16 D_80126CB6;
+extern s16 D_80126CB8;
+extern void func_8004D504(void *arg0, s32 *arg1, s32 *arg2);
+
+void func_8012F374(struct obj_8012F374 *arg0, struct out_8012F374 *arg1) {
+    struct tgt_8012F374 *t;
+    s32 in[3];
+    s32 out[3];
+
+    t = (struct tgt_8012F374 *) arg0->unk20;
+    in[0] = D_80126CB4 - t->unk48;
+    in[1] = D_80126CB6 - t->unk4C;
+    in[2] = D_80126CB8 - t->unk50;
+    func_8004D504((u8 *) t + 0x34, in, out);
+    arg1->unk0 = (s16) out[0];
+    arg1->unk2 = (s16) out[1];
+    arg1->unk4 = (s16) out[2];
+}
+#endif

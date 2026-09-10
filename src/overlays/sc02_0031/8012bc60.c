@@ -1,0 +1,63 @@
+/* SC02.CD FILE_031 / ov_SC02_031 retail span [8012BC60,8012BCCC).
+ * Offset 0x3B08 at overlay base 80128158. SHA256(span)=2938d3524f44985eb962e3825ccd80fb4066458068b16ef27dcfb6266e451a9a.
+ * Re-carve of the registry-verified MAIN member 0012 source
+ * src/overlays/main_0012/8012bc60.c (recovery=c, -O2); the span is
+ * byte-identical between member 0012 and SC02_031.
+ * Not MAIN10.
+ */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x27BDFFD8)
+MUSASHI_NATIVE_MIPS_WORD(0xAFBF0020)
+MUSASHI_NATIVE_MIPS_WORD(0x84820002)
+MUSASHI_NATIVE_MIPS_WORD(0x84A30002)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x00431023)
+MUSASHI_NATIVE_MIPS_WORD(0xAFA20010)
+MUSASHI_NATIVE_MIPS_WORD(0x84820006)
+MUSASHI_NATIVE_MIPS_WORD(0x84A30006)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x00431023)
+MUSASHI_NATIVE_MIPS_WORD(0xAFA20014)
+MUSASHI_NATIVE_MIPS_WORD(0x8482000A)
+MUSASHI_NATIVE_MIPS_WORD(0x27A40010)
+MUSASHI_NATIVE_MIPS_WORD(0x84A3000A)
+MUSASHI_NATIVE_MIPS_WORD(0x00802821)
+MUSASHI_NATIVE_MIPS_WORD(0x00431023)
+MUSASHI_NATIVE_MIPS_WORD(0x0C0124C9)
+MUSASHI_NATIVE_MIPS_WORD(0xAFA20018)
+MUSASHI_NATIVE_MIPS_WORD(0x8FA20010)
+MUSASHI_NATIVE_MIPS_WORD(0x8FA30014)
+MUSASHI_NATIVE_MIPS_WORD(0x8FA40018)
+MUSASHI_NATIVE_MIPS_WORD(0x00431021)
+MUSASHI_NATIVE_MIPS_WORD(0x8FBF0020)
+MUSASHI_NATIVE_MIPS_WORD(0x00441021)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x27BD0028)
+#else
+#include "psx_types.h"
+
+/* HAND MODEL from m2c draft of func_8012BC60 (main_0012.s): NOT
+ * verified against retail. C89-gated only; promotion requires an
+ * oracle MATCH. Loads grounded as lh (s16 triple-diffs); the two call arguments are the same stack base (addu in raw). Callee result unused, so void return. */
+
+extern void func_80049324(s32 *arg0, s32 *arg1);
+
+struct pt_8012BC60 {
+    u8 pad[2];
+    s16 unk2;
+    u8 pad2[2];
+    s16 unk6;
+    u8 pad3[2];
+    s16 unkA;
+};
+
+s32 func_8012BC60(struct pt_8012BC60 *arg0, struct pt_8012BC60 *arg1) {
+    s32 sp[3];
+
+    sp[0] = arg0->unk2 - arg1->unk2;
+    sp[1] = arg0->unk6 - arg1->unk6;
+    sp[2] = arg0->unkA - arg1->unkA;
+    func_80049324(sp, sp);
+    return sp[0] + sp[1] + sp[2];
+}
+#endif

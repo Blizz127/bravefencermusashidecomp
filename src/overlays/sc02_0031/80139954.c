@@ -1,0 +1,51 @@
+/* SC02.CD FILE_031 / ov_SC02_031 retail span [80139954,801399A8).
+ * Offset 0x117FC at overlay base 80128158. SHA256(span)=71fba54b2ca4a9b4fd87a66d54cc3995f4db44ef835879d582a91a4618773476.
+ * Re-carve of the registry-verified MAIN member 0012 source
+ * src/overlays/main_0012/80139954.c (recovery=c, -O2); the span is
+ * byte-identical between member 0012 and SC02_031.
+ * Not MAIN10.
+ */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x3C028012)
+MUSASHI_NATIVE_MIPS_WORD(0x94426A08)
+MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE8)
+MUSASHI_NATIVE_MIPS_WORD(0xAFBF0010)
+MUSASHI_NATIVE_MIPS_WORD(0x3C018012)
+MUSASHI_NATIVE_MIPS_WORD(0xA42069F4)
+MUSASHI_NATIVE_MIPS_WORD(0x3C018012)
+MUSASHI_NATIVE_MIPS_WORD(0xAC2069F0)
+MUSASHI_NATIVE_MIPS_WORD(0x10400008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x3C048012)
+MUSASHI_NATIVE_MIPS_WORD(0x8C846A30)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x10800003)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x0C04EA2C)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x8FBF0010)
+MUSASHI_NATIVE_MIPS_WORD(0x27BD0018)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+#include "psx_types.h"
+
+/* Decompiled by m2c from main_0012.s, then verified byte-exact
+ * against retail by tools/match_function.py. Types and signatures are
+ * whatever reproduces the bytes; they are not evidence of the
+ * original declaration. */
+
+void func_8013A8B0(s32);                               /* static */
+extern s32 D_801269F0;
+extern s16 D_801269F4;
+extern u16 D_80126A08;
+extern s32 D_80126A30;
+
+void func_80139954(void) {
+    D_801269F4 = 0;
+    D_801269F0 = 0;
+    if ((D_80126A08 != 0) && (D_80126A30 != 0)) {
+        func_8013A8B0(D_80126A30);
+    }
+}
+#endif

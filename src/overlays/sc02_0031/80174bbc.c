@@ -1,0 +1,42 @@
+/* SC02.CD FILE_031 / ov_SC02_031 retail span [80174BBC,80174BF4).
+ * Offset 0x4CA64 at overlay base 80128158. SHA256(span)=3de17a6d8a620a6acd299b9562dcc9ea1a3b8b71b267c12b4ad86d45f733d9a4.
+ * Re-carve of the registry-verified MAIN member 0012 source
+ * src/overlays/main_0012/80174bbc.c (recovery=c, -O2); the span is
+ * byte-identical between member 0012 and SC02_031.
+ * Not MAIN10.
+ */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x2402012C)
+MUSASHI_NATIVE_MIPS_WORD(0xAC82000C)
+MUSASHI_NATIVE_MIPS_WORD(0xAC820014)
+MUSASHI_NATIVE_MIPS_WORD(0x24020155)
+MUSASHI_NATIVE_MIPS_WORD(0xA4820020)
+MUSASHI_NATIVE_MIPS_WORD(0x24020800)
+MUSASHI_NATIVE_MIPS_WORD(0xA4820022)
+MUSASHI_NATIVE_MIPS_WORD(0x2402FFD8)
+MUSASHI_NATIVE_MIPS_WORD(0xA4800024)
+MUSASHI_NATIVE_MIPS_WORD(0xA480002E)
+MUSASHI_NATIVE_MIPS_WORD(0xA4820030)
+MUSASHI_NATIVE_MIPS_WORD(0xA4800032)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0xAC800054)
+#else
+#include "psx_types.h"
+typedef struct {
+    u8 pad[0xC]; s32 c, pad10, c14;
+    u8 pad18[8]; s16 u20, u22, u24;
+    u8 pad26[8]; s16 u2E, u30, u32;
+    u8 pad34[0x20]; s32 u54;
+} T;
+void func_80174BBC(T *p) {
+    p->c = 0x12C;
+    p->c14 = 0x12C;
+    p->u20 = 0x155;
+    p->u22 = 0x800;
+    p->u24 = 0;
+    p->u2E = 0;
+    p->u30 = -0x28;
+    p->u32 = 0;
+    p->u54 = 0;
+}
+#endif
