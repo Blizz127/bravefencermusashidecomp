@@ -45,6 +45,7 @@ def main():
                         bios_cd_installed="0", bios_event_used="8", guest_irq_enabled="1",
                         irq_faulted="0", scheduler_removed="1", startup="PARTIAL",
                         incoming_ra="NATIVE_ZERO", menu="NOT_REACHED",
+                        visual_check="REQUIRED",
                         GPUREAD="00000400", DMA2_CHCR="00000401",
                         graphics_init="RETURNED", blank_presented="1", gpu_removed="1",
                         card_initialized="1", card_active="0", card_pad_started="0",
@@ -156,7 +157,16 @@ def main():
         input_ok = input_ok and re.findall(r"INPUT_C003 priority=(\d+) descriptor=(\w+) result=(\w+)",output) == [("2","80078988","00000000")]
         input_ok = input_ok and re.findall(r"INPUT_C002 priority=(\d+) descriptor=(\w+) result=(\w+)",output) == [("2","80078988","00000000")]
         input_ok = input_ok and re.findall(r"INPUT_C00A channel=(\d+) value=(\w+) result=(\w+)",output) == [("3","00000000","00000000")]
-        input_ok = input_ok and re.findall(r"INPUT_MMIO address=(\w+) width=(\d+) value=(\w+)",output) == [("1f801070","4","fffffffe"),("1f801074","4","00000009")]
+        # The acknowledge/mask pair must be the only 32-bit IRQ writes, in this
+        # order. The guest also performs 16-bit zero writes to the same two
+        # registers during input-kernel setup; those are bounded here rather
+        # than ignored, so a 32-bit write of another value still fails.
+        input_mmio = re.findall(r"INPUT_MMIO address=(\w+) width=(\d+) value=(\w+)", output)
+        input_ok = input_ok and [e for e in input_mmio if e[1] == "4"] == [
+            ("1f801070","4","fffffffe"),("1f801074","4","00000009")]
+        input_ok = input_ok and all(
+            e[0] in ("1f801070","1f801074") and e[1] == "2" and e[2] == "00000000"
+            for e in input_mmio if e[1] != "4")
         input_ok = input_ok and "INPUT_OWNER at=800101e4 installed=1 faulted=0 frame_busy=0 frame_faulted=0 timer3=0" in output
         input_ok = input_ok and "INPUT_CALLBACK_REFUSED" not in output
         for pc, regs in {
@@ -218,7 +228,8 @@ def main():
             print("native startup: expected continuous entry/card boundary not observed", file=sys.stderr)
             return 1
         print(output, end="")
-        print("NATIVE INPUT registration verified; first CD MMIO at80044DBC unsupported; menu=NOT_REACHED")
+        print("NATIVE INPUT registration verified; first CD MMIO at80044DBC unsupported; "
+              "menu=NOT_REACHED; presented frame still needs a human visual check")
         return 0
 
 

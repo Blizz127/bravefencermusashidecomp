@@ -614,7 +614,11 @@ The check rejects a malformed EXE before display initialization, then runs the
 pinned image under Xvfb and requires executable exit 2 with bounded status 0 plus the complete state above,
 including `pc=80044dbc`, `target=80044dbc`, `bios_cd_installed=0`,
 `bios_event_used=8`, `guest_irq_enabled=1`, `irq_faulted=0`, and the BU/card
-cleanup flags.
+cleanup flags. It also requires the per-gate `CPU_TRACE` record: the first entry
+into every distinct (call gate, caller) pair, so the caller registers prove the
+port reached each recovered gate on its own path. The summary must state
+`menu=NOT_REACHED` (the CPU stopped at the refusal) and
+`visual_check=REQUIRED` (a human still has to look at the presented frame).
 CTest names this `native_startup_boundary`. Passing certifies the documented
 refusal, not a bootable game. The executable can also run directly on desktop.
 

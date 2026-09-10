@@ -30,8 +30,19 @@ fi
 
 python3 -m unittest discover -s tests -p 'test_*.py' -v
 
-cmake -S . -B "$test_root/build" -DMUSASHI_BUILD_PC_PORT=ON \
-    ${prefix:+-DCMAKE_PREFIX_PATH="$prefix"}
+# A CMAKE_PREFIX_PATH search overrides an environment SDL2_DIR, and Homebrew's
+# unversioned lib/cmake/SDL2 resolves its include directory to the incomplete
+# unversioned tree. Pass the versioned config as a cache entry so the search
+# cannot replace it.
+cmake_args=(-DMUSASHI_BUILD_PC_PORT=ON)
+if [[ -n "$prefix" ]]; then
+    cmake_args+=(-DCMAKE_PREFIX_PATH="$prefix")
+fi
+if [[ -n "${SDL2_DIR:-}" ]]; then
+    cmake_args+=(-DSDL2_DIR="$SDL2_DIR")
+fi
+
+cmake -S . -B "$test_root/build" "${cmake_args[@]}"
 cmake --build "$test_root/build"
 ctest --test-dir "$test_root/build" --output-on-failure
 

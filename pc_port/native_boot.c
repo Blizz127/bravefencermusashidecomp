@@ -1509,9 +1509,33 @@ static void observe_spu_stage(NativeBoot *boot, uint32_t pc) {
     }
 }
 
+/* Record one CPU state per distinct (pc, caller) pair. The formatter stops the
+ * fast path at each recovered call gate, and the sampled step trace covers the
+ * earliest instructions; both feed this record, so every trace line is unique
+ * and the caller registers stay auditable. */
+static void trace_cpu_state(uint32_t pc, uint32_t npc, uint32_t hi, uint32_t lo,
+                            const uint32_t *r) {
+    static uint32_t gates[512];
+    static uint32_t callers[512];
+    static unsigned recorded;
+    unsigned slot, i;
+    for (slot = 0; slot < recorded; ++slot)
+        if (gates[slot] == pc && callers[slot] == r[31]) return;
+    if (recorded >= sizeof(gates) / sizeof(gates[0])) return;
+    gates[recorded] = pc;
+    callers[recorded] = r[31];
+    ++recorded;
+    fprintf(stderr, "native_boot: CPU_TRACE pc=%08x npc=%08x hi=%08x lo=%08x regs=",
+            (unsigned)pc, (unsigned)npc, (unsigned)hi, (unsigned)lo);
+    for (i = 0; i < 32; i++)
+        fprintf(stderr, "%s%08x", i ? "," : "", (unsigned)r[i]);
+    fputc('\n', stderr);
+}
+
 static void observe_entry(void *userdata, const MusashiEntryCpuSnapshot *cpu) {
     NativeBoot *boot = userdata;
     unsigned i;
+    trace_cpu_state(cpu->pc, cpu->npc, cpu->hi, cpu->lo, cpu->r);
     if (cpu->pc == 0x800cf104u && boot->opening_overlay_ready) {
         const char *preview=getenv("MUSASHI_PAUSE_AT_START_SCREEN");
         uint16_t state;
@@ -1581,13 +1605,8 @@ static void observe_entry(void *userdata, const MusashiEntryCpuSnapshot *cpu) {
     }
     {
         static uint64_t n;
-        if (log_sample(&n, 4u, 65536u)) {
-            fprintf(stderr, "native_boot: CPU_TRACE pc=%08x npc=%08x hi=%08x lo=%08x regs=",
-                    (unsigned)cpu->pc, (unsigned)cpu->npc, (unsigned)cpu->hi, (unsigned)cpu->lo);
-            for (i = 0; i < 32; i++)
-                fprintf(stderr, "%s%08x", i ? "," : "", (unsigned)cpu->r[i]);
-            fputc('\n', stderr);
-        }
+        if (log_sample(&n, 4u, 65536u))
+            trace_cpu_state(cpu->pc, cpu->npc, cpu->hi, cpu->lo, cpu->r);
     }
     if (cpu->pc == 0x80034cd0u || cpu->pc == 0x800101fcu) {
         uint32_t tracks = cpu->r[2];
@@ -2884,6 +2903,10 @@ int main(int argc, char **argv) {
     PsyX_Shutdown();
     if (!cleanup_ok)
         fputs("native_boot: scheduler removal refused\n", stderr);
-    fputs("native_boot: startup=PARTIAL incoming_ra=NATIVE_ZERO menu=VISUAL_CHECK_REQUIRED\n", stderr);
+    /* The CPU path is proven to stop at the refusal boundary, so no menu was
+     * reached. The presented frame still needs a human look, which is a
+     * separate claim and is therefore a separate marker. */
+    fputs("native_boot: startup=PARTIAL incoming_ra=NATIVE_ZERO menu=NOT_REACHED"
+          " visual_check=REQUIRED\n", stderr);
     return host_stop_signal ? 128 + host_stop_signal : 2;
 }

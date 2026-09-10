@@ -9,8 +9,11 @@ pinned commit by `tools/fetch_toolchains.sh` and its checkout is ignored.
 
 Cleared REFUSED `800D18DC` (MAIN10 `[800D18DC,800D1938)` 23 words). Tip xvfb
 2026-09-09 ~16:15 CT STOP **`pc=800d1938`** (`CPU_BOUNDARY` `ra=800d1928`
-`a0=800ae6a8` `a1=800d19dc`) / **menu=VISUAL_CHECK_REQUIRED** /
-`startup=PARTIAL` / `EXIT:2`. Folded SC02 PAC0 `8014E934…80150EC4` (60 leaves /
+`a0=800ae6a8` `a1=800d19dc`) / `startup=PARTIAL` / `EXIT:2`.
+The summary records the proven CPU refusal as **`menu=NOT_REACHED`** and keeps
+the pending human look as a separate **`visual_check=REQUIRED`** marker;
+`tools/native_boot_check.py` requires both, so a presented frame cannot be
+mistaken for a reached menu. Folded SC02 PAC0 `8014E934…80150EC4` (60 leaves /
 2404 words from `8e857c7f0`) onto tip with D18 retained. Remaining SC02 hole
 `80150EC4…80153C8C`; next MAIN10 hole `800D1938+`. Scanout enabled.
 
@@ -525,4 +528,3 @@ ctest --test-dir build -R musashi_pc_smoke --output-on-failure
 most of the EXE; only the smoke-matched leaves above are compiled as host C today.
 Widening intake means cleaning more vendor functions into `src/main/800*.c` and
 adding them to CMake — not flipping on all of `vendor/bfm-decomp/src/`.
-
