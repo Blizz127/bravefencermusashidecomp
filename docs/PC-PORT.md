@@ -99,10 +99,23 @@ code and each stop was resolved in turn:
 | `80155458` | leaf `func_80155458` carved 24/24 (dispatch table `D_80186ADC`) |
 | `80029104` | main-exec `func_80029104` had a registry C recovery but no native word export; its eight retail EXE words are now wired (CMake entry range + formatter array/range) |
 
-Current stop: `pc=80161a90`, an uncarved function whose Druthulu
-`shared/ov/func_80161A90.h` shape exists — the next leaf, following the same
-recipe (donor body, retarget the member's data, oracle MATCH against
-`artifacts/sc02-resident-20260910`, then wire and continue).
+Two more leaves followed the same recipe: `func_80161A90` (34/34, donor shape
+whose two published variants already match this member) and `func_8016F1C4`
+(35/35; the variants differ only in the table symbol, and this member needs
+`D_8018804C`, `D_800B9A08` and `D_80126B58`). `func_800120DC` had a registry C
+recovery but no native word export, so its 20 retail EXE words are now wired
+through the CMake entry list and the formatter, exactly as `func_80029104`.
+
+Current stop: `pc=800cf8b4`, which is MAIN member 0007 code. Its fetch range is
+already wired (`g_overlay_0007_words` covers `0x800cf02c…0x800d1378`), but the
+port defines `musashi_boot_select_overlay_0007_words` and **never calls it** —
+only members 4 and 10 are selected, each by a guest-RAM signature at a known
+PC. So every 0007 fetch fails closed at
+`else if (g_overlay_0004_words || g_overlay_0007_words || g_overlay_0010_words)
+return 0;`. Next task: find the guest's own 0007 load/entry point, take its
+signature from the loaded image (a code word, not the blob's leading string
+table), and add a signature-gated selection call in the same style as the
+member-4 site at `0x800ceec8` and the member-10 sites at `0x800cedfc`.
 No decomp claim is withdrawn for MAIN member 0012 — those registry entries were
 verified against member 0012 and remain valid there; only their SC02_031
 retargeting was built from the wrong image.
