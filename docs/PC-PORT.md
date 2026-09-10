@@ -14,8 +14,12 @@ The summary records the proven CPU refusal as **`menu=NOT_REACHED`** and keeps
 the pending human look as a separate **`visual_check=REQUIRED`** marker;
 `tools/native_boot_check.py` requires both, so a presented frame cannot be
 mistaken for a reached menu. Folded SC02 PAC0 `8014E934…80150EC4` (60 leaves /
-2404 words from `8e857c7f0`) onto tip with D18 retained. Remaining SC02 hole
-`80150EC4…80153C8C`; next MAIN10 hole `800D1938+`. Scanout enabled.
+2404 words from `8e857c7f0`) onto tip with D18 retained. The SC02 hole
+`80150EC4…80153C8C` is closed: its 13 differing spans are recovered, each a
+single data reference shifted by the member's `+0x888` block offset, and all
+re-earned MATCH against the SC02 blob. Remaining SC02 work is 272 known spans
+(27,136 bytes), starting at `80128C98…80128D60`; next MAIN10 hole `800D1938+`.
+Scanout enabled.
 
 
 The new checked descriptor derives width from the horizontal video-clock range
