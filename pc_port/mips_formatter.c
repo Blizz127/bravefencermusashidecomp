@@ -942,6 +942,27 @@ static const uint32_t kOverlaySc02_80154A74Words[] = {
 static const uint32_t kOverlaySc02_80154AB4Words[] = {
 #include "80154ab4_sc02_0031_words.inc"
 };
+static const uint32_t kOverlaySc02_80154AE0Words[] = {
+#include "80154ae0_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80154B20Words[] = {
+#include "80154b20_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80154B4CWords[] = {
+#include "80154b4c_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80154B7CWords[] = {
+#include "80154b7c_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80154B98Words[] = {
+#include "80154b98_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80154BC8Words[] = {
+#include "80154bc8_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80154BE4Words[] = {
+#include "80154be4_sc02_0031_words.inc"
+};
 static const uint32_t kOverlaySc02_8016EE40Words[] = {
 #include "8016ee40_sc02_0031_words.inc"
 };
@@ -7500,6 +7521,27 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
     else if (g_overlay_sc02_0031_words &&
              cpu->pc >= 0x80154ab4u && cpu->pc < 0x80154ae0u)
         instruction = kOverlaySc02_80154AB4Words[(cpu->pc - 0x80154ab4u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80154ae0u && cpu->pc < 0x80154b20u)
+        instruction = kOverlaySc02_80154AE0Words[(cpu->pc - 0x80154ae0u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80154b20u && cpu->pc < 0x80154b4cu)
+        instruction = kOverlaySc02_80154B20Words[(cpu->pc - 0x80154b20u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80154b4cu && cpu->pc < 0x80154b7cu)
+        instruction = kOverlaySc02_80154B4CWords[(cpu->pc - 0x80154b4cu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80154b7cu && cpu->pc < 0x80154b98u)
+        instruction = kOverlaySc02_80154B7CWords[(cpu->pc - 0x80154b7cu)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80154b98u && cpu->pc < 0x80154bc8u)
+        instruction = kOverlaySc02_80154B98Words[(cpu->pc - 0x80154b98u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80154bc8u && cpu->pc < 0x80154be4u)
+        instruction = kOverlaySc02_80154BC8Words[(cpu->pc - 0x80154bc8u)/4u];
+    else if (g_overlay_sc02_0031_words &&
+             cpu->pc >= 0x80154be4u && cpu->pc < 0x80154c24u)
+        instruction = kOverlaySc02_80154BE4Words[(cpu->pc - 0x80154be4u)/4u];
     else if (g_overlay_sc02_0031_words &&
              cpu->pc >= 0x8016ee40u && cpu->pc < 0x8016ee94u)
         instruction = kOverlaySc02_8016EE40Words[(cpu->pc - 0x8016ee40u)/4u];
