@@ -128,8 +128,8 @@ carve the enclosing function from that member's image the same way.
 
 ## Gate status
 
-`tools/run_tests.sh` passes on `536e94e1a` (and on `21e91dd33` earlier the same
-day): **538 tests OK**, out-of-tree configure/build, **22/22 CTests** (including
+`tools/run_tests.sh` passes on `6b38fb9e4` (and on `536e94e1a` / `21e91dd33`
+earlier the same day): **538 tests OK**, out-of-tree configure/build, **22/22 CTests** (including
 `native_startup_boundary`), archive symbol checks and the smoke run all clean,
 script exit 0. The earlier aborted run is superseded; re-run it after any
 further formatter or CMake change, because those are the files this lane edits
