@@ -1,3 +1,11 @@
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x4884F000)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x4802F800)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
 #include "psx_types.h"
 
 /* GTE/cop2 mnemonic overlay: ordinary C cannot emit coprocessor ops.
@@ -16,3 +24,4 @@ __asm__(
     ".size func_80049440, .-func_80049440\n"
     ".set reorder\n"
 );
+#endif

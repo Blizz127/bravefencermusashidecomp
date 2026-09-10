@@ -33,6 +33,21 @@ static const uint32_t kMain80028A48Words[] = {
 static const uint32_t kMain80028C50Words[] = {
 #include "80028c50_words.inc"
 };
+static const uint32_t kMain80047EC8Words[] = {
+#include "80047ec8_words.inc"
+};
+static const uint32_t kMain80047E58Words[] = {
+#include "80047e58_words.inc"
+};
+static const uint32_t kMain80049440Words[] = {
+#include "80049440_words.inc"
+};
+static const uint32_t kMain800128ECWords[] = {
+#include "800128ec_words.inc"
+};
+static const uint32_t kMain80014070Words[] = {
+#include "80014070_words.inc"
+};
 static const uint32_t kMain800128B4Words[] = {
 #include "800128b4_words.inc"
 };
@@ -9783,6 +9798,16 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
         instruction = kMain80028A48Words[(cpu->pc - 0x80028a48u) / 4u];
     else if (cpu->pc >= 0x80028c50u && cpu->pc < 0x80028d58u)
         instruction = kMain80028C50Words[(cpu->pc - 0x80028c50u) / 4u];
+    else if (cpu->pc >= 0x80047ec8u && cpu->pc < 0x80047f84u)
+        instruction = kMain80047EC8Words[(cpu->pc - 0x80047ec8u) / 4u];
+    else if (cpu->pc >= 0x80047e58u && cpu->pc < 0x80047ec8u)
+        instruction = kMain80047E58Words[(cpu->pc - 0x80047e58u) / 4u];
+    else if (cpu->pc >= 0x80049440u && cpu->pc < 0x80049458u)
+        instruction = kMain80049440Words[(cpu->pc - 0x80049440u) / 4u];
+    else if (cpu->pc >= 0x800128ecu && cpu->pc < 0x800129ccu)
+        instruction = kMain800128ECWords[(cpu->pc - 0x800128ecu) / 4u];
+    else if (cpu->pc >= 0x80014070u && cpu->pc < 0x80014094u)
+        instruction = kMain80014070Words[(cpu->pc - 0x80014070u) / 4u];
     else if (cpu->pc >= 0x800128b4u && cpu->pc < 0x800128ecu)
         instruction = kMain800128B4Words[(cpu->pc - 0x800128b4u) / 4u];
     else if (cpu->pc >= 0x80013fe0u && cpu->pc < 0x80014004u)
@@ -16605,6 +16630,14 @@ static int gte_load_successor(uint8_t reg, uint32_t pc, uint32_t word) {
         {12, 0x80012690u, 0x480d5000u},
         {13, 0x80012694u, 0x480e5800u},
         {14, 0x80012698u, 0xa44c0000u}
+        ,{2, 0x80049450u, 0x03e00008u}
+        ,{11, 0x80047ee0u, 0x480cd000u}
+        ,{12, 0x80047ee4u, 0x480dd800u}
+        ,{13, 0x80047ee8u, 0x016c5820u}
+        ,{3, 0x80047f00u, 0x2401fffeu}
+        ,{8, 0x80047f68u, 0x4809d000u}
+        ,{9, 0x80047f6cu, 0x480ad800u}
+        ,{10, 0x80047f70u, 0x01c84007u}
     };
     unsigned i;
     for (i = 0; i < sizeof(successors)/sizeof(successors[0]); ++i)
@@ -16657,6 +16690,23 @@ static int gte_12558_site(uint32_t pc, uint32_t word, unsigned *slot) {
         {0x80012684u,0x4a49e012u,4},
         {0x8001268cu,0x480c4800u,1}, {0x80012690u,0x480d5000u,1},
         {0x80012694u,0x480e5800u,1}
+        ,{0x80047ec8u,0x48884800u,3u}
+        ,{0x80047eccu,0x48895000u,3u}
+        ,{0x80047ed0u,0x488a5800u,3u}
+        ,{0x80047ed8u,0x4aa00428u,4u}
+        ,{0x80047edcu,0x480bc800u,1u}
+        ,{0x80047ee0u,0x480cd000u,1u}
+        ,{0x80047ee4u,0x480dd800u,1u}
+        ,{0x80047ef0u,0x4882f000u,3u}
+        ,{0x80047efcu,0x4803f800u,1u}
+        ,{0x80047f48u,0x488d4000u,3u}
+        ,{0x80047f4cu,0x48884800u,3u}
+        ,{0x80047f50u,0x48895000u,3u}
+        ,{0x80047f54u,0x488a5800u,3u}
+        ,{0x80047f60u,0x4b90003du,4u}
+        ,{0x80047f64u,0x4808c800u,1u}
+        ,{0x80047f68u,0x4809d000u,1u}
+        ,{0x80047f6cu,0x480ad800u,1u}
     };
     unsigned i;
     for (i = 0; i < sizeof(sites)/sizeof(sites[0]); ++i)
@@ -16665,6 +16715,12 @@ static int gte_12558_site(uint32_t pc, uint32_t word, unsigned *slot) {
             return 1;
         }
     return 0;
+}
+
+/* True when the instruction is one of the library routine's COP2 commands. */
+static int gte_lib_command_site(uint32_t pc, uint32_t word) {
+    unsigned slot = 99;
+    return gte_12558_site(pc, word, &slot) && slot == 4u;
 }
 
 static int gte_48d9c_site(uint32_t pc, uint32_t word, unsigned *slot) {
@@ -16741,6 +16797,14 @@ static int gte_load_successor_pc(uint32_t pc) {
         0x80012608u, 0x8001260cu, 0x80012610u,
         0x8001264cu, 0x80012650u, 0x80012654u,
         0x80012690u, 0x80012694u, 0x80012698u
+        ,0x80049450u
+        ,0x80047ee0u
+        ,0x80047ee4u
+        ,0x80047ee8u
+        ,0x80047f00u
+        ,0x80047f68u
+        ,0x80047f6cu
+        ,0x80047f70u
     };
     unsigned i;
     for (i = 0; i < sizeof(pcs)/sizeof(pcs[0]); ++i)
@@ -17058,12 +17122,18 @@ static int formatter_step(MusashiBootMemory *memory, FormatterCpu *cpu) {
                      cpu->cpu_transfer->read_control != NULL :
                  (cpu->pc == 0x80049468u && instruction == 0x4a480012u) &&
                      cpu->cpu_transfer->command != NULL);
+            /* func_80049440 is the same GTE special-register leaf reached from
+             * func_800128EC (RA 0x80012930); admitted by exact PC/word. */
             leaf = !cpu->gte_load_pending &&
-                gte_47d3c_caller(cpu->r[31]) &&
+                (((cpu->pc == 0x80049440u && instruction == 0x4884f000u &&
+                   cpu->cpu_transfer->write_data != NULL) ||
+                  (cpu->pc == 0x8004944cu && instruction == 0x4802f800u &&
+                   cpu->cpu_transfer->read_data != NULL)) ||
+                 (gte_47d3c_caller(cpu->r[31]) &&
                 ((cpu->pc == 0x80047d3cu && instruction == 0x4884f000u &&
                   cpu->cpu_transfer->write_data) ||
                  (cpu->pc == 0x80047d48u && instruction == 0x4802f800u &&
-                  cpu->cpu_transfer->read_data));
+                  cpu->cpu_transfer->read_data))));
             camera = gte_48d9c_caller(cpu->r[31]) &&
                 gte_48d9c_site(cpu->pc, instruction, &slot) &&
                 (slot == 0 ? cpu->cpu_transfer->write_data != NULL :
@@ -17359,7 +17429,9 @@ static int formatter_step(MusashiBootMemory *memory, FormatterCpu *cpu) {
                                                 &context, rd, &scheduled_gte_load)) goto gte_transfer_refused;
             schedule_gte_load = 1;
         } else if (rs == 18u ||
-                   (cpu->pc == 0x80133ffcu && (instruction & 0x02000000u) != 0u)) {
+                   (cpu->pc == 0x80133ffcu && (instruction & 0x02000000u) != 0u) ||
+                   ((instruction & 0x02000000u) != 0u &&
+                    gte_lib_command_site(cpu->pc, instruction))) {
             /* Admitted MVMVA sites run the shared operator synchronously, no load
              * delay since later MFC2 reads observe the live bank. The SC02 SQR
              * site has CO set but rs=21, so the COP2 command bit decides there;
