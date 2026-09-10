@@ -69,9 +69,28 @@ image** and the guard has no mismatch to report.
 The walk then continues: `func_801612B8` (21/21) and `func_80133784`
 (203/203, donor register pins retargeted to this member's boxes and counters)
 were carved from the resident image as the next leaves, and the run now clears
-the SC02 path entirely. It stops at `pc=80047d3c` in the main executable on an
-unsupported GTE move (`mtc2 $a0, $30`) called from `func_80133784`, which is a
-device-layer gap rather than a carve gap — the next port task.
+the SC02 path entirely. The stops after that were all device-layer gaps, each
+closed with exact retail evidence:
+
+- `80047d3c` — `func_80133784` returns here, so its return alias joins the
+  audited `gte_47d3c_caller` list.
+- `80133da0` — DIV sites are now admitted when the image carries GCC's
+  canonical divide-by-zero guard (`BNE divisor,$zero` to the instruction after
+  `BREAK 7` with a NOP between); a DIV without the guard is still refused.
+- `80133fe8`/`80133fec`/`80133ff0`, `80133ffc`, `8013400c`/`10`/`14` —
+  `func_80133CD4`'s vector transform: LWC2 data 9-11, the SQR command, SWC2
+  data 25-27. Its own `0x80133FB0` jal clobbers RA, so these are admitted by
+  exact PC/word/rt; commands now dispatch on the COP2 command bit rather than
+  `rs==18`, which is only MVMVA's own encoding.
+- `8014f5d4` — 396 LWL/LWR/SWL/SWR sites inside carved ranges were missing
+  from `merge_kind_for`; they are now listed with the resident image's exact
+  words, and the first pair executes.
+
+Current stop: `pc=8014f5dc`, the pending-LWR successor policy in
+`merge_pending_matches` — interleaved pairs (`LWL v0, LWR v0, LWL v1, LWR v1,
+SWL v0, SWR v0, ...`) need the same kind of audited table the
+`8013d5fc…8013d680` copy already has. `func_80133AB0` (137/137) was carved on
+the way.
 No decomp claim is withdrawn for MAIN member 0012 — those registry entries were
 verified against member 0012 and remain valid there; only their SC02_031
 retargeting was built from the wrong image.
