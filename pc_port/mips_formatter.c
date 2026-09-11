@@ -19,6 +19,9 @@ static const uint32_t kMain80017E68Words[] = {
 static const uint32_t kMain80017E8CWords[] = {
 #include "80017e8c_words.inc"
 };
+static const uint32_t kMain80018094Words[] = {
+#include "80018094_words.inc"
+};
 static const uint32_t kMain80048384Words[] = {
 #include "80048384_words.inc"
 };
@@ -33,6 +36,12 @@ static const uint32_t kOverlay0010_800CEFD0Words[] = {
 };
 static const uint32_t kOverlay0010_800D20C0Words[] = {
 #include "800d20c0_overlay0010_words.inc"
+};
+static const uint32_t kOverlay0010_800D21C4Words[] = {
+#include "800d21c4_overlay0010_words.inc"
+};
+static const uint32_t kOverlay0010_800D22E4Words[] = {
+#include "800d22e4_overlay0010_words.inc"
 };
 static const uint32_t kOverlay0010_800D23D0Words[] = {
 #include "800d23d0_overlay0010_words.inc"
@@ -300,6 +309,9 @@ static const uint32_t kMain8002F4E4Words[] = {
 };
 static const uint32_t kMain8002F714Words[] = {
 #include "8002f714_words.inc"
+};
+static const uint32_t kMain8002FA3CWords[] = {
+#include "8002fa3c_words.inc"
 };
 static const uint32_t kMain80031B7CWords[] = {
 #include "80031b7c_words.inc"
@@ -955,6 +967,9 @@ _Static_assert(sizeof(kOverlay0010_800D1984Words) / sizeof(uint32_t) == 22,
 static const uint32_t kOverlay0010_800D1F58Words[] = {
 #include "800d1f58_overlay0010_words.inc"
 };
+static const uint32_t kOverlay0010_800D1FC8Words[] = {
+#include "800d1fc8_overlay0010_words.inc"
+};
 _Static_assert(sizeof(kOverlay0010_800D1F58Words) / sizeof(uint32_t) == 14,
                "overlay 0010 800D1F58 source span changed");
 static const uint32_t kOverlay0010_800D02C0Words[] = {
@@ -1035,11 +1050,20 @@ static const uint32_t kOverlaySc02_80165A18Words[] = {
 static const uint32_t kOverlaySc02_801627C0Words[] = {
 #include "801627c0_sc02_0031_words.inc"
 };
+static const uint32_t kOverlaySc02_801627E8Words[] = {
+#include "801627e8_sc02_0031_words.inc"
+};
 static const uint32_t kOverlaySc02_80162AF4Words[] = {
 #include "80162af4_sc02_0031_words.inc"
 };
+static const uint32_t kOverlaySc02_80162B1CWords[] = {
+#include "80162b1c_sc02_0031_words.inc"
+};
 static const uint32_t kOverlaySc02_80165C78Words[] = {
 #include "80165c78_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80165CA0Words[] = {
+#include "80165ca0_sc02_0031_words.inc"
 };
 static const uint32_t kOverlaySc02_801468C8Words[] = {
 #include "801468c8_sc02_0031_words.inc"
@@ -1212,6 +1236,9 @@ static const uint32_t kOverlaySc02_80128CFCWords[] = {
 static const uint32_t kOverlaySc02_80128FACWords[] = {
 #include "80128fac_sc02_0031_words.inc"
 };
+static const uint32_t kOverlaySc02_80129010Words[] = {
+#include "80129010_sc02_0031_words.inc"
+};
 static const uint32_t kOverlaySc02_8012DB84Words[] = {
 #include "8012db84_sc02_0031_words.inc"
 };
@@ -1253,6 +1280,9 @@ static const uint32_t kOverlaySc02_80161C24Words[] = {
 };
 static const uint32_t kOverlaySc02_8013C9C4Words[] = {
 #include "8013c9c4_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8013CA14Words[] = {
+#include "8013ca14_sc02_0031_words.inc"
 };
 static const uint32_t kOverlaySc02_8013D330Words[] = {
 #include "8013d330_sc02_0031_words.inc"
@@ -1692,6 +1722,9 @@ static const uint32_t kOverlaySc02_80162834Words[] = {
 static const uint32_t kOverlaySc02_80162870Words[] = {
 #include "80162870_sc02_0031_words.inc"
 };
+static const uint32_t kOverlaySc02_80162968Words[] = {
+#include "80162968_sc02_0031_words.inc"
+};
 static const uint32_t kOverlaySc02_80163A58Words[] = {
 #include "80163a58_sc02_0031_words.inc"
 };
@@ -1730,6 +1763,9 @@ static const uint32_t kOverlaySc02_80165B28Words[] = {
 };
 static const uint32_t kOverlaySc02_80166018Words[] = {
 #include "80166018_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80166054Words[] = {
+#include "80166054_sc02_0031_words.inc"
 };
 static const uint32_t kOverlaySc02_801663FCWords[] = {
 #include "801663fc_sc02_0031_words.inc"
@@ -1989,6 +2025,9 @@ static const uint32_t kOverlaySc02_8017553CWords[] = {
 static const uint32_t kOverlaySc02_80175690Words[] = {
 #include "80175690_sc02_0031_words.inc"
 };
+static const uint32_t kOverlaySc02_80175798Words[] = {
+#include "80175798_sc02_0031_words.inc"
+};
 static const uint32_t kOverlaySc02_8017BE60Words[] = {
 #include "8017be60_sc02_0031_words.inc"
 };
@@ -2027,6 +2066,9 @@ static const uint32_t kOverlaySc02_80128D60Words[] = {
 };
 static const uint32_t kOverlaySc02_80128EA8Words[] = {
 #include "80128ea8_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80128ED8Words[] = {
+#include "80128ed8_sc02_0031_words.inc"
 };
 static const uint32_t kOverlaySc02_801290DCWords[] = {
 #include "801290dc_sc02_0031_words.inc"
@@ -5061,6 +5103,12 @@ static const uint32_t kOverlaySc02_8017F24CWords[] = {
 static const uint32_t kOverlaySc02_8017F3C0Words[] = {
 #include "8017f3c0_sc02_0031_words.inc"
 };
+static const uint32_t kOverlaySc02_8017F590Words[] = {
+#include "8017f590_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8017F5B4Words[] = {
+#include "8017f5b4_sc02_0031_words.inc"
+};
 static const uint32_t kOverlaySc02_8017C2B0Words[] = {
 #include "8017c2b0_sc02_0031_words.inc"
 };
@@ -5748,8 +5796,14 @@ static const uint32_t kOverlaySc02_8012853CWords[] = {
 static const uint32_t kOverlaySc02_80175494Words[] = {
 #include "80175494_sc02_0031_words.inc"
 };
+static const uint32_t kOverlaySc02_801754A8Words[] = {
+#include "801754a8_sc02_0031_words.inc"
+};
 static const uint32_t kOverlaySc02_8016E8F0Words[] = {
 #include "8016e8f0_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8016E95CWords[] = {
+#include "8016e95c_sc02_0031_words.inc"
 };
 static const uint32_t kOverlaySc02_80178004Words[] = {
 #include "80178004_sc02_0031_words.inc"
@@ -5825,6 +5879,9 @@ static const uint32_t kOverlaySc02_801336E8Words[] = {
 };
 static const uint32_t kOverlaySc02_8012944CWords[] = {
 #include "8012944c_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8012956CWords[] = {
+#include "8012956c_sc02_0031_words.inc"
 };
 static const uint32_t kOverlaySc02_80129398Words[] = {
 #include "80129398_sc02_0031_words.inc"
@@ -7092,6 +7149,9 @@ static const uint32_t kMain80059A80Words[] = {
 static const uint32_t kMain80019018Words[] = {
 #include "80019018_words.inc"
 };
+static const uint32_t kMain800190ACWords[] = {
+#include "800190ac_words.inc"
+};
 static const uint32_t kMain80018E78Words[] = {
 #include "80018e78_words.inc"
 };
@@ -7142,6 +7202,9 @@ static const uint32_t kMain8004914CWords[] = {
 };
 static const uint32_t kMain800491ACWords[] = {
 #include "800491ac_words.inc"
+};
+static const uint32_t kMain800491ECWords[] = {
+#include "800491ec_words.inc"
 };
 static const uint32_t kMain8004945CWords[] = {
 #include "8004945c_words.inc"
@@ -7275,6 +7338,9 @@ static const uint32_t kMain8001D388Words[] = {
 static const uint32_t kMain80015908Words[] = {
 #include "80015908_words.inc"
 };
+static const uint32_t kMain80015954Words[] = {
+#include "80015954_words.inc"
+};
 static const uint32_t kMain80015A74Words[] = {
 #include "80015a74_words.inc"
 };
@@ -7283,6 +7349,9 @@ static const uint32_t kMain8005B75CWords[] = {
 };
 static const uint32_t kMain80058B7CWords[] = {
 #include "80058b7c_words.inc"
+};
+static const uint32_t kMain80058C6CWords[] = {
+#include "80058c6c_words.inc"
 };
 static const uint32_t kMain8005E8E8Words[] = {
 #include "8005e8e8_words.inc"
@@ -10500,6 +10569,8 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
         instruction = kMain8002F4E4Words[(cpu->pc - 0x8002f4e4u) / 4u];
     else if (cpu->pc >= 0x8002f714u && cpu->pc < 0x8002f80cu)
         instruction = kMain8002F714Words[(cpu->pc - 0x8002f714u) / 4u];
+    else if (cpu->pc >= 0x8002fa3cu && cpu->pc < 0x8002fae0u)
+        instruction = kMain8002FA3CWords[(cpu->pc - 0x8002fa3cu) / 4u];
     else if (cpu->pc >= 0x80031b7cu && cpu->pc < 0x80031be0u)
         instruction = kMain80031B7CWords[(cpu->pc - 0x80031b7cu) / 4u];
     else if (cpu->pc >= 0x80031cc8u && cpu->pc < 0x80031d70u)
@@ -10834,6 +10905,8 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
         instruction = kMain80059A80Words[(cpu->pc - 0x80059a80u)/4u];
     else if (cpu->pc >= 0x80019018u && cpu->pc < 0x80019028u)
         instruction = kMain80019018Words[(cpu->pc - 0x80019018u)/4u];
+    else if (cpu->pc >= 0x800190acu && cpu->pc < 0x80019198u)
+        instruction = kMain800190ACWords[(cpu->pc - 0x800190acu) / 4u];
     else if (cpu->pc >= 0x80018e78u && cpu->pc < 0x80018e9cu)
         instruction = kMain80018E78Words[(cpu->pc - 0x80018e78u)/4u];
     else if (cpu->pc >= 0x8002ab64u && cpu->pc < 0x8002ac00u)
@@ -10872,6 +10945,8 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
         instruction = kMain8004914CWords[(cpu->pc - 0x8004914cu)/4u];
     else if (cpu->pc >= 0x800491acu && cpu->pc < 0x800491ccu)
         instruction = kMain800491ACWords[(cpu->pc - 0x800491acu)/4u];
+    else if (cpu->pc >= 0x800491ecu && cpu->pc < 0x800491f8u)
+        instruction = kMain800491ECWords[(cpu->pc - 0x800491ecu) / 4u];
     else if (cpu->pc >= 0x8004945cu && cpu->pc < 0x8004948cu)
         instruction = kMain8004945CWords[(cpu->pc - 0x8004945cu)/4u];
     else if (cpu->pc >= 0x80011e84u && cpu->pc < 0x80011eb4u)
@@ -10960,12 +11035,16 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
         instruction = kMain8001D388Words[(cpu->pc - 0x8001d388u) / 4u];
     else if (cpu->pc >= 0x80015908u && cpu->pc < 0x80015954u)
         instruction = kMain80015908Words[(cpu->pc - 0x80015908u) / 4u];
+    else if (cpu->pc >= 0x80015954u && cpu->pc < 0x80015978u)
+        instruction = kMain80015954Words[(cpu->pc - 0x80015954u) / 4u];
     else if (cpu->pc >= 0x80015a74u && cpu->pc < 0x80015ad0u)
         instruction = kMain80015A74Words[(cpu->pc - 0x80015a74u) / 4u];
     else if (cpu->pc >= 0x8005b75cu && cpu->pc < 0x8005b7b0u)
         instruction = kMain8005B75CWords[(cpu->pc - 0x8005b75cu) / 4u];
     else if (cpu->pc >= 0x80058b7cu && cpu->pc < 0x80058c6cu)
         instruction = kMain80058B7CWords[(cpu->pc - 0x80058b7cu) / 4u];
+    else if (cpu->pc >= 0x80058c6cu && cpu->pc < 0x80058ca8u)
+        instruction = kMain80058C6CWords[(cpu->pc - 0x80058c6cu) / 4u];
     else if (cpu->pc >= 0x8005e8e8u && cpu->pc < 0x8005ea34u)
         instruction = kMain8005E8E8Words[(cpu->pc - 0x8005e8e8u) / 4u];
     else if (cpu->pc >= 0x8004974cu && cpu->pc < 0x8004978cu)
@@ -11892,6 +11971,9 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
         instruction = kOverlay0010_800D1984Words[(cpu->pc - 0x800d1984u)/4u];
     else if (g_overlay_0010_words && cpu->pc >= 0x800d1f58u && cpu->pc < 0x800d1f90u)
         instruction = kOverlay0010_800D1F58Words[(cpu->pc - 0x800d1f58u)/4u];
+    else if (g_overlay_0010_words &&
+             cpu->pc >= 0x800d1fc8u && cpu->pc < 0x800d20c0u)
+        instruction = kOverlay0010_800D1FC8Words[(cpu->pc - 0x800d1fc8u)/4u];
     else if (g_overlay_0010_words && cpu->pc >= 0x800d02c0u && cpu->pc < 0x800d02d0u)
         instruction = kOverlay0010_800D02C0Words[(cpu->pc - 0x800d02c0u)/4u];
     else if (g_overlay_0010_words &&
@@ -12266,12 +12348,18 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
     else if (g_overlay_sc02_0031_words &&
              cpu->pc >= 0x801627c0u && cpu->pc < 0x801627e8u)
         instruction = kOverlaySc02_801627C0Words[(cpu->pc - 0x801627c0u)/4u];
+    else if (cpu->pc >= 0x801627e8u && cpu->pc < 0x80162834u)
+        instruction = kOverlaySc02_801627E8Words[(cpu->pc - 0x801627e8u)/4u];
     else if (g_overlay_sc02_0031_words &&
              cpu->pc >= 0x80162af4u && cpu->pc < 0x80162b1cu)
         instruction = kOverlaySc02_80162AF4Words[(cpu->pc - 0x80162af4u)/4u];
+    else if (cpu->pc >= 0x80162b1cu && cpu->pc < 0x80162cc4u)
+        instruction = kOverlaySc02_80162B1CWords[(cpu->pc - 0x80162b1cu)/4u];
     else if (g_overlay_sc02_0031_words &&
              cpu->pc >= 0x80165c78u && cpu->pc < 0x80165ca0u)
         instruction = kOverlaySc02_80165C78Words[(cpu->pc - 0x80165c78u)/4u];
+    else if (cpu->pc >= 0x80165ca0u && cpu->pc < 0x80165e2cu)
+        instruction = kOverlaySc02_80165CA0Words[(cpu->pc - 0x80165ca0u)/4u];
     else if (g_overlay_sc02_0031_words &&
              cpu->pc >= 0x801468c8u && cpu->pc < 0x80146924u)
         instruction = kOverlaySc02_801468C8Words[(cpu->pc - 0x801468c8u)/4u];
@@ -12663,6 +12751,8 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
     else if (g_overlay_sc02_0031_words &&
              cpu->pc >= 0x80128facu && cpu->pc < 0x80129010u)
         instruction = kOverlaySc02_80128FACWords[(cpu->pc - 0x80128facu)/4u];
+    else if (cpu->pc >= 0x80129010u && cpu->pc < 0x801290dcu)
+        instruction = kOverlaySc02_80129010Words[(cpu->pc - 0x80129010u)/4u];
     else if (g_overlay_sc02_0031_words &&
              cpu->pc >= 0x8012db84u && cpu->pc < 0x8012dbd0u)
         instruction = kOverlaySc02_8012DB84Words[(cpu->pc - 0x8012db84u)/4u];
@@ -12705,6 +12795,8 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
     else if (g_overlay_sc02_0031_words &&
              cpu->pc >= 0x8013c9c4u && cpu->pc < 0x8013ca14u)
         instruction = kOverlaySc02_8013C9C4Words[(cpu->pc - 0x8013c9c4u)/4u];
+    else if (cpu->pc >= 0x8013ca14u && cpu->pc < 0x8013cabcu)
+        instruction = kOverlaySc02_8013CA14Words[(cpu->pc - 0x8013ca14u)/4u];
     else if (g_overlay_sc02_0031_words &&
              cpu->pc >= 0x8013d330u && cpu->pc < 0x8013d3d4u)
         instruction = kOverlaySc02_8013D330Words[(cpu->pc - 0x8013d330u)/4u];
@@ -13143,6 +13235,8 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
     else if (g_overlay_sc02_0031_words &&
              cpu->pc >= 0x80162870u && cpu->pc < 0x801628f4u)
         instruction = kOverlaySc02_80162870Words[(cpu->pc - 0x80162870u)/4u];
+    else if (cpu->pc >= 0x80162968u && cpu->pc < 0x80162ac0u)
+        instruction = kOverlaySc02_80162968Words[(cpu->pc - 0x80162968u)/4u];
     else if (g_overlay_sc02_0031_words &&
              cpu->pc >= 0x80163a58u && cpu->pc < 0x80163a94u)
         instruction = kOverlaySc02_80163A58Words[(cpu->pc - 0x80163a58u)/4u];
@@ -13182,6 +13276,8 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
     else if (g_overlay_sc02_0031_words &&
              cpu->pc >= 0x80166018u && cpu->pc < 0x80166054u)
         instruction = kOverlaySc02_80166018Words[(cpu->pc - 0x80166018u)/4u];
+    else if (cpu->pc >= 0x80166054u && cpu->pc < 0x801661ccu)
+        instruction = kOverlaySc02_80166054Words[(cpu->pc - 0x80166054u)/4u];
     else if (g_overlay_sc02_0031_words &&
              cpu->pc >= 0x801663fcu && cpu->pc < 0x80166438u)
         instruction = kOverlaySc02_801663FCWords[(cpu->pc - 0x801663fcu)/4u];
@@ -13440,6 +13536,8 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
     else if (g_overlay_sc02_0031_words &&
              cpu->pc >= 0x80175690u && cpu->pc < 0x801756e4u)
         instruction = kOverlaySc02_80175690Words[(cpu->pc - 0x80175690u)/4u];
+    else if (cpu->pc >= 0x80175798u && cpu->pc < 0x801757a0u)
+        instruction = kOverlaySc02_80175798Words[(cpu->pc - 0x80175798u)/4u];
     else if (g_overlay_sc02_0031_words &&
              cpu->pc >= 0x8017be60u && cpu->pc < 0x8017be9cu)
         instruction = kOverlaySc02_8017BE60Words[(cpu->pc - 0x8017be60u)/4u];
@@ -13479,6 +13577,8 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
     else if (g_overlay_sc02_0031_words &&
              cpu->pc >= 0x80128ea8u && cpu->pc < 0x80128ed8u)
         instruction = kOverlaySc02_80128EA8Words[(cpu->pc - 0x80128ea8u)/4u];
+    else if (cpu->pc >= 0x80128ed8u && cpu->pc < 0x80128facu)
+        instruction = kOverlaySc02_80128ED8Words[(cpu->pc - 0x80128ed8u)/4u];
     else if (g_overlay_sc02_0031_words &&
              cpu->pc >= 0x801290dcu && cpu->pc < 0x8012913cu)
         instruction = kOverlaySc02_801290DCWords[(cpu->pc - 0x801290dcu)/4u];
@@ -16462,6 +16562,10 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
         instruction = kOverlaySc02_8017F24CWords[(cpu->pc - 0x8017f24cu)/4u];
     else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8017f3c0u && cpu->pc < 0x8017f400u)
         instruction = kOverlaySc02_8017F3C0Words[(cpu->pc - 0x8017f3c0u)/4u];
+    else if (cpu->pc >= 0x8017f590u && cpu->pc < 0x8017f5b4u)
+        instruction = kOverlaySc02_8017F590Words[(cpu->pc - 0x8017f590u)/4u];
+    else if (cpu->pc >= 0x8017f5b4u && cpu->pc < 0x80180d50u)
+        instruction = kOverlaySc02_8017F5B4Words[(cpu->pc - 0x8017f5b4u)/4u];
     else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8017c2b0u && cpu->pc < 0x8017c63cu)
         instruction = kOverlaySc02_8017C2B0Words[(cpu->pc - 0x8017c2b0u)/4u];
     else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8017c63cu && cpu->pc < 0x8017c8b4u)
@@ -16916,8 +17020,12 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
         instruction = kOverlaySc02_8012853CWords[(cpu->pc - 0x8012853cu)/4u];
     else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80175494u && cpu->pc < 0x801754a8u)
         instruction = kOverlaySc02_80175494Words[(cpu->pc - 0x80175494u)/4u];
+    else if (cpu->pc >= 0x801754a8u && cpu->pc < 0x8017553cu)
+        instruction = kOverlaySc02_801754A8Words[(cpu->pc - 0x801754a8u)/4u];
     else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8016e8f0u && cpu->pc < 0x8016e918u)
         instruction = kOverlaySc02_8016E8F0Words[(cpu->pc - 0x8016e8f0u)/4u];
+    else if (cpu->pc >= 0x8016e95cu && cpu->pc < 0x8016e9ecu)
+        instruction = kOverlaySc02_8016E95CWords[(cpu->pc - 0x8016e95cu)/4u];
     else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80178004u && cpu->pc < 0x80178298u)
         instruction = kOverlaySc02_80178004Words[(cpu->pc - 0x80178004u)/4u];
     else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80176144u && cpu->pc < 0x80176218u)
@@ -16968,6 +17076,8 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
         instruction = kOverlaySc02_801336E8Words[(cpu->pc - 0x801336e8u)/4u];
     else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8012944cu && cpu->pc < 0x8012956cu)
         instruction = kOverlaySc02_8012944CWords[(cpu->pc - 0x8012944cu)/4u];
+    else if (cpu->pc >= 0x8012956cu && cpu->pc < 0x801298f4u)
+        instruction = kOverlaySc02_8012956CWords[(cpu->pc - 0x8012956cu)/4u];
     else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80129398u && cpu->pc < 0x80129428u)
         instruction = kOverlaySc02_80129398Words[(cpu->pc - 0x80129398u)/4u];
     else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8012f14cu && cpu->pc < 0x8012f1a4u)
@@ -17125,6 +17235,8 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
         instruction = kMain80017E68Words[(cpu->pc - 0x80017e68u)/4u];
     else if (cpu->pc >= 0x80017e8cu && cpu->pc < 0x80017f14u)
         instruction = kMain80017E8CWords[(cpu->pc - 0x80017e8cu)/4u];
+    else if (cpu->pc >= 0x80018094u && cpu->pc < 0x80018194u)
+        instruction = kMain80018094Words[(cpu->pc - 0x80018094u) / 4u];
     else if (cpu->pc >= 0x80048384u && cpu->pc < 0x800484ecu)
         instruction = kMain80048384Words[(cpu->pc - 0x80048384u)/4u];
     else if (cpu->pc >= 0x80049610u && cpu->pc < 0x80049694u)
@@ -17137,6 +17249,12 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
     else if (g_overlay_0010_words &&
              cpu->pc >= 0x800d20c0u && cpu->pc < 0x800d21c4u)
         instruction = kOverlay0010_800D20C0Words[(cpu->pc - 0x800d20c0u)/4u];
+    else if (g_overlay_0010_words &&
+             cpu->pc >= 0x800d21c4u && cpu->pc < 0x800d222cu)
+        instruction = kOverlay0010_800D21C4Words[(cpu->pc - 0x800d21c4u)/4u];
+    else if (g_overlay_0010_words &&
+             cpu->pc >= 0x800d22e4u && cpu->pc < 0x800d2318u)
+        instruction = kOverlay0010_800D22E4Words[(cpu->pc - 0x800d22e4u)/4u];
     else if (g_overlay_0010_words &&
              cpu->pc >= 0x800d23d0u && cpu->pc < 0x800d2460u)
         instruction = kOverlay0010_800D23D0Words[(cpu->pc - 0x800d23d0u)/4u];
@@ -17413,6 +17531,12 @@ static int gte_load_successor(uint8_t reg, uint32_t pc, uint32_t word) {
         ,{2, 0x80049684u, 0x01034025u}
         ,{19, 0x80182f74u, 0x1443000au}
         ,{19, 0x80182f74u, 0x44415749u}
+        ,{2, 0x800491f0u, 0x03e00008u}
+        ,{12, 0x8017f8c4u, 0x00000000u}
+        ,{12, 0x8017f8c4u, 0x01a00260u}
+        ,{12, 0x8017fc34u, 0x00000000u}
+        ,{12, 0x8017fc34u, 0x000000c2u}
+        ,{12, 0x80180484u, 0x00000000u}
     };
     unsigned i;
     for (i = 0; i < sizeof(successors)/sizeof(successors[0]); ++i)
@@ -17678,6 +17802,9 @@ static int gte_exported_srav_site(uint32_t pc, uint32_t word) {
         {0x800d25b8u, 0x00000ec7u},
         {0x800d34d8u, 0x00061087u},
         {0x8017e614u, 0x00000047u},
+        {0x8017ff74u, 0x00003087u},
+        {0x801802b8u, 0x00000007u},
+        {0x80180524u, 0x00070007u},
         {0x80181778u, 0x00003087u},
         {0x80181bbcu, 0x00000007u},
         {0x80181c0cu, 0x00000007u},
@@ -17858,7 +17985,8 @@ static int gte_4864c_caller(uint32_t ra) {
  * name. Every entry is an exact (pc, word) pair from the retail image for that
  * pc with the transfer binding the slot requires; the live-word check in
  * formatter_fetch already proves the fetched word is the one the guest loaded.
- * Slots: 0 = control write, 1 = data read, 3 = data write, 4 = command. */
+ * Slots: 0 = control write (CTC2), 1 = data read (MFC2), 3 = data write
+ * (MTC2), 4 = command, 5 = control read (CFC2). */
 static int gte_bank_site(uint32_t pc, uint32_t word, unsigned *slot) {
     static const struct { uint32_t pc, word; uint8_t slot; } sites[] = {
         {0x80047ce8u,0x48c8e800u,0u},
@@ -17914,6 +18042,7 @@ static int gte_bank_site(uint32_t pc, uint32_t word, unsigned *slot) {
         {0x800491b8u,0x48c82800u,0u},
         {0x800491bcu,0x48c93000u,0u},
         {0x800491c0u,0x48ca3800u,0u},
+        {0x800491ecu,0x4842d000u,5u},
         {0x80049208u,0x48c46800u,0u},
         {0x8004920cu,0x48c57000u,0u},
         {0x80049210u,0x48c67800u,0u},
@@ -17921,9 +18050,9 @@ static int gte_bank_site(uint32_t pc, uint32_t word, unsigned *slot) {
         {0x80049228u,0x48c5c800u,0u},
         {0x8004923cu,0x48c4d000u,0u},
         {0x80049638u,0x4a280030u,4u},
-        {0x80049654u,0x4843f800u,1u},
+        {0x80049654u,0x4843f800u,5u},
         {0x80049664u,0x4a180001u,4u},
-        {0x8004967cu,0x4848f800u,1u},
+        {0x8004967cu,0x4848f800u,5u},
         {0x80049680u,0x48029800u,1u},
         {0x800538d0u,0x48c88000u,0u},
         {0x800538d4u,0x48c98800u,0u},
@@ -17996,7 +18125,7 @@ static int gte_bank_site(uint32_t pc, uint32_t word, unsigned *slot) {
         {0x8012effcu,0x48cd3000u,0u},
         {0x8012f000u,0x48ce3800u,0u},
         {0x8012f014u,0x4a180001u,4u},
-        {0x8012f01cu,0x484cf800u,1u},
+        {0x8012f01cu,0x484cf800u,5u},
         {0x80132a24u,0x48cc0000u,0u},
         {0x80132a28u,0x48cd0800u,0u},
         {0x80132a38u,0x48cc1000u,0u},
@@ -18068,7 +18197,7 @@ static int gte_bank_site(uint32_t pc, uint32_t word, unsigned *slot) {
         {0x80133130u,0x48cd1800u,0u},
         {0x80133134u,0x48ce2000u,0u},
         {0x80133148u,0x4a480012u,4u},
-        {0x80133160u,0x484cf800u,1u},
+        {0x80133160u,0x484cf800u,5u},
         {0x8013aa98u,0x48cc0000u,0u},
         {0x8013aa9cu,0x48cd0800u,0u},
         {0x8013aaacu,0x48cc1000u,0u},
@@ -18094,8 +18223,18 @@ static int gte_bank_site(uint32_t pc, uint32_t word, unsigned *slot) {
         {0x8013e158u,0x4aa80428u,4u},
         {0x8013e1f0u,0x4aa80428u,4u},
         {0x8013e320u,0x4aa00428u,4u},
+        {0x8017f820u,0x4a280030u,4u},
+        {0x8017f850u,0x4a180001u,4u},
+        {0x8017f880u,0x4a280030u,4u},
+        {0x8017f8b0u,0x4a180001u,4u},
+        {0x8017f8c0u,0x480c9800u,1u},
+        {0x8017fc28u,0x4a280030u,4u},
+        {0x8017fc30u,0x484cf800u,5u},
+        {0x8017fc5cu,0x4b400006u,4u},
+        {0x801803a8u,0x4a180001u,4u},
+        {0x80180480u,0x484cf800u,5u},
         {0x801814dcu,0x49816f82u,1u},
-        {0x80182f70u,0x4853494bu,1u},
+        {0x80182f70u,0x4853494bu,5u},
         {0x80183e14u,0x4aa00428u,4u},
         {0x80183e74u,0x48814881u,3u},
         {0x80183e78u,0x48814881u,3u},
@@ -18185,6 +18324,32 @@ static int lwc2_site(uint32_t pc, uint32_t word) {
         {0x8013e30cu,0xcba90000u},
         {0x8013e310u,0xcbaa0004u},
         {0x8013e314u,0xcbab0008u},
+        {0x8017f800u,0xc8400000u},
+        {0x8017f804u,0xc8410004u},
+        {0x8017f808u,0xc8420008u},
+        {0x8017f80cu,0xc843000cu},
+        {0x8017f810u,0xc8440010u},
+        {0x8017f814u,0xc8450014u},
+        {0x8017f840u,0xc8400000u},
+        {0x8017f844u,0xc8410004u},
+        {0x8017f860u,0xc8400000u},
+        {0x8017f864u,0xc8410004u},
+        {0x8017f868u,0xc8420008u},
+        {0x8017f86cu,0xc843000cu},
+        {0x8017f870u,0xc8440010u},
+        {0x8017f874u,0xc8450014u},
+        {0x8017f8a0u,0xc8400000u},
+        {0x8017f8a4u,0xc8410004u},
+        {0x8017fc08u,0xc9c00000u},
+        {0x8017fc0cu,0xc9c10004u},
+        {0x8017fc10u,0xca020000u},
+        {0x8017fc14u,0xca030004u},
+        {0x8017fc18u,0xca440000u},
+        {0x8017fc1cu,0xca450004u},
+        {0x80180398u,0xca600000u},
+        {0x8018039cu,0xca610004u},
+        {0x80180ca0u,0xca00fdcau},
+        {0x80180cc0u,0xca00fdcau},
         {0x80183e00u,0xc8490000u},
         {0x80183e04u,0xc84a0004u},
         {0x80183e08u,0xc84b0008u},
@@ -18260,6 +18425,32 @@ static int swc2_site(uint32_t pc, uint32_t word) {
         {0x8013e328u,0xe8590000u},
         {0x8013e32cu,0xe85a0004u},
         {0x8013e330u,0xe85b0008u},
+        {0x8017f830u,0xe88c0000u},
+        {0x8017f834u,0xe86d0000u},
+        {0x8017f838u,0xe84e0000u},
+        {0x8017f858u,0xe84e0000u},
+        {0x8017f890u,0xe88c0000u},
+        {0x8017f894u,0xe86d0000u},
+        {0x8017f898u,0xe84e0000u},
+        {0x8017f8b8u,0xe84e0000u},
+        {0x8017fc70u,0xe8580000u},
+        {0x8017fca8u,0xe84c0000u},
+        {0x8017fcacu,0xe84d0004u},
+        {0x8017fcb0u,0xe84e0008u},
+        {0x8017fcc0u,0xe8910000u},
+        {0x8017fcc4u,0xe8720000u},
+        {0x8017fcc8u,0xe8530000u},
+        {0x8018038cu,0xe84c0000u},
+        {0x80180390u,0xe84d0004u},
+        {0x80180394u,0xe84e0008u},
+        {0x801804b0u,0xe8b00000u},
+        {0x801804b4u,0xe8910000u},
+        {0x801804b8u,0xe8720000u},
+        {0x801804bcu,0xe8530000u},
+        {0x801804c4u,0xe84e0000u},
+        {0x80180b30u,0xe84e0000u},
+        {0x80180c68u,0xe8fa00e8u},
+        {0x80180c74u,0xe8f100e8u},
         {0x801812a0u,0xe83a003fu},
         {0x801812acu,0xe8c6d4d4u},
         {0x80183e18u,0xe8590000u},
@@ -18512,6 +18703,12 @@ static int gte_load_successor_pc(uint32_t pc) {
         ,0x80049684u
         ,0x80182f74u
         ,0x80182f74u
+        ,0x800491f0u
+        ,0x8017f8c4u
+        ,0x8017f8c4u
+        ,0x8017fc34u
+        ,0x8017fc34u
+        ,0x80180484u
     };
     unsigned i;
     for (i = 0; i < sizeof(pcs)/sizeof(pcs[0]); ++i)
@@ -18607,6 +18804,9 @@ static int formatter_step(MusashiBootMemory *memory, FormatterCpu *cpu) {
     if ((cpu->pc >= 0x80128158u && cpu->pc < 0x801fff00u) ||
         (g_overlay_0004_words && cpu->pc >= 0x800cedf8u && cpu->pc < 0x80100000u) ||
         (g_overlay_0010_words && ((cpu->pc >= 0x800d0630u && cpu->pc < 0x800d0694u) ||
+                                  (cpu->pc >= 0x800d22e4u && cpu->pc < 0x800d2318u) ||
+                                  (cpu->pc >= 0x800d21c4u && cpu->pc < 0x800d222cu) ||
+                                  (cpu->pc >= 0x800d1fc8u && cpu->pc < 0x800d20c0u) ||
                                   (cpu->pc >= 0x800d02c0u && cpu->pc < 0x800d02d0u) ||
                                   (cpu->pc >= 0x800d1e20u && cpu->pc < 0x800d1e28u) ||
                                   (cpu->pc >= 0x800d18dcu && cpu->pc < 0x800d1938u) ||
@@ -18874,7 +19074,8 @@ static int formatter_step(MusashiBootMemory *memory, FormatterCpu *cpu) {
             bank = (gte_bank_site(cpu->pc, instruction, &bank_slot) &&
                     ((bank_slot == 1u && cpu->cpu_transfer->read_data != NULL) ||
                      (bank_slot == 3u && cpu->cpu_transfer->write_data != NULL) ||
-                     (bank_slot == 4u && cpu->cpu_transfer->command != NULL))) ||
+                     (bank_slot == 4u && cpu->cpu_transfer->command != NULL) ||
+                     (bank_slot == 5u && cpu->cpu_transfer->read_control != NULL))) ||
                    (gte_20f34_caller(cpu->r[31]) &&
                     gte_20f34_site(cpu->pc, instruction, &bank_slot));
             int eac = cpu->cpu_transfer->command != NULL &&

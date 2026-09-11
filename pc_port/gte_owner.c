@@ -206,7 +206,8 @@ int musashi_gte_owner_write_data(MusashiGteOwner *owner,
         (selector != 0u && selector != 1u && selector != 2u && selector != 3u &&
          selector != 4u && selector != 5u && selector != 6u && selector != 8u &&
          selector != 9u && selector != 10u && selector != 11u &&
-         selector != 28u && selector != 30u) ||
+         selector != 19u && selector != 28u && selector != 30u &&
+         selector != 31u) ||
         owner->data_write_count == UINT64_MAX) return 0;
     if (!owner_begin_data(owner, context)) return 0;
     /* Plain 32-bit MTC2 moves: vectors V0/V1, the 80047F48 write of the
@@ -219,6 +220,14 @@ int musashi_gte_owner_write_data(MusashiGteOwner *owner,
         selector == 4u || selector == 5u || selector == 6u || selector == 8u ||
         selector == 9u || selector == 10u || selector == 11u) {
         gteRegs.CP2D.p[selector].d = value;
+        owner->data_write_count++;
+        owner->executing = 0;
+        return 1;
+    }
+
+    /* LZCR is read-only: the vendor helper ignores the write, and so does the
+     * hardware, but the site is still a legal LWC2. */
+    if (selector == 31u) {
         owner->data_write_count++;
         owner->executing = 0;
         return 1;
@@ -257,16 +266,19 @@ int musashi_gte_owner_read_data(MusashiGteOwner *owner,
     uint32_t local;
     if (owner_reentry(owner)) return 0;
     if (owner == NULL || value == NULL ||
-        (selector != 9u && selector != 10u && selector != 11u &&
-         selector != 25u && selector != 26u && selector != 27u &&
-         selector != 30u && selector != 31u &&
-         /* SXY2, SZ3 and ORGB: retail SWC2 stores of the rasterised
-          * coordinates and the output colour in exported bank routines. */
-         selector != 14u && selector != 19u && selector != 29u) ||
+        (selector != 5u && selector != 6u && selector != 8u &&
+         selector != 9u && selector != 10u && selector != 11u &&
+         selector != 12u && selector != 13u && selector != 14u &&
+         selector != 19u && selector != 25u && selector != 26u &&
+         selector != 27u && selector != 29u && selector != 30u &&
+         selector != 31u) ||
         owner->data_read_count == UINT64_MAX) return 0;
     if (!owner_begin_data(owner, context)) return 0;
     /* IR1..3 reads sign-extend their low half; commands may leave stale
-     * upper halves. MFC2 also preserves raw MAC/LZCS/LZCR read semantics. */
+     * upper halves. MFC2 also preserves raw MAC/LZCS/LZCR read semantics.
+     * The selector list is the union of the registers retail MFC2/SWC2 sites
+     * actually read: VZ2, RGB, IR0, SXY0/1/2, SZ3, MAC1..3, ORGB, LZCS and
+     * LZCR. */
     local = MFC2((int)selector);
     owner->data_read_count++;
     *value = local;

@@ -183,8 +183,8 @@ int main(void) {
             assert(value == data_before[25u + k]);
         }
         /* IR0 accepts the func_80047EC8 interpolation-factor write (the GPF
-         * site then scales IR1..IR3 by it); IR0's own reads stay refused
-         * because no exported site reads it back. */
+         * site then scales IR1..IR3 by it) and the SWC2 store sites read it
+         * back, so both directions are in the profile. */
         assert(musashi_gte_owner_write_data(&owner, &context, 8u, 7u));
         assert(gteRegs.CP2D.p[8].d == 7u);
         data_before[8] = 7u;
@@ -205,17 +205,16 @@ int main(void) {
         assert_banks(data_before, control_before);
         assert(!musashi_gte_owner_write_data(&owner, &context, 12u, 7));
         assert(!musashi_gte_owner_read_data(&owner, &context, 2u, &value));
-        assert(!musashi_gte_owner_read_data(&owner, &context, 8u, &value));
-        assert(!musashi_gte_owner_read_data(&owner, &context, 12u, &value));
+        assert(!musashi_gte_owner_read_data(&owner, &context, 7u, &value));
+        assert(!musashi_gte_owner_read_data(&owner, &context, 20u, &value));
         assert(!musashi_gte_owner_read_data(&owner, &context, 24u, &value));
         assert(!musashi_gte_owner_read_data(&owner, &context, 28u, &value));
-        /* SWC2 stores SXY2, SZ3 and ORGB in exported raster/colour routines,
-         * so those three data registers read back even though IRGB (28) does
-         * not. */
+        /* Retail SWC2 sites also store VZ2, RGB, IR0, SXY0/1/2, SZ3 and
+         * ORGB, so those read back even though IRGB (28) and OTZ (7) do not. */
         {
-            static const unsigned extra[3] = {14u, 19u, 29u};
+            static const unsigned extra[6] = {6u, 8u, 12u, 13u, 14u, 19u};
             unsigned k;
-            for (k = 0; k < 3u; ++k) {
+            for (k = 0; k < 6u; ++k) {
                 /* ORGB's read is computed from IR1..IR3, so only acceptance
                  * is asserted here, not a raw-bank equality. PsyCross's MFC2
                  * stores that computed word back, so the bank is re-read
@@ -253,7 +252,7 @@ int main(void) {
         uint64_t writes = owner.data_write_count;
         uint64_t reads = owner.data_read_count;
         uint32_t sentinel;
-        assert(!musashi_gte_owner_write_data(&owner, &context, 31, 7));
+        assert(!musashi_gte_owner_write_data(&owner, &context, 7, 7));
         assert(!musashi_gte_owner_write_data(&owner, &context, 29, 7));
         assert(!musashi_gte_owner_write_data(&owner, &foreign, 30, 7));
         context.gpr = NULL;
