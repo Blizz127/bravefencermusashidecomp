@@ -1236,6 +1236,18 @@ static int vsync_wait_raise_tick(NativeBoot *boot, const void *continuation) {
     return musashi_irq_controller_raise_vblank(&boot->irq.controller);
 }
 
+/* Opt-in refusal trace, off unless MUSASHI_TRACE_REFUSAL is set. Prints only:
+ * the checkpoint's accept/refuse decision is unchanged either way. */
+static int checkpoint_refuse(const void *continuation, const char *why) {
+    MusashiCpuContext context;
+    const char *trace = getenv("MUSASHI_TRACE_REFUSAL");
+    if (continuation &&
+        trace && trace[0] && trace[0] != '0' &&
+        musashi_boot_cpu_context(continuation, MUSASHI_CPU_CONTEXT_SOURCE, &context))
+        fprintf(stderr, "native_boot: CHECKPOINT_REFUSED pc=%08x why=%s\n", context.pc, why);
+    return 0;
+}
+
 static int checkpoint(void *userdata, const void *continuation) {
     NativeBoot *boot = userdata;
     MusashiCpuContext context;
@@ -1244,19 +1256,19 @@ static int checkpoint(void *userdata, const void *continuation) {
         /* Nested IRQ source function: keep the interrupted CPU identity and
          * do not dispatch while the owner pump is already delivering. */
         if (!(boot->irq.scheduler.pumping || boot->irq.scheduler.delivering))
-            return 0;
+            return checkpoint_refuse(continuation, "nested-identity");
         return musashi_device_epoch_sync(&boot->epoch);
     }
     boot->continuation = continuation;
     if (!boot->gte.initialized) {
         if (!musashi_boot_cpu_context(continuation,MUSASHI_CPU_CONTEXT_SOURCE,&context) ||
             !musashi_gte_owner_init(&boot->gte,boot->irq.cpu_status,epoch_owner,boot,context.identity))
-            return 0;
+            return checkpoint_refuse(continuation, "gte-init");
     }
-    if (!musashi_device_epoch_sync(&boot->epoch)) return 0;
+    if (!musashi_device_epoch_sync(&boot->epoch)) return checkpoint_refuse(continuation, "epoch-sync");
     if (!boot->irq.scheduler.installed) return 1;
     if (boot->irq.scheduler.pumping || boot->irq.scheduler.delivering) return 1;
-    if (!vsync_wait_raise_tick(boot, continuation)) return 0;
+    if (!vsync_wait_raise_tick(boot, continuation)) return checkpoint_refuse(continuation, "vsync-wait");
     return musashi_psycross_irq_scheduler_dispatch_pending(&boot->irq.scheduler, continuation);
 }
 

@@ -203,8 +203,10 @@ int musashi_gte_owner_write_data(MusashiGteOwner *owner,
     uint32_t count = 0;
     if (owner_reentry(owner)) return 0;
     if (owner == NULL ||
-        (selector != 0u && selector != 1u && selector != 8u && selector != 30u &&
-         selector != 9u && selector != 10u && selector != 11u) ||
+        (selector != 0u && selector != 1u && selector != 2u && selector != 3u &&
+         selector != 4u && selector != 5u && selector != 6u && selector != 8u &&
+         selector != 9u && selector != 10u && selector != 11u &&
+         selector != 28u && selector != 30u) ||
         owner->data_write_count == UINT64_MAX) return 0;
     if (!owner_begin_data(owner, context)) return 0;
     /* Plain 32-bit MTC2 moves: vectors V0/V1, the 80047F48 write of the
@@ -213,9 +215,19 @@ int musashi_gte_owner_write_data(MusashiGteOwner *owner,
      * into IR1/IR2/IR3. Retail MVMVA with v=3 then reads those IR halves as
      * its vector. IR0's own reads are the low signed halfword of the
      * register, so a full-width store is the hardware behaviour. */
-    if (selector == 0u || selector == 1u || selector == 9u ||
-        selector == 10u || selector == 11u || selector == 8u) {
+    if (selector == 0u || selector == 1u || selector == 2u || selector == 3u ||
+        selector == 4u || selector == 5u || selector == 6u || selector == 8u ||
+        selector == 9u || selector == 10u || selector == 11u) {
         gteRegs.CP2D.p[selector].d = value;
+        owner->data_write_count++;
+        owner->executing = 0;
+        return 1;
+    }
+
+    /* IRGB is not a plain store: MTC2/LWC2 unpack it into IR1..IR3, so the
+     * vendor helper performs that split rather than a raw word write. */
+    if (selector == 28u) {
+        MTC2(value, 28);
         owner->data_write_count++;
         owner->executing = 0;
         return 1;
@@ -247,7 +259,10 @@ int musashi_gte_owner_read_data(MusashiGteOwner *owner,
     if (owner == NULL || value == NULL ||
         (selector != 9u && selector != 10u && selector != 11u &&
          selector != 25u && selector != 26u && selector != 27u &&
-         selector != 30u && selector != 31u) ||
+         selector != 30u && selector != 31u &&
+         /* SXY2, SZ3 and ORGB: retail SWC2 stores of the rasterised
+          * coordinates and the output colour in exported bank routines. */
+         selector != 14u && selector != 19u && selector != 29u) ||
         owner->data_read_count == UINT64_MAX) return 0;
     if (!owner_begin_data(owner, context)) return 0;
     /* IR1..3 reads sign-extend their low half; commands may leave stale

@@ -189,13 +189,41 @@ int main(void) {
         assert(gteRegs.CP2D.p[8].d == 7u);
         data_before[8] = 7u;
         assert_banks(data_before, control_before);
-        assert(!musashi_gte_owner_write_data(&owner, &context, 2u, 7));
+        /* The vector slots VXY1/VZ1/VXY2/VZ2/RGB (2..6) and IRGB (28) join the
+         * write profile for the exported LWC2 sites; 12, 24 and most others
+         * stay refused. */
+        {
+            static const unsigned vectors[7] = {2u, 3u, 4u, 5u, 6u, 28u, 0u};
+            unsigned k;
+            for (k = 0; k < 5u; ++k) {
+                assert(musashi_gte_owner_write_data(&owner, &context, vectors[k], 0x40u + k));
+            }
+            /* IRGB unpacks into IR1..IR3 through the vendor helper. */
+            assert(musashi_gte_owner_write_data(&owner, &context, 28u, 0x7fffu));
+        }
+        for (unsigned k = 0; k < 32u; ++k) data_before[k] = gteRegs.CP2D.p[k].d;
+        assert_banks(data_before, control_before);
         assert(!musashi_gte_owner_write_data(&owner, &context, 12u, 7));
         assert(!musashi_gte_owner_read_data(&owner, &context, 2u, &value));
         assert(!musashi_gte_owner_read_data(&owner, &context, 8u, &value));
         assert(!musashi_gte_owner_read_data(&owner, &context, 12u, &value));
         assert(!musashi_gte_owner_read_data(&owner, &context, 24u, &value));
         assert(!musashi_gte_owner_read_data(&owner, &context, 28u, &value));
+        /* SWC2 stores SXY2, SZ3 and ORGB in exported raster/colour routines,
+         * so those three data registers read back even though IRGB (28) does
+         * not. */
+        {
+            static const unsigned extra[3] = {14u, 19u, 29u};
+            unsigned k;
+            for (k = 0; k < 3u; ++k) {
+                /* ORGB's read is computed from IR1..IR3, so only acceptance
+                 * is asserted here, not a raw-bank equality. PsyCross's MFC2
+                 * stores that computed word back, so the bank is re-read
+                 * afterwards rather than assumed untouched. */
+                assert(musashi_gte_owner_read_data(&owner, &context, extra[k], &value));
+                data_before[extra[k]] = gteRegs.CP2D.p[extra[k]].d;
+            }
+        }
         assert_banks(data_before, control_before);
     }
 
@@ -241,7 +269,9 @@ int main(void) {
         assert(!musashi_gte_owner_write_data(&owner, &context, 30, 7));
         thread.token--;
         sentinel = UINT32_C(0xdeadc0de);
-        assert(!musashi_gte_owner_read_data(&owner, &context, 29, &sentinel));
+        /* IRGB (28) stays outside the read profile, so it still stands in for
+         * a refused read that must leave the bank and the counters alone. */
+        assert(!musashi_gte_owner_read_data(&owner, &context, 28, &sentinel));
         assert(sentinel == UINT32_C(0xdeadc0de));
         assert(!musashi_gte_owner_read_data(&owner, &foreign, 31, &sentinel));
         assert(sentinel == UINT32_C(0xdeadc0de));

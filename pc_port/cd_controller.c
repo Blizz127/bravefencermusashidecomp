@@ -1,6 +1,10 @@
 #include "musashi_cd_controller.h"
-#include "musashi_disc_media.h"
+
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+
+#include "musashi_disc_media.h"
 
 void musashi_cd_controller_init(MusashiCdController *cd, uint8_t drive_status) {
     if (!cd) return;
@@ -523,6 +527,10 @@ int musashi_cd_owned_write8(void *userdata, uint32_t address, uint8_t value) {
             (value != 1 && value != 2 && value != 6 && value != 0x1b && value != 9 && value != 0x0e &&
              value != 0x0a && value != 0x0c && value != 0x13 && value != 0x14 && value != 0x15) ||
             s->parameter_count != (value == 2 ? 3 : (value == 0x14 || value == 0x0e) ? 1 : 0)) {
+            if (getenv("MUSASHI_TRACE_REFUSAL"))
+                fprintf(stderr, "native_boot: CD_CMD_REFUSED value=%02x index=%u phase=%u interrupt=%u response_count=%u params=%u cycle=%llu\n",
+                        value, s->index, s->phase, s->interrupt, s->response_count, s->parameter_count,
+                        (unsigned long long)s->cycle);
             owned_fault(c, MUSASHI_CD_OWNED_BAD_ACCESS); break;
         }
         if (s->cycle > UINT64_MAX - 0x800) {

@@ -143,6 +143,61 @@ most.
 The resident-image walk below re-ran it after its formatter and CMake changes:
 **538 tests OK** and **22/22 CTests** again, exit 0.
 
+## The walk's second day: the RAM mirror, the GTE bank tables (2026-09-10)
+
+Continuing the walk from `80020F34` turned up three things that were stopping
+code the guest really executes, plus a set of site tables that make the loop
+self-sustaining.
+
+**`MUSASHI_TRACE_REFUSAL=1`.** Every refusal now names itself: `formatter_step`
+prints the guard's line, a refused load or store prints the address, the run
+loop prints which of its own gates refused, and the checkpoint prints why. The
+trace is off unless the variable is set and changes no gate's decision, so a
+walk that stops early can be diagnosed without editing the source.
+
+**Main RAM mirrors.** `musashi_boot_ram_span` deliberately refuses addresses
+outside `[0x80000000,0x80200000)`, and its tests pin that. The *CPU bus*,
+though, decodes only A0..A20: the 2 MB window repeats every 2 MB across the
+first 8 MB of KUSEG/KSEG0/KSEG1, and those three segments alias each other.
+Retail member 0004 stores a halfword to `0x80200000` while walking a buffer to
+the top of RAM, which hardware aliases to physical 0. `cpu_ram_span` now
+applies that alias (after the canonical span, the BIOS frame and the
+scratchpad), so the boot-image API stays as strict as it was.
+
+**SWC2 and LWC2 use the data bank.** PsyCross documents the pairing itself
+(`MTC2`: "LWC2 is the same kind"; `MFC2`: "SWC2 is the same kind"), so a
+hardware SWC2 reads a GTE *data* register. The two earlier admitted SWC2 sites
+had been routed through `read_control`; every admitted site, including those
+two, now transfers through `read_data`, and the owner's read profile gained
+SXY2 (14), SZ3 (19) and ORGB (29) for the raster/colour stores. The write
+profile gained the vector slots 2..6 for the LWC2 loads and IRGB (28), which
+goes through the vendor helper because it unpacks into IR1..IR3 rather than
+storing a raw word.
+
+**Site tables that follow the wired ranges.** `gte_bank_site`, `lwc2_site`,
+`swc2_site`, `gte_exported_srav_site`, `merge_kind_for` and the load-successor
+tables are now regenerated from the wired ranges by
+`tools`-external scripts (`/tmp/bfm-carve/regen.py` in this session): for every
+address in a wired range, once per image that covers it — the executable,
+member 0031, or each MAIN.CD member whose blob carries that address. Two
+members can be resident at the same address with different words, so the merge
+table is now an exact `(pc, word)` lookup instead of a `switch` on the pc
+alone. Pcs already owned by a per-family table are left out of the residual
+tables so their caller pins stay in force.
+
+Carved and wired in this pass: executable `80017758`, `80017778`, `80017E68`,
+`80017E8C`, `80048384`, `80049610`, `80058DE8`; member 0031 `80167DBC`,
+`80168070`; member 0010 `800D20C0`, `800D23D0`. `800D20C0`/`800D23D0` are the
+same addresses member 0004 also loads, which is exactly why the tables are
+keyed per image.
+
+Where the walk stands now: with those admissions the run no longer stops inside
+60 s. It executes the CD streaming path — `CD_WRITE`/`CD_RESPONSE`, XA audio
+decoding, ordering-table DMA, draw packets and vblank waits — until the 400 s
+observation window ends. That is a much longer run, **not** a reached menu:
+`menu=NOT_REACHED` and `visual_check=REQUIRED` still stand, and a longer run
+still has to be shown to end at a real boundary rather than only at the cap.
+
 ## Resident-image walk: GTE bank leaves and the second wave (2026-09-10)
 
 The earlier stop at `pc=80047F0C` was neither the checkpoint nor the GTE
