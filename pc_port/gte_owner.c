@@ -203,15 +203,18 @@ int musashi_gte_owner_write_data(MusashiGteOwner *owner,
     uint32_t count = 0;
     if (owner_reentry(owner)) return 0;
     if (owner == NULL ||
-        (selector != 0u && selector != 1u && selector != 30u &&
+        (selector != 0u && selector != 1u && selector != 8u && selector != 30u &&
          selector != 9u && selector != 10u && selector != 11u) ||
         owner->data_write_count == UINT64_MAX) return 0;
     if (!owner_begin_data(owner, context)) return 0;
-    /* Plain 32-bit MTC2 moves: vectors V0/V1 plus the 800484EC sign and
-     * magnitude loads into IR1/IR2/IR3. Retail MVMVA with v=3 then reads
-     * those IR halves as its vector. */
+    /* Plain 32-bit MTC2 moves: vectors V0/V1, the 80047F48 write of the
+     * func_80047EC8 interpolation factor into IR0 (the GPF at 80047F60
+     * scales IR1..IR3 by it), plus the 800484EC sign and magnitude loads
+     * into IR1/IR2/IR3. Retail MVMVA with v=3 then reads those IR halves as
+     * its vector. IR0's own reads are the low signed halfword of the
+     * register, so a full-width store is the hardware behaviour. */
     if (selector == 0u || selector == 1u || selector == 9u ||
-        selector == 10u || selector == 11u) {
+        selector == 10u || selector == 11u || selector == 8u) {
         gteRegs.CP2D.p[selector].d = value;
         owner->data_write_count++;
         owner->executing = 0;

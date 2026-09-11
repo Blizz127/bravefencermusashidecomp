@@ -1250,7 +1250,8 @@ static int checkpoint(void *userdata, const void *continuation) {
     boot->continuation = continuation;
     if (!boot->gte.initialized) {
         if (!musashi_boot_cpu_context(continuation,MUSASHI_CPU_CONTEXT_SOURCE,&context) ||
-            !musashi_gte_owner_init(&boot->gte,boot->irq.cpu_status,epoch_owner,boot,context.identity)) return 0;
+            !musashi_gte_owner_init(&boot->gte,boot->irq.cpu_status,epoch_owner,boot,context.identity))
+            return 0;
     }
     if (!musashi_device_epoch_sync(&boot->epoch)) return 0;
     if (!boot->irq.scheduler.installed) return 1;

@@ -54,11 +54,23 @@ static const uint32_t kMain800128B4Words[] = {
 static const uint32_t kMain80013FE0Words[] = {
 #include "80013fe0_words.inc"
 };
+static const uint32_t kMain80013FBCWords[] = {
+#include "80013fbc_words.inc"
+};
+static const uint32_t kMain80013F98Words[] = {
+#include "80013f98_words.inc"
+};
+static const uint32_t kMain80013ED0Words[] = {
+#include "80013ed0_words.inc"
+};
 static const uint32_t kMain8001282CWords[] = {
 #include "8001282c_words.inc"
 };
 static const uint32_t kMain80012558Words[] = {
 #include "80012558_words.inc"
+};
+static const uint32_t kMain800126C4Words[] = {
+#include "800126c4_words.inc"
 };
 static const uint32_t kMain80013F3CWords[] = {
 #include "80013f3c_words.inc"
@@ -74,6 +86,9 @@ static const uint32_t kMain8002D8A8Words[] = {
 };
 static const uint32_t kMain800120DCWords[] = {
 #include "800120dc_words.inc"
+};
+static const uint32_t kMain800123F0Words[] = {
+#include "800123f0_words.inc"
 };
 static const uint32_t kMain80029104Words[] = {
 #include "80029104_words.inc"
@@ -867,6 +882,12 @@ static const uint32_t kOverlaySc02_8013C98CWords[] = {
 static const uint32_t kOverlaySc02_80129C40Words[] = {
 #include "80129c40_sc02_0031_words.inc"
 };
+static const uint32_t kOverlaySc02_80129CF8Words[] = {
+#include "80129cf8_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8012A328Words[] = {
+#include "8012a328_sc02_0031_words.inc"
+};
 static const uint32_t kOverlay0010_800D05E8Words[] = {
 #include "800d05e8_overlay0010_words.inc"
 };
@@ -940,6 +961,9 @@ static const uint32_t kOverlaySc02_801654A8Words[] = {
 };
 static const uint32_t kOverlaySc02_80171EC8Words[] = {
 #include "80171ec8_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8017849CWords[] = {
+#include "8017849c_sc02_0031_words.inc"
 };
 static const uint32_t kOverlaySc02_801719A4Words[] = {
 #include "801719a4_sc02_0031_words.inc"
@@ -2062,6 +2086,9 @@ static const uint32_t kOverlaySc02_8012A8E8Words[] = {
 };
 static const uint32_t kOverlaySc02_8012A908Words[] = {
 #include "8012a908_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8012A988Words[] = {
+#include "8012a988_sc02_0031_words.inc"
 };
 static const uint32_t kOverlaySc02_8012AD3CWords[] = {
 #include "8012ad3c_sc02_0031_words.inc"
@@ -4844,6 +4871,9 @@ static const uint32_t kOverlaySc02_80181378Words[] = {
 static const uint32_t kOverlaySc02_801814E4Words[] = {
 #include "801814e4_sc02_0031_words.inc"
 };
+static const uint32_t kOverlaySc02_801816C0Words[] = {
+#include "801816c0_sc02_0031_words.inc"
+};
 static const uint32_t kOverlaySc02_8013B83CWords[] = {
 #include "8013b83c_sc02_0031_words.inc"
 };
@@ -5246,6 +5276,12 @@ static const uint32_t kOverlaySc02_8012AD50Words[] = {
 static const uint32_t kOverlaySc02_80181A24Words[] = {
 #include "80181a24_sc02_0031_words.inc"
 };
+static const uint32_t kOverlaySc02_80181A44Words[] = {
+#include "80181a44_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80181AE0Words[] = {
+#include "80181ae0_sc02_0031_words.inc"
+};
 static const uint32_t kOverlaySc02_801819E8Words[] = {
 #include "801819e8_sc02_0031_words.inc"
 };
@@ -5273,6 +5309,45 @@ static const uint32_t kOverlaySc02_8013221CWords[] = {
 static const uint32_t kOverlaySc02_80131FDCWords[] = {
 #include "80131fdc_sc02_0031_words.inc"
 };
+static const uint32_t kOverlaySc02_801320D0Words[] = {
+#include "801320d0_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80134510Words[] = {
+#include "80134510_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_801345F8Words[] = {
+#include "801345f8_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_801347A0Words[] = {
+#include "801347a0_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80135480Words[] = {
+#include "80135480_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80135D20Words[] = {
+#include "80135d20_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80135EB0Words[] = {
+#include "80135eb0_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80136A94Words[] = {
+#include "80136a94_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8013E448Words[] = {
+#include "8013e448_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80142EC0Words[] = {
+#include "80142ec0_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8014305CWords[] = {
+#include "8014305c_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80165E90Words[] = {
+#include "80165e90_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8016EE94Words[] = {
+#include "8016ee94_sc02_0031_words.inc"
+};
 static const uint32_t kOverlaySc02_8012C890Words[] = {
 #include "8012c890_sc02_0031_words.inc"
 };
@@ -5284,6 +5359,18 @@ static const uint32_t kOverlaySc02_8013E4B4Words[] = {
 };
 static const uint32_t kOverlaySc02_80178608Words[] = {
 #include "80178608_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8017869CWords[] = {
+#include "8017869c_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80178B18Words[] = {
+#include "80178b18_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80178BF8Words[] = {
+#include "80178bf8_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_80178D40Words[] = {
+#include "80178d40_sc02_0031_words.inc"
 };
 static const uint32_t kOverlaySc02_80128564Words[] = {
 #include "80128564_sc02_0031_words.inc"
@@ -6793,6 +6880,9 @@ _Static_assert(sizeof(kOverlay0012_8017BF38Words) / sizeof(uint32_t) == 14,
 static const uint32_t kOverlay0012_8017C008Words[] = {
 #include "8017c008_overlay0012_words.inc"
 };
+static const uint32_t kOverlaySc02_8017C180Words[] = {
+#include "8017c180_sc02_0031_words.inc"
+};
 _Static_assert(sizeof(kOverlay0012_8017C008Words) / sizeof(uint32_t) == 30,
                "overlay 0012 8017C008 source span changed");
 
@@ -6989,6 +7079,24 @@ static const uint32_t kMain80012B58Words[] = {
 static const uint32_t kMain80012D0CWords[] = {
 #include "80012d0c_words.inc"
 };
+static const uint32_t kMain80012F74Words[] = {
+#include "80012f74_words.inc"
+};
+static const uint32_t kMain80012FC8Words[] = {
+#include "80012fc8_words.inc"
+};
+static const uint32_t kMain80013294Words[] = {
+#include "80013294_words.inc"
+};
+static const uint32_t kMain800132BCWords[] = {
+#include "800132bc_words.inc"
+};
+static const uint32_t kMain80013328Words[] = {
+#include "80013328_words.inc"
+};
+static const uint32_t kMain80013350Words[] = {
+#include "80013350_words.inc"
+};
 static const uint32_t kMain80049CACWords[] = {
 #include "80049cac_words.inc"
 };
@@ -7121,6 +7229,9 @@ static const uint32_t kMain80058890Words[] = {
 static const uint32_t kMain8001FB8CWords[] = {
 #include "8001fb8c_words.inc"
 };
+static const uint32_t kMain80020F34Words[] = {
+#include "80020f34_words.inc"
+};
 static const uint32_t kMain8001D388Words[] = {
 #include "8001d388_words.inc"
 };
@@ -7142,14 +7253,23 @@ static const uint32_t kMain8005E8E8Words[] = {
 static const uint32_t kMain8004974CWords[] = {
 #include "8004974c_words.inc"
 };
+static const uint32_t kMain80049A18Words[] = {
+#include "80049a18_words.inc"
+};
 static const uint32_t kMain80052FCCWords[] = {
 #include "80052fcc_words.inc"
 };
 static const uint32_t kMain80054514Words[] = {
 #include "80054514_words.inc"
 };
+static const uint32_t kMain80054DCCWords[] = {
+#include "80054dcc_words.inc"
+};
 static const uint32_t kMain80048EACWords[] = {
 #include "80048eac_words.inc"
+};
+static const uint32_t kMain80048FB8Words[] = {
+#include "80048fb8_words.inc"
 };
 static const uint32_t kMain80053050Words[] = {
 #include "80053050_words.inc"
@@ -7597,6 +7717,12 @@ static const uint32_t kCamera80048D9CWords[] = {
 static const uint32_t kCamera800484ECWords[] = {
 #include "800484ec_words.inc"
 };
+static const uint32_t kMain8004864CWords[] = {
+#include "8004864c_words.inc"
+};
+static const uint32_t kMain80048B6CWords[] = {
+#include "80048b6c_words.inc"
+};
 static const uint32_t kCamera80053B20Words[] = {
 #include "80053b20_words.inc"
 };
@@ -7608,6 +7734,12 @@ static const uint32_t kCamera800478B8Words[] = {
 };
 static const uint32_t kCamera80047948Words[] = {
 #include "80047948_words.inc"
+};
+static const uint32_t kMain800479E8Words[] = {
+#include "800479e8_words.inc"
+};
+static const uint32_t kMain80047B3CWords[] = {
+#include "80047b3c_words.inc"
 };
 static const uint32_t kCamera80054340Words[] = {
 #include "80054340_words.inc"
@@ -7626,6 +7758,9 @@ static const uint32_t kSecondGeom80014444Words[] = {
 };
 static const uint32_t kSecondGeom8004923CWords[] = {
 #include "8004923c_words.inc"
+};
+static const uint32_t kMain80049324Words[] = {
+#include "80049324_words.inc"
 };
 static const uint32_t kSecondGeom80014554Words[] = {
 #include "80014554_words.inc"
@@ -7668,6 +7803,9 @@ static const uint32_t kGte80047CB4Words[] = {
 };
 static const uint32_t kGte8004D16CWords[] = {
 #include "8004d16c_words.inc"
+};
+static const uint32_t kMain8004D504Words[] = {
+#include "8004d504_words.inc"
 };
 static const uint32_t kGte80053AD8Words[] = {
 #include "80053ad8_words.inc"
@@ -8100,6 +8238,9 @@ _Static_assert(sizeof(kFile8005C324Words) / sizeof(uint32_t) == 13,
 static const uint32_t kFile8005C358Words[] = {
 #include "8005c358_words.inc"
 };
+static const uint32_t kMain8005C49CWords[] = {
+#include "8005c49c_words.inc"
+};
 _Static_assert(sizeof(kFile8005C358Words) / sizeof(uint32_t) == 12,
                "byte-fill helper 8005C358 source span changed");
 static const uint32_t kFile80045C94Words[] = {
@@ -8154,6 +8295,9 @@ _Static_assert(sizeof(kFile80043B1CWords) / sizeof(uint32_t) == 32,
                "CD read 80043B1C source span changed");
 static const uint32_t kFile800443A4Words[] = {
 #include "800443a4_words.inc"
+};
+static const uint32_t kMain80044670Words[] = {
+#include "80044670_words.inc"
 };
 _Static_assert(sizeof(kFile800443A4Words) / sizeof(uint32_t) == 179,
                "CD sync 800443A4 source span changed");
@@ -9104,6 +9248,16 @@ static int merge_kind_for(uint32_t pc, uint32_t instruction) {
     case 0x8012a0b8u: return instruction == 0xb8820018u ? MERGE_SWR : MERGE_NONE;
     case 0x8012a0bcu: return instruction == 0xa883001fu ? MERGE_SWL : MERGE_NONE;
     case 0x8012a0c0u: return instruction == 0xb883001cu ? MERGE_SWR : MERGE_NONE;
+    /* SC02 member31 12-byte copy leaf [801347A0,80134A28): two LWL/LWR pairs
+     * and the matching SWL/SWR stores. */
+    case 0x801349c4u: return instruction == 0x8a820003u ? MERGE_LWL : MERGE_NONE;
+    case 0x801349c8u: return instruction == 0x9a820000u ? MERGE_LWR : MERGE_NONE;
+    case 0x801349ccu: return instruction == 0x8a830007u ? MERGE_LWL : MERGE_NONE;
+    case 0x801349d0u: return instruction == 0x9a830004u ? MERGE_LWR : MERGE_NONE;
+    case 0x801349d4u: return instruction == 0xa8a20003u ? MERGE_SWL : MERGE_NONE;
+    case 0x801349d8u: return instruction == 0xb8a20000u ? MERGE_SWR : MERGE_NONE;
+    case 0x801349dcu: return instruction == 0xa8a30007u ? MERGE_SWL : MERGE_NONE;
+    case 0x801349e0u: return instruction == 0xb8a30004u ? MERGE_SWR : MERGE_NONE;
     case 0x800d2514u: return instruction == 0x88a20003u ? MERGE_LWL : MERGE_NONE;
     case 0x800d2518u: return instruction == 0x98a20000u ? MERGE_LWR : MERGE_NONE;
     case 0x800d251cu: return instruction == 0x88a30007u ? MERGE_LWL : MERGE_NONE;
@@ -9624,6 +9778,13 @@ static int merge_pending_matches(const FormatterCpu *cpu, uint32_t instruction) 
          (cpu->pc == 0x8017c55cu && instruction == 0x88c4000bu && cpu->merge_reg == 3u) ||
          (cpu->pc == 0x8017c564u && instruction == 0xa8e20003u && cpu->merge_reg == 4u)))
         return 1;
+    /* func_801347A0's two LWL/LWR pairs: the first pair's LWR into v0 is
+     * retired by the second pair's LWL into v1, and that pair's LWR into v1
+     * by the first SWL. */
+    if (cpu->merge_kind == MERGE_LWR &&
+        ((cpu->pc == 0x801349ccu && instruction == 0x8a830007u && cpu->merge_reg == 2u) ||
+         (cpu->pc == 0x801349d4u && instruction == 0xa8a20003u && cpu->merge_reg == 3u)))
+        return 1;
     /* Resident-image interleaved copy blocks: the compiler emits
      * LWL/LWR pairs for two registers back to back and then their SWL/SWR
      * stores, so a pending LWR is retired by the next pair's LWL (or by the
@@ -9812,10 +9973,18 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
         instruction = kMain800128B4Words[(cpu->pc - 0x800128b4u) / 4u];
     else if (cpu->pc >= 0x80013fe0u && cpu->pc < 0x80014004u)
         instruction = kMain80013FE0Words[(cpu->pc - 0x80013fe0u) / 4u];
+    else if (cpu->pc >= 0x80013fbcu && cpu->pc < 0x80013fe0u)
+        instruction = kMain80013FBCWords[(cpu->pc - 0x80013fbcu) / 4u];
+    else if (cpu->pc >= 0x80013f98u && cpu->pc < 0x80013fbcu)
+        instruction = kMain80013F98Words[(cpu->pc - 0x80013f98u) / 4u];
+    else if (cpu->pc >= 0x80013ed0u && cpu->pc < 0x80013f3cu)
+        instruction = kMain80013ED0Words[(cpu->pc - 0x80013ed0u) / 4u];
     else if (cpu->pc >= 0x8001282cu && cpu->pc < 0x800128b4u)
         instruction = kMain8001282CWords[(cpu->pc - 0x8001282cu) / 4u];
     else if (cpu->pc >= 0x80012558u && cpu->pc < 0x800126c4u)
         instruction = kMain80012558Words[(cpu->pc - 0x80012558u) / 4u];
+    else if (cpu->pc >= 0x800126c4u && cpu->pc < 0x8001282cu)
+        instruction = kMain800126C4Words[(cpu->pc - 0x800126c4u) / 4u];
     else if (cpu->pc >= 0x80013f3cu && cpu->pc < 0x80013f68u)
         instruction = kMain80013F3CWords[(cpu->pc - 0x80013f3cu) / 4u];
     else if (cpu->pc >= 0x800129ccu && cpu->pc < 0x80012a60u)
@@ -9826,6 +9995,8 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
         instruction = kMain8002D8A8Words[(cpu->pc - 0x8002d8a8u) / 4u];
     else if (cpu->pc >= 0x800120dcu && cpu->pc < 0x8001212cu)
         instruction = kMain800120DCWords[(cpu->pc - 0x800120dcu) / 4u];
+    else if (cpu->pc >= 0x800123f0u && cpu->pc < 0x80012558u)
+        instruction = kMain800123F0Words[(cpu->pc - 0x800123f0u) / 4u];
     else if (cpu->pc >= 0x80029104u && cpu->pc < 0x80029124u)
         instruction = kMain80029104Words[(cpu->pc - 0x80029104u) / 4u];
     else if (cpu->pc >= 0x80014928u && cpu->pc < 0x80014960u)
@@ -10296,6 +10467,18 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
         instruction = kMain80012B58Words[(cpu->pc - 0x80012b58u)/4u];
     else if (cpu->pc >= 0x80012d0cu && cpu->pc < 0x80012dbcu)
         instruction = kMain80012D0CWords[(cpu->pc - 0x80012d0cu)/4u];
+    else if (cpu->pc >= 0x80012f74u && cpu->pc < 0x80012fc8u)
+        instruction = kMain80012F74Words[(cpu->pc - 0x80012f74u) / 4u];
+    else if (cpu->pc >= 0x80012fc8u && cpu->pc < 0x80013028u)
+        instruction = kMain80012FC8Words[(cpu->pc - 0x80012fc8u) / 4u];
+    else if (cpu->pc >= 0x80013294u && cpu->pc < 0x800132bcu)
+        instruction = kMain80013294Words[(cpu->pc - 0x80013294u) / 4u];
+    else if (cpu->pc >= 0x800132bcu && cpu->pc < 0x80013328u)
+        instruction = kMain800132BCWords[(cpu->pc - 0x800132bcu) / 4u];
+    else if (cpu->pc >= 0x80013328u && cpu->pc < 0x80013350u)
+        instruction = kMain80013328Words[(cpu->pc - 0x80013328u) / 4u];
+    else if (cpu->pc >= 0x80013350u && cpu->pc < 0x800133bcu)
+        instruction = kMain80013350Words[(cpu->pc - 0x80013350u) / 4u];
     else if (cpu->pc >= 0x80049cacu && cpu->pc < 0x80049f38u)
         instruction = kMain80049CACWords[(cpu->pc - 0x80049cacu)/4u];
     else if (cpu->pc >= 0x8004914cu && cpu->pc < 0x8004917cu)
@@ -10384,6 +10567,8 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
         instruction = kMain80058890Words[(cpu->pc - 0x80058890u) / 4u];
     else if (cpu->pc >= 0x8001fb8cu && cpu->pc < 0x8001fc08u)
         instruction = kMain8001FB8CWords[(cpu->pc - 0x8001fb8cu) / 4u];
+    else if (cpu->pc >= 0x80020f34u && cpu->pc < 0x80021008u)
+        instruction = kMain80020F34Words[(cpu->pc - 0x80020f34u) / 4u];
     else if (cpu->pc >= 0x8001d388u && cpu->pc < 0x8001d3fcu)
         instruction = kMain8001D388Words[(cpu->pc - 0x8001d388u) / 4u];
     else if (cpu->pc >= 0x80015908u && cpu->pc < 0x80015954u)
@@ -10398,12 +10583,18 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
         instruction = kMain8005E8E8Words[(cpu->pc - 0x8005e8e8u) / 4u];
     else if (cpu->pc >= 0x8004974cu && cpu->pc < 0x8004978cu)
         instruction = kMain8004974CWords[(cpu->pc - 0x8004974cu) / 4u];
+    else if (cpu->pc >= 0x80049a18u && cpu->pc < 0x80049ca8u)
+        instruction = kMain80049A18Words[(cpu->pc - 0x80049a18u) / 4u];
     else if (cpu->pc >= 0x80052fccu && cpu->pc < 0x80053050u)
         instruction = kMain80052FCCWords[(cpu->pc - 0x80052fccu) / 4u];
     else if (cpu->pc >= 0x80054514u && cpu->pc < 0x800547d8u)
         instruction = kMain80054514Words[(cpu->pc - 0x80054514u) / 4u];
+    else if (cpu->pc >= 0x80054dccu && cpu->pc < 0x800553d8u)
+        instruction = kMain80054DCCWords[(cpu->pc - 0x80054dccu) / 4u];
     else if (cpu->pc >= 0x80048eacu && cpu->pc < 0x80048fb8u)
         instruction = kMain80048EACWords[(cpu->pc - 0x80048eacu) / 4u];
+    else if (cpu->pc >= 0x80048fb8u && cpu->pc < 0x80049018u)
+        instruction = kMain80048FB8Words[(cpu->pc - 0x80048fb8u) / 4u];
     else if (cpu->pc >= 0x80053050u && cpu->pc < 0x80053178u)
         instruction = kMain80053050Words[(cpu->pc - 0x80053050u) / 4u];
     else if (cpu->pc >= 0x8005ae80u && cpu->pc < 0x8005af68u)
@@ -10672,6 +10863,10 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
         instruction = kCamera80048D9CWords[(cpu->pc - 0x80048d9cu) / 4u];
     else if (cpu->pc >= 0x800484ecu && cpu->pc < 0x8004864cu)
         instruction = kCamera800484ECWords[(cpu->pc - 0x800484ecu) / 4u];
+    else if (cpu->pc >= 0x8004864cu && cpu->pc < 0x8004867cu)
+        instruction = kMain8004864CWords[(cpu->pc - 0x8004864cu) / 4u];
+    else if (cpu->pc >= 0x80048b6cu && cpu->pc < 0x80048ca4u)
+        instruction = kMain80048B6CWords[(cpu->pc - 0x80048b6cu) / 4u];
     else if (cpu->pc >= 0x80053b20u && cpu->pc < 0x80053bd8u)
         instruction = kCamera80053B20Words[(cpu->pc - 0x80053b20u) / 4u];
     else if (cpu->pc >= 0x8004787cu && cpu->pc < 0x800478b8u)
@@ -10680,6 +10875,10 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
         instruction = kCamera800478B8Words[(cpu->pc - 0x800478b8u) / 4u];
     else if (cpu->pc >= 0x80047948u && cpu->pc < 0x800479e8u)
         instruction = kCamera80047948Words[(cpu->pc - 0x80047948u) / 4u];
+    else if (cpu->pc >= 0x800479e8u && cpu->pc < 0x80047b3cu)
+        instruction = kMain800479E8Words[(cpu->pc - 0x800479e8u) / 4u];
+    else if (cpu->pc >= 0x80047b3cu && cpu->pc < 0x80047bd8u)
+        instruction = kMain80047B3CWords[(cpu->pc - 0x80047b3cu) / 4u];
     else if (cpu->pc >= 0x80054340u && cpu->pc < 0x80054430u)
         instruction = kCamera80054340Words[(cpu->pc - 0x80054340u) / 4u];
     else if (cpu->pc >= 0x80054430u && cpu->pc < 0x800544f8u)
@@ -10692,6 +10891,8 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
         instruction = kSecondGeom80014444Words[(cpu->pc - 0x80014444u) / 4u];
     else if (cpu->pc >= 0x8004923cu && cpu->pc < 0x80049248u)
         instruction = kSecondGeom8004923CWords[(cpu->pc - 0x8004923cu) / 4u];
+    else if (cpu->pc >= 0x80049324u && cpu->pc < 0x8004934cu)
+        instruction = kMain80049324Words[(cpu->pc - 0x80049324u) / 4u];
     else if (cpu->pc >= 0x80058a4cu && cpu->pc < 0x80058b04u)
         instruction = kDrawEnv80058A4CWords[(cpu->pc - 0x80058a4cu) / 4u];
     else if (cpu->pc >= 0x80058b04u && cpu->pc < 0x80058b40u)
@@ -10712,6 +10913,8 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
         instruction = kGte80047CB4Words[(cpu->pc - 0x80047cb4u) / 4u];
     else if (cpu->pc >= 0x8004d16cu && cpu->pc < 0x8004d1d4u)
         instruction = kGte8004D16CWords[(cpu->pc - 0x8004d16cu) / 4u];
+    else if (cpu->pc >= 0x8004d504u && cpu->pc < 0x8004d6b4u)
+        instruction = kMain8004D504Words[(cpu->pc - 0x8004d504u) / 4u];
     else if (cpu->pc >= 0x80053ad8u && cpu->pc < 0x80053af8u)
         instruction = kGte80053AD8Words[(cpu->pc - 0x80053ad8u) / 4u];
     else if (cpu->pc >= 0x800491fcu && cpu->pc < 0x8004921cu)
@@ -11036,6 +11239,8 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
         instruction = kFile80043B1CWords[(cpu->pc - 0x80043b1cu) / 4u];
     else if (cpu->pc >= 0x800443a4u && cpu->pc < 0x80044670u)
         instruction = kFile800443A4Words[(cpu->pc - 0x800443a4u) / 4u];
+    else if (cpu->pc >= 0x80044670u && cpu->pc < 0x80044a8cu)
+        instruction = kMain80044670Words[(cpu->pc - 0x80044670u) / 4u];
     else if (cpu->pc >= 0x80045090u && cpu->pc < 0x80045190u)
         instruction = kFile80045090Words[(cpu->pc - 0x80045090u) / 4u];
     else if (cpu->pc >= 0x80045d00u && cpu->pc < 0x80045fd0u)
@@ -11050,6 +11255,8 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
         instruction = kFile8005C324Words[(cpu->pc - 0x8005c324u) / 4u];
     else if (cpu->pc >= 0x8005c358u && cpu->pc < 0x8005c388u)
         instruction = kFile8005C358Words[(cpu->pc - 0x8005c358u) / 4u];
+    else if (cpu->pc >= 0x8005c49cu && cpu->pc < 0x8005c4ccu)
+        instruction = kMain8005C49CWords[(cpu->pc - 0x8005c49cu) / 4u];
     else if (cpu->pc >= 0x8005c4dcu && cpu->pc < 0x8005c540u)
         instruction = kFile8005C4DCWords[(cpu->pc - 0x8005c4dcu) / 4u];
     else if (cpu->pc >= 0x8005c584u && cpu->pc < 0x8005c604u)
@@ -11278,6 +11485,10 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
     else if (g_overlay_sc02_0031_words &&
              cpu->pc >= 0x80129c40u && cpu->pc < 0x80129cf8u)
         instruction = kOverlaySc02_80129C40Words[(cpu->pc - 0x80129c40u)/4u];
+    else if (cpu->pc >= 0x80129cf8u && cpu->pc < 0x80129ff4u)
+        instruction = kOverlaySc02_80129CF8Words[(cpu->pc - 0x80129cf8u)/4u];
+    else if (cpu->pc >= 0x8012a328u && cpu->pc < 0x8012a418u)
+        instruction = kOverlaySc02_8012A328Words[(cpu->pc - 0x8012a328u)/4u];
     else if (g_overlay_0010_words && cpu->pc >= 0x800d05e8u && cpu->pc < 0x800d0630u)
         instruction = kOverlay0010_800D05E8Words[(cpu->pc - 0x800d05e8u)/4u];
     else if (g_overlay_0010_words && cpu->pc >= 0x800d0588u && cpu->pc < 0x800d05e8u)
@@ -11335,6 +11546,8 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
     else if (g_overlay_sc02_0031_words &&
              cpu->pc >= 0x80171ec8u && cpu->pc < 0x80171ffcu)
         instruction = kOverlaySc02_80171EC8Words[(cpu->pc - 0x80171ec8u)/4u];
+    else if (cpu->pc >= 0x8017849cu && cpu->pc < 0x80178608u)
+        instruction = kOverlaySc02_8017849CWords[(cpu->pc - 0x8017849cu)/4u];
     else if (g_overlay_sc02_0031_words &&
              cpu->pc >= 0x801719a4u && cpu->pc < 0x80171a04u)
         instruction = kOverlaySc02_801719A4Words[(cpu->pc - 0x801719a4u)/4u];
@@ -12975,6 +13188,8 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
     else if (g_overlay_sc02_0031_words &&
              cpu->pc >= 0x8012a908u && cpu->pc < 0x8012a988u)
         instruction = kOverlaySc02_8012A908Words[(cpu->pc - 0x8012a908u)/4u];
+    else if (cpu->pc >= 0x8012a988u && cpu->pc < 0x8012aaacu)
+        instruction = kOverlaySc02_8012A988Words[(cpu->pc - 0x8012a988u)/4u];
     else if (g_overlay_sc02_0031_words &&
              cpu->pc >= 0x8012ad3cu && cpu->pc < 0x8012ad44u)
         instruction = kOverlaySc02_8012AD3CWords[(cpu->pc - 0x8012ad3cu)/4u];
@@ -15756,6 +15971,8 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
     else if (g_overlay_sc02_0031_words &&
              cpu->pc >= 0x801814e4u && cpu->pc < 0x801816c0u)
         instruction = kOverlaySc02_801814E4Words[(cpu->pc - 0x801814e4u)/4u];
+    else if (cpu->pc >= 0x801816c0u && cpu->pc < 0x80181868u)
+        instruction = kOverlaySc02_801816C0Words[(cpu->pc - 0x801816c0u)/4u];
     else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8013b83cu && cpu->pc < 0x8013bc7cu)
         instruction = kOverlaySc02_8013B83CWords[(cpu->pc - 0x8013b83cu)/4u];
     else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8013d53cu && cpu->pc < 0x8013d8fcu)
@@ -16022,6 +16239,10 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
         instruction = kOverlaySc02_8012AD50Words[(cpu->pc - 0x8012ad50u)/4u];
     else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80181a24u && cpu->pc < 0x80181a44u)
         instruction = kOverlaySc02_80181A24Words[(cpu->pc - 0x80181a24u)/4u];
+    else if (cpu->pc >= 0x80181a44u && cpu->pc < 0x80181ae0u)
+        instruction = kOverlaySc02_80181A44Words[(cpu->pc - 0x80181a44u)/4u];
+    else if (cpu->pc >= 0x80181ae0u && cpu->pc < 0x80181b78u)
+        instruction = kOverlaySc02_80181AE0Words[(cpu->pc - 0x80181ae0u)/4u];
     else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801819e8u && cpu->pc < 0x80181a24u)
         instruction = kOverlaySc02_801819E8Words[(cpu->pc - 0x801819e8u)/4u];
     else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80181f5cu && cpu->pc < 0x80181fa4u)
@@ -16040,6 +16261,32 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
         instruction = kOverlaySc02_8013221CWords[(cpu->pc - 0x8013221cu)/4u];
     else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80131fdcu && cpu->pc < 0x80132018u)
         instruction = kOverlaySc02_80131FDCWords[(cpu->pc - 0x80131fdcu)/4u];
+    else if (cpu->pc >= 0x801320d0u && cpu->pc < 0x801320d8u)
+        instruction = kOverlaySc02_801320D0Words[(cpu->pc - 0x801320d0u)/4u];
+    else if (cpu->pc >= 0x80134510u && cpu->pc < 0x801345f8u)
+        instruction = kOverlaySc02_80134510Words[(cpu->pc - 0x80134510u)/4u];
+    else if (cpu->pc >= 0x801345f8u && cpu->pc < 0x801347a0u)
+        instruction = kOverlaySc02_801345F8Words[(cpu->pc - 0x801345f8u)/4u];
+    else if (cpu->pc >= 0x801347a0u && cpu->pc < 0x80134a28u)
+        instruction = kOverlaySc02_801347A0Words[(cpu->pc - 0x801347a0u)/4u];
+    else if (cpu->pc >= 0x80135480u && cpu->pc < 0x80135888u)
+        instruction = kOverlaySc02_80135480Words[(cpu->pc - 0x80135480u)/4u];
+    else if (cpu->pc >= 0x80135d20u && cpu->pc < 0x80135eb0u)
+        instruction = kOverlaySc02_80135D20Words[(cpu->pc - 0x80135d20u)/4u];
+    else if (cpu->pc >= 0x80135eb0u && cpu->pc < 0x80136334u)
+        instruction = kOverlaySc02_80135EB0Words[(cpu->pc - 0x80135eb0u)/4u];
+    else if (cpu->pc >= 0x80136a94u && cpu->pc < 0x80136bc4u)
+        instruction = kOverlaySc02_80136A94Words[(cpu->pc - 0x80136a94u)/4u];
+    else if (cpu->pc >= 0x8013e448u && cpu->pc < 0x8013e4b4u)
+        instruction = kOverlaySc02_8013E448Words[(cpu->pc - 0x8013e448u)/4u];
+    else if (cpu->pc >= 0x80142ec0u && cpu->pc < 0x80142f68u)
+        instruction = kOverlaySc02_80142EC0Words[(cpu->pc - 0x80142ec0u)/4u];
+    else if (cpu->pc >= 0x8014305cu && cpu->pc < 0x801430f4u)
+        instruction = kOverlaySc02_8014305CWords[(cpu->pc - 0x8014305cu)/4u];
+    else if (cpu->pc >= 0x80165e90u && cpu->pc < 0x80165fa4u)
+        instruction = kOverlaySc02_80165E90Words[(cpu->pc - 0x80165e90u)/4u];
+    else if (cpu->pc >= 0x8016ee94u && cpu->pc < 0x8016ef78u)
+        instruction = kOverlaySc02_8016EE94Words[(cpu->pc - 0x8016ee94u)/4u];
     else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8012c890u && cpu->pc < 0x8012cae4u)
         instruction = kOverlaySc02_8012C890Words[(cpu->pc - 0x8012c890u)/4u];
     else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8012c750u && cpu->pc < 0x8012c820u)
@@ -16048,6 +16295,14 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
         instruction = kOverlaySc02_8013E4B4Words[(cpu->pc - 0x8013e4b4u)/4u];
     else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80178608u && cpu->pc < 0x8017869cu)
         instruction = kOverlaySc02_80178608Words[(cpu->pc - 0x80178608u)/4u];
+    else if (cpu->pc >= 0x8017869cu && cpu->pc < 0x80178744u)
+        instruction = kOverlaySc02_8017869CWords[(cpu->pc - 0x8017869cu)/4u];
+    else if (cpu->pc >= 0x80178b18u && cpu->pc < 0x80178b70u)
+        instruction = kOverlaySc02_80178B18Words[(cpu->pc - 0x80178b18u)/4u];
+    else if (cpu->pc >= 0x80178bf8u && cpu->pc < 0x80178cbcu)
+        instruction = kOverlaySc02_80178BF8Words[(cpu->pc - 0x80178bf8u)/4u];
+    else if (cpu->pc >= 0x80178d40u && cpu->pc < 0x80179b28u)
+        instruction = kOverlaySc02_80178D40Words[(cpu->pc - 0x80178d40u)/4u];
     else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80128564u && cpu->pc < 0x801285d4u)
         instruction = kOverlaySc02_80128564Words[(cpu->pc - 0x80128564u)/4u];
     else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801285d4u && cpu->pc < 0x801285e4u)
@@ -16467,6 +16722,8 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
         instruction = kOverlay0012_8017BF38Words[(cpu->pc - 0x8017bf38u) / 4u];
     else if (cpu->pc >= 0x8017c008u && cpu->pc < 0x8017c080u)
         instruction = kOverlay0012_8017C008Words[(cpu->pc - 0x8017c008u) / 4u];
+    else if (cpu->pc >= 0x8017c180u && cpu->pc < 0x8017c2b0u)
+        instruction = kOverlaySc02_8017C180Words[(cpu->pc - 0x8017c180u)/4u];
     else if (g_overlay_0007_words &&
              cpu->pc >= 0x800cee2cu && cpu->pc < 0x800cf02cu)
         instruction = kOverlay800CEE2CWords[(cpu->pc - 0x800cee2cu) / 4u];
@@ -16638,6 +16895,53 @@ static int gte_load_successor(uint8_t reg, uint32_t pc, uint32_t word) {
         ,{8, 0x80047f68u, 0x4809d000u}
         ,{9, 0x80047f6cu, 0x480ad800u}
         ,{10, 0x80047f70u, 0x01c84007u}
+        /* func_800126C4's three MFC2 chains, same shape as func_80012558. */
+        ,{12, 0x80012770u, 0x480d5000u}
+        ,{13, 0x80012774u, 0x480e5800u}
+        ,{14, 0x80012778u, 0xa62c0000u}
+        ,{12, 0x800127b4u, 0x480d5000u}
+        ,{13, 0x800127b8u, 0x480e5800u}
+        ,{14, 0x800127bcu, 0xa44c0000u}
+        ,{12, 0x800127f8u, 0x480d5000u}
+        ,{13, 0x800127fcu, 0x480e5800u}
+        ,{14, 0x80012800u, 0xa44c0000u}
+        /* func_800123F0's three MFC2 chains. */
+        ,{12, 0x8001249cu, 0x480d5000u}
+        ,{13, 0x800124a0u, 0x480e5800u}
+        ,{14, 0x800124a4u, 0xa62c0000u}
+        ,{12, 0x800124e0u, 0x480d5000u}
+        ,{13, 0x800124e4u, 0x480e5800u}
+        ,{14, 0x800124e8u, 0xa44c0000u}
+        ,{12, 0x80012524u, 0x480d5000u}
+        ,{13, 0x80012528u, 0x480e5800u}
+        ,{14, 0x8001252cu, 0xa44c0000u}
+        /* func_80048FBC's three MFC2 reads of IR1..3. */
+        ,{8, 0x80048ff8u, 0x48095000u}
+        ,{9, 0x80048ffcu, 0x480a5800u}
+        ,{10, 0x80049000u, 0xa4c80000u}
+        /* func_80048EAC's three MFC2 read trios. */
+        ,{11, 0x80048f14u, 0x480c5000u}
+        ,{12, 0x80048f18u, 0x480d5800u}
+        ,{13, 0x80048f1cu, 0x48880000u}
+        ,{14, 0x80048f48u, 0x480f5000u}
+        ,{15, 0x80048f4cu, 0x48185800u}
+        ,{24, 0x80048f50u, 0x48880000u}
+        ,{8, 0x80048f84u, 0x48095000u}
+        ,{9, 0x80048f88u, 0x3108ffffu}
+        /* func_8004D504's two MFC2 read trios. */
+        ,{11, 0x8004d610u, 0x480cd000u}
+        ,{12, 0x8004d614u, 0x480dd800u}
+        ,{13, 0x8004d618u, 0x3108ffffu}
+        ,{8, 0x8004d68cu, 0x4809d000u}
+        ,{9, 0x8004d690u, 0x480ad800u}
+        ,{10, 0x8004d694u, 0x010b4021u}
+        /* func_80048B6C's two MFC2 read trios. */
+        ,{11, 0x80048c08u, 0x480cd000u}
+        ,{12, 0x80048c0cu, 0x480dd800u}
+        ,{13, 0x80048c10u, 0x48884800u}
+        ,{8, 0x80048c7cu, 0x4809d000u}
+        ,{9, 0x80048c80u, 0x480ad800u}
+        ,{10, 0x80048c84u, 0x010b4021u}
     };
     unsigned i;
     for (i = 0; i < sizeof(successors)/sizeof(successors[0]); ++i)
@@ -16652,7 +16956,12 @@ static int gte_load_successor(uint8_t reg, uint32_t pc, uint32_t word) {
  * sites bound by gte_48d9c_caller; the slot function must be bound too. */
 static int gte_48d9c_caller(uint32_t ra) {
     return ra == 0x8002c520u || ra == 0x80052edcu || ra == 0x80053080u ||
-           ra == 0x80053bbcu || ra == 0x80054138u || ra == 0x800541ecu;
+           ra == 0x80053bbcu || ra == 0x80054138u || ra == 0x800541ecu ||
+           /* The two JAL sites inside the exported func_80054DCC range. */
+           ra == 0x80055070u || ra == 0x80055284u ||
+           /* SC02 member31 calls func_80048FBC, whose control/bank sites
+            * carry that caller's return alias. */
+           (g_overlay_sc02_0031_words && ra == 0x8017c248u);
 }
 
 static int gte_47d3c_caller(uint32_t ra) {
@@ -16663,7 +16972,22 @@ static int gte_47d3c_caller(uint32_t ra) {
      * (transfer binding, no pending merge, npc/delay/branch state) still
      * applies. */
     return ra == 0x80054050u || ra == 0x800540d8u || ra == 0x800533e4u ||
-           ra == 0x801338a4u;
+           ra == 0x801338a4u ||
+           /* The five JAL sites inside the exported func_80054DCC range
+            * [80054DCC,800553D8) call the same leaf. */
+           ra == 0x80054eccu || ra == 0x80054fd8u || ra == 0x80054fe4u ||
+           ra == 0x800550b0u || ra == 0x800551a0u ||
+           /* The JAL site inside the exported func_80013294 range. */
+           ra == 0x800132acu ||
+           /* The remaining JAL sites into this leaf (80013218, 80013340,
+            * 800133D4, 80013468, 8002C7A4); each is an exact return alias
+            * taken from the retail image. */
+           ra == 0x80013218u || ra == 0x80013340u || ra == 0x800133d4u ||
+           ra == 0x80013468u || ra == 0x8002c7a4u ||
+           /* SC02 member31 JAL return aliases into this leaf. */
+           (g_overlay_sc02_0031_words &&
+            (ra == 0x8012a720u || ra == 0x80148894u || ra == 0x8014c66cu ||
+             ra == 0x801629ccu || ra == 0x801646d4u));
 }
 
 /* func_80012558 is a PSY-Q GTE library routine (26 COP2 sites: CTC2 control
@@ -16707,6 +17031,79 @@ static int gte_12558_site(uint32_t pc, uint32_t word, unsigned *slot) {
         ,{0x80047f64u,0x4808c800u,1u}
         ,{0x80047f68u,0x4809d000u,1u}
         ,{0x80047f6cu,0x480ad800u,1u}
+        /* func_800126C4 is the second PSY-Q GTE helper of this shape. It
+         * overwrites RA with its own internal 80047948 jal (return alias
+         * 800126F0) before every COP2 site, so it is admitted by exact
+         * PC/word like func_80012558 rather than by caller. */
+        ,{0x80012724u,0x48cc0000u,0u}
+        ,{0x80012728u,0x48cd0800u,0u}
+        ,{0x80012738u,0x48cc1000u,0u}
+        ,{0x8001273cu,0x48cd1800u,0u}
+        ,{0x80012740u,0x48ce2000u,0u}
+        ,{0x80012754u,0x488c4800u,3u}
+        ,{0x80012758u,0x488d5000u,3u}
+        ,{0x8001275cu,0x488e5800u,3u}
+        ,{0x80012768u,0x4a49e012u,4u}
+        ,{0x8001276cu,0x480c4800u,1u}
+        ,{0x80012770u,0x480d5000u,1u}
+        ,{0x80012774u,0x480e5800u,1u}
+        ,{0x80012794u,0x488c4800u,3u}
+        ,{0x80012798u,0x488d5000u,3u}
+        ,{0x8001279cu,0x488e5800u,3u}
+        ,{0x800127a8u,0x4a49e012u,4u}
+        ,{0x800127b0u,0x480c4800u,1u}
+        ,{0x800127b4u,0x480d5000u,1u}
+        ,{0x800127b8u,0x480e5800u,1u}
+        ,{0x800127d8u,0x488c4800u,3u}
+        ,{0x800127dcu,0x488d5000u,3u}
+        ,{0x800127e0u,0x488e5800u,3u}
+        ,{0x800127ecu,0x4a49e012u,4u}
+        ,{0x800127f4u,0x480c4800u,1u}
+        ,{0x800127f8u,0x480d5000u,1u}
+        ,{0x800127fcu,0x480e5800u,1u}
+        /* func_800123F0 is the same helper one slot earlier in the same
+         * PSY-Q GTE bank (its 80047948 return alias is 8001241C). */
+        ,{0x80012450u,0x48cc0000u,0u}
+        ,{0x80012454u,0x48cd0800u,0u}
+        ,{0x80012464u,0x48cc1000u,0u}
+        ,{0x80012468u,0x48cd1800u,0u}
+        ,{0x8001246cu,0x48ce2000u,0u}
+        ,{0x80012480u,0x488c4800u,3u}
+        ,{0x80012484u,0x488d5000u,3u}
+        ,{0x80012488u,0x488e5800u,3u}
+        ,{0x80012494u,0x4a49e012u,4u}
+        ,{0x80012498u,0x480c4800u,1u}
+        ,{0x8001249cu,0x480d5000u,1u}
+        ,{0x800124a0u,0x480e5800u,1u}
+        ,{0x800124c0u,0x488c4800u,3u}
+        ,{0x800124c4u,0x488d5000u,3u}
+        ,{0x800124c8u,0x488e5800u,3u}
+        ,{0x800124d4u,0x4a49e012u,4u}
+        ,{0x800124dcu,0x480c4800u,1u}
+        ,{0x800124e0u,0x480d5000u,1u}
+        ,{0x800124e4u,0x480e5800u,1u}
+        ,{0x80012504u,0x488c4800u,3u}
+        ,{0x80012508u,0x488d5000u,3u}
+        ,{0x8001250cu,0x488e5800u,3u}
+        ,{0x80012518u,0x4a49e012u,4u}
+        ,{0x80012520u,0x480c4800u,1u}
+        ,{0x80012524u,0x480d5000u,1u}
+        ,{0x80012528u,0x480e5800u,1u}
+        /* func_80048FBC is the exported 24-word matrix/vector leaf: five CTC2
+         * control writes (rotation 0..4), two LWC2 loads of the V0 vector,
+         * the 4A486012 MVMVA, three MFC2 reads of IR1..3, and the halfword
+         * stores of the transformed result. Same slot convention. */
+        ,{0x80048fd0u,0x48c80000u,0u}
+        ,{0x80048fd4u,0x48c90800u,0u}
+        ,{0x80048fd8u,0x48ca1000u,0u}
+        ,{0x80048fdcu,0x48cb1800u,0u}
+        ,{0x80048fe0u,0x48cc2000u,0u}
+        ,{0x80048fe4u,0xc8a00000u,3u}
+        ,{0x80048fe8u,0xc8a10004u,3u}
+        ,{0x80048ff0u,0x4a486012u,4u}
+        ,{0x80048ff4u,0x48084800u,1u}
+        ,{0x80048ff8u,0x48095000u,1u}
+        ,{0x80048ffcu,0x480a5800u,1u}
     };
     unsigned i;
     for (i = 0; i < sizeof(sites)/sizeof(sites[0]); ++i)
@@ -16721,6 +17118,252 @@ static int gte_12558_site(uint32_t pc, uint32_t word, unsigned *slot) {
 static int gte_lib_command_site(uint32_t pc, uint32_t word) {
     unsigned slot = 99;
     return gte_12558_site(pc, word, &slot) && slot == 4u;
+}
+
+/* func_80047EC8 is the exported 188-byte GTE normalisation leaf: it reads
+ * LZCR through MFC2, turns the count into a shift, picks a signed halfword
+ * from 8007DA80, writes IR0/IR1/IR2/IR3 and closes with GPF. Its words are
+ * exported and match_function-verified, and the five retail JAL sites in the
+ * EXE text (return aliases 80047E84, 80047EB4, 80048018, 80048038, 80048054)
+ * are its only callers. Only that leaf's integer arithmetic is admitted
+ * here: the two signed SUBs and the four SRAVs. SUB keeps its signed overflow
+ * trap and SRAV shifts by the low five bits of the source register. */
+static int gte_47ec8_integer_caller(uint32_t ra) {
+    return ra == 0x80047e84u || ra == 0x80047eb4u || ra == 0x80048018u ||
+           ra == 0x80048038u || ra == 0x80048054u;
+}
+
+static int gte_47ec8_sub_site(uint32_t pc, uint32_t word) {
+    return (pc == 0x80047f0cu && word == 0x01c37022u) ||
+           (pc == 0x80047f28u && word == 0x01635822u);
+}
+
+static int gte_47ec8_srav_site(uint32_t pc, uint32_t word) {
+    return (pc == 0x80047f2cu && word == 0x01626007u) ||
+           (pc == 0x80047f70u && word == 0x01c84007u) ||
+           (pc == 0x80047f74u && word == 0x01c94807u) ||
+           (pc == 0x80047f78u && word == 0x01ca5007u);
+}
+
+/* func_800479E8 is the exported camera fixed-point stepper [800479E8,
+ * 80047B3C). Its four SRAVs divide the running accumulators by the step
+ * shift in $a3; both retail callers are JAL sites in the next camera leaf
+ * (return aliases 80047BA8 and 80047BBC), so the site and the caller are
+ * both pinned here. */
+static int gte_47a2c_srav_site(uint32_t pc, uint32_t word, uint32_t ra) {
+    if (ra != 0x80047ba8u && ra != 0x80047bbcu) return 0;
+    return (pc == 0x80047a2cu && word == 0x00e31807u) ||
+           (pc == 0x80047a48u && word == 0x00e21007u) ||
+           (pc == 0x80047a58u && word == 0x00e31807u) ||
+           (pc == 0x80047a74u && word == 0x00e21007u);
+}
+
+/* func_80047B3C's two SRAVs. Both sit after one of its own internal calls
+ * (80049440 and 800479E8), so each carries that call's fixed return alias
+ * rather than a caller alias. */
+static int gte_47b3c_srav_site(uint32_t pc, uint32_t word, uint32_t ra) {
+    return (pc == 0x80047b7cu && word == 0x00512007u && ra == 0x80047b64u) ||
+           (pc == 0x80047bb0u && word == 0x00621007u && ra == 0x80047ba8u);
+}
+
+/* SRAV sites elsewhere inside exported, word-verified main-exec ranges. Every
+ * entry is an exact (pc, word) pair from the retail image: the pc proves the
+ * site lies in a range the native seam exports, and the word pins the operands
+ * (including the shift source). A shift is defined for every value, so the
+ * count is simply the low five bits of the source register. */
+static int gte_exported_srav_site(uint32_t pc, uint32_t word) {
+    static const struct { uint32_t pc, word; } sites[] = {
+        {0x80012988u, 0x02021007u},
+        {0x80012994u, 0x02031807u},
+        {0x8001299cu, 0x02021007u},
+        {0x8003d080u, 0x00821007u},
+        {0x80041f10u, 0x00648807u},
+        {0x8005437cu, 0x00621007u},
+        {0x8005438cu, 0x00621007u},
+        {0x8005439cu, 0x00621007u},
+        {0x800543acu, 0x00621007u},
+        {0x800543bcu, 0x00621007u},
+        {0x800543ccu, 0x00621007u}
+    };
+    unsigned i;
+    for (i = 0; i < sizeof(sites)/sizeof(sites[0]); ++i)
+        if (sites[i].pc == pc && sites[i].word == word) return 1;
+    return 0;
+}
+
+/* func_80049324 is the exported ten-word GTE vector leaf [80049324,8004934C):
+ * three LWC2 loads carry a 12-byte vector into IR1..IR3, the 4AA00428 MVMVA
+ * transforms it, and three SWC2 stores publish MAC1..MAC3. Its five retail
+ * callers are JAL sites (return aliases 80013274, 80013308, 8001339C,
+ * 80013430, 8002C710). Slots: 0 = data write, 1 = command, 2 = data read. */
+static int gte_49324_site(uint32_t pc, uint32_t word, unsigned *slot) {
+    static const struct { uint32_t pc, word; uint8_t slot; } sites[] = {
+        {0x80049324u, 0xc8890000u, 0u}, {0x80049328u, 0xc88a0004u, 0u},
+        {0x8004932cu, 0xc88b0008u, 0u}, {0x80049334u, 0x4aa00428u, 1u},
+        {0x80049338u, 0xe8b90000u, 2u}, {0x8004933cu, 0xe8ba0004u, 2u},
+        {0x80049340u, 0xe8bb0008u, 2u}
+    };
+    unsigned i;
+    for (i = 0; i < sizeof(sites)/sizeof(sites[0]); ++i)
+        if (sites[i].pc == pc && sites[i].word == word) {
+            if (slot) *slot = sites[i].slot;
+            return 1;
+        }
+    return 0;
+}
+
+static int gte_49324_caller(uint32_t ra) {
+    return ra == 0x80013274u || ra == 0x80013308u || ra == 0x8001339cu ||
+           ra == 0x80013430u || ra == 0x8002c710u;
+}
+
+/* func_80048EAC is the second exported main-exec GTE bank routine
+ * [80048EAC,80048FB8): five CTC2 control writes, then three rounds of an MTC2
+ * pair, the 4A486012 MVMVA and an MFC2 read trio. Its callers are the audited
+ * 80048D9C family, so the site is pinned by exact PC/word and the caller
+ * alias. Slots match gte_48d9c_site: 0 = control write, 1 = data read,
+ * 3 = data write, 4 = command. */
+static int gte_48eac_site(uint32_t pc, uint32_t word, unsigned *slot) {
+    static const struct { uint32_t pc, word; uint8_t slot; } sites[] = {
+        {0x80048ec0u,0x48c80000u,0u}, {0x80048ec4u,0x48c90800u,0u},
+        {0x80048ec8u,0x48ca1000u,0u}, {0x80048eccu,0x48cb1800u,0u},
+        {0x80048ed0u,0x48cc2000u,0u},
+        {0x80048eecu,0x48880000u,3u}, {0x80048ef0u,0x488a0800u,3u},
+        {0x80048ef8u,0x4a486012u,4u},
+        {0x80048f10u,0x480b4800u,1u}, {0x80048f14u,0x480c5000u,1u},
+        {0x80048f18u,0x480d5800u,1u},
+        {0x80048f1cu,0x48880000u,3u}, {0x80048f20u,0x488a0800u,3u},
+        {0x80048f28u,0x4a486012u,4u},
+        {0x80048f44u,0x480e4800u,1u}, {0x80048f48u,0x480f5000u,1u},
+        {0x80048f4cu,0x48185800u,1u},
+        {0x80048f50u,0x48880000u,3u}, {0x80048f54u,0x488a0800u,3u},
+        {0x80048f5cu,0x4a486012u,4u},
+        {0x80048f80u,0x48084800u,1u}, {0x80048f84u,0x48095000u,1u}
+    };
+    unsigned i;
+    for (i = 0; i < sizeof(sites)/sizeof(sites[0]); ++i)
+        if (sites[i].pc == pc && sites[i].word == word) {
+            if (slot) *slot = sites[i].slot;
+            return 1;
+        }
+    return 0;
+}
+
+/* The retail call sites of func_80048EAC: five JAL sites in the executable
+ * plus the member-0031 sites in the resident image. */
+static int gte_48eac_caller(uint32_t ra) {
+    return ra == 0x80017e1cu || ra == 0x80017e54u || ra == 0x8002c530u ||
+           ra == 0x80052f20u || ra == 0x80052ffcu ||
+           (g_overlay_sc02_0031_words &&
+            (ra == 0x80135670u || ra == 0x80167434u || ra == 0x801679ecu ||
+             ra == 0x80168704u || ra == 0x80168954u || ra == 0x80168988u ||
+             ra == 0x80168e48u || ra == 0x80169150u || ra == 0x80169358u ||
+             ra == 0x80169470u || ra == 0x801697b0u || ra == 0x8016994cu ||
+             ra == 0x80169b08u || ra == 0x8016a7a8u || ra == 0x8016c6c4u ||
+             ra == 0x8016e538u || ra == 0x8017c070u));
+}
+
+/* func_8004D504 is the third exported main-exec GTE bank routine
+ * [8004D504,8004D6B4): five CTC2 control writes, then two rounds of an MTC2
+ * pair, an MVMVA and an MFC2 read trio. Slots as above. */
+static int gte_4d504_site(uint32_t pc, uint32_t word, unsigned *slot) {
+    static const struct { uint32_t pc, word; uint8_t slot; } sites[] = {
+        {0x8004d558u,0x48c80000u,0u}, {0x8004d55cu,0x48c90800u,0u},
+        {0x8004d560u,0x48ca1000u,0u}, {0x8004d564u,0x48cb1800u,0u},
+        {0x8004d568u,0x48cc2000u,0u},
+        {0x8004d5fcu,0x488b0000u,3u}, {0x8004d600u,0x488d0800u,3u},
+        {0x8004d608u,0x4a406012u,4u},
+        {0x8004d60cu,0x480bc800u,1u}, {0x8004d610u,0x480cd000u,1u},
+        {0x8004d614u,0x480dd800u,1u},
+        {0x8004d624u,0x48880000u,3u}, {0x8004d628u,0x488a0800u,3u},
+        {0x8004d630u,0x4a486012u,4u},
+        {0x8004d688u,0x4808c800u,1u}, {0x8004d68cu,0x4809d000u,1u},
+        {0x8004d690u,0x480ad800u,1u}
+    };
+    unsigned i;
+    for (i = 0; i < sizeof(sites)/sizeof(sites[0]); ++i)
+        if (sites[i].pc == pc && sites[i].word == word) {
+            if (slot) *slot = sites[i].slot;
+            return 1;
+        }
+    return 0;
+}
+
+static int gte_4d504_caller(uint32_t ra) {
+    return ra == 0x8002c5b4u ||
+           (g_overlay_sc02_0031_words &&
+            (ra == 0x8012f084u || ra == 0x8012f114u || ra == 0x8012f33cu ||
+             ra == 0x8012f3d4u || ra == 0x80133260u || ra == 0x80135680u ||
+             ra == 0x80135784u || ra == 0x801681b4u || ra == 0x80169d74u ||
+             ra == 0x8016a3f4u));
+}
+
+/* func_80048B6C is the fourth exported main-exec GTE bank routine
+ * [80048B6C,80048CA4), same shape as func_8004D504. */
+static int gte_48b6c_site(uint32_t pc, uint32_t word, unsigned *slot) {
+    static const struct { uint32_t pc, word; uint8_t slot; } sites[] = {
+        {0x80048bf0u,0x488b4800u,3u}, {0x80048bf4u,0x488c5000u,3u},
+        {0x80048bf8u,0x488d5800u,3u}, {0x80048c00u,0x4a41e012u,4u},
+        {0x80048c04u,0x480bc800u,1u}, {0x80048c08u,0x480cd000u,1u},
+        {0x80048c0cu,0x480dd800u,1u},
+        {0x80048c10u,0x48884800u,3u}, {0x80048c14u,0x48895000u,3u},
+        {0x80048c18u,0x488a5800u,3u}, {0x80048c20u,0x4a49e012u,4u},
+        {0x80048c78u,0x4808c800u,1u}, {0x80048c7cu,0x4809d000u,1u},
+        {0x80048c80u,0x480ad800u,1u}
+    };
+    unsigned i;
+    for (i = 0; i < sizeof(sites)/sizeof(sites[0]); ++i)
+        if (sites[i].pc == pc && sites[i].word == word) {
+            if (slot) *slot = sites[i].slot;
+            return 1;
+        }
+    return 0;
+}
+
+static int gte_48b6c_caller(uint32_t ra) {
+    return ra == 0x8002c578u ||
+           (g_overlay_sc02_0031_words &&
+            (ra == 0x8013568cu || ra == 0x80135790u));
+}
+
+/* func_8004864C is the fifth exported main-exec GTE bank routine
+ * [8004864C,8004867C): an MTC2 pair and its MVMVA. */
+static int gte_4864c_site(uint32_t pc, uint32_t word, unsigned *slot) {
+    static const struct { uint32_t pc, word; uint8_t slot; } sites[] = {
+        {0x80048654u,0x48880000u,3u}, {0x80048658u,0x48890800u,3u},
+        {0x80048660u,0x4a486012u,4u}
+    };
+    unsigned i;
+    for (i = 0; i < sizeof(sites)/sizeof(sites[0]); ++i)
+        if (sites[i].pc == pc && sites[i].word == word) {
+            if (slot) *slot = sites[i].slot;
+            return 1;
+        }
+    return 0;
+}
+
+static int gte_4864c_caller(uint32_t ra) {
+    return ra == 0x8002c568u ||
+           (g_overlay_sc02_0031_words &&
+            (ra == 0x801356f4u || ra == 0x80135740u || ra == 0x80136af4u));
+}
+
+/* member-0031 callers of the func_8004914C / func_800491AC GTE bank pair.
+ * Every alias is the return address of a JAL into one of the two routines. */
+static int gte_491_pair_caller(uint32_t ra) {
+    return ra == 0x8012cfecu || ra == 0x8012d400u || ra == 0x8012d520u ||
+           ra == 0x8012e348u || ra == 0x8012e5f8u || ra == 0x8012e6e8u ||
+           ra == 0x8012f170u || ra == 0x8012f240u || ra == 0x8012f2acu ||
+           ra == 0x8012f434u || ra == 0x8012f4c8u || ra == 0x8012f4f4u ||
+           ra == 0x801356c8u || ra == 0x80136d38u || ra == 0x80144120u ||
+           ra == 0x8016b25cu || ra == 0x8016e820u || ra == 0x8017badcu ||
+           ra == 0x8017bbe4u ||
+           ra == 0x8012cff4u || ra == 0x8012d408u || ra == 0x8012d528u ||
+           ra == 0x8012e350u || ra == 0x8012e608u || ra == 0x8012e6f8u ||
+           ra == 0x8012f178u || ra == 0x8012f248u || ra == 0x8012f2b4u ||
+           ra == 0x8012f444u || ra == 0x8012f4d0u || ra == 0x8012f504u ||
+           ra == 0x80136d40u || ra == 0x80144128u || ra == 0x8016b264u ||
+           ra == 0x8016e828u || ra == 0x8017bae4u || ra == 0x8017bbecu;
 }
 
 static int gte_48d9c_site(uint32_t pc, uint32_t word, unsigned *slot) {
@@ -16753,7 +17396,9 @@ static int gte_484ec_caller(uint32_t ra) {
     return ra == 0x80013678u || ra == 0x800139acu || ra == 0x80013ce0u ||
            ra == 0x80014158u || ra == 0x800141e0u || ra == 0x8002c58cu ||
            ra == 0x80052f64u || ra == 0x80052ff0u || ra == 0x80053074u ||
-           ra == 0x80054224u ||
+           ra == 0x80054224u || ra == 0x8005425cu ||
+           /* The three JAL sites inside the exported func_80054DCC range. */
+           ra == 0x800552c4u || ra == 0x800552fcu ||
            /* SC02 member31 JAL return aliases into the same leaf. */
            (g_overlay_sc02_0031_words &&
             (ra == 0x8012b168u || ra == 0x8012b1a4u || ra == 0x8012b1d4u ||
@@ -16805,6 +17450,53 @@ static int gte_load_successor_pc(uint32_t pc) {
         ,0x80047f68u
         ,0x80047f6cu
         ,0x80047f70u
+        /* func_800126C4's three MFC2 chains. */
+        ,0x80012770u
+        ,0x80012774u
+        ,0x80012778u
+        ,0x800127b4u
+        ,0x800127b8u
+        ,0x800127bcu
+        ,0x800127f8u
+        ,0x800127fcu
+        ,0x80012800u
+        /* func_800123F0's three MFC2 chains. */
+        ,0x8001249cu
+        ,0x800124a0u
+        ,0x800124a4u
+        ,0x800124e0u
+        ,0x800124e4u
+        ,0x800124e8u
+        ,0x80012524u
+        ,0x80012528u
+        ,0x8001252cu
+        /* func_80048FBC's three MFC2 reads. */
+        ,0x80048ff8u
+        ,0x80048ffcu
+        ,0x80049000u
+        /* func_80048EAC's three MFC2 read trios. */
+        ,0x80048f14u
+        ,0x80048f18u
+        ,0x80048f1cu
+        ,0x80048f48u
+        ,0x80048f4cu
+        ,0x80048f50u
+        ,0x80048f84u
+        ,0x80048f88u
+        /* func_8004D504's two MFC2 read trios. */
+        ,0x8004d610u
+        ,0x8004d614u
+        ,0x8004d618u
+        ,0x8004d68cu
+        ,0x8004d690u
+        ,0x8004d694u
+        /* func_80048B6C's two MFC2 read trios. */
+        ,0x80048c08u
+        ,0x80048c0cu
+        ,0x80048c10u
+        ,0x80048c7cu
+        ,0x80048c80u
+        ,0x80048c84u
     };
     unsigned i;
     for (i = 0; i < sizeof(pcs)/sizeof(pcs[0]); ++i)
@@ -17096,6 +17788,8 @@ static int formatter_step(MusashiBootMemory *memory, FormatterCpu *cpu) {
          * delay-slot successor above already published it. */
         unsigned slot = 99;
         int leaf = 0, camera = 0, camera2 = 0, transform = 0, vector_command = 0;
+        int transform_leaf = 0;
+        int trans_leaf = 0;
         int lib_gte = 0;
         if (cpu->cpu_transfer) {
             /* The func_80012558 library sites carry a stale RA, so they are
@@ -17114,6 +17808,11 @@ static int formatter_step(MusashiBootMemory *memory, FormatterCpu *cpu) {
                 cpu->cpu_transfer->command != NULL &&
                 cpu->pc == 0x80133ffcu && instruction == 0x4aa00428u &&
                 cpu->r[31] == 0x80133fb8u;
+            /* func_80049324's own MVMVA. The leaf is main-exec code, so the
+             * gate is the exact site plus its audited caller aliases. */
+            transform_leaf = cpu->cpu_transfer->command != NULL &&
+                cpu->pc == 0x80049334u && instruction == 0x4aa00428u &&
+                gte_49324_caller(cpu->r[31]);
             transform = g_overlay_sc02_0031_words && cpu->r[31] == 0x8012f188u &&
                 (((cpu->pc == 0x8004946cu && instruction == 0x48024800u) ||
                   (cpu->pc == 0x80049470u && instruction == 0x48035000u)) ?
@@ -17124,6 +17823,22 @@ static int formatter_step(MusashiBootMemory *memory, FormatterCpu *cpu) {
                      cpu->cpu_transfer->command != NULL);
             /* func_80049440 is the same GTE special-register leaf reached from
              * func_800128EC (RA 0x80012930); admitted by exact PC/word. */
+            /* func_80048EAC's non-control sites, caller-pinned like the
+             * 80048D9C family they belong to. */
+            unsigned eac_slot = 99;
+            int eac = cpu->cpu_transfer->command != NULL &&
+                ((gte_48eac_caller(cpu->r[31]) &&
+                  gte_48eac_site(cpu->pc, instruction, &eac_slot)) ||
+                 (gte_4d504_caller(cpu->r[31]) &&
+                  gte_4d504_site(cpu->pc, instruction, &eac_slot)) ||
+                 (gte_48b6c_caller(cpu->r[31]) &&
+                  gte_48b6c_site(cpu->pc, instruction, &eac_slot)) ||
+                 (gte_4864c_caller(cpu->r[31]) &&
+                  gte_4864c_site(cpu->pc, instruction, &eac_slot)));
+            trans_leaf = eac &&
+                ((eac_slot == 1u && cpu->cpu_transfer->read_data != NULL) ||
+                 (eac_slot == 3u && cpu->cpu_transfer->write_data != NULL) ||
+                 (eac_slot == 4u && cpu->cpu_transfer->command != NULL));
             leaf = !cpu->gte_load_pending &&
                 (((cpu->pc == 0x80049440u && instruction == 0x4884f000u &&
                    cpu->cpu_transfer->write_data != NULL) ||
@@ -17150,7 +17865,7 @@ static int formatter_step(MusashiBootMemory *memory, FormatterCpu *cpu) {
             cpu->npc != cpu->pc+4u ||
             cpu->delay_slot || cpu->branch_pc ||
             (!leaf && !camera && !camera2 && !transform && !vector_command &&
-             !lib_gte)) return 0;
+             !transform_leaf && !trans_leaf && !lib_gte)) return 0;
     } else if (opcode == 18u) {
         static const uint32_t sites[][2] = {
             {0x80047ce8u,0x48c8e800u},{0x80047cf4u,0x48c8f000u},
@@ -17180,7 +17895,14 @@ static int formatter_step(MusashiBootMemory *memory, FormatterCpu *cpu) {
         /* The func_80012558 control writes carry a stale RA, so exact PC/word
          * plus the bound control transfer is the whole gate for them; every
          * other CTC2 site keeps its index-based caller check. */
-        if (gte_12558_site(cpu->pc, instruction, &lib_slot) && lib_slot == 0u) {
+        unsigned eac_ctl = 99;
+        if ((gte_12558_site(cpu->pc, instruction, &lib_slot) && lib_slot == 0u) ||
+            (gte_48eac_caller(cpu->r[31]) &&
+             gte_48eac_site(cpu->pc, instruction, &eac_ctl) && eac_ctl == 0u) ||
+            (gte_4d504_caller(cpu->r[31]) &&
+             gte_4d504_site(cpu->pc, instruction, &eac_ctl) && eac_ctl == 0u) ||
+            (gte_48b6c_caller(cpu->r[31]) &&
+             gte_48b6c_site(cpu->pc, instruction, &eac_ctl) && eac_ctl == 0u)) {
             /* admitted */
         } else {
         for (i=0;i<sizeof(sites)/sizeof(sites[0]);++i)
@@ -17204,14 +17926,16 @@ static int formatter_step(MusashiBootMemory *memory, FormatterCpu *cpu) {
         } else if (i < 31u) {
             if (cpu->r[31] != 0x8005385cu) return 0;
         } else if (!g_overlay_sc02_0031_words ||
-                   cpu->r[31] != (i < 36u ? 0x8012f170u : 0x8012f178u) ||
+                   !gte_491_pair_caller(cpu->r[31]) ||
                    cpu->merge_pending || cpu->gte_load_pending ||
                    cpu->npc != cpu->pc+4u || cpu->delay_slot || cpu->branch_pc) return 0;
         }
     }
     if (opcode == 50u || (opcode == 58u &&
                           (cpu->pc == 0x80049474u ||
-                           (cpu->pc >= 0x8013400cu && cpu->pc <= 0x80134014u)))) {
+                           (cpu->pc >= 0x8013400cu && cpu->pc <= 0x80134014u) ||
+                           (gte_49324_caller(cpu->r[31]) &&
+                            (cpu->pc >= 0x80049338u && cpu->pc <= 0x80049340u))))) {
         uint32_t address = cpu->r[rs] + (uint32_t)(int32_t)signed_immediate;
         int load = opcode == 50u;
         /* func_80133CD4 loads a 12-byte vector into GTE data registers 9-11.
@@ -17222,13 +17946,29 @@ static int formatter_step(MusashiBootMemory *memory, FormatterCpu *cpu) {
             ((cpu->pc == 0x80133fe8u && instruction == 0xc9090000u && rt == 9u) ||
              (cpu->pc == 0x80133fecu && instruction == 0xc90a0004u && rt == 10u) ||
              (cpu->pc == 0x80133ff0u && instruction == 0xc90b0008u && rt == 11u));
+        /* func_80048FBC's V0 pair. That leaf is main-exec library code, so its
+         * exact sites stand without the SC02 selection the 0x8013 sites need. */
+        int library_vector = load && cpu->cpu_transfer && cpu->cpu_transfer->write_data &&
+            ((cpu->pc == 0x80048fe4u && instruction == 0xc8a00000u && rt == 0u) ||
+             (cpu->pc == 0x80048fe8u && instruction == 0xc8a10004u && rt == 1u));
+        vector = vector || library_vector;
         /* The matching stores publish the transformed IR1..3 back out; same
          * clobbered RA, same exact-site discipline. */
         int store_vector = !load && cpu->cpu_transfer && cpu->cpu_transfer->read_data &&
             ((cpu->pc == 0x8013400cu && instruction == 0xe9190000u && rt == 25u) ||
              (cpu->pc == 0x80134010u && instruction == 0xe91a0004u && rt == 26u) ||
              (cpu->pc == 0x80134014u && instruction == 0xe91b0008u && rt == 27u));
-        if (!g_overlay_sc02_0031_words ||
+        /* The 80049324 leaf is main-exec code reached from either bank, so it
+         * is pinned to its own caller aliases and stands without the SC02
+         * selection that the 0x8013 sites require. */
+        unsigned leaf_slot = 99;
+        int leaf = gte_49324_caller(cpu->r[31]) &&
+            gte_49324_site(cpu->pc, instruction, &leaf_slot) &&
+            ((load && leaf_slot == 0u) || (!load && leaf_slot == 2u));
+        if (leaf) {
+            if (load) vector = 1; else store_vector = 1;
+        }
+        if ((!leaf && !library_vector && !g_overlay_sc02_0031_words) ||
             (!vector && !store_vector && cpu->r[31] != 0x8012f188u) ||
             !cpu->cpu_transfer || cpu->merge_pending ||
             cpu->npc != cpu->pc+4u || cpu->delay_slot || cpu->branch_pc ||
@@ -17239,14 +17979,23 @@ static int formatter_step(MusashiBootMemory *memory, FormatterCpu *cpu) {
                     (!cpu->cpu_transfer->read_data ||
                      (!store_vector && instruction != 0xe8ab0004u)))) return 0;
     } else if (opcode == 58u) {
-        /* Sole admitted SWC2: the 80048E98 store of light-matrix control
-         * 11 under an audited 80048D9C caller. No pending MFC2 load may
-         * be live: every 48D9C load retires at its admitted successor. */
-        if (!cpu->cpu_transfer || cpu->merge_pending || cpu->gte_load_pending ||
-            !gte_48d9c_caller(cpu->r[31]) ||
+        /* Two admitted SWC2 stores of light-matrix control 11: 80048E98 under
+         * an audited 80048D9C caller and 80048FA8 under a func_80048EAC
+         * caller. No pending MFC2 load may be live: every load of those two
+         * routines retires at its admitted successor. */
+        int swc2 = (cpu->pc == 0x80048e98u && instruction == 0xe88b0010u &&
+                    gte_48d9c_caller(cpu->r[31])) ||
+                   (cpu->pc == 0x80048fa8u && instruction == 0xe8ab0010u &&
+                    gte_48eac_caller(cpu->r[31])) ||
+                   /* func_8004864C publishes IR1..IR3 back out. */
+                   (gte_4864c_caller(cpu->r[31]) &&
+                    ((cpu->pc == 0x80048664u && instruction == 0xe8a90000u) ||
+                     (cpu->pc == 0x80048668u && instruction == 0xe8aa0004u) ||
+                     (cpu->pc == 0x8004866cu && instruction == 0xe8ab0008u)));
+        if (!swc2 || !cpu->cpu_transfer || cpu->merge_pending ||
+            cpu->gte_load_pending ||
             cpu->npc != cpu->pc+4u ||
             cpu->delay_slot || cpu->branch_pc ||
-            cpu->pc != 0x80048e98u || instruction != 0xe88b0010u ||
             !cpu->cpu_transfer->read_control) return 0;
     }
     merge_kind = merge_kind_for(cpu->pc, instruction);
@@ -17304,11 +18053,19 @@ static int formatter_step(MusashiBootMemory *memory, FormatterCpu *cpu) {
         case 4: cpu->r[rd] = cpu->r[rt] << (cpu->r[rs] & 31u); break;
         case 6: cpu->r[rd] = cpu->r[rt] >> (cpu->r[rs] & 31u); break;
         case 7: {
-            /* SRAV serves only the 47D8C table-index shift of the camera
-             * sqrt leaf; signed variable shifts elsewhere stay refused. */
+            /* SRAV serves only the 47D8C table-index shift of the camera sqrt
+             * leaf and the four normalisation shifts of the exported
+             * func_80047EC8 leaf; signed variable shifts elsewhere stay
+             * refused. */
             uint32_t amount;
-            if (cpu->pc != 0x80047d8cu || instruction != 0x01646007u ||
-                !gte_47d3c_caller(cpu->r[31])) return 0;
+            if (!((cpu->pc == 0x80047d8cu && instruction == 0x01646007u &&
+                   gte_47d3c_caller(cpu->r[31])) ||
+                  (gte_47ec8_integer_caller(cpu->r[31]) &&
+                   gte_47ec8_srav_site(cpu->pc, instruction)) ||
+                  gte_47a2c_srav_site(cpu->pc, instruction, cpu->r[31]) ||
+                  gte_47b3c_srav_site(cpu->pc, instruction, cpu->r[31]) ||
+                  gte_exported_srav_site(cpu->pc, instruction)))
+                return 0;
             amount = cpu->r[rs] & 31u;
             cpu->r[rd] = formatter_sra(cpu->r[rt], amount);
             break;
@@ -17357,14 +18114,18 @@ static int formatter_step(MusashiBootMemory *memory, FormatterCpu *cpu) {
         }
         case 33: cpu->r[rd] = cpu->r[rs] + cpu->r[rt]; break;
         case 34: {
-            /* Trapping SUB serves the camera sqrt and movie VLC sites;
-             * signed overflow traps fail closed instead of wrapping. */
+            /* Trapping SUB serves the camera sqrt, movie VLC and exported
+             * func_80047EC8 normalisation sites; signed overflow traps fail
+             * closed instead of wrapping. */
             int64_t diff;
             if (!((g_overlay_0004_words && cpu->pc >= 0x800d3234u &&
                    cpu->pc < 0x800d3540u) ||
                   (((cpu->pc == 0x80047d68u && instruction == 0x012a4822u) ||
                     (cpu->pc == 0x80047d88u && instruction == 0x016a5822u)) &&
-                   gte_47d3c_caller(cpu->r[31])))) return 0;
+                   gte_47d3c_caller(cpu->r[31])) ||
+                  (gte_47ec8_integer_caller(cpu->r[31]) &&
+                   gte_47ec8_sub_site(cpu->pc, instruction))))
+                return 0;
             diff = (int64_t)(int32_t)cpu->r[rs] - (int64_t)(int32_t)cpu->r[rt];
             if (diff < INT32_MIN || diff > INT32_MAX) return 0;
             cpu->r[rd] = (uint32_t)(int32_t)diff;
@@ -17417,6 +18178,7 @@ static int formatter_step(MusashiBootMemory *memory, FormatterCpu *cpu) {
     }
     case 18: {
         MusashiCpuContext context;
+        unsigned eac_cmd_slot = 99;
         if (!musashi_boot_cpu_context(cpu, MUSASHI_CPU_CONTEXT_SOURCE, &context)) goto gte_transfer_refused;
         if (rs == 6u) {
             if (!cpu->cpu_transfer->write_control(cpu->cpu_transfer->userdata,
@@ -17430,6 +18192,20 @@ static int formatter_step(MusashiBootMemory *memory, FormatterCpu *cpu) {
             schedule_gte_load = 1;
         } else if (rs == 18u ||
                    (cpu->pc == 0x80133ffcu && (instruction & 0x02000000u) != 0u) ||
+                   (cpu->pc == 0x80049334u && instruction == 0x4aa00428u &&
+                    gte_49324_caller(cpu->r[31])) ||
+                   (gte_48eac_caller(cpu->r[31]) &&
+                    gte_48eac_site(cpu->pc, instruction, &eac_cmd_slot) &&
+                    eac_cmd_slot == 4u) ||
+                   (gte_4d504_caller(cpu->r[31]) &&
+                    gte_4d504_site(cpu->pc, instruction, &eac_cmd_slot) &&
+                    eac_cmd_slot == 4u) ||
+                   (gte_48b6c_caller(cpu->r[31]) &&
+                    gte_48b6c_site(cpu->pc, instruction, &eac_cmd_slot) &&
+                    eac_cmd_slot == 4u) ||
+                   (gte_4864c_caller(cpu->r[31]) &&
+                    gte_4864c_site(cpu->pc, instruction, &eac_cmd_slot) &&
+                    eac_cmd_slot == 4u) ||
                    ((instruction & 0x02000000u) != 0u &&
                     gte_lib_command_site(cpu->pc, instruction))) {
             /* Admitted MVMVA sites run the shared operator synchronously, no load
@@ -17531,7 +18307,10 @@ static int formatter_step(MusashiBootMemory *memory, FormatterCpu *cpu) {
          * retains its separate control-bank transfer. */
         if (!musashi_boot_cpu_context(cpu, MUSASHI_CPU_CONTEXT_SOURCE, &context)) goto gte_transfer_refused;
         if (cpu->pc == 0x80049474u ||
-            (cpu->pc >= 0x8013400cu && cpu->pc <= 0x80134014u)) {
+            (cpu->pc >= 0x8013400cu && cpu->pc <= 0x80134014u) ||
+            (gte_4864c_caller(cpu->r[31]) &&
+             (cpu->pc == 0x80048664u || cpu->pc == 0x80048668u ||
+              cpu->pc == 0x8004866cu))) {
             if (!cpu->cpu_transfer->read_data(cpu->cpu_transfer->userdata,
                                              &context, rt, &control)) goto gte_transfer_refused;
         } else if (!cpu->cpu_transfer->read_control(cpu->cpu_transfer->userdata,

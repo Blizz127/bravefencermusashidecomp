@@ -29,6 +29,11 @@ SC02 decompilation rather than an adaptation; seven of them have Druthulu
 hole `800D1938+`.
 Scanout enabled.
 
+**Later the same day** the resident-image walk below moved the tip to
+`pc=80020F44` (a GTE bank leaf, `EXECUTION_BOUNDARY reason=REFUSED`); the
+`startup=PARTIAL` / `menu=NOT_REACHED` / `visual_check=REQUIRED` markers still
+stand. See "Resident-image walk: GTE bank leaves and the second wave".
+
 ## SC02 word-lane provenance (2026-09-10)
 
 The SC02 word lane's authority is **the image the guest itself loads**, not
@@ -134,6 +139,59 @@ earlier the same day): **538 tests OK**, out-of-tree configure/build, **22/22 CT
 script exit 0. The earlier aborted run is superseded; re-run it after any
 further formatter or CMake change, because those are the files this lane edits
 most.
+
+The resident-image walk below re-ran it after its formatter and CMake changes:
+**538 tests OK** and **22/22 CTests** again, exit 0.
+
+## Resident-image walk: GTE bank leaves and the second wave (2026-09-10)
+
+The earlier stop at `pc=80047F0C` was neither the checkpoint nor the GTE
+load gate: `formatter_step` itself refused there, at the trapping-`SUB` guard
+inside `func_80047EC8`. Every admission below is pinned to exact retail bytes;
+the temporary refusal tracing used to find them was removed before this
+commit.
+
+- `func_80047EC8` (the exported 188-byte LZCR/GPF leaf): its two signed `SUB`s
+  and four `SRAV`s are admitted by exact PC/word plus the five retail JAL
+  return aliases. The signed overflow trap is unchanged.
+- IR0 (`mtc2 $x,$8`) joins the GTE data-owner write profile. The leaf loads the
+  interpolation factor into IR0 and the following `GPF` (`4B90003D`) scales
+  IR1..IR3 by it; IR0 *reads* stay refused, because no exported site reads it.
+  `tests/gte_data_owner_probe.c` now asserts both halves of that contract.
+- `func_800479E8` and `func_80047B3C` (camera fixed-point steppers),
+  `func_80049324` (LWC2 → MVMVA → SWC2 vector leaf) and the GTE bank leaves
+  `func_80048FBC`, `func_80048EAC`, `func_8004D504`, `func_80048B6C`,
+  `func_8004864C`, `func_8004914C`/`func_800491AC` are admitted site by site,
+  each with the caller-alias list its own retail `jal` sites produce.
+- `func_801347A0`'s LWL/LWR pairs and their SWL/SWR stores are added to the
+  merge table, and `gte_47d3c_caller` / `gte_48d9c_caller` / `gte_484ec_caller`
+  gained the remaining retail return aliases (executable and member 0031).
+
+Carved and wired this pass — word export, CMake entry, formatter table and
+fetch range — each verified against the authority named in its file header
+(`extracted/disc/files/SLUS_007.26` for the executable,
+`artifacts/sc02-resident-20260910/overlay.bin` for member 0031):
+
+| region | ranges |
+| --- | --- |
+| main exec | `800123F0`, `800126C4`, `80012F74`, `80012FC8`, `80013294`, `800132BC`, `80013328`, `80013350`, `80013ED0`, `80013F98`, `80013FBC`, `80020F34`, `800479E8`, `80047B3C`, `8004864C`, `80048B6C`, `80048FB8`, `80049324`, `80049A18`, `8004D504`, `80054DCC`, `8005C49C` |
+| member 0031 | `80129CF8`, `8012A328`, `8012A988`, `801320D0`, `80134510`, `801345F8`, `801347A0`, `80135480`, `80135D20`, `80135EB0`, `80136A94`, `8013E448`, `80142EC0`, `8014305C`, `80165E90`, `8016EE94`, `8017849C`, `8017869C`, `80178B18`, `80178BF8`, `80178D40`, `8017C180`, `801816C0`, `80181A44`, `80181AE0` |
+
+`func_80013ED0` also got a C body: m2c shape `arg0[3*k+r] = argr[k]`, MATCH
+27/27 through `tools/match_function.py`. The executable sources that already
+existed but carried no word export — `800123F0`, `800126C4`, `80012F74`,
+`80012FC8`, `80013294`, `800132BC`, `80013328`, `80013350`, `80013F98`,
+`80013FBC`, `80020F34`, `8004864C`, `80048B6C`, `80049324`, `8004D504`,
+`8005C49C` — were wrapped in `#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT` rather
+than rewritten, so their oracle C claims are untouched; each was re-run through
+`tools/match_function.py` after the wrap.
+
+Where the walk stands: it now stops at `pc=80020F44` — the `mtc2` pair of
+`func_80020F34`, the next GTE bank leaf — with `EXECUTION_BOUNDARY
+reason=REFUSED`, `startup=PARTIAL`, `menu=NOT_REACHED`,
+`visual_check=REQUIRED`. That is the next unadmitted site of a shape already
+handled above, not a proven dead end, and it is **not** evidence that the menu
+is reachable: no frame from the boot path has been looked at by a human.
 
 ## Merge availability and the GTE library path (2026-09-10)
 

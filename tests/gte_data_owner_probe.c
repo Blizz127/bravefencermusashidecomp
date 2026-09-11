@@ -182,10 +182,17 @@ int main(void) {
             assert(musashi_gte_owner_read_data(&owner, &context, 25u + k, &value));
             assert(value == data_before[25u + k]);
         }
+        /* IR0 accepts the func_80047EC8 interpolation-factor write (the GPF
+         * site then scales IR1..IR3 by it); IR0's own reads stay refused
+         * because no exported site reads it back. */
+        assert(musashi_gte_owner_write_data(&owner, &context, 8u, 7u));
+        assert(gteRegs.CP2D.p[8].d == 7u);
+        data_before[8] = 7u;
+        assert_banks(data_before, control_before);
         assert(!musashi_gte_owner_write_data(&owner, &context, 2u, 7));
-        assert(!musashi_gte_owner_write_data(&owner, &context, 8u, 7));
         assert(!musashi_gte_owner_write_data(&owner, &context, 12u, 7));
         assert(!musashi_gte_owner_read_data(&owner, &context, 2u, &value));
+        assert(!musashi_gte_owner_read_data(&owner, &context, 8u, &value));
         assert(!musashi_gte_owner_read_data(&owner, &context, 12u, &value));
         assert(!musashi_gte_owner_read_data(&owner, &context, 24u, &value));
         assert(!musashi_gte_owner_read_data(&owner, &context, 28u, &value));
