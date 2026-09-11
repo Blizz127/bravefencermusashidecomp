@@ -191,6 +191,16 @@ Carved and wired in this pass: executable `80017758`, `80017778`, `80017E68`,
 same addresses member 0004 also loads, which is exactly why the tables are
 keyed per image.
 
+A second batch on the same day, after the tables above started following the
+ranges: executable `80015954`, `80018094`, `800190AC`, `8002FA3C`, `800491EC`,
+`80058C6C`; member 0010 `800D1FC8`, `800D21C4`, `800D22E4`; member 0031
+`80128ED8`, `80129010`, `8012956C`, `8013CA14`, `801627E8`, `80162968`,
+`80162B1C`, `80165CA0`, `80166054`, `8016E95C`, `801754A8`, `80175798`,
+`8017F590`, `8017F5B4`. That batch also split CFC2 out of the data bank in
+`gte_bank_site`: slot 5 is a *control* read and requires the `read_control`
+binding, because `cfc2 $v0,$N` reads the control bank while `mfc2` reads the
+data bank.
+
 Where the walk stands now: with those admissions the run no longer stops inside
 60 s. It executes the CD streaming path — `CD_WRITE`/`CD_RESPONSE`, XA audio
 decoding, ordering-table DMA, draw packets and vblank waits — until the 400 s
