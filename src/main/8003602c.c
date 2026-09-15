@@ -68,6 +68,55 @@ MUSASHI_NATIVE_MIPS_WORD(0x27BD0020)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* No matched C implementation is claimed for this span;
- * word export only (m2c produced no draft). UNVERIFIED. */
+#include "psx_types.h"
+#include "m2c_macros.h"
+
+/* m2c draft from main.s: NOT verified against retail. C89-gated only;
+ * promotion requires an oracle MATCH (tools/match_function.py). Types
+ * and signatures are whatever the decompiler guessed; they are not
+ * evidence of the original declaration. */
+
+void func_8003621C();                            /* static */
+void func_800434BC();                            /* static */
+s32 func_8004355C(s32, u8 *);                   /* static */
+void func_80043704(s32, s32);            /* static */
+extern s8 D_80076214;
+
+void func_8003602C(void *arg0) {
+    u8 sp10;
+    s32 temp_v0;
+    u8 temp_v1;
+
+    temp_v1 = M2C_FIELD(arg0, u8 *, 3);
+    switch (temp_v1) {
+    case 2:
+        M2C_FIELD(arg0, s8 *, 2) = 1;
+        func_800434BC();
+        M2C_FIELD(arg0, u8 *, 3) = (u8) (M2C_FIELD(arg0, u8 *, 3) + 2);
+        return;
+    case 3:
+        M2C_FIELD(arg0, s8 *, 2) = 1;
+        func_800434BC();
+        M2C_FIELD(arg0, u8 *, 3) = (u8) (M2C_FIELD(arg0, u8 *, 3) + 1);
+        /* fallthrough */
+    case 4:
+        func_80043704(9, 0);
+        func_8003621C();
+        M2C_FIELD(arg0, s8 *, 2) = 1;
+        M2C_FIELD(arg0, u8 *, 3) = (u8) (M2C_FIELD(arg0, u8 *, 3) + 1);
+        return;
+    case 5:
+        temp_v0 = func_8004355C(1, &sp10);
+        if (temp_v0 == 0) {
+            M2C_FIELD(arg0, s8 *, 2) = 1;
+            return;
+        }
+        if ((temp_v0 == 5) && (sp10 & 0x10)) {
+            D_80076214 = 1;
+        }
+    default:
+        M2C_FIELD(arg0, s8 *, 2) = 0;
+        return;
+    }
+}
 #endif

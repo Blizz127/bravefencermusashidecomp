@@ -194,7 +194,13 @@ def recarve_region(region: str, repo: Path, registered: set[int], limit: int | N
             if dry_run:
                 bump("would-rewrite")
                 continue
-            target.write_text(rebuilt)
+            # Written through a temporary in the same directory and renamed.
+            # The test suite reads these sources concurrently to generate the
+            # native word tables, and a torn read would fail a build for a
+            # reason that has nothing to do with the change.
+            staged = target.with_suffix(target.suffix + ".recarve")
+            staged.write_text(rebuilt)
+            staged.replace(target)
             bump("rewritten")
     return counts
 

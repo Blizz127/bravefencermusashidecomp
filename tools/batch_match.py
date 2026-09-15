@@ -460,6 +460,92 @@ def m2c_assembly_text(text: str, function: FunctionRange) -> str:
                 lines.insert(index, f"glabel {function.name}\n")
                 break
 
+    return _expose_jump_tables("".join(lines), function)
+
+
+_JTBL_REFERENCE_RE = re.compile(r"%(?:hi|lo)\((jtbl_[0-9A-Fa-f]{8})\)")
+_JTBL_DEFINITION_RE = re.compile(
+    r"^dlabel (jtbl_[0-9A-Fa-f]{8})\s*$", re.MULTILINE
+)
+_DATA_WORD_RE = re.compile(
+    r"^\s*/\*\s*[0-9A-Fa-f]+\s+[0-9A-Fa-f]{8}\s+[0-9A-Fa-f]{8}\s*\*/\s*\.word\s+0x([0-9A-Fa-f]{8})\s*$"
+)
+
+
+def _expose_jump_tables(text: str, function: FunctionRange) -> str:
+    """Rewrite the switch tables this function uses into a form m2c reads.
+
+    splat emits a jump table as `dlabel jtbl_ADDRESS` followed by raw
+    `.word 0x80018824` values. m2c needs the entries to name basic blocks,
+    so with literal addresses it builds no case list at all and aborts with
+    "jtbl list must not be empty". That accounted for 73 of the 106 spans
+    that still have no C body, including some of the largest left.
+
+    Three changes, all in m2c's private copy:
+
+    * `dlabel` becomes `glabel`, so m2c treats the table as a symbol.
+    * each entry becomes `.word .LTARGET`, naming a label instead of an
+      address.
+    * a `.LTARGET:` label is inserted where splat did not emit one. A
+      target reached only through the table is not a branch target splat
+      could see, so most of them are missing.
+
+    Only tables this function actually references are touched, and only
+    labels that are absent are added. asm/ is never modified.
+    """
+
+    end = function.vram + function.size
+    wanted: set[str] = set()
+    for line in text.splitlines():
+        instruction = INSTRUCTION_RE.match(line)
+        if instruction is None:
+            continue
+        address = int(instruction.group(1), 16)
+        if function.vram <= address < end:
+            wanted.update(_JTBL_REFERENCE_RE.findall(line))
+    if not wanted:
+        return text
+
+    lines = text.splitlines(keepends=True)
+    # A table's real extent is not marked, so it is read from the entries
+    # themselves: an entry is an entry only while it names an address the
+    # listing actually disassembles. jtbl_80072A4C is followed by a zero
+    # word, and taking that as a case produced "Cannot find jtbl target
+    # .L00000000".
+    code_addresses = {
+        int(instruction.group(1), 16)
+        for instruction in (INSTRUCTION_RE.match(line) for line in lines)
+        if instruction is not None
+    }
+
+    targets: set[int] = set()
+    for index, line in enumerate(lines):
+        definition = _JTBL_DEFINITION_RE.match(line.rstrip("\n"))
+        if definition is None or definition.group(1) not in wanted:
+            continue
+        lines[index] = line.replace("dlabel", "glabel", 1)
+        for follower in range(index + 1, len(lines)):
+            word = _DATA_WORD_RE.match(lines[follower].rstrip("\n"))
+            if word is None:
+                break
+            target = int(word.group(1), 16)
+            if target not in code_addresses:
+                break
+            targets.add(target)
+            lines[follower] = f"/* jump table entry */ .word .L{target:08X}\n"
+
+    if targets:
+        rebuilt: list[str] = []
+        for line in lines:
+            instruction = INSTRUCTION_RE.match(line)
+            if instruction is not None:
+                address = int(instruction.group(1), 16)
+                if address in targets:
+                    rebuilt.append(f".L{address:08X}:\n")
+                    targets.discard(address)
+            rebuilt.append(line)
+        lines = rebuilt
+
     return "".join(lines)
 
 

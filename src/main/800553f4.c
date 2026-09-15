@@ -597,6 +597,534 @@ MUSASHI_NATIVE_MIPS_WORD(0x27BD0058)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* No matched C implementation is claimed for this span;
- * word export only (m2c produced no draft). UNVERIFIED. */
+#include "psx_types.h"
+#include "m2c_macros.h"
+
+/* m2c draft from main.s: NOT verified against retail. C89-gated only;
+ * promotion requires an oracle MATCH (tools/match_function.py). Types
+ * and signatures are whatever the decompiler guessed; they are not
+ * evidence of the original declaration. */
+
+extern s32 D_80073C00;
+void func_8005C604(s32 (*)(), u8, s32, s32); /* static */
+
+void *func_800553F4(void *arg0, void *arg1) {
+    u32 sp2C;
+    s32 sp28;
+    s32 sp24;
+    s32 sp20;
+    u32 sp10;
+    s32 *var_s0_2;
+    s32 *var_s0_3;
+    s32 *var_s0_4;
+    s32 temp_a0;
+    s32 temp_t0;
+    s32 temp_v0_3;
+    s32 temp_v0_4;
+    s32 temp_v0_5;
+    s32 temp_v0_8;
+    s32 temp_v0_9;
+    s32 var_a2;
+    s32 var_a3;
+    s32 var_s0;
+    s32 var_s7;
+    s32 var_v0;
+    s32 var_v0_2;
+    s32 var_v0_3;
+    u32 *var_s2;
+    u32 temp_v0_10;
+    u32 temp_v0_11;
+    u32 temp_v0_12;
+    u32 temp_v0_13;
+    u32 temp_v0_14;
+    u32 temp_v0_15;
+    u32 temp_v0_2;
+    u32 temp_v0_6;
+    u32 temp_v0_7;
+    u32 var_fp;
+    u32 var_t1;
+    void *temp_s0;
+    void *temp_s0_10;
+    void *temp_s0_11;
+    void *temp_s0_12;
+    void *temp_s0_13;
+    void *temp_s0_14;
+    void *temp_s0_15;
+    void *temp_s0_16;
+    void *temp_s0_17;
+    void *temp_s0_18;
+    void *temp_s0_19;
+    void *temp_s0_20;
+    void *temp_s0_21;
+    void *temp_s0_22;
+    void *temp_s0_23;
+    void *temp_s0_24;
+    void *temp_s0_25;
+    void *temp_s0_26;
+    void *temp_s0_27;
+    void *temp_s0_28;
+    void *temp_s0_29;
+    void *temp_s0_2;
+    void *temp_s0_30;
+    void *temp_s0_31;
+    void *temp_s0_32;
+    void *temp_s0_33;
+    void *temp_s0_34;
+    void *temp_s0_35;
+    void *temp_s0_36;
+    void *temp_s0_37;
+    void *temp_s0_38;
+    void *temp_s0_39;
+    void *temp_s0_3;
+    void *temp_s0_40;
+    void *temp_s0_41;
+    void *temp_s0_42;
+    void *temp_s0_43;
+    void *temp_s0_44;
+    void *temp_s0_45;
+    void *temp_s0_46;
+    void *temp_s0_47;
+    void *temp_s0_48;
+    void *temp_s0_49;
+    void *temp_s0_4;
+    void *temp_s0_50;
+    void *temp_s0_51;
+    void *temp_s0_52;
+    void *temp_s0_53;
+    void *temp_s0_54;
+    void *temp_s0_55;
+    void *temp_s0_56;
+    void *temp_s0_57;
+    void *temp_s0_58;
+    void *temp_s0_59;
+    void *temp_s0_5;
+    void *temp_s0_60;
+    void *temp_s0_61;
+    void *temp_s0_62;
+    void *temp_s0_63;
+    void *temp_s0_64;
+    void *temp_s0_65;
+    void *temp_s0_66;
+    void *temp_s0_67;
+    void *temp_s0_68;
+    void *temp_s0_69;
+    void *temp_s0_6;
+    void *temp_s0_70;
+    void *temp_s0_71;
+    void *temp_s0_72;
+    void *temp_s0_73;
+    void *temp_s0_74;
+    void *temp_s0_75;
+    void *temp_s0_76;
+    void *temp_s0_77;
+    void *temp_s0_78;
+    void *temp_s0_79;
+    void *temp_s0_7;
+    void *temp_s0_80;
+    void *temp_s0_81;
+    void *temp_s0_82;
+    void *temp_s0_83;
+    void *temp_s0_84;
+    void *temp_s0_85;
+    void *temp_s0_86;
+    void *temp_s0_87;
+    void *temp_s0_88;
+    void *temp_s0_89;
+    void *temp_s0_8;
+    void *temp_s0_90;
+    void *temp_s0_9;
+    void *temp_v0;
+    void *var_s1;
+    void *var_s4;
+    s32 phi_v0;
+
+    var_s7 = 0;
+    var_fp = 0;
+    var_s4 = arg1;
+    temp_v0 = M2C_FIELD(arg0, void **, 8);
+    var_t1 = 0;
+    var_s2 = M2C_FIELD(temp_v0, u32 **, 0x10);
+    var_a2 = 0;
+    sp10 = M2C_FIELD(temp_v0, u32 *, 0x14);
+    M2C_FIELD(arg0, void **, 0xC) = arg1;
+    var_s0 = arg1 + 8;
+    if (sp10 != 0) {
+        var_a3 = 0x10000000;
+        var_s1 = var_s2 + 0x10;
+        do {
+            temp_v0_2 = *var_s2;
+            temp_t0 = var_s7;
+            temp_a0 = var_fp & 0xFF;
+            var_fp = temp_v0_2 >> 0x18;
+            var_s7 = (temp_v0_2 >> 0x10) & 4;
+            if ((temp_a0 != 0) && ((temp_v0_3 = temp_t0 & 0xFF, (var_fp != temp_a0)) || (var_s7 != temp_v0_3))) {
+                if (temp_v0_3 != 0) {
+                    M2C_FIELD(var_s4, s32 *, 0) = (s32) ((temp_a0 << 0x18) | ((var_s0 & 0xFFFFFF) | var_a3));
+                } else {
+                    M2C_FIELD(var_s4, s32 *, 0) = (s32) ((temp_a0 << 0x18) | (var_s0 & 0xFFFFFF));
+                }
+                M2C_FIELD(var_s4, s32 *, 4) = var_a2;
+                var_a2 = 0;
+                var_s4 = (void *) var_s0;
+                var_s0 += 8;
+            }
+            temp_v0_4 = var_fp & 0xFD;
+            var_s0 += 4;
+            switch (temp_v0_4) {
+            case 0x20:
+                if (var_s7 != 0) {
+                    var_s2 += 0x18;
+                    M2C_FIELD(var_s0, s32 *, 0) = (s32) (M2C_FIELD(var_s1, s32 *, -0xC) | var_a3);
+                    temp_s0 = var_s0 + 8;
+                    M2C_FIELD(var_s0, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -8);
+                    temp_s0_2 = temp_s0 + 8;
+                    M2C_FIELD(temp_s0, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -4);
+                    temp_s0_3 = temp_s0_2 + 0xC;
+                    M2C_FIELD(temp_s0_2, s32 *, 0xC) = (s32) (M2C_FIELD(var_s1, s32 *, -0xC) | var_a3);
+                    M2C_FIELD(temp_s0_3, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -8);
+                    var_s0_2 = temp_s0_3 + 8 + 8;
+                    var_v0 = M2C_FIELD(var_s1, s32 *, -4);
+                    var_s1 += 0x18;
+block_30:
+                    *var_s0_2 = var_v0;
+                    var_s0 = (s32) (var_s0_2 + 8);
+                } else {
+                case 0x21:
+                    var_s2 += 0x10;
+                    M2C_FIELD(var_s0, s32 *, 0) = (s32) M2C_FIELD(var_s1, s32 *, -0xC);
+                    temp_v0_5 = M2C_FIELD(var_s1, s32 *, -0xC);
+                    var_s1 += 0x10;
+                    M2C_FIELD(var_s0, s32 *, 0x14) = temp_v0_5;
+                    var_s0 = var_s0 + 0x14 + 0x10;
+                }
+                break;
+            case 0x24:
+                M2C_FIELD(var_s0, s32 *, 0) = (s32) ((*var_s2 & 0xFF000000) | 0x808080);
+                temp_s0_4 = var_s0 + 8;
+                M2C_FIELD(var_s0, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -0xC);
+                temp_s0_5 = temp_s0_4 + 8;
+                M2C_FIELD(temp_s0_4, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -8);
+                temp_s0_6 = temp_s0_5 + 8;
+                M2C_FIELD(temp_s0_5, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -4);
+                temp_s0_7 = temp_s0_6 + 8;
+                temp_v0_6 = *var_s2;
+                var_s2 += 0x18;
+                M2C_FIELD(temp_s0_6, s32 *, 8) = (s32) ((temp_v0_6 & 0xFF000000) | 0x808080);
+                temp_s0_8 = temp_s0_7 + 8;
+                M2C_FIELD(temp_s0_7, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -0xC);
+                M2C_FIELD(temp_s0_8, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -8);
+                var_s0_3 = temp_s0_8 + 8 + 8;
+                var_v0_2 = M2C_FIELD(var_s1, s32 *, -4);
+                var_s1 += 0x18;
+block_33:
+                *var_s0_3 = var_v0_2;
+                var_s0 = (s32) (var_s0_3 + 4);
+                break;
+            case 0x30:
+                if (var_s7 != 0) {
+                    var_s2 += 0x1C;
+                    M2C_FIELD(var_s0, s32 *, 0) = (s32) (M2C_FIELD(var_s1, s32 *, -0xC) | var_a3);
+                    temp_s0_9 = var_s0 + 8;
+                    M2C_FIELD(var_s0, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -8);
+                    temp_s0_10 = temp_s0_9 + 8;
+                    M2C_FIELD(temp_s0_9, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -4);
+                    temp_s0_11 = temp_s0_10 + 0xC;
+                    M2C_FIELD(temp_s0_10, s32 *, 0xC) = (s32) (M2C_FIELD(var_s1, s32 *, -0xC) | var_a3);
+                    M2C_FIELD(temp_s0_11, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -8);
+                    var_v0 = M2C_FIELD(var_s1, s32 *, -4);
+                    var_s0_2 = temp_s0_11 + 8 + 8;
+block_29:
+                    var_s1 += 0x1C;
+                } else {
+                    var_s2 += 0x14;
+                    M2C_FIELD(var_s0, s32 *, 0) = (s32) M2C_FIELD(var_s1, s32 *, -0xC);
+                    temp_s0_12 = var_s0 + 8;
+                    M2C_FIELD(var_s0, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -0xC);
+                    temp_s0_13 = temp_s0_12 + 8;
+                    M2C_FIELD(temp_s0_12, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -0xC);
+                    temp_s0_14 = temp_s0_13 + 0xC;
+                    M2C_FIELD(temp_s0_13, s32 *, 0xC) = (s32) M2C_FIELD(var_s1, s32 *, -0xC);
+                    M2C_FIELD(temp_s0_14, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -0xC);
+                    var_s0_2 = temp_s0_14 + 8 + 8;
+                    var_v0 = M2C_FIELD(var_s1, s32 *, -0xC);
+                    var_s1 += 0x14;
+                }
+                goto block_30;
+            case 0x34:
+                M2C_FIELD(var_s0, s32 *, 0) = (s32) ((*var_s2 & 0xFF000000) | 0x808080);
+                temp_s0_15 = var_s0 + 8;
+                M2C_FIELD(var_s0, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -0xC);
+                temp_s0_16 = temp_s0_15 + 4;
+                M2C_FIELD(temp_s0_15, s32 *, 4) = 0x808080;
+                temp_s0_17 = temp_s0_16 + 8;
+                M2C_FIELD(temp_s0_16, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -8);
+                temp_s0_18 = temp_s0_17 + 4;
+                M2C_FIELD(temp_s0_17, s32 *, 4) = 0x808080;
+                temp_s0_19 = temp_s0_18 + 8;
+                M2C_FIELD(temp_s0_18, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -4);
+                temp_s0_20 = temp_s0_19 + 8;
+                temp_v0_7 = *var_s2;
+                var_s2 += 0x1C;
+                M2C_FIELD(temp_s0_19, s32 *, 8) = (s32) ((temp_v0_7 & 0xFF000000) | 0x808080);
+                temp_s0_21 = temp_s0_20 + 8;
+                M2C_FIELD(temp_s0_20, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -0xC);
+                temp_s0_22 = temp_s0_21 + 4;
+                M2C_FIELD(temp_s0_21, s32 *, 4) = 0x808080;
+                temp_s0_23 = temp_s0_22 + 8;
+                M2C_FIELD(temp_s0_22, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -8);
+                M2C_FIELD(temp_s0_23, s32 *, 4) = 0x808080;
+                var_s0_3 = temp_s0_23 + 4 + 8;
+                var_v0_2 = M2C_FIELD(var_s1, s32 *, -4);
+                var_s1 += 0x1C;
+                goto block_33;
+            case 0x28:
+                var_s2 += 0x14;
+                M2C_FIELD(var_s0, s32 *, 0) = (s32) M2C_FIELD(var_s1, s32 *, -0xC);
+                var_s0_4 = var_s0 + 0x18;
+                temp_v0_8 = M2C_FIELD(var_s1, s32 *, -0xC);
+                var_s1 += 0x14;
+                phi_v0 = temp_v0_8;
+block_21:
+                *var_s0_4 = phi_v0;
+                var_s0 = (s32) (var_s0_4 + 0x14);
+                break;
+            case 0x29:
+                var_s2 += 0x10;
+                M2C_FIELD(var_s0, s32 *, 0) = (s32) M2C_FIELD(var_s1, s32 *, -0xC);
+                var_s0_4 = var_s0 + 0x18;
+                temp_v0_9 = M2C_FIELD(var_s1, s32 *, -0xC);
+                var_s1 += 0x10;
+                phi_v0 = temp_v0_9;
+                goto block_21;
+            case 0x2C:
+                M2C_FIELD(var_s0, s32 *, 0) = (s32) ((*var_s2 & 0xFF000000) | 0x808080);
+                temp_s0_24 = var_s0 + 8;
+                M2C_FIELD(var_s0, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -0xC);
+                temp_s0_25 = temp_s0_24 + 8;
+                M2C_FIELD(temp_s0_24, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -8);
+                temp_s0_26 = temp_s0_25 + 8;
+                M2C_FIELD(temp_s0_25, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -4);
+                temp_s0_27 = temp_s0_26 + 8;
+                M2C_FIELD(temp_s0_26, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, 0);
+                temp_s0_28 = temp_s0_27 + 8;
+                temp_v0_10 = *var_s2;
+                var_s2 += 0x20;
+                M2C_FIELD(temp_s0_27, s32 *, 8) = (s32) ((temp_v0_10 & 0xFF000000) | 0x808080);
+                temp_s0_29 = temp_s0_28 + 8;
+                M2C_FIELD(temp_s0_28, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -0xC);
+                temp_s0_30 = temp_s0_29 + 8;
+                M2C_FIELD(temp_s0_29, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -8);
+                M2C_FIELD(temp_s0_30, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -4);
+                var_s0_3 = temp_s0_30 + 8 + 8;
+                var_v0_2 = M2C_FIELD(var_s1, s32 *, 0);
+                var_s1 += 0x20;
+                goto block_33;
+            case 0x38:
+                var_s2 += 0x18;
+                M2C_FIELD(var_s0, s32 *, 0) = (s32) M2C_FIELD(var_s1, s32 *, -0xC);
+                temp_s0_31 = var_s0 + 8;
+                M2C_FIELD(var_s0, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -0xC);
+                temp_s0_32 = temp_s0_31 + 8;
+                M2C_FIELD(temp_s0_31, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -0xC);
+                temp_s0_33 = temp_s0_32 + 8;
+                M2C_FIELD(temp_s0_32, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -0xC);
+                temp_s0_34 = temp_s0_33 + 0xC;
+                M2C_FIELD(temp_s0_33, s32 *, 0xC) = (s32) M2C_FIELD(var_s1, s32 *, -0xC);
+                temp_s0_35 = temp_s0_34 + 8;
+                M2C_FIELD(temp_s0_34, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -0xC);
+                M2C_FIELD(temp_s0_35, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -0xC);
+                var_s0_2 = temp_s0_35 + 8 + 8;
+                var_v0 = M2C_FIELD(var_s1, s32 *, -0xC);
+                var_s1 += 0x18;
+                goto block_30;
+            case 0x3C:
+                M2C_FIELD(var_s0, s32 *, 0) = (s32) ((*var_s2 & 0xFF000000) | 0x808080);
+                temp_s0_36 = var_s0 + 8;
+                M2C_FIELD(var_s0, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -0xC);
+                temp_s0_37 = temp_s0_36 + 4;
+                M2C_FIELD(temp_s0_36, s32 *, 4) = 0x808080;
+                temp_s0_38 = temp_s0_37 + 8;
+                M2C_FIELD(temp_s0_37, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -8);
+                temp_s0_39 = temp_s0_38 + 4;
+                M2C_FIELD(temp_s0_38, s32 *, 4) = 0x808080;
+                temp_s0_40 = temp_s0_39 + 8;
+                M2C_FIELD(temp_s0_39, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -4);
+                temp_s0_41 = temp_s0_40 + 4;
+                M2C_FIELD(temp_s0_40, s32 *, 4) = 0x808080;
+                temp_s0_42 = temp_s0_41 + 8;
+                M2C_FIELD(temp_s0_41, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, 0);
+                temp_s0_43 = temp_s0_42 + 8;
+                temp_v0_11 = *var_s2;
+                var_s2 += 0x24;
+                M2C_FIELD(temp_s0_42, s32 *, 8) = (s32) ((temp_v0_11 & 0xFF000000) | 0x808080);
+                temp_s0_44 = temp_s0_43 + 8;
+                M2C_FIELD(temp_s0_43, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -0xC);
+                temp_s0_45 = temp_s0_44 + 4;
+                M2C_FIELD(temp_s0_44, s32 *, 4) = 0x808080;
+                temp_s0_46 = temp_s0_45 + 8;
+                M2C_FIELD(temp_s0_45, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -8);
+                temp_s0_47 = temp_s0_46 + 4;
+                M2C_FIELD(temp_s0_46, s32 *, 4) = 0x808080;
+                temp_s0_48 = temp_s0_47 + 8;
+                M2C_FIELD(temp_s0_47, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -4);
+                M2C_FIELD(temp_s0_48, s32 *, 4) = 0x808080;
+                var_s0_3 = temp_s0_48 + 4 + 8;
+                var_v0_2 = M2C_FIELD(var_s1, s32 *, 0);
+                var_s1 += 0x24;
+                goto block_33;
+            case 0x31:
+                var_s2 += 0x18;
+                M2C_FIELD(var_s0, s32 *, 0) = (s32) M2C_FIELD(var_s1, s32 *, -0xC);
+                temp_s0_49 = var_s0 + 8;
+                M2C_FIELD(var_s0, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -8);
+                temp_s0_50 = temp_s0_49 + 8;
+                M2C_FIELD(temp_s0_49, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -4);
+                temp_s0_51 = temp_s0_50 + 0xC;
+                M2C_FIELD(temp_s0_50, s32 *, 0xC) = (s32) M2C_FIELD(var_s1, s32 *, -0xC);
+                M2C_FIELD(temp_s0_51, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -8);
+                var_s0_2 = temp_s0_51 + 8 + 8;
+                var_v0 = M2C_FIELD(var_s1, s32 *, -4);
+                var_s1 += 0x18;
+                goto block_30;
+            case 0x25:
+                M2C_FIELD(var_s0, s32 *, 0) = (s32) ((*var_s2 & 0xFE000000) | M2C_FIELD(var_s1, s32 *, 0));
+                temp_s0_52 = var_s0 + 8;
+                M2C_FIELD(var_s0, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -0xC);
+                temp_s0_53 = temp_s0_52 + 8;
+                M2C_FIELD(temp_s0_52, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -8);
+                temp_s0_54 = temp_s0_53 + 8;
+                M2C_FIELD(temp_s0_53, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -4);
+                temp_s0_55 = temp_s0_54 + 8;
+                temp_v0_12 = *var_s2;
+                var_s2 += 0x1C;
+                M2C_FIELD(temp_s0_54, s32 *, 8) = (s32) ((temp_v0_12 & 0xFE000000) | M2C_FIELD(var_s1, s32 *, 0));
+                temp_s0_56 = temp_s0_55 + 8;
+                M2C_FIELD(temp_s0_55, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -0xC);
+                M2C_FIELD(temp_s0_56, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -8);
+                var_s0_3 = temp_s0_56 + 8 + 8;
+                var_v0_2 = M2C_FIELD(var_s1, s32 *, -4);
+                var_s1 += 0x1C;
+                goto block_33;
+            case 0x35:
+                M2C_FIELD(var_s0, s32 *, 0) = (s32) ((*var_s2 & 0xFE000000) | M2C_FIELD(var_s1, s32 *, 0));
+                temp_s0_57 = var_s0 + 8;
+                M2C_FIELD(var_s0, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -0xC);
+                temp_s0_58 = temp_s0_57 + 4;
+                M2C_FIELD(temp_s0_57, s32 *, 4) = (s32) M2C_FIELD(var_s1, s32 *, 4);
+                temp_s0_59 = temp_s0_58 + 8;
+                M2C_FIELD(temp_s0_58, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -8);
+                temp_s0_60 = temp_s0_59 + 4;
+                M2C_FIELD(temp_s0_59, s32 *, 4) = (s32) M2C_FIELD(var_s1, s32 *, 8);
+                temp_s0_61 = temp_s0_60 + 8;
+                M2C_FIELD(temp_s0_60, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -4);
+                temp_s0_62 = temp_s0_61 + 8;
+                temp_v0_13 = *var_s2;
+                var_s2 += 0x24;
+                M2C_FIELD(temp_s0_61, s32 *, 8) = (s32) ((temp_v0_13 & 0xFE000000) | M2C_FIELD(var_s1, s32 *, 0));
+                temp_s0_63 = temp_s0_62 + 8;
+                M2C_FIELD(temp_s0_62, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -0xC);
+                temp_s0_64 = temp_s0_63 + 4;
+                M2C_FIELD(temp_s0_63, s32 *, 4) = (s32) M2C_FIELD(var_s1, s32 *, 4);
+                temp_s0_65 = temp_s0_64 + 8;
+                M2C_FIELD(temp_s0_64, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -8);
+                M2C_FIELD(temp_s0_65, s32 *, 4) = (s32) M2C_FIELD(var_s1, s32 *, 8);
+                var_s0_3 = temp_s0_65 + 4 + 8;
+                var_v0_2 = M2C_FIELD(var_s1, s32 *, -4);
+                var_s1 += 0x24;
+                goto block_33;
+            case 0x39:
+                var_s2 += 0x1C;
+                M2C_FIELD(var_s0, s32 *, 0) = (s32) M2C_FIELD(var_s1, s32 *, -0xC);
+                temp_s0_66 = var_s0 + 8;
+                M2C_FIELD(var_s0, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -8);
+                temp_s0_67 = temp_s0_66 + 8;
+                M2C_FIELD(temp_s0_66, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -4);
+                temp_s0_68 = temp_s0_67 + 8;
+                M2C_FIELD(temp_s0_67, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, 0);
+                temp_s0_69 = temp_s0_68 + 0xC;
+                M2C_FIELD(temp_s0_68, s32 *, 0xC) = (s32) M2C_FIELD(var_s1, s32 *, -0xC);
+                temp_s0_70 = temp_s0_69 + 8;
+                M2C_FIELD(temp_s0_69, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -8);
+                M2C_FIELD(temp_s0_70, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -4);
+                var_s0_2 = temp_s0_70 + 8 + 8;
+                var_v0 = M2C_FIELD(var_s1, s32 *, 0);
+                goto block_29;
+            case 0x2D:
+                M2C_FIELD(var_s0, s32 *, 0) = (s32) ((*var_s2 & 0xFE000000) | M2C_FIELD(var_s1, s32 *, 4));
+                temp_s0_71 = var_s0 + 8;
+                M2C_FIELD(var_s0, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -0xC);
+                temp_s0_72 = temp_s0_71 + 8;
+                M2C_FIELD(temp_s0_71, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -8);
+                temp_s0_73 = temp_s0_72 + 8;
+                M2C_FIELD(temp_s0_72, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -4);
+                temp_s0_74 = temp_s0_73 + 8;
+                M2C_FIELD(temp_s0_73, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, 0);
+                temp_s0_75 = temp_s0_74 + 8;
+                temp_v0_14 = *var_s2;
+                var_s2 += 0x20;
+                M2C_FIELD(temp_s0_74, s32 *, 8) = (s32) ((temp_v0_14 & 0xFE000000) | M2C_FIELD(var_s1, s32 *, 4));
+                temp_s0_76 = temp_s0_75 + 8;
+                M2C_FIELD(temp_s0_75, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -0xC);
+                temp_s0_77 = temp_s0_76 + 8;
+                M2C_FIELD(temp_s0_76, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -8);
+                M2C_FIELD(temp_s0_77, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -4);
+                var_s0_3 = temp_s0_77 + 8 + 8;
+                var_v0_2 = M2C_FIELD(var_s1, s32 *, 0);
+                var_s1 += 0x20;
+                goto block_33;
+            case 0x3D:
+                M2C_FIELD(var_s0, s32 *, 0) = (s32) ((*var_s2 & 0xFE000000) | M2C_FIELD(var_s1, s32 *, 4));
+                temp_s0_78 = var_s0 + 8;
+                M2C_FIELD(var_s0, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -0xC);
+                temp_s0_79 = temp_s0_78 + 4;
+                M2C_FIELD(temp_s0_78, s32 *, 4) = (s32) M2C_FIELD(var_s1, s32 *, 8);
+                temp_s0_80 = temp_s0_79 + 8;
+                M2C_FIELD(temp_s0_79, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -8);
+                temp_s0_81 = temp_s0_80 + 4;
+                M2C_FIELD(temp_s0_80, s32 *, 4) = (s32) M2C_FIELD(var_s1, s32 *, 0xC);
+                temp_s0_82 = temp_s0_81 + 8;
+                M2C_FIELD(temp_s0_81, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -4);
+                temp_s0_83 = temp_s0_82 + 4;
+                M2C_FIELD(temp_s0_82, s32 *, 4) = (s32) M2C_FIELD(var_s1, s32 *, 0x10);
+                temp_s0_84 = temp_s0_83 + 8;
+                M2C_FIELD(temp_s0_83, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, 0);
+                temp_s0_85 = temp_s0_84 + 8;
+                temp_v0_15 = *var_s2;
+                var_s2 += 0x2C;
+                M2C_FIELD(temp_s0_84, s32 *, 8) = (s32) ((temp_v0_15 & 0xFE000000) | M2C_FIELD(var_s1, s32 *, 4));
+                temp_s0_86 = temp_s0_85 + 8;
+                M2C_FIELD(temp_s0_85, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -0xC);
+                temp_s0_87 = temp_s0_86 + 4;
+                M2C_FIELD(temp_s0_86, s32 *, 4) = (s32) M2C_FIELD(var_s1, s32 *, 8);
+                temp_s0_88 = temp_s0_87 + 8;
+                M2C_FIELD(temp_s0_87, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -8);
+                temp_s0_89 = temp_s0_88 + 4;
+                M2C_FIELD(temp_s0_88, s32 *, 4) = (s32) M2C_FIELD(var_s1, s32 *, 0xC);
+                temp_s0_90 = temp_s0_89 + 8;
+                M2C_FIELD(temp_s0_89, s32 *, 8) = (s32) M2C_FIELD(var_s1, s32 *, -4);
+                M2C_FIELD(temp_s0_90, s32 *, 4) = (s32) M2C_FIELD(var_s1, s32 *, 0x10);
+                var_s0_3 = temp_s0_90 + 4 + 8;
+                var_v0_2 = M2C_FIELD(var_s1, s32 *, 0);
+                var_s1 += 0x2C;
+                goto block_33;
+            default:
+                sp20 = var_a2;
+                sp24 = var_a3;
+                sp28 = temp_t0;
+                sp2C = var_t1;
+                func_8005C604(D_80073C00, (u8) *var_s2, var_a2, var_a3);
+                break;
+            }
+            var_t1 += 1;
+            var_a2 += 1;
+        } while (var_t1 < sp10);
+    }
+    var_v0_3 = var_fp << 0x18;
+    if (M2C_ERROR(/* Read from unset register $t0 */) & 0xFF) {
+        var_v0_3 |= 0x10000000;
+    }
+    M2C_FIELD(var_s4, s32 *, 0) = var_v0_3;
+    M2C_FIELD(var_s4, s32 *, 4) = var_a2;
+    return (void *) var_s0;
+}
 #endif
