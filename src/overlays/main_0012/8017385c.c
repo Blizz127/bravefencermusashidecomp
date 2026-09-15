@@ -1,0 +1,65 @@
+/* Overlay range [8017385C,801738D4) from MAIN.CD member 0012.
+ * SHA256(span)=bf9e9540620440af595eece571b60db5887b74797e9429ab9232337ff8f6b8ca.
+ * Word export for the native seam; the body below is an
+ * UNVERIFIED draft, not an oracle match claim. */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x3C038012)
+MUSASHI_NATIVE_MIPS_WORD(0x84636B30)
+MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE8)
+MUSASHI_NATIVE_MIPS_WORD(0xAFB00010)
+MUSASHI_NATIVE_MIPS_WORD(0x00808021)
+MUSASHI_NATIVE_MIPS_WORD(0x10600004)
+MUSASHI_NATIVE_MIPS_WORD(0xAFBF0014)
+MUSASHI_NATIVE_MIPS_WORD(0x24020001)
+MUSASHI_NATIVE_MIPS_WORD(0x10620006)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x960200AC)
+MUSASHI_NATIVE_MIPS_WORD(0x960300AA)
+MUSASHI_NATIVE_MIPS_WORD(0x34420080)
+MUSASHI_NATIVE_MIPS_WORD(0x0805CE2A)
+MUSASHI_NATIVE_MIPS_WORD(0x34630080)
+MUSASHI_NATIVE_MIPS_WORD(0x960200AC)
+MUSASHI_NATIVE_MIPS_WORD(0x960300AA)
+MUSASHI_NATIVE_MIPS_WORD(0x34420010)
+MUSASHI_NATIVE_MIPS_WORD(0x34630010)
+MUSASHI_NATIVE_MIPS_WORD(0xA60200AC)
+MUSASHI_NATIVE_MIPS_WORD(0xA60300AA)
+MUSASHI_NATIVE_MIPS_WORD(0x0C05C687)
+MUSASHI_NATIVE_MIPS_WORD(0x02002021)
+MUSASHI_NATIVE_MIPS_WORD(0x0C05D194)
+MUSASHI_NATIVE_MIPS_WORD(0x02002021)
+MUSASHI_NATIVE_MIPS_WORD(0x8FBF0014)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB00010)
+MUSASHI_NATIVE_MIPS_WORD(0x27BD0018)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+#include "psx_types.h"
+#include "m2c_macros.h"
+
+/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
+ * promotion requires an oracle MATCH (tools/match_function.py). Types
+ * and signatures are whatever the decompiler guessed; they are not
+ * evidence of the original declaration. */
+
+void func_80171A1C(void *);                      /* static */
+void func_80174650(void *);                      /* static */
+extern s16 D_80126B30;
+
+void func_8017385C(void *arg0) {
+    u16 var_v0;
+    u16 var_v1;
+
+    if ((D_80126B30 == 0) || (D_80126B30 != 1)) {
+        var_v0 = M2C_FIELD(arg0, u16 *, 0xAC) | 0x80;
+        var_v1 = M2C_FIELD(arg0, u16 *, 0xAA) | 0x80;
+    } else {
+        var_v0 = M2C_FIELD(arg0, u16 *, 0xAC) | 0x10;
+        var_v1 = M2C_FIELD(arg0, u16 *, 0xAA) | 0x10;
+    }
+    M2C_FIELD(arg0, u16 *, 0xAC) = var_v0;
+    M2C_FIELD(arg0, u16 *, 0xAA) = var_v1;
+    func_80171A1C(arg0);
+    func_80174650(arg0);
+}
+#endif

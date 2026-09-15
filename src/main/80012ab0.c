@@ -1,3 +1,12 @@
+/* Main-exec range [80012AB0,80012ABC) from the SLUS executable.
+ * SHA256(span)=5593c64c653c74ac86a845518bc03c4a704d295f02b317907fc04bc7faac4ed8.
+ * Word export for the native seam; the body below is kept
+ * byte-identical (wrap only, no rewrite). */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x00851023)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x30420FFF)
+#else
 /* Matched leaf functions from the main executable's first region.
  *
  * The filename is provisional. splat's trailing-nop analysis suggests original
@@ -21,3 +30,4 @@
 int func_80012AB0(int a, int b) {
     return (a - b) & 0xFFF;
 }
+#endif

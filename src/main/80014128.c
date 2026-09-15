@@ -1,3 +1,17 @@
+/* Main-exec range [80014128,80014148) from the SLUS executable.
+ * SHA256(span)=6cc04f7fe3524317e0683572a364308e1a2a221181fd81449a5fd12bcb949bfc.
+ * Word export for the native seam; the body below is kept
+ * byte-identical (wrap only, no rewrite). */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE8)
+MUSASHI_NATIVE_MIPS_WORD(0xAFBF0010)
+MUSASHI_NATIVE_MIPS_WORD(0x0C0123EF)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x8FBF0010)
+MUSASHI_NATIVE_MIPS_WORD(0x27BD0018)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
 /* Matched leaf functions from the main executable's first region.
  *
  * The filename is provisional and names the address the file starts at; it is
@@ -23,3 +37,4 @@ extern void func_80048FBC(void);
 void func_80014128(void) {
     func_80048FBC();
 }
+#endif

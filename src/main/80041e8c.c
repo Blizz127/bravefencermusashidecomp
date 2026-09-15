@@ -1,4 +1,5 @@
-/* Exact retail word export for [80041E8C,80042004); EXE and assembly verified. */
+/* Exact retail word export for [80041E8C,80042154); EXE and assembly verified.
+ * SHA256(span)=d8c5e7434724aac87991dc50599cd73b10c922e575d7d2e7b8be238291b8ee45. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x3C028007)
 MUSASHI_NATIVE_MIPS_WORD(0x8C42B0F0)
@@ -94,7 +95,205 @@ MUSASHI_NATIVE_MIPS_WORD(0x0242102A)
 MUSASHI_NATIVE_MIPS_WORD(0x1040004E)
 MUSASHI_NATIVE_MIPS_WORD(0x2402FFFF)
 MUSASHI_NATIVE_MIPS_WORD(0x8CC20004)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x00531023)
+MUSASHI_NATIVE_MIPS_WORD(0x0051102B)
+MUSASHI_NATIVE_MIPS_WORD(0x14400048)
+MUSASHI_NATIVE_MIPS_WORD(0x2402FFFF)
+MUSASHI_NATIVE_MIPS_WORD(0x3C050FFF)
+MUSASHI_NATIVE_MIPS_WORD(0x34A5FFFF)
+MUSASHI_NATIVE_MIPS_WORD(0x26440001)
+MUSASHI_NATIVE_MIPS_WORD(0x000418C0)
+MUSASHI_NATIVE_MIPS_WORD(0x8CC20000)
+MUSASHI_NATIVE_MIPS_WORD(0x00671821)
+MUSASHI_NATIVE_MIPS_WORD(0x00451024)
+MUSASHI_NATIVE_MIPS_WORD(0x00511021)
+MUSASHI_NATIVE_MIPS_WORD(0x00481025)
+MUSASHI_NATIVE_MIPS_WORD(0xAC620000)
+MUSASHI_NATIVE_MIPS_WORD(0x8CC20004)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x00511023)
+MUSASHI_NATIVE_MIPS_WORD(0xAC620004)
+MUSASHI_NATIVE_MIPS_WORD(0x8CC20000)
+MUSASHI_NATIVE_MIPS_WORD(0x3C018007)
+MUSASHI_NATIVE_MIPS_WORD(0xAC24B5AC)
+MUSASHI_NATIVE_MIPS_WORD(0xACD10004)
+MUSASHI_NATIVE_MIPS_WORD(0x00451024)
+MUSASHI_NATIVE_MIPS_WORD(0x0C0105AA)
+MUSASHI_NATIVE_MIPS_WORD(0xACC20000)
+MUSASHI_NATIVE_MIPS_WORD(0x3C028007)
+MUSASHI_NATIVE_MIPS_WORD(0x8C42B5B0)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x02021021)
+MUSASHI_NATIVE_MIPS_WORD(0x8C420000)
+MUSASHI_NATIVE_MIPS_WORD(0x0801084D)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x8CC80004)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x0228102B)
+MUSASHI_NATIVE_MIPS_WORD(0x10400018)
+MUSASHI_NATIVE_MIPS_WORD(0x3C040FFF)
+MUSASHI_NATIVE_MIPS_WORD(0x3C068007)
+MUSASHI_NATIVE_MIPS_WORD(0x8CC6B5AC)
+MUSASHI_NATIVE_MIPS_WORD(0x3C028007)
+MUSASHI_NATIVE_MIPS_WORD(0x8C42B5A8)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x00C2102A)
+MUSASHI_NATIVE_MIPS_WORD(0x10400010)
+MUSASHI_NATIVE_MIPS_WORD(0x00711821)
+MUSASHI_NATIVE_MIPS_WORD(0x000610C0)
+MUSASHI_NATIVE_MIPS_WORD(0x00471021)
+MUSASHI_NATIVE_MIPS_WORD(0x3C048000)
+MUSASHI_NATIVE_MIPS_WORD(0x00641825)
+MUSASHI_NATIVE_MIPS_WORD(0x8C450000)
+MUSASHI_NATIVE_MIPS_WORD(0x8C440004)
+MUSASHI_NATIVE_MIPS_WORD(0xAC430000)
+MUSASHI_NATIVE_MIPS_WORD(0x01111823)
+MUSASHI_NATIVE_MIPS_WORD(0xAC430004)
+MUSASHI_NATIVE_MIPS_WORD(0x24C30001)
+MUSASHI_NATIVE_MIPS_WORD(0x3C018007)
+MUSASHI_NATIVE_MIPS_WORD(0xAC23B5AC)
+MUSASHI_NATIVE_MIPS_WORD(0xAC450008)
+MUSASHI_NATIVE_MIPS_WORD(0xAC44000C)
+MUSASHI_NATIVE_MIPS_WORD(0x3C040FFF)
+MUSASHI_NATIVE_MIPS_WORD(0x3C038007)
+MUSASHI_NATIVE_MIPS_WORD(0x8C63B5B0)
+MUSASHI_NATIVE_MIPS_WORD(0x001280C0)
+MUSASHI_NATIVE_MIPS_WORD(0x02031821)
+MUSASHI_NATIVE_MIPS_WORD(0x8C620000)
+MUSASHI_NATIVE_MIPS_WORD(0x3484FFFF)
+MUSASHI_NATIVE_MIPS_WORD(0xAC710004)
+MUSASHI_NATIVE_MIPS_WORD(0x00441024)
+MUSASHI_NATIVE_MIPS_WORD(0x0C0105AA)
+MUSASHI_NATIVE_MIPS_WORD(0xAC620000)
+MUSASHI_NATIVE_MIPS_WORD(0x3C028007)
+MUSASHI_NATIVE_MIPS_WORD(0x8C42B5B0)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x02028021)
+MUSASHI_NATIVE_MIPS_WORD(0x8E020000)
+MUSASHI_NATIVE_MIPS_WORD(0x8FBF0020)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB3001C)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB20018)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB10014)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB00010)
+MUSASHI_NATIVE_MIPS_WORD(0x27BD0028)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
+/* Body below is an UNVERIFIED draft, not an oracle match
+ * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
-/* No matched C implementation is claimed for this export. */
+
+/* m2c draft from main.s: NOT verified against retail. C89-gated only;
+ * promotion requires an oracle MATCH (tools/match_function.py). Types
+ * and signatures are whatever the decompiler guessed; they are not
+ * evidence of the original declaration. */
+
+extern s32 D_8006B0F0;
+extern s32 D_8006B0F4;
+extern s32 D_8006B574;
+extern s32 D_8006B57C;
+extern s32 D_8006B5A8;
+extern s32 D_8006B5AC;
+extern s32 D_8006B5B0;
+void func_800416A8(s32, s32, void *, s32 *);             /* static */
+
+s32 func_80041E8C(s32 arg0) {
+    s32 temp_a0;
+    s32 temp_a0_2;
+    s32 temp_a1;
+    s32 temp_s0;
+    s32 temp_s0_2;
+    s32 temp_v1;
+    s32 temp_v1_2;
+    s32 var_a0;
+    s32 var_s0;
+    s32 var_s2;
+    s32 var_s3;
+    s32 var_v0;
+    u32 temp_s1;
+    u32 temp_t0;
+    void *temp_a2;
+    void *temp_v0;
+    void *temp_v1_3;
+    void *temp_v1_4;
+    void *var_a0_2;
+
+    var_s0 = 0;
+    var_s2 = -1;
+    if (D_8006B0F0 == 0) {
+        var_s3 = 0;
+    } else {
+        var_s3 = (0x10000 - D_8006B0F4) << D_8006B574;
+    }
+    var_a0 = arg0;
+    if (arg0 & ~D_8006B57C) {
+        var_a0 = arg0 + D_8006B57C;
+    }
+    temp_s1 = (var_a0 >> D_8006B574) << D_8006B574;
+    if (*D_8006B5B0 & 0x40000000) {
+        var_s2 = 0;
+    } else {
+        func_800416A8(var_a0);
+        if (D_8006B5A8 > 0) {
+            var_a0_2 = (0 * 8) + D_8006B5B0;
+loop_9:
+            temp_v1 = var_a0_2->unk0;
+            if ((temp_v1 & 0x40000000) || ((temp_v1 & 0x80000000) && ((u32) var_a0_2->unk4 >= temp_s1))) {
+                var_s2 = var_s0;
+            } else {
+                var_s0 += 1;
+                var_a0_2 += 8;
+                if (var_s0 < D_8006B5A8) {
+                    goto loop_9;
+                }
+            }
+        }
+    }
+    var_v0 = -1;
+    temp_s0 = var_s2 * 8;
+    if (var_s2 != -1) {
+        temp_a2 = temp_s0 + D_8006B5B0;
+        temp_v1_2 = temp_a2->unk0;
+        if (temp_v1_2 & 0x40000000) {
+            var_v0 = -1;
+            if (var_s2 < D_8006B5A8) {
+                var_v0 = -1;
+                if ((u32) (temp_a2->unk4 - var_s3) >= temp_s1) {
+                    temp_a0 = var_s2 + 1;
+                    temp_v1_3 = (temp_a0 * 8) + D_8006B5B0;
+                    temp_v1_3->unk0 = (s32) (((temp_a2->unk0 & 0x0FFFFFFF) + temp_s1) | 0x40000000);
+                    temp_v1_3->unk4 = (s32) (temp_a2->unk4 - temp_s1);
+                    D_8006B5AC = temp_a0;
+                    temp_a2->unk4 = temp_s1;
+                    temp_a2->unk0 = (s32) (temp_a2->unk0 & 0x0FFFFFFF);
+                    func_800416A8(temp_a0, 0x0FFFFFFF, temp_a2, D_8006B5B0);
+                    return *(temp_s0 + D_8006B5B0);
+                }
+            }
+            /* Duplicate return node #23. Try simplifying control flow for better match */
+            return var_v0;
+        }
+        temp_t0 = temp_a2->unk4;
+        if ((temp_s1 < temp_t0) && (D_8006B5AC < D_8006B5A8)) {
+            temp_v0 = (D_8006B5AC * 8) + D_8006B5B0;
+            temp_a1 = temp_v0->unk0;
+            temp_a0_2 = temp_v0->unk4;
+            temp_v0->unk0 = (s32) ((temp_v1_2 + temp_s1) | 0x80000000);
+            temp_v0->unk4 = (s32) (temp_t0 - temp_s1);
+            D_8006B5AC = (s32) (D_8006B5AC + 1);
+            temp_v0->unk8 = temp_a1;
+            temp_v0->unkC = temp_a0_2;
+        }
+        temp_s0_2 = var_s2 * 8;
+        temp_v1_4 = temp_s0_2 + D_8006B5B0;
+        temp_v1_4->unk4 = temp_s1;
+        temp_v1_4->unk0 = (s32) (temp_v1_4->unk0 & 0x0FFFFFFF);
+        func_800416A8(0x0FFFFFFF);
+        var_v0 = *(temp_s0_2 + D_8006B5B0);
+        /* Duplicate return node #23. Try simplifying control flow for better match */
+        return var_v0;
+    }
+    return var_v0;
+}
 #endif

@@ -67,4 +67,39 @@ MUSASHI_NATIVE_MIPS_WORD(0x8FB00018)
 MUSASHI_NATIVE_MIPS_WORD(0x27BD0028)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+/* Body below is an UNVERIFIED draft, not an oracle match
+ * claim; promotion requires tools/match_function.py MATCH. */
+#include "psx_types.h"
+
+/* m2c draft from main.s: NOT verified against retail. C89-gated only;
+ * promotion requires an oracle MATCH (tools/match_function.py). Types
+ * and signatures are whatever the decompiler guessed; they are not
+ * evidence of the original declaration. */
+
+void *func_80010A08();                             /* static */
+s32 func_80058B40(s32, s32, s32, s32);                    /* static */
+void func_80058C6C(s32, void *, u32);                  /* static */
+void func_8005A600(void *, s32, s32, s32, s32);            /* static */
+extern s32 *D_800A651C;
+extern u16 D_800B9A02;
+
+void func_80018094(void *arg0, u32 arg1, u32 arg2) {
+    s32 temp_s2;
+    u32 var_a3;
+    void *temp_s0;
+
+    var_a3 = arg1;
+    if (var_a3 >= 0x1000U) {
+        var_a3 = 0xFFF;
+    }
+    temp_s2 = var_a3 * 4;
+    func_80058C6C(*(&D_800A651C + (D_800B9A02 * 0x14)) + temp_s2, arg0, var_a3);
+    if (arg2 & 0x40000000) {
+        arg0->unk7 = (u8) (arg0->unk7 | 2);
+        temp_s0 = func_80010A08(0xC);
+        func_8005A600(temp_s0, 0, 0, func_80058B40(2, (arg2 >> 0x1C) & 3, 0x280, 0) & 0xFFFF, 0);
+        func_80058C6C(*(&D_800A651C + (D_800B9A02 * 0x14)) + temp_s2, temp_s0);
+    }
+}
 #endif

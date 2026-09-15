@@ -1,0 +1,83 @@
+/* Overlay range [80142EC0,80142F68) from MAIN.CD member 0012.
+ * SHA256(span)=6b98e49ca953f27ee4f3633f778477b2f514c8f0f8828209cb6d706a5e761ce9.
+ * Word export for the native seam; the body below is an
+ * UNVERIFIED draft, not an oracle match claim. */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE0)
+MUSASHI_NATIVE_MIPS_WORD(0xAFB00010)
+MUSASHI_NATIVE_MIPS_WORD(0x00808021)
+MUSASHI_NATIVE_MIPS_WORD(0xAFBF0018)
+MUSASHI_NATIVE_MIPS_WORD(0x0C04B06E)
+MUSASHI_NATIVE_MIPS_WORD(0xAFB10014)
+MUSASHI_NATIVE_MIPS_WORD(0x00408821)
+MUSASHI_NATIVE_MIPS_WORD(0x14400005)
+MUSASHI_NATIVE_MIPS_WORD(0xAE020020)
+MUSASHI_NATIVE_MIPS_WORD(0x0C04B2B9)
+MUSASHI_NATIVE_MIPS_WORD(0x02002021)
+MUSASHI_NATIVE_MIPS_WORD(0x08050BD4)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x02202021)
+MUSASHI_NATIVE_MIPS_WORD(0x0C007287)
+MUSASHI_NATIVE_MIPS_WORD(0x00002821)
+MUSASHI_NATIVE_MIPS_WORD(0x96020070)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x3042000F)
+MUSASHI_NATIVE_MIPS_WORD(0x00021840)
+MUSASHI_NATIVE_MIPS_WORD(0x00621821)
+MUSASHI_NATIVE_MIPS_WORD(0x00031A40)
+MUSASHI_NATIVE_MIPS_WORD(0x24630C00)
+MUSASHI_NATIVE_MIPS_WORD(0xA623001A)
+MUSASHI_NATIVE_MIPS_WORD(0xA6230018)
+MUSASHI_NATIVE_MIPS_WORD(0x96020070)
+MUSASHI_NATIVE_MIPS_WORD(0xA60000FC)
+MUSASHI_NATIVE_MIPS_WORD(0x3042000F)
+MUSASHI_NATIVE_MIPS_WORD(0x00021080)
+MUSASHI_NATIVE_MIPS_WORD(0x3C018018)
+MUSASHI_NATIVE_MIPS_WORD(0x00220821)
+MUSASHI_NATIVE_MIPS_WORD(0x8C25F9A4)
+MUSASHI_NATIVE_MIPS_WORD(0x0C04AA0A)
+MUSASHI_NATIVE_MIPS_WORD(0x02002021)
+MUSASHI_NATIVE_MIPS_WORD(0x0C050ACB)
+MUSASHI_NATIVE_MIPS_WORD(0x02002021)
+MUSASHI_NATIVE_MIPS_WORD(0x8FBF0018)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB10014)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB00010)
+MUSASHI_NATIVE_MIPS_WORD(0x27BD0020)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+/* Body below is an UNVERIFIED draft, not an oracle match
+ * claim; promotion requires tools/match_function.py MATCH. */
+#include "psx_types.h"
+
+/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
+ * promotion requires an oracle MATCH (tools/match_function.py). Types
+ * and signatures are whatever the decompiler guessed; they are not
+ * evidence of the original declaration. */
+
+void func_8001CA1C(void *, s32);                         /* extern */
+extern s32 D_8017F9A4;
+void func_8012A828(void *, s32);                       /* static */
+void *func_8012C1B8();                              /* static */
+void func_8012CAE4(void *);                            /* static */
+void func_80142B2C(void *);                            /* static */
+
+void func_80142EC0(void *arg0) {
+    s16 temp_v1;
+    void *temp_v0;
+
+    temp_v0 = func_8012C1B8();
+    arg0->unk20 = temp_v0;
+    if (temp_v0 == 0) {
+        func_8012CAE4(arg0);
+        return;
+    }
+    func_8001CA1C(temp_v0, 0);
+    temp_v1 = ((arg0->unk70 & 0xF) * 0x600) + 0xC00;
+    temp_v0->unk1A = temp_v1;
+    temp_v0->unk18 = temp_v1;
+    arg0->unkFC = 0;
+    func_8012A828(arg0, *(D_8017F9A4 + ((arg0->unk70 & 0xF) * 4)));
+    func_80142B2C(arg0);
+}
+#endif

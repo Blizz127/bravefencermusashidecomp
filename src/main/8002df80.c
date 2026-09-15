@@ -111,6 +111,70 @@ MUSASHI_NATIVE_MIPS_WORD(0x27BD0020)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
+/* Body below is an UNVERIFIED draft, not an oracle match
+ * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
-/* No matched C implementation is claimed for this export. */
+
+/* m2c draft from main.s: NOT verified against retail. C89-gated only;
+ * promotion requires an oracle MATCH (tools/match_function.py). Types
+ * and signatures are whatever the decompiler guessed; they are not
+ * evidence of the original declaration. */
+
+extern s32 D_8006A982;
+extern s32 D_8006A984;
+void func_8002D320();                                  /* static */
+void func_8002DC68(s32, s32);                            /* static */
+void func_8002E138(s32, s32, s32);                           /* static */
+void func_80030F80();                                  /* static */
+void func_80031BE0();                                  /* static */
+extern u8 D_8006A980;
+extern s16 D_800A4EFC;
+extern u8 D_800A4F17;
+extern u8 D_800A4F18;
+
+void func_8002DF80(void) {
+    s32 var_a0;
+    if (D_8006A980 & 7) {
+        if ((D_8006A980 & 1) && (D_8006A980 & 2)) {
+            func_8002DC68(0x719, 0);
+            D_8006A980 &= 0xF8;
+        }
+        if (D_8006A980 & 7) {
+            if (D_8006A982 <= 0) {
+                var_a0 = 0x710;
+            } else {
+                var_a0 = 0x711;
+                if (D_8006A982 >= 4) {
+                    var_a0 = 0x712;
+                }
+            }
+            func_8002DC68(var_a0, 0);
+            D_8006A982 = 0;
+            D_8006A980 &= 0xF8;
+        }
+    }
+    if (D_8006A980 & 8) {
+        if (D_8006A984 != 0) {
+            func_8002DC68(0xA75, D_8006A984 | 0x1000);
+            D_8006A984 = 0U;
+            D_8006A980 |= 0x10;
+        } else {
+            D_8006A980 &= 0xEF;
+            D_800A4F17 = 1;
+            func_8002E138(4, 0xA75, 0);
+            D_800A4F17 = D_800A4F18;
+            if (D_800A4F18 != 0) {
+                if (D_800A4EFC != 0) {
+                    D_800A4EFC -= 1;
+                }
+                func_80030F80();
+                func_8002D320();
+                func_80031BE0();
+                D_800A4F18 = 0;
+                D_800A4F17 = 0;
+            }
+        }
+        D_8006A980 &= 0xF7;
+    }
+}
 #endif

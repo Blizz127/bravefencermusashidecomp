@@ -1,55 +1,4 @@
-#include "psx_types.h"
-
-/* Exact input serial timer helper [8005FBC8,8005FC68), 40 retail words. */
-__asm__(
-    ".set noreorder\n"
-    ".globl func_8005FBC8\n"
-    ".type func_8005FBC8, @function\n"
-    "func_8005FBC8:\n"
-    ".word 0x3c021f80\n"
-    ".word 0x34421120\n"
-    ".word 0x94430000\n"
-    ".word 0x3c028008\n"
-    ".word 0x8c428f24\n"
-    ".word 0x3064ffff\n"
-    ".word 0x0082102b\n"
-    ".word 0x1040000a\n"
-    ".word 0x3c031f80\n"
-    ".word 0x34631128\n"
-    ".word 0x94620000\n"
-    ".word 0x00000000\n"
-    ".word 0x10400004\n"
-    ".word 0x3c020001\n"
-    ".word 0x94620000\n"
-    ".word 0x08017f04\n"
-    ".word 0x00822021\n"
-    ".word 0x00822021\n"
-    ".word 0x3c021f80\n"
-    ".word 0x34421124\n"
-    ".word 0x94420000\n"
-    ".word 0x00000000\n"
-    ".word 0x30420200\n"
-    ".word 0x14400008\n"
-    ".word 0x00000000\n"
-    ".word 0x3c028008\n"
-    ".word 0x8c428f24\n"
-    ".word 0x3c03800c\n"
-    ".word 0x8c635320\n"
-    ".word 0x00821023\n"
-    ".word 0x08017f17\n"
-    ".word 0x000210c2\n"
-    ".word 0x3c028008\n"
-    ".word 0x8c428f24\n"
-    ".word 0x3c03800c\n"
-    ".word 0x8c635320\n"
-    ".word 0x00821023\n"
-    ".word 0x0043102b\n"
-    ".word 0x03e00008\n"
-    ".word 0x38420001\n"
-    ".size func_8005FBC8, .-func_8005FBC8\n"
-    ".set reorder\n"
-);
-
+/* Exact retail word export for [8005FBC8,8005FC68); EXE and assembly verified. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x3c021f80)
 MUSASHI_NATIVE_MIPS_WORD(0x34421120)
@@ -91,5 +40,31 @@ MUSASHI_NATIVE_MIPS_WORD(0x00821023)
 MUSASHI_NATIVE_MIPS_WORD(0x0043102b)
 MUSASHI_NATIVE_MIPS_WORD(0x03e00008)
 MUSASHI_NATIVE_MIPS_WORD(0x38420001)
-#endif
+#else
+/* Verified byte-exact against retail by tools/match_function.py
+ * (40/40 words at 0x8005FBC8). Types and signatures are whatever
+ * reproduces the bytes; they are not evidence of the original
+ * declaration. */
+#include "psx_types.h"
 
+extern u32 D_80078F24;
+extern u32 D_800C5320;
+
+s32 func_8005FBC8(void) {
+    u32 count;
+
+    count = *(volatile u16 *) 0x1F801120;
+    if (count < D_80078F24) {
+        if (*(volatile u16 *) 0x1F801128 != 0) {
+            count += *(volatile u16 *) 0x1F801128;
+        } else {
+            count += 0x10000;
+        }
+    }
+    if (*(volatile u16 *) 0x1F801124 & 0x200) {
+        return (count - D_80078F24) >= D_800C5320;
+    } else {
+        return ((count - D_80078F24) >> 3) >= D_800C5320;
+    }
+}
+#endif

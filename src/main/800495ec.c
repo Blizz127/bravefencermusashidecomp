@@ -1,3 +1,18 @@
+/* Main-exec range [800495EC,80049610) from the SLUS executable.
+ * SHA256(span)=9b05fe5b9d5d7a6655357b6380c317b55990b52c4f8a8cc129ed5b7fc89e5d3b.
+ * Word export for the native seam; the body below is kept
+ * byte-identical (wrap only, no rewrite). */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x48846000)
+MUSASHI_NATIVE_MIPS_WORD(0x48867000)
+MUSASHI_NATIVE_MIPS_WORD(0x48856800)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x4B400006)
+MUSASHI_NATIVE_MIPS_WORD(0x4802C000)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
 #include "psx_types.h"
 
 /* GTE/cop2 mnemonic overlay: ordinary C cannot emit coprocessor ops.
@@ -19,3 +34,4 @@ __asm__(
     ".size func_800495EC, .-func_800495EC\n"
     ".set reorder\n"
 );
+#endif

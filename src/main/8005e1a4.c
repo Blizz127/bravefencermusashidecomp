@@ -1,48 +1,4 @@
-#include "psx_types.h"
-
-/* Exact bounded controller export [8005E1A4,8005E228), 33 retail words. */
-__asm__(
-    ".set noreorder\n"
-    ".globl func_8005E1A4\n"
-    ".type func_8005E1A4, @function\n"
-    "func_8005E1A4:\n"
-    ".word 0x27bdffe8\n"
-    ".word 0xafbf0010\n"
-    ".word 0x90830046\n"
-    ".word 0x24020003\n"
-    ".word 0x10620010\n"
-    ".word 0x28620004\n"
-    ".word 0x10400005\n"
-    ".word 0x24020002\n"
-    ".word 0x10620008\n"
-    ".word 0x00000000\n"
-    ".word 0x08017886\n"
-    ".word 0x00000000\n"
-    ".word 0x24020004\n"
-    ".word 0x1062000c\n"
-    ".word 0x00000000\n"
-    ".word 0x08017886\n"
-    ".word 0x00000000\n"
-    ".word 0x0c017a95\n"
-    ".word 0x00000000\n"
-    ".word 0x08017886\n"
-    ".word 0x00000000\n"
-    ".word 0x908500e4\n"
-    ".word 0x0c017a9a\n"
-    ".word 0x00000000\n"
-    ".word 0x08017886\n"
-    ".word 0x00000000\n"
-    ".word 0x90850047\n"
-    ".word 0x0c017aaa\n"
-    ".word 0x00000000\n"
-    ".word 0x8fbf0010\n"
-    ".word 0x27bd0018\n"
-    ".word 0x03e00008\n"
-    ".word 0x00000000\n"
-    ".size func_8005E1A4, .-func_8005E1A4\n"
-    ".set reorder\n"
-);
-
+/* Exact retail word export for [8005E1A4,8005E228); EXE and assembly verified. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27bdffe8)
 MUSASHI_NATIVE_MIPS_WORD(0xafbf0010)
@@ -77,4 +33,28 @@ MUSASHI_NATIVE_MIPS_WORD(0x8fbf0010)
 MUSASHI_NATIVE_MIPS_WORD(0x27bd0018)
 MUSASHI_NATIVE_MIPS_WORD(0x03e00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+/* Verified byte-exact against retail by tools/match_function.py
+ * (33/33 words at 0x8005E1A4). Types and signatures are whatever
+ * reproduces the bytes; they are not evidence of the original
+ * declaration. */
+#include "psx_types.h"
+
+void func_8005EA54(u8 *);
+void func_8005EA68(u8 *, s32);
+void func_8005EAA8(u8 *, s32);
+
+void func_8005E1A4(u8 *p) {
+    switch (p[0x46]) {
+    case 2:
+        func_8005EA54(p);
+        break;
+    case 3:
+        func_8005EA68(p, p[0xE4]);
+        break;
+    case 4:
+        func_8005EAA8(p, p[0x47]);
+        break;
+    }
+}
 #endif

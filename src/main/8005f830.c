@@ -154,4 +154,7 @@ MUSASHI_NATIVE_MIPS_WORD(0x8FB10014)
 MUSASHI_NATIVE_MIPS_WORD(0x8FB00010)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x27BD0020)
+#else
+/* No matched C implementation is claimed for this span;
+ * word export only (m2c produced no draft). UNVERIFIED. */
 #endif

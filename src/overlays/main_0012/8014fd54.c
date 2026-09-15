@@ -1,0 +1,86 @@
+/* Overlay range [8014FD54,8014FDF4) from MAIN.CD member 0012.
+ * SHA256(span)=af63cdd965d25481ff9443812a6f0a28d266d5c7b14b74dec1bbe07477e6bc2f.
+ * Word export for the native seam; the body below is an
+ * UNVERIFIED draft, not an oracle match claim. */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x27BDFFD8)
+MUSASHI_NATIVE_MIPS_WORD(0xAFB00020)
+MUSASHI_NATIVE_MIPS_WORD(0x00808021)
+MUSASHI_NATIVE_MIPS_WORD(0x27A50010)
+MUSASHI_NATIVE_MIPS_WORD(0x00A03021)
+MUSASHI_NATIVE_MIPS_WORD(0x24020007)
+MUSASHI_NATIVE_MIPS_WORD(0xAFBF0024)
+MUSASHI_NATIVE_MIPS_WORD(0xA7A00010)
+MUSASHI_NATIVE_MIPS_WORD(0xA7A00012)
+MUSASHI_NATIVE_MIPS_WORD(0x0C0524A4)
+MUSASHI_NATIVE_MIPS_WORD(0xA7A20014)
+MUSASHI_NATIVE_MIPS_WORD(0x02002021)
+MUSASHI_NATIVE_MIPS_WORD(0x27B00018)
+MUSASHI_NATIVE_MIPS_WORD(0x02002821)
+MUSASHI_NATIVE_MIPS_WORD(0x02003021)
+MUSASHI_NATIVE_MIPS_WORD(0x2402FFE8)
+MUSASHI_NATIVE_MIPS_WORD(0xA7A00018)
+MUSASHI_NATIVE_MIPS_WORD(0xA7A0001A)
+MUSASHI_NATIVE_MIPS_WORD(0x0C0524A4)
+MUSASHI_NATIVE_MIPS_WORD(0xA7A2001C)
+MUSASHI_NATIVE_MIPS_WORD(0x24040001)
+MUSASHI_NATIVE_MIPS_WORD(0x27A50010)
+MUSASHI_NATIVE_MIPS_WORD(0x0C04CDE1)
+MUSASHI_NATIVE_MIPS_WORD(0x02003021)
+MUSASHI_NATIVE_MIPS_WORD(0x00401821)
+MUSASHI_NATIVE_MIPS_WORD(0x10600008)
+MUSASHI_NATIVE_MIPS_WORD(0x30638000)
+MUSASHI_NATIVE_MIPS_WORD(0x10600007)
+MUSASHI_NATIVE_MIPS_WORD(0x00001021)
+MUSASHI_NATIVE_MIPS_WORD(0x93A2001E)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x38420015)
+MUSASHI_NATIVE_MIPS_WORD(0x08053F78)
+MUSASHI_NATIVE_MIPS_WORD(0x2C420001)
+MUSASHI_NATIVE_MIPS_WORD(0x00001021)
+MUSASHI_NATIVE_MIPS_WORD(0x8FBF0024)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB00020)
+MUSASHI_NATIVE_MIPS_WORD(0x27BD0028)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+/* Body below is an UNVERIFIED draft, not an oracle match
+ * claim; promotion requires tools/match_function.py MATCH. */
+#include "psx_types.h"
+
+/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
+ * promotion requires an oracle MATCH (tools/match_function.py). Types
+ * and signatures are whatever the decompiler guessed; they are not
+ * evidence of the original declaration. */
+
+s32 func_80133784(s32, s16 *, s16 *);                 /* static */
+void func_80149290(s16 *, s16 *, s16 *);               /* static */
+
+s32 func_8014FD54(s16 *arg0) {
+    s16 sp1C;
+    s16 sp1A;
+    s16 sp18;
+    s16 sp14;
+    s16 sp12;
+    s16 sp10;
+    s32 temp_v0;
+
+    sp10 = 0;
+    sp12 = 0;
+    sp14 = 7;
+    func_80149290(&sp10, &sp10);
+    sp18 = 0;
+    sp1A = 0;
+    sp1C = -0x18;
+    func_80149290(arg0, &sp18, &sp18);
+    temp_v0 = func_80133784(1, &sp10, &sp18);
+    if (temp_v0 != 0) {
+        if (temp_v0 & 0x8000) {
+            return sp1E == 0x15;
+        }
+        /* Duplicate return node #4. Try simplifying control flow for better match */
+        return 0;
+    }
+    return 0;
+}
+#endif

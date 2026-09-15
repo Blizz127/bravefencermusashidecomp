@@ -1,83 +1,4 @@
-#include "psx_types.h"
-
-/* Exact test-and-clear continuation [80061B58,80061C60).  The recovered
- * stores are intentionally kept as words so the source CPU sees the same
- * helper calls and SYS2-visible return path as retail. */
-__asm__(
-    ".set noreorder\n"
-    ".globl func_80061B58\n"
-    ".type func_80061B58, @function\n"
-    "func_80061B58:\n"
-    ".word 0x3c048008\n"
-    ".word 0x8c848c3c\n"
-    ".word 0x27bdffe8\n"
-    ".word 0xafbf0010\n"
-    ".word 0x0c0173aa\n"
-    ".word 0x00000000\n"
-    ".word 0x3c048008\n"
-    ".word 0x8c848c40\n"
-    ".word 0x0c0173aa\n"
-    ".word 0x00000000\n"
-    ".word 0x3c048008\n"
-    ".word 0x8c848c44\n"
-    ".word 0x0c0173aa\n"
-    ".word 0x00000000\n"
-    ".word 0x3c048008\n"
-    ".word 0x8c848c48\n"
-    ".word 0x0c0173aa\n"
-    ".word 0x00000000\n"
-    ".word 0x3c048008\n"
-    ".word 0x8c848c4c\n"
-    ".word 0x0c0173aa\n"
-    ".word 0x00000000\n"
-    ".word 0x3c048008\n"
-    ".word 0x8c848c50\n"
-    ".word 0x0c0173aa\n"
-    ".word 0x00000000\n"
-    ".word 0x3c048008\n"
-    ".word 0x8c848c54\n"
-    ".word 0x0c0173aa\n"
-    ".word 0x00000000\n"
-    ".word 0x3c048008\n"
-    ".word 0x8c848c58\n"
-    ".word 0x0c0173aa\n"
-    ".word 0x00000000\n"
-    ".word 0x3c018008\n"
-    ".word 0xac208c68\n"
-    ".word 0x3c028008\n"
-    ".word 0x8c428c68\n"
-    ".word 0x3c018008\n"
-    ".word 0xac228c64\n"
-    ".word 0x3c028008\n"
-    ".word 0x8c428c64\n"
-    ".word 0x3c018008\n"
-    ".word 0xac228c60\n"
-    ".word 0x3c028008\n"
-    ".word 0x8c428c60\n"
-    ".word 0x3c018008\n"
-    ".word 0xac228c5c\n"
-    ".word 0x3c018008\n"
-    ".word 0xac208c78\n"
-    ".word 0x3c028008\n"
-    ".word 0x8c428c78\n"
-    ".word 0x3c018008\n"
-    ".word 0xac228c74\n"
-    ".word 0x3c028008\n"
-    ".word 0x8c428c74\n"
-    ".word 0x3c018008\n"
-    ".word 0xac228c70\n"
-    ".word 0x3c028008\n"
-    ".word 0x8c428c70\n"
-    ".word 0x3c018008\n"
-    ".word 0xac228c6c\n"
-    ".word 0x8fbf0010\n"
-    ".word 0x27bd0018\n"
-    ".word 0x03e00008\n"
-    ".word 0x00000000\n"
-    ".size func_80061B58, .-func_80061B58\n"
-    ".set reorder\n"
-);
-
+/* Exact retail word export for [80061B58,80061C60); EXE and assembly verified. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x3c048008)
 MUSASHI_NATIVE_MIPS_WORD(0x8c848c3c)
@@ -145,4 +66,41 @@ MUSASHI_NATIVE_MIPS_WORD(0x8fbf0010)
 MUSASHI_NATIVE_MIPS_WORD(0x27bd0018)
 MUSASHI_NATIVE_MIPS_WORD(0x03e00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+/* Verified byte-exact against retail by tools/match_function.py
+ * (66/66 words at 0x80061B58). Types and signatures are whatever
+ * reproduces the bytes; they are not evidence of the original
+ * declaration. */
+#include "psx_types.h"
+
+void func_8005CEA8(s32);
+extern s32 D_80078C3C;
+extern s32 D_80078C40;
+extern s32 D_80078C44;
+extern s32 D_80078C48;
+extern s32 D_80078C4C;
+extern s32 D_80078C50;
+extern s32 D_80078C54;
+extern s32 D_80078C58;
+extern volatile s32 D_80078C5C;
+extern volatile s32 D_80078C60;
+extern volatile s32 D_80078C64;
+extern volatile s32 D_80078C68;
+extern volatile s32 D_80078C6C;
+extern volatile s32 D_80078C70;
+extern volatile s32 D_80078C74;
+extern volatile s32 D_80078C78;
+
+void func_80061B58(void) {
+    func_8005CEA8(D_80078C3C);
+    func_8005CEA8(D_80078C40);
+    func_8005CEA8(D_80078C44);
+    func_8005CEA8(D_80078C48);
+    func_8005CEA8(D_80078C4C);
+    func_8005CEA8(D_80078C50);
+    func_8005CEA8(D_80078C54);
+    func_8005CEA8(D_80078C58);
+    D_80078C5C = D_80078C60 = D_80078C64 = D_80078C68 = 0;
+    D_80078C6C = D_80078C70 = D_80078C74 = D_80078C78 = 0;
+}
 #endif

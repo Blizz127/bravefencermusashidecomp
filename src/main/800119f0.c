@@ -1,0 +1,43 @@
+/* Main-exec range [800119F0,80011A3C) from the SLUS executable.
+ * SHA256(span)=59660aa77f9820985edd32db12863f8a3376c2e0778ef4c071427ecb04762594.
+ * Word export for the native seam; the body below is an
+ * UNVERIFIED draft, not an oracle match claim. */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x27BDFFF0)
+MUSASHI_NATIVE_MIPS_WORD(0xAFBE0008)
+MUSASHI_NATIVE_MIPS_WORD(0x03A0F021)
+MUSASHI_NATIVE_MIPS_WORD(0x00801021)
+MUSASHI_NATIVE_MIPS_WORD(0xA7C20000)
+MUSASHI_NATIVE_MIPS_WORD(0x3C03800B)
+MUSASHI_NATIVE_MIPS_WORD(0x2463F630)
+MUSASHI_NATIVE_MIPS_WORD(0x97C40000)
+MUSASHI_NATIVE_MIPS_WORD(0x3C010001)
+MUSASHI_NATIVE_MIPS_WORD(0x00610821)
+MUSASHI_NATIVE_MIPS_WORD(0xA424A3BA)
+MUSASHI_NATIVE_MIPS_WORD(0x3C010001)
+MUSASHI_NATIVE_MIPS_WORD(0x00610821)
+MUSASHI_NATIVE_MIPS_WORD(0xA420A3BC)
+MUSASHI_NATIVE_MIPS_WORD(0x03C0E821)
+MUSASHI_NATIVE_MIPS_WORD(0x8FBE0008)
+MUSASHI_NATIVE_MIPS_WORD(0x27BD0010)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+#include "psx_types.h"
+#include "m2c_macros.h"
+
+/* m2c draft from main.s: NOT verified against retail. C89-gated only;
+ * promotion requires an oracle MATCH (tools/match_function.py). Types
+ * and signatures are whatever the decompiler guessed; they are not
+ * evidence of the original declaration. */
+
+extern s32 *D_800AF630;
+
+void func_800119F0(u16 arg0) {
+    u16 sp0;
+
+    sp0 = arg0;
+    M2C_FIELD(&D_800AF630, u16 *, 0xA3BA) = sp0;
+    M2C_FIELD(&D_800AF630, s16 *, 0xA3BC) = 0;
+}
+#endif

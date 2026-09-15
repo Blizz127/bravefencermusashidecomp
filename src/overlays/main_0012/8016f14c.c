@@ -1,0 +1,52 @@
+/* Overlay range [8016F14C,8016F1AC) from MAIN.CD member 0012.
+ * SHA256(span)=8a876cbf4d0099edacc4abdecaf9b07db5880e08c345237e2b3bf09d9628ddb2.
+ * Word export for the native seam; the body below is an
+ * UNVERIFIED draft, not an oracle match claim. */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE0)
+MUSASHI_NATIVE_MIPS_WORD(0xAFB00010)
+MUSASHI_NATIVE_MIPS_WORD(0x00808021)
+MUSASHI_NATIVE_MIPS_WORD(0x3C0280FF)
+MUSASHI_NATIVE_MIPS_WORD(0xAFBF0018)
+MUSASHI_NATIVE_MIPS_WORD(0xAFB10014)
+MUSASHI_NATIVE_MIPS_WORD(0x8E0301F8)
+MUSASHI_NATIVE_MIPS_WORD(0x3442FFFF)
+MUSASHI_NATIVE_MIPS_WORD(0x10600009)
+MUSASHI_NATIVE_MIPS_WORD(0x00628824)
+MUSASHI_NATIVE_MIPS_WORD(0x3C020100)
+MUSASHI_NATIVE_MIPS_WORD(0x00621024)
+MUSASHI_NATIVE_MIPS_WORD(0x10400003)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x0C05218D)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x0220F809)
+MUSASHI_NATIVE_MIPS_WORD(0x02002021)
+MUSASHI_NATIVE_MIPS_WORD(0x8FBF0018)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB10014)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB00010)
+MUSASHI_NATIVE_MIPS_WORD(0x27BD0020)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+#include "psx_types.h"
+#include "m2c_macros.h"
+
+/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
+ * promotion requires an oracle MATCH (tools/match_function.py). Types
+ * and signatures are whatever the decompiler guessed; they are not
+ * evidence of the original declaration. */
+
+void func_80148634();                            /* static */
+
+void func_8016F14C(void *arg0) {
+    s32 temp_v1;
+
+    temp_v1 = M2C_FIELD(arg0, s32 *, 0x1F8);
+    if (temp_v1 != 0) {
+        if (temp_v1 & 0x01000000) {
+            func_80148634();
+        }
+        ((s32 (*)()) (temp_v1 & 0x80FFFFFF))(arg0);
+    }
+}
+#endif

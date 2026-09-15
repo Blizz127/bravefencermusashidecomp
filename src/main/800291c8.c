@@ -1,3 +1,14 @@
+/* Main-exec range [800291C8,800291DC) from the SLUS executable.
+ * SHA256(span)=aabe98358cd762b01b3e930d1d3de5b00b6370609f93c49eb0673e4f3197695a.
+ * Word export for the native seam; the body below is kept
+ * byte-identical (wrap only, no rewrite). */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x3C01800C)
+MUSASHI_NATIVE_MIPS_WORD(0x00240821)
+MUSASHI_NATIVE_MIPS_WORD(0xA425A1B8)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
 /* Decompiled by m2c from main.s, then verified byte-exact
  * against retail by tools/match_function.py. Types and signatures are
  * whatever reproduces the bytes; they are not evidence of the
@@ -11,3 +22,4 @@
 #include "psx_types.h"
 extern s16 D_800BA1B8[];
 void func_800291C8(s32 i, s16 v) { *(s16 *)((u8 *)D_800BA1B8 + i) = v; }
+#endif

@@ -1,3 +1,21 @@
+/* Main-exec range [800425B0,800425E0) from the SLUS executable.
+ * SHA256(span)=bbf8602f754b9d7659b34dc66ce96bf1554001c6c154b6d38fc0d290d67340ae.
+ * Word export for the native seam; the body below is kept
+ * byte-identical (wrap only, no rewrite). */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x3C028007)
+MUSASHI_NATIVE_MIPS_WORD(0x8C42CB84)
+MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE8)
+MUSASHI_NATIVE_MIPS_WORD(0xAFBF0010)
+MUSASHI_NATIVE_MIPS_WORD(0x8C420008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x0040F809)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x8FBF0010)
+MUSASHI_NATIVE_MIPS_WORD(0x27BD0018)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
 /* Byte-exact table dispatch, with guest-width views for the native binding. */
 #include "psx_types.h"
 #ifdef MUSASHI_NATIVE_CALLBACK_DISPATCH
@@ -25,3 +43,4 @@ s32 func_800425B0(s32 index, void (*callback)(void)) {
     LOAD_TARGET();
     return INVOKE(target, index, callback);
 }
+#endif

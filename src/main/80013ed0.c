@@ -29,22 +29,23 @@ MUSASHI_NATIVE_MIPS_WORD(0x94E20004)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0xA4820010)
 #else
-/* Decompiled by m2c from main.s, then verified byte-exact
- * against retail by tools/match_function.py. Types and signatures are
- * whatever reproduces the bytes; they are not evidence of the
- * original declaration. */
-
 #include "psx_types.h"
+#include "m2c_macros.h"
 
-void func_80013ED0(u16 *arg0, u16 *arg1, u16 *arg2, u16 *arg3) {
-    arg0[0] = arg1[0];
-    arg0[1] = arg2[0];
-    arg0[2] = arg3[0];
-    arg0[3] = arg1[1];
-    arg0[4] = arg2[1];
-    arg0[5] = arg3[1];
-    arg0[6] = arg1[2];
-    arg0[7] = arg2[2];
-    arg0[8] = arg3[2];
+/* m2c draft from main.s: NOT verified against retail. C89-gated only;
+ * promotion requires an oracle MATCH (tools/match_function.py). Types
+ * and signatures are whatever the decompiler guessed; they are not
+ * evidence of the original declaration. */
+
+void func_80013ED0(void *arg0, void *arg1, void *arg2, void *arg3) {
+    M2C_FIELD(arg0, u16 *, 0) = (u16) M2C_FIELD(arg1, u16 *, 0);
+    M2C_FIELD(arg0, u16 *, 2) = (u16) M2C_FIELD(arg2, u16 *, 0);
+    M2C_FIELD(arg0, u16 *, 4) = (u16) M2C_FIELD(arg3, u16 *, 0);
+    M2C_FIELD(arg0, u16 *, 6) = (u16) M2C_FIELD(arg1, u16 *, 2);
+    M2C_FIELD(arg0, u16 *, 8) = (u16) M2C_FIELD(arg2, u16 *, 2);
+    M2C_FIELD(arg0, u16 *, 0xA) = (u16) M2C_FIELD(arg3, u16 *, 2);
+    M2C_FIELD(arg0, u16 *, 0xC) = (u16) M2C_FIELD(arg1, u16 *, 4);
+    M2C_FIELD(arg0, u16 *, 0xE) = (u16) M2C_FIELD(arg2, u16 *, 4);
+    M2C_FIELD(arg0, u16 *, 0x10) = (u16) M2C_FIELD(arg3, u16 *, 4);
 }
 #endif

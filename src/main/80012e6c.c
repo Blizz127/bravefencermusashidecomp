@@ -1,66 +1,121 @@
-/* Matched leaf functions from the main executable's first region.
- *
- * The filename is provisional and names the address the file starts at, as in
- * src/main/80012ab0.c; it is renamed once a real translation-unit boundary is
- * identified.
- *
- * Types come from include/psx_types.h, which build_candidate.py places on the
- * search path by default. src/shared/types.h is unusable here: it pulls in
- * stdint.h, and the Psy-Q chain runs cpp with -nostdinc.
- */
-
+/* Main-exec range [80012E6C,80012F74) from the SLUS executable.
+ * SHA256(span)=d6c7c1cfd71e6bab4f02085ec962dba2a370434053a34810f775329a78510d5f.
+ * Word export for the native seam; the body below is kept
+ * byte-identical (wrap only, no rewrite). */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x00A42823)
+MUSASHI_NATIVE_MIPS_WORD(0x8FA20010)
+MUSASHI_NATIVE_MIPS_WORD(0x00A01821)
+MUSASHI_NATIVE_MIPS_WORD(0x84420000)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x10400005)
+MUSASHI_NATIVE_MIPS_WORD(0x00602021)
+MUSASHI_NATIVE_MIPS_WORD(0x00061400)
+MUSASHI_NATIVE_MIPS_WORD(0x00023403)
+MUSASHI_NATIVE_MIPS_WORD(0x14C00010)
+MUSASHI_NATIVE_MIPS_WORD(0x00051400)
+MUSASHI_NATIVE_MIPS_WORD(0x00051400)
+MUSASHI_NATIVE_MIPS_WORD(0x00021403)
+MUSASHI_NATIVE_MIPS_WORD(0x28420801)
+MUSASHI_NATIVE_MIPS_WORD(0x14400003)
+MUSASHI_NATIVE_MIPS_WORD(0x00041400)
+MUSASHI_NATIVE_MIPS_WORD(0x24A4F000)
+MUSASHI_NATIVE_MIPS_WORD(0x00041400)
+MUSASHI_NATIVE_MIPS_WORD(0x00021403)
+MUSASHI_NATIVE_MIPS_WORD(0x2842F800)
+MUSASHI_NATIVE_MIPS_WORD(0x10400002)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x24841000)
+MUSASHI_NATIVE_MIPS_WORD(0x00041400)
+MUSASHI_NATIVE_MIPS_WORD(0x08004BDB)
+MUSASHI_NATIVE_MIPS_WORD(0x00021403)
+MUSASHI_NATIVE_MIPS_WORD(0x00022403)
+MUSASHI_NATIVE_MIPS_WORD(0x28820801)
+MUSASHI_NATIVE_MIPS_WORD(0x14400003)
+MUSASHI_NATIVE_MIPS_WORD(0x00031400)
+MUSASHI_NATIVE_MIPS_WORD(0x24A3F000)
+MUSASHI_NATIVE_MIPS_WORD(0x00031400)
+MUSASHI_NATIVE_MIPS_WORD(0x00021403)
+MUSASHI_NATIVE_MIPS_WORD(0x2842F800)
+MUSASHI_NATIVE_MIPS_WORD(0x10400002)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x24631000)
+MUSASHI_NATIVE_MIPS_WORD(0x00031C00)
+MUSASHI_NATIVE_MIPS_WORD(0x00031C03)
+MUSASHI_NATIVE_MIPS_WORD(0x00071400)
+MUSASHI_NATIVE_MIPS_WORD(0x00021403)
+MUSASHI_NATIVE_MIPS_WORD(0x00620018)
+MUSASHI_NATIVE_MIPS_WORD(0x00001012)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x0046001A)
+MUSASHI_NATIVE_MIPS_WORD(0x14C00002)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x0007000D)
+MUSASHI_NATIVE_MIPS_WORD(0x2401FFFF)
+MUSASHI_NATIVE_MIPS_WORD(0x14C10004)
+MUSASHI_NATIVE_MIPS_WORD(0x3C018000)
+MUSASHI_NATIVE_MIPS_WORD(0x14410002)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x0006000D)
+MUSASHI_NATIVE_MIPS_WORD(0x00001012)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x00021400)
+MUSASHI_NATIVE_MIPS_WORD(0x00021403)
+MUSASHI_NATIVE_MIPS_WORD(0x14400004)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x18800002)
+MUSASHI_NATIVE_MIPS_WORD(0x2402FFFF)
+MUSASHI_NATIVE_MIPS_WORD(0x24020001)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+/* Body below is an UNVERIFIED draft, not an oracle match
+ * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
 
-/* Angle delta with optional interpolation, at vram 0x80012E6C.
- *
- * Angles are 12-bit: 0x1000 is a full turn and 0x800 a half turn, so the raw
- * difference is wrapped into (-0x800, 0x800] to take the short way round.
- *
- * When arg4 points at zero, or the divisor is zero, the wrapped delta is
- * returned directly. Otherwise the delta is scaled by arg3/arg2, and a result
- * that truncates to zero is forced to +/-1 so a caller stepping by this value
- * still converges instead of stalling. Note the sign for that step comes from
- * the *unwrapped* delta.
- *
- * Signatures and types here are the loosest that reproduce the bytes; they are
- * not evidence of the original declaration.
- */
+/* m2c draft from main.s: NOT verified against retail. C89-gated only;
+ * promotion requires an oracle MATCH (tools/match_function.py). Types
+ * and signatures are whatever the decompiler guessed; they are not
+ * evidence of the original declaration. */
+
 s16 func_80012E6C(s32 arg0, s32 arg1, s16 arg2, s16 arg3, s16 *arg4) {
-    s16 delta;
-    s16 plain;
-    s16 scaled_in;
-    s16 scaled;
+    s16 temp_a1;
+    s16 var_a0;
+    s16 var_v0;
+    s16 var_v1;
+    s32 var_v0_2;
+    s32 var_v0_3;
 
-    /* The two wrap paths keep their own copy of the delta rather than sharing
-     * one. Collapsing them into a single variable drops two register moves and
-     * comes out two instructions short of retail. */
-    delta = arg1 - arg0;
-    scaled_in = delta;
-    plain = scaled_in;
-
+    temp_a1 = arg1 - arg0;
+    var_v1 = temp_a1;
+    var_a0 = var_v1;
     if ((*arg4 == 0) || (arg2 == 0)) {
-        if (delta >= 0x801) {
-            plain = delta - 0x1000;
+        var_v0_2 = var_a0 << 0x10;
+        if (temp_a1 >= 0x801) {
+            var_a0 = temp_a1 - 0x1000;
+            var_v0_2 = var_a0 << 0x10;
         }
-        if (plain < -0x800) {
-            plain += 0x1000;
+        if ((var_v0_2 >> 0x10) < -0x800) {
+            var_a0 += 0x1000;
         }
-        return plain;
+        return var_a0;
     }
-
-    if (delta >= 0x801) {
-        scaled_in = delta - 0x1000;
+    var_v0_3 = var_v1 << 0x10;
+    if (temp_a1 >= 0x801) {
+        var_v1 = temp_a1 - 0x1000;
+        var_v0_3 = var_v1 << 0x10;
     }
-    if (scaled_in < -0x800) {
-        scaled_in += 0x1000;
+    if ((var_v0_3 >> 0x10) < -0x800) {
+        var_v1 += 0x1000;
     }
-
-    scaled = (s16) ((s32) (scaled_in * arg3) / arg2);
-    if (scaled == 0) {
-        scaled = -1;
-        if (delta > 0) {
-            scaled = 1;
+    var_v0 = (s16) ((s32) (var_v1 * arg3) / arg2);
+    if (var_v0 == 0) {
+        var_v0 = -1;
+        if (temp_a1 > 0) {
+            var_v0 = 1;
         }
     }
-    return scaled;
+    return var_v0;
 }
+#endif

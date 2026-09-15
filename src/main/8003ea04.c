@@ -1,0 +1,92 @@
+/* Main-exec range [8003EA04,8003EAB4) from the SLUS executable.
+ * SHA256(span)=029de41112355ac1b9490c6d8d6cac948851670f732c869c7f7ff6919bce1339.
+ * Word export for the native seam; the body below is an
+ * UNVERIFIED draft, not an oracle match claim. */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x00042400)
+MUSASHI_NATIVE_MIPS_WORD(0x00042383)
+MUSASHI_NATIVE_MIPS_WORD(0x00052C00)
+MUSASHI_NATIVE_MIPS_WORD(0x00052C03)
+MUSASHI_NATIVE_MIPS_WORD(0x00051040)
+MUSASHI_NATIVE_MIPS_WORD(0x00451021)
+MUSASHI_NATIVE_MIPS_WORD(0x00021080)
+MUSASHI_NATIVE_MIPS_WORD(0x00451023)
+MUSASHI_NATIVE_MIPS_WORD(0x3C01800C)
+MUSASHI_NATIVE_MIPS_WORD(0x00240821)
+MUSASHI_NATIVE_MIPS_WORD(0x8C2373D8)
+MUSASHI_NATIVE_MIPS_WORD(0x00021100)
+MUSASHI_NATIVE_MIPS_WORD(0x00622821)
+MUSASHI_NATIVE_MIPS_WORD(0x8CA30000)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x24620001)
+MUSASHI_NATIVE_MIPS_WORD(0xACA20000)
+MUSASHI_NATIVE_MIPS_WORD(0x90640000)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x14800003)
+MUSASHI_NATIVE_MIPS_WORD(0x30820080)
+MUSASHI_NATIVE_MIPS_WORD(0x0800FAAB)
+MUSASHI_NATIVE_MIPS_WORD(0x00001021)
+MUSASHI_NATIVE_MIPS_WORD(0x1040000D)
+MUSASHI_NATIVE_MIPS_WORD(0x00041080)
+MUSASHI_NATIVE_MIPS_WORD(0x3084007F)
+MUSASHI_NATIVE_MIPS_WORD(0x8CA30000)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x24620001)
+MUSASHI_NATIVE_MIPS_WORD(0xACA20000)
+MUSASHI_NATIVE_MIPS_WORD(0x90630000)
+MUSASHI_NATIVE_MIPS_WORD(0x000421C0)
+MUSASHI_NATIVE_MIPS_WORD(0x3062007F)
+MUSASHI_NATIVE_MIPS_WORD(0x30630080)
+MUSASHI_NATIVE_MIPS_WORD(0x1460FFF7)
+MUSASHI_NATIVE_MIPS_WORD(0x00822021)
+MUSASHI_NATIVE_MIPS_WORD(0x00041080)
+MUSASHI_NATIVE_MIPS_WORD(0x00441021)
+MUSASHI_NATIVE_MIPS_WORD(0x8CA30088)
+MUSASHI_NATIVE_MIPS_WORD(0x00021040)
+MUSASHI_NATIVE_MIPS_WORD(0x00621821)
+MUSASHI_NATIVE_MIPS_WORD(0xACA30088)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+#include "psx_types.h"
+#include "m2c_macros.h"
+
+/* m2c draft from main.s: NOT verified against retail. C89-gated only;
+ * promotion requires an oracle MATCH (tools/match_function.py). Types
+ * and signatures are whatever the decompiler guessed; they are not
+ * evidence of the original declaration. */
+
+extern s32 *D_800C73D8;
+
+s32 func_8003EA04(s32 arg0, s16 arg1) {
+    s32 temp_v0;
+    s32 var_v0;
+    u8 *temp_v1;
+    u8 *temp_v1_3;
+    u8 temp_v1_2;
+    u8 var_a0;
+    void *temp_a1;
+
+    temp_a1 = *(&D_800C73D8 + ((s32) (arg0 << 0x10) >> 0xE)) + (arg1 * 0xB0);
+    temp_v1 = M2C_FIELD(temp_a1, u8 **, 0);
+    M2C_FIELD(temp_a1, u8 **, 0) = (u8 *) (temp_v1 + 1);
+    var_a0 = *temp_v1;
+    if (var_a0 == 0) {
+        return 0;
+    }
+    var_v0 = var_a0 * 4;
+    if (var_a0 & 0x80) {
+        var_a0 &= 0x7F;
+        do {
+            temp_v1_3 = M2C_FIELD(temp_a1, u8 **, 0);
+            M2C_FIELD(temp_a1, u8 **, 0) = (u8 *) (temp_v1_3 + 1);
+            temp_v1_2 = *temp_v1_3;
+            var_a0 = (var_a0 << 7) + (temp_v1_2 & 0x7F);
+        } while (temp_v1_2 & 0x80);
+        var_v0 = var_a0 * 4;
+    }
+    temp_v0 = (var_v0 + var_a0) * 2;
+    M2C_FIELD(temp_a1, s32 *, 0x88) = (s32) (M2C_FIELD(temp_a1, s32 *, 0x88) + temp_v0);
+    return temp_v0;
+}
+#endif

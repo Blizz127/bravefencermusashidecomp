@@ -1,0 +1,66 @@
+/* Overlay range [8014A3E0,8014A454) from MAIN.CD member 0012.
+ * SHA256(span)=11c9a9d89639c297e2a3d53f886d2dec33bc2c9e3703a2dfbc826b63c2c56119.
+ * Word export for the native seam; the body below is an
+ * UNVERIFIED draft, not an oracle match claim. */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x00803021)
+MUSASHI_NATIVE_MIPS_WORD(0x84C30012)
+MUSASHI_NATIVE_MIPS_WORD(0x3C028011)
+MUSASHI_NATIVE_MIPS_WORD(0x844252B0)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x00620018)
+MUSASHI_NATIVE_MIPS_WORD(0x27BDFFF0)
+MUSASHI_NATIVE_MIPS_WORD(0x3C028011)
+MUSASHI_NATIVE_MIPS_WORD(0x844252B4)
+MUSASHI_NATIVE_MIPS_WORD(0x00001812)
+MUSASHI_NATIVE_MIPS_WORD(0xAFA30000)
+MUSASHI_NATIVE_MIPS_WORD(0x84C4001A)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x00820018)
+MUSASHI_NATIVE_MIPS_WORD(0x00002012)
+MUSASHI_NATIVE_MIPS_WORD(0x04600003)
+MUSASHI_NATIVE_MIPS_WORD(0xAFA40008)
+MUSASHI_NATIVE_MIPS_WORD(0x04810008)
+MUSASHI_NATIVE_MIPS_WORD(0x24020001)
+MUSASHI_NATIVE_MIPS_WORD(0x94C30088)
+MUSASHI_NATIVE_MIPS_WORD(0x94C4008A)
+MUSASHI_NATIVE_MIPS_WORD(0x94C5008C)
+MUSASHI_NATIVE_MIPS_WORD(0x00001021)
+MUSASHI_NATIVE_MIPS_WORD(0xA4C30006)
+MUSASHI_NATIVE_MIPS_WORD(0xA4C4000A)
+MUSASHI_NATIVE_MIPS_WORD(0xA4C5000E)
+MUSASHI_NATIVE_MIPS_WORD(0x27BD0010)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+#include "psx_types.h"
+#include "m2c_macros.h"
+
+/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
+ * promotion requires an oracle MATCH (tools/match_function.py). Types
+ * and signatures are whatever the decompiler guessed; they are not
+ * evidence of the original declaration. */
+
+extern s16 D_801152B0;
+extern s16 D_801152B4;
+
+s32 func_8014A3E0(void *arg0) {
+    s32 sp8;
+    s32 sp0;
+    s32 temp_lo;
+    s32 temp_lo_2;
+    s32 var_v0;
+
+    temp_lo = M2C_FIELD(arg0, s16 *, 0x12) * D_801152B0;
+    sp0 = temp_lo;
+    temp_lo_2 = M2C_FIELD(arg0, s16 *, 0x1A) * D_801152B4;
+    sp8 = temp_lo_2;
+    if ((temp_lo < 0) || (var_v0 = 1, (temp_lo_2 < 0))) {
+        var_v0 = 0;
+        M2C_FIELD(arg0, u16 *, 6) = (u16) M2C_FIELD(arg0, u16 *, 0x88);
+        M2C_FIELD(arg0, u16 *, 0xA) = (u16) M2C_FIELD(arg0, u16 *, 0x8A);
+        M2C_FIELD(arg0, u16 *, 0xE) = (u16) M2C_FIELD(arg0, u16 *, 0x8C);
+    }
+    return var_v0;
+}
+#endif

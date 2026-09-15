@@ -1,3 +1,14 @@
+/* Main-exec range [80029EC0,80029ED4) from the SLUS executable.
+ * SHA256(span)=b3752c1f3bed9a24be6fbcb93cea3d467dd01f5fcdb5815934700aaf1724c124.
+ * Word export for the native seam; the body below is kept
+ * byte-identical (wrap only, no rewrite). */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x8C820078)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x8442002E)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
 /* Decompiled by m2c from main.s, then verified byte-exact
  * against retail by tools/match_function.py. Types and signatures are
  * whatever reproduces the bytes; they are not evidence of the
@@ -12,3 +23,4 @@
 typedef struct { u8 pad[0x2E]; s16 v; } Inner;
 typedef struct { u8 pad[0x78]; Inner *p; } T;
 s16 func_80029EC0(T *t) { return t->p->v; }
+#endif

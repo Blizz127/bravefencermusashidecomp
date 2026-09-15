@@ -1,0 +1,195 @@
+/* Overlay range [80162B1C,80162CC4) from MAIN.CD member 0012.
+ * SHA256(span)=120ecd9b610b5d531c5e798c9d68a3a566013eaf8b489648838b963535b4f14a.
+ * Word export for the native seam; the body below is an
+ * UNVERIFIED draft, not an oracle match claim. */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x27BDFFD8)
+MUSASHI_NATIVE_MIPS_WORD(0xAFB3001C)
+MUSASHI_NATIVE_MIPS_WORD(0x3C138012)
+MUSASHI_NATIVE_MIPS_WORD(0x8E736D40)
+MUSASHI_NATIVE_MIPS_WORD(0xAFB20018)
+MUSASHI_NATIVE_MIPS_WORD(0x00009021)
+MUSASHI_NATIVE_MIPS_WORD(0xAFB10014)
+MUSASHI_NATIVE_MIPS_WORD(0x00008821)
+MUSASHI_NATIVE_MIPS_WORD(0xAFBF0020)
+MUSASHI_NATIVE_MIPS_WORD(0xAFB00010)
+MUSASHI_NATIVE_MIPS_WORD(0x3C028012)
+MUSASHI_NATIVE_MIPS_WORD(0x2442F9D0)
+MUSASHI_NATIVE_MIPS_WORD(0x02228021)
+MUSASHI_NATIVE_MIPS_WORD(0x96020006)
+MUSASHI_NATIVE_MIPS_WORD(0x9603000A)
+MUSASHI_NATIVE_MIPS_WORD(0x9604000E)
+MUSASHI_NATIVE_MIPS_WORD(0x96050000)
+MUSASHI_NATIVE_MIPS_WORD(0xA6020044)
+MUSASHI_NATIVE_MIPS_WORD(0xA6030046)
+MUSASHI_NATIVE_MIPS_WORD(0x10A0004A)
+MUSASHI_NATIVE_MIPS_WORD(0xA6040048)
+MUSASHI_NATIVE_MIPS_WORD(0x00051080)
+MUSASHI_NATIVE_MIPS_WORD(0x00531021)
+MUSASHI_NATIVE_MIPS_WORD(0x8C42FFFC)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x10400005)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x0040F809)
+MUSASHI_NATIVE_MIPS_WORD(0x02002021)
+MUSASHI_NATIVE_MIPS_WORD(0x08058AE8)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x0C058B31)
+MUSASHI_NATIVE_MIPS_WORD(0x02002021)
+MUSASHI_NATIVE_MIPS_WORD(0x8E040020)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x1080003A)
+MUSASHI_NATIVE_MIPS_WORD(0x24020001)
+MUSASHI_NATIVE_MIPS_WORD(0x94830000)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x14620016)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x96020006)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0xA4820008)
+MUSASHI_NATIVE_MIPS_WORD(0x00021400)
+MUSASHI_NATIVE_MIPS_WORD(0x00021403)
+MUSASHI_NATIVE_MIPS_WORD(0xAC820048)
+MUSASHI_NATIVE_MIPS_WORD(0x9602000A)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0xA482000A)
+MUSASHI_NATIVE_MIPS_WORD(0x00021400)
+MUSASHI_NATIVE_MIPS_WORD(0x00021403)
+MUSASHI_NATIVE_MIPS_WORD(0xAC82004C)
+MUSASHI_NATIVE_MIPS_WORD(0x9482002C)
+MUSASHI_NATIVE_MIPS_WORD(0x9603000E)
+MUSASHI_NATIVE_MIPS_WORD(0x34420001)
+MUSASHI_NATIVE_MIPS_WORD(0xA483000C)
+MUSASHI_NATIVE_MIPS_WORD(0x00031C00)
+MUSASHI_NATIVE_MIPS_WORD(0x00031C03)
+MUSASHI_NATIVE_MIPS_WORD(0xA482002C)
+MUSASHI_NATIVE_MIPS_WORD(0x08058B25)
+MUSASHI_NATIVE_MIPS_WORD(0xAC830050)
+MUSASHI_NATIVE_MIPS_WORD(0x8C830034)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x10600014)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x96020006)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0xA4820008)
+MUSASHI_NATIVE_MIPS_WORD(0x00021400)
+MUSASHI_NATIVE_MIPS_WORD(0x00021403)
+MUSASHI_NATIVE_MIPS_WORD(0xAC620014)
+MUSASHI_NATIVE_MIPS_WORD(0x9602000A)
+MUSASHI_NATIVE_MIPS_WORD(0x8C830034)
+MUSASHI_NATIVE_MIPS_WORD(0xA482000A)
+MUSASHI_NATIVE_MIPS_WORD(0x00021400)
+MUSASHI_NATIVE_MIPS_WORD(0x00021403)
+MUSASHI_NATIVE_MIPS_WORD(0xAC620018)
+MUSASHI_NATIVE_MIPS_WORD(0x9602000E)
+MUSASHI_NATIVE_MIPS_WORD(0x8C830034)
+MUSASHI_NATIVE_MIPS_WORD(0xA482000C)
+MUSASHI_NATIVE_MIPS_WORD(0x00021400)
+MUSASHI_NATIVE_MIPS_WORD(0x00021403)
+MUSASHI_NATIVE_MIPS_WORD(0x08058B25)
+MUSASHI_NATIVE_MIPS_WORD(0xAC62001C)
+MUSASHI_NATIVE_MIPS_WORD(0x96020006)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0xA4820008)
+MUSASHI_NATIVE_MIPS_WORD(0x9602000A)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0xA482000A)
+MUSASHI_NATIVE_MIPS_WORD(0x9602000E)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0xA482000C)
+MUSASHI_NATIVE_MIPS_WORD(0x26520001)
+MUSASHI_NATIVE_MIPS_WORD(0x2A420014)
+MUSASHI_NATIVE_MIPS_WORD(0x1440FFA9)
+MUSASHI_NATIVE_MIPS_WORD(0x26310068)
+MUSASHI_NATIVE_MIPS_WORD(0x8FBF0020)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB3001C)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB20018)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB10014)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB00010)
+MUSASHI_NATIVE_MIPS_WORD(0x27BD0028)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+/* Body below is an UNVERIFIED draft, not an oracle match
+ * claim; promotion requires tools/match_function.py MATCH. */
+#include "psx_types.h"
+
+/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
+ * promotion requires an oracle MATCH (tools/match_function.py). Types
+ * and signatures are whatever the decompiler guessed; they are not
+ * evidence of the original declaration. */
+
+void func_80162CC4(void *, u16);                       /* static */
+extern s32 *D_8011F9D0;
+extern s32 D_80126D40;
+
+void func_80162B1C(void) {
+    s32 (*temp_v0)();
+    s32 temp_s3;
+    s32 var_s1;
+    s32 var_s2;
+    u16 temp_a1;
+    u16 temp_v0_2;
+    u16 temp_v0_3;
+    u16 temp_v0_4;
+    u16 temp_v0_5;
+    u16 temp_v0_6;
+    u16 temp_v1;
+    void *temp_a0;
+    void *temp_s0;
+    void *temp_v1_2;
+
+    temp_s3 = D_80126D40;
+    var_s2 = 0;
+    var_s1 = 0;
+    do {
+        temp_s0 = var_s1 + &D_8011F9D0;
+        temp_a1 = temp_s0->unk0;
+        temp_s0->unk44 = (u16) temp_s0->unk6;
+        temp_s0->unk46 = (u16) temp_s0->unkA;
+        temp_s0->unk48 = (u16) temp_s0->unkE;
+        if (temp_a1 != 0) {
+            temp_v0 = ((temp_a1 * 4) + temp_s3)->unk-4;
+            if (temp_v0 != 0) {
+                temp_v0(temp_s0, temp_a1);
+            } else {
+                func_80162CC4(temp_s0, temp_a1);
+            }
+            temp_a0 = temp_s0->unk20;
+            if (temp_a0 != 0) {
+                if (temp_a0->unk0 == 1) {
+                    temp_v0_2 = temp_s0->unk6;
+                    temp_a0->unk8 = temp_v0_2;
+                    temp_a0->unk48 = (s32) (s16) temp_v0_2;
+                    temp_v0_3 = temp_s0->unkA;
+                    temp_a0->unkA = temp_v0_3;
+                    temp_a0->unk4C = (s32) (s16) temp_v0_3;
+                    temp_v1 = temp_s0->unkE;
+                    temp_a0->unkC = temp_v1;
+                    temp_a0->unk2C = (u16) (temp_a0->unk2C | 1);
+                    temp_a0->unk50 = (s32) (s16) temp_v1;
+                } else {
+                    temp_v1_2 = temp_a0->unk34;
+                    if (temp_v1_2 != 0) {
+                        temp_v0_4 = temp_s0->unk6;
+                        temp_a0->unk8 = temp_v0_4;
+                        temp_v1_2->unk14 = (s32) (s16) temp_v0_4;
+                        temp_v0_5 = temp_s0->unkA;
+                        temp_a0->unkA = temp_v0_5;
+                        temp_a0->unk34->unk18 = (s32) (s16) temp_v0_5;
+                        temp_v0_6 = temp_s0->unkE;
+                        temp_a0->unkC = temp_v0_6;
+                        temp_a0->unk34->unk1C = (s32) (s16) temp_v0_6;
+                    } else {
+                        temp_a0->unk8 = (u16) temp_s0->unk6;
+                        temp_a0->unkA = (u16) temp_s0->unkA;
+                        temp_a0->unkC = (u16) temp_s0->unkE;
+                    }
+                }
+            }
+        }
+        var_s2 += 1;
+        var_s1 += 0x68;
+    } while (var_s2 < 0x14);
+}
+#endif

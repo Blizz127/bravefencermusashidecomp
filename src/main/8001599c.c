@@ -1,3 +1,18 @@
+/* Main-exec range [8001599C,800159C0) from the SLUS executable.
+ * SHA256(span)=6e9c7e2cff5013e98955a64c048e968156685fcda55e871c5e7a9bc8d79a3172.
+ * Word export for the native seam; the body below is kept
+ * byte-identical (wrap only, no rewrite). */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x8C820000)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0xACA20000)
+MUSASHI_NATIVE_MIPS_WORD(0x8C820004)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0xACA20004)
+MUSASHI_NATIVE_MIPS_WORD(0x8C820008)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0xACA20008)
+#else
 /* Decompiled by m2c from main.s, then verified byte-exact
  * against retail by tools/match_function.py. Types and signatures are
  * whatever reproduces the bytes; they are not evidence of the
@@ -22,3 +37,4 @@ void func_8001599C(struct data_8001599C *arg0, struct data_8001599C *arg1) {
     arg1->unk8 = (s32) arg0->unk8;
 }
 
+#endif

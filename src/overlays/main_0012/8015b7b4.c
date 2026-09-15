@@ -1,0 +1,87 @@
+/* Overlay range [8015B7B4,8015B858) from MAIN.CD member 0012.
+ * SHA256(span)=abbde394e5a3048589168883bbd47d3b3c8cd1139af5b8ce9aa6825858262c17.
+ * Word export for the native seam; the body below is an
+ * UNVERIFIED draft, not an oracle match claim. */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE8)
+MUSASHI_NATIVE_MIPS_WORD(0xAFB00010)
+MUSASHI_NATIVE_MIPS_WORD(0xAFBF0014)
+MUSASHI_NATIVE_MIPS_WORD(0x0C0526D5)
+MUSASHI_NATIVE_MIPS_WORD(0x00808021)
+MUSASHI_NATIVE_MIPS_WORD(0x1040001E)
+MUSASHI_NATIVE_MIPS_WORD(0x00001021)
+MUSASHI_NATIVE_MIPS_WORD(0x0C055992)
+MUSASHI_NATIVE_MIPS_WORD(0x02002021)
+MUSASHI_NATIVE_MIPS_WORD(0x02002021)
+MUSASHI_NATIVE_MIPS_WORD(0x3C05800D)
+MUSASHI_NATIVE_MIPS_WORD(0x24A54F8C)
+MUSASHI_NATIVE_MIPS_WORD(0x2402000C)
+MUSASHI_NATIVE_MIPS_WORD(0xA20201AA)
+MUSASHI_NATIVE_MIPS_WORD(0x8E020044)
+MUSASHI_NATIVE_MIPS_WORD(0x8E0300B4)
+MUSASHI_NATIVE_MIPS_WORD(0x920600BC)
+MUSASHI_NATIVE_MIPS_WORD(0x34420002)
+MUSASHI_NATIVE_MIPS_WORD(0xAE020044)
+MUSASHI_NATIVE_MIPS_WORD(0xAE03023C)
+MUSASHI_NATIVE_MIPS_WORD(0x0C05509D)
+MUSASHI_NATIVE_MIPS_WORD(0xA2060244)
+MUSASHI_NATIVE_MIPS_WORD(0x02002021)
+MUSASHI_NATIVE_MIPS_WORD(0x0C05529D)
+MUSASHI_NATIVE_MIPS_WORD(0x24050022)
+MUSASHI_NATIVE_MIPS_WORD(0x24040005)
+MUSASHI_NATIVE_MIPS_WORD(0x02002821)
+MUSASHI_NATIVE_MIPS_WORD(0x24060005)
+MUSASHI_NATIVE_MIPS_WORD(0x00003821)
+MUSASHI_NATIVE_MIPS_WORD(0x0C051A65)
+MUSASHI_NATIVE_MIPS_WORD(0xA0A000DA)
+MUSASHI_NATIVE_MIPS_WORD(0x0C051CC9)
+MUSASHI_NATIVE_MIPS_WORD(0x24040455)
+MUSASHI_NATIVE_MIPS_WORD(0x0C051CC0)
+MUSASHI_NATIVE_MIPS_WORD(0x240405F3)
+MUSASHI_NATIVE_MIPS_WORD(0x24020001)
+MUSASHI_NATIVE_MIPS_WORD(0x8FBF0014)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB00010)
+MUSASHI_NATIVE_MIPS_WORD(0x27BD0018)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+#include "psx_types.h"
+#include "m2c_macros.h"
+
+/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
+ * promotion requires an oracle MATCH (tools/match_function.py). Types
+ * and signatures are whatever the decompiler guessed; they are not
+ * evidence of the original declaration. */
+
+void func_80146994(s32, void *, s32, s32); /* static */
+void func_80147300();                     /* static */
+void func_80147324();                     /* static */
+s32 func_80149B54();                                /* static */
+void func_80154274(void *, void *, u8);       /* static */
+void func_80154A74(void *, s32);             /* static */
+void func_80156648(void *);                      /* static */
+extern s32 *D_800D4F8C;
+
+s32 func_8015B7B4(void *arg0) {
+    s32 var_v0;
+    u8 temp_a2;
+
+    var_v0 = 0;
+    if (func_80149B54() != 0) {
+        func_80156648(arg0);
+        M2C_FIELD(arg0, s8 *, 0x1AA) = 0xC;
+        temp_a2 = M2C_FIELD(arg0, u8 *, 0xBC);
+        M2C_FIELD(arg0, s32 *, 0x44) = (s32) (M2C_FIELD(arg0, s32 *, 0x44) | 2);
+        M2C_FIELD(arg0, s32 *, 0x23C) = (s32) M2C_FIELD(arg0, s32 *, 0xB4);
+        M2C_FIELD(arg0, u8 *, 0x244) = temp_a2;
+        func_80154274(arg0, &D_800D4F8C, temp_a2);
+        func_80154A74(arg0, 0x22);
+        M2C_FIELD(arg0, s8 *, 0xDA) = 0;
+        func_80146994(5, arg0, 5, 0);
+        func_80147324(0x455);
+        func_80147300(0x5F3);
+        var_v0 = 1;
+    }
+    return var_v0;
+}
+#endif

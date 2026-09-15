@@ -1,0 +1,37 @@
+/* Exact retail word export for [8014BC80,8014BCC0); EXE and assembly verified. */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x3c038008)
+MUSASHI_NATIVE_MIPS_WORD(0x94638eb4)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x0065102a)
+MUSASHI_NATIVE_MIPS_WORD(0x10400007)
+MUSASHI_NATIVE_MIPS_WORD(0x00651023)
+MUSASHI_NATIVE_MIPS_WORD(0x3c018008)
+MUSASHI_NATIVE_MIPS_WORD(0xa4208eb4)
+MUSASHI_NATIVE_MIPS_WORD(0x3c01800c)
+MUSASHI_NATIVE_MIPS_WORD(0xa0209a17)
+MUSASHI_NATIVE_MIPS_WORD(0x08052f2e)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x3c018008)
+MUSASHI_NATIVE_MIPS_WORD(0xa4228eb4)
+MUSASHI_NATIVE_MIPS_WORD(0x03e00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+/* Verified byte-exact against retail by tools/match_function.py
+ * (16/16 words at 0x8014BC80). Types and signatures are whatever
+ * reproduces the bytes; they are not evidence of the original
+ * declaration. */
+#include "psx_types.h"
+
+extern u16 D_80078EB4;
+extern s8 D_800B9A17;
+
+void func_8014BC80(s32 arg0, s32 arg1) {
+    if ((s32) D_80078EB4 < arg1) {
+        D_80078EB4 = 0;
+        D_800B9A17 = 0;
+        return;
+    }
+    D_80078EB4 -= arg1;
+}
+#endif

@@ -725,6 +725,44 @@ python3 tools/build_candidate.py staging/startup/80010178-postincrement.c \
   --output /tmp/musashi-startup-postincrement.bin
 ```
 
+## Native queue, 2026-09-11: every function drafted, oracle pending
+
+The function inventory is closed (see `docs/PROGRESS.md`, ceiling section):
+1531 main + 19 main_0007 + 2412 main_0012 = 3962 functions, 697632 bytes.
+All splat disassemblies were regenerated with hole-evidenced symbols
+(`config/symbol_addrs.main.auto.txt`, `config/symbol_addrs.main_0007.auto.txt`;
+old instruction bytes verified identical, zero lost).
+
+Every unregistered function has (or is getting) a dual-shape draft in
+`src/`: pinned SHA256 word export plus an UNVERIFIED m2c body, via
+`/tmp/carve_all.py` (generalizes `/tmp/carve_batch.py` per region; asserts
+words against the blob, never rewrites seam words, skips verified bodies).
+As of the disk-quota interruption: 652/1519 spans carved. Resume with:
+
+```sh
+python3 /tmp/carve_all.py full /tmp/carve_full.log > /tmp/carve_resume.log 2>&1
+```
+
+Then, on a shell where the 32-bit toolchain executes, drain the queue.
+`--max-size` must be raised: 75% of the pending bytes are functions over
+the 256-byte default cap:
+
+```sh
+python3 tools/batch_match.py --asm asm/main.s --region main --register-existing --max-size 100000
+python3 tools/batch_match.py --asm asm/overlays/main_0007/main_0007.s --region main_0007 --register-existing --max-size 100000
+python3 tools/batch_match.py --asm asm/overlays/main_0012/main_0012.s --region main_0012 --register-existing --max-size 100000
+python3 tools/verify_registry.py
+python3 tools/progress.py
+```
+
+Caveats: `verify_existing` never stamps, so matched files keep their
+UNVERIFIED header notes after registration — the registry is the
+authority, not the file header. m2c-failed spans stay word-only and need
+hand-written bodies (struct-table member access dominates, per the triage
+above). The 31 pre-existing `enddlabel func_` data labels (80072xxx run
+et al.) are proven data (no prologue, no call/jump target, table/ASCII
+heads) — do not "recover" them.
+
 ## Environment watch: 32-bit toolchain execution
 
 The vendored Psy-Q compilers are 32-bit statically linked i386 binaries.
@@ -737,3 +775,100 @@ itself works (`setarch`/`linux32` exit 0), so the block is syscall-specific,
 not a missing compat layer. If a session shows this, do not work around it
 by weakening the oracle: bank verified-ready candidates and wait for an
 environment where the toolchain executes.
+
+**Resolved, 2026-09-14.** The block is the sandbox, not the host. The same
+`cc1` that exits 159 under the sandboxed shell runs normally when the
+sandbox is off, and the full `tools/verify_registry.py` re-verified every
+entry from there. So the rule above stands with one correction: the failure
+signature is a *sandbox* signature, and the first thing to try is the same
+command outside it. Only treat the toolchain as unavailable once it fails
+in an unsandboxed shell too.
+
+## The sweep is exhausted; the near-miss band is not
+
+Re-running the full `--register-existing` sweep over all 1,526 unregistered
+sources, on a shell where the toolchain executes, produced **zero** new
+matches. That confirms the plan's premise: m2c output does not become
+retail bytes on its own, and no wider sweep will change it.
+
+The useful measurement is a different one. Build each failing draft and
+count how many instruction words differ from retail:
+
+| words differing | functions | bytes |
+| --- | --- | --- |
+| 0 (matched but classified `unclassified`) | 20 | 2,332 |
+| ≤ 4 | 39 | 5,160 |
+| ≤ 10 | 89 | 8,172 |
+
+A draft four words from retail is not a failure, it is a codegen-drift bug
+with a mechanical cause. The catalogue below is what those causes turned
+out to be; each entry was confirmed by fixing it and getting a MATCH.
+
+### Codegen drift idioms
+
+* **Dropped leading parameters.** Retail `li $a2,12` where the draft emits
+  `li $a0,12` means m2c guessed too few parameters: the real function takes
+  leading arguments it passes straight through. Add them.
+  (`func_80045640`, `func_8003BE74`, `func_801717A0`, `func_8014BC80`.)
+* **Pointer scale.** m2c types a global `s32 *` and then writes
+  `&D_X + 0x1A0`, which scales to 0x680 bytes. Retail's `addiu $a1,$s0,416`
+  says the offset was bytes: declare `extern u8 D_X[];` and index it.
+  The same bug appears as `var += 4` on an `s32 *` where retail adds 4
+  bytes, and as `sll` by the wrong amount. (`func_80029690`,
+  `func_80014444`, `func_8013ED6C`.)
+* **Address versus load.** Retail `addiu $a0,$a0,%lo(D_X)` passes the
+  *address*; the draft's `lw` passes the contents. Pass `&D_X`.
+  (`func_8003A53C`, `func_800CEEFC`, `func_80060404`, `func_80060614`.)
+* **Volatile stores stay out of delay slots.** Where retail ends
+  `sw ...; jr $ra; nop` and the draft ends `jr $ra; sw ...`, the store is
+  through a volatile pointer: GCC 2.7.2 will not schedule one into a delay
+  slot. Declaring the pointee `volatile` reproduces it, and the reverse
+  case — draft one word longer — means the volatile does not belong.
+  (`func_8003B0B8`, `func_8005B710`.)
+* **Commuted operands.** `v1 = v1 + v0` and `v1 = v0 + v1` are the same
+  value and different instructions. Write the operand order retail shows.
+* **Equality against a constant.** `x == 0xFF` returning 0 or 1 compiles to
+  `xori`/`sltu`, not to a branch. Retail's `li $v0,255; beq` shape has not
+  been reproduced from any of the sixteen source shapes tried for
+  `func_8005FB70`; it is still open, and is the one idiom in this list with
+  no known fix.
+
+### Splat promotes jump targets to function symbols
+
+Seven "functions" in the listing are 20 bytes and contain only an epilogue
+(`move $sp,$fp; lw $fp,N($sp); addiu $sp,sp,M; jr $ra; nop`). Each one
+directly follows a function whose last instruction is `j` to it. They are
+not functions: they are the shared epilogue of a `-O0` body, and splat
+promoted the `j` target to a `glabel`.
+
+Confirmed at `80010A84`, `80010B2C`, `8001136C`, `80011E10` (main) and
+`8013C400`, `8013C924`, `801458CC` (main_0012). Matching the merged range
+works — `func_80010B10`, `func_80011350` and `func_80011DF4` all match at
+48 bytes, `-O0` — so these are registered at their true size with the
+fragment covered by the same range. `tools/progress.py` unions ranges per
+region, so nothing is counted twice. The listing still carries the spurious
+labels; drop them the next time the symbol files are regenerated.
+
+### `--valid-syntax` is what makes a draft compilable
+
+Of the 1,526 unregistered sources, **1,220 did not compile at all**, and one
+error dominated: `request for member 'unkNNNN' in something not a structure
+or union`. m2c had written `D_800AF630.unkA3D2` while the sanitizer had
+declared `D_800AF630` a scalar, because neither knows the layout.
+
+m2c's `--valid-syntax` mode emits the same access as
+`M2C_FIELD(&D_800AF630, u16 *, 0xA3D2)`, carrying the width it inferred from
+the load. `tools/batch_match.py` now always runs in that mode, maps the
+`M2C_UNK` marker back onto the `?` the sanitizer already understands, and
+includes `include/m2c_macros.h`. `tools/recarve_drafts.py` re-decompiles
+exactly the drafts that fail to build, leaving verified bodies, hand-written
+bodies, assembly overlays and already-building drafts untouched, and
+refusing to write a file whose export words would change.
+
+```sh
+python3 tools/recarve_drafts.py --dry-run     # count, change nothing
+python3 tools/recarve_drafts.py               # rewrite the failures only
+```
+
+A compilable draft is not a match. It is a draft the oracle is finally
+allowed to judge.

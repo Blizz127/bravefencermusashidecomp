@@ -33,4 +33,22 @@ MUSASHI_NATIVE_MIPS_WORD(0xA4A80000)
 MUSASHI_NATIVE_MIPS_WORD(0xA4A90002)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0xA4AA0004)
+#else
+/* Body below is an UNVERIFIED draft, not an oracle match
+ * claim; promotion requires tools/match_function.py MATCH. */
+#include "psx_types.h"
+
+/* m2c draft from main.s: NOT verified against retail. C89-gated only;
+ * promotion requires an oracle MATCH (tools/match_function.py). Types
+ * and signatures are whatever the decompiler guessed; they are not
+ * evidence of the original declaration. */
+
+void func_80047EC8();                                 /* static */
+
+void func_80047E58(void *arg0) {
+    func_80047EC8(saved_reg_ra);
+    *M2C_ERROR(/* Read from unset register $a1 */) = M2C_ERROR(/* Read from unset register $t0 */);
+    M2C_ERROR(/* Read from unset register $a1 */)->unk2 = (s16) M2C_ERROR(/* Read from unset register $t1 */);
+    M2C_ERROR(/* Read from unset register $a1 */)->unk4 = (s16) M2C_ERROR(/* Read from unset register $t2 */);
+}
 #endif

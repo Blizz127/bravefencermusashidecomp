@@ -1,3 +1,14 @@
+/* Main-exec range [8002D844,8002D858) from the SLUS executable.
+ * SHA256(span)=998026cf26d5cffbd9f9fbb11895c3f39935c5da615f18a82b4b43d0eb1585b9.
+ * Word export for the native seam; the body below is kept
+ * byte-identical (wrap only, no rewrite). */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x00801021)
+MUSASHI_NATIVE_MIPS_WORD(0x3C018007)
+MUSASHI_NATIVE_MIPS_WORD(0xAC2260E0)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
 #include "psx_types.h"
 
 /* Decompiled and verified byte-exact against the registered retail EXE. */
@@ -7,3 +18,4 @@ s32 func_8002D844(s32 value) {
     D_800760E0 = value;
     return value;
 }
+#endif

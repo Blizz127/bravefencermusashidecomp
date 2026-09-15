@@ -336,9 +336,8 @@ def assembly_overlay_source(
     body = "\n".join(body_lines)
     return (
         '#include "psx_types.h"\n\n'
-        "/* GTE/cop2 mnemonic overlay: ordinary C cannot emit coprocessor ops.\n"
-        " * Verified by tools/match_function.py. */\n"
-        "__asm__(\n"
+        + GTE_DRAFT_HEADER
+        + "__asm__(\n"
         '    ".set noreorder\\n"\n'
         f'    ".globl {function.name}\\n"\n'
         f'    ".type {function.name}, @function\\n"\n'
@@ -476,6 +475,11 @@ EXTERN_S32_RE = re.compile(r"^(\s*)extern s32 (\w+);", re.MULTILINE)
 EXTERN_UNKNOWN_RE = re.compile(r"^(\s*extern\s+)\?\s+(\w+\s*;)", re.MULTILINE)
 BARE_PARAM_RE = re.compile(r"([(,]\s*)\?(?=\s*[,)])")
 CALL_RE = re.compile(r"\b(\w+)\(")
+# --valid-syntax spells the unknown type `M2C_UNK` in exactly the positions
+# where the default mode spells `?`. Mapping it back lets every rule below
+# stay written against the single marker. The sized M2C_UNK8/16/32 typedefs
+# carry a real width and must survive, hence the digit lookahead.
+M2C_UNK_RE = re.compile(r"\bM2C_UNK\b(?![0-9])")
 
 
 def _sanitize(source: str) -> str:
@@ -525,6 +529,11 @@ def _sanitize(source: str) -> str:
     source = "\n".join(
         line for line in source.splitlines() if not line.startswith("Warning:")
     )
+    # Normalise --valid-syntax output onto the `?` marker the rules below
+    # are written against. M2C_FIELD accesses are deliberately left alone:
+    # they carry the load/store width m2c inferred, which is the whole
+    # reason for running in that mode.
+    source = M2C_UNK_RE.sub("?", source)
     if source:
         source += "\n"
 
@@ -659,6 +668,15 @@ VERIFIED_HEADER_TEMPLATE = (
     " * whatever reproduces the bytes; they are not evidence of the\n"
     " * original declaration. */\n"
 )
+GTE_DRAFT_HEADER = (
+    "/* GTE/cop2 mnemonic overlay: ordinary C cannot emit coprocessor ops.\n"
+    " * NOT verified against retail; promotion requires an oracle MATCH\n"
+    " * (tools/match_function.py). */\n"
+)
+GTE_VERIFIED_HEADER = (
+    "/* GTE/cop2 mnemonic overlay: ordinary C cannot emit coprocessor ops.\n"
+    " * Verified by tools/match_function.py. */\n"
+)
 
 
 def run_m2c(
@@ -668,11 +686,19 @@ def run_m2c(
 
     The candidate is stamped as an unverified draft: the verified claim
     is only ever added by stamp_verified, after the oracle MATCH.
+
+    `--valid-syntax` is not cosmetic. Without it m2c spells an access into
+    an untyped global `NAME.unkHHHH`, and the sanitizer has already had to
+    declare NAME a plain scalar, so the retail compiler rejects the draft
+    outright. That single error accounted for most of the drafts that never
+    compiled, and a draft that does not compile can never reach the oracle.
+    In this mode the same access becomes M2C_FIELD with the width m2c
+    inferred from the load or store, which compiles and can be judged.
     """
 
     try:
         result = subprocess.run(
-            [sys.executable, str(m2c), "-f", function, str(asm)],
+            [sys.executable, str(m2c), "-f", function, "--valid-syntax", str(asm)],
             stdin=subprocess.DEVNULL,
             capture_output=True,
             text=True,
@@ -683,7 +709,7 @@ def run_m2c(
     if result.returncode != 0 or not result.stdout.strip():
         return False
     output.write_text(
-        '#include "psx_types.h"\n\n'
+        '#include "psx_types.h"\n#include "m2c_macros.h"\n\n'
         + DRAFT_HEADER_TEMPLATE.format(asm=display_asm_name or asm.name)
         + "\n"
         + _sanitize(result.stdout)
@@ -691,7 +717,7 @@ def run_m2c(
     return True
 
 
-def stamp_verified(produced: Path, asm_name: str) -> None:
+def stamp_verified(produced: Path, asm_name: str, gte: bool = False) -> None:
     """Replace the draft header with the verified claim, in place.
 
     Called only after the oracle MATCH for this exact file. A file
@@ -699,8 +725,12 @@ def stamp_verified(produced: Path, asm_name: str) -> None:
     header prepended instead of a second copy.
     """
 
-    draft = DRAFT_HEADER_TEMPLATE.format(asm=asm_name)
-    verified = VERIFIED_HEADER_TEMPLATE.format(asm=asm_name)
+    if gte:
+        draft = GTE_DRAFT_HEADER
+        verified = GTE_VERIFIED_HEADER
+    else:
+        draft = DRAFT_HEADER_TEMPLATE.format(asm=asm_name)
+        verified = VERIFIED_HEADER_TEMPLATE.format(asm=asm_name)
     text = produced.read_text()
     if draft in text:
         produced.write_text(text.replace(draft, verified, 1))
@@ -863,8 +893,7 @@ def attempt(
         if _quiet(match_function.main, match_argv) != 0:
             continue
 
-        if not gte_overlay:
-            stamp_verified(produced, asm.name)
+        stamp_verified(produced, asm.name, gte=gte_overlay)
         promote(produced, target)
         return Outcome(function.name, "match", None if gte_overlay else optimization)
 

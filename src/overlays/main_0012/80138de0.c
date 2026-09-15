@@ -1,0 +1,127 @@
+/* Overlay range [80138DE0,80138ED0) from MAIN.CD member 0012.
+ * SHA256(span)=15677e92abe0e8c1cc8cf2f72e1d869999df25a69f85ad6913530e9fe9cee8f1.
+ * Word export for the native seam; the body below is an
+ * UNVERIFIED draft, not an oracle match claim. */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x3C028012)
+MUSASHI_NATIVE_MIPS_WORD(0x8C427548)
+MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE8)
+MUSASHI_NATIVE_MIPS_WORD(0xAFBF0014)
+MUSASHI_NATIVE_MIPS_WORD(0x10400031)
+MUSASHI_NATIVE_MIPS_WORD(0xAFB00010)
+MUSASHI_NATIVE_MIPS_WORD(0x8C820008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x30420400)
+MUSASHI_NATIVE_MIPS_WORD(0x14400006)
+MUSASHI_NATIVE_MIPS_WORD(0x24900044)
+MUSASHI_NATIVE_MIPS_WORD(0x84830004)
+MUSASHI_NATIVE_MIPS_WORD(0x24020008)
+MUSASHI_NATIVE_MIPS_WORD(0x14620002)
+MUSASHI_NATIVE_MIPS_WORD(0x24900010)
+MUSASHI_NATIVE_MIPS_WORD(0x24900044)
+MUSASHI_NATIVE_MIPS_WORD(0x30A300FF)
+MUSASHI_NATIVE_MIPS_WORD(0x2C6200E0)
+MUSASHI_NATIVE_MIPS_WORD(0x1440000B)
+MUSASHI_NATIVE_MIPS_WORD(0x2C620020)
+MUSASHI_NATIVE_MIPS_WORD(0x3C06800D)
+MUSASHI_NATIVE_MIPS_WORD(0x24C63AB4)
+MUSASHI_NATIVE_MIPS_WORD(0x0C04E3B4)
+MUSASHI_NATIVE_MIPS_WORD(0x2405001F)
+MUSASHI_NATIVE_MIPS_WORD(0x00403021)
+MUSASHI_NATIVE_MIPS_WORD(0x14C0001C)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x96020000)
+MUSASHI_NATIVE_MIPS_WORD(0x0804E3A4)
+MUSASHI_NATIVE_MIPS_WORD(0x24420002)
+MUSASHI_NATIVE_MIPS_WORD(0x1440000E)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x30A500FF)
+MUSASHI_NATIVE_MIPS_WORD(0x24A5FFE0)
+MUSASHI_NATIVE_MIPS_WORD(0x3C06800D)
+MUSASHI_NATIVE_MIPS_WORD(0x24C63AB4)
+MUSASHI_NATIVE_MIPS_WORD(0x0C04E3B4)
+MUSASHI_NATIVE_MIPS_WORD(0x30A5FFFF)
+MUSASHI_NATIVE_MIPS_WORD(0x00403021)
+MUSASHI_NATIVE_MIPS_WORD(0x14C0000F)
+MUSASHI_NATIVE_MIPS_WORD(0x00001021)
+MUSASHI_NATIVE_MIPS_WORD(0x96020000)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x24420001)
+MUSASHI_NATIVE_MIPS_WORD(0xA6020000)
+MUSASHI_NATIVE_MIPS_WORD(0x14C00009)
+MUSASHI_NATIVE_MIPS_WORD(0x00001021)
+MUSASHI_NATIVE_MIPS_WORD(0x3C038012)
+MUSASHI_NATIVE_MIPS_WORD(0x24637548)
+MUSASHI_NATIVE_MIPS_WORD(0x8C620000)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x2442FFFF)
+MUSASHI_NATIVE_MIPS_WORD(0x0804E3AF)
+MUSASHI_NATIVE_MIPS_WORD(0xAC620000)
+MUSASHI_NATIVE_MIPS_WORD(0x00001021)
+MUSASHI_NATIVE_MIPS_WORD(0x8FBF0014)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB00010)
+MUSASHI_NATIVE_MIPS_WORD(0x27BD0018)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+#include "psx_types.h"
+#include "m2c_macros.h"
+
+/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
+ * promotion requires an oracle MATCH (tools/match_function.py). Types
+ * and signatures are whatever the decompiler guessed; they are not
+ * evidence of the original declaration. */
+
+s32 func_80138ED0(s32, void *);                  /* static */
+extern s32 *D_800D3AB4;
+extern s32 D_80127548;
+
+s32 func_80138DE0(void *arg0, s32 arg1, s32 arg2) {
+    s32 temp_v0;
+    s32 var_a2;
+    u16 *var_s0;
+    u16 var_v0;
+    u32 temp_v1;
+
+    var_a2 = arg2;
+    if (D_80127548 != 0) {
+        var_s0 = arg0 + 0x44;
+        if (!(M2C_FIELD(arg0, s32 *, 8) & 0x400)) {
+            var_s0 = arg0 + 0x10;
+            if (M2C_FIELD(arg0, s16 *, 4) == 8) {
+                var_s0 = arg0 + 0x44;
+            }
+        }
+        temp_v1 = arg1 & 0xFF;
+        if (temp_v1 >= 0xE0U) {
+            var_a2 = func_80138ED0(0x1F, &D_800D3AB4);
+            if (var_a2 == 0) {
+                var_v0 = *var_s0 + 2;
+                goto block_10;
+            }
+            goto block_13;
+        }
+        if (temp_v1 >= 0x20U) {
+            var_a2 = func_80138ED0(((arg1 & 0xFF) - 0x20) & 0xFFFF, &D_800D3AB4);
+            if (var_a2 == 0) {
+                var_v0 = *var_s0 + 1;
+block_10:
+                *var_s0 = var_v0;
+                goto block_11;
+            }
+            /* Duplicate return node #14. Try simplifying control flow for better match */
+            return 0;
+        }
+block_11:
+        if (var_a2 == 0) {
+            temp_v0 = D_80127548 - 1;
+            D_80127548 = temp_v0;
+            return temp_v0;
+        }
+        /* Duplicate return node #14. Try simplifying control flow for better match */
+        return 0;
+    }
+block_13:
+    return 0;
+}
+#endif

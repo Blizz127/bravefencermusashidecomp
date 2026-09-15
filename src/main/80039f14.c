@@ -1,3 +1,24 @@
+/* Main-exec range [80039F14,80039F50) from the SLUS executable.
+ * SHA256(span)=18415ba3b50f5f8e628136a2ceb8954b09e06201bd739260a1d1d123e2341933.
+ * Word export for the native seam; the body below is kept
+ * byte-identical (wrap only, no rewrite). */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x00052C00)
+MUSASHI_NATIVE_MIPS_WORD(0x00052C03)
+MUSASHI_NATIVE_MIPS_WORD(0x00051040)
+MUSASHI_NATIVE_MIPS_WORD(0x00451021)
+MUSASHI_NATIVE_MIPS_WORD(0x00021080)
+MUSASHI_NATIVE_MIPS_WORD(0x00451021)
+MUSASHI_NATIVE_MIPS_WORD(0x00021040)
+MUSASHI_NATIVE_MIPS_WORD(0x00822021)
+MUSASHI_NATIVE_MIPS_WORD(0x90820021)
+MUSASHI_NATIVE_MIPS_WORD(0xA0860020)
+MUSASHI_NATIVE_MIPS_WORD(0x24C60001)
+MUSASHI_NATIVE_MIPS_WORD(0xA0860022)
+MUSASHI_NATIVE_MIPS_WORD(0x34420002)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0xA0820021)
+#else
 /* Decompiled by m2c from main.s, then verified byte-exact
  * against retail by tools/match_function.py. Types and signatures are
  * whatever reproduces the bytes; they are not evidence of the
@@ -11,3 +32,4 @@ void func_80039F14(S *p, s32 idx, s32 a2) {
     p->u22 = a2 + 1;
     p->u21 |= 2;
 }
+#endif

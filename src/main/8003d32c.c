@@ -1,0 +1,76 @@
+/* Main-exec range [8003D32C,8003D3B4) from the SLUS executable.
+ * SHA256(span)=e8c46efaac053e5fa91e53d45868efb43026f12e9203ebd84bfb4686561cbcc0.
+ * Word export for the native seam; the body below is an
+ * UNVERIFIED draft, not an oracle match claim. */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x240A0018)
+MUSASHI_NATIVE_MIPS_WORD(0x00003021)
+MUSASHI_NATIVE_MIPS_WORD(0x24070001)
+MUSASHI_NATIVE_MIPS_WORD(0x24090003)
+MUSASHI_NATIVE_MIPS_WORD(0x24080002)
+MUSASHI_NATIVE_MIPS_WORD(0x00802821)
+MUSASHI_NATIVE_MIPS_WORD(0x00062100)
+MUSASHI_NATIVE_MIPS_WORD(0x3C028007)
+MUSASHI_NATIVE_MIPS_WORD(0x8C42B54C)
+MUSASHI_NATIVE_MIPS_WORD(0x3C038007)
+MUSASHI_NATIVE_MIPS_WORD(0x8C63B0E4)
+MUSASHI_NATIVE_MIPS_WORD(0x00822021)
+MUSASHI_NATIVE_MIPS_WORD(0x00C71004)
+MUSASHI_NATIVE_MIPS_WORD(0x00621824)
+MUSASHI_NATIVE_MIPS_WORD(0x9482000C)
+MUSASHI_NATIVE_MIPS_WORD(0x10600007)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x10400003)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x0800F4E7)
+MUSASHI_NATIVE_MIPS_WORD(0xA0A70000)
+MUSASHI_NATIVE_MIPS_WORD(0x0800F4E7)
+MUSASHI_NATIVE_MIPS_WORD(0xA0A90000)
+MUSASHI_NATIVE_MIPS_WORD(0x10400003)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x0800F4E7)
+MUSASHI_NATIVE_MIPS_WORD(0xA0A80000)
+MUSASHI_NATIVE_MIPS_WORD(0xA0A00000)
+MUSASHI_NATIVE_MIPS_WORD(0x24C60001)
+MUSASHI_NATIVE_MIPS_WORD(0x00CA102A)
+MUSASHI_NATIVE_MIPS_WORD(0x1440FFE7)
+MUSASHI_NATIVE_MIPS_WORD(0x24A50001)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+#include "psx_types.h"
+#include "m2c_macros.h"
+
+/* m2c draft from main.s: NOT verified against retail. C89-gated only;
+ * promotion requires an oracle MATCH (tools/match_function.py). Types
+ * and signatures are whatever the decompiler guessed; they are not
+ * evidence of the original declaration. */
+
+extern s32 D_8006B0E4;
+extern s32 D_8006B54C;
+
+void func_8003D32C(s8 *arg0) {
+    s32 var_a2;
+    s8 *var_a1;
+    u16 temp_v0;
+
+    var_a2 = 0;
+    var_a1 = arg0;
+    do {
+        temp_v0 = M2C_FIELD(((var_a2 * 0x10) + D_8006B54C), u16 *, 0xC);
+        if (D_8006B0E4 & (1 << var_a2)) {
+            if (temp_v0 != 0) {
+                *var_a1 = 1;
+            } else {
+                *var_a1 = 3;
+            }
+        } else if (temp_v0 != 0) {
+            *var_a1 = 2;
+        } else {
+            *var_a1 = 0;
+        }
+        var_a2 += 1;
+        var_a1 += 1;
+    } while (var_a2 < 0x18);
+}
+#endif

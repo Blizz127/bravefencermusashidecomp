@@ -1,0 +1,69 @@
+/* Overlay range [8015D380,8015D414) from MAIN.CD member 0012.
+ * SHA256(span)=e26a7087f4a56e27a716d05d5154c1081428bbd5e7857a381c11540ee48758ca.
+ * Word export for the native seam; the body below is an
+ * UNVERIFIED draft, not an oracle match claim. */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x27BDFFB8)
+MUSASHI_NATIVE_MIPS_WORD(0xAFB1003C)
+MUSASHI_NATIVE_MIPS_WORD(0x00808821)
+MUSASHI_NATIVE_MIPS_WORD(0xAFB00038)
+MUSASHI_NATIVE_MIPS_WORD(0x27B00018)
+MUSASHI_NATIVE_MIPS_WORD(0xAFBF0040)
+MUSASHI_NATIVE_MIPS_WORD(0x0C004FCF)
+MUSASHI_NATIVE_MIPS_WORD(0x02002021)
+MUSASHI_NATIVE_MIPS_WORD(0x8E220020)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x84450012)
+MUSASHI_NATIVE_MIPS_WORD(0x0C004956)
+MUSASHI_NATIVE_MIPS_WORD(0x02002021)
+MUSASHI_NATIVE_MIPS_WORD(0x8E220020)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x84450010)
+MUSASHI_NATIVE_MIPS_WORD(0x0C0049B1)
+MUSASHI_NATIVE_MIPS_WORD(0x02002021)
+MUSASHI_NATIVE_MIPS_WORD(0x02002021)
+MUSASHI_NATIVE_MIPS_WORD(0x3C058018)
+MUSASHI_NATIVE_MIPS_WORD(0x24A50C4C)
+MUSASHI_NATIVE_MIPS_WORD(0x0C0123EF)
+MUSASHI_NATIVE_MIPS_WORD(0x27A60010)
+MUSASHI_NATIVE_MIPS_WORD(0x8BA20013)
+MUSASHI_NATIVE_MIPS_WORD(0x9BA20010)
+MUSASHI_NATIVE_MIPS_WORD(0x8BA30017)
+MUSASHI_NATIVE_MIPS_WORD(0x9BA30014)
+MUSASHI_NATIVE_MIPS_WORD(0xAA22013B)
+MUSASHI_NATIVE_MIPS_WORD(0xBA220138)
+MUSASHI_NATIVE_MIPS_WORD(0xAA23013F)
+MUSASHI_NATIVE_MIPS_WORD(0xBA23013C)
+MUSASHI_NATIVE_MIPS_WORD(0x8FBF0040)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB1003C)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB00038)
+MUSASHI_NATIVE_MIPS_WORD(0x27BD0048)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+/* Body below is an UNVERIFIED draft, not an oracle match
+ * claim; promotion requires tools/match_function.py MATCH. */
+#include "psx_types.h"
+
+/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
+ * promotion requires an oracle MATCH (tools/match_function.py). Types
+ * and signatures are whatever the decompiler guessed; they are not
+ * evidence of the original declaration. */
+
+void func_80012558(void *, s16);                          /* extern */
+void func_800126C4(void *, s16);                          /* extern */
+void func_80013F3C(void *);                               /* extern */
+void func_80048FBC(void *, s32 (*)(), void *);                 /* extern */
+extern s32 D_80180C4C;
+
+void func_8015D380(void *arg0) {
+    s32 sp18;
+    s32 sp10;
+    func_80013F3C(&sp18);
+    func_80012558(&sp18, arg0->unk20->unk12);
+    func_800126C4(&sp18, arg0->unk20->unk10);
+    func_80048FBC(&sp18, D_80180C4C, &sp10);
+    arg0->unk13B = (unaligned s32) M2C_ERROR(/* Unable to handle lwr; missing a corresponding lwl */);
+    arg0->unk13F = (unaligned s32) M2C_ERROR(/* Unable to handle lwr; missing a corresponding lwl */);
+}
+#endif

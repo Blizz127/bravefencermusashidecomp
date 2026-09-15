@@ -1,3 +1,12 @@
+/* Main-exec range [8005CF58,8005CF64) from the SLUS executable.
+ * SHA256(span)=5679de6d872f74c1cf6e01a3593fcbf41172e1f626c0c21341d455839067f641.
+ * Word export for the native seam; the body below is kept
+ * byte-identical (wrap only, no rewrite). */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x240A00C0)
+MUSASHI_NATIVE_MIPS_WORD(0x01400008)
+MUSASHI_NATIVE_MIPS_WORD(0x2409000A)
+#else
 #include "psx_types.h"
 
 /* BIOS vector boundary called by 800429DC for indices zero/four/five/six.
@@ -15,3 +24,4 @@ __asm__(
     ".size func_8005CF58, .-func_8005CF58\n"
     ".set reorder\n"
 );
+#endif

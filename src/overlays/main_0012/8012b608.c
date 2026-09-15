@@ -1,0 +1,109 @@
+/* Overlay range [8012B608,8012B6D4) from MAIN.CD member 0012.
+ * SHA256(span)=bb38ef48add1851f48300dcb16ca1c946536517bcbe3c210fcd267d9342dcfe0.
+ * Word export for the native seam; the body below is an
+ * UNVERIFIED draft, not an oracle match claim. */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x30840FFF)
+MUSASHI_NATIVE_MIPS_WORD(0x30A50FFF)
+MUSASHI_NATIVE_MIPS_WORD(0x14850003)
+MUSASHI_NATIVE_MIPS_WORD(0x00A41823)
+MUSASHI_NATIVE_MIPS_WORD(0x0804ADB3)
+MUSASHI_NATIVE_MIPS_WORD(0x00001021)
+MUSASHI_NATIVE_MIPS_WORD(0x28620801)
+MUSASHI_NATIVE_MIPS_WORD(0x14400004)
+MUSASHI_NATIVE_MIPS_WORD(0x2862F800)
+MUSASHI_NATIVE_MIPS_WORD(0x24821000)
+MUSASHI_NATIVE_MIPS_WORD(0x00A21823)
+MUSASHI_NATIVE_MIPS_WORD(0x2862F800)
+MUSASHI_NATIVE_MIPS_WORD(0x10400002)
+MUSASHI_NATIVE_MIPS_WORD(0x2482F000)
+MUSASHI_NATIVE_MIPS_WORD(0x00A21823)
+MUSASHI_NATIVE_MIPS_WORD(0x04600011)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x0066001A)
+MUSASHI_NATIVE_MIPS_WORD(0x14C00002)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x0007000D)
+MUSASHI_NATIVE_MIPS_WORD(0x2401FFFF)
+MUSASHI_NATIVE_MIPS_WORD(0x14C10004)
+MUSASHI_NATIVE_MIPS_WORD(0x3C018000)
+MUSASHI_NATIVE_MIPS_WORD(0x14610002)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x0006000D)
+MUSASHI_NATIVE_MIPS_WORD(0x00001812)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x14600013)
+MUSASHI_NATIVE_MIPS_WORD(0x00601021)
+MUSASHI_NATIVE_MIPS_WORD(0x0804ADB2)
+MUSASHI_NATIVE_MIPS_WORD(0x24030001)
+MUSASHI_NATIVE_MIPS_WORD(0x0066001A)
+MUSASHI_NATIVE_MIPS_WORD(0x14C00002)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x0007000D)
+MUSASHI_NATIVE_MIPS_WORD(0x2401FFFF)
+MUSASHI_NATIVE_MIPS_WORD(0x14C10004)
+MUSASHI_NATIVE_MIPS_WORD(0x3C018000)
+MUSASHI_NATIVE_MIPS_WORD(0x14610002)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x0006000D)
+MUSASHI_NATIVE_MIPS_WORD(0x00001812)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x14600003)
+MUSASHI_NATIVE_MIPS_WORD(0x00601021)
+MUSASHI_NATIVE_MIPS_WORD(0x2403FFFF)
+MUSASHI_NATIVE_MIPS_WORD(0x00601021)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+/* Body below is an UNVERIFIED draft, not an oracle match
+ * claim; promotion requires tools/match_function.py MATCH. */
+#include "psx_types.h"
+
+/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
+ * promotion requires an oracle MATCH (tools/match_function.py). Types
+ * and signatures are whatever the decompiler guessed; they are not
+ * evidence of the original declaration. */
+
+s32 func_8012B608(s32 arg0, s32 arg1, s32 arg2) {
+    s32 temp_a0;
+    s32 temp_a1;
+    s32 temp_lo;
+    s32 temp_lo_2;
+    s32 var_v0;
+    s32 var_v0_2;
+    s32 var_v1;
+    s32 var_v1_2;
+
+    temp_a0 = arg0 & 0xFFF;
+    temp_a1 = arg1 & 0xFFF;
+    var_v1 = temp_a1 - temp_a0;
+    if (temp_a0 == temp_a1) {
+        return 0;
+    }
+    var_v0_2 = var_v1 < -0x800;
+    if (var_v1 >= 0x801) {
+        var_v1 = temp_a1 - (temp_a0 + 0x1000);
+        var_v0_2 = var_v1 < -0x800;
+    }
+    if (var_v0_2 != 0) {
+        var_v1 = temp_a1 - (temp_a0 - 0x1000);
+    }
+    if (var_v1 >= 0) {
+        temp_lo = var_v1 / arg2;
+        var_v0 = temp_lo;
+        if (temp_lo == 0) {
+            var_v1_2 = 1;
+            goto block_11;
+        }
+    } else {
+        temp_lo_2 = var_v1 / arg2;
+        var_v0 = temp_lo_2;
+        if (temp_lo_2 == 0) {
+            var_v1_2 = -1;
+block_11:
+            var_v0 = var_v1_2;
+        }
+    }
+    return var_v0;
+}
+#endif

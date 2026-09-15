@@ -61,4 +61,55 @@ MUSASHI_NATIVE_MIPS_WORD(0x8FB00020)
 MUSASHI_NATIVE_MIPS_WORD(0x27BD0030)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+/* Body below is an UNVERIFIED draft, not an oracle match
+ * claim; promotion requires tools/match_function.py MATCH. */
+#include "psx_types.h"
+
+/* m2c draft from main.s: NOT verified against retail. C89-gated only;
+ * promotion requires an oracle MATCH (tools/match_function.py). Types
+ * and signatures are whatever the decompiler guessed; they are not
+ * evidence of the original declaration. */
+
+void func_80047E58(s32 *, s32);                          /* static */
+s32 func_80049440(s32, s32, s32);                   /* static */
+
+void func_800128EC(void *arg0, s32 arg1) {
+    s32 sp1C;
+    s32 sp18;
+    s32 sp14;
+    s32 sp10;
+    s32 temp_a1;
+    s32 temp_a2;
+    s32 temp_s0;
+    s32 temp_v0;
+    s32 temp_v0_2;
+    s32 var_s0;
+    s32 var_v0;
+
+    temp_a1 = arg0->unk8;
+    temp_a2 = arg0->unkC;
+    sp10 = arg0->unk0;
+    sp14 = arg0->unk4;
+    sp18 = temp_a1;
+    sp1C = temp_a2;
+    var_s0 = func_80049440(sp10, temp_a1, temp_a2);
+    temp_v0 = func_80049440(sp14);
+    if (temp_v0 < var_s0) {
+        var_s0 = temp_v0;
+    }
+    temp_v0_2 = func_80049440(sp18);
+    var_v0 = var_s0 < 0x12;
+    if (temp_v0_2 < var_s0) {
+        var_s0 = temp_v0_2;
+        var_v0 = var_s0 < 0x12;
+    }
+    if (var_v0 != 0) {
+        temp_s0 = 0x12 - var_s0;
+        sp10 = sp10 >> temp_s0;
+        sp18 = sp18 >> temp_s0;
+        sp14 = sp14 >> temp_s0;
+    }
+    func_80047E58(&sp10, arg1);
+}
 #endif

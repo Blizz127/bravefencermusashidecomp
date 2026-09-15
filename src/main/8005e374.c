@@ -16,5 +16,14 @@ MUSASHI_NATIVE_MIPS_WORD(0x03e00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00441021)
 #else
 #include "psx_types.h"
-/* No matched C implementation is claimed for this export. */
+#include "m2c_macros.h"
+
+/* m2c draft from main.s: NOT verified against retail. C89-gated only;
+ * promotion requires an oracle MATCH (tools/match_function.py). Types
+ * and signatures are whatever the decompiler guessed; they are not
+ * evidence of the original declaration. */
+
+s32 func_8005E374(void *arg0) {
+    return (((s32) (M2C_FIELD(arg0, u8 *, 0xE3) + 1) >> 1) * 4) + ((((M2C_FIELD(arg0, u8 *, 0xE9) * 5) + 3) & 0xFFC) + 4) + M2C_FIELD(arg0, s32 *, 0xEC);
+}
 #endif

@@ -1,0 +1,61 @@
+/* Overlay range [80147364,801473DC) from MAIN.CD member 0012.
+ * SHA256(span)=5d196618d420b92a4e2ac92a5dcc247ca2d952cde79d22c290657d9a57e5cf57.
+ * Word export for the native seam; the body below is an
+ * UNVERIFIED draft, not an oracle match claim. */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x27BDFFD8)
+MUSASHI_NATIVE_MIPS_WORD(0xAFB00018)
+MUSASHI_NATIVE_MIPS_WORD(0x00808021)
+MUSASHI_NATIVE_MIPS_WORD(0xAFB1001C)
+MUSASHI_NATIVE_MIPS_WORD(0x00A08821)
+MUSASHI_NATIVE_MIPS_WORD(0x3C048012)
+MUSASHI_NATIVE_MIPS_WORD(0x24846B58)
+MUSASHI_NATIVE_MIPS_WORD(0x3C03800C)
+MUSASHI_NATIVE_MIPS_WORD(0x84639A08)
+MUSASHI_NATIVE_MIPS_WORD(0x2402308D)
+MUSASHI_NATIVE_MIPS_WORD(0x1462000A)
+MUSASHI_NATIVE_MIPS_WORD(0xAFBF0020)
+MUSASHI_NATIVE_MIPS_WORD(0x24840004)
+MUSASHI_NATIVE_MIPS_WORD(0x0C00565E)
+MUSASHI_NATIVE_MIPS_WORD(0x27A50010)
+MUSASHI_NATIVE_MIPS_WORD(0x27A40010)
+MUSASHI_NATIVE_MIPS_WORD(0x3205FFFF)
+MUSASHI_NATIVE_MIPS_WORD(0x0C04B973)
+MUSASHI_NATIVE_MIPS_WORD(0x3226FFFF)
+MUSASHI_NATIVE_MIPS_WORD(0x08051CF1)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x3204FFFF)
+MUSASHI_NATIVE_MIPS_WORD(0x0C00B532)
+MUSASHI_NATIVE_MIPS_WORD(0x3225FFFF)
+MUSASHI_NATIVE_MIPS_WORD(0x8FBF0020)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB1001C)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB00018)
+MUSASHI_NATIVE_MIPS_WORD(0x27BD0028)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+/* Body below is an UNVERIFIED draft, not an oracle match
+ * claim; promotion requires tools/match_function.py MATCH. */
+#include "psx_types.h"
+
+/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
+ * promotion requires an oracle MATCH (tools/match_function.py). Types
+ * and signatures are whatever the decompiler guessed; they are not
+ * evidence of the original declaration. */
+
+void func_80015978(void *, void *);                       /* extern */
+void func_8002D4C8(s32, s32);                          /* extern */
+void func_8012E5CC(void *, s32, s32);                     /* static */
+extern s16 D_800B9A08;
+extern s32 *D_80126B58;
+
+void func_80147364(s32 arg0, s32 arg1) {
+    s32 sp10;
+    if (D_800B9A08 == 0x308D) {
+        func_80015978(&D_80126B58 + 4, &sp10);
+        func_8012E5CC(&sp10, arg0 & 0xFFFF, arg1 & 0xFFFF);
+        return;
+    }
+    func_8002D4C8(arg0 & 0xFFFF, arg1 & 0xFFFF);
+}
+#endif

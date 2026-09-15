@@ -1,0 +1,72 @@
+/* Overlay range [80142E38,80142EC0) from MAIN.CD member 0012.
+ * SHA256(span)=005da01e49cef1c53a9b03a32d07de6cd9bf7ea3f7e649f5867691e8250029c6.
+ * Word export for the native seam; the body below is an
+ * UNVERIFIED draft, not an oracle match claim. */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE0)
+MUSASHI_NATIVE_MIPS_WORD(0xAFB00010)
+MUSASHI_NATIVE_MIPS_WORD(0x00808021)
+MUSASHI_NATIVE_MIPS_WORD(0xAFBF0018)
+MUSASHI_NATIVE_MIPS_WORD(0x0C04B06E)
+MUSASHI_NATIVE_MIPS_WORD(0xAFB10014)
+MUSASHI_NATIVE_MIPS_WORD(0x00408821)
+MUSASHI_NATIVE_MIPS_WORD(0x14400005)
+MUSASHI_NATIVE_MIPS_WORD(0xAE020020)
+MUSASHI_NATIVE_MIPS_WORD(0x0C04B2B9)
+MUSASHI_NATIVE_MIPS_WORD(0x02002021)
+MUSASHI_NATIVE_MIPS_WORD(0x08050BAA)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x3C058018)
+MUSASHI_NATIVE_MIPS_WORD(0x24A5F7D8)
+MUSASHI_NATIVE_MIPS_WORD(0x0C007287)
+MUSASHI_NATIVE_MIPS_WORD(0x02202021)
+MUSASHI_NATIVE_MIPS_WORD(0x96030070)
+MUSASHI_NATIVE_MIPS_WORD(0x02002021)
+MUSASHI_NATIVE_MIPS_WORD(0x3063000F)
+MUSASHI_NATIVE_MIPS_WORD(0x00031040)
+MUSASHI_NATIVE_MIPS_WORD(0x00431021)
+MUSASHI_NATIVE_MIPS_WORD(0x00021240)
+MUSASHI_NATIVE_MIPS_WORD(0x24421200)
+MUSASHI_NATIVE_MIPS_WORD(0xA622001A)
+MUSASHI_NATIVE_MIPS_WORD(0xA6220018)
+MUSASHI_NATIVE_MIPS_WORD(0x0C050ACB)
+MUSASHI_NATIVE_MIPS_WORD(0xA48000FC)
+MUSASHI_NATIVE_MIPS_WORD(0x8FBF0018)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB10014)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB00010)
+MUSASHI_NATIVE_MIPS_WORD(0x27BD0020)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+#include "psx_types.h"
+#include "m2c_macros.h"
+
+/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
+ * promotion requires an oracle MATCH (tools/match_function.py). Types
+ * and signatures are whatever the decompiler guessed; they are not
+ * evidence of the original declaration. */
+
+void func_8001CA1C(void *, s32 (*)());       /* extern */
+extern s32 D_8017F7D8;
+void *func_8012C1B8();                              /* static */
+void func_8012CAE4(void *);                      /* static */
+void func_80142B2C(void *);                      /* static */
+
+void func_80142E38(void *arg0) {
+    s16 temp_v0_2;
+    void *temp_v0;
+
+    temp_v0 = func_8012C1B8();
+    M2C_FIELD(arg0, void **, 0x20) = temp_v0;
+    if (temp_v0 == 0) {
+        func_8012CAE4(arg0);
+        return;
+    }
+    func_8001CA1C(temp_v0, D_8017F7D8);
+    temp_v0_2 = ((M2C_FIELD(arg0, u16 *, 0x70) & 0xF) * 0x600) + 0x1200;
+    M2C_FIELD(temp_v0, s16 *, 0x1A) = temp_v0_2;
+    M2C_FIELD(temp_v0, s16 *, 0x18) = temp_v0_2;
+    M2C_FIELD(arg0, s16 *, 0xFC) = 0;
+    func_80142B2C(arg0);
+}
+#endif

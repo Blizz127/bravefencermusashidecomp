@@ -20,6 +20,21 @@ MUSASHI_NATIVE_MIPS_WORD(0xac430000)
 MUSASHI_NATIVE_MIPS_WORD(0x03e00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
+/* Verified byte-exact against retail by tools/match_function.py
+ * (19/19 words at 0x8005B710). Types and signatures are whatever
+ * reproduces the bytes; they are not evidence of the original
+ * declaration. */
 #include "psx_types.h"
-/* No matched C implementation is claimed for this export. */
+
+extern volatile s32 *D_8007285C;
+extern volatile s32 *D_80072860;
+extern volatile s32 *D_80072864;
+extern volatile s32 *D_80072868;
+
+void func_8005B710(s32 arg0) {
+    *D_8007285C = 0x04000002;
+    *D_80072860 = arg0;
+    *D_80072864 = 0;
+    *D_80072868 = 0x01000401;
+}
 #endif

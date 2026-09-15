@@ -1,0 +1,70 @@
+/* Main-exec range [800168C4,80016940) from the SLUS executable.
+ * SHA256(span)=18c21b1c7ee0a0876e79f705b5b11a8fbbac423623fa7388faed5cada54c90dc.
+ * Word export for the native seam; the body below is an
+ * UNVERIFIED draft, not an oracle match claim. */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x3C05800B)
+MUSASHI_NATIVE_MIPS_WORD(0x24A5F630)
+MUSASHI_NATIVE_MIPS_WORD(0x30840003)
+MUSASHI_NATIVE_MIPS_WORD(0x14800008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x3C02800C)
+MUSASHI_NATIVE_MIPS_WORD(0x8C429A18)
+MUSASHI_NATIVE_MIPS_WORD(0x3C018006)
+MUSASHI_NATIVE_MIPS_WORD(0x00220821)
+MUSASHI_NATIVE_MIPS_WORD(0x90232BA0)
+MUSASHI_NATIVE_MIPS_WORD(0x08005A40)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x3C018006)
+MUSASHI_NATIVE_MIPS_WORD(0x00240821)
+MUSASHI_NATIVE_MIPS_WORD(0x90232BA0)
+MUSASHI_NATIVE_MIPS_WORD(0x3C02800B)
+MUSASHI_NATIVE_MIPS_WORD(0x9442F7CE)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x00431021)
+MUSASHI_NATIVE_MIPS_WORD(0x3C01800B)
+MUSASHI_NATIVE_MIPS_WORD(0xA422F7CE)
+MUSASHI_NATIVE_MIPS_WORD(0x94A3019E)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x2C6300FF)
+MUSASHI_NATIVE_MIPS_WORD(0x14600004)
+MUSASHI_NATIVE_MIPS_WORD(0x00001021)
+MUSASHI_NATIVE_MIPS_WORD(0x94A20188)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x0002102B)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+/* Body below is an UNVERIFIED draft, not an oracle match
+ * claim; promotion requires tools/match_function.py MATCH. */
+#include "psx_types.h"
+
+/* m2c draft from main.s: NOT verified against retail. C89-gated only;
+ * promotion requires an oracle MATCH (tools/match_function.py). Types
+ * and signatures are whatever the decompiler guessed; they are not
+ * evidence of the original declaration. */
+
+extern s32 D_80062BA0;
+extern s32 D_800AF630;
+extern u16 D_800AF7CE;
+extern s32 D_800B9A18;
+
+s32 func_800168C4(s32 arg0) {
+    s32 temp_a0;
+    s32 var_v0;
+    u8 var_v1;
+
+    temp_a0 = arg0 & 3;
+    if (temp_a0 == 0) {
+        var_v1 = *(D_80062BA0 + D_800B9A18);
+    } else {
+        var_v1 = *(D_80062BA0 + temp_a0);
+    }
+    D_800AF7CE += var_v1;
+    var_v0 = 0;
+    if ((u16) D_800AF630.unk19E >= 0xFFU) {
+        var_v0 = D_800AF630.unk188 != 0;
+    }
+    return var_v0;
+}
+#endif

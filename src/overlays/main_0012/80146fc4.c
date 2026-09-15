@@ -1,0 +1,62 @@
+/* Overlay range [80146FC4,8014704C) from MAIN.CD member 0012.
+ * SHA256(span)=1208dcc4ebc086ed5e41362066948abbd49685a7cdbb133cafc64dfc3ab4bbc8.
+ * Word export for the native seam; the body below is an
+ * UNVERIFIED draft, not an oracle match claim. */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE0)
+MUSASHI_NATIVE_MIPS_WORD(0xAFB10014)
+MUSASHI_NATIVE_MIPS_WORD(0x00808821)
+MUSASHI_NATIVE_MIPS_WORD(0xAFBF0018)
+MUSASHI_NATIVE_MIPS_WORD(0xAFB00010)
+MUSASHI_NATIVE_MIPS_WORD(0x8622000A)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x28420401)
+MUSASHI_NATIVE_MIPS_WORD(0x14400013)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x3C108012)
+MUSASHI_NATIVE_MIPS_WORD(0x26106DB0)
+MUSASHI_NATIVE_MIPS_WORD(0x02002021)
+MUSASHI_NATIVE_MIPS_WORD(0x0C005655)
+MUSASHI_NATIVE_MIPS_WORD(0x26250004)
+MUSASHI_NATIVE_MIPS_WORD(0x8A020003)
+MUSASHI_NATIVE_MIPS_WORD(0x9A020000)
+MUSASHI_NATIVE_MIPS_WORD(0x8A030007)
+MUSASHI_NATIVE_MIPS_WORD(0x9A030004)
+MUSASHI_NATIVE_MIPS_WORD(0xAA22008B)
+MUSASHI_NATIVE_MIPS_WORD(0xBA220088)
+MUSASHI_NATIVE_MIPS_WORD(0xAA23008F)
+MUSASHI_NATIVE_MIPS_WORD(0xBA23008C)
+MUSASHI_NATIVE_MIPS_WORD(0x8E230020)
+MUSASHI_NATIVE_MIPS_WORD(0x3C028012)
+MUSASHI_NATIVE_MIPS_WORD(0x94426DB6)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0xA4620012)
+MUSASHI_NATIVE_MIPS_WORD(0x8FBF0018)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB10014)
+MUSASHI_NATIVE_MIPS_WORD(0x8FB00010)
+MUSASHI_NATIVE_MIPS_WORD(0x27BD0020)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+/* Body below is an UNVERIFIED draft, not an oracle match
+ * claim; promotion requires tools/match_function.py MATCH. */
+#include "psx_types.h"
+
+/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
+ * promotion requires an oracle MATCH (tools/match_function.py). Types
+ * and signatures are whatever the decompiler guessed; they are not
+ * evidence of the original declaration. */
+
+void func_80015954(void *, void *);                       /* extern */
+extern s32 *D_80126DB0;
+extern u16 D_80126DB6;
+
+void func_80146FC4(void *arg0) {
+    if (arg0->unkA >= 0x401) {
+        func_80015954(&D_80126DB0, arg0 + 4);
+        arg0->unk8B = (unaligned s32) M2C_ERROR(/* Unable to handle lwr; missing a corresponding lwl */);
+        arg0->unk8F = (unaligned s32) M2C_ERROR(/* Unable to handle lwr; missing a corresponding lwl */);
+        arg0->unk20->unk12 = (u16) D_80126DB6;
+    }
+}
+#endif

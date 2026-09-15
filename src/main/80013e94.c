@@ -1,3 +1,24 @@
+/* Main-exec range [80013E94,80013ED0) from the SLUS executable.
+ * SHA256(span)=2078f93a351173212a9152953d135bb629980e56bc6031254a7e3a8e63357bc8.
+ * Word export for the native seam; the body below is kept
+ * byte-identical (wrap only, no rewrite). */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x94860000)
+MUSASHI_NATIVE_MIPS_WORD(0x94820002)
+MUSASHI_NATIVE_MIPS_WORD(0x94830004)
+MUSASHI_NATIVE_MIPS_WORD(0x000634C0)
+MUSASHI_NATIVE_MIPS_WORD(0x00063582)
+MUSASHI_NATIVE_MIPS_WORD(0x00063500)
+MUSASHI_NATIVE_MIPS_WORD(0x000214C0)
+MUSASHI_NATIVE_MIPS_WORD(0x00021582)
+MUSASHI_NATIVE_MIPS_WORD(0x00021280)
+MUSASHI_NATIVE_MIPS_WORD(0x00C23025)
+MUSASHI_NATIVE_MIPS_WORD(0x00031CC0)
+MUSASHI_NATIVE_MIPS_WORD(0x00031D82)
+MUSASHI_NATIVE_MIPS_WORD(0x00C33025)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0xACA60000)
+#else
 /* Decompiled by m2c from main.s, then verified byte-exact
  * against retail by tools/match_function.py. Types and signatures are
  * whatever reproduces the bytes; they are not evidence of the
@@ -23,3 +44,4 @@ struct data_80013E94 {
 void func_80013E94(struct data_80013E94 *arg0, s32 *arg1) {
     *arg1 = (((u32) (arg0->unk0 << 0x13) >> 0x16) << 0x14) | (((u32) (arg0->unk2 << 0x13) >> 0x16) << 0xA) | ((u32) (arg0->unk4 << 0x13) >> 0x16);
 }
+#endif

@@ -124,4 +124,78 @@ MUSASHI_NATIVE_MIPS_WORD(0x8FBF0010)
 MUSASHI_NATIVE_MIPS_WORD(0x27BD0018)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+#else
+/* Body below is an UNVERIFIED draft, not an oracle match
+ * claim; promotion requires tools/match_function.py MATCH. */
+#include "psx_types.h"
+
+/* m2c draft from main.s: NOT verified against retail. C89-gated only;
+ * promotion requires an oracle MATCH (tools/match_function.py). Types
+ * and signatures are whatever the decompiler guessed; they are not
+ * evidence of the original declaration. */
+
+extern s32 D_8006CC84;
+extern s32 D_8006CC88;
+extern s32 D_8006CC94;
+extern s32 D_8006CC98;
+extern s32 D_8006CCA5;
+extern s32 *D_8006CF4C;
+extern s32 *D_8006CF54;
+extern s32 *D_8006CF58;
+extern s32 *D_8006CF5C;
+extern s32 D_8006CF65;
+extern s32 D_8006CF66;
+extern s32 D_8006CF68;
+extern s32 D_80073848;
+extern s32 D_80073854;
+void func_80042580();                                  /* static */
+void func_800425B0(s32, s32 (*)());                        /* static */
+s32 func_80044124(s32, s32);                            /* static */
+s32 func_80044670(s32, s32, s32, s32);                      /* static */
+extern s32 func_80045290;
+void func_8005C604(s32 (*)(), s32 (*)());                  /* static */
+void func_8005CD48(s32 (*)());                           /* static */
+extern s8 D_8006CCA4;
+extern s8 D_8006CF64;
+
+s32 func_80044D38(void) {
+    s32 var_v0;
+
+    func_8005CD48(D_80073848);
+    func_8005C604(D_80073854, D_8006CF68);
+    D_8006CCA5 = 0;
+    D_8006CCA4 = 0;
+    D_8006CC88 = 0;
+    D_8006CC84 = 0;
+    D_8006CC98 = 0;
+    D_8006CC94 = 0;
+    func_80042580();
+    func_800425B0(2, func_80045290);
+    *D_8006CF4C = 1;
+    if (*D_8006CF58 & 7) {
+        do {
+            *D_8006CF4C = 1;
+            *D_8006CF58 = 7;
+            *D_8006CF54 = 7;
+        } while (*D_8006CF58 & 7);
+    }
+    D_8006CF66 = 0U;
+    D_8006CF65 = (u8) D_8006CF66;
+    D_8006CF64 = 2;
+    *D_8006CF4C = 0;
+    *D_8006CF58 = 0;
+    *D_8006CF5C = 0x1325;
+    func_80044670(1, 0, 0, 0);
+    if (D_8006CC94 & 0x10) {
+        func_80044670(1, 0, 0, 0);
+    }
+    var_v0 = -1;
+    if (func_80044670(0xA, 0, 0, 0) == 0) {
+        var_v0 = -1;
+        if (func_80044670(0xC, 0, 0, 0) == 0) {
+            var_v0 = -(func_80044124(0, 0) != 2);
+        }
+    }
+    return var_v0;
+}
 #endif

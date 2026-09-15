@@ -1,0 +1,157 @@
+/* Main-exec range [8003D134,8003D25C) from the SLUS executable.
+ * SHA256(span)=fbf29ffef15a8528557743dc339d502db824190cf5487b4071c013257202f34c.
+ * Word export for the native seam; the body below is an
+ * UNVERIFIED draft, not an oracle match claim. */
+#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
+MUSASHI_NATIVE_MIPS_WORD(0x0080C021)
+MUSASHI_NATIVE_MIPS_WORD(0x00C02021)
+MUSASHI_NATIVE_MIPS_WORD(0x00063027)
+MUSASHI_NATIVE_MIPS_WORD(0x00001821)
+MUSASHI_NATIVE_MIPS_WORD(0x240A000F)
+MUSASHI_NATIVE_MIPS_WORD(0x30C6FFFF)
+MUSASHI_NATIVE_MIPS_WORD(0x01461007)
+MUSASHI_NATIVE_MIPS_WORD(0x30420001)
+MUSASHI_NATIVE_MIPS_WORD(0x14400003)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x0800F45C)
+MUSASHI_NATIVE_MIPS_WORD(0x01401821)
+MUSASHI_NATIVE_MIPS_WORD(0x254AFFFF)
+MUSASHI_NATIVE_MIPS_WORD(0x0541FFF9)
+MUSASHI_NATIVE_MIPS_WORD(0x01461007)
+MUSASHI_NATIVE_MIPS_WORD(0x246FFFF4)
+MUSASHI_NATIVE_MIPS_WORD(0x24020001)
+MUSASHI_NATIVE_MIPS_WORD(0x00627004)
+MUSASHI_NATIVE_MIPS_WORD(0x24081000)
+MUSASHI_NATIVE_MIPS_WORD(0x00005021)
+MUSASHI_NATIVE_MIPS_WORD(0x3086FFFF)
+MUSASHI_NATIVE_MIPS_WORD(0x01C80018)
+MUSASHI_NATIVE_MIPS_WORD(0x00081180)
+MUSASHI_NATIVE_MIPS_WORD(0x00481021)
+MUSASHI_NATIVE_MIPS_WORD(0x00021100)
+MUSASHI_NATIVE_MIPS_WORD(0x00481023)
+MUSASHI_NATIVE_MIPS_WORD(0x00021080)
+MUSASHI_NATIVE_MIPS_WORD(0x00006012)
+MUSASHI_NATIVE_MIPS_WORD(0x00484023)
+MUSASHI_NATIVE_MIPS_WORD(0x00084302)
+MUSASHI_NATIVE_MIPS_WORD(0x01C80018)
+MUSASHI_NATIVE_MIPS_WORD(0x00002021)
+MUSASHI_NATIVE_MIPS_WORD(0x000A6940)
+MUSASHI_NATIVE_MIPS_WORD(0x00005821)
+MUSASHI_NATIVE_MIPS_WORD(0x00001812)
+MUSASHI_NATIVE_MIPS_WORD(0x006C1023)
+MUSASHI_NATIVE_MIPS_WORD(0x00024942)
+MUSASHI_NATIVE_MIPS_WORD(0x01203821)
+MUSASHI_NATIVE_MIPS_WORD(0x018B1021)
+MUSASHI_NATIVE_MIPS_WORD(0x01871821)
+MUSASHI_NATIVE_MIPS_WORD(0x00021302)
+MUSASHI_NATIVE_MIPS_WORD(0x00C2102B)
+MUSASHI_NATIVE_MIPS_WORD(0x14400004)
+MUSASHI_NATIVE_MIPS_WORD(0x00031B02)
+MUSASHI_NATIVE_MIPS_WORD(0x00C3102B)
+MUSASHI_NATIVE_MIPS_WORD(0x1440000B)
+MUSASHI_NATIVE_MIPS_WORD(0x01A41021)
+MUSASHI_NATIVE_MIPS_WORD(0x00E93821)
+MUSASHI_NATIVE_MIPS_WORD(0x24840001)
+MUSASHI_NATIVE_MIPS_WORD(0x28820020)
+MUSASHI_NATIVE_MIPS_WORD(0x1440FFF3)
+MUSASHI_NATIVE_MIPS_WORD(0x01695821)
+MUSASHI_NATIVE_MIPS_WORD(0x254A0001)
+MUSASHI_NATIVE_MIPS_WORD(0x29420030)
+MUSASHI_NATIVE_MIPS_WORD(0x1440FFDF)
+MUSASHI_NATIVE_MIPS_WORD(0x01C80018)
+MUSASHI_NATIVE_MIPS_WORD(0x24020600)
+MUSASHI_NATIVE_MIPS_WORD(0x04410002)
+MUSASHI_NATIVE_MIPS_WORD(0x00401821)
+MUSASHI_NATIVE_MIPS_WORD(0x2443007F)
+MUSASHI_NATIVE_MIPS_WORD(0x000319C3)
+MUSASHI_NATIVE_MIPS_WORD(0x000321C0)
+MUSASHI_NATIVE_MIPS_WORD(0x00442023)
+MUSASHI_NATIVE_MIPS_WORD(0x3302FFFF)
+MUSASHI_NATIVE_MIPS_WORD(0x00431021)
+MUSASHI_NATIVE_MIPS_WORD(0x000F1840)
+MUSASHI_NATIVE_MIPS_WORD(0x006F1821)
+MUSASHI_NATIVE_MIPS_WORD(0x00031880)
+MUSASHI_NATIVE_MIPS_WORD(0x00431021)
+MUSASHI_NATIVE_MIPS_WORD(0x30A3FFFF)
+MUSASHI_NATIVE_MIPS_WORD(0x00641821)
+MUSASHI_NATIVE_MIPS_WORD(0x00021200)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00431025)
+#else
+/* Body below is an UNVERIFIED draft, not an oracle match
+ * claim; promotion requires tools/match_function.py MATCH. */
+#include "psx_types.h"
+
+/* m2c draft from main.s: NOT verified against retail. C89-gated only;
+ * promotion requires an oracle MATCH (tools/match_function.py). Types
+ * and signatures are whatever the decompiler guessed; they are not
+ * evidence of the original declaration. */
+
+s32 func_8003D134(s32 arg0, s32 arg1, s32 arg2) {
+    s32 temp_a2;
+    s32 temp_t6;
+    s32 temp_v1;
+    s32 var_a0;
+    s32 var_lo;
+    s32 var_t2;
+    s32 var_t2_2;
+    s32 var_t3;
+    s32 var_v0;
+    s32 var_v0_2;
+    s32 var_v1;
+    s32 var_v1_2;
+    u32 temp_a2_2;
+    u32 temp_t1;
+    u32 var_a3;
+    u32 var_t0;
+
+    var_v1 = 0;
+    var_t2 = 0xF;
+    temp_a2 = ~arg2 & 0xFFFF;
+    var_v0_2 = temp_a2 >> 0xF;
+loop_1:
+    if (!(var_v0_2 & 1)) {
+        var_v1 = var_t2;
+    } else {
+        var_t2 -= 1;
+        var_v0_2 = temp_a2 >> var_t2;
+        if (var_t2 >= 0) {
+            goto loop_1;
+        }
+    }
+    temp_t6 = 1 << var_v1;
+    var_t0 = 0x1000;
+    var_t2_2 = 0;
+    temp_a2_2 = arg2 & 0xFFFF;
+    var_lo = temp_t6 * 0x1000;
+loop_5:
+    var_t0 = (u32) (var_t0 * 0x103B) >> 0xC;
+    var_a0 = 0;
+    var_t3 = 0;
+    temp_t1 = (u32) ((temp_t6 * var_t0) - var_lo) >> 5;
+    var_a3 = temp_t1;
+loop_6:
+    if ((temp_a2_2 < (u32) ((u32) (var_lo + var_t3) >> 0xC)) || (var_v0 = (var_t2_2 << 5) + var_a0, ((temp_a2_2 < (u32) ((u32) (var_lo + var_a3) >> 0xC)) == 0))) {
+        var_a3 += temp_t1;
+        var_a0 += 1;
+        var_t3 += temp_t1;
+        if (var_a0 >= 0x20) {
+            var_t2_2 += 1;
+            var_lo = temp_t6 * var_t0;
+            if (var_t2_2 >= 0x30) {
+                var_v0 = 0x600;
+            } else {
+                goto loop_5;
+            }
+        } else {
+            goto loop_6;
+        }
+    }
+    var_v1_2 = var_v0;
+    if (var_v0 < 0) {
+        var_v1_2 = var_v0 + 0x7F;
+    }
+    temp_v1 = var_v1_2 >> 7;
+    return (((arg0 & 0xFFFF) + temp_v1 + ((var_v1 - 0xC) * 0xC)) << 8) | ((arg1 & 0xFFFF) + (var_v0 - (temp_v1 << 7)));
+}
+#endif
