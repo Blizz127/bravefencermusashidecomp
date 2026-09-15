@@ -31,10 +31,10 @@ draft; only tools/match_function.py can promote one.
 from __future__ import annotations
 
 import argparse
+import contextlib
+import io
 import json
 import re
-import shutil
-import subprocess
 import sys
 import tempfile
 from pathlib import Path
@@ -52,6 +52,19 @@ REGIONS = {
 EXPORT_WORD_RE = re.compile(r"MUSASHI_NATIVE_MIPS_WORD\(0x([0-9a-fA-F]{8})\)")
 DRAFT_MARKER = "UNVERIFIED draft"
 IFDEF = "#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT"
+_COMMENT_RE = re.compile(r"/\*.*?\*/", re.DOTALL)
+
+
+def claims_nothing(body: str) -> bool:
+    """True when the `#else` side holds no C implementation at all.
+
+    These are the spans m2c refused outright, carrying only the word export
+    and a note saying so. There is nothing to preserve, so replacing the
+    body cannot lose work — which is why they are eligible even though they
+    do not carry the UNVERIFIED-draft marker that a real draft carries.
+    """
+
+    return "{" not in _COMMENT_RE.sub("", body)
 
 
 def split_dual_shape(text: str) -> tuple[str, str] | None:
@@ -72,29 +85,48 @@ def split_dual_shape(text: str) -> tuple[str, str] | None:
     return head + IFDEF + export, body.rstrip()[: -len("#endif")]
 
 
-def builds(source: Path, symbol: str, vram: int, scratch: Path) -> bool:
-    """True when at least one candidate optimization produces bytes."""
+def builds(source: Path, symbol: str, vram: int, scratch: Path,
+           errors: list[str] | None = None) -> bool:
+    """True when at least one candidate optimization produces bytes.
+
+    When `errors` is given, the compiler diagnostic from the last failing
+    attempt is appended to it. Knowing *why* a fresh draft still will not
+    compile is the only way to find the next systemic fix, and the whole
+    point of this tool is that a draft which cannot compile is invisible to
+    the oracle.
+    """
 
     candidate = scratch / "probe.bin"
+    last = ""
     for optimization in batch_match.OPTIMIZATION_CANDIDATES:
         candidate.unlink(missing_ok=True)
-        code = batch_match._quiet(
-            build_candidate.main,
-            [
-                str(source),
-                "--symbol", symbol,
-                "--link-base", f"0x{vram:X}",
-                f"--optimization={optimization}",
-                "--output", str(candidate),
-            ],
-        )
+        captured = io.StringIO()
+        with contextlib.redirect_stdout(captured), contextlib.redirect_stderr(captured):
+            try:
+                code = build_candidate.main(
+                    [
+                        str(source),
+                        "--symbol", symbol,
+                        "--link-base", f"0x{vram:X}",
+                        f"--optimization={optimization}",
+                        "--output", str(candidate),
+                    ]
+                )
+            except SystemExit as exit_request:
+                code = exit_request.code
+            except Exception as failure:  # noqa: BLE001 - diagnostic only
+                code = 1
+                captured.write(repr(failure))
         if code == 0 and candidate.is_file():
             return True
+        last = captured.getvalue()
+    if errors is not None:
+        errors.append(last)
     return False
 
 
 def recarve_region(region: str, repo: Path, registered: set[int], limit: int | None,
-                   dry_run: bool) -> dict[str, int]:
+                   dry_run: bool, error_log: Path | None = None) -> dict[str, int]:
     asm = repo / REGIONS[region]
     text = asm.read_text()
     m2c = repo / "tools" / "m2c" / "m2c.py"
@@ -114,14 +146,14 @@ def recarve_region(region: str, repo: Path, registered: set[int], limit: int | N
                 bump("no-source")
                 continue
             original = target.read_text()
-            if DRAFT_MARKER not in original:
-                bump("skipped-not-a-draft")
-                continue
             parts = split_dual_shape(original)
             if parts is None:
                 bump("skipped-shape")
                 continue
-            export, _ = parts
+            export, existing_body = parts
+            if DRAFT_MARKER not in original and not claims_nothing(existing_body):
+                bump("skipped-not-a-draft")
+                continue
             if limit is not None and attempted >= limit:
                 break
             attempted += 1
@@ -152,8 +184,12 @@ def recarve_region(region: str, repo: Path, registered: set[int], limit: int | N
                 )
             probe = scratch / f"probe_{function.name}.c"
             probe.write_text(rebuilt)
-            if not builds(probe, function.name, function.vram, scratch):
+            errors: list[str] = []
+            if not builds(probe, function.name, function.vram, scratch, errors):
                 bump("still-build-failed")
+                if error_log is not None:
+                    with error_log.open("a") as handle:
+                        handle.write(f"### {region} {function.name}\n{errors[-1] if errors else ''}\n")
                 continue
             if dry_run:
                 bump("would-rewrite")
@@ -169,6 +205,8 @@ def build_parser() -> argparse.ArgumentParser:
                         help="repeatable; default is every region")
     parser.add_argument("--registry", type=Path, default=Path("provenance/matches.json"))
     parser.add_argument("--limit", type=int, help="examine at most this many drafts per region")
+    parser.add_argument("--error-log", type=Path,
+                        help="append the compiler diagnostic for every draft that still fails")
     parser.add_argument("--dry-run", action="store_true")
     return parser
 
@@ -181,7 +219,8 @@ def main(argv: list[str] | None = None) -> int:
         registered = {
             match["vram"] for match in registry["matches"] if match["region"] == region
         }
-        counts = recarve_region(region, repo, registered, args.limit, args.dry_run)
+        counts = recarve_region(region, repo, registered, args.limit, args.dry_run,
+                                args.error_log)
         print(f"{region}:")
         for key in sorted(counts):
             print(f"  {key:26s} {counts[key]}")

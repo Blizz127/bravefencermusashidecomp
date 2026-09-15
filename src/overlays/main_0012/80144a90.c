@@ -1,10 +1,14 @@
-/* Overlay range [80144A90,80144A98) from MAIN.CD member 0012.
- * SHA256(span)=6d64edf91449c1b17746c1ef18afa2eb25c70bdf1322ab3df5a2630993b7e2f1.
- * Word export for the native seam (m2c produced no draft). */
+/* Exact retail word export for [80144A90,80144A98); EXE and assembly verified. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
-MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x03e00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* No matched C implementation is claimed for this span;
- * word export only (m2c produced no draft). UNVERIFIED. */
+/* Verified byte-exact against retail by tools/match_function.py
+ * (2/2 words at 0x80144A90). Types and signatures are whatever
+ * reproduces the bytes; they are not evidence of the original
+ * declaration. */
+#include "psx_types.h"
+
+void func_80144A90(void) {
+}
 #endif

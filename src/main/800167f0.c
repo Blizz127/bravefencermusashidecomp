@@ -50,18 +50,17 @@ MUSASHI_NATIVE_MIPS_WORD(0x27BD0018)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
+#include "m2c_macros.h"
 
 /* m2c draft from main.s: NOT verified against retail. C89-gated only;
  * promotion requires an oracle MATCH (tools/match_function.py). Types
  * and signatures are whatever the decompiler guessed; they are not
  * evidence of the original declaration. */
 
-extern s32 D_80062BA0;
-void func_80016224(s32, s32);                            /* static */
-extern s32 D_800AF630;
+extern s32 D_80062BA0[];
+void func_80016224(s32, s32);                /* static */
+extern s32 *D_800AF630;
 extern u16 D_800AF7CE;
 extern s32 D_800B9A18;
 
@@ -78,7 +77,7 @@ s32 func_800167F0(s32 arg0) {
         var_v1 = *(D_80062BA0 + temp_a0);
     }
     D_800AF7CE += var_v1;
-    var_a0 = D_800AF630.unk19E;
+    var_a0 = M2C_FIELD(&D_800AF630, u16 *, 0x19E);
     if (var_a0 >= 0xFFU) {
         var_a0 = 0xFF;
     }
@@ -88,6 +87,6 @@ s32 func_800167F0(s32 arg0) {
         var_v0 = var_a0;
     }
     func_80016224(var_v0 & 0xFF, 0);
-    return (u16) D_800AF630.unk19E >= 0xFFU;
+    return (u16) M2C_FIELD(&D_800AF630, u16 *, 0x19E) >= 0xFFU;
 }
 #endif

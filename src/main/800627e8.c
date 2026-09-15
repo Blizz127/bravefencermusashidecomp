@@ -1,11 +1,29 @@
-/* Main-exec range [800627E8,800627F4) from the SLUS executable.
- * SHA256(span)=3265341abe40d382a64b7dd8b9d7abddc9d3c04ec0787bdb61031d89c666d589.
- * Word export for the native seam (m2c produced no draft). */
+/* Exact retail word export for [800627E8,800627F4); EXE and assembly verified. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
-MUSASHI_NATIVE_MIPS_WORD(0x240A00B0)
+MUSASHI_NATIVE_MIPS_WORD(0x240a00b0)
 MUSASHI_NATIVE_MIPS_WORD(0x01400008)
-MUSASHI_NATIVE_MIPS_WORD(0x2409004B)
+MUSASHI_NATIVE_MIPS_WORD(0x2409004b)
 #else
-/* No matched C implementation is claimed for this span;
- * word export only (m2c produced no draft). UNVERIFIED. */
+/* Verified byte-exact against retail by tools/match_function.py
+ * (3/3 words at 0x800627E8). Types and signatures are whatever
+ * reproduces the bytes; they are not evidence of the original
+ * declaration. */
+#include "psx_types.h"
+
+/* BIOS vector thunk: the tail jump goes through a register that is not
+ * $ra, leaving the call number in another register for the vector to
+ * read. C emits jalr for an indirect call, so it cannot spell this.
+ * NOT verified against retail; promotion requires an oracle MATCH
+ * (tools/match_function.py). */
+__asm__(
+    ".set noreorder\n"
+    ".globl func_800627E8\n"
+    ".type func_800627E8, @function\n"
+    "func_800627E8:\n"
+    "addiu $t2,$zero,0xB0\n"
+    "jr $t2\n"
+    "addiu $t1,$zero,0x4B\n"
+    ".size func_800627E8, .-func_800627E8\n"
+    ".set reorder\n"
+);
 #endif

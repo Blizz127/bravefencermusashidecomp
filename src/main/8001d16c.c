@@ -26,9 +26,8 @@ MUSASHI_NATIVE_MIPS_WORD(0xACC20000)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0xACA00000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
+#include "m2c_macros.h"
 
 /* m2c draft from main.s: NOT verified against retail. C89-gated only;
  * promotion requires an oracle MATCH (tools/match_function.py). Types
@@ -39,12 +38,12 @@ void func_8001D16C(void *arg0, s32 arg1) {
     s32 *var_a2;
 
     var_a2 = arg0 + 0x80;
-    if (arg0->unk80 & 0x80FFFFFF) {
+    if (M2C_FIELD(arg0, s32 *, 0x80) & 0x80FFFFFF) {
         do {
             var_a2 = (s32 *) ((s32) var_a2 & 0x80FFFFFF);
         } while (*var_a2 & 0x80FFFFFF);
     }
     *var_a2 = (arg1 & 0x80FFFFFF) | 0x01000000;
-    *arg1 = 0;
+    *(s32 *) arg1 = 0;
 }
 #endif

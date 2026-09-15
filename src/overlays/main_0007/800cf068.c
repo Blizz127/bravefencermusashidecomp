@@ -42,7 +42,7 @@ extern s32 D_800D1370;
 extern s32 D_800D1374;
 
 void func_800CF068(void) {
-    func_8001AA98(D_800CEDFC);
+    func_8001AA98(&D_800CEDFC);
     D_800D1368 = 0;
     D_800D1370 = 0;
     D_800D1374 = 0;

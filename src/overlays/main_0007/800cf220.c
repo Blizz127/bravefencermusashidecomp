@@ -37,7 +37,7 @@ extern s32 D_800CEE14;
 extern s32 D_800D1374;
 
 void func_800CF220(void) {
-    func_8001AA98(D_800CEE14);
+    func_8001AA98(&D_800CEE14);
     func_800167B8(0);
     D_800D1374 = (s32) (D_800D1374 + 1);
 }

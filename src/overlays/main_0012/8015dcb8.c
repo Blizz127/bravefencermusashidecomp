@@ -51,17 +51,16 @@ MUSASHI_NATIVE_MIPS_WORD(0x27BD0018)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
+#include "m2c_macros.h"
 
 /* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
  * promotion requires an oracle MATCH (tools/match_function.py). Types
  * and signatures are whatever the decompiler guessed; they are not
  * evidence of the original declaration. */
 
-extern s32 D_80180C9C;
-void func_80149374(void *);                            /* static */
+extern s32 D_80180C9C[];
+void func_80149374(void *);                      /* static */
 
 void func_8015DCB8(void *arg0) {
     s32 temp_v1;
@@ -69,16 +68,16 @@ void func_8015DCB8(void *arg0) {
     s32 temp_v1_3;
     void *temp_a1;
 
-    temp_v1 = arg0->unk234;
-    temp_a1 = arg0->unk178;
-    arg0->unk234 = (s32) (temp_v1 + 1);
-    temp_a1->unk6 = (s16) ((s8) *(D_80180C9C + temp_v1) + temp_a1->unk78->unkC);
-    temp_v1_2 = arg0->unk234;
-    arg0->unk234 = (s32) (temp_v1_2 + 1);
-    temp_a1->unkA = (s16) ((s8) *(D_80180C9C + temp_v1_2) + temp_a1->unk78->unkE);
-    temp_v1_3 = arg0->unk234;
-    arg0->unk234 = (s32) (temp_v1_3 + 1);
-    temp_a1->unkE = (s16) ((s8) *(D_80180C9C + temp_v1_3) + temp_a1->unk78->unk10);
+    temp_v1 = M2C_FIELD(arg0, s32 *, 0x234);
+    temp_a1 = M2C_FIELD(arg0, void **, 0x178);
+    M2C_FIELD(arg0, s32 *, 0x234) = (s32) (temp_v1 + 1);
+    M2C_FIELD(temp_a1, s16 *, 6) = (s16) ((s8) *(D_80180C9C + temp_v1) + M2C_FIELD(M2C_FIELD(temp_a1, void **, 0x78), u16 *, 0xC));
+    temp_v1_2 = M2C_FIELD(arg0, s32 *, 0x234);
+    M2C_FIELD(arg0, s32 *, 0x234) = (s32) (temp_v1_2 + 1);
+    M2C_FIELD(temp_a1, s16 *, 0xA) = (s16) ((s8) *(D_80180C9C + temp_v1_2) + M2C_FIELD(M2C_FIELD(temp_a1, void **, 0x78), u16 *, 0xE));
+    temp_v1_3 = M2C_FIELD(arg0, s32 *, 0x234);
+    M2C_FIELD(arg0, s32 *, 0x234) = (s32) (temp_v1_3 + 1);
+    M2C_FIELD(temp_a1, s16 *, 0xE) = (s16) ((s8) *(D_80180C9C + temp_v1_3) + M2C_FIELD(M2C_FIELD(temp_a1, void **, 0x78), u16 *, 0x10));
     func_80149374(temp_a1 + 4);
 }
 #endif

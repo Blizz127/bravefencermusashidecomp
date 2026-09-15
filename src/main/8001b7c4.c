@@ -50,7 +50,7 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 
 void func_80019AF8();                                 /* static */
 s32 func_80034B98();                                /* static */
-extern s32 D_800AE708;
+extern u32 D_800AE708;
 extern s32 D_800AE70C;
 extern s32 *D_800AE7A4;
 extern s32 D_800AE7B0;

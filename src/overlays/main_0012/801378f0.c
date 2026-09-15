@@ -62,19 +62,18 @@ MUSASHI_NATIVE_MIPS_WORD(0x27BD0028)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
+#include "m2c_macros.h"
 
 /* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
  * promotion requires an oracle MATCH (tools/match_function.py). Types
  * and signatures are whatever the decompiler guessed; they are not
  * evidence of the original declaration. */
 
-void func_80016714(void *, s32);                            /* extern */
-extern s32 D_8017E936;
-extern s32 D_8017E93A;
-void func_8013A860();                                  /* static */
+void func_80016714(void *, s32);          /* extern */
+extern s32 D_8017E936[];
+extern s32 D_8017E93A[];
+void func_8013A860();                            /* static */
 extern s32 *D_801269F0;
 extern s32 *D_80126A28;
 extern s32 *D_80126A2A;

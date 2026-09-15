@@ -20,9 +20,8 @@ MUSASHI_NATIVE_MIPS_WORD(0xA4430000)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
+#include "m2c_macros.h"
 
 /* m2c draft from main.s: NOT verified against retail. C89-gated only;
  * promotion requires an oracle MATCH (tools/match_function.py). Types
@@ -37,9 +36,9 @@ void func_8003AF04(s32 arg0, u16 arg1, s32 arg2) {
 
     temp_v0 = arg0 * 2;
     if (arg2 == 0) {
-        *(temp_v0 + D_8006B54C) = arg1;
+        *(s32 *) (temp_v0 + D_8006B54C) = arg1;
         return;
     }
-    *(temp_v0 + D_8006B54C) = (s16) (arg1 >> D_8006B574);
+    *(s32 *) (temp_v0 + D_8006B54C) = (s16) (arg1 >> D_8006B574);
 }
 #endif

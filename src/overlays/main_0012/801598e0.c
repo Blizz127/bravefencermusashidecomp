@@ -59,7 +59,7 @@ void func_801598E0(void *arg0) {
         break;
     case 0x53:
     case 0x73:
-        M2C_FIELD(arg0, u8 *, 0xAE) = (s16) (M2C_FIELD(arg0, u8 *, 0xAE) | 0x8000);
+        M2C_FIELD(arg0, s16 *, 0xAE) = (s16) (M2C_FIELD(arg0, u8 *, 0xAE) | 0x8000);
         break;
     }
     func_80159968();

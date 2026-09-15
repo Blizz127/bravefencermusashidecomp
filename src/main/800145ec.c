@@ -50,23 +50,22 @@ MUSASHI_NATIVE_MIPS_WORD(0x27bd0020)
 MUSASHI_NATIVE_MIPS_WORD(0x03e00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
+#include "m2c_macros.h"
 
 /* m2c draft from main.s: NOT verified against retail. C89-gated only;
  * promotion requires an oracle MATCH (tools/match_function.py). Types
  * and signatures are whatever the decompiler guessed; they are not
  * evidence of the original declaration. */
 
-extern s32 D_80062A3E;
-extern s32 D_80062A40;
-void func_80014774();                                  /* static */
-void func_800147B8();                                  /* static */
-void func_800525DC(u16, u16, s32, s32, s32);             /* static */
-void func_80053178(s32, u16, s32, s32);                      /* static */
-void func_80053218();                                  /* static */
-void func_80059234();                                 /* static */
+extern s32 D_80062A3E[];
+extern s32 D_80062A40[];
+void func_80014774();                            /* static */
+void func_800147B8();                            /* static */
+void func_800525DC(u16, u16, s32, s32, s32); /* static */
+void func_80053178(s32, u16, s32, s32); /* static */
+void func_80053218();                            /* static */
+void func_80059234();                     /* static */
 extern s32 *D_80062A3C;
 extern u16 D_800AF7BC;
 extern u16 D_800AF7BE;

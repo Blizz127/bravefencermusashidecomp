@@ -193,17 +193,16 @@ MUSASHI_NATIVE_MIPS_WORD(0x27BD0080)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
+#include "m2c_macros.h"
 
 /* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
  * promotion requires an oracle MATCH (tools/match_function.py). Types
  * and signatures are whatever the decompiler guessed; they are not
  * evidence of the original declaration. */
 
-void func_8012D3B4(void *, void *, s32);                       /* static */
-void func_8012F214(void *, u16 *, void *);                /* static */
+void func_8012D3B4(void *, void *, s32); /* static */
+void func_8012F214(void *, u16 *, void *);    /* static */
 extern s32 *D_80000004;
 
 void func_8012D098(void *arg0, s32 arg1) {
@@ -222,46 +221,46 @@ void func_8012D098(void *arg0, s32 arg1) {
     s32 var_s7;
 
     var_s7 = arg1;
-    if ((arg0 != 0) && (arg0->unk0 != 0)) {
+    if ((arg0 != 0) && (M2C_FIELD(arg0, u16 *, 0) != 0)) {
         if (var_s7 == 0) {
-            temp_v1 = arg0->unk58;
+            temp_v1 = M2C_FIELD(arg0, s32 *, 0x58);
             if (temp_v1 != 0) {
                 var_s7 = (temp_v1 & 0x0FFFFFFF) | (s32) &D_80000004;
                 goto block_5;
             }
         } else {
 block_5:
-            sp50 = *var_s7;
-            sp52 = *var_s7;
-            sp54 = *var_s7;
+            sp50 = *(s32 *) var_s7;
+            sp52 = *(s32 *) var_s7;
+            sp54 = *(s32 *) var_s7;
             func_8012F214(arg0, &sp50, &sp10);
-            sp50 = *var_s7;
-            sp52 = *var_s7;
-            sp54 = *var_s7;
+            sp50 = *(s32 *) var_s7;
+            sp52 = *(s32 *) var_s7;
+            sp54 = *(s32 *) var_s7;
             func_8012F214(arg0, &sp50, &sp18);
-            sp50 = *var_s7;
-            sp52 = *var_s7;
-            sp54 = *var_s7;
+            sp50 = *(s32 *) var_s7;
+            sp52 = *(s32 *) var_s7;
+            sp54 = *(s32 *) var_s7;
             func_8012F214(arg0, &sp50, &sp20);
-            sp50 = *var_s7;
-            sp52 = *var_s7;
-            sp54 = *var_s7;
+            sp50 = *(s32 *) var_s7;
+            sp52 = *(s32 *) var_s7;
+            sp54 = *(s32 *) var_s7;
             func_8012F214(arg0, &sp50, &sp28);
-            sp50 = *var_s7;
-            sp52 = *var_s7;
-            sp54 = *var_s7;
+            sp50 = *(s32 *) var_s7;
+            sp52 = *(s32 *) var_s7;
+            sp54 = *(s32 *) var_s7;
             func_8012F214(arg0, &sp50, &sp30);
-            sp50 = *var_s7;
-            sp52 = *var_s7;
-            sp54 = *var_s7;
+            sp50 = *(s32 *) var_s7;
+            sp52 = *(s32 *) var_s7;
+            sp54 = *(s32 *) var_s7;
             func_8012F214(arg0, &sp50, &sp38);
-            sp50 = *var_s7;
-            sp52 = *var_s7;
-            sp54 = *var_s7;
+            sp50 = *(s32 *) var_s7;
+            sp52 = *(s32 *) var_s7;
+            sp54 = *(s32 *) var_s7;
             func_8012F214(arg0, &sp50, &sp40);
-            sp50 = *var_s7;
-            sp52 = *var_s7;
-            sp54 = *var_s7;
+            sp50 = *(s32 *) var_s7;
+            sp52 = *(s32 *) var_s7;
+            sp54 = *(s32 *) var_s7;
             func_8012F214(arg0, &sp50, &sp48);
             func_8012D3B4(&sp10, &sp18, 0xFFFFFF);
             func_8012D3B4(&sp18, &sp28, 0xFFFFFF);

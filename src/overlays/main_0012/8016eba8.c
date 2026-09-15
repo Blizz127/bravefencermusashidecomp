@@ -29,27 +29,26 @@ MUSASHI_NATIVE_MIPS_WORD(0x27BD0018)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
+#include "m2c_macros.h"
 
 /* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
  * promotion requires an oracle MATCH (tools/match_function.py). Types
  * and signatures are whatever the decompiler guessed; they are not
  * evidence of the original declaration. */
 
-extern s32 D_80181740;
-void func_8016EC0C();                                 /* static */
+extern s32 D_80181740[];
+void func_8016EC0C();                     /* static */
 
 void func_8016EBA8(void *arg0) {
     u8 temp_v1;
 
-    arg0->unk4 = (u16) (arg0->unk4 - *(D_80181740 + (arg0->unk2 * 2)));
+    M2C_FIELD(arg0, u16 *, 4) = (u16) (M2C_FIELD(arg0, u16 *, 4) - *(D_80181740 + (M2C_FIELD(arg0, u8 *, 2) * 2)));
     func_8016EC0C(0x80);
-    temp_v1 = arg0->unk2;
-    arg0->unk2 = (u8) (temp_v1 + 0xFF);
+    temp_v1 = M2C_FIELD(arg0, u8 *, 2);
+    M2C_FIELD(arg0, u8 *, 2) = (u8) (temp_v1 + 0xFF);
     if (temp_v1 == 0) {
-        arg0->unk0 = 0;
+        M2C_FIELD(arg0, s8 *, 0) = 0;
     }
 }
 #endif

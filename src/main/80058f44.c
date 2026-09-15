@@ -14,6 +14,27 @@ MUSASHI_NATIVE_MIPS_WORD(0x00621025)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0xAC820004)
 #else
-/* No matched C implementation is claimed for this span;
- * word export only (m2c produced no draft). UNVERIFIED. */
+#include "psx_types.h"
+#include "m2c_macros.h"
+
+/* m2c draft from main.s: NOT verified against retail. C89-gated only;
+ * promotion requires an oracle MATCH (tools/match_function.py). Types
+ * and signatures are whatever the decompiler guessed; they are not
+ * evidence of the original declaration. */
+
+void func_80058F44(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
+    s32 var_v0;
+    s32 var_v1;
+
+    M2C_FIELD(arg0, s8 *, 3) = 1;
+    var_v1 = 0xE1000000;
+    if (arg2 != 0) {
+        var_v1 = 0xE1000200;
+    }
+    var_v0 = arg3 & 0x9FF;
+    if (arg1 != 0) {
+        var_v0 |= 0x400;
+    }
+    M2C_FIELD(arg0, s32 *, 4) = (s32) (var_v1 | var_v0);
+}
 #endif

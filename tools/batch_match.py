@@ -204,6 +204,59 @@ def function_contains_gte(text: str, function: FunctionRange) -> bool:
     return any(opcode in GTE_OPCODES for _addr, _word, opcode in instruction_words(text, function))
 
 
+_JR_REGISTER_RE = re.compile(r"^jr\s+\$(\w+)")
+_TRANSFER_OPCODES = frozenset({
+    "j", "jr", "jal", "jalr",
+    "b", "beq", "bne", "beqz", "bnez", "bgez", "bgtz", "blez", "bltz",
+    "bgezal", "bltzal", "bc0f", "bc0t", "bc2f", "bc2t",
+})
+
+
+def function_is_register_thunk(text: str, function: FunctionRange) -> bool:
+    """True for a tail jump through a register that is not the return address.
+
+    The BIOS vector thunks look like this:
+
+        addiu $t2, $zero, 0xA0
+        jr    $t2
+        addiu $t1, $zero, 0x39
+
+    `jr $t2` transfers control to a BIOS entry point held in a register and
+    leaves the call number in `$t1` for that entry point to read. C has no
+    way to spell it: a function pointer call emits `jalr`, which writes
+    `$ra` and returns, and no C construct leaves a second register set as a
+    parameter to the jump target. These are handwritten thunks in the
+    original, which is the case docs/DEFINITION-OF-DONE.md reserves
+    `assembly` recovery for.
+
+    Two conditions keep this narrow, and both are needed.
+
+    The `$ra` exclusion: every ordinary function ends `jr $ra`, so admitting
+    those would turn the assembly-overlay path into exactly the
+    bulk-assembly escape hatch the guard below exists to prevent.
+
+    The single-transfer condition: a `jr $v0` is also how a switch compiles,
+    and a jump table *is* expressible in C. `func_8012ACE0` and
+    `func_8013C414` are ordinary functions that dispatch through a register
+    and must be recovered as C. Requiring the register jump to be the only
+    control transfer in the range excludes them, because a dispatch always
+    sits among branches and jumps.
+    """
+
+    transfers = [
+        (opcode, statement)
+        for _address, _word, opcode, statement in instruction_lines(text, function)
+        if opcode in _TRANSFER_OPCODES
+    ]
+    if len(transfers) != 1:
+        return False
+    opcode, statement = transfers[0]
+    if opcode != "jr":
+        return False
+    match = _JR_REGISTER_RE.match(statement.strip())
+    return match is not None and match.group(1) != "ra"
+
+
 # GNU as knows these cop2 encodings; DMPSX fake ops (mvmva, rtps, ...) need
 # `.word` of the retail encoding because gas has no such mnemonics.
 GAS_KNOWN_GTE = frozenset({
@@ -263,13 +316,25 @@ def assembly_overlay_source(
     function: FunctionRange,
     words: list[tuple[int, int, str]] | list[tuple[int, int, str, str]],
     listing: str | None = None,
+    reason: str = "gte",
 ) -> str:
-    """Mnemonic GTE/cop2 overlay. Ordinary C cannot emit cop2.
+    """Mnemonic overlay for a range ordinary C cannot emit.
 
     Regular MIPS and gas-known cop2 use splat mnemonics. DMPSX fake ops
     (`mvmva`, `rtps`, ...) become a single `.word` of the retail encoding.
     A whole-function `.word` dump is refused.
+
+    `reason` names the reason C is not an option, and only two are allowed:
+    "gte" for a cop2 range, and "thunk" for a tail jump through a register
+    that is not `$ra` (see function_is_register_thunk). Anything else has to
+    be recovered as C. That restriction is the point of this function: an
+    unrestricted assembly overlay would let any range be "recovered" by
+    transcribing the disassembly, which is the coverage inflation
+    docs/DEFINITION-OF-DONE.md forbids.
     """
+
+    if reason not in ("gte", "thunk"):
+        raise RetailError(f"{function.name}: unknown overlay reason {reason!r}")
 
     has_gte = False
     word_ops = 0
@@ -323,7 +388,7 @@ def assembly_overlay_source(
                 stmt = opcode
             emit_op(opcode, word, stmt)
 
-    if not has_gte:
+    if reason == "gte" and not has_gte:
         raise RetailError(
             f"{function.name}: refusing a non-GTE assembly overlay; "
             "ordinary-C-emittable ranges must be recovered as C"
@@ -331,12 +396,12 @@ def assembly_overlay_source(
     if word_ops and word_ops >= mnemonic_ops:
         raise RetailError(
             f"{function.name}: refusing a .word dump overlay; "
-            "GTE ranges must keep MIPS mnemonics"
+            "an assembly overlay must keep MIPS mnemonics"
         )
     body = "\n".join(body_lines)
     return (
         '#include "psx_types.h"\n\n'
-        + GTE_DRAFT_HEADER
+        + (GTE_DRAFT_HEADER if reason == "gte" else THUNK_DRAFT_HEADER)
         + "__asm__(\n"
         '    ".set noreorder\\n"\n'
         f'    ".globl {function.name}\\n"\n'
@@ -373,11 +438,28 @@ def m2c_assembly_text(text: str, function: FunctionRange) -> str:
                 break
 
     end = function.vram + function.size
+    start_label_index: int | None = None
     for index, vram in labels:
-        if function.vram < vram < end:
+        if vram == function.vram:
+            start_label_index = index
+        elif function.vram < vram < end:
             # Replace only the directive: GLABEL_RE also consumes the line
             # ending, which must remain separate from the next instruction.
             lines[index] = lines[index].replace("glabel", "alabel", 1)
+
+    if start_label_index is None:
+        # enumerate_functions synthesises `func_ADDRESS` for a range that
+        # begins with no glabel at all — splat leaves one out where a
+        # function follows a `jr $ra` tail it did not treat as a boundary.
+        # m2c looks the function up by label, so without this it reports
+        # "Function ... not found" and the span never gets a draft. The
+        # label is inserted only in m2c's private copy; asm/ is untouched.
+        for index, line in enumerate(lines):
+            instruction = INSTRUCTION_RE.match(line)
+            if instruction and int(instruction.group(1), 16) == function.vram:
+                lines.insert(index, f"glabel {function.name}\n")
+                break
+
     return "".join(lines)
 
 
@@ -563,7 +645,98 @@ def _sanitize(source: str) -> str:
     # m2c spells the zero address NULL, but -nostdinc leaves it undefined.
     # A plain 0 generates identical code wherever a null pointer fits.
     source = NULL_MACRO_RE.sub("0", source)
-    return _declare_missing_symbols(_refine_extern_pointers(source))
+    return _declare_missing_symbols(
+        _refine_local_pointers(_refine_extern_pointers(source))
+    )
+
+
+_LOCAL_S32_RE = re.compile(r"^([ \t]+)s32 (\w+);\s*$", re.MULTILINE)
+_PARAM_S32_RE = re.compile(r"([(,]\s*)s32 (\w+)(?=\s*[,)])")
+
+
+def _refine_local_pointers(source: str) -> str:
+    """Give a dereferenced local or parameter a pointer type.
+
+    The same reasoning as _refine_extern_pointers, one scope down. m2c has
+    no type for a register that holds an address, and the sanitizer's
+    register-width default is `s32`, so `*var_s1 = ...` and
+    `*(temp_s1 + x)` fail to compile with "invalid type argument of unary
+    *". Together with the global case this was the most common reason a
+    draft never reached the oracle.
+
+    `s32 *` rather than `void *`: the drafts assign through these and read
+    them as words, and `void *` cannot be dereferenced at all. A local that
+    is also used as a value keeps `s32`, because a mixed use means m2c is
+    confused about the register and a guess here would just move the error.
+    """
+
+    scrubbed = re.sub(r"/\*.*?\*/", "", source, flags=re.S)
+
+    def promote(pattern, render):
+        nonlocal source
+        for match in pattern.finditer(scrubbed):
+            name = match.group(2)
+            body = re.sub(r"^[ \t]+s32 " + name + r";\s*$", "", scrubbed, flags=re.M)
+            dereferenced = re.search(
+                r"\*\s*\(?\s*" + name + r"\b", body
+            ) is not None or re.search(r"\b" + name + r"\s*->", body) is not None
+            if not dereferenced:
+                continue
+            stripped = re.sub(r"\*\s*\(?\s*" + name + r"\b", "", body)
+            stripped = re.sub(r"\b" + name + r"\s*->", "", stripped)
+            stripped = re.sub(r"&\s*" + name + r"\b", "", stripped)
+            if re.search(r"\b" + name + r"\b", stripped):
+                continue
+            source = render(source, name)
+
+    promote(
+        _LOCAL_S32_RE,
+        lambda text, name: re.sub(
+            r"^([ \t]+)s32 " + name + r";\s*$",
+            r"\1s32 *" + name + ";",
+            text,
+            flags=re.M,
+        ),
+    )
+    promote(
+        _PARAM_S32_RE,
+        lambda text, name: re.sub(
+            r"([(,]\s*)s32 " + name + r"(?=\s*[,)])",
+            r"\1s32 *" + name,
+            text,
+        ),
+    )
+    return _cast_mixed_dereferences(source)
+
+
+def _cast_mixed_dereferences(source: str) -> str:
+    """Cast at the dereference site for a name used as both value and address.
+
+    m2c sometimes uses one register as a pointer on one line and as an
+    integer on the next. That is m2c being confused about the register, not
+    a fact about the original code, so changing the declaration would be a
+    guess. Casting at the use site keeps both readings exactly as m2c wrote
+    them and, more importantly, compiles — which is the difference between
+    a draft the oracle can judge and one it never sees.
+
+    A cast is not a claim. If m2c read the register wrongly the bytes will
+    not match, and that is the answer we want from the oracle rather than
+    from a compiler error.
+    """
+
+    scrubbed = re.sub(r"/\*.*?\*/", "", source, flags=re.S)
+    names = set(_LOCAL_S32_RE.findall(scrubbed))
+    names |= set(_PARAM_S32_RE.findall(scrubbed))
+    for _indent_or_sep, name in sorted(names):
+        if re.search(r"\*\s*\(?\s*" + name + r"\b", scrubbed) is None:
+            continue
+        source = re.sub(
+            r"\*\s*\(\s*" + name + r"\b", "*(s32 *) (" + name, source
+        )
+        source = re.sub(
+            r"\*\s*" + name + r"\b(?!\s*\))", "*(s32 *) " + name, source
+        )
+    return source
 
 
 def _declare_missing_symbols(source: str) -> str:
@@ -625,6 +798,16 @@ def _refine_extern_pointers(source: str) -> str:
     A symbol with any plain value-use (`D = v`, `f(D)`) keeps s32: mixed
     uses are contradictory without layout knowledge and stay loud for
     hand work. Comments are ignored so `/* static */` cannot vote.
+
+    The indexed form `*(D + i)` needs its own answer, and it is the single
+    most common reason a draft will not compile. m2c writes it when the
+    retail code loads through a label with a computed displacement, and
+    `extern s32 D;` makes it "invalid type argument of unary *". The fix is
+    the array form, `extern s32 D[];`, not the pointer form: with an array
+    the name decays to the label's own address, which is what the retail
+    `%lo(D)(reg)` addressing does. `extern s32 *D;` would instead load a
+    pointer *out of* that address and offset from there — it compiles and is
+    wrong, which is worse than not compiling.
     """
 
     found = EXTERN_S32_RE.findall(source)
@@ -636,12 +819,16 @@ def _refine_extern_pointers(source: str) -> str:
         called_through = (
             re.search(r"\(\*\s*" + name + r"\s*\)\s*\(", nodecl) is not None
         )
-        stripped = re.sub(r"\*\s*" + name + r"\b", "", nodecl)
+        indexed = re.sub(r"\*\s*\(\s*" + name + r"\b", "", nodecl)
+        indexed_deref = indexed != nodecl
+        stripped = re.sub(r"\*\s*" + name + r"\b", "", indexed)
         stripped = re.sub(r"\b" + name + r"\s*\[", "", stripped)
         stripped = re.sub(r"&\s*" + name + r"\b", "", stripped)
         value_use = re.search(r"\b" + name + r"\b", stripped) is not None
         if called_through:
             replacement = f"extern s32 (*{name})();"
+        elif indexed_deref and not value_use:
+            replacement = f"extern s32 {name}[];"
         elif stripped != nodecl and not value_use:
             replacement = f"extern s32 *{name};"
         else:
@@ -667,6 +854,19 @@ VERIFIED_HEADER_TEMPLATE = (
     " * against retail by tools/match_function.py. Types and signatures are\n"
     " * whatever reproduces the bytes; they are not evidence of the\n"
     " * original declaration. */\n"
+)
+THUNK_DRAFT_HEADER = (
+    "/* BIOS vector thunk: the tail jump goes through a register that is not\n"
+    " * $ra, leaving the call number in another register for the vector to\n"
+    " * read. C emits jalr for an indirect call, so it cannot spell this.\n"
+    " * NOT verified against retail; promotion requires an oracle MATCH\n"
+    " * (tools/match_function.py). */\n"
+)
+THUNK_VERIFIED_HEADER = (
+    "/* BIOS vector thunk: the tail jump goes through a register that is not\n"
+    " * $ra, leaving the call number in another register for the vector to\n"
+    " * read. C emits jalr for an indirect call, so it cannot spell this.\n"
+    " * Verified by tools/match_function.py. */\n"
 )
 GTE_DRAFT_HEADER = (
     "/* GTE/cop2 mnemonic overlay: ordinary C cannot emit coprocessor ops.\n"
