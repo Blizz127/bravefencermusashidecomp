@@ -82,11 +82,11 @@ extern s16 D_801853BC;
 extern s16 D_801853C4;
 
 void func_8017B0E4(void *arg0, s16 arg1) {
-    M2C_FIELD(arg0, s16 *, 0x48) = (s32) func_80012C6C(M2C_FIELD(arg0, s16 *, 0x48), D_801853C4, arg1);
-    M2C_FIELD(arg0, s16 *, 0x4C) = (s32) func_80012C6C(M2C_FIELD(arg0, s16 *, 0x4C), D_801853C6, arg1);
-    M2C_FIELD(arg0, s16 *, 0x50) = (s32) func_80012C6C(M2C_FIELD(arg0, s16 *, 0x50), D_801853C8, arg1);
-    M2C_FIELD(arg0, s16 *, 0x3C) = (s32) func_80012C6C(M2C_FIELD(arg0, s16 *, 0x3C), D_801853BC, arg1);
-    M2C_FIELD(arg0, s16 *, 0x40) = (s32) func_80012C6C(M2C_FIELD(arg0, s16 *, 0x40), D_801853BE, arg1);
-    M2C_FIELD(arg0, s16 *, 0x44) = (s32) func_80012C6C(M2C_FIELD(arg0, s16 *, 0x44), D_801853C0, arg1);
+    M2C_FIELD(arg0, s32 *, 0x48) = (s32) func_80012C6C(M2C_FIELD(arg0, s32 *, 0x48), D_801853C4, arg1);
+    M2C_FIELD(arg0, s32 *, 0x4C) = (s32) func_80012C6C(M2C_FIELD(arg0, s32 *, 0x4C), D_801853C6, arg1);
+    M2C_FIELD(arg0, s32 *, 0x50) = (s32) func_80012C6C(M2C_FIELD(arg0, s32 *, 0x50), D_801853C8, arg1);
+    M2C_FIELD(arg0, s32 *, 0x3C) = (s32) func_80012C6C(M2C_FIELD(arg0, s32 *, 0x3C), D_801853BC, arg1);
+    M2C_FIELD(arg0, s32 *, 0x40) = (s32) func_80012C6C(M2C_FIELD(arg0, s32 *, 0x40), D_801853BE, arg1);
+    M2C_FIELD(arg0, s32 *, 0x44) = (s32) func_80012C6C(M2C_FIELD(arg0, s32 *, 0x44), D_801853C0, arg1);
 }
 #endif

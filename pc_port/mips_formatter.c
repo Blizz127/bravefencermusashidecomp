@@ -13,14 +13,53 @@ static const uint32_t kMain80017758Words[] = {
 static const uint32_t kMain80017778Words[] = {
 #include "80017778_words.inc"
 };
+static const uint32_t kMain800178C8Words[] = {
+#include "800178c8_words.inc"
+};
+static const uint32_t kMain800178ECWords[] = {
+#include "800178ec_words.inc"
+};
+static const uint32_t kMain80017910Words[] = {
+#include "80017910_words.inc"
+};
+static const uint32_t kMain80017930Words[] = {
+#include "80017930_words.inc"
+};
+static const uint32_t kMain80017B98Words[] = {
+#include "80017b98_words.inc"
+};
+static const uint32_t kMain80017D98Words[] = {
+#include "80017d98_words.inc"
+};
+static const uint32_t kMain80017DC4Words[] = {
+#include "80017dc4_words.inc"
+};
+static const uint32_t kMain80017DF8Words[] = {
+#include "80017df8_words.inc"
+};
+static const uint32_t kMain80017E30Words[] = {
+#include "80017e30_words.inc"
+};
 static const uint32_t kMain80017E68Words[] = {
 #include "80017e68_words.inc"
 };
 static const uint32_t kMain80017E8CWords[] = {
 #include "80017e8c_words.inc"
 };
+static const uint32_t kMain80017F14Words[] = {
+#include "80017f14_words.inc"
+};
 static const uint32_t kMain80018094Words[] = {
 #include "80018094_words.inc"
+};
+static const uint32_t kMain80018194Words[] = {
+#include "80018194_words.inc"
+};
+static const uint32_t kMain8001820CWords[] = {
+#include "8001820c_words.inc"
+};
+static const uint32_t kMain80018384Words[] = {
+#include "80018384_words.inc"
 };
 static const uint32_t kMain80048384Words[] = {
 #include "80048384_words.inc"
@@ -28,8 +67,100 @@ static const uint32_t kMain80048384Words[] = {
 static const uint32_t kMain80049610Words[] = {
 #include "80049610_words.inc"
 };
+static const uint32_t kMain8004969CWords[] = {
+#include "8004969c_words.inc"
+};
 static const uint32_t kMain80058DE8Words[] = {
 #include "80058de8_words.inc"
+};
+static const uint32_t kMain80058DFCWords[] = {
+#include "80058dfc_words.inc"
+};
+static const uint32_t kMain80058E10Words[] = {
+#include "80058e10_words.inc"
+
+/* noinline is load-bearing, not a hint. Inlined into a caller whose table
+ * size is a compile-time constant, a table scan gets unrolled and GCC's
+ * dominator pass explores the unrolled paths; that cost 12 to 14 of this
+ * file's 14 seconds of compile time before the tables below were turned
+ * into data. Keeping one out-of-line copy keeps the trip count opaque. */
+#if defined(__GNUC__)
+#define MUSASHI_FORMATTER_NOINLINE __attribute__((noinline))
+#else
+#define MUSASHI_FORMATTER_NOINLINE
+#endif
+};
+static const uint32_t kMain80058E24Words[] = {
+#include "80058e24_words.inc"
+};
+static const uint32_t kMain80058E38Words[] = {
+#include "80058e38_words.inc"
+};
+static const uint32_t kMain80058E4CWords[] = {
+#include "80058e4c_words.inc"
+};
+static const uint32_t kMain80058E60Words[] = {
+#include "80058e60_words.inc"
+};
+static const uint32_t kMain80058E74Words[] = {
+#include "80058e74_words.inc"
+};
+static const uint32_t kMain80058E88Words[] = {
+#include "80058e88_words.inc"
+};
+static const uint32_t kMain80058E9CWords[] = {
+#include "80058e9c_words.inc"
+};
+static const uint32_t kMain80058EB0Words[] = {
+#include "80058eb0_words.inc"
+};
+static const uint32_t kMain80058EC4Words[] = {
+#include "80058ec4_words.inc"
+};
+static const uint32_t kMain80058EE4Words[] = {
+#include "80058ee4_words.inc"
+};
+static const uint32_t kMain80058F04Words[] = {
+#include "80058f04_words.inc"
+};
+static const uint32_t kMain80058F24Words[] = {
+#include "80058f24_words.inc"
+};
+static const uint32_t kMain80058F44Words[] = {
+#include "80058f44_words.inc"
+};
+static const uint32_t kMain80058F70Words[] = {
+#include "80058f70_words.inc"
+};
+static const uint32_t kMain80058FD0Words[] = {
+#include "80058fd0_words.inc"
+};
+static const uint32_t kMain8005903CWords[] = {
+#include "8005903c_words.inc"
+};
+static const uint32_t kMain80059074Words[] = {
+#include "80059074_words.inc"
+};
+static const uint32_t kMain80059188Words[] = {
+#include "80059188_words.inc"
+};
+static const uint32_t kMain80059234Words[] = {
+#include "80059234_words.inc"
+};
+static const uint32_t kMain800593B8Words[] = {
+#include "800593b8_words.inc"
+};
+static const uint32_t kMain800594CCWords[] = {
+#include "800594cc_words.inc"
+};
+static const uint32_t kMain80059530Words[] = {
+#include "80059530_words.inc"
+};
+static const uint32_t kMain800595DCWords[] = {
+#include "800595dc_words.inc"
+};
+static const uint32_t kMain800595ECWords[] = {
+#include "800595ec_words.inc"
 };
 static const uint32_t kOverlay0010_800CEFD0Words[] = {
 #include "800cefd0_overlay0010_words.inc"
@@ -58,14 +189,32 @@ static const uint32_t kCrt80010000Words[] = {
 static const uint32_t kConstructor800100A0Words[] = {
 #include "800100a0_words.inc"
 };
+static const uint32_t kMain80010110Words[] = {
+#include "80010110_words.inc"
+};
 static const uint32_t kCaller80010178Words[] = {
 #include "80010178_words.inc"
+};
+static const uint32_t kMain8001020CWords[] = {
+#include "8001020c_words.inc"
 };
 static const uint32_t kMain80010214Words[] = {
 #include "80010214_words.inc"
 };
+static const uint32_t kMain80010938Words[] = {
+#include "80010938_words.inc"
+};
+static const uint32_t kMain8001094CWords[] = {
+#include "8001094c_words.inc"
+};
+static const uint32_t kMain8001096CWords[] = {
+#include "8001096c_words.inc"
+};
 static const uint32_t kMain80014238Words[] = {
 #include "80014238_words.inc"
+};
+static const uint32_t kMain800142C8Words[] = {
+#include "800142c8_words.inc"
 };
 static const uint32_t kMain8001C044Words[] = {
 #include "8001c044_words.inc"
@@ -82,6 +231,21 @@ static const uint32_t kMain80028C50Words[] = {
 static const uint32_t kMain80047EC8Words[] = {
 #include "80047ec8_words.inc"
 };
+static const uint32_t kMain80047F84Words[] = {
+#include "80047f84_words.inc"
+};
+static const uint32_t kMain8004806CWords[] = {
+#include "8004806c_words.inc"
+};
+static const uint32_t kMain800480ECWords[] = {
+#include "800480ec_words.inc"
+};
+static const uint32_t kMain8004818CWords[] = {
+#include "8004818c_words.inc"
+};
+static const uint32_t kMain8004829CWords[] = {
+#include "8004829c_words.inc"
+};
 static const uint32_t kMain80047E58Words[] = {
 #include "80047e58_words.inc"
 };
@@ -94,11 +258,41 @@ static const uint32_t kMain800128ECWords[] = {
 static const uint32_t kMain80014070Words[] = {
 #include "80014070_words.inc"
 };
+static const uint32_t kMain80014094Words[] = {
+#include "80014094_words.inc"
+};
+static const uint32_t kMain800140B8Words[] = {
+#include "800140b8_words.inc"
+};
+static const uint32_t kMain80014128Words[] = {
+#include "80014128_words.inc"
+};
+static const uint32_t kMain80014148Words[] = {
+#include "80014148_words.inc"
+};
+static const uint32_t kMain80014168Words[] = {
+#include "80014168_words.inc"
+};
+static const uint32_t kMain800141ACWords[] = {
+#include "800141ac_words.inc"
+};
+static const uint32_t kMain800141F0Words[] = {
+#include "800141f0_words.inc"
+};
 static const uint32_t kMain800128B4Words[] = {
 #include "800128b4_words.inc"
 };
 static const uint32_t kMain80013FE0Words[] = {
 #include "80013fe0_words.inc"
+};
+static const uint32_t kMain80014004Words[] = {
+#include "80014004_words.inc"
+};
+static const uint32_t kMain80014028Words[] = {
+#include "80014028_words.inc"
+};
+static const uint32_t kMain8001404CWords[] = {
+#include "8001404c_words.inc"
 };
 static const uint32_t kMain80013FBCWords[] = {
 #include "80013fbc_words.inc"
@@ -121,8 +315,17 @@ static const uint32_t kMain800126C4Words[] = {
 static const uint32_t kMain80013F3CWords[] = {
 #include "80013f3c_words.inc"
 };
+static const uint32_t kMain80013F68Words[] = {
+#include "80013f68_words.inc"
+};
 static const uint32_t kMain800129CCWords[] = {
 #include "800129cc_words.inc"
+};
+static const uint32_t kMain80012A60Words[] = {
+#include "80012a60_words.inc"
+};
+static const uint32_t kMain80012AB0Words[] = {
+#include "80012ab0_words.inc"
 };
 static const uint32_t kMain8004CFECWords[] = {
 #include "8004cfec_words.inc"
@@ -133,11 +336,17 @@ static const uint32_t kMain8002D8A8Words[] = {
 static const uint32_t kMain800120DCWords[] = {
 #include "800120dc_words.inc"
 };
+static const uint32_t kMain8001212CWords[] = {
+#include "8001212c_words.inc"
+};
 static const uint32_t kMain800123F0Words[] = {
 #include "800123f0_words.inc"
 };
 static const uint32_t kMain80029104Words[] = {
 #include "80029104_words.inc"
+};
+static const uint32_t kMain80029124Words[] = {
+#include "80029124_words.inc"
 };
 static const uint32_t kMain80014928Words[] = {
 #include "80014928_words.inc"
@@ -160,8 +369,26 @@ static const uint32_t kMain80010A98Words[] = {
 static const uint32_t kMain800595FCWords[] = {
 #include "800595fc_words.inc"
 };
+static const uint32_t kMain80059658Words[] = {
+#include "80059658_words.inc"
+};
 static const uint32_t kMain80042610Words[] = {
 #include "80042610_words.inc"
+};
+static const uint32_t kMain80042644Words[] = {
+#include "80042644_words.inc"
+};
+static const uint32_t kMain80042674Words[] = {
+#include "80042674_words.inc"
+};
+static const uint32_t kMain800426A4Words[] = {
+#include "800426a4_words.inc"
+};
+static const uint32_t kMain800426D4Words[] = {
+#include "800426d4_words.inc"
+};
+static const uint32_t kMain800426E4Words[] = {
+#include "800426e4_words.inc"
 };
 static const uint32_t kMain800189A8Words[] = {
 #include "800189a8_words.inc"
@@ -175,6 +402,9 @@ static const uint32_t kMain8005D184Words[] = {
 static const uint32_t kMain8005F704Words[] = {
 #include "8005f704_words.inc"
 };
+static const uint32_t kMain8005F728Words[] = {
+#include "8005f728_words.inc"
+};
 static const uint32_t kMain8005D244Words[] = {
 #include "8005d244_words.inc"
 };
@@ -184,8 +414,14 @@ static const uint32_t kMain80028D58Words[] = {
 static const uint32_t kMain80029178Words[] = {
 #include "80029178_words.inc"
 };
+static const uint32_t kMain800291A0Words[] = {
+#include "800291a0_words.inc"
+};
 static const uint32_t kMain8005D538Words[] = {
 #include "8005d538_words.inc"
+};
+static const uint32_t kMain8005D6A0Words[] = {
+#include "8005d6a0_words.inc"
 };
 static const uint32_t kMain8005E188Words[] = {
 #include "8005e188_words.inc"
@@ -202,6 +438,9 @@ static const uint32_t kMain80018C64Words[] = {
 static const uint32_t kMain80018F88Words[] = {
 #include "80018f88_words.inc"
 };
+static const uint32_t kMain80018FC8Words[] = {
+#include "80018fc8_words.inc"
+};
 static const uint32_t kMain80018CE8Words[] = {
 #include "80018ce8_words.inc"
 };
@@ -214,11 +453,32 @@ static const uint32_t kMain80018E9CWords[] = {
 static const uint32_t kMain800291B4Words[] = {
 #include "800291b4_words.inc"
 };
+static const uint32_t kMain800291C8Words[] = {
+#include "800291c8_words.inc"
+};
+static const uint32_t kMain800291DCWords[] = {
+#include "800291dc_words.inc"
+};
+static const uint32_t kMain800291F0Words[] = {
+#include "800291f0_words.inc"
+};
+static const uint32_t kMain80029204Words[] = {
+#include "80029204_words.inc"
+};
+static const uint32_t kMain80029218Words[] = {
+#include "80029218_words.inc"
+};
+static const uint32_t kMain80029240Words[] = {
+#include "80029240_words.inc"
+};
 static const uint32_t kMain80028D78Words[] = {
 #include "80028d78_words.inc"
 };
 static const uint32_t kMain80015208Words[] = {
 #include "80015208_words.inc"
+};
+static const uint32_t kMain800152F4Words[] = {
+#include "800152f4_words.inc"
 };
 static const uint32_t kMain80059BFCWords[] = {
 #include "80059bfc_words.inc"
@@ -228,6 +488,36 @@ static const uint32_t kMain80059CF4Words[] = {
 };
 static const uint32_t kMain8003500CWords[] = {
 #include "8003500c_words.inc"
+};
+static const uint32_t kMain800351E8Words[] = {
+#include "800351e8_words.inc"
+};
+static const uint32_t kMain80035210Words[] = {
+#include "80035210_words.inc"
+};
+static const uint32_t kMain80035270Words[] = {
+#include "80035270_words.inc"
+};
+static const uint32_t kMain800359B0Words[] = {
+#include "800359b0_words.inc"
+};
+static const uint32_t kMain80035C4CWords[] = {
+#include "80035c4c_words.inc"
+};
+static const uint32_t kMain8003602CWords[] = {
+#include "8003602c_words.inc"
+};
+static const uint32_t kMain80036130Words[] = {
+#include "80036130_words.inc"
+};
+static const uint32_t kMain800361CCWords[] = {
+#include "800361cc_words.inc"
+};
+static const uint32_t kMain8003621CWords[] = {
+#include "8003621c_words.inc"
+};
+static const uint32_t kMain80036260Words[] = {
+#include "80036260_words.inc"
 };
 static const uint32_t kMain8002D034Words[] = {
 #include "8002d034_words.inc"
@@ -301,6 +591,18 @@ static const uint32_t kMain8002EFD0Words[] = {
 static const uint32_t kMain8002F0D0Words[] = {
 #include "8002f0d0_words.inc"
 };
+static const uint32_t kMain8002F0F4Words[] = {
+#include "8002f0f4_words.inc"
+};
+static const uint32_t kMain8002F12CWords[] = {
+#include "8002f12c_words.inc"
+};
+static const uint32_t kMain8002F150Words[] = {
+#include "8002f150_words.inc"
+};
+static const uint32_t kMain8002F1CCWords[] = {
+#include "8002f1cc_words.inc"
+};
 static const uint32_t kMain8002F248Words[] = {
 #include "8002f248_words.inc"
 };
@@ -310,6 +612,9 @@ static const uint32_t kMain8002F4E4Words[] = {
 static const uint32_t kMain8002F714Words[] = {
 #include "8002f714_words.inc"
 };
+static const uint32_t kMain8002F80CWords[] = {
+#include "8002f80c_words.inc"
+};
 static const uint32_t kMain8002FA3CWords[] = {
 #include "8002fa3c_words.inc"
 };
@@ -318,6 +623,9 @@ static const uint32_t kMain80031B7CWords[] = {
 };
 static const uint32_t kMain80031CC8Words[] = {
 #include "80031cc8_words.inc"
+};
+static const uint32_t kMain80031D70Words[] = {
+#include "80031d70_words.inc"
 };
 static const uint32_t kMain80031DECWords[] = {
 #include "80031dec_words.inc"
@@ -355,6 +663,9 @@ static const uint32_t kMain800331D4Words[] = {
 static const uint32_t kMain8003324CWords[] = {
 #include "8003324c_words.inc"
 };
+static const uint32_t kMain80033324Words[] = {
+#include "80033324_words.inc"
+};
 static const uint32_t kMain80033398Words[] = {
 #include "80033398_words.inc"
 };
@@ -369,6 +680,9 @@ static const uint32_t kMain80034314Words[] = {
 };
 static const uint32_t kMain800346D0Words[] = {
 #include "800346d0_words.inc"
+};
+static const uint32_t kMain800347C8Words[] = {
+#include "800347c8_words.inc"
 };
 static const uint32_t kMain80034844Words[] = {
 #include "80034844_words.inc"
@@ -391,6 +705,9 @@ static const uint32_t kMain80034AE0Words[] = {
 static const uint32_t kMain80034B0CWords[] = {
 #include "80034b0c_words.inc"
 };
+static const uint32_t kMain80034B3CWords[] = {
+#include "80034b3c_words.inc"
+};
 static const uint32_t kMain80034CF0Words[] = {
 #include "80034cf0_words.inc"
 };
@@ -408,6 +725,12 @@ static const uint32_t kMain80036EE8Words[] = {
 };
 static const uint32_t kMain80036F18Words[] = {
 #include "80036f18_words.inc"
+};
+static const uint32_t kMain80036F98Words[] = {
+#include "80036f98_words.inc"
+};
+static const uint32_t kMain80036FB0Words[] = {
+#include "80036fb0_words.inc"
 };
 static const uint32_t kMain800381E4Words[] = {
 #include "800381e4_words.inc"
@@ -433,17 +756,86 @@ static const uint32_t kMain800387C0Words[] = {
 static const uint32_t kMain80038838Words[] = {
 #include "80038838_words.inc"
 };
+static const uint32_t kMain800388E8Words[] = {
+#include "800388e8_words.inc"
+};
 static const uint32_t kMain80038908Words[] = {
 #include "80038908_words.inc"
 };
+static const uint32_t kMain80038958Words[] = {
+#include "80038958_words.inc"
+};
+static const uint32_t kMain80038A00Words[] = {
+#include "80038a00_words.inc"
+};
+static const uint32_t kMain80038A58Words[] = {
+#include "80038a58_words.inc"
+};
+static const uint32_t kMain80038FC4Words[] = {
+#include "80038fc4_words.inc"
+};
+static const uint32_t kMain80038FFCWords[] = {
+#include "80038ffc_words.inc"
+};
 static const uint32_t kMain8003916CWords[] = {
 #include "8003916c_words.inc"
+};
+static const uint32_t kMain800391D4Words[] = {
+#include "800391d4_words.inc"
+};
+static const uint32_t kMain80039300Words[] = {
+#include "80039300_words.inc"
+};
+static const uint32_t kMain80039308Words[] = {
+#include "80039308_words.inc"
+};
+static const uint32_t kMain80039B20Words[] = {
+#include "80039b20_words.inc"
+};
+static const uint32_t kMain80039C5CWords[] = {
+#include "80039c5c_words.inc"
+};
+static const uint32_t kMain80039C70Words[] = {
+#include "80039c70_words.inc"
+};
+static const uint32_t kMain80039DECWords[] = {
+#include "80039dec_words.inc"
+};
+static const uint32_t kMain80039F14Words[] = {
+#include "80039f14_words.inc"
+};
+static const uint32_t kMain80039F50Words[] = {
+#include "80039f50_words.inc"
+};
+static const uint32_t kMain8003A098Words[] = {
+#include "8003a098_words.inc"
+};
+static const uint32_t kMain8003A0D0Words[] = {
+#include "8003a0d0_words.inc"
+};
+static const uint32_t kMain8003A0E4Words[] = {
+#include "8003a0e4_words.inc"
+};
+static const uint32_t kMain8003A234Words[] = {
+#include "8003a234_words.inc"
+};
+static const uint32_t kMain8003A3D8Words[] = {
+#include "8003a3d8_words.inc"
+};
+static const uint32_t kMain8003A404Words[] = {
+#include "8003a404_words.inc"
 };
 static const uint32_t kMain8003AB84Words[] = {
 #include "8003ab84_words.inc"
 };
 static const uint32_t kMain8003AF4CWords[] = {
 #include "8003af4c_words.inc"
+};
+static const uint32_t kMain8003AFF0Words[] = {
+#include "8003aff0_words.inc"
+};
+static const uint32_t kMain8003B02CWords[] = {
+#include "8003b02c_words.inc"
 };
 static const uint32_t kMain8003B08CWords[] = {
 #include "8003b08c_words.inc"
@@ -457,17 +849,38 @@ static const uint32_t kMain8003C0A0Words[] = {
 static const uint32_t kMain8003C92CWords[] = {
 #include "8003c92c_words.inc"
 };
+static const uint32_t kMain8003CF68Words[] = {
+#include "8003cf68_words.inc"
+};
 static const uint32_t kMain8003CFF8Words[] = {
 #include "8003cff8_words.inc"
 };
+static const uint32_t kMain8003D134Words[] = {
+#include "8003d134_words.inc"
+};
 static const uint32_t kMain8003EDE8Words[] = {
 #include "8003ede8_words.inc"
+};
+static const uint32_t kMain8003EEE4Words[] = {
+#include "8003eee4_words.inc"
+};
+static const uint32_t kMain8003F104Words[] = {
+#include "8003f104_words.inc"
 };
 static const uint32_t kMain80043974Words[] = {
 #include "80043974_words.inc"
 };
 static const uint32_t kMain80044A8CWords[] = {
 #include "80044a8c_words.inc"
+};
+static const uint32_t kMain80044B14Words[] = {
+#include "80044b14_words.inc"
+};
+static const uint32_t kMain80044BF4Words[] = {
+#include "80044bf4_words.inc"
+};
+static const uint32_t kMain80044CE8Words[] = {
+#include "80044ce8_words.inc"
 };
 static const uint32_t kMain8005CE98Words[] = {
 #include "8005ce98_words.inc"
@@ -478,11 +891,35 @@ static const uint32_t kMain8001A0FCWords[] = {
 static const uint32_t kMain8001A114Words[] = {
 #include "8001a114_words.inc"
 };
+static const uint32_t kMain8001A338Words[] = {
+#include "8001a338_words.inc"
+};
+static const uint32_t kMain8001A9D8Words[] = {
+#include "8001a9d8_words.inc"
+};
 static const uint32_t kMain8001AF34Words[] = {
 #include "8001af34_words.inc"
 };
 static const uint32_t kMain8001B0D4Words[] = {
 #include "8001b0d4_words.inc"
+};
+static const uint32_t kMain8001B22CWords[] = {
+#include "8001b22c_words.inc"
+};
+static const uint32_t kMain8001B23CWords[] = {
+#include "8001b23c_words.inc"
+};
+static const uint32_t kMain8001B26CWords[] = {
+#include "8001b26c_words.inc"
+};
+static const uint32_t kMain8001B324Words[] = {
+#include "8001b324_words.inc"
+};
+static const uint32_t kMain8001B34CWords[] = {
+#include "8001b34c_words.inc"
+};
+static const uint32_t kMain8001B374Words[] = {
+#include "8001b374_words.inc"
 };
 static const uint32_t kMain8001B394Words[] = {
 #include "8001b394_words.inc"
@@ -502,8 +939,29 @@ static const uint32_t kMain8001B7C4Words[] = {
 static const uint32_t kMain8002D4C8Words[] = {
 #include "8002d4c8_words.inc"
 };
+static const uint32_t kMain8002D59CWords[] = {
+#include "8002d59c_words.inc"
+};
+static const uint32_t kMain8002D678Words[] = {
+#include "8002d678_words.inc"
+};
+static const uint32_t kMain8002D6D8Words[] = {
+#include "8002d6d8_words.inc"
+};
+static const uint32_t kMain8002D7F4Words[] = {
+#include "8002d7f4_words.inc"
+};
 static const uint32_t kMain8002D7FCWords[] = {
 #include "8002d7fc_words.inc"
+};
+static const uint32_t kMain8002D80CWords[] = {
+#include "8002d80c_words.inc"
+};
+static const uint32_t kMain8002D834Words[] = {
+#include "8002d834_words.inc"
+};
+static const uint32_t kMain8002D844Words[] = {
+#include "8002d844_words.inc"
 };
 static const uint32_t kMain8002ED90Words[] = {
 #include "8002ed90_words.inc"
@@ -531,6 +989,9 @@ static const uint32_t kMain800363CCWords[] = {
 };
 static const uint32_t kMain80036AF8Words[] = {
 #include "80036af8_words.inc"
+};
+static const uint32_t kMain80036D24Words[] = {
+#include "80036d24_words.inc"
 };
 static const uint32_t kMain80037144Words[] = {
 #include "80037144_words.inc"
@@ -568,6 +1029,15 @@ static const uint32_t kMain80037D74Words[] = {
 static const uint32_t kMain800401CCWords[] = {
 #include "800401cc_words.inc"
 };
+static const uint32_t kMain800401E4Words[] = {
+#include "800401e4_words.inc"
+};
+static const uint32_t kMain800402A8Words[] = {
+#include "800402a8_words.inc"
+};
+static const uint32_t kMain800403A4Words[] = {
+#include "800403a4_words.inc"
+};
 static const uint32_t kMain800415A8Words[] = {
 #include "800415a8_words.inc"
 };
@@ -580,6 +1050,12 @@ static const uint32_t kMain800416A8Words[] = {
 static const uint32_t kMain800419B0Words[] = {
 #include "800419b0_words.inc"
 };
+static const uint32_t kMain80041A20Words[] = {
+#include "80041a20_words.inc"
+};
+static const uint32_t kMain80041A50Words[] = {
+#include "80041a50_words.inc"
+};
 static const uint32_t kMain80041A80Words[] = {
 #include "80041a80_words.inc"
 };
@@ -589,11 +1065,23 @@ static const uint32_t kMain80041AB0Words[] = {
 static const uint32_t kMain80041E8CWords[] = {
 #include "80041e8c_words.inc"
 };
+static const uint32_t kMain80042154Words[] = {
+#include "80042154_words.inc"
+};
+static const uint32_t kMain800422B4Words[] = {
+#include "800422b4_words.inc"
+};
+static const uint32_t kMain800422E8Words[] = {
+#include "800422e8_words.inc"
+};
 static const uint32_t kMain80042374Words[] = {
 #include "80042374_words.inc"
 };
 static const uint32_t kMain800439D4Words[] = {
 #include "800439d4_words.inc"
+};
+static const uint32_t kMain800439F8Words[] = {
+#include "800439f8_words.inc"
 };
 static const uint32_t kMain80046630Words[] = {
 #include "80046630_words.inc"
@@ -603,6 +1091,12 @@ static const uint32_t kMain8004674CWords[] = {
 };
 static const uint32_t kMain8001AAA0Words[] = {
 #include "8001aaa0_words.inc"
+};
+static const uint32_t kMain8001AAD0Words[] = {
+#include "8001aad0_words.inc"
+};
+static const uint32_t kMain8001ABB4Words[] = {
+#include "8001abb4_words.inc"
 };
 static const uint32_t kMain80014CACWords[] = {
 #include "80014cac_words.inc"
@@ -616,8 +1110,29 @@ static const uint32_t kMain8001534CWords[] = {
 static const uint32_t kMain800153A4Words[] = {
 #include "800153a4_words.inc"
 };
+static const uint32_t kMain800153CCWords[] = {
+#include "800153cc_words.inc"
+};
+static const uint32_t kMain80015424Words[] = {
+#include "80015424_words.inc"
+};
+static const uint32_t kMain8001544CWords[] = {
+#include "8001544c_words.inc"
+};
 static const uint32_t kMain80010DA0Words[] = {
 #include "80010da0_words.inc"
+};
+static const uint32_t kMain80010DE0Words[] = {
+#include "80010de0_words.inc"
+};
+static const uint32_t kMain80010E14Words[] = {
+#include "80010e14_words.inc"
+};
+static const uint32_t kMain80010E48Words[] = {
+#include "80010e48_words.inc"
+};
+static const uint32_t kMain80010E7CWords[] = {
+#include "80010e7c_words.inc"
 };
 static const uint32_t kMain800110CCWords[] = {
 #include "800110cc_words.inc"
@@ -628,6 +1143,21 @@ static const uint32_t kMain80011220Words[] = {
 static const uint32_t kMain8001125CWords[] = {
 #include "8001125c_words.inc"
 };
+static const uint32_t kMain800112A8Words[] = {
+#include "800112a8_words.inc"
+};
+static const uint32_t kMain800112C8Words[] = {
+#include "800112c8_words.inc"
+};
+static const uint32_t kMain80011320Words[] = {
+#include "80011320_words.inc"
+};
+static const uint32_t kMain80011350Words[] = {
+#include "80011350_words.inc"
+};
+static const uint32_t kMain8001136CWords[] = {
+#include "8001136c_words.inc"
+};
 static const uint32_t kMain800111BCWords[] = {
 #include "800111bc_words.inc"
 };
@@ -637,11 +1167,38 @@ static const uint32_t kMain80011144Words[] = {
 static const uint32_t kMain8001A9F8Words[] = {
 #include "8001a9f8_words.inc"
 };
+static const uint32_t kMain8001AA78Words[] = {
+#include "8001aa78_words.inc"
+};
+static const uint32_t kMain8001AA88Words[] = {
+#include "8001aa88_words.inc"
+};
 static const uint32_t kMain80010F80Words[] = {
 #include "80010f80_words.inc"
 };
 static const uint32_t kMain80029514Words[] = {
 #include "80029514_words.inc"
+};
+static const uint32_t kMain80029524Words[] = {
+#include "80029524_words.inc"
+};
+static const uint32_t kMain8002953CWords[] = {
+#include "8002953c_words.inc"
+};
+static const uint32_t kMain8002954CWords[] = {
+#include "8002954c_words.inc"
+};
+static const uint32_t kMain8002955CWords[] = {
+#include "8002955c_words.inc"
+};
+static const uint32_t kMain8002957CWords[] = {
+#include "8002957c_words.inc"
+};
+static const uint32_t kMain8002958CWords[] = {
+#include "8002958c_words.inc"
+};
+static const uint32_t kMain8002959CWords[] = {
+#include "8002959c_words.inc"
 };
 static const uint32_t kMain80010ED4Words[] = {
 #include "80010ed4_words.inc"
@@ -667,8 +1224,29 @@ static const uint32_t kMain8003C498Words[] = {
 static const uint32_t kMain8003AE14Words[] = {
 #include "8003ae14_words.inc"
 };
+static const uint32_t kMain8003AE9CWords[] = {
+#include "8003ae9c_words.inc"
+};
 static const uint32_t kMain800301A4Words[] = {
 #include "800301a4_words.inc"
+};
+static const uint32_t kMain800301C8Words[] = {
+#include "800301c8_words.inc"
+};
+static const uint32_t kMain80030470Words[] = {
+#include "80030470_words.inc"
+};
+static const uint32_t kMain800304C8Words[] = {
+#include "800304c8_words.inc"
+};
+static const uint32_t kMain80030538Words[] = {
+#include "80030538_words.inc"
+};
+static const uint32_t kMain80030604Words[] = {
+#include "80030604_words.inc"
+};
+static const uint32_t kMain80030634Words[] = {
+#include "80030634_words.inc"
 };
 static const uint32_t kMain8002FB08Words[] = {
 #include "8002fb08_words.inc"
@@ -688,14 +1266,125 @@ static const uint32_t kMain800149E0Words[] = {
 static const uint32_t kMain80014C28Words[] = {
 #include "80014c28_words.inc"
 };
+static const uint32_t kMain80014C54Words[] = {
+#include "80014c54_words.inc"
+};
 static const uint32_t kMain80014D30Words[] = {
 #include "80014d30_words.inc"
+};
+static const uint32_t kMain80014D68Words[] = {
+#include "80014d68_words.inc"
+};
+static const uint32_t kMain80014D94Words[] = {
+#include "80014d94_words.inc"
+};
+static const uint32_t kMain80014DC0Words[] = {
+#include "80014dc0_words.inc"
+};
+static const uint32_t kMain80014DECWords[] = {
+#include "80014dec_words.inc"
+};
+static const uint32_t kMain80014E24Words[] = {
+#include "80014e24_words.inc"
+};
+static const uint32_t kMain80014E80Words[] = {
+#include "80014e80_words.inc"
+};
+static const uint32_t kMain80014ED4Words[] = {
+#include "80014ed4_words.inc"
+};
+static const uint32_t kMain80015018Words[] = {
+#include "80015018_words.inc"
+};
+static const uint32_t kMain80015118Words[] = {
+#include "80015118_words.inc"
 };
 static const uint32_t kMain80014CF8Words[] = {
 #include "80014cf8_words.inc"
 };
 static const uint32_t kMain800167F0Words[] = {
 #include "800167f0_words.inc"
+};
+static const uint32_t kMain800168B4Words[] = {
+#include "800168b4_words.inc"
+};
+static const uint32_t kMain800168C4Words[] = {
+#include "800168c4_words.inc"
+};
+static const uint32_t kMain80016940Words[] = {
+#include "80016940_words.inc"
+};
+static const uint32_t kMain80016978Words[] = {
+#include "80016978_words.inc"
+};
+static const uint32_t kMain80016A3CWords[] = {
+#include "80016a3c_words.inc"
+};
+static const uint32_t kMain80016A5CWords[] = {
+#include "80016a5c_words.inc"
+};
+static const uint32_t kMain80016A7CWords[] = {
+#include "80016a7c_words.inc"
+};
+static const uint32_t kMain80016B60Words[] = {
+#include "80016b60_words.inc"
+};
+static const uint32_t kMain80016C28Words[] = {
+#include "80016c28_words.inc"
+};
+static const uint32_t kMain80016D78Words[] = {
+#include "80016d78_words.inc"
+};
+static const uint32_t kMain80016EB0Words[] = {
+#include "80016eb0_words.inc"
+};
+static const uint32_t kMain80016ED4Words[] = {
+#include "80016ed4_words.inc"
+};
+static const uint32_t kMain80016EF8Words[] = {
+#include "80016ef8_words.inc"
+};
+static const uint32_t kMain80016F18Words[] = {
+#include "80016f18_words.inc"
+};
+static const uint32_t kMain80017168Words[] = {
+#include "80017168_words.inc"
+};
+static const uint32_t kMain80017254Words[] = {
+#include "80017254_words.inc"
+};
+static const uint32_t kMain80017274Words[] = {
+#include "80017274_words.inc"
+};
+static const uint32_t kMain80017294Words[] = {
+#include "80017294_words.inc"
+};
+static const uint32_t kMain8001739CWords[] = {
+#include "8001739c_words.inc"
+};
+static const uint32_t kMain800173BCWords[] = {
+#include "800173bc_words.inc"
+};
+static const uint32_t kMain800173DCWords[] = {
+#include "800173dc_words.inc"
+};
+static const uint32_t kMain800174DCWords[] = {
+#include "800174dc_words.inc"
+};
+static const uint32_t kMain800174FCWords[] = {
+#include "800174fc_words.inc"
+};
+static const uint32_t kMain8001751CWords[] = {
+#include "8001751c_words.inc"
+};
+static const uint32_t kMain800176F0Words[] = {
+#include "800176f0_words.inc"
+};
+static const uint32_t kMain80017714Words[] = {
+#include "80017714_words.inc"
+};
+static const uint32_t kMain80017738Words[] = {
+#include "80017738_words.inc"
 };
 static const uint32_t kMain80053290Words[] = {
 #include "80053290_words.inc"
@@ -706,6 +1395,39 @@ static const uint32_t kMain800553D8Words[] = {
 static const uint32_t kMain800553F4Words[] = {
 #include "800553f4_words.inc"
 };
+static const uint32_t kMain80055D40Words[] = {
+#include "80055d40_words.inc"
+};
+static const uint32_t kMain80056F18Words[] = {
+#include "80056f18_words.inc"
+};
+static const uint32_t kMain80057094Words[] = {
+#include "80057094_words.inc"
+};
+static const uint32_t kMain80057928Words[] = {
+#include "80057928_words.inc"
+};
+static const uint32_t kMain80057B14Words[] = {
+#include "80057b14_words.inc"
+};
+static const uint32_t kMain80057C7CWords[] = {
+#include "80057c7c_words.inc"
+};
+static const uint32_t kMain80057E80Words[] = {
+#include "80057e80_words.inc"
+};
+static const uint32_t kMain80057FFCWords[] = {
+#include "80057ffc_words.inc"
+};
+static const uint32_t kMain80058284Words[] = {
+#include "80058284_words.inc"
+};
+static const uint32_t kMain8005845CWords[] = {
+#include "8005845c_words.inc"
+};
+static const uint32_t kMain800586CCWords[] = {
+#include "800586cc_words.inc"
+};
 static const uint32_t kMain8001C9D0Words[] = {
 #include "8001c9d0_words.inc"
 };
@@ -715,8 +1437,32 @@ static const uint32_t kMain8001C2C4Words[] = {
 static const uint32_t kMain8001C320Words[] = {
 #include "8001c320_words.inc"
 };
+static const uint32_t kMain8001C448Words[] = {
+#include "8001c448_words.inc"
+};
+static const uint32_t kMain8001C4A4Words[] = {
+#include "8001c4a4_words.inc"
+};
+static const uint32_t kMain8001C558Words[] = {
+#include "8001c558_words.inc"
+};
+static const uint32_t kMain8001C5B8Words[] = {
+#include "8001c5b8_words.inc"
+};
+static const uint32_t kMain8001C6E4Words[] = {
+#include "8001c6e4_words.inc"
+};
+static const uint32_t kMain8001C744Words[] = {
+#include "8001c744_words.inc"
+};
+static const uint32_t kMain8001C7B0Words[] = {
+#include "8001c7b0_words.inc"
+};
 static const uint32_t kMain800285ACWords[] = {
 #include "800285ac_words.inc"
+};
+static const uint32_t kMain800285CCWords[] = {
+#include "800285cc_words.inc"
 };
 static const uint32_t kMain8005C4CCWords[] = {
 #include "8005c4cc_words.inc"
@@ -732,6 +1478,9 @@ static const uint32_t kMain80029664Words[] = {
 };
 static const uint32_t kMain80011380Words[] = {
 #include "80011380_words.inc"
+};
+static const uint32_t kMain80011680Words[] = {
+#include "80011680_words.inc"
 };
 static const uint32_t kMain800118ACWords[] = {
 #include "800118ac_words.inc"
@@ -754,6 +1503,12 @@ static const uint32_t kMain8001BFF8Words[] = {
 static const uint32_t kMain80011928Words[] = {
 #include "80011928_words.inc"
 };
+static const uint32_t kMain80011998Words[] = {
+#include "80011998_words.inc"
+};
+static const uint32_t kMain800119F0Words[] = {
+#include "800119f0_words.inc"
+};
 static const uint32_t kMain8001BFE8Words[] = {
 #include "8001bfe8_words.inc"
 };
@@ -763,14 +1518,83 @@ static const uint32_t kMain800116E0Words[] = {
 static const uint32_t kMain80029000Words[] = {
 #include "80029000_words.inc"
 };
+static const uint32_t kMain80029020Words[] = {
+#include "80029020_words.inc"
+};
+static const uint32_t kMain80029044Words[] = {
+#include "80029044_words.inc"
+};
+static const uint32_t kMain8002906CWords[] = {
+#include "8002906c_words.inc"
+};
+static const uint32_t kMain80029094Words[] = {
+#include "80029094_words.inc"
+};
+static const uint32_t kMain800290BCWords[] = {
+#include "800290bc_words.inc"
+};
+static const uint32_t kMain800290E0Words[] = {
+#include "800290e0_words.inc"
+};
 static const uint32_t kMain80028D9CWords[] = {
 #include "80028d9c_words.inc"
+};
+static const uint32_t kMain80028DBCWords[] = {
+#include "80028dbc_words.inc"
+};
+static const uint32_t kMain80028DE0Words[] = {
+#include "80028de0_words.inc"
+};
+static const uint32_t kMain80028E00Words[] = {
+#include "80028e00_words.inc"
+};
+static const uint32_t kMain80028E24Words[] = {
+#include "80028e24_words.inc"
+};
+static const uint32_t kMain80028E44Words[] = {
+#include "80028e44_words.inc"
+};
+static const uint32_t kMain80028E68Words[] = {
+#include "80028e68_words.inc"
+};
+static const uint32_t kMain80028E88Words[] = {
+#include "80028e88_words.inc"
+};
+static const uint32_t kMain80028EACWords[] = {
+#include "80028eac_words.inc"
+};
+static const uint32_t kMain80028ECCWords[] = {
+#include "80028ecc_words.inc"
+};
+static const uint32_t kMain80028EF0Words[] = {
+#include "80028ef0_words.inc"
+};
+static const uint32_t kMain80028F10Words[] = {
+#include "80028f10_words.inc"
+};
+static const uint32_t kMain80028F34Words[] = {
+#include "80028f34_words.inc"
+};
+static const uint32_t kMain80028F54Words[] = {
+#include "80028f54_words.inc"
+};
+static const uint32_t kMain80028F78Words[] = {
+#include "80028f78_words.inc"
+};
+static const uint32_t kMain80028F98Words[] = {
+#include "80028f98_words.inc"
 };
 static const uint32_t kMain80028FBCWords[] = {
 #include "80028fbc_words.inc"
 };
+static const uint32_t kMain80028FDCWords[] = {
+#include "80028fdc_words.inc"
+};
 static const uint32_t kMain800183E0Words[] = {
 #include "800183e0_words.inc"
+};
+static const uint32_t kMain80018450Words[] = {
+#include "80018450_words.inc"
 };
 static const uint32_t kMain800167B8Words[] = {
 #include "800167b8_words.inc"
@@ -778,11 +1602,20 @@ static const uint32_t kMain800167B8Words[] = {
 static const uint32_t kMain80016224Words[] = {
 #include "80016224_words.inc"
 };
+static const uint32_t kMain80016450Words[] = {
+#include "80016450_words.inc"
+};
 static const uint32_t kMain80010A08Words[] = {
 #include "80010a08_words.inc"
 };
 static const uint32_t kMain80016638Words[] = {
 #include "80016638_words.inc"
+};
+static const uint32_t kMain800166E8Words[] = {
+#include "800166e8_words.inc"
+};
+static const uint32_t kMain80016714Words[] = {
+#include "80016714_words.inc"
 };
 static const uint32_t kMain80010CECWords[] = {
 #include "80010cec_words.inc"
@@ -792,6 +1625,9 @@ static const uint32_t kMain80011818Words[] = {
 };
 static const uint32_t kMain80011A3CWords[] = {
 #include "80011a3c_words.inc"
+};
+static const uint32_t kMain80011ADCWords[] = {
+#include "80011adc_words.inc"
 };
 /* MAIN.CD member0000 at base 800CE5F8, file offset 0x804. Live RAM at STOP
  * matched these 17 words. Not EXE-sourced; overlay bytes are the authority. */
@@ -980,6 +1816,9 @@ static const uint32_t kOverlay0010_800D0630Words[] = {
 };
 static const uint32_t kOverlay0010_800D065CWords[] = {
 #include "800d065c_overlay0010_words.inc"
+};
+static const uint32_t kOverlay0010_800D06E8Words[] = {
+#include "800d06e8_overlay0010_words.inc"
 };
 static const uint32_t kOverlaySc02_80145CECWords[] = {
 #include "80145cec_sc02_0031_words.inc"
@@ -1302,6 +2141,9 @@ static const uint32_t kOverlaySc02_8013CB20Words[] = {
 static const uint32_t kOverlaySc02_8013CB5CWords[] = {
 #include "8013cb5c_sc02_0031_words.inc"
 };
+static const uint32_t kOverlaySc02_8013CB84Words[] = {
+#include "8013cb84_sc02_0031_words.inc"
+};
 static const uint32_t kOverlaySc02_8013D064Words[] = {
 #include "8013d064_sc02_0031_words.inc"
 };
@@ -1487,6 +2329,9 @@ static const uint32_t kOverlaySc02_80138BE0Words[] = {
 };
 static const uint32_t kOverlaySc02_8013BC7CWords[] = {
 #include "8013bc7c_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8013BCDCWords[] = {
+#include "8013bcdc_sc02_0031_words.inc"
 };
 static const uint32_t kOverlaySc02_80141788Words[] = {
 #include "80141788_sc02_0031_words.inc"
@@ -2535,6 +3380,9 @@ static const uint32_t kOverlaySc02_801379D8Words[] = {
 static const uint32_t kOverlaySc02_801379ECWords[] = {
 #include "801379ec_sc02_0031_words.inc"
 };
+static const uint32_t kOverlaySc02_801379FCWords[] = {
+#include "801379fc_sc02_0031_words.inc"
+};
 static const uint32_t kOverlaySc02_80138948Words[] = {
 #include "80138948_sc02_0031_words.inc"
 };
@@ -2618,6 +3466,9 @@ static const uint32_t kOverlaySc02_8013A1E8Words[] = {
 };
 static const uint32_t kOverlaySc02_8013A250Words[] = {
 #include "8013a250_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8013A380Words[] = {
+#include "8013a380_sc02_0031_words.inc"
 };
 static const uint32_t kOverlaySc02_8013A448Words[] = {
 #include "8013a448_sc02_0031_words.inc"
@@ -5103,6 +5954,9 @@ static const uint32_t kOverlaySc02_8017F24CWords[] = {
 static const uint32_t kOverlaySc02_8017F3C0Words[] = {
 #include "8017f3c0_sc02_0031_words.inc"
 };
+static const uint32_t kOverlaySc02_8017F53CWords[] = {
+#include "8017f53c_sc02_0031_words.inc"
+};
 static const uint32_t kOverlaySc02_8017F590Words[] = {
 #include "8017f590_sc02_0031_words.inc"
 };
@@ -5870,6 +6724,9 @@ static const uint32_t kOverlaySc02_8013C08CWords[] = {
 };
 static const uint32_t kOverlaySc02_8013B568Words[] = {
 #include "8013b568_sc02_0031_words.inc"
+};
+static const uint32_t kOverlaySc02_8013B598Words[] = {
+#include "8013b598_sc02_0031_words.inc"
 };
 static const uint32_t kOverlaySc02_80136BC4Words[] = {
 #include "80136bc4_sc02_0031_words.inc"
@@ -7131,11 +7988,17 @@ _Static_assert(sizeof(kOverlay800CF180Words) / sizeof(uint32_t) == 68,
 static const uint32_t kMain8005B1C4Words[] = {
 #include "8005b1c4_words.inc"
 };
+static const uint32_t kMain8005B400Words[] = {
+#include "8005b400_words.inc"
+};
 static const uint32_t kMain80010C7CWords[] = {
 #include "80010c7c_words.inc"
 };
 static const uint32_t kMain8001513CWords[] = {
 #include "8001513c_words.inc"
+};
+static const uint32_t kMain80015144Words[] = {
+#include "80015144_words.inc"
 };
 static const uint32_t kMain80015608Words[] = {
 #include "80015608_words.inc"
@@ -7146,11 +8009,26 @@ static const uint32_t kMain80015760Words[] = {
 static const uint32_t kMain80059A80Words[] = {
 #include "80059a80_words.inc"
 };
+static const uint32_t kMain80059B44Words[] = {
+#include "80059b44_words.inc"
+};
 static const uint32_t kMain80019018Words[] = {
 #include "80019018_words.inc"
 };
+static const uint32_t kMain80019028Words[] = {
+#include "80019028_words.inc"
+};
+static const uint32_t kMain8001903CWords[] = {
+#include "8001903c_words.inc"
+};
+static const uint32_t kMain80019064Words[] = {
+#include "80019064_words.inc"
+};
 static const uint32_t kMain800190ACWords[] = {
 #include "800190ac_words.inc"
+};
+static const uint32_t kMain80019198Words[] = {
+#include "80019198_words.inc"
 };
 static const uint32_t kMain80018E78Words[] = {
 #include "80018e78_words.inc"
@@ -7161,8 +8039,38 @@ static const uint32_t kMain8002AB64Words[] = {
 static const uint32_t kMain8002AC00Words[] = {
 #include "8002ac00_words.inc"
 };
+static const uint32_t kMain8002AC98Words[] = {
+#include "8002ac98_words.inc"
+};
+static const uint32_t kMain8002AE60Words[] = {
+#include "8002ae60_words.inc"
+};
+static const uint32_t kMain8002AED0Words[] = {
+#include "8002aed0_words.inc"
+};
+static const uint32_t kMain8002AEE4Words[] = {
+#include "8002aee4_words.inc"
+};
 static const uint32_t kMain80015978Words[] = {
 #include "80015978_words.inc"
+};
+static const uint32_t kMain8001599CWords[] = {
+#include "8001599c_words.inc"
+};
+static const uint32_t kMain800159C0Words[] = {
+#include "800159c0_words.inc"
+};
+static const uint32_t kMain800159E4Words[] = {
+#include "800159e4_words.inc"
+};
+static const uint32_t kMain80015A08Words[] = {
+#include "80015a08_words.inc"
+};
+static const uint32_t kMain80015A2CWords[] = {
+#include "80015a2c_words.inc"
+};
+static const uint32_t kMain80015A50Words[] = {
+#include "80015a50_words.inc"
 };
 static const uint32_t kMain80012CB8Words[] = {
 #include "80012cb8_words.inc"
@@ -7176,11 +8084,38 @@ static const uint32_t kMain80012B58Words[] = {
 static const uint32_t kMain80012D0CWords[] = {
 #include "80012d0c_words.inc"
 };
+static const uint32_t kMain80012DBCWords[] = {
+#include "80012dbc_words.inc"
+};
+static const uint32_t kMain80012E0CWords[] = {
+#include "80012e0c_words.inc"
+};
+static const uint32_t kMain80012E6CWords[] = {
+#include "80012e6c_words.inc"
+};
 static const uint32_t kMain80012F74Words[] = {
 #include "80012f74_words.inc"
 };
 static const uint32_t kMain80012FC8Words[] = {
 #include "80012fc8_words.inc"
+};
+static const uint32_t kMain80013028Words[] = {
+#include "80013028_words.inc"
+};
+static const uint32_t kMain800130D0Words[] = {
+#include "800130d0_words.inc"
+};
+static const uint32_t kMain8001311CWords[] = {
+#include "8001311c_words.inc"
+};
+static const uint32_t kMain80013154Words[] = {
+#include "80013154_words.inc"
+};
+static const uint32_t kMain80013200Words[] = {
+#include "80013200_words.inc"
+};
+static const uint32_t kMain80013228Words[] = {
+#include "80013228_words.inc"
 };
 static const uint32_t kMain80013294Words[] = {
 #include "80013294_words.inc"
@@ -7194,14 +8129,158 @@ static const uint32_t kMain80013328Words[] = {
 static const uint32_t kMain80013350Words[] = {
 #include "80013350_words.inc"
 };
+static const uint32_t kMain800133BCWords[] = {
+#include "800133bc_words.inc"
+};
+static const uint32_t kMain800133E4Words[] = {
+#include "800133e4_words.inc"
+};
+static const uint32_t kMain80013450Words[] = {
+#include "80013450_words.inc"
+};
+static const uint32_t kMain80013478Words[] = {
+#include "80013478_words.inc"
+};
+static const uint32_t kMain800134FCWords[] = {
+#include "800134fc_words.inc"
+};
+static const uint32_t kMain80013694Words[] = {
+#include "80013694_words.inc"
+};
+static const uint32_t kMain8001382CWords[] = {
+#include "8001382c_words.inc"
+};
+static const uint32_t kMain800139C8Words[] = {
+#include "800139c8_words.inc"
+};
+static const uint32_t kMain80013B64Words[] = {
+#include "80013b64_words.inc"
+};
+static const uint32_t kMain80013CFCWords[] = {
+#include "80013cfc_words.inc"
+};
+static const uint32_t kMain80013E94Words[] = {
+#include "80013e94_words.inc"
+};
 static const uint32_t kMain80049CACWords[] = {
 #include "80049cac_words.inc"
+};
+static const uint32_t kMain80049F3CWords[] = {
+#include "80049f3c_words.inc"
+};
+static const uint32_t kMain8004A0DCWords[] = {
+#include "8004a0dc_words.inc"
+};
+static const uint32_t kMain8004A27CWords[] = {
+#include "8004a27c_words.inc"
+};
+static const uint32_t kMain8004A41CWords[] = {
+#include "8004a41c_words.inc"
+};
+static const uint32_t kMain8004A53CWords[] = {
+#include "8004a53c_words.inc"
+};
+static const uint32_t kMain8004A660Words[] = {
+#include "8004a660_words.inc"
+};
+static const uint32_t kMain8004A794Words[] = {
+#include "8004a794_words.inc"
+};
+static const uint32_t kMain8004A8CCWords[] = {
+#include "8004a8cc_words.inc"
+};
+static const uint32_t kMain8004AA18Words[] = {
+#include "8004aa18_words.inc"
+};
+static const uint32_t kMain8004AB68Words[] = {
+#include "8004ab68_words.inc"
+};
+static const uint32_t kMain8004ACCCWords[] = {
+#include "8004accc_words.inc"
+};
+static const uint32_t kMain8004AE3CWords[] = {
+#include "8004ae3c_words.inc"
+};
+static const uint32_t kMain8004AF5CWords[] = {
+#include "8004af5c_words.inc"
+};
+static const uint32_t kMain8004B078Words[] = {
+#include "8004b078_words.inc"
+};
+static const uint32_t kMain8004B1F8Words[] = {
+#include "8004b1f8_words.inc"
+};
+static const uint32_t kMain8004B37CWords[] = {
+#include "8004b37c_words.inc"
+};
+static const uint32_t kMain8004B4C8Words[] = {
+#include "8004b4c8_words.inc"
+};
+static const uint32_t kMain8004B614Words[] = {
+#include "8004b614_words.inc"
+};
+static const uint32_t kMain8004B7E0Words[] = {
+#include "8004b7e0_words.inc"
+};
+static const uint32_t kMain8004B9ACWords[] = {
+#include "8004b9ac_words.inc"
+};
+static const uint32_t kMain8004BACCWords[] = {
+#include "8004bacc_words.inc"
+};
+static const uint32_t kMain8004BBF0Words[] = {
+#include "8004bbf0_words.inc"
+};
+static const uint32_t kMain8004BD38Words[] = {
+#include "8004bd38_words.inc"
+};
+static const uint32_t kMain8004BE8CWords[] = {
+#include "8004be8c_words.inc"
+};
+static const uint32_t kMain8004BFD8Words[] = {
+#include "8004bfd8_words.inc"
+};
+static const uint32_t kMain8004C128Words[] = {
+#include "8004c128_words.inc"
+};
+static const uint32_t kMain8004C2A0Words[] = {
+#include "8004c2a0_words.inc"
+};
+static const uint32_t kMain8004C41CWords[] = {
+#include "8004c41c_words.inc"
+};
+static const uint32_t kMain8004C53CWords[] = {
+#include "8004c53c_words.inc"
+};
+static const uint32_t kMain8004C658Words[] = {
+#include "8004c658_words.inc"
+};
+static const uint32_t kMain8004C7ECWords[] = {
+#include "8004c7ec_words.inc"
+};
+static const uint32_t kMain8004C98CWords[] = {
+#include "8004c98c_words.inc"
+};
+static const uint32_t kMain8004CAD8Words[] = {
+#include "8004cad8_words.inc"
+};
+static const uint32_t kMain8004CC24Words[] = {
+#include "8004cc24_words.inc"
+};
+static const uint32_t kMain8004CE04Words[] = {
+#include "8004ce04_words.inc"
 };
 static const uint32_t kMain8004914CWords[] = {
 #include "8004914c_words.inc"
 };
+static const uint32_t kMain8004917CWords[] = {
+#include "8004917c_words.inc"
+};
 static const uint32_t kMain800491ACWords[] = {
 #include "800491ac_words.inc"
+};
+static const uint32_t kMain800491CCWords[] = {
+#include "800491cc_words.inc"
 };
 static const uint32_t kMain800491ECWords[] = {
 #include "800491ec_words.inc"
@@ -7209,14 +8288,137 @@ static const uint32_t kMain800491ECWords[] = {
 static const uint32_t kMain8004945CWords[] = {
 #include "8004945c_words.inc"
 };
+static const uint32_t kMain8004948CWords[] = {
+#include "8004948c_words.inc"
+};
+static const uint32_t kMain800494C4Words[] = {
+#include "800494c4_words.inc"
+};
+static const uint32_t kMain800494FCWords[] = {
+#include "800494fc_words.inc"
+};
+static const uint32_t kMain8004952CWords[] = {
+#include "8004952c_words.inc"
+};
+static const uint32_t kMain8004955CWords[] = {
+#include "8004955c_words.inc"
+};
+static const uint32_t kMain8004958CWords[] = {
+#include "8004958c_words.inc"
+};
+static const uint32_t kMain800495ECWords[] = {
+#include "800495ec_words.inc"
+};
 static const uint32_t kMain80011E84Words[] = {
 #include "80011e84_words.inc"
+};
+static const uint32_t kMain80011EB4Words[] = {
+#include "80011eb4_words.inc"
+};
+static const uint32_t kMain800120C4Words[] = {
+#include "800120c4_words.inc"
 };
 static const uint32_t kMain8005A600Words[] = {
 #include "8005a600_words.inc"
 };
+static const uint32_t kMain8005A658Words[] = {
+#include "8005a658_words.inc"
+};
 static const uint32_t kMain80024054Words[] = {
 #include "80024054_words.inc"
+};
+static const uint32_t kMain800241C0Words[] = {
+#include "800241c0_words.inc"
+};
+static const uint32_t kMain800242D0Words[] = {
+#include "800242d0_words.inc"
+};
+static const uint32_t kMain800243ECWords[] = {
+#include "800243ec_words.inc"
+};
+static const uint32_t kMain80024448Words[] = {
+#include "80024448_words.inc"
+};
+static const uint32_t kMain800249F0Words[] = {
+#include "800249f0_words.inc"
+};
+static const uint32_t kMain80024BC0Words[] = {
+#include "80024bc0_words.inc"
+};
+static const uint32_t kMain80024DE8Words[] = {
+#include "80024de8_words.inc"
+};
+static const uint32_t kMain80025000Words[] = {
+#include "80025000_words.inc"
+};
+static const uint32_t kMain8002528CWords[] = {
+#include "8002528c_words.inc"
+};
+static const uint32_t kMain80025504Words[] = {
+#include "80025504_words.inc"
+};
+static const uint32_t kMain80025818Words[] = {
+#include "80025818_words.inc"
+};
+static const uint32_t kMain80025A30Words[] = {
+#include "80025a30_words.inc"
+};
+static const uint32_t kMain80025CBCWords[] = {
+#include "80025cbc_words.inc"
+};
+static const uint32_t kMain80025EB8Words[] = {
+#include "80025eb8_words.inc"
+};
+static const uint32_t kMain80026128Words[] = {
+#include "80026128_words.inc"
+};
+static const uint32_t kMain800262D8Words[] = {
+#include "800262d8_words.inc"
+};
+static const uint32_t kMain80026514Words[] = {
+#include "80026514_words.inc"
+};
+static const uint32_t kMain800268D0Words[] = {
+#include "800268d0_words.inc"
+};
+static const uint32_t kMain80026D64Words[] = {
+#include "80026d64_words.inc"
+};
+static const uint32_t kMain80027058Words[] = {
+#include "80027058_words.inc"
+};
+static const uint32_t kMain80027200Words[] = {
+#include "80027200_words.inc"
+};
+static const uint32_t kMain800273F4Words[] = {
+#include "800273f4_words.inc"
+};
+static const uint32_t kMain800275BCWords[] = {
+#include "800275bc_words.inc"
+};
+static const uint32_t kMain800277DCWords[] = {
+#include "800277dc_words.inc"
+};
+static const uint32_t kMain800279ACWords[] = {
+#include "800279ac_words.inc"
+};
+static const uint32_t kMain80027BF0Words[] = {
+#include "80027bf0_words.inc"
+};
+static const uint32_t kMain80027C10Words[] = {
+#include "80027c10_words.inc"
+};
+static const uint32_t kMain80027D20Words[] = {
+#include "80027d20_words.inc"
+};
+static const uint32_t kMain80027F4CWords[] = {
+#include "80027f4c_words.inc"
+};
+static const uint32_t kMain80028200Words[] = {
+#include "80028200_words.inc"
+};
+static const uint32_t kMain80028234Words[] = {
+#include "80028234_words.inc"
 };
 static const uint32_t kMain8001C214Words[] = {
 #include "8001c214_words.inc"
@@ -7238,6 +8440,12 @@ static const uint32_t kMain800234E4Words[] = {
 };
 static const uint32_t kMain80023570Words[] = {
 #include "80023570_words.inc"
+};
+static const uint32_t kMain8002374CWords[] = {
+#include "8002374c_words.inc"
+};
+static const uint32_t kMain80023BF0Words[] = {
+#include "80023bf0_words.inc"
 };
 static const uint32_t kMain8001CA1CWords[] = {
 #include "8001ca1c_words.inc"
@@ -7305,6 +8513,9 @@ static const uint32_t kMain8001D130Words[] = {
 static const uint32_t kMain8001D150Words[] = {
 #include "8001d150_words.inc"
 };
+static const uint32_t kMain8001D16CWords[] = {
+#include "8001d16c_words.inc"
+};
 static const uint32_t kMain8001C8C4Words[] = {
 #include "8001c8c4_words.inc"
 };
@@ -7329,11 +8540,98 @@ static const uint32_t kMain80058890Words[] = {
 static const uint32_t kMain8001FB8CWords[] = {
 #include "8001fb8c_words.inc"
 };
+static const uint32_t kMain8001FC08Words[] = {
+#include "8001fc08_words.inc"
+};
+static const uint32_t kMain80020248Words[] = {
+#include "80020248_words.inc"
+};
+static const uint32_t kMain80020598Words[] = {
+#include "80020598_words.inc"
+};
+static const uint32_t kMain80020A28Words[] = {
+#include "80020a28_words.inc"
+};
+static const uint32_t kMain80020DA4Words[] = {
+#include "80020da4_words.inc"
+};
 static const uint32_t kMain80020F34Words[] = {
 #include "80020f34_words.inc"
 };
+static const uint32_t kMain80021008Words[] = {
+#include "80021008_words.inc"
+};
+static const uint32_t kMain80021050Words[] = {
+#include "80021050_words.inc"
+};
+static const uint32_t kMain8002109CWords[] = {
+#include "8002109c_words.inc"
+};
+static const uint32_t kMain80021120Words[] = {
+#include "80021120_words.inc"
+};
+static const uint32_t kMain80021174Words[] = {
+#include "80021174_words.inc"
+};
+static const uint32_t kMain80021284Words[] = {
+#include "80021284_words.inc"
+};
+static const uint32_t kMain800215F4Words[] = {
+#include "800215f4_words.inc"
+};
+static const uint32_t kMain80021D38Words[] = {
+#include "80021d38_words.inc"
+};
+static const uint32_t kMain800221A8Words[] = {
+#include "800221a8_words.inc"
+};
+static const uint32_t kMain800226C0Words[] = {
+#include "800226c0_words.inc"
+};
+static const uint32_t kMain80023138Words[] = {
+#include "80023138_words.inc"
+};
 static const uint32_t kMain8001D388Words[] = {
 #include "8001d388_words.inc"
+};
+static const uint32_t kMain8001D3FCWords[] = {
+#include "8001d3fc_words.inc"
+};
+static const uint32_t kMain8001D70CWords[] = {
+#include "8001d70c_words.inc"
+};
+static const uint32_t kMain8001D8C4Words[] = {
+#include "8001d8c4_words.inc"
+};
+static const uint32_t kMain8001DA34Words[] = {
+#include "8001da34_words.inc"
+};
+static const uint32_t kMain8001E094Words[] = {
+#include "8001e094_words.inc"
+};
+static const uint32_t kMain8001E378Words[] = {
+#include "8001e378_words.inc"
+};
+static const uint32_t kMain8001E668Words[] = {
+#include "8001e668_words.inc"
+};
+static const uint32_t kMain8001E7E0Words[] = {
+#include "8001e7e0_words.inc"
+};
+static const uint32_t kMain8001EA14Words[] = {
+#include "8001ea14_words.inc"
+};
+static const uint32_t kMain8001EFE0Words[] = {
+#include "8001efe0_words.inc"
+};
+static const uint32_t kMain8001F730Words[] = {
+#include "8001f730_words.inc"
+};
+static const uint32_t kMain8001F974Words[] = {
+#include "8001f974_words.inc"
+};
+static const uint32_t kMain8001F97CWords[] = {
+#include "8001f97c_words.inc"
 };
 static const uint32_t kMain80015908Words[] = {
 #include "80015908_words.inc"
@@ -7344,6 +8642,21 @@ static const uint32_t kMain80015954Words[] = {
 static const uint32_t kMain80015A74Words[] = {
 #include "80015a74_words.inc"
 };
+static const uint32_t kMain80015AD0Words[] = {
+#include "80015ad0_words.inc"
+};
+static const uint32_t kMain80015B6CWords[] = {
+#include "80015b6c_words.inc"
+};
+static const uint32_t kMain80015D4CWords[] = {
+#include "80015d4c_words.inc"
+};
+static const uint32_t kMain80015F04Words[] = {
+#include "80015f04_words.inc"
+};
+static const uint32_t kMain80016110Words[] = {
+#include "80016110_words.inc"
+};
 static const uint32_t kMain8005B75CWords[] = {
 #include "8005b75c_words.inc"
 };
@@ -7353,11 +8666,17 @@ static const uint32_t kMain80058B7CWords[] = {
 static const uint32_t kMain80058C6CWords[] = {
 #include "80058c6c_words.inc"
 };
+static const uint32_t kMain80058CA8Words[] = {
+#include "80058ca8_words.inc"
+};
 static const uint32_t kMain8005E8E8Words[] = {
 #include "8005e8e8_words.inc"
 };
 static const uint32_t kMain8004974CWords[] = {
 #include "8004974c_words.inc"
+};
+static const uint32_t kMain8004978CWords[] = {
+#include "8004978c_words.inc"
 };
 static const uint32_t kMain80049A18Words[] = {
 #include "80049a18_words.inc"
@@ -7368,6 +8687,12 @@ static const uint32_t kMain80052FCCWords[] = {
 static const uint32_t kMain80054514Words[] = {
 #include "80054514_words.inc"
 };
+static const uint32_t kMain800547D8Words[] = {
+#include "800547d8_words.inc"
+};
+static const uint32_t kMain80054AACWords[] = {
+#include "80054aac_words.inc"
+};
 static const uint32_t kMain80054DCCWords[] = {
 #include "80054dcc_words.inc"
 };
@@ -7376,6 +8701,9 @@ static const uint32_t kMain80048EACWords[] = {
 };
 static const uint32_t kMain80048FB8Words[] = {
 #include "80048fb8_words.inc"
+};
+static const uint32_t kMain8004901CWords[] = {
+#include "8004901c_words.inc"
 };
 static const uint32_t kMain80053050Words[] = {
 #include "80053050_words.inc"
@@ -7386,6 +8714,18 @@ static const uint32_t kMain8005AE80Words[] = {
 static const uint32_t kMain8005C054Words[] = {
 #include "8005c054_words.inc"
 };
+static const uint32_t kMain8005C1C0Words[] = {
+#include "8005c1c0_words.inc"
+};
+static const uint32_t kMain8005C29CWords[] = {
+#include "8005c29c_words.inc"
+};
+static const uint32_t kMain8005C2C8Words[] = {
+#include "8005c2c8_words.inc"
+};
+static const uint32_t kMain8005C2F8Words[] = {
+#include "8005c2f8_words.inc"
+};
 static const uint32_t kMain80010B40Words[] = {
 #include "80010b40_words.inc"
 };
@@ -7395,22 +8735,262 @@ static const uint32_t kMain80010BB4Words[] = {
 static const uint32_t kMain80029690Words[] = {
 #include "80029690_words.inc"
 };
+static const uint32_t kMain800296F8Words[] = {
+#include "800296f8_words.inc"
+};
+static const uint32_t kMain80029774Words[] = {
+#include "80029774_words.inc"
+};
+static const uint32_t kMain800298BCWords[] = {
+#include "800298bc_words.inc"
+};
+static const uint32_t kMain8002992CWords[] = {
+#include "8002992c_words.inc"
+};
+static const uint32_t kMain80029A58Words[] = {
+#include "80029a58_words.inc"
+};
+static const uint32_t kMain80029A94Words[] = {
+#include "80029a94_words.inc"
+};
+static const uint32_t kMain80029AACWords[] = {
+#include "80029aac_words.inc"
+};
+static const uint32_t kMain80029AF4Words[] = {
+#include "80029af4_words.inc"
+};
+static const uint32_t kMain80029B4CWords[] = {
+#include "80029b4c_words.inc"
+};
+static const uint32_t kMain80029BC8Words[] = {
+#include "80029bc8_words.inc"
+};
+static const uint32_t kMain80029C44Words[] = {
+#include "80029c44_words.inc"
+};
+static const uint32_t kMain80029CD4Words[] = {
+#include "80029cd4_words.inc"
+};
+static const uint32_t kMain80029D3CWords[] = {
+#include "80029d3c_words.inc"
+};
+static const uint32_t kMain80029DB4Words[] = {
+#include "80029db4_words.inc"
+};
+static const uint32_t kMain80029E30Words[] = {
+#include "80029e30_words.inc"
+};
+static const uint32_t kMain80029E94Words[] = {
+#include "80029e94_words.inc"
+};
+static const uint32_t kMain80029EC0Words[] = {
+#include "80029ec0_words.inc"
+};
+static const uint32_t kMain80029ED4Words[] = {
+#include "80029ed4_words.inc"
+};
+static const uint32_t kMain80029FD4Words[] = {
+#include "80029fd4_words.inc"
+};
+static const uint32_t kMain80029FE4Words[] = {
+#include "80029fe4_words.inc"
+};
+static const uint32_t kMain8002A04CWords[] = {
+#include "8002a04c_words.inc"
+};
+static const uint32_t kMain8002A088Words[] = {
+#include "8002a088_words.inc"
+};
+static const uint32_t kMain8002A108Words[] = {
+#include "8002a108_words.inc"
+};
+static const uint32_t kMain8002A1B4Words[] = {
+#include "8002a1b4_words.inc"
+};
+static const uint32_t kMain8002A200Words[] = {
+#include "8002a200_words.inc"
+};
+static const uint32_t kMain8002A234Words[] = {
+#include "8002a234_words.inc"
+};
+static const uint32_t kMain8002A26CWords[] = {
+#include "8002a26c_words.inc"
+};
+static const uint32_t kMain8002A27CWords[] = {
+#include "8002a27c_words.inc"
+};
+static const uint32_t kMain8002A28CWords[] = {
+#include "8002a28c_words.inc"
+};
+static const uint32_t kMain8002A2B0Words[] = {
+#include "8002a2b0_words.inc"
+};
+static const uint32_t kMain8002A2D4Words[] = {
+#include "8002a2d4_words.inc"
+};
+static const uint32_t kMain8002A354Words[] = {
+#include "8002a354_words.inc"
+};
+static const uint32_t kMain8002A400Words[] = {
+#include "8002a400_words.inc"
+};
+static const uint32_t kMain8002A44CWords[] = {
+#include "8002a44c_words.inc"
+};
+static const uint32_t kMain8002A480Words[] = {
+#include "8002a480_words.inc"
+};
+static const uint32_t kMain8002A4B8Words[] = {
+#include "8002a4b8_words.inc"
+};
+static const uint32_t kMain8002A4C8Words[] = {
+#include "8002a4c8_words.inc"
+};
+static const uint32_t kMain8002A4D8Words[] = {
+#include "8002a4d8_words.inc"
+};
+static const uint32_t kMain8002A4FCWords[] = {
+#include "8002a4fc_words.inc"
+};
+static const uint32_t kMain8002A520Words[] = {
+#include "8002a520_words.inc"
+};
+static const uint32_t kMain8002A544Words[] = {
+#include "8002a544_words.inc"
+};
+static const uint32_t kMain8002A5C4Words[] = {
+#include "8002a5c4_words.inc"
+};
+static const uint32_t kMain8002A670Words[] = {
+#include "8002a670_words.inc"
+};
+static const uint32_t kMain8002A6BCWords[] = {
+#include "8002a6bc_words.inc"
+};
+static const uint32_t kMain8002A6F0Words[] = {
+#include "8002a6f0_words.inc"
+};
+static const uint32_t kMain8002A728Words[] = {
+#include "8002a728_words.inc"
+};
+static const uint32_t kMain8002A738Words[] = {
+#include "8002a738_words.inc"
+};
+static const uint32_t kMain8002A748Words[] = {
+#include "8002a748_words.inc"
+};
+static const uint32_t kMain8002A76CWords[] = {
+#include "8002a76c_words.inc"
+};
+static const uint32_t kMain8002A790Words[] = {
+#include "8002a790_words.inc"
+};
+static const uint32_t kMain8002A7B4Words[] = {
+#include "8002a7b4_words.inc"
+};
+static const uint32_t kMain8002A834Words[] = {
+#include "8002a834_words.inc"
+};
+static const uint32_t kMain8002A8E0Words[] = {
+#include "8002a8e0_words.inc"
+};
+static const uint32_t kMain8002A92CWords[] = {
+#include "8002a92c_words.inc"
+};
+static const uint32_t kMain8002A960Words[] = {
+#include "8002a960_words.inc"
+};
+static const uint32_t kMain8002A998Words[] = {
+#include "8002a998_words.inc"
+};
+static const uint32_t kMain8002A9A8Words[] = {
+#include "8002a9a8_words.inc"
+};
+static const uint32_t kMain8002A9B8Words[] = {
+#include "8002a9b8_words.inc"
+};
+static const uint32_t kMain8002A9DCWords[] = {
+#include "8002a9dc_words.inc"
+};
+static const uint32_t kMain8002AA00Words[] = {
+#include "8002aa00_words.inc"
+};
+static const uint32_t kMain8002AA3CWords[] = {
+#include "8002aa3c_words.inc"
+};
+static const uint32_t kMain8002AAACWords[] = {
+#include "8002aaac_words.inc"
+};
+static const uint32_t kMain8002AAB4Words[] = {
+#include "8002aab4_words.inc"
+};
 static const uint32_t kMain80029274Words[] = {
 #include "80029274_words.inc"
+};
+static const uint32_t kMain8002931CWords[] = {
+#include "8002931c_words.inc"
 };
 static const uint32_t kMain8002941CWords[] = {
 #include "8002941c_words.inc"
 };
+static const uint32_t kMain80029444Words[] = {
+#include "80029444_words.inc"
+};
 static const uint32_t kMain8002AEF8Words[] = {
 #include "8002aef8_words.inc"
+};
+static const uint32_t kMain8002AF08Words[] = {
+#include "8002af08_words.inc"
+};
+static const uint32_t kMain8002AF18Words[] = {
+#include "8002af18_words.inc"
+};
+static const uint32_t kMain8002AF48Words[] = {
+#include "8002af48_words.inc"
+};
+static const uint32_t kMain8002AF60Words[] = {
+#include "8002af60_words.inc"
+};
+static const uint32_t kMain8002AF70Words[] = {
+#include "8002af70_words.inc"
+};
+static const uint32_t kMain8002B00CWords[] = {
+#include "8002b00c_words.inc"
+};
+static const uint32_t kMain8002B064Words[] = {
+#include "8002b064_words.inc"
+};
+static const uint32_t kMain8002B08CWords[] = {
+#include "8002b08c_words.inc"
+};
+static const uint32_t kMain8002B0B4Words[] = {
+#include "8002b0b4_words.inc"
+};
+static const uint32_t kMain8002C320Words[] = {
+#include "8002c320_words.inc"
+};
+static const uint32_t kMain8002C3B0Words[] = {
+#include "8002c3b0_words.inc"
+};
+static const uint32_t kMain8002C410Words[] = {
+#include "8002c410_words.inc"
 };
 _Static_assert(sizeof(kMain8002AEF8Words) / sizeof(uint32_t) == 4, "main 8002AEF8 source span changed");
 static const uint32_t kMain80029254Words[] = {
 #include "80029254_words.inc"
 };
+static const uint32_t kMain80029264Words[] = {
+#include "80029264_words.inc"
+};
 _Static_assert(sizeof(kMain80029254Words) / sizeof(uint32_t) == 4, "main 80029254 source span changed");
 static const uint32_t kMain80011DCCWords[] = {
 #include "80011dcc_words.inc"
+};
+static const uint32_t kMain80011DF4Words[] = {
+#include "80011df4_words.inc"
+};
+static const uint32_t kMain80011E10Words[] = {
+#include "80011e10_words.inc"
 };
 _Static_assert(sizeof(kMain80011DCCWords) / sizeof(uint32_t) == 10, "main 80011DCC source span changed");
 static const uint32_t kMain8001B384Words[] = {
@@ -7420,9 +9000,45 @@ _Static_assert(sizeof(kMain8001B384Words) / sizeof(uint32_t) == 4, "main 8001B38
 static const uint32_t kMain8001C0C8Words[] = {
 #include "8001c0c8_words.inc"
 };
+static const uint32_t kMain8001C14CWords[] = {
+#include "8001c14c_words.inc"
+};
+static const uint32_t kMain8001C1E4Words[] = {
+#include "8001c1e4_words.inc"
+};
 _Static_assert(sizeof(kMain8001C0C8Words) / sizeof(uint32_t) == 33, "main 8001C0C8 source span changed");
 static const uint32_t kMain8001B85CWords[] = {
 #include "8001b85c_words.inc"
+};
+static const uint32_t kMain8001B86CWords[] = {
+#include "8001b86c_words.inc"
+};
+static const uint32_t kMain8001BA84Words[] = {
+#include "8001ba84_words.inc"
+};
+static const uint32_t kMain8001BADCWords[] = {
+#include "8001badc_words.inc"
+};
+static const uint32_t kMain8001BB60Words[] = {
+#include "8001bb60_words.inc"
+};
+static const uint32_t kMain8001BBBCWords[] = {
+#include "8001bbbc_words.inc"
+};
+static const uint32_t kMain8001BC6CWords[] = {
+#include "8001bc6c_words.inc"
+};
+static const uint32_t kMain8001BD80Words[] = {
+#include "8001bd80_words.inc"
+};
+static const uint32_t kMain8001BDA0Words[] = {
+#include "8001bda0_words.inc"
+};
+static const uint32_t kMain8001BE20Words[] = {
+#include "8001be20_words.inc"
+};
+static const uint32_t kMain8001BE30Words[] = {
+#include "8001be30_words.inc"
 };
 _Static_assert(sizeof(kMain8001B85CWords) / sizeof(uint32_t) == 4, "main 8001B85C source span changed");
 static const uint32_t kMain80011CFCWords[] = {
@@ -7432,9 +9048,33 @@ _Static_assert(sizeof(kMain80011CFCWords) / sizeof(uint32_t) == 22, "main 80011C
 static const uint32_t kMain80011D54Words[] = {
 #include "80011d54_words.inc"
 };
+static const uint32_t kMain80011DA0Words[] = {
+#include "80011da0_words.inc"
+};
 _Static_assert(sizeof(kMain80011D54Words) / sizeof(uint32_t) == 19, "main 80011D54 source span changed");
 static const uint32_t kMain800191D4Words[] = {
 #include "800191d4_words.inc"
+};
+static const uint32_t kMain8001923CWords[] = {
+#include "8001923c_words.inc"
+};
+static const uint32_t kMain8001931CWords[] = {
+#include "8001931c_words.inc"
+};
+static const uint32_t kMain80019378Words[] = {
+#include "80019378_words.inc"
+};
+static const uint32_t kMain80019388Words[] = {
+#include "80019388_words.inc"
+};
+static const uint32_t kMain80019398Words[] = {
+#include "80019398_words.inc"
+};
+static const uint32_t kMain800193A8Words[] = {
+#include "800193a8_words.inc"
+};
+static const uint32_t kMain800193B8Words[] = {
+#include "800193b8_words.inc"
 };
 _Static_assert(sizeof(kMain800191D4Words) / sizeof(uint32_t) == 26, "main 800191D4 source span changed");
 static const uint32_t kMain800191BCWords[] = {
@@ -7460,6 +9100,9 @@ _Static_assert(sizeof(kMain80029504Words) / sizeof(uint32_t) == 4, "main 8002950
 static const uint32_t kMain8002F658Words[] = {
 #include "8002f658_words.inc"
 };
+static const uint32_t kMain8002F67CWords[] = {
+#include "8002f67c_words.inc"
+};
 _Static_assert(sizeof(kMain8002F658Words) / sizeof(uint32_t) == 9, "main 8002F658 source span changed");
 static const uint32_t kMain8002F5C8Words[] = {
 #include "8002f5c8_words.inc"
@@ -7472,6 +9115,9 @@ _Static_assert(sizeof(kMain80018714Words) / sizeof(uint32_t) == 7, "main 8001871
 static const uint32_t kMain80018730Words[] = {
 #include "80018730_words.inc"
 };
+static const uint32_t kMain80018918Words[] = {
+#include "80018918_words.inc"
+};
 _Static_assert(sizeof(kMain80018730Words) / sizeof(uint32_t) == 122, "main 80018730 source span changed");
 static const uint32_t kMain8002D858Words[] = {
 #include "8002d858_words.inc"
@@ -7480,6 +9126,63 @@ _Static_assert(sizeof(kMain8002D858Words) / sizeof(uint32_t) == 20, "main 8002D8
 static const uint32_t kMain8003D650Words[] = {
 #include "8003d650_words.inc"
 };
+static const uint32_t kMain8003D6E4Words[] = {
+#include "8003d6e4_words.inc"
+};
+static const uint32_t kMain8003D94CWords[] = {
+#include "8003d94c_words.inc"
+};
+static const uint32_t kMain8003D96CWords[] = {
+#include "8003d96c_words.inc"
+};
+static const uint32_t kMain8003D98CWords[] = {
+#include "8003d98c_words.inc"
+};
+static const uint32_t kMain8003D9CCWords[] = {
+#include "8003d9cc_words.inc"
+};
+static const uint32_t kMain8003DA1CWords[] = {
+#include "8003da1c_words.inc"
+};
+static const uint32_t kMain8003DC90Words[] = {
+#include "8003dc90_words.inc"
+};
+static const uint32_t kMain8003DF8CWords[] = {
+#include "8003df8c_words.inc"
+};
+static const uint32_t kMain8003E248Words[] = {
+#include "8003e248_words.inc"
+};
+static const uint32_t kMain8003E2E4Words[] = {
+#include "8003e2e4_words.inc"
+};
+static const uint32_t kMain8003E310Words[] = {
+#include "8003e310_words.inc"
+};
+static const uint32_t kMain8003E418Words[] = {
+#include "8003e418_words.inc"
+};
+static const uint32_t kMain8003E65CWords[] = {
+#include "8003e65c_words.inc"
+};
+static const uint32_t kMain8003EA04Words[] = {
+#include "8003ea04_words.inc"
+};
+static const uint32_t kMain8003EAB4Words[] = {
+#include "8003eab4_words.inc"
+};
+static const uint32_t kMain8003EBB0Words[] = {
+#include "8003ebb0_words.inc"
+};
+static const uint32_t kMain8003EC10Words[] = {
+#include "8003ec10_words.inc"
+};
+static const uint32_t kMain8003ED94Words[] = {
+#include "8003ed94_words.inc"
+};
+static const uint32_t kMain8003EDBCWords[] = {
+#include "8003edbc_words.inc"
+};
 _Static_assert(sizeof(kMain8003D650Words) / sizeof(uint32_t) == 37, "main 8003D650 source span changed");
 static const uint32_t kMain8001BFA0Words[] = {
 #include "8001bfa0_words.inc"
@@ -7487,6 +9190,9 @@ static const uint32_t kMain8001BFA0Words[] = {
 _Static_assert(sizeof(kMain8001BFA0Words) / sizeof(uint32_t) == 4, "main 8001BFA0 source span changed");
 static const uint32_t kMain8001BFB0Words[] = {
 #include "8001bfb0_words.inc"
+};
+static const uint32_t kMain8001BFD0Words[] = {
+#include "8001bfd0_words.inc"
 };
 _Static_assert(sizeof(kMain8001BFB0Words) / sizeof(uint32_t) == 8, "main 8001BFB0 source span changed");
 static const uint32_t kMain8004657CWords[] = {
@@ -7520,6 +9226,9 @@ _Static_assert(sizeof(kMain80046ABCWords) / sizeof(uint32_t) == 34, "main 80046A
 static const uint32_t kMain800468FCWords[] = {
 #include "800468fc_words.inc"
 };
+static const uint32_t kMain80046980Words[] = {
+#include "80046980_words.inc"
+};
 _Static_assert(sizeof(kMain800468FCWords) / sizeof(uint32_t) == 33, "main 800468FC source span changed");
 static const uint32_t kMain80046BFCWords[] = {
 #include "80046bfc_words.inc"
@@ -7539,6 +9248,9 @@ static const uint32_t kMain80046994Words[] = {
 _Static_assert(sizeof(kMain80046994Words) / sizeof(uint32_t) == 5, "main 80046994 source span changed");
 static const uint32_t kMain800469CCWords[] = {
 #include "800469cc_words.inc"
+};
+static const uint32_t kMain80046A5CWords[] = {
+#include "80046a5c_words.inc"
 };
 _Static_assert(sizeof(kMain800469CCWords) / sizeof(uint32_t) == 36, "main 800469CC source span changed");
 static const uint32_t kMain80046610Words[] = {
@@ -7560,6 +9272,9 @@ _Static_assert(sizeof(kMain8002D8D4Words) / sizeof(uint32_t) == 12, "main 8002D8
 static const uint32_t kMain80014B10Words[] = {
 #include "80014b10_words.inc"
 };
+static const uint32_t kMain80014BFCWords[] = {
+#include "80014bfc_words.inc"
+};
 _Static_assert(sizeof(kMain80014B10Words) / sizeof(uint32_t) == 59, "main 80014B10 source span changed");
 static const uint32_t kMain80029344Words[] = {
 #include "80029344_words.inc"
@@ -7569,11 +9284,20 @@ _Static_assert(sizeof(kMain80029344Words) / sizeof(uint32_t) == 54,
 static const uint32_t kMain80010AE0Words[] = {
 #include "80010ae0_words.inc"
 };
+static const uint32_t kMain80010B10Words[] = {
+#include "80010b10_words.inc"
+};
+static const uint32_t kMain80010B2CWords[] = {
+#include "80010b2c_words.inc"
+};
 static const uint32_t kMain80011B7CWords[] = {
 #include "80011b7c_words.inc"
 };
 static const uint32_t kMain80011C10Words[] = {
 #include "80011c10_words.inc"
+};
+static const uint32_t kMain80011C8CWords[] = {
+#include "80011c8c_words.inc"
 };
 _Static_assert(sizeof(kMain80011C10Words) / sizeof(uint32_t) == 31,
                "main 80011C10 source span changed");
@@ -7610,6 +9334,9 @@ static const uint32_t kMain8002CDD8Words[] = {
 static const uint32_t kMain8003D25CWords[] = {
 #include "8003d25c_words.inc"
 };
+static const uint32_t kMain8003D32CWords[] = {
+#include "8003d32c_words.inc"
+};
 static const uint32_t kMain8002CFE4Words[] = {
 #include "8002cfe4_words.inc"
 };
@@ -7633,6 +9360,9 @@ static const uint32_t kMain80030F80Words[] = {
 };
 static const uint32_t kMain8002D320Words[] = {
 #include "8002d320_words.inc"
+};
+static const uint32_t kMain8002D4B8Words[] = {
+#include "8002d4b8_words.inc"
 };
 static const uint32_t kMain8002EE64Words[] = {
 #include "8002ee64_words.inc"
@@ -7673,6 +9403,9 @@ static const uint32_t kMain8003C23CWords[] = {
 static const uint32_t kMain8003D3B4Words[] = {
 #include "8003d3b4_words.inc"
 };
+static const uint32_t kMain8003D3F8Words[] = {
+#include "8003d3f8_words.inc"
+};
 static const uint32_t kMain80031BE0Words[] = {
 #include "80031be0_words.inc"
 };
@@ -7691,6 +9424,9 @@ static const uint32_t kMain800336A8Words[] = {
 static const uint32_t kMain8003388CWords[] = {
 #include "8003388c_words.inc"
 };
+static const uint32_t kMain800342E8Words[] = {
+#include "800342e8_words.inc"
+};
 static const uint32_t kMain80034650Words[] = {
 #include "80034650_words.inc"
 };
@@ -7699,6 +9435,18 @@ static const uint32_t kMain8003F144Words[] = {
 };
 static const uint32_t kMain8003F380Words[] = {
 #include "8003f380_words.inc"
+};
+static const uint32_t kMain8003F434Words[] = {
+#include "8003f434_words.inc"
+};
+static const uint32_t kMain8003F7C8Words[] = {
+#include "8003f7c8_words.inc"
+};
+static const uint32_t kMain8003F840Words[] = {
+#include "8003f840_words.inc"
+};
+static const uint32_t kMain8003FA54Words[] = {
+#include "8003fa54_words.inc"
 };
 static const uint32_t kMain800414E4Words[] = {
 #include "800414e4_words.inc"
@@ -7714,6 +9462,12 @@ static const uint32_t kDraw80052654Words[] = {
 };
 static const uint32_t kDraw80059D68Words[] = {
 #include "80059d68_words.inc"
+};
+static const uint32_t kMain80059E6CWords[] = {
+#include "80059e6c_words.inc"
+};
+static const uint32_t kMain80059F88Words[] = {
+#include "80059f88_words.inc"
 };
 static const uint32_t kDraw8005A870Words[] = {
 #include "8005a870_words.inc"
@@ -7733,17 +9487,50 @@ static const uint32_t kDraw8005ACF0Words[] = {
 static const uint32_t kDraw8005AD34Words[] = {
 #include "8005ad34_words.inc"
 };
+static const uint32_t kMain8005ADB8Words[] = {
+#include "8005adb8_words.inc"
+};
+static const uint32_t kMain8005AE68Words[] = {
+#include "8005ae68_words.inc"
+};
 static const uint32_t kDraw8005B7B0Words[] = {
 #include "8005b7b0_words.inc"
 };
 static const uint32_t kDraw8005BA90Words[] = {
 #include "8005ba90_words.inc"
 };
+static const uint32_t kMain8005BD7CWords[] = {
+#include "8005bd7c_words.inc"
+};
 static const uint32_t kMain8001099CWords[] = {
 #include "8001099c_words.inc"
 };
 static const uint32_t kMain80058CE4Words[] = {
 #include "80058ce4_words.inc"
+};
+static const uint32_t kMain80058D20Words[] = {
+#include "80058d20_words.inc"
+};
+static const uint32_t kMain80058D48Words[] = {
+#include "80058d48_words.inc"
+};
+static const uint32_t kMain80058D70Words[] = {
+#include "80058d70_words.inc"
+};
+static const uint32_t kMain80058D84Words[] = {
+#include "80058d84_words.inc"
+};
+static const uint32_t kMain80058D98Words[] = {
+#include "80058d98_words.inc"
+};
+static const uint32_t kMain80058DACWords[] = {
+#include "80058dac_words.inc"
+};
+static const uint32_t kMain80058DC0Words[] = {
+#include "80058dc0_words.inc"
+};
+static const uint32_t kMain80058DD4Words[] = {
+#include "80058dd4_words.inc"
 };
 static const uint32_t kDraw8005B710Words[] = {
 #include "8005b710_words.inc"
@@ -7757,11 +9544,71 @@ static const uint32_t kDisplay80043078Words[] = {
 static const uint32_t kDisplay80059FC0Words[] = {
 #include "80059fc0_words.inc"
 };
+static const uint32_t kMain8005A468Words[] = {
+#include "8005a468_words.inc"
+};
+static const uint32_t kMain8005A4A0Words[] = {
+#include "8005a4a0_words.inc"
+};
+static const uint32_t kMain8005A4D0Words[] = {
+#include "8005a4d0_words.inc"
+};
+static const uint32_t kMain8005A50CWords[] = {
+#include "8005a50c_words.inc"
+};
+static const uint32_t kMain8005A590Words[] = {
+#include "8005a590_words.inc"
+};
+static const uint32_t kMain8005A5D4Words[] = {
+#include "8005a5d4_words.inc"
+};
 static const uint32_t kDisplay8005B684Words[] = {
 #include "8005b684_words.inc"
 };
+static const uint32_t kMain8005B6ACWords[] = {
+#include "8005b6ac_words.inc"
+};
+static const uint32_t kMain8005B6C0Words[] = {
+#include "8005b6c0_words.inc"
+};
 static const uint32_t kDraw800426FCWords[] = {
 #include "800426fc_words.inc"
+};
+static const uint32_t kMain80042718Words[] = {
+#include "80042718_words.inc"
+};
+static const uint32_t kMain800427F4Words[] = {
+#include "800427f4_words.inc"
+};
+static const uint32_t kMain800429DCWords[] = {
+#include "800429dc_words.inc"
+};
+static const uint32_t kMain80042B30Words[] = {
+#include "80042b30_words.inc"
+};
+static const uint32_t kMain80042BDCWords[] = {
+#include "80042bdc_words.inc"
+};
+static const uint32_t kMain80042C64Words[] = {
+#include "80042c64_words.inc"
+};
+static const uint32_t kMain80042C90Words[] = {
+#include "80042c90_words.inc"
+};
+static const uint32_t kMain80042CE8Words[] = {
+#include "80042ce8_words.inc"
+};
+static const uint32_t kMain80042D60Words[] = {
+#include "80042d60_words.inc"
+};
+static const uint32_t kMain80042D8CWords[] = {
+#include "80042d8c_words.inc"
+};
+static const uint32_t kMain80042DB8Words[] = {
+#include "80042db8_words.inc"
+};
+static const uint32_t kMain80042E08Words[] = {
+#include "80042e08_words.inc"
 };
 static const uint32_t kGte80053CF8Words[] = {
 #include "80053cf8_words.inc"
@@ -7769,11 +9616,29 @@ static const uint32_t kGte80053CF8Words[] = {
 static const uint32_t kProjection8005283CWords[] = {
 #include "8005283c_words.inc"
 };
+static const uint32_t kMain80052AA0Words[] = {
+#include "80052aa0_words.inc"
+};
+static const uint32_t kMain80052BDCWords[] = {
+#include "80052bdc_words.inc"
+};
 static const uint32_t kProjection80052D00Words[] = {
 #include "80052d00_words.inc"
 };
 static const uint32_t kProjection80052D90Words[] = {
 #include "80052d90_words.inc"
+};
+static const uint32_t kMain80052E38Words[] = {
+#include "80052e38_words.inc"
+};
+static const uint32_t kMain80052E68Words[] = {
+#include "80052e68_words.inc"
+};
+static const uint32_t kMain80052F04Words[] = {
+#include "80052f04_words.inc"
+};
+static const uint32_t kMain80052F38Words[] = {
+#include "80052f38_words.inc"
 };
 static const uint32_t kProjection80052BECWords[] = {
 #include "80052bec_words.inc"
@@ -7811,6 +9676,54 @@ static const uint32_t kCamera800538BCWords[] = {
 static const uint32_t kCamera800538ECWords[] = {
 #include "800538ec_words.inc"
 };
+static const uint32_t kMain80053978Words[] = {
+#include "80053978_words.inc"
+};
+static const uint32_t kMain800539C8Words[] = {
+#include "800539c8_words.inc"
+};
+static const uint32_t kMain800539D8Words[] = {
+#include "800539d8_words.inc"
+};
+static const uint32_t kMain800539E8Words[] = {
+#include "800539e8_words.inc"
+};
+static const uint32_t kMain800539F8Words[] = {
+#include "800539f8_words.inc"
+};
+static const uint32_t kMain80053A18Words[] = {
+#include "80053a18_words.inc"
+};
+static const uint32_t kMain80053A2CWords[] = {
+#include "80053a2c_words.inc"
+};
+static const uint32_t kMain80053A40Words[] = {
+#include "80053a40_words.inc"
+};
+static const uint32_t kMain80053A4CWords[] = {
+#include "80053a4c_words.inc"
+};
+static const uint32_t kMain80053A60Words[] = {
+#include "80053a60_words.inc"
+};
+static const uint32_t kMain80053A78Words[] = {
+#include "80053a78_words.inc"
+};
+static const uint32_t kMain80053A8CWords[] = {
+#include "80053a8c_words.inc"
+};
+static const uint32_t kMain80053AA0Words[] = {
+#include "80053aa0_words.inc"
+};
+static const uint32_t kMain80053AB4Words[] = {
+#include "80053ab4_words.inc"
+};
+static const uint32_t kMain80053AC0Words[] = {
+#include "80053ac0_words.inc"
+};
+static const uint32_t kMain80053ACCWords[] = {
+#include "80053acc_words.inc"
+};
 static const uint32_t kCamera80053F6CWords[] = {
 #include "80053f6c_words.inc"
 };
@@ -7826,11 +9739,32 @@ static const uint32_t kCamera800484ECWords[] = {
 static const uint32_t kMain8004864CWords[] = {
 #include "8004864c_words.inc"
 };
+static const uint32_t kMain8004867CWords[] = {
+#include "8004867c_words.inc"
+};
+static const uint32_t kMain8004871CWords[] = {
+#include "8004871c_words.inc"
+};
+static const uint32_t kMain800487BCWords[] = {
+#include "800487bc_words.inc"
+};
+static const uint32_t kMain8004880CWords[] = {
+#include "8004880c_words.inc"
+};
+static const uint32_t kMain8004891CWords[] = {
+#include "8004891c_words.inc"
+};
 static const uint32_t kMain80048B6CWords[] = {
 #include "80048b6c_words.inc"
 };
+static const uint32_t kMain80048CACWords[] = {
+#include "80048cac_words.inc"
+};
 static const uint32_t kCamera80053B20Words[] = {
 #include "80053b20_words.inc"
+};
+static const uint32_t kMain80053BD8Words[] = {
+#include "80053bd8_words.inc"
 };
 static const uint32_t kCamera8004787CWords[] = {
 #include "8004787c_words.inc"
@@ -7847,6 +9781,9 @@ static const uint32_t kMain800479E8Words[] = {
 static const uint32_t kMain80047B3CWords[] = {
 #include "80047b3c_words.inc"
 };
+static const uint32_t kMain80047BD8Words[] = {
+#include "80047bd8_words.inc"
+};
 static const uint32_t kCamera80054340Words[] = {
 #include "80054340_words.inc"
 };
@@ -7859,14 +9796,44 @@ static const uint32_t kCamera800544F8Words[] = {
 static const uint32_t kCamera80047D3CWords[] = {
 #include "80047d3c_words.inc"
 };
+static const uint32_t kMain80047DCCWords[] = {
+#include "80047dcc_words.inc"
+};
 static const uint32_t kSecondGeom80014444Words[] = {
 #include "80014444_words.inc"
 };
 static const uint32_t kSecondGeom8004923CWords[] = {
 #include "8004923c_words.inc"
 };
+static const uint32_t kMain8004924CWords[] = {
+#include "8004924c_words.inc"
+};
+static const uint32_t kMain80049274Words[] = {
+#include "80049274_words.inc"
+};
+static const uint32_t kMain8004929CWords[] = {
+#include "8004929c_words.inc"
+};
+static const uint32_t kMain800492D8Words[] = {
+#include "800492d8_words.inc"
+};
+static const uint32_t kMain800492FCWords[] = {
+#include "800492fc_words.inc"
+};
 static const uint32_t kMain80049324Words[] = {
 #include "80049324_words.inc"
+};
+static const uint32_t kMain8004934CWords[] = {
+#include "8004934c_words.inc"
+};
+static const uint32_t kMain8004936CWords[] = {
+#include "8004936c_words.inc"
+};
+static const uint32_t kMain80049390Words[] = {
+#include "80049390_words.inc"
+};
+static const uint32_t kMain800493E8Words[] = {
+#include "800493e8_words.inc"
 };
 static const uint32_t kSecondGeom80014554Words[] = {
 #include "80014554_words.inc"
@@ -7874,14 +9841,41 @@ static const uint32_t kSecondGeom80014554Words[] = {
 static const uint32_t kSecondGeom8002850CWords[] = {
 #include "8002850c_words.inc"
 };
+static const uint32_t kMain80028558Words[] = {
+#include "80028558_words.inc"
+};
 static const uint32_t kSecondGeom80053AF8Words[] = {
 #include "80053af8_words.inc"
 };
 static const uint32_t kSecondGeom8002823CWords[] = {
 #include "8002823c_words.inc"
 };
+static const uint32_t kMain80028304Words[] = {
+#include "80028304_words.inc"
+};
+static const uint32_t kMain80028394Words[] = {
+#include "80028394_words.inc"
+};
+static const uint32_t kMain80028428Words[] = {
+#include "80028428_words.inc"
+};
+static const uint32_t kMain80028488Words[] = {
+#include "80028488_words.inc"
+};
 static const uint32_t kSecondGeom80028620Words[] = {
 #include "80028620_words.inc"
+};
+static const uint32_t kMain80028694Words[] = {
+#include "80028694_words.inc"
+};
+static const uint32_t kMain80028A30Words[] = {
+#include "80028a30_words.inc"
+};
+static const uint32_t kMain80028A38Words[] = {
+#include "80028a38_words.inc"
+};
+static const uint32_t kMain80028A40Words[] = {
+#include "80028a40_words.inc"
 };
 static const uint32_t kDrawEnv80058A4CWords[] = {
 #include "80058a4c_words.inc"
@@ -7898,6 +9892,9 @@ static const uint32_t kDrawEnv80014998Words[] = {
 static const uint32_t kClearImage80059888Words[] = {
 #include "80059888_words.inc"
 };
+static const uint32_t kMain8005991CWords[] = {
+#include "8005991c_words.inc"
+};
 static const uint32_t kClearImage80059760Words[] = {
 #include "80059760_words.inc"
 };
@@ -7910,8 +9907,146 @@ static const uint32_t kGte80047CB4Words[] = {
 static const uint32_t kGte8004D16CWords[] = {
 #include "8004d16c_words.inc"
 };
+static const uint32_t kMain8004D1DCWords[] = {
+#include "8004d1dc_words.inc"
+};
+static const uint32_t kMain8004D3ACWords[] = {
+#include "8004d3ac_words.inc"
+};
+static const uint32_t kMain8004D420Words[] = {
+#include "8004d420_words.inc"
+};
 static const uint32_t kMain8004D504Words[] = {
 #include "8004d504_words.inc"
+};
+static const uint32_t kMain8004D6BCWords[] = {
+#include "8004d6bc_words.inc"
+};
+static const uint32_t kMain8004D7F8Words[] = {
+#include "8004d7f8_words.inc"
+};
+static const uint32_t kMain8004D938Words[] = {
+#include "8004d938_words.inc"
+};
+static const uint32_t kMain8004DA80Words[] = {
+#include "8004da80_words.inc"
+};
+static const uint32_t kMain8004DBCCWords[] = {
+#include "8004dbcc_words.inc"
+};
+static const uint32_t kMain8004DD34Words[] = {
+#include "8004dd34_words.inc"
+};
+static const uint32_t kMain8004DEA0Words[] = {
+#include "8004dea0_words.inc"
+};
+static const uint32_t kMain8004E018Words[] = {
+#include "8004e018_words.inc"
+};
+static const uint32_t kMain8004E19CWords[] = {
+#include "8004e19c_words.inc"
+};
+static const uint32_t kMain8004E2E4Words[] = {
+#include "8004e2e4_words.inc"
+};
+static const uint32_t kMain8004E424Words[] = {
+#include "8004e424_words.inc"
+};
+static const uint32_t kMain8004E5B4Words[] = {
+#include "8004e5b4_words.inc"
+};
+static const uint32_t kMain8004E74CWords[] = {
+#include "8004e74c_words.inc"
+};
+static const uint32_t kMain8004E8CCWords[] = {
+#include "8004e8cc_words.inc"
+};
+static const uint32_t kMain8004EA40Words[] = {
+#include "8004ea40_words.inc"
+};
+static const uint32_t kMain8004EC20Words[] = {
+#include "8004ec20_words.inc"
+};
+static const uint32_t kMain8004EE0CWords[] = {
+#include "8004ee0c_words.inc"
+};
+static const uint32_t kMain8004EF78Words[] = {
+#include "8004ef78_words.inc"
+};
+static const uint32_t kMain8004F0DCWords[] = {
+#include "8004f0dc_words.inc"
+};
+static const uint32_t kMain8004F24CWords[] = {
+#include "8004f24c_words.inc"
+};
+static const uint32_t kMain8004F3BCWords[] = {
+#include "8004f3bc_words.inc"
+};
+static const uint32_t kMain8004F55CWords[] = {
+#include "8004f55c_words.inc"
+};
+static const uint32_t kMain8004F6F8Words[] = {
+#include "8004f6f8_words.inc"
+};
+static const uint32_t kMain8004F8A4Words[] = {
+#include "8004f8a4_words.inc"
+};
+static const uint32_t kMain8004FA5CWords[] = {
+#include "8004fa5c_words.inc"
+};
+static const uint32_t kMain8004FBD4Words[] = {
+#include "8004fbd4_words.inc"
+};
+static const uint32_t kMain8004FD30Words[] = {
+#include "8004fd30_words.inc"
+};
+static const uint32_t kMain8004FEE4Words[] = {
+#include "8004fee4_words.inc"
+};
+static const uint32_t kMain8005009CWords[] = {
+#include "8005009c_words.inc"
+};
+static const uint32_t kMain80050258Words[] = {
+#include "80050258_words.inc"
+};
+static const uint32_t kMain800503F0Words[] = {
+#include "800503f0_words.inc"
+};
+static const uint32_t kMain800505FCWords[] = {
+#include "800505fc_words.inc"
+};
+static const uint32_t kMain8005080CWords[] = {
+#include "8005080c_words.inc"
+};
+static const uint32_t kMain80051044Words[] = {
+#include "80051044_words.inc"
+};
+static const uint32_t kMain80051804Words[] = {
+#include "80051804_words.inc"
+};
+static const uint32_t kMain80051844Words[] = {
+#include "80051844_words.inc"
+};
+static const uint32_t kMain80051B0CWords[] = {
+#include "80051b0c_words.inc"
+};
+static const uint32_t kMain80051D78Words[] = {
+#include "80051d78_words.inc"
+};
+static const uint32_t kMain80051DC8Words[] = {
+#include "80051dc8_words.inc"
+};
+static const uint32_t kMain80051EA0Words[] = {
+#include "80051ea0_words.inc"
+};
+static const uint32_t kMain80051F34Words[] = {
+#include "80051f34_words.inc"
+};
+static const uint32_t kMain80052430Words[] = {
+#include "80052430_words.inc"
+};
+static const uint32_t kMain80052460Words[] = {
+#include "80052460_words.inc"
 };
 static const uint32_t kGte80053AD8Words[] = {
 #include "80053ad8_words.inc"
@@ -7925,6 +10060,9 @@ static const uint32_t kGte8004921CWords[] = {
 static const uint32_t kGte8005CE28Words[] = {
 #include "8005ce28_words.inc"
 };
+static const uint32_t kMain8005CE50Words[] = {
+#include "8005ce50_words.inc"
+};
 static const uint32_t kSys1Words[] = {
 #include "8005cf08_words.inc"
 };
@@ -7937,6 +10075,12 @@ static const uint32_t kInputDigital8005DE78Words[] = {
 };
 static const uint32_t kInputDigital8005E13CWords[] = {
 #include "8005e13c_words.inc"
+};
+static const uint32_t kMain8005E168Words[] = {
+#include "8005e168_words.inc"
+};
+static const uint32_t kMain8005E178Words[] = {
+#include "8005e178_words.inc"
 };
 static const uint32_t kInputDigital8005E1A4Words[] = {
 #include "8005e1a4_words.inc"
@@ -7971,6 +10115,12 @@ static const uint32_t kInputDigital8005ECC0Words[] = {
 static const uint32_t kInputDigital8005ED4CWords[] = {
 #include "8005ed4c_words.inc"
 };
+static const uint32_t kMain8005F0C8Words[] = {
+#include "8005f0c8_words.inc"
+};
+static const uint32_t kMain8005F228Words[] = {
+#include "8005f228_words.inc"
+};
 static const uint32_t kInputDigital8005F290Words[] = {
 #include "8005f290_words.inc"
 };
@@ -7995,6 +10145,9 @@ static const uint32_t kInputHandlerWords[] = {
 };
 static const uint32_t kInputHandlerClear8005D8A0Words[] = {
 #include "8005d8a0_words.inc"
+};
+static const uint32_t kMain8005D8B4Words[] = {
+#include "8005d8b4_words.inc"
 };
 static const uint32_t kInputStop8005D980Words[] = {
 #include "8005d980_words.inc"
@@ -8022,6 +10175,246 @@ static const uint32_t kInputTimerStartWords[] = {
 };
 static const uint32_t kInputTimerPollWords[] = {
 #include "8005fbc8_words.inc"
+};
+static const uint32_t kMain8005FC68Words[] = {
+#include "8005fc68_words.inc"
+};
+static const uint32_t kMain8005FC98Words[] = {
+#include "8005fc98_words.inc"
+};
+static const uint32_t kMain8005FCB8Words[] = {
+#include "8005fcb8_words.inc"
+};
+static const uint32_t kMain8005FD18Words[] = {
+#include "8005fd18_words.inc"
+};
+static const uint32_t kMain8005FD58Words[] = {
+#include "8005fd58_words.inc"
+};
+static const uint32_t kMain8005FDD4Words[] = {
+#include "8005fdd4_words.inc"
+};
+static const uint32_t kMain8005FFB4Words[] = {
+#include "8005ffb4_words.inc"
+};
+static const uint32_t kMain80060030Words[] = {
+#include "80060030_words.inc"
+};
+static const uint32_t kMain8006023CWords[] = {
+#include "8006023c_words.inc"
+};
+static const uint32_t kMain800603BCWords[] = {
+#include "800603bc_words.inc"
+};
+static const uint32_t kMain80060404Words[] = {
+#include "80060404_words.inc"
+};
+static const uint32_t kMain800604C4Words[] = {
+#include "800604c4_words.inc"
+};
+static const uint32_t kMain80060614Words[] = {
+#include "80060614_words.inc"
+};
+static const uint32_t kMain800606D4Words[] = {
+#include "800606d4_words.inc"
+};
+static const uint32_t kMain80060824Words[] = {
+#include "80060824_words.inc"
+};
+static const uint32_t kMain80060930Words[] = {
+#include "80060930_words.inc"
+};
+static const uint32_t kMain80060AE0Words[] = {
+#include "80060ae0_words.inc"
+};
+static const uint32_t kMain80060BECWords[] = {
+#include "80060bec_words.inc"
+};
+static const uint32_t kMain80060D9CWords[] = {
+#include "80060d9c_words.inc"
+};
+static const uint32_t kMain80061010Words[] = {
+#include "80061010_words.inc"
+};
+static const uint32_t kMain80061024Words[] = {
+#include "80061024_words.inc"
+};
+static const uint32_t kMain80061114Words[] = {
+#include "80061114_words.inc"
+};
+static const uint32_t kMain80061344Words[] = {
+#include "80061344_words.inc"
+};
+static const uint32_t kMain80061524Words[] = {
+#include "80061524_words.inc"
+};
+static const uint32_t kMain800615BCWords[] = {
+#include "800615bc_words.inc"
+};
+static const uint32_t kMain80061678Words[] = {
+#include "80061678_words.inc"
+};
+static const uint32_t kMain800616D0Words[] = {
+#include "800616d0_words.inc"
+};
+static const uint32_t kMain80061770Words[] = {
+#include "80061770_words.inc"
+};
+static const uint32_t kMain8006186CWords[] = {
+#include "8006186c_words.inc"
+};
+static const uint32_t kMain8006189CWords[] = {
+#include "8006189c_words.inc"
+};
+static const uint32_t kMain80061A80Words[] = {
+#include "80061a80_words.inc"
+};
+static const uint32_t kMain80061AA0Words[] = {
+#include "80061aa0_words.inc"
+};
+static const uint32_t kMain80061B58Words[] = {
+#include "80061b58_words.inc"
+};
+static const uint32_t kMain80061C60Words[] = {
+#include "80061c60_words.inc"
+};
+static const uint32_t kMain80061D3CWords[] = {
+#include "80061d3c_words.inc"
+};
+static const uint32_t kMain80061E18Words[] = {
+#include "80061e18_words.inc"
+};
+static const uint32_t kMain80061E54Words[] = {
+#include "80061e54_words.inc"
+};
+static const uint32_t kMain80061E90Words[] = {
+#include "80061e90_words.inc"
+};
+static const uint32_t kMain80061F38Words[] = {
+#include "80061f38_words.inc"
+};
+static const uint32_t kMain80061F48Words[] = {
+#include "80061f48_words.inc"
+};
+static const uint32_t kMain80061F58Words[] = {
+#include "80061f58_words.inc"
+};
+static const uint32_t kMain80061F68Words[] = {
+#include "80061f68_words.inc"
+};
+static const uint32_t kMain80061F78Words[] = {
+#include "80061f78_words.inc"
+};
+static const uint32_t kMain80061F88Words[] = {
+#include "80061f88_words.inc"
+};
+static const uint32_t kMain80061F98Words[] = {
+#include "80061f98_words.inc"
+};
+static const uint32_t kMain80061FA8Words[] = {
+#include "80061fa8_words.inc"
+};
+static const uint32_t kMain80062144Words[] = {
+#include "80062144_words.inc"
+};
+static const uint32_t kMain80062248Words[] = {
+#include "80062248_words.inc"
+};
+static const uint32_t kMain80062258Words[] = {
+#include "80062258_words.inc"
+};
+static const uint32_t kMain80062268Words[] = {
+#include "80062268_words.inc"
+};
+static const uint32_t kMain80062278Words[] = {
+#include "80062278_words.inc"
+};
+static const uint32_t kMain80062288Words[] = {
+#include "80062288_words.inc"
+};
+static const uint32_t kMain80062298Words[] = {
+#include "80062298_words.inc"
+};
+static const uint32_t kMain800622D0Words[] = {
+#include "800622d0_words.inc"
+};
+static const uint32_t kMain80062328Words[] = {
+#include "80062328_words.inc"
+};
+static const uint32_t kMain80062360Words[] = {
+#include "80062360_words.inc"
+};
+static const uint32_t kMain80062388Words[] = {
+#include "80062388_words.inc"
+};
+static const uint32_t kMain80062394Words[] = {
+#include "80062394_words.inc"
+};
+static const uint32_t kMain800623A4Words[] = {
+#include "800623a4_words.inc"
+};
+static const uint32_t kMain80062434Words[] = {
+#include "80062434_words.inc"
+};
+static const uint32_t kMain800624C4Words[] = {
+#include "800624c4_words.inc"
+};
+static const uint32_t kMain800624F4Words[] = {
+#include "800624f4_words.inc"
+};
+static const uint32_t kMain8006252CWords[] = {
+#include "8006252c_words.inc"
+};
+static const uint32_t kMain800625A4Words[] = {
+#include "800625a4_words.inc"
+};
+static const uint32_t kMain800625DCWords[] = {
+#include "800625dc_words.inc"
+};
+static const uint32_t kMain80062644Words[] = {
+#include "80062644_words.inc"
+};
+static const uint32_t kMain80062688Words[] = {
+#include "80062688_words.inc"
+};
+static const uint32_t kMain80062698Words[] = {
+#include "80062698_words.inc"
+};
+static const uint32_t kMain800626A8Words[] = {
+#include "800626a8_words.inc"
+};
+static const uint32_t kMain800626B8Words[] = {
+#include "800626b8_words.inc"
+};
+static const uint32_t kMain800626C8Words[] = {
+#include "800626c8_words.inc"
+};
+static const uint32_t kMain800626DCWords[] = {
+#include "800626dc_words.inc"
+};
+static const uint32_t kMain800626F0Words[] = {
+#include "800626f0_words.inc"
+};
+static const uint32_t kMain80062768Words[] = {
+#include "80062768_words.inc"
+};
+static const uint32_t kMain800627D8Words[] = {
+#include "800627d8_words.inc"
+};
+static const uint32_t kMain800627E8Words[] = {
+#include "800627e8_words.inc"
+};
+static const uint32_t kMain800627F8Words[] = {
+#include "800627f8_words.inc"
+};
+static const uint32_t kMain80062808Words[] = {
+#include "80062808_words.inc"
+};
+static const uint32_t kMain80062888Words[] = {
+#include "80062888_words.inc"
+};
+static const uint32_t kMain8006289CWords[] = {
+#include "8006289c_words.inc"
 };
 static const uint32_t kInputResponseWords[] = {
 #include "8005f830_words.inc"
@@ -8254,6 +10647,9 @@ _Static_assert(sizeof(kSpu8003B954Words) / sizeof(uint32_t) == 308,
 static const uint32_t kSpu8003B280Words[] = {
 #include "8003b280_words.inc"
 };
+static const uint32_t kMain8003B350Words[] = {
+#include "8003b350_words.inc"
+};
 _Static_assert(sizeof(kSpu8003B280Words) / sizeof(uint32_t) == 52,
                "SPU 8003B280 source span changed");
 static const uint32_t kFile80019A24Words[] = {
@@ -8294,20 +10690,30 @@ _Static_assert(sizeof(kFile80042404Words) / sizeof(uint32_t) == 56,
 static const uint32_t kFile800424E4Words[] = {
 #include "800424e4_words.inc"
 };
+static const uint32_t kMain80042580Words[] = {
+#include "80042580_words.inc"
+};
+static const uint32_t kMain800425B0Words[] = {
+#include "800425b0_words.inc"
+};
 _Static_assert(sizeof(kFile800424E4Words) / sizeof(uint32_t) == 39,
                "LIST source 800424E4 span changed");
-static const uint32_t kFile80044DBCWords[] = {
-#include "80044dbc_words.inc"
+static const uint32_t kMain80044F24Words[] = {
+#include "80044f24_words.inc"
 };
-_Static_assert(sizeof(kFile80044DBCWords) / sizeof(uint32_t) == 26,
-               "LIST source 80044DBC span changed");
 static const uint32_t kFile8001971CWords[] = {
 #include "8001971c_words.inc"
+};
+static const uint32_t kMain80019930Words[] = {
+#include "80019930_words.inc"
 };
 _Static_assert(sizeof(kFile8001971CWords) / sizeof(uint32_t) == 133,
                "File loader 8001971C source span changed");
 static const uint32_t kFile80019990Words[] = {
 #include "80019990_words.inc"
+};
+static const uint32_t kMain80019A10Words[] = {
+#include "80019a10_words.inc"
 };
 _Static_assert(sizeof(kFile80019990Words) / sizeof(uint32_t) == 32,
                "File loader 80019990 source span changed");
@@ -8343,6 +10749,9 @@ _Static_assert(sizeof(kFile8005C324Words) / sizeof(uint32_t) == 13,
                "PVD copy helper 8005C324 source span changed");
 static const uint32_t kFile8005C358Words[] = {
 #include "8005c358_words.inc"
+};
+static const uint32_t kMain8005C388Words[] = {
+#include "8005c388_words.inc"
 };
 static const uint32_t kMain8005C49CWords[] = {
 #include "8005c49c_words.inc"
@@ -8392,10 +10801,19 @@ _Static_assert(sizeof(kFile80043704Words) / sizeof(uint32_t) == 75,
 static const uint32_t kFile80043994Words[] = {
 #include "80043994_words.inc"
 };
+static const uint32_t kMain800439B4Words[] = {
+#include "800439b4_words.inc"
+};
 _Static_assert(sizeof(kFile80043994Words) / sizeof(uint32_t) == 8,
                "CD read 80043994 source span changed");
 static const uint32_t kFile80043B1CWords[] = {
 #include "80043b1c_words.inc"
+};
+static const uint32_t kMain80043B9CWords[] = {
+#include "80043b9c_words.inc"
+};
+static const uint32_t kMain80044124Words[] = {
+#include "80044124_words.inc"
 };
 _Static_assert(sizeof(kFile80043B1CWords) / sizeof(uint32_t) == 32,
                "CD read 80043B1C source span changed");
@@ -8410,15 +10828,27 @@ _Static_assert(sizeof(kFile800443A4Words) / sizeof(uint32_t) == 179,
 static const uint32_t kFile80045090Words[] = {
 #include "80045090_words.inc"
 };
+static const uint32_t kMain80045190Words[] = {
+#include "80045190_words.inc"
+};
+static const uint32_t kMain80045280Words[] = {
+#include "80045280_words.inc"
+};
 _Static_assert(sizeof(kFile80045090Words) / sizeof(uint32_t) == 64,
                "CD read 80045090 source span changed");
 static const uint32_t kFile80045D00Words[] = {
 #include "80045d00_words.inc"
 };
+static const uint32_t kMain80045FD0Words[] = {
+#include "80045fd0_words.inc"
+};
 _Static_assert(sizeof(kFile80045D00Words) / sizeof(uint32_t) == 180,
                "CD read 80045D00 source span changed");
 static const uint32_t kFile800460CCWords[] = {
 #include "800460cc_words.inc"
+};
+static const uint32_t kMain800462E0Words[] = {
+#include "800462e0_words.inc"
 };
 _Static_assert(sizeof(kFile800460CCWords) / sizeof(uint32_t) == 133,
                "CD read 800460CC source span changed");
@@ -8430,55 +10860,190 @@ _Static_assert(sizeof(kFile8004637CWords) / sizeof(uint32_t) == 65,
 static const uint32_t kFile80046480Words[] = {
 #include "80046480_words.inc"
 };
+static const uint32_t kMain8004654CWords[] = {
+#include "8004654c_words.inc"
+};
+static const uint32_t kMain80046564Words[] = {
+#include "80046564_words.inc"
+};
 _Static_assert(sizeof(kFile80046480Words) / sizeof(uint32_t) == 51,
                "CD read 80046480 source span changed");
 static const uint32_t kFile8005C584Words[] = {
 #include "8005c584_words.inc"
+};
+static const uint32_t kMain8005C604Words[] = {
+#include "8005c604_words.inc"
+};
+static const uint32_t kMain8005C640Words[] = {
+#include "8005c640_words.inc"
+};
+static const uint32_t kMain8005CCC8Words[] = {
+#include "8005ccc8_words.inc"
+};
+static const uint32_t kMain8005CD18Words[] = {
+#include "8005cd18_words.inc"
+};
+static const uint32_t kMain8005CD48Words[] = {
+#include "8005cd48_words.inc"
+};
+static const uint32_t kMain8005CD98Words[] = {
+#include "8005cd98_words.inc"
 };
 _Static_assert(sizeof(kFile8005C584Words) / sizeof(uint32_t) == 32,
                "8005C584 source export changed");
 static const uint32_t kFile8005C4DCWords[] = {
 #include "8005c4dc_words.inc"
 };
+static const uint32_t kMain8005C540Words[] = {
+#include "8005c540_words.inc"
+};
 _Static_assert(sizeof(kFile8005C4DCWords) / sizeof(uint32_t) == 25,
                "Directory compare 8005C4DC source span changed");
 static const uint32_t kFile8005CE68Words[] = {
 #include "8005ce68_words.inc"
+};
+static const uint32_t kMain8005CE78Words[] = {
+#include "8005ce78_words.inc"
+};
+static const uint32_t kMain8005CE88Words[] = {
+#include "8005ce88_words.inc"
 };
 _Static_assert(sizeof(kFile8005CE68Words) / sizeof(uint32_t) == 3,
                "CD read 8005CE68 source span changed");
 static const uint32_t kFile8005CEA8Words[] = {
 #include "8005cea8_words.inc"
 };
+static const uint32_t kMain8005CEB8Words[] = {
+#include "8005ceb8_words.inc"
+};
+static const uint32_t kMain8005CEC8Words[] = {
+#include "8005cec8_words.inc"
+};
+static const uint32_t kMain8005CED8Words[] = {
+#include "8005ced8_words.inc"
+};
+static const uint32_t kMain8005CEE8Words[] = {
+#include "8005cee8_words.inc"
+};
+static const uint32_t kMain8005CEF8Words[] = {
+#include "8005cef8_words.inc"
+};
+static const uint32_t kMain8005CF08Words[] = {
+#include "8005cf08_words.inc"
+};
+static const uint32_t kMain8005CF18Words[] = {
+#include "8005cf18_words.inc"
+};
+static const uint32_t kMain8005CF28Words[] = {
+#include "8005cf28_words.inc"
+};
+static const uint32_t kMain8005CF38Words[] = {
+#include "8005cf38_words.inc"
+};
+static const uint32_t kMain8005CF48Words[] = {
+#include "8005cf48_words.inc"
+};
+static const uint32_t kMain8005CF58Words[] = {
+#include "8005cf58_words.inc"
+};
+static const uint32_t kMain8005CF68Words[] = {
+#include "8005cf68_words.inc"
+};
+static const uint32_t kMain8005D004Words[] = {
+#include "8005d004_words.inc"
+};
+static const uint32_t kMain8005D03CWords[] = {
+#include "8005d03c_words.inc"
+};
+static const uint32_t kMain8005D06CWords[] = {
+#include "8005d06c_words.inc"
+};
+static const uint32_t kMain8005D0A0Words[] = {
+#include "8005d0a0_words.inc"
+};
+static const uint32_t kMain8005D0D8Words[] = {
+#include "8005d0d8_words.inc"
+};
+static const uint32_t kMain8005D0F8Words[] = {
+#include "8005d0f8_words.inc"
+};
+static const uint32_t kMain8005D118Words[] = {
+#include "8005d118_words.inc"
+};
+static const uint32_t kMain8005D138Words[] = {
+#include "8005d138_words.inc"
+};
 _Static_assert(sizeof(kFile8005CEA8Words) / sizeof(uint32_t) == 3,
                "BIOS TestEvent 8005CEA8 source span changed");
 static const uint32_t kFile80043420Words[] = {
 #include "80043420_words.inc"
+};
+static const uint32_t kMain80043430Words[] = {
+#include "80043430_words.inc"
 };
 _Static_assert(sizeof(kFile80043420Words) / sizeof(uint32_t) == 4,
                "CD query 80043420 source span changed");
 static const uint32_t kFile80043440Words[] = {
 #include "80043440_words.inc"
 };
+static const uint32_t kMain80043450Words[] = {
+#include "80043450_words.inc"
+};
+static const uint32_t kMain800434BCWords[] = {
+#include "800434bc_words.inc"
+};
+static const uint32_t kMain800434DCWords[] = {
+#include "800434dc_words.inc"
+};
+static const uint32_t kMain800434F4Words[] = {
+#include "800434f4_words.inc"
+};
+static const uint32_t kMain80043528Words[] = {
+#include "80043528_words.inc"
+};
 _Static_assert(sizeof(kFile80043440Words) / sizeof(uint32_t) == 4,
                "CD query 80043440 source span changed");
 static const uint32_t kFile8004357CWords[] = {
 #include "8004357c_words.inc"
+};
+static const uint32_t kMain8004359CWords[] = {
+#include "8004359c_words.inc"
+};
+static const uint32_t kMain800435B4Words[] = {
+#include "800435b4_words.inc"
 };
 _Static_assert(sizeof(kFile8004357CWords) / sizeof(uint32_t) == 8,
                "CD query 8004357C source span changed");
 static const uint32_t kSpu80037D98Words[] = {
 #include "80037d98_words.inc"
 };
+static const uint32_t kMain80037EA0Words[] = {
+#include "80037ea0_words.inc"
+};
+static const uint32_t kMain80037F3CWords[] = {
+#include "80037f3c_words.inc"
+};
 _Static_assert(sizeof(kSpu80037D98Words) / sizeof(uint32_t) == 66,
                "Sound 80037D98 source span changed");
 static const uint32_t kSpu8003D424Words[] = {
 #include "8003d424_words.inc"
 };
+static const uint32_t kMain8003D434Words[] = {
+#include "8003d434_words.inc"
+};
+static const uint32_t kMain8003D454Words[] = {
+#include "8003d454_words.inc"
+};
 _Static_assert(sizeof(kSpu8003D424Words) / sizeof(uint32_t) == 4,
                "Sound 8003D424 source span changed");
 static const uint32_t kSpu8002CC4CWords[] = {
 #include "8002cc4c_words.inc"
+};
+static const uint32_t kMain8002CCB4Words[] = {
+#include "8002ccb4_words.inc"
+};
+static const uint32_t kMain8002CCD8Words[] = {
+#include "8002ccd8_words.inc"
 };
 _Static_assert(sizeof(kSpu8002CC4CWords) / sizeof(uint32_t) == 26,
                "Sound 8002CC4C source span changed");
@@ -8525,6 +11090,9 @@ _Static_assert(sizeof(kSpu800430B8Words) / sizeof(uint32_t) == 9,
 static const uint32_t kSpu800430DCWords[] = {
 #include "800430dc_words.inc"
 };
+static const uint32_t kMain80043300Words[] = {
+#include "80043300_words.inc"
+};
 _Static_assert(sizeof(kSpu800430DCWords) / sizeof(uint32_t) == 137,
                "Sound 800430DC source span changed");
 static const uint32_t kSpu80043830Words[] = {
@@ -8534,6 +11102,9 @@ _Static_assert(sizeof(kSpu80043830Words) / sizeof(uint32_t) == 81,
                "Sound 80043830 source span changed");
 static const uint32_t kSpu80037004Words[] = {
 #include "80037004_words.inc"
+};
+static const uint32_t kMain80037028Words[] = {
+#include "80037028_words.inc"
 };
 _Static_assert(sizeof(kSpu80037004Words) / sizeof(uint32_t) == 9,
                "Sound 80037004 source span changed");
@@ -8570,6 +11141,12 @@ _Static_assert(sizeof(kSpu8003A5B8Words) / sizeof(uint32_t) == 165,
 static const uint32_t kSpu8003A84CWords[] = {
 #include "8003a84c_words.inc"
 };
+static const uint32_t kMain8003AA18Words[] = {
+#include "8003aa18_words.inc"
+};
+static const uint32_t kMain8003AAD8Words[] = {
+#include "8003aad8_words.inc"
+};
 _Static_assert(sizeof(kSpu8003A84CWords) / sizeof(uint32_t) == 115,
                "8003A84C source export changed");
 static const uint32_t kSpu8003AF04Words[] = {
@@ -8585,6 +11162,9 @@ _Static_assert(sizeof(kSpu8003B0E4Words) / sizeof(uint32_t) == 26,
 static const uint32_t kSpu8003B14CWords[] = {
 #include "8003b14c_words.inc"
 };
+static const uint32_t kMain8003B170Words[] = {
+#include "8003b170_words.inc"
+};
 _Static_assert(sizeof(kSpu8003B14CWords) / sizeof(uint32_t) == 9,
                "8003B14C source export changed");
 static const uint32_t kSpu8003D518Words[] = {
@@ -8594,6 +11174,9 @@ _Static_assert(sizeof(kSpu8003D518Words) / sizeof(uint32_t) == 12,
                "8003D518 source export changed");
 static const uint32_t kSpu8003D548Words[] = {
 #include "8003d548_words.inc"
+};
+static const uint32_t kMain8003D630Words[] = {
+#include "8003d630_words.inc"
 };
 _Static_assert(sizeof(kSpu8003D548Words) / sizeof(uint32_t) == 58,
                "8003D548 source export changed");
@@ -8615,10 +11198,31 @@ _Static_assert(sizeof(kSpu800401A0Words) / sizeof(uint32_t) == 11,
 static const uint32_t kSpu80040868Words[] = {
 #include "80040868_words.inc"
 };
+static const uint32_t kMain80040938Words[] = {
+#include "80040938_words.inc"
+};
+static const uint32_t kMain80040DE8Words[] = {
+#include "80040de8_words.inc"
+};
+static const uint32_t kMain80041354Words[] = {
+#include "80041354_words.inc"
+};
+static const uint32_t kMain800413B8Words[] = {
+#include "800413b8_words.inc"
+};
+static const uint32_t kMain80041400Words[] = {
+#include "80041400_words.inc"
+};
+static const uint32_t kMain80041448Words[] = {
+#include "80041448_words.inc"
+};
 _Static_assert(sizeof(kSpu80040868Words) / sizeof(uint32_t) == 52,
                "80040868 source export changed");
 static const uint32_t kSpu8003FA64Words[] = {
 #include "8003fa64_words.inc"
+};
+static const uint32_t kMain8003FE18Words[] = {
+#include "8003fe18_words.inc"
 };
 _Static_assert(sizeof(kSpu8003FA64Words) / sizeof(uint32_t) == 237,
                "8003FA64 source export changed");
@@ -8629,6 +11233,12 @@ _Static_assert(sizeof(kSpu800425E0Words) / sizeof(uint32_t) == 12,
                "800425E0 source export changed");
 static const uint32_t kSpu80042F8CWords[] = {
 #include "80042f8c_words.inc"
+};
+static const uint32_t kMain80043034Words[] = {
+#include "80043034_words.inc"
+};
+static const uint32_t kMain80043060Words[] = {
+#include "80043060_words.inc"
 };
 _Static_assert(sizeof(kSpu80042F8CWords) / sizeof(uint32_t) == 42,
                "80042F8C source export changed");
@@ -8670,6 +11280,3577 @@ static const uint32_t kSavedContext8005CD98Words[] = {
 static const uint32_t kStartup800141F0Words[] = {
 #include "800141f0_words.inc"
 };
+
+/* Range-indexed instruction lookup for the native seam.
+ *
+ * The dispatch used to be chains of `else if (pc >= a && pc < b)` tests,
+ * one per carved range. At -O2 those chains dominated the compile: 16.7s
+ * of a 17s translation unit, against the 30-second budget 83 tests give
+ * `cc`, for a seam meant to reach every one of the game's 3,962
+ * functions. A sorted table costs O(log n) at run time and almost nothing
+ * to compile.
+ *
+ * Each table below holds ranges that were mutually disjoint as branches,
+ * so first-match order carried no information and a binary search is
+ * equivalent. Ranges that genuinely overlap -- the SC01/0012 overlay alias
+ * at 80128158 -- are still spelled as ordered branches, and so is every
+ * branch carrying a condition beyond its pc range.
+ */
+typedef struct {
+    uint32_t start;
+    uint32_t end;
+    const uint32_t *words;
+} FormatterRange;
+
+static int formatter_range_word(const FormatterRange *ranges, size_t count,
+                                uint32_t pc, uint32_t *out) {
+    size_t low = 0u;
+    size_t high = count;
+
+    while (low < high) {
+        size_t middle = low + (high - low) / 2u;
+        if (pc < ranges[middle].start) {
+            high = middle;
+        } else if (pc >= ranges[middle].end) {
+            low = middle + 1u;
+        } else {
+            *out = ranges[middle].words[(pc - ranges[middle].start) / 4u];
+            return 1;
+        }
+    }
+    return 0;
+}
+
+static const FormatterRange kFormatterRanges0[] = {
+    { 0x80010000u, 0x800100a0u, kCrt80010000Words },
+    { 0x800100a0u, 0x80010110u, kConstructor800100A0Words },
+    { 0x80010110u, 0x80010178u, kMain80010110Words },
+    { 0x80010178u, 0x8001020cu, kCaller80010178Words },
+    { 0x8001020cu, 0x80010214u, kMain8001020CWords },
+    { 0x80010214u, 0x80010938u, kMain80010214Words },
+    { 0x80010938u, 0x8001094cu, kMain80010938Words },
+    { 0x8001094cu, 0x8001096cu, kMain8001094CWords },
+    { 0x8001096cu, 0x8001099cu, kMain8001096CWords },
+    { 0x8001099cu, 0x80010a08u, kMain8001099CWords },
+    { 0x80010a08u, 0x80010a84u, kMain80010A08Words },
+    { 0x80010a84u, 0x80010a98u, kMain80010A84Words },
+    { 0x80010a98u, 0x80010ae0u, kMain80010A98Words },
+    { 0x80010ae0u, 0x80010b10u, kMain80010AE0Words },
+    { 0x80010b10u, 0x80010b2cu, kMain80010B10Words },
+    { 0x80010b2cu, 0x80010b40u, kMain80010B2CWords },
+    { 0x80010b40u, 0x80010bb4u, kMain80010B40Words },
+    { 0x80010bb4u, 0x80010c7cu, kMain80010BB4Words },
+    { 0x80010c7cu, 0x80010cecu, kMain80010C7CWords },
+    { 0x80010cecu, 0x80010d60u, kMain80010CECWords },
+    { 0x80010d60u, 0x80010da0u, kMain80010D60Words },
+    { 0x80010da0u, 0x80010de0u, kMain80010DA0Words },
+    { 0x80010de0u, 0x80010e14u, kMain80010DE0Words },
+    { 0x80010e14u, 0x80010e48u, kMain80010E14Words },
+    { 0x80010e48u, 0x80010e7cu, kMain80010E48Words },
+    { 0x80010e7cu, 0x80010ed4u, kMain80010E7CWords },
+    { 0x80010ed4u, 0x80010f80u, kMain80010ED4Words },
+    { 0x80010f80u, 0x800110ccu, kMain80010F80Words },
+    { 0x800110ccu, 0x80011144u, kMain800110CCWords },
+    { 0x80011144u, 0x800111bcu, kMain80011144Words },
+    { 0x800111bcu, 0x80011220u, kMain800111BCWords },
+    { 0x80011220u, 0x8001125cu, kMain80011220Words },
+    { 0x8001125cu, 0x800112a8u, kMain8001125CWords },
+    { 0x800112a8u, 0x800112c8u, kMain800112A8Words },
+    { 0x800112c8u, 0x80011320u, kMain800112C8Words },
+    { 0x80011320u, 0x80011350u, kMain80011320Words },
+    { 0x80011350u, 0x8001136cu, kMain80011350Words },
+    { 0x8001136cu, 0x80011380u, kMain8001136CWords },
+    { 0x80011380u, 0x80011680u, kMain80011380Words },
+    { 0x80011680u, 0x800116e0u, kMain80011680Words },
+    { 0x800116e0u, 0x80011778u, kMain800116E0Words },
+    { 0x80011778u, 0x80011818u, kMain80011778Words },
+    { 0x80011818u, 0x800118acu, kMain80011818Words },
+    { 0x800118acu, 0x80011928u, kMain800118ACWords },
+    { 0x80011928u, 0x80011998u, kMain80011928Words },
+    { 0x80011998u, 0x800119f0u, kMain80011998Words },
+    { 0x800119f0u, 0x80011a3cu, kMain800119F0Words },
+    { 0x80011a3cu, 0x80011adcu, kMain80011A3CWords },
+    { 0x80011adcu, 0x80011b7cu, kMain80011ADCWords },
+    { 0x80011b7cu, 0x80011c10u, kMain80011B7CWords },
+    { 0x80011c10u, 0x80011c8cu, kMain80011C10Words },
+    { 0x80011c8cu, 0x80011cfcu, kMain80011C8CWords },
+    { 0x80011cfcu, 0x80011d54u, kMain80011CFCWords },
+    { 0x80011d54u, 0x80011da0u, kMain80011D54Words },
+    { 0x80011da0u, 0x80011dccu, kMain80011DA0Words },
+    { 0x80011dccu, 0x80011df4u, kMain80011DCCWords },
+    { 0x80011df4u, 0x80011e10u, kMain80011DF4Words },
+    { 0x80011e10u, 0x80011e24u, kMain80011E10Words },
+    { 0x80011e24u, 0x80011e84u, kMain80011E24Words },
+    { 0x80011e84u, 0x80011eb4u, kMain80011E84Words },
+    { 0x80011eb4u, 0x800120c4u, kMain80011EB4Words },
+    { 0x800120c4u, 0x800120dcu, kMain800120C4Words },
+    { 0x800120dcu, 0x8001212cu, kMain800120DCWords },
+    { 0x8001212cu, 0x800123f0u, kMain8001212CWords },
+    { 0x800123f0u, 0x80012558u, kMain800123F0Words },
+    { 0x80012558u, 0x800126c4u, kMain80012558Words },
+    { 0x800126c4u, 0x8001282cu, kMain800126C4Words },
+    { 0x8001282cu, 0x800128b4u, kMain8001282CWords },
+    { 0x800128b4u, 0x800128ecu, kMain800128B4Words },
+    { 0x800128ecu, 0x800129ccu, kMain800128ECWords },
+    { 0x800129ccu, 0x80012a60u, kMain800129CCWords },
+    { 0x80012a60u, 0x80012ab0u, kMain80012A60Words },
+    { 0x80012ab0u, 0x80012abcu, kMain80012AB0Words },
+    { 0x80012abcu, 0x80012b04u, kMain80012ABCWords },
+    { 0x80012b04u, 0x80012b58u, kMain80012B04Words },
+    { 0x80012b58u, 0x80012c6cu, kMain80012B58Words },
+    { 0x80012c6cu, 0x80012cb8u, kMain80012C6CWords },
+    { 0x80012cb8u, 0x80012d0cu, kMain80012CB8Words },
+    { 0x80012d0cu, 0x80012dbcu, kMain80012D0CWords },
+    { 0x80012dbcu, 0x80012e0cu, kMain80012DBCWords },
+    { 0x80012e0cu, 0x80012e6cu, kMain80012E0CWords },
+    { 0x80012e6cu, 0x80012f74u, kMain80012E6CWords },
+    { 0x80012f74u, 0x80012fc8u, kMain80012F74Words },
+    { 0x80012fc8u, 0x80013028u, kMain80012FC8Words },
+    { 0x80013028u, 0x800130d0u, kMain80013028Words },
+    { 0x800130d0u, 0x8001311cu, kMain800130D0Words },
+    { 0x8001311cu, 0x80013154u, kMain8001311CWords },
+    { 0x80013154u, 0x80013200u, kMain80013154Words },
+    { 0x80013200u, 0x80013228u, kMain80013200Words },
+    { 0x80013228u, 0x80013294u, kMain80013228Words },
+    { 0x80013294u, 0x800132bcu, kMain80013294Words },
+    { 0x800132bcu, 0x80013328u, kMain800132BCWords },
+    { 0x80013328u, 0x80013350u, kMain80013328Words },
+    { 0x80013350u, 0x800133bcu, kMain80013350Words },
+    { 0x800133bcu, 0x800133e4u, kMain800133BCWords },
+    { 0x800133e4u, 0x80013450u, kMain800133E4Words },
+    { 0x80013450u, 0x80013478u, kMain80013450Words },
+    { 0x80013478u, 0x800134fcu, kMain80013478Words },
+    { 0x800134fcu, 0x80013694u, kMain800134FCWords },
+    { 0x80013694u, 0x8001382cu, kMain80013694Words },
+    { 0x8001382cu, 0x800139c8u, kMain8001382CWords },
+    { 0x800139c8u, 0x80013b64u, kMain800139C8Words },
+    { 0x80013b64u, 0x80013cfcu, kMain80013B64Words },
+    { 0x80013cfcu, 0x80013e94u, kMain80013CFCWords },
+    { 0x80013e94u, 0x80013ed0u, kMain80013E94Words },
+    { 0x80013ed0u, 0x80013f3cu, kMain80013ED0Words },
+    { 0x80013f3cu, 0x80013f68u, kMain80013F3CWords },
+    { 0x80013f68u, 0x80013f98u, kMain80013F68Words },
+    { 0x80013f98u, 0x80013fbcu, kMain80013F98Words },
+    { 0x80013fbcu, 0x80013fe0u, kMain80013FBCWords },
+    { 0x80013fe0u, 0x80014004u, kMain80013FE0Words },
+    { 0x80014004u, 0x80014028u, kMain80014004Words },
+    { 0x80014028u, 0x8001404cu, kMain80014028Words },
+    { 0x8001404cu, 0x80014070u, kMain8001404CWords },
+    { 0x80014070u, 0x80014094u, kMain80014070Words },
+    { 0x80014094u, 0x800140b8u, kMain80014094Words },
+    { 0x800140b8u, 0x80014128u, kMain800140B8Words },
+    { 0x80014128u, 0x80014148u, kMain80014128Words },
+    { 0x80014148u, 0x80014168u, kMain80014148Words },
+    { 0x80014168u, 0x800141acu, kMain80014168Words },
+    { 0x800141acu, 0x800141f0u, kMain800141ACWords },
+    { 0x800141f0u, 0x80014238u, kMain800141F0Words },
+    { 0x80014238u, 0x800142c8u, kMain80014238Words },
+    { 0x800142c8u, 0x80014338u, kMain800142C8Words },
+    { 0x80014338u, 0x80014390u, kMain80014338Words },
+    { 0x80014390u, 0x800143acu, kMain80014390Words },
+    { 0x800143acu, 0x80014444u, kDraw800143ACWords },
+    { 0x80014444u, 0x800144d4u, kSecondGeom80014444Words },
+    { 0x800144d4u, 0x80014554u, kCamera800144D4Words },
+    { 0x80014554u, 0x800145ecu, kSecondGeom80014554Words },
+    { 0x800145ecu, 0x800146b0u, kDraw800145ECWords },
+    { 0x800146b0u, 0x80014774u, kMain800146B0Words },
+    { 0x80014774u, 0x800147b8u, kDrawFollowup80014774Words },
+    { 0x800147b8u, 0x80014928u, kDrawFollowup800147B8Words },
+    { 0x80014928u, 0x80014960u, kMain80014928Words },
+    { 0x80014960u, 0x80014998u, kDrawEnv80014960Words },
+    { 0x80014998u, 0x800149e0u, kDrawEnv80014998Words },
+    { 0x800149e0u, 0x80014b10u, kMain800149E0Words },
+    { 0x80014b10u, 0x80014bfcu, kMain80014B10Words },
+    { 0x80014bfcu, 0x80014c28u, kMain80014BFCWords },
+    { 0x80014c28u, 0x80014c54u, kMain80014C28Words },
+    { 0x80014c54u, 0x80014cacu, kMain80014C54Words },
+    { 0x80014cacu, 0x80014cf8u, kMain80014CACWords },
+    { 0x80014cf8u, 0x80014d30u, kMain80014CF8Words },
+    { 0x80014d30u, 0x80014d68u, kMain80014D30Words },
+    { 0x80014d68u, 0x80014d94u, kMain80014D68Words },
+    { 0x80014d94u, 0x80014dc0u, kMain80014D94Words },
+    { 0x80014dc0u, 0x80014decu, kMain80014DC0Words },
+    { 0x80014decu, 0x80014e24u, kMain80014DECWords },
+    { 0x80014e24u, 0x80014e80u, kMain80014E24Words },
+    { 0x80014e80u, 0x80014ed4u, kMain80014E80Words },
+    { 0x80014ed4u, 0x80015018u, kMain80014ED4Words },
+    { 0x80015018u, 0x80015118u, kMain80015018Words },
+    { 0x80015118u, 0x8001513cu, kMain80015118Words },
+    { 0x8001513cu, 0x80015144u, kMain8001513CWords },
+    { 0x80015144u, 0x80015208u, kMain80015144Words },
+    { 0x80015208u, 0x800152f4u, kMain80015208Words },
+    { 0x800152f4u, 0x80015310u, kMain800152F4Words },
+    { 0x80015310u, 0x8001534cu, kMain80015310Words },
+    { 0x8001534cu, 0x800153a4u, kMain8001534CWords },
+    { 0x800153a4u, 0x800153ccu, kMain800153A4Words },
+    { 0x800153ccu, 0x80015424u, kMain800153CCWords },
+    { 0x80015424u, 0x8001544cu, kMain80015424Words },
+    { 0x8001544cu, 0x80015498u, kMain8001544CWords },
+    { 0x80015498u, 0x80015608u, kMain80015498Words },
+    { 0x80015608u, 0x80015760u, kMain80015608Words },
+    { 0x80015760u, 0x80015908u, kMain80015760Words },
+    { 0x80015908u, 0x80015954u, kMain80015908Words },
+    { 0x80015954u, 0x80015978u, kMain80015954Words },
+    { 0x80015978u, 0x8001599cu, kMain80015978Words },
+    { 0x8001599cu, 0x800159c0u, kMain8001599CWords },
+    { 0x800159c0u, 0x800159e4u, kMain800159C0Words },
+    { 0x800159e4u, 0x80015a08u, kMain800159E4Words },
+    { 0x80015a08u, 0x80015a2cu, kMain80015A08Words },
+    { 0x80015a2cu, 0x80015a50u, kMain80015A2CWords },
+    { 0x80015a50u, 0x80015a74u, kMain80015A50Words },
+    { 0x80015a74u, 0x80015ad0u, kMain80015A74Words },
+    { 0x80015ad0u, 0x80015b6cu, kMain80015AD0Words },
+    { 0x80015b6cu, 0x80015d4cu, kMain80015B6CWords },
+    { 0x80015d4cu, 0x80015f04u, kMain80015D4CWords },
+    { 0x80015f04u, 0x80016110u, kMain80015F04Words },
+    { 0x80016110u, 0x80016224u, kMain80016110Words },
+    { 0x80016224u, 0x80016450u, kMain80016224Words },
+    { 0x80016450u, 0x80016638u, kMain80016450Words },
+    { 0x80016638u, 0x800166e8u, kMain80016638Words },
+    { 0x800166e8u, 0x80016714u, kMain800166E8Words },
+    { 0x80016714u, 0x800167b8u, kMain80016714Words },
+    { 0x800167b8u, 0x800167f0u, kMain800167B8Words },
+    { 0x800167f0u, 0x800168b4u, kMain800167F0Words },
+    { 0x800168b4u, 0x800168c4u, kMain800168B4Words },
+    { 0x800168c4u, 0x80016940u, kMain800168C4Words },
+    { 0x80016940u, 0x80016978u, kMain80016940Words },
+    { 0x80016978u, 0x80016a3cu, kMain80016978Words },
+    { 0x80016a3cu, 0x80016a5cu, kMain80016A3CWords },
+    { 0x80016a5cu, 0x80016a7cu, kMain80016A5CWords },
+    { 0x80016a7cu, 0x80016b60u, kMain80016A7CWords },
+    { 0x80016b60u, 0x80016c28u, kMain80016B60Words },
+    { 0x80016c28u, 0x80016d78u, kMain80016C28Words },
+    { 0x80016d78u, 0x80016eb0u, kMain80016D78Words },
+    { 0x80016eb0u, 0x80016ed4u, kMain80016EB0Words },
+    { 0x80016ed4u, 0x80016ef8u, kMain80016ED4Words },
+    { 0x80016ef8u, 0x80016f18u, kMain80016EF8Words },
+    { 0x80016f18u, 0x80017168u, kMain80016F18Words },
+    { 0x80017168u, 0x80017254u, kMain80017168Words },
+    { 0x80017254u, 0x80017274u, kMain80017254Words },
+    { 0x80017274u, 0x80017294u, kMain80017274Words },
+    { 0x80017294u, 0x8001739cu, kMain80017294Words },
+    { 0x8001739cu, 0x800173bcu, kMain8001739CWords },
+    { 0x800173bcu, 0x800173dcu, kMain800173BCWords },
+    { 0x800173dcu, 0x800174dcu, kMain800173DCWords },
+    { 0x800174dcu, 0x800174fcu, kMain800174DCWords },
+    { 0x800174fcu, 0x8001751cu, kMain800174FCWords },
+    { 0x8001751cu, 0x800176f0u, kMain8001751CWords },
+    { 0x800176f0u, 0x80017714u, kMain800176F0Words },
+    { 0x80017714u, 0x80017738u, kMain80017714Words },
+    { 0x80017738u, 0x80017758u, kMain80017738Words },
+    { 0x800183e0u, 0x80018450u, kMain800183E0Words },
+    { 0x80018450u, 0x800184f0u, kMain80018450Words },
+    { 0x800184f0u, 0x80018714u, kMain800184F0Words },
+    { 0x80018714u, 0x80018730u, kMain80018714Words },
+    { 0x80018730u, 0x80018918u, kMain80018730Words },
+    { 0x80018918u, 0x800189a8u, kMain80018918Words },
+    { 0x800189a8u, 0x80018a20u, kMain800189A8Words },
+    { 0x80018a20u, 0x80018c64u, kMain80018A20Words },
+    { 0x80018c64u, 0x80018ce8u, kMain80018C64Words },
+    { 0x80018ce8u, 0x80018e78u, kMain80018CE8Words },
+    { 0x80018e78u, 0x80018e9cu, kMain80018E78Words },
+    { 0x80018e9cu, 0x80018f20u, kMain80018E9CWords },
+    { 0x80018f20u, 0x80018f88u, kMain80018F20Words },
+    { 0x80018f88u, 0x80018fc8u, kMain80018F88Words },
+    { 0x80018fc8u, 0x80019018u, kMain80018FC8Words },
+    { 0x80019018u, 0x80019028u, kMain80019018Words },
+    { 0x80019028u, 0x8001903cu, kMain80019028Words },
+    { 0x8001903cu, 0x80019064u, kMain8001903CWords },
+    { 0x80019064u, 0x800190acu, kMain80019064Words },
+    { 0x800190acu, 0x80019198u, kMain800190ACWords },
+    { 0x80019198u, 0x800191a8u, kMain80019198Words },
+    { 0x800191a8u, 0x800191bcu, kMain800191A8Words },
+    { 0x800191bcu, 0x800191d4u, kMain800191BCWords },
+    { 0x800191d4u, 0x8001923cu, kMain800191D4Words },
+    { 0x8001923cu, 0x8001931cu, kMain8001923CWords },
+    { 0x8001931cu, 0x80019378u, kMain8001931CWords },
+    { 0x80019378u, 0x80019388u, kMain80019378Words },
+    { 0x80019388u, 0x80019398u, kMain80019388Words },
+    { 0x80019398u, 0x800193a8u, kMain80019398Words },
+    { 0x800193a8u, 0x800193b8u, kMain800193A8Words },
+    { 0x800193b8u, 0x8001971cu, kMain800193B8Words },
+    { 0x8001a0fcu, 0x8001a114u, kMain8001A0FCWords },
+    { 0x8001a114u, 0x8001a338u, kMain8001A114Words },
+    { 0x8001a338u, 0x8001a9d8u, kMain8001A338Words },
+    { 0x8001a9d8u, 0x8001a9f8u, kMain8001A9D8Words },
+    { 0x8001a9f8u, 0x8001aa78u, kMain8001A9F8Words },
+    { 0x8001aa78u, 0x8001aa88u, kMain8001AA78Words },
+    { 0x8001aa88u, 0x8001aa98u, kMain8001AA88Words },
+    { 0x8001aa98u, 0x8001aaa0u, kMain8001AA98Words },
+    { 0x8001aaa0u, 0x8001aad0u, kMain8001AAA0Words },
+    { 0x8001aad0u, 0x8001abb4u, kMain8001AAD0Words },
+    { 0x8001abb4u, 0x8001abbcu, kMain8001ABB4Words },
+    { 0x8001abbcu, 0x8001acf0u, kMain8001ABBCWords },
+    { 0x8001acf0u, 0x8001ae90u, kMain8001ACF0Words },
+    { 0x8001ae90u, 0x8001af04u, kMain8001AE90Words },
+    { 0x8001af04u, 0x8001af34u, kMain8001AF04Words },
+    { 0x8001af34u, 0x8001b0d4u, kMain8001AF34Words },
+    { 0x8001b0d4u, 0x8001b22cu, kMain8001B0D4Words },
+    { 0x8001b22cu, 0x8001b23cu, kMain8001B22CWords },
+    { 0x8001b23cu, 0x8001b26cu, kMain8001B23CWords },
+    { 0x8001b26cu, 0x8001b324u, kMain8001B26CWords },
+    { 0x8001b324u, 0x8001b34cu, kMain8001B324Words },
+    { 0x8001b34cu, 0x8001b374u, kMain8001B34CWords },
+    { 0x8001b374u, 0x8001b384u, kMain8001B374Words },
+    { 0x8001b384u, 0x8001b394u, kMain8001B384Words },
+    { 0x8001b394u, 0x8001b3c4u, kMain8001B394Words },
+    { 0x8001b3c4u, 0x8001b710u, kMain8001B3C4Words },
+    { 0x8001b710u, 0x8001b788u, kMain8001B710Words },
+    { 0x8001b788u, 0x8001b7c4u, kMain8001B788Words },
+    { 0x8001b7c4u, 0x8001b85cu, kMain8001B7C4Words },
+    { 0x8001b85cu, 0x8001b86cu, kMain8001B85CWords },
+    { 0x8001b86cu, 0x8001ba84u, kMain8001B86CWords },
+    { 0x8001ba84u, 0x8001badcu, kMain8001BA84Words },
+    { 0x8001badcu, 0x8001bb60u, kMain8001BADCWords },
+    { 0x8001bb60u, 0x8001bbbcu, kMain8001BB60Words },
+    { 0x8001bbbcu, 0x8001bc6cu, kMain8001BBBCWords },
+    { 0x8001bc6cu, 0x8001bd80u, kMain8001BC6CWords },
+    { 0x8001bd80u, 0x8001bda0u, kMain8001BD80Words },
+    { 0x8001bda0u, 0x8001be20u, kMain8001BDA0Words },
+    { 0x8001be20u, 0x8001be30u, kMain8001BE20Words },
+    { 0x8001be30u, 0x8001bfa0u, kMain8001BE30Words },
+    { 0x8001bfa0u, 0x8001bfb0u, kMain8001BFA0Words },
+    { 0x8001bfb0u, 0x8001bfd0u, kMain8001BFB0Words },
+    { 0x8001bfd0u, 0x8001bfe8u, kMain8001BFD0Words },
+    { 0x8001bfe8u, 0x8001bff8u, kMain8001BFE8Words },
+    { 0x8001bff8u, 0x8001c00cu, kMain8001BFF8Words },
+    { 0x8001c00cu, 0x8001c044u, kMain8001C00CWords },
+    { 0x8001c044u, 0x8001c0c8u, kMain8001C044Words },
+    { 0x8001c0c8u, 0x8001c14cu, kMain8001C0C8Words },
+    { 0x8001c14cu, 0x8001c1e4u, kMain8001C14CWords },
+    { 0x8001c1e4u, 0x8001c214u, kMain8001C1E4Words },
+    { 0x8001c214u, 0x8001c2c4u, kMain8001C214Words },
+    { 0x8001c2c4u, 0x8001c320u, kMain8001C2C4Words },
+    { 0x8001c320u, 0x8001c448u, kMain8001C320Words },
+    { 0x8001c448u, 0x8001c4a4u, kMain8001C448Words },
+    { 0x8001c4a4u, 0x8001c558u, kMain8001C4A4Words },
+    { 0x8001c558u, 0x8001c5b8u, kMain8001C558Words },
+    { 0x8001c5b8u, 0x8001c6e4u, kMain8001C5B8Words },
+    { 0x8001c6e4u, 0x8001c744u, kMain8001C6E4Words },
+    { 0x8001c744u, 0x8001c7b0u, kMain8001C744Words },
+    { 0x8001c7b0u, 0x8001c810u, kMain8001C7B0Words },
+    { 0x8001c810u, 0x8001c8c4u, kMain8001C810Words },
+    { 0x8001c8c4u, 0x8001c924u, kMain8001C8C4Words },
+    { 0x8001c924u, 0x8001c97cu, kMain8001C924Words },
+    { 0x8001c97cu, 0x8001c9d0u, kMain8001C97CWords },
+    { 0x8001c9d0u, 0x8001ca1cu, kMain8001C9D0Words },
+    { 0x8001ca1cu, 0x8001ca88u, kMain8001CA1CWords },
+    { 0x8001ca88u, 0x8001cb00u, kMain8001CA88Words },
+    { 0x8001cb00u, 0x8001cb6cu, kMain8001CB00Words },
+    { 0x8001cb6cu, 0x8001cbdcu, kMain8001CB6CWords },
+    { 0x8001cbdcu, 0x8001cc3cu, kMain8001CBDCWords },
+    { 0x8001cc3cu, 0x8001cca0u, kMain8001CC3CWords },
+    { 0x8001cca0u, 0x8001cd04u, kMain8001CCA0Words },
+    { 0x8001cd04u, 0x8001cd50u, kMain8001CD04Words },
+    { 0x8001cd50u, 0x8001cd9cu, kMain8001CD50Words },
+    { 0x8001cd9cu, 0x8001cde8u, kMain8001CD9CWords },
+    { 0x8001cde8u, 0x8001ce28u, kMain8001CDE8Words },
+    { 0x8001ce28u, 0x8001ce68u, kMain8001CE28Words },
+    { 0x8001ce68u, 0x8001cec0u, kMain8001CE68Words },
+    { 0x8001cec0u, 0x8001cf00u, kMain8001CEC0Words },
+    { 0x8001cf00u, 0x8001cf30u, kMain8001CF00Words },
+    { 0x8001cf30u, 0x8001cf48u, kMain8001CF30Words },
+    { 0x8001cf48u, 0x8001cfb8u, kMain8001CF48Words },
+    { 0x8001cfb8u, 0x8001cfdcu, kMain8001CFB8Words },
+    { 0x8001cfdcu, 0x8001d050u, kMain8001CFDCWords },
+    { 0x8001d050u, 0x8001d074u, kMain8001D050Words },
+    { 0x8001d074u, 0x8001d0e8u, kMain8001D074Words },
+    { 0x8001d0e8u, 0x8001d0f4u, kMain8001D0E8Words },
+    { 0x8001d0f4u, 0x8001d130u, kMain8001D0F4Words },
+    { 0x8001d130u, 0x8001d150u, kMain8001D130Words },
+    { 0x8001d150u, 0x8001d16cu, kMain8001D150Words },
+    { 0x8001d16cu, 0x8001d1c4u, kMain8001D16CWords },
+    { 0x8001d1c4u, 0x8001d388u, kMain8001D1C4Words },
+    { 0x8001d388u, 0x8001d3fcu, kMain8001D388Words },
+    { 0x8001d3fcu, 0x8001d70cu, kMain8001D3FCWords },
+    { 0x8001d70cu, 0x8001d8c4u, kMain8001D70CWords },
+    { 0x8001d8c4u, 0x8001da34u, kMain8001D8C4Words },
+    { 0x8001da34u, 0x8001e094u, kMain8001DA34Words },
+    { 0x8001e094u, 0x8001e378u, kMain8001E094Words },
+    { 0x8001e378u, 0x8001e668u, kMain8001E378Words },
+    { 0x8001e668u, 0x8001e7e0u, kMain8001E668Words },
+    { 0x8001e7e0u, 0x8001ea14u, kMain8001E7E0Words },
+    { 0x8001ea14u, 0x8001efe0u, kMain8001EA14Words },
+    { 0x8001efe0u, 0x8001f730u, kMain8001EFE0Words },
+    { 0x8001f730u, 0x8001f974u, kMain8001F730Words },
+    { 0x8001f974u, 0x8001f97cu, kMain8001F974Words },
+    { 0x8001f97cu, 0x8001f9f8u, kMain8001F97CWords },
+    { 0x8001f9f8u, 0x8001fb8cu, kMain8001F9F8Words },
+    { 0x8001fb8cu, 0x8001fc08u, kMain8001FB8CWords },
+    { 0x8001fc08u, 0x80020248u, kMain8001FC08Words },
+    { 0x80020248u, 0x80020598u, kMain80020248Words },
+    { 0x80020598u, 0x80020a28u, kMain80020598Words },
+    { 0x80020a28u, 0x80020da4u, kMain80020A28Words },
+    { 0x80020da4u, 0x80020f34u, kMain80020DA4Words },
+    { 0x80020f34u, 0x80021008u, kMain80020F34Words },
+    { 0x80021008u, 0x80021050u, kMain80021008Words },
+    { 0x80021050u, 0x8002109cu, kMain80021050Words },
+    { 0x8002109cu, 0x80021120u, kMain8002109CWords },
+    { 0x80021120u, 0x80021174u, kMain80021120Words },
+    { 0x80021174u, 0x80021284u, kMain80021174Words },
+    { 0x80021284u, 0x800215f4u, kMain80021284Words },
+    { 0x800215f4u, 0x80021d38u, kMain800215F4Words },
+    { 0x80021d38u, 0x800221a8u, kMain80021D38Words },
+    { 0x800221a8u, 0x800226c0u, kMain800221A8Words },
+    { 0x800226c0u, 0x80023138u, kMain800226C0Words },
+    { 0x80023138u, 0x800233ccu, kMain80023138Words },
+    { 0x800233ccu, 0x800234e4u, kMain800233CCWords },
+    { 0x800234e4u, 0x80023570u, kMain800234E4Words },
+    { 0x80023570u, 0x8002374cu, kMain80023570Words },
+    { 0x8002374cu, 0x80023bf0u, kMain8002374CWords },
+    { 0x80023bf0u, 0x80024054u, kMain80023BF0Words },
+    { 0x80024054u, 0x800241c0u, kMain80024054Words },
+    { 0x800241c0u, 0x800242d0u, kMain800241C0Words },
+    { 0x800242d0u, 0x800243ecu, kMain800242D0Words },
+    { 0x800243ecu, 0x80024448u, kMain800243ECWords },
+    { 0x80024448u, 0x800249f0u, kMain80024448Words },
+    { 0x800249f0u, 0x80024bc0u, kMain800249F0Words },
+    { 0x80024bc0u, 0x80024de8u, kMain80024BC0Words },
+    { 0x80024de8u, 0x80025000u, kMain80024DE8Words },
+    { 0x80025000u, 0x8002528cu, kMain80025000Words },
+    { 0x8002528cu, 0x80025504u, kMain8002528CWords },
+    { 0x80025504u, 0x80025818u, kMain80025504Words },
+    { 0x80025818u, 0x80025a30u, kMain80025818Words },
+    { 0x80025a30u, 0x80025cbcu, kMain80025A30Words },
+    { 0x80025cbcu, 0x80025eb8u, kMain80025CBCWords },
+    { 0x80025eb8u, 0x80026128u, kMain80025EB8Words },
+    { 0x80026128u, 0x800262d8u, kMain80026128Words },
+    { 0x800262d8u, 0x80026514u, kMain800262D8Words },
+    { 0x80026514u, 0x800268d0u, kMain80026514Words },
+    { 0x800268d0u, 0x80026d64u, kMain800268D0Words },
+    { 0x80026d64u, 0x80027058u, kMain80026D64Words },
+    { 0x80027058u, 0x80027200u, kMain80027058Words },
+    { 0x80027200u, 0x800273f4u, kMain80027200Words },
+    { 0x800273f4u, 0x800275bcu, kMain800273F4Words },
+    { 0x800275bcu, 0x800277dcu, kMain800275BCWords },
+    { 0x800277dcu, 0x800279acu, kMain800277DCWords },
+    { 0x800279acu, 0x80027bf0u, kMain800279ACWords },
+    { 0x80027bf0u, 0x80027c10u, kMain80027BF0Words },
+    { 0x80027c10u, 0x80027d20u, kMain80027C10Words },
+    { 0x80027d20u, 0x80027f4cu, kMain80027D20Words },
+    { 0x80027f4cu, 0x80028200u, kMain80027F4CWords },
+    { 0x80028200u, 0x80028234u, kMain80028200Words },
+    { 0x80028234u, 0x8002823cu, kMain80028234Words },
+    { 0x8002823cu, 0x80028304u, kSecondGeom8002823CWords },
+    { 0x80028304u, 0x80028394u, kMain80028304Words },
+    { 0x80028394u, 0x80028428u, kMain80028394Words },
+    { 0x80028428u, 0x80028488u, kMain80028428Words },
+    { 0x80028488u, 0x8002850cu, kMain80028488Words },
+    { 0x8002850cu, 0x80028558u, kSecondGeom8002850CWords },
+    { 0x80028558u, 0x800285acu, kMain80028558Words },
+    { 0x800285acu, 0x800285ccu, kMain800285ACWords },
+    { 0x800285ccu, 0x80028620u, kMain800285CCWords },
+    { 0x80028620u, 0x80028694u, kSecondGeom80028620Words },
+    { 0x80028694u, 0x80028a30u, kMain80028694Words },
+    { 0x80028a30u, 0x80028a38u, kMain80028A30Words },
+    { 0x80028a38u, 0x80028a40u, kMain80028A38Words },
+    { 0x80028a40u, 0x80028a48u, kMain80028A40Words },
+    { 0x80028a48u, 0x80028c50u, kMain80028A48Words },
+    { 0x80028c50u, 0x80028d58u, kMain80028C50Words },
+    { 0x80028d58u, 0x80028d78u, kMain80028D58Words },
+    { 0x80028d78u, 0x80028d9cu, kMain80028D78Words },
+    { 0x80028d9cu, 0x80028dbcu, kMain80028D9CWords },
+    { 0x80028dbcu, 0x80028de0u, kMain80028DBCWords },
+    { 0x80028de0u, 0x80028e00u, kMain80028DE0Words },
+    { 0x80028e00u, 0x80028e24u, kMain80028E00Words },
+    { 0x80028e24u, 0x80028e44u, kMain80028E24Words },
+    { 0x80028e44u, 0x80028e68u, kMain80028E44Words },
+    { 0x80028e68u, 0x80028e88u, kMain80028E68Words },
+    { 0x80028e88u, 0x80028eacu, kMain80028E88Words },
+    { 0x80028eacu, 0x80028eccu, kMain80028EACWords },
+    { 0x80028eccu, 0x80028ef0u, kMain80028ECCWords },
+    { 0x80028ef0u, 0x80028f10u, kMain80028EF0Words },
+    { 0x80028f10u, 0x80028f34u, kMain80028F10Words },
+    { 0x80028f34u, 0x80028f54u, kMain80028F34Words },
+    { 0x80028f54u, 0x80028f78u, kMain80028F54Words },
+    { 0x80028f78u, 0x80028f98u, kMain80028F78Words },
+    { 0x80028f98u, 0x80028fbcu, kMain80028F98Words },
+    { 0x80028fbcu, 0x80028fdcu, kMain80028FBCWords },
+    { 0x80028fdcu, 0x80029000u, kMain80028FDCWords },
+    { 0x80029000u, 0x80029020u, kMain80029000Words },
+    { 0x80029020u, 0x80029044u, kMain80029020Words },
+    { 0x80029044u, 0x8002906cu, kMain80029044Words },
+    { 0x8002906cu, 0x80029094u, kMain8002906CWords },
+    { 0x80029094u, 0x800290bcu, kMain80029094Words },
+    { 0x800290bcu, 0x800290e0u, kMain800290BCWords },
+    { 0x800290e0u, 0x80029104u, kMain800290E0Words },
+    { 0x80029104u, 0x80029124u, kMain80029104Words },
+    { 0x80029124u, 0x80029178u, kMain80029124Words },
+    { 0x80029178u, 0x800291a0u, kMain80029178Words },
+    { 0x800291a0u, 0x800291b4u, kMain800291A0Words },
+    { 0x800291b4u, 0x800291c8u, kMain800291B4Words },
+    { 0x800291c8u, 0x800291dcu, kMain800291C8Words },
+    { 0x800291dcu, 0x800291f0u, kMain800291DCWords },
+    { 0x800291f0u, 0x80029204u, kMain800291F0Words },
+    { 0x80029204u, 0x80029218u, kMain80029204Words },
+    { 0x80029218u, 0x80029240u, kMain80029218Words },
+    { 0x80029240u, 0x80029254u, kMain80029240Words },
+    { 0x80029254u, 0x80029264u, kMain80029254Words },
+    { 0x80029264u, 0x80029274u, kMain80029264Words },
+    { 0x80029274u, 0x8002931cu, kMain80029274Words },
+    { 0x8002931cu, 0x80029344u, kMain8002931CWords },
+    { 0x80029344u, 0x8002941cu, kMain80029344Words },
+    { 0x8002941cu, 0x80029444u, kMain8002941CWords },
+    { 0x80029444u, 0x80029504u, kMain80029444Words },
+    { 0x80029504u, 0x80029514u, kMain80029504Words },
+    { 0x80029514u, 0x80029524u, kMain80029514Words },
+    { 0x80029524u, 0x8002953cu, kMain80029524Words },
+    { 0x8002953cu, 0x8002954cu, kMain8002953CWords },
+    { 0x8002954cu, 0x8002955cu, kMain8002954CWords },
+    { 0x8002955cu, 0x8002957cu, kMain8002955CWords },
+    { 0x8002957cu, 0x8002958cu, kMain8002957CWords },
+    { 0x8002958cu, 0x8002959cu, kMain8002958CWords },
+    { 0x8002959cu, 0x800295d4u, kMain8002959CWords },
+    { 0x800295d4u, 0x80029664u, kMain800295D4Words },
+    { 0x80029664u, 0x80029690u, kMain80029664Words },
+    { 0x80029690u, 0x800296f8u, kMain80029690Words },
+    { 0x800296f8u, 0x80029774u, kMain800296F8Words },
+    { 0x80029774u, 0x800298bcu, kMain80029774Words },
+    { 0x800298bcu, 0x8002992cu, kMain800298BCWords },
+    { 0x8002992cu, 0x80029a58u, kMain8002992CWords },
+    { 0x80029a58u, 0x80029a94u, kMain80029A58Words },
+    { 0x80029a94u, 0x80029aacu, kMain80029A94Words },
+    { 0x80029aacu, 0x80029af4u, kMain80029AACWords },
+    { 0x80029af4u, 0x80029b4cu, kMain80029AF4Words },
+    { 0x80029b4cu, 0x80029bc8u, kMain80029B4CWords },
+    { 0x80029bc8u, 0x80029c44u, kMain80029BC8Words },
+    { 0x80029c44u, 0x80029cd4u, kMain80029C44Words },
+    { 0x80029cd4u, 0x80029d3cu, kMain80029CD4Words },
+    { 0x80029d3cu, 0x80029db4u, kMain80029D3CWords },
+    { 0x80029db4u, 0x80029e30u, kMain80029DB4Words },
+    { 0x80029e30u, 0x80029e94u, kMain80029E30Words },
+    { 0x80029e94u, 0x80029ec0u, kMain80029E94Words },
+    { 0x80029ec0u, 0x80029ed4u, kMain80029EC0Words },
+    { 0x80029ed4u, 0x80029fd4u, kMain80029ED4Words },
+    { 0x80029fd4u, 0x80029fe4u, kMain80029FD4Words },
+    { 0x80029fe4u, 0x8002a04cu, kMain80029FE4Words },
+    { 0x8002a04cu, 0x8002a088u, kMain8002A04CWords },
+    { 0x8002a088u, 0x8002a108u, kMain8002A088Words },
+    { 0x8002a108u, 0x8002a1b4u, kMain8002A108Words },
+    { 0x8002a1b4u, 0x8002a200u, kMain8002A1B4Words },
+    { 0x8002a200u, 0x8002a234u, kMain8002A200Words },
+    { 0x8002a234u, 0x8002a26cu, kMain8002A234Words },
+    { 0x8002a26cu, 0x8002a27cu, kMain8002A26CWords },
+    { 0x8002a27cu, 0x8002a28cu, kMain8002A27CWords },
+    { 0x8002a28cu, 0x8002a2b0u, kMain8002A28CWords },
+    { 0x8002a2b0u, 0x8002a2d4u, kMain8002A2B0Words },
+    { 0x8002a2d4u, 0x8002a354u, kMain8002A2D4Words },
+    { 0x8002a354u, 0x8002a400u, kMain8002A354Words },
+    { 0x8002a400u, 0x8002a44cu, kMain8002A400Words },
+    { 0x8002a44cu, 0x8002a480u, kMain8002A44CWords },
+    { 0x8002a480u, 0x8002a4b8u, kMain8002A480Words },
+    { 0x8002a4b8u, 0x8002a4c8u, kMain8002A4B8Words },
+    { 0x8002a4c8u, 0x8002a4d8u, kMain8002A4C8Words },
+    { 0x8002a4d8u, 0x8002a4fcu, kMain8002A4D8Words },
+    { 0x8002a4fcu, 0x8002a520u, kMain8002A4FCWords },
+    { 0x8002a520u, 0x8002a544u, kMain8002A520Words },
+    { 0x8002a544u, 0x8002a5c4u, kMain8002A544Words },
+    { 0x8002a5c4u, 0x8002a670u, kMain8002A5C4Words },
+    { 0x8002a670u, 0x8002a6bcu, kMain8002A670Words },
+    { 0x8002a6bcu, 0x8002a6f0u, kMain8002A6BCWords },
+    { 0x8002a6f0u, 0x8002a728u, kMain8002A6F0Words },
+    { 0x8002a728u, 0x8002a738u, kMain8002A728Words },
+    { 0x8002a738u, 0x8002a748u, kMain8002A738Words },
+    { 0x8002a748u, 0x8002a76cu, kMain8002A748Words },
+    { 0x8002a76cu, 0x8002a790u, kMain8002A76CWords },
+    { 0x8002a790u, 0x8002a7b4u, kMain8002A790Words },
+    { 0x8002a7b4u, 0x8002a834u, kMain8002A7B4Words },
+    { 0x8002a834u, 0x8002a8e0u, kMain8002A834Words },
+    { 0x8002a8e0u, 0x8002a92cu, kMain8002A8E0Words },
+    { 0x8002a92cu, 0x8002a960u, kMain8002A92CWords },
+    { 0x8002a960u, 0x8002a998u, kMain8002A960Words },
+    { 0x8002a998u, 0x8002a9a8u, kMain8002A998Words },
+    { 0x8002a9a8u, 0x8002a9b8u, kMain8002A9A8Words },
+    { 0x8002a9b8u, 0x8002a9dcu, kMain8002A9B8Words },
+    { 0x8002a9dcu, 0x8002aa00u, kMain8002A9DCWords },
+    { 0x8002aa00u, 0x8002aa3cu, kMain8002AA00Words },
+    { 0x8002aa3cu, 0x8002aaacu, kMain8002AA3CWords },
+    { 0x8002aaacu, 0x8002aab4u, kMain8002AAACWords },
+    { 0x8002aab4u, 0x8002ab64u, kMain8002AAB4Words },
+    { 0x8002ab64u, 0x8002ac00u, kMain8002AB64Words },
+    { 0x8002ac00u, 0x8002ac98u, kMain8002AC00Words },
+    { 0x8002ac98u, 0x8002ae60u, kMain8002AC98Words },
+    { 0x8002ae60u, 0x8002aed0u, kMain8002AE60Words },
+    { 0x8002aed0u, 0x8002aee4u, kMain8002AED0Words },
+    { 0x8002aee4u, 0x8002aef8u, kMain8002AEE4Words },
+    { 0x8002aef8u, 0x8002af08u, kMain8002AEF8Words },
+    { 0x8002af08u, 0x8002af18u, kMain8002AF08Words },
+    { 0x8002af18u, 0x8002af48u, kMain8002AF18Words },
+    { 0x8002af48u, 0x8002af60u, kMain8002AF48Words },
+    { 0x8002af60u, 0x8002af70u, kMain8002AF60Words },
+    { 0x8002af70u, 0x8002b00cu, kMain8002AF70Words },
+    { 0x8002b00cu, 0x8002b064u, kMain8002B00CWords },
+    { 0x8002b064u, 0x8002b08cu, kMain8002B064Words },
+    { 0x8002b08cu, 0x8002b0b4u, kMain8002B08CWords },
+    { 0x8002b0b4u, 0x8002c320u, kMain8002B0B4Words },
+    { 0x8002c320u, 0x8002c3b0u, kMain8002C320Words },
+    { 0x8002c3b0u, 0x8002c410u, kMain8002C3B0Words },
+    { 0x8002c410u, 0x8002c8bcu, kMain8002C410Words },
+    { 0x8002cdd8u, 0x8002cfe4u, kMain8002CDD8Words },
+    { 0x8002cfe4u, 0x8002d034u, kMain8002CFE4Words },
+    { 0x8002d034u, 0x8002d1f0u, kMain8002D034Words },
+    { 0x8002d240u, 0x8002d29cu, kMain8002D240Words },
+    { 0x8002d29cu, 0x8002d320u, kMain8002D29CWords },
+    { 0x8002d320u, 0x8002d4b8u, kMain8002D320Words },
+    { 0x8002d4b8u, 0x8002d4c8u, kMain8002D4B8Words },
+    { 0x8002d4c8u, 0x8002d59cu, kMain8002D4C8Words },
+    { 0x8002d59cu, 0x8002d678u, kMain8002D59CWords },
+    { 0x8002d678u, 0x8002d6d8u, kMain8002D678Words },
+    { 0x8002d6d8u, 0x8002d7f4u, kMain8002D6D8Words },
+    { 0x8002d7f4u, 0x8002d7fcu, kMain8002D7F4Words },
+    { 0x8002d7fcu, 0x8002d80cu, kMain8002D7FCWords },
+    { 0x8002d80cu, 0x8002d834u, kMain8002D80CWords },
+    { 0x8002d834u, 0x8002d844u, kMain8002D834Words },
+    { 0x8002d844u, 0x8002d858u, kMain8002D844Words },
+    { 0x8002d858u, 0x8002d8a8u, kMain8002D858Words },
+    { 0x8002d8a8u, 0x8002d8d4u, kMain8002D8A8Words },
+    { 0x8002d8d4u, 0x8002d904u, kMain8002D8D4Words },
+    { 0x8002d904u, 0x8002dc68u, kMain8002D904Words },
+    { 0x8002dc68u, 0x8002df80u, kMain8002DC68Words },
+    { 0x8002df80u, 0x8002e138u, kMain8002DF80Words },
+    { 0x8002e138u, 0x8002e5bcu, kMain8002E138Words },
+    { 0x8002e5bcu, 0x8002e5f8u, kMain8002E5BCWords },
+    { 0x8002e5f8u, 0x8002e638u, kMain8002E5F8Words },
+    { 0x8002e638u, 0x8002e700u, kMain8002E638Words },
+    { 0x8002e700u, 0x8002e79cu, kMain8002E700Words },
+    { 0x8002e79cu, 0x8002e818u, kMain8002E79CWords },
+    { 0x8002e818u, 0x8002e8dcu, kMain8002E818Words },
+    { 0x8002e8dcu, 0x8002e94cu, kMain8002E8DCWords },
+    { 0x8002e94cu, 0x8002ea10u, kMain8002E94CWords },
+    { 0x8002ea10u, 0x8002eab0u, kMain8002EA10Words },
+    { 0x8002eab0u, 0x8002eb10u, kMain8002EAB0Words },
+    { 0x8002eb10u, 0x8002ebacu, kMain8002EB10Words },
+    { 0x8002ebacu, 0x8002ec10u, kMain8002EBACWords },
+    { 0x8002ec10u, 0x8002ed90u, kMain8002EC10Words },
+    { 0x8002ed90u, 0x8002ede4u, kMain8002ED90Words },
+    { 0x8002ede4u, 0x8002ee64u, kMain8002EDE4Words },
+    { 0x8002ee64u, 0x8002ee90u, kMain8002EE64Words },
+    { 0x8002ee90u, 0x8002eeb8u, kMain8002EE90Words },
+    { 0x8002eeb8u, 0x8002eed8u, kMain8002EEB8Words },
+    { 0x8002eed8u, 0x8002efd0u, kMain8002EED8Words },
+    { 0x8002efd0u, 0x8002eff8u, kMain8002EFD0Words },
+    { 0x8002eff8u, 0x8002f064u, kMain8002EFF8Words },
+    { 0x8002f064u, 0x8002f0d0u, kMain8002F064Words },
+    { 0x8002f0d0u, 0x8002f0f4u, kMain8002F0D0Words },
+    { 0x8002f0f4u, 0x8002f12cu, kMain8002F0F4Words },
+    { 0x8002f12cu, 0x8002f150u, kMain8002F12CWords },
+    { 0x8002f150u, 0x8002f1ccu, kMain8002F150Words },
+    { 0x8002f1ccu, 0x8002f248u, kMain8002F1CCWords },
+    { 0x8002f248u, 0x8002f4e4u, kMain8002F248Words },
+    { 0x8002f4e4u, 0x8002f5c8u, kMain8002F4E4Words },
+    { 0x8002f5c8u, 0x8002f620u, kMain8002F5C8Words },
+    { 0x8002f620u, 0x8002f648u, kMain8002F620Words },
+    { 0x8002f648u, 0x8002f658u, kMain8002F648Words },
+    { 0x8002f658u, 0x8002f67cu, kMain8002F658Words },
+    { 0x8002f67cu, 0x8002f714u, kMain8002F67CWords },
+    { 0x8002f714u, 0x8002f80cu, kMain8002F714Words },
+    { 0x8002f80cu, 0x8002fa3cu, kMain8002F80CWords },
+    { 0x8002fa3cu, 0x8002fae0u, kMain8002FA3CWords },
+    { 0x8002fb08u, 0x8002fc64u, kMain8002FB08Words },
+    { 0x8002fc64u, 0x8002fd14u, kMain8002FC64Words },
+    { 0x8002fd14u, 0x8002fdc8u, kMain8002FD14Words },
+    { 0x8002fdc8u, 0x8002fde8u, kMain8002FDC8Words },
+    { 0x8002fde8u, 0x8002ff0cu, kMain8002FDE8Words },
+    { 0x8002ff0cu, 0x800301a4u, kMain8002FF0CWords },
+    { 0x800301a4u, 0x800301c8u, kMain800301A4Words },
+    { 0x800301c8u, 0x80030470u, kMain800301C8Words },
+    { 0x80030470u, 0x800304c8u, kMain80030470Words },
+    { 0x800304c8u, 0x80030538u, kMain800304C8Words },
+    { 0x80030538u, 0x80030604u, kMain80030538Words },
+    { 0x80030604u, 0x80030634u, kMain80030604Words },
+    { 0x80030634u, 0x80030730u, kMain80030634Words },
+    { 0x80030730u, 0x80030a14u, kMain80030730Words },
+    { 0x80030a14u, 0x80030ca4u, kMain80030A14Words },
+    { 0x80030ca4u, 0x80030d80u, kMain80030CA4Words },
+    { 0x80030d80u, 0x80030f80u, kMain80030D80Words },
+    { 0x80030f80u, 0x800314dcu, kMain80030F80Words },
+    { 0x800314dcu, 0x800316f8u, kMain800314DCWords },
+    { 0x800316f8u, 0x80031988u, kMain800316F8Words },
+    { 0x80031988u, 0x80031a98u, kMain80031988Words },
+    { 0x80031a98u, 0x80031b7cu, kMain80031A98Words },
+    { 0x80031b7cu, 0x80031be0u, kMain80031B7CWords },
+    { 0x80031be0u, 0x80031cc8u, kMain80031BE0Words },
+    { 0x80031cc8u, 0x80031d70u, kMain80031CC8Words },
+    { 0x80031d70u, 0x80031decu, kMain80031D70Words },
+    { 0x80031decu, 0x80031e94u, kMain80031DECWords },
+    { 0x80031e94u, 0x80031f14u, kMain80031E94Words },
+    { 0x80031f14u, 0x80031fc8u, kMain80031F14Words },
+    { 0x80031fc8u, 0x80032048u, kMain80031FC8Words },
+    { 0x80032048u, 0x800322a8u, kMain80032048Words },
+    { 0x800322a8u, 0x800324a4u, kMain800322A8Words },
+    { 0x800324a4u, 0x80032774u, kMain800324A4Words },
+    { 0x80032774u, 0x80032a74u, kMain80032774Words },
+    { 0x80032a74u, 0x8003310cu, kMain80032A74Words },
+    { 0x8003310cu, 0x800331d4u, kMain8003310CWords },
+    { 0x800331d4u, 0x8003324cu, kMain800331D4Words },
+    { 0x8003324cu, 0x80033324u, kMain8003324CWords },
+    { 0x80033324u, 0x80033398u, kMain80033324Words },
+    { 0x80033398u, 0x8003350cu, kMain80033398Words },
+    { 0x8003350cu, 0x800335b8u, kMain8003350CWords },
+    { 0x800335b8u, 0x800336a8u, kMain800335B8Words },
+    { 0x800336a8u, 0x8003388cu, kMain800336A8Words },
+    { 0x8003388cu, 0x800342e8u, kMain8003388CWords },
+    { 0x800342e8u, 0x80034314u, kMain800342E8Words },
+    { 0x80034314u, 0x80034650u, kMain80034314Words },
+    { 0x80034650u, 0x800346d0u, kMain80034650Words },
+    { 0x800346d0u, 0x800347c8u, kMain800346D0Words },
+    { 0x800347c8u, 0x80034844u, kMain800347C8Words },
+    { 0x80034844u, 0x800348a8u, kMain80034844Words },
+    { 0x800348a8u, 0x8003491cu, kMain800348A8Words },
+    { 0x8003491cu, 0x80034a54u, kMain8003491CWords },
+    { 0x80034a54u, 0x80034a9cu, kMain80034A54Words },
+    { 0x80034a9cu, 0x80034ae0u, kMain80034A9CWords },
+    { 0x80034ae0u, 0x80034b0cu, kMain80034AE0Words },
+    { 0x80034b0cu, 0x80034b3cu, kMain80034B0CWords },
+    { 0x80034b3cu, 0x80034b98u, kMain80034B3CWords },
+    { 0x80034cf0u, 0x80034dfcu, kMain80034CF0Words },
+    { 0x80034dfcu, 0x8003500cu, kMain80034DFCWords },
+    { 0x8003500cu, 0x800351e8u, kMain8003500CWords },
+    { 0x800351e8u, 0x80035210u, kMain800351E8Words },
+    { 0x80035210u, 0x80035270u, kMain80035210Words },
+    { 0x80035270u, 0x800359b0u, kMain80035270Words },
+    { 0x800359b0u, 0x80035c4cu, kMain800359B0Words },
+    { 0x80035c4cu, 0x8003602cu, kMain80035C4CWords },
+    { 0x8003602cu, 0x80036130u, kMain8003602CWords },
+    { 0x80036130u, 0x800361ccu, kMain80036130Words },
+    { 0x800361ccu, 0x8003621cu, kMain800361CCWords },
+    { 0x8003621cu, 0x80036260u, kMain8003621CWords },
+    { 0x80036260u, 0x800363ccu, kMain80036260Words },
+    { 0x800363ccu, 0x80036af8u, kMain800363CCWords },
+    { 0x80036af8u, 0x80036d24u, kMain80036AF8Words },
+    { 0x80036d24u, 0x80036d58u, kMain80036D24Words },
+    { 0x80036d58u, 0x80036eb4u, kMain80036D58Words },
+    { 0x80036eb4u, 0x80036ee8u, kMain80036EB4Words },
+    { 0x80036ee8u, 0x80036f18u, kMain80036EE8Words },
+    { 0x80036f18u, 0x80036f98u, kMain80036F18Words },
+    { 0x80036f98u, 0x80036fb0u, kMain80036F98Words },
+    { 0x80036fb0u, 0x80037004u, kMain80036FB0Words },
+    { 0x80037144u, 0x80037334u, kMain80037144Words },
+    { 0x80037334u, 0x80037358u, kMain80037334Words },
+    { 0x80037358u, 0x80037368u, kMain80037358Words },
+    { 0x80037368u, 0x800373d0u, kMain80037368Words },
+    { 0x800373d0u, 0x800374ccu, kMain800373D0Words },
+    { 0x800374ccu, 0x8003750cu, kMain800374CCWords },
+    { 0x8003750cu, 0x8003775cu, kMain8003750CWords },
+    { 0x8003775cu, 0x800377d8u, kMain8003775CWords },
+    { 0x800377d8u, 0x80037cc8u, kMain800377D8Words },
+    { 0x80037cd8u, 0x80037d74u, kMain80037CD8Words },
+    { 0x80037d74u, 0x80037d98u, kMain80037D74Words },
+    { 0x80037fc4u, 0x8003819cu, kMain80037FC4Words },
+    { 0x8003819cu, 0x800381e4u, kMain8003819CWords },
+    { 0x800381e4u, 0x80038210u, kMain800381E4Words },
+    { 0x80038210u, 0x80038308u, kMain80038210Words },
+    { 0x80038308u, 0x8003834cu, kMain80038308Words },
+    { 0x8003834cu, 0x8003836cu, kMain8003834CWords },
+    { 0x8003836cu, 0x800383a4u, kMain8003836CWords },
+    { 0x800383a4u, 0x800384a8u, kMain800383A4Words },
+    { 0x800384a8u, 0x800385c0u, kMain800384A8Words },
+    { 0x800385c0u, 0x80038638u, kMain800385C0Words },
+    { 0x80038638u, 0x80038668u, kMain80038638Words },
+    { 0x80038668u, 0x80038698u, kMain80038668Words },
+    { 0x80038698u, 0x800387c0u, kMain80038698Words },
+    { 0x800387c0u, 0x80038838u, kMain800387C0Words },
+    { 0x80038838u, 0x800388e8u, kMain80038838Words },
+    { 0x800388e8u, 0x80038908u, kMain800388E8Words },
+    { 0x80038908u, 0x80038958u, kMain80038908Words },
+    { 0x80038958u, 0x80038a00u, kMain80038958Words },
+    { 0x80038a00u, 0x80038a58u, kMain80038A00Words },
+    { 0x80038a58u, 0x80038fc4u, kMain80038A58Words },
+    { 0x80038fc4u, 0x80038ffcu, kMain80038FC4Words },
+    { 0x80038ffcu, 0x8003916cu, kMain80038FFCWords },
+    { 0x8003916cu, 0x800391d4u, kMain8003916CWords },
+    { 0x800391d4u, 0x80039300u, kMain800391D4Words },
+    { 0x80039300u, 0x80039308u, kMain80039300Words },
+    { 0x80039308u, 0x80039b20u, kMain80039308Words },
+    { 0x80039b20u, 0x80039c5cu, kMain80039B20Words },
+    { 0x80039c5cu, 0x80039c70u, kMain80039C5CWords },
+    { 0x80039c70u, 0x80039decu, kMain80039C70Words },
+    { 0x80039decu, 0x80039f14u, kMain80039DECWords },
+    { 0x80039f14u, 0x80039f50u, kMain80039F14Words },
+    { 0x80039f50u, 0x8003a098u, kMain80039F50Words },
+    { 0x8003a098u, 0x8003a0d0u, kMain8003A098Words },
+    { 0x8003a0d0u, 0x8003a0e4u, kMain8003A0D0Words },
+    { 0x8003a0e4u, 0x8003a234u, kMain8003A0E4Words },
+    { 0x8003a234u, 0x8003a3d8u, kMain8003A234Words },
+    { 0x8003a3d8u, 0x8003a404u, kMain8003A3D8Words },
+    { 0x8003a404u, 0x8003a424u, kMain8003A404Words },
+    { 0x8003ab84u, 0x8003ae14u, kMain8003AB84Words },
+    { 0x8003ae14u, 0x8003ae9cu, kMain8003AE14Words },
+    { 0x8003ae9cu, 0x8003af04u, kMain8003AE9CWords },
+    { 0x8003af4cu, 0x8003aff0u, kMain8003AF4CWords },
+    { 0x8003aff0u, 0x8003b02cu, kMain8003AFF0Words },
+    { 0x8003b02cu, 0x8003b08cu, kMain8003B02CWords },
+    { 0x8003b08cu, 0x8003b0b8u, kMain8003B08CWords },
+    { 0x8003b0b8u, 0x8003b0e4u, kMain8003B0B8Words },
+    { 0x8003b250u, 0x8003b280u, kMain8003B250Words },
+    { 0x8003c0a0u, 0x8003c23cu, kMain8003C0A0Words },
+    { 0x8003c23cu, 0x8003c438u, kMain8003C23CWords },
+    { 0x8003c438u, 0x8003c498u, kMain8003C438Words },
+    { 0x8003c498u, 0x8003c4f0u, kMain8003C498Words },
+    { 0x8003c4f0u, 0x8003c598u, kMain8003C4F0Words },
+    { 0x8003c92cu, 0x8003cf68u, kMain8003C92CWords },
+    { 0x8003cf68u, 0x8003cff8u, kMain8003CF68Words },
+    { 0x8003cff8u, 0x8003d134u, kMain8003CFF8Words },
+    { 0x8003d134u, 0x8003d25cu, kMain8003D134Words },
+    { 0x8003d25cu, 0x8003d32cu, kMain8003D25CWords },
+    { 0x8003d32cu, 0x8003d3b4u, kMain8003D32CWords },
+    { 0x8003d3b4u, 0x8003d3f8u, kMain8003D3B4Words },
+    { 0x8003d3f8u, 0x8003d424u, kMain8003D3F8Words },
+    { 0x8003d650u, 0x8003d6e4u, kMain8003D650Words },
+    { 0x8003d6e4u, 0x8003d94cu, kMain8003D6E4Words },
+    { 0x8003d94cu, 0x8003d96cu, kMain8003D94CWords },
+    { 0x8003d96cu, 0x8003d98cu, kMain8003D96CWords },
+    { 0x8003d98cu, 0x8003d9ccu, kMain8003D98CWords },
+    { 0x8003d9ccu, 0x8003da1cu, kMain8003D9CCWords },
+    { 0x8003da1cu, 0x8003dc90u, kMain8003DA1CWords },
+    { 0x8003dc90u, 0x8003df8cu, kMain8003DC90Words },
+    { 0x8003df8cu, 0x8003e248u, kMain8003DF8CWords },
+    { 0x8003e248u, 0x8003e2e4u, kMain8003E248Words },
+    { 0x8003e2e4u, 0x8003e310u, kMain8003E2E4Words },
+    { 0x8003e310u, 0x8003e418u, kMain8003E310Words },
+    { 0x8003e418u, 0x8003e65cu, kMain8003E418Words },
+    { 0x8003e65cu, 0x8003ea04u, kMain8003E65CWords },
+    { 0x8003ea04u, 0x8003eab4u, kMain8003EA04Words },
+    { 0x8003eab4u, 0x8003ebb0u, kMain8003EAB4Words },
+    { 0x8003ebb0u, 0x8003ec10u, kMain8003EBB0Words },
+    { 0x8003ec10u, 0x8003ed94u, kMain8003EC10Words },
+    { 0x8003ed94u, 0x8003edbcu, kMain8003ED94Words },
+    { 0x8003edbcu, 0x8003ede8u, kMain8003EDBCWords },
+    { 0x8003ede8u, 0x8003eee4u, kMain8003EDE8Words },
+    { 0x8003eee4u, 0x8003f104u, kMain8003EEE4Words },
+    { 0x8003f104u, 0x8003f144u, kMain8003F104Words },
+    { 0x8003f144u, 0x8003f380u, kMain8003F144Words },
+    { 0x8003f380u, 0x8003f434u, kMain8003F380Words },
+    { 0x8003f434u, 0x8003f7c8u, kMain8003F434Words },
+    { 0x8003f7c8u, 0x8003f840u, kMain8003F7C8Words },
+    { 0x8003f840u, 0x8003fa54u, kMain8003F840Words },
+    { 0x8003fa54u, 0x8003fa64u, kMain8003FA54Words },
+    { 0x800401ccu, 0x800401e4u, kMain800401CCWords },
+    { 0x800401e4u, 0x800402a8u, kMain800401E4Words },
+    { 0x800402a8u, 0x800403a4u, kMain800402A8Words },
+    { 0x800403a4u, 0x80040868u, kMain800403A4Words },
+    { 0x800414e4u, 0x800415a8u, kMain800414E4Words },
+    { 0x800415a8u, 0x8004162cu, kMain800415A8Words },
+    { 0x8004162cu, 0x800416a8u, kMain8004162CWords },
+    { 0x800416a8u, 0x800419b0u, kMain800416A8Words },
+    { 0x800419b0u, 0x80041a20u, kMain800419B0Words },
+    { 0x80041a20u, 0x80041a50u, kMain80041A20Words },
+    { 0x80041a50u, 0x80041a80u, kMain80041A50Words },
+    { 0x80041a80u, 0x80041ab0u, kMain80041A80Words },
+    { 0x80041ab0u, 0x80041e8cu, kMain80041AB0Words },
+    { 0x80041e8cu, 0x80042154u, kMain80041E8CWords },
+    { 0x80042154u, 0x800422b4u, kMain80042154Words },
+    { 0x800422b4u, 0x800422e8u, kMain800422B4Words },
+    { 0x800422e8u, 0x80042374u, kMain800422E8Words },
+    { 0x80042374u, 0x8004239cu, kMain80042374Words },
+    { 0x80042610u, 0x80042644u, kMain80042610Words },
+    { 0x80042644u, 0x80042674u, kMain80042644Words },
+    { 0x80042674u, 0x800426a4u, kMain80042674Words },
+    { 0x800426a4u, 0x800426d4u, kMain800426A4Words },
+    { 0x800426d4u, 0x800426e4u, kMain800426D4Words },
+    { 0x800426e4u, 0x800426fcu, kMain800426E4Words },
+    { 0x800426fcu, 0x80042718u, kDraw800426FCWords },
+    { 0x80042718u, 0x800427f4u, kMain80042718Words },
+    { 0x800427f4u, 0x800429dcu, kMain800427F4Words },
+    { 0x800429dcu, 0x80042b30u, kMain800429DCWords },
+    { 0x80042b30u, 0x80042bdcu, kMain80042B30Words },
+    { 0x80042bdcu, 0x80042c64u, kMain80042BDCWords },
+    { 0x80042c64u, 0x80042c90u, kMain80042C64Words },
+    { 0x80042c90u, 0x80042ce8u, kMain80042C90Words },
+    { 0x80042ce8u, 0x80042d60u, kMain80042CE8Words },
+    { 0x80042d60u, 0x80042d8cu, kMain80042D60Words },
+    { 0x80042d8cu, 0x80042db8u, kMain80042D8CWords },
+    { 0x80042db8u, 0x80042e08u, kMain80042DB8Words },
+    { 0x80042e08u, 0x80042f8cu, kMain80042E08Words },
+    { 0x80043078u, 0x80043088u, kDisplay80043078Words },
+    { 0x80043088u, 0x800430b8u, kMain80043088Words },
+    { 0x80043974u, 0x80043994u, kMain80043974Words },
+    { 0x800439d4u, 0x800439f8u, kMain800439D4Words },
+    { 0x800439f8u, 0x80043a18u, kMain800439F8Words },
+    { 0x80044a8cu, 0x80044b14u, kMain80044A8CWords },
+    { 0x80044b14u, 0x80044bf4u, kMain80044B14Words },
+    { 0x80044bf4u, 0x80044ce8u, kMain80044BF4Words },
+    { 0x80044ce8u, 0x80044d38u, kMain80044CE8Words },
+    { 0x8004657cu, 0x80046610u, kMain8004657CWords },
+    { 0x80046610u, 0x80046630u, kMain80046610Words },
+    { 0x80046630u, 0x8004674cu, kMain80046630Words },
+    { 0x8004674cu, 0x8004689cu, kMain8004674CWords },
+    { 0x8004689cu, 0x800468fcu, kMain8004689CWords },
+    { 0x800468fcu, 0x80046980u, kMain800468FCWords },
+    { 0x80046980u, 0x80046994u, kMain80046980Words },
+    { 0x80046994u, 0x800469a8u, kMain80046994Words },
+    { 0x800469a8u, 0x800469ccu, kMain800469A8Words },
+    { 0x800469ccu, 0x80046a5cu, kMain800469CCWords },
+    { 0x80046a5cu, 0x80046abcu, kMain80046A5CWords },
+    { 0x80046abcu, 0x80046b44u, kMain80046ABCWords },
+    { 0x80046b44u, 0x80046bfcu, kMain80046B44Words },
+    { 0x80046bfcu, 0x80046c38u, kMain80046BFCWords },
+    { 0x80046c38u, 0x80046cfcu, kMain80046C38Words },
+    { 0x80046cfcu, 0x80046d1cu, kMain80046CFCWords },
+    { 0x80046d1cu, 0x8004768cu, kMain80046D1CWords },
+    { 0x8004768cu, 0x800476c0u, kMain8004768CWords },
+    { 0x800476c0u, 0x8004787cu, kMain800476C0Words },
+    { 0x8004787cu, 0x800478b8u, kCamera8004787CWords },
+    { 0x800478b8u, 0x80047948u, kCamera800478B8Words },
+    { 0x80047948u, 0x800479e8u, kCamera80047948Words },
+    { 0x800479e8u, 0x80047b3cu, kMain800479E8Words },
+    { 0x80047b3cu, 0x80047bd8u, kMain80047B3CWords },
+    { 0x80047bd8u, 0x80047cacu, kMain80047BD8Words },
+    { 0x80047cb4u, 0x80047d34u, kGte80047CB4Words },
+    { 0x80047d3cu, 0x80047dc0u, kCamera80047D3CWords },
+    { 0x80047dccu, 0x80047e58u, kMain80047DCCWords },
+    { 0x80047e58u, 0x80047ec8u, kMain80047E58Words },
+    { 0x80047ec8u, 0x80047f84u, kMain80047EC8Words },
+    { 0x80047f84u, 0x80048068u, kMain80047F84Words },
+    { 0x8004806cu, 0x800480ecu, kMain8004806CWords },
+    { 0x800480ecu, 0x80048180u, kMain800480ECWords },
+    { 0x8004818cu, 0x80048298u, kMain8004818CWords },
+    { 0x8004829cu, 0x80048384u, kMain8004829CWords },
+    { 0x800484ecu, 0x8004864cu, kCamera800484ECWords },
+    { 0x8004864cu, 0x8004867cu, kMain8004864CWords },
+    { 0x8004867cu, 0x8004871cu, kMain8004867CWords },
+    { 0x8004871cu, 0x800487bcu, kMain8004871CWords },
+    { 0x800487bcu, 0x80048804u, kMain800487BCWords },
+    { 0x8004880cu, 0x8004891cu, kMain8004880CWords },
+    { 0x8004891cu, 0x80048b6cu, kMain8004891CWords },
+    { 0x80048b6cu, 0x80048ca4u, kMain80048B6CWords },
+    { 0x80048cacu, 0x80048d98u, kMain80048CACWords },
+    { 0x80048d9cu, 0x80048eacu, kCamera80048D9CWords },
+    { 0x80048eacu, 0x80048fb8u, kMain80048EACWords },
+    { 0x80048fb8u, 0x80049018u, kMain80048FB8Words },
+    { 0x8004901cu, 0x80049140u, kMain8004901CWords },
+    { 0x8004914cu, 0x8004917cu, kMain8004914CWords },
+    { 0x8004917cu, 0x800491acu, kMain8004917CWords },
+    { 0x800491acu, 0x800491ccu, kMain800491ACWords },
+    { 0x800491ccu, 0x800491ecu, kMain800491CCWords },
+    { 0x800491ecu, 0x800491f8u, kMain800491ECWords },
+    { 0x800491fcu, 0x8004921cu, kGte800491FCWords },
+    { 0x8004921cu, 0x80049234u, kGte8004921CWords },
+    { 0x8004923cu, 0x80049248u, kSecondGeom8004923CWords },
+    { 0x8004924cu, 0x80049274u, kMain8004924CWords },
+    { 0x80049274u, 0x8004929cu, kMain80049274Words },
+    { 0x8004929cu, 0x800492d8u, kMain8004929CWords },
+    { 0x800492d8u, 0x800492fcu, kMain800492D8Words },
+    { 0x800492fcu, 0x80049324u, kMain800492FCWords },
+    { 0x80049324u, 0x8004934cu, kMain80049324Words },
+    { 0x8004934cu, 0x8004936cu, kMain8004934CWords },
+    { 0x8004936cu, 0x80049390u, kMain8004936CWords },
+    { 0x80049390u, 0x800493e8u, kMain80049390Words },
+    { 0x800493e8u, 0x80049440u, kMain800493E8Words },
+    { 0x80049440u, 0x80049458u, kMain80049440Words },
+    { 0x8004945cu, 0x8004948cu, kMain8004945CWords },
+    { 0x8004948cu, 0x800494c4u, kMain8004948CWords },
+    { 0x800494c4u, 0x800494fcu, kMain800494C4Words },
+    { 0x800494fcu, 0x8004952cu, kMain800494FCWords },
+    { 0x8004952cu, 0x8004955cu, kMain8004952CWords },
+    { 0x8004955cu, 0x80049588u, kMain8004955CWords },
+    { 0x8004958cu, 0x800495e0u, kMain8004958CWords },
+    { 0x800495ecu, 0x80049610u, kMain800495ECWords },
+    { 0x8004974cu, 0x8004978cu, kMain8004974CWords },
+    { 0x8004978cu, 0x80049a18u, kMain8004978CWords },
+    { 0x80049a18u, 0x80049ca8u, kMain80049A18Words },
+    { 0x80049cacu, 0x80049f38u, kMain80049CACWords },
+    { 0x80049f3cu, 0x8004a0d4u, kMain80049F3CWords },
+    { 0x8004a0dcu, 0x8004a274u, kMain8004A0DCWords },
+    { 0x8004a27cu, 0x8004a414u, kMain8004A27CWords },
+    { 0x8004a41cu, 0x8004a53cu, kMain8004A41CWords },
+    { 0x8004a53cu, 0x8004a660u, kMain8004A53CWords },
+    { 0x8004a660u, 0x8004a794u, kMain8004A660Words },
+    { 0x8004a794u, 0x8004a8c8u, kMain8004A794Words },
+    { 0x8004a8ccu, 0x8004aa18u, kMain8004A8CCWords },
+    { 0x8004aa18u, 0x8004ab68u, kMain8004AA18Words },
+    { 0x8004ab68u, 0x8004acccu, kMain8004AB68Words },
+    { 0x8004acccu, 0x8004ae30u, kMain8004ACCCWords },
+    { 0x8004ae3cu, 0x8004af5cu, kMain8004AE3CWords },
+    { 0x8004af5cu, 0x8004b078u, kMain8004AF5CWords },
+    { 0x8004b078u, 0x8004b1f8u, kMain8004B078Words },
+    { 0x8004b1f8u, 0x8004b378u, kMain8004B1F8Words },
+    { 0x8004b37cu, 0x8004b4c8u, kMain8004B37CWords },
+    { 0x8004b4c8u, 0x8004b614u, kMain8004B4C8Words },
+    { 0x8004b614u, 0x8004b7e0u, kMain8004B614Words },
+    { 0x8004b7e0u, 0x8004b9acu, kMain8004B7E0Words },
+    { 0x8004b9acu, 0x8004baccu, kMain8004B9ACWords },
+    { 0x8004baccu, 0x8004bbf0u, kMain8004BACCWords },
+    { 0x8004bbf0u, 0x8004bd38u, kMain8004BBF0Words },
+    { 0x8004bd38u, 0x8004be80u, kMain8004BD38Words },
+    { 0x8004be8cu, 0x8004bfd8u, kMain8004BE8CWords },
+    { 0x8004bfd8u, 0x8004c128u, kMain8004BFD8Words },
+    { 0x8004c128u, 0x8004c2a0u, kMain8004C128Words },
+    { 0x8004c2a0u, 0x8004c418u, kMain8004C2A0Words },
+    { 0x8004c41cu, 0x8004c53cu, kMain8004C41CWords },
+    { 0x8004c53cu, 0x8004c658u, kMain8004C53CWords },
+    { 0x8004c658u, 0x8004c7ecu, kMain8004C658Words },
+    { 0x8004c7ecu, 0x8004c980u, kMain8004C7ECWords },
+    { 0x8004c98cu, 0x8004cad8u, kMain8004C98CWords },
+    { 0x8004cad8u, 0x8004cc24u, kMain8004CAD8Words },
+    { 0x8004cc24u, 0x8004ce04u, kMain8004CC24Words },
+    { 0x8004ce04u, 0x8004cfe4u, kMain8004CE04Words },
+    { 0x8004cfecu, 0x8004d16cu, kMain8004CFECWords },
+    { 0x8004d16cu, 0x8004d1d4u, kGte8004D16CWords },
+    { 0x8004d1dcu, 0x8004d3acu, kMain8004D1DCWords },
+    { 0x8004d3acu, 0x8004d420u, kMain8004D3ACWords },
+    { 0x8004d420u, 0x8004d504u, kMain8004D420Words },
+    { 0x8004d504u, 0x8004d6b4u, kMain8004D504Words },
+    { 0x8004d6bcu, 0x8004d7f8u, kMain8004D6BCWords },
+    { 0x8004d7f8u, 0x8004d938u, kMain8004D7F8Words },
+    { 0x8004d938u, 0x8004da80u, kMain8004D938Words },
+    { 0x8004da80u, 0x8004dbc8u, kMain8004DA80Words },
+    { 0x8004dbccu, 0x8004dd34u, kMain8004DBCCWords },
+    { 0x8004dd34u, 0x8004dea0u, kMain8004DD34Words },
+    { 0x8004dea0u, 0x8004e018u, kMain8004DEA0Words },
+    { 0x8004e018u, 0x8004e190u, kMain8004E018Words },
+    { 0x8004e19cu, 0x8004e2e4u, kMain8004E19CWords },
+    { 0x8004e2e4u, 0x8004e424u, kMain8004E2E4Words },
+    { 0x8004e424u, 0x8004e5b4u, kMain8004E424Words },
+    { 0x8004e5b4u, 0x8004e744u, kMain8004E5B4Words },
+    { 0x8004e74cu, 0x8004e8ccu, kMain8004E74CWords },
+    { 0x8004e8ccu, 0x8004ea40u, kMain8004E8CCWords },
+    { 0x8004ea40u, 0x8004ec20u, kMain8004EA40Words },
+    { 0x8004ec20u, 0x8004ee00u, kMain8004EC20Words },
+    { 0x8004ee0cu, 0x8004ef78u, kMain8004EE0CWords },
+    { 0x8004ef78u, 0x8004f0dcu, kMain8004EF78Words },
+    { 0x8004f0dcu, 0x8004f24cu, kMain8004F0DCWords },
+    { 0x8004f24cu, 0x8004f3bcu, kMain8004F24CWords },
+    { 0x8004f3bcu, 0x8004f55cu, kMain8004F3BCWords },
+    { 0x8004f55cu, 0x8004f6f8u, kMain8004F55CWords },
+    { 0x8004f6f8u, 0x8004f8a4u, kMain8004F6F8Words },
+    { 0x8004f8a4u, 0x8004fa50u, kMain8004F8A4Words },
+    { 0x8004fa5cu, 0x8004fbd4u, kMain8004FA5CWords },
+    { 0x8004fbd4u, 0x8004fd30u, kMain8004FBD4Words },
+    { 0x8004fd30u, 0x8004fee4u, kMain8004FD30Words },
+    { 0x8004fee4u, 0x80050098u, kMain8004FEE4Words },
+    { 0x8005009cu, 0x80050258u, kMain8005009CWords },
+    { 0x80050258u, 0x800503f0u, kMain80050258Words },
+    { 0x800503f0u, 0x800505fcu, kMain800503F0Words },
+    { 0x800505fcu, 0x80050808u, kMain800505FCWords },
+    { 0x8005080cu, 0x80051044u, kMain8005080CWords },
+    { 0x80051044u, 0x80051804u, kMain80051044Words },
+    { 0x80051804u, 0x80051844u, kMain80051804Words },
+    { 0x80051844u, 0x80051b0cu, kMain80051844Words },
+    { 0x80051b0cu, 0x80051d78u, kMain80051B0CWords },
+    { 0x80051d78u, 0x80051dc8u, kMain80051D78Words },
+    { 0x80051dc8u, 0x80051ea0u, kMain80051DC8Words },
+    { 0x80051ea0u, 0x80051f34u, kMain80051EA0Words },
+    { 0x80051f34u, 0x80052430u, kMain80051F34Words },
+    { 0x80052430u, 0x80052454u, kMain80052430Words },
+    { 0x80052460u, 0x800525dcu, kMain80052460Words },
+    { 0x800525dcu, 0x80052654u, kDraw800525DCWords },
+    { 0x80052654u, 0x800527c4u, kDraw80052654Words },
+    { 0x800527c4u, 0x8005283cu, kMain800527C4Words },
+    { 0x8005283cu, 0x80052aa0u, kProjection8005283CWords },
+    { 0x80052aa0u, 0x80052bdcu, kMain80052AA0Words },
+    { 0x80052bdcu, 0x80052becu, kMain80052BDCWords },
+    { 0x80052becu, 0x80052d00u, kProjection80052BECWords },
+    { 0x80052d00u, 0x80052d90u, kProjection80052D00Words },
+    { 0x80052d90u, 0x80052e38u, kProjection80052D90Words },
+    { 0x80052e38u, 0x80052e68u, kMain80052E38Words },
+    { 0x80052e68u, 0x80052f04u, kMain80052E68Words },
+    { 0x80052f04u, 0x80052f38u, kMain80052F04Words },
+    { 0x80052f38u, 0x80052fccu, kMain80052F38Words },
+    { 0x80052fccu, 0x80053050u, kMain80052FCCWords },
+    { 0x80053050u, 0x80053178u, kMain80053050Words },
+    { 0x80053178u, 0x80053218u, kProjection80053178Words },
+    { 0x80053218u, 0x80053290u, kDrawFollowup80053218Words },
+    { 0x80053290u, 0x80053308u, kMain80053290Words },
+    { 0x80053308u, 0x80053328u, kCamera80053308Words },
+    { 0x80053328u, 0x80053804u, kCamera80053328Words },
+    { 0x80053804u, 0x8005386cu, kCamera80053804Words },
+    { 0x8005386cu, 0x800538bcu, kCamera8005386CWords },
+    { 0x800538bcu, 0x800538ecu, kCamera800538BCWords },
+    { 0x800538ecu, 0x80053978u, kCamera800538ECWords },
+    { 0x80053978u, 0x800539c8u, kMain80053978Words },
+    { 0x800539c8u, 0x800539d8u, kMain800539C8Words },
+    { 0x800539d8u, 0x800539e8u, kMain800539D8Words },
+    { 0x800539e8u, 0x800539f8u, kMain800539E8Words },
+    { 0x800539f8u, 0x80053a18u, kMain800539F8Words },
+    { 0x80053a18u, 0x80053a2cu, kMain80053A18Words },
+    { 0x80053a2cu, 0x80053a40u, kMain80053A2CWords },
+    { 0x80053a40u, 0x80053a4cu, kMain80053A40Words },
+    { 0x80053a4cu, 0x80053a60u, kMain80053A4CWords },
+    { 0x80053a60u, 0x80053a78u, kMain80053A60Words },
+    { 0x80053a78u, 0x80053a8cu, kMain80053A78Words },
+    { 0x80053a8cu, 0x80053aa0u, kMain80053A8CWords },
+    { 0x80053aa0u, 0x80053ab4u, kMain80053AA0Words },
+    { 0x80053ab4u, 0x80053ac0u, kMain80053AB4Words },
+    { 0x80053ac0u, 0x80053accu, kMain80053AC0Words },
+    { 0x80053accu, 0x80053ad8u, kMain80053ACCWords },
+    { 0x80053ad8u, 0x80053af8u, kGte80053AD8Words },
+    { 0x80053af8u, 0x80053b20u, kSecondGeom80053AF8Words },
+    { 0x80053b20u, 0x80053bd8u, kCamera80053B20Words },
+    { 0x80053bd8u, 0x80053cf8u, kMain80053BD8Words },
+    { 0x80053cf8u, 0x80053d44u, kGte80053CF8Words },
+    { 0x80053d44u, 0x80053e28u, kMain80053D44Words },
+    { 0x80053e28u, 0x80053eecu, kCamera80053E28Words },
+    { 0x80053eecu, 0x80053f6cu, kMain80053EECWords },
+    { 0x80053f6cu, 0x80054340u, kCamera80053F6CWords },
+    { 0x80054340u, 0x80054430u, kCamera80054340Words },
+    { 0x80054430u, 0x800544f8u, kCamera80054430Words },
+    { 0x800544f8u, 0x80054514u, kCamera800544F8Words },
+    { 0x80054514u, 0x800547d8u, kMain80054514Words },
+    { 0x800547d8u, 0x80054aacu, kMain800547D8Words },
+    { 0x80054aacu, 0x80054dccu, kMain80054AACWords },
+    { 0x80054dccu, 0x800553d8u, kMain80054DCCWords },
+    { 0x800553d8u, 0x800553f4u, kMain800553D8Words },
+    { 0x800553f4u, 0x80055d40u, kMain800553F4Words },
+    { 0x80055d40u, 0x80056f18u, kMain80055D40Words },
+    { 0x80056f18u, 0x80057094u, kMain80056F18Words },
+    { 0x80057094u, 0x80057928u, kMain80057094Words },
+    { 0x80057928u, 0x80057b14u, kMain80057928Words },
+    { 0x80057b14u, 0x80057c7cu, kMain80057B14Words },
+    { 0x80057c7cu, 0x80057e80u, kMain80057C7CWords },
+    { 0x80057e80u, 0x80057ffcu, kMain80057E80Words },
+    { 0x80057ffcu, 0x80058284u, kMain80057FFCWords },
+    { 0x80058284u, 0x8005845cu, kMain80058284Words },
+    { 0x8005845cu, 0x800586ccu, kMain8005845CWords },
+    { 0x800586ccu, 0x80058890u, kMain800586CCWords },
+    { 0x80058890u, 0x80058a4cu, kMain80058890Words },
+    { 0x80058a4cu, 0x80058b04u, kDrawEnv80058A4CWords },
+    { 0x80058b04u, 0x80058b40u, kDrawEnv80058B04Words },
+    { 0x80058b40u, 0x80058b7cu, kMain80058B40Words },
+    { 0x80058b7cu, 0x80058c6cu, kMain80058B7CWords },
+    { 0x80058c6cu, 0x80058ca8u, kMain80058C6CWords },
+    { 0x80058ca8u, 0x80058ce4u, kMain80058CA8Words },
+    { 0x80058ce4u, 0x80058d20u, kMain80058CE4Words },
+    { 0x80058d20u, 0x80058d48u, kMain80058D20Words },
+    { 0x80058d48u, 0x80058d70u, kMain80058D48Words },
+    { 0x80058d70u, 0x80058d84u, kMain80058D70Words },
+    { 0x80058d84u, 0x80058d98u, kMain80058D84Words },
+    { 0x80058d98u, 0x80058dacu, kMain80058D98Words },
+    { 0x80058dacu, 0x80058dc0u, kMain80058DACWords },
+    { 0x80058dc0u, 0x80058dd4u, kMain80058DC0Words },
+    { 0x80058dd4u, 0x80058de8u, kMain80058DD4Words },
+    { 0x800595fcu, 0x80059658u, kMain800595FCWords },
+    { 0x80059658u, 0x800596f4u, kMain80059658Words },
+    { 0x800596f4u, 0x80059760u, kMain800596F4Words },
+    { 0x80059760u, 0x80059888u, kClearImage80059760Words },
+    { 0x80059888u, 0x8005991cu, kClearImage80059888Words },
+    { 0x8005991cu, 0x800599b8u, kMain8005991CWords },
+    { 0x800599b8u, 0x80059a80u, kMain800599B8Words },
+    { 0x80059a80u, 0x80059b44u, kMain80059A80Words },
+    { 0x80059b44u, 0x80059bfcu, kMain80059B44Words },
+    { 0x80059bfcu, 0x80059cf4u, kMain80059BFCWords },
+    { 0x80059cf4u, 0x80059d68u, kMain80059CF4Words },
+    { 0x80059d68u, 0x80059e6cu, kDraw80059D68Words },
+    { 0x80059e6cu, 0x80059f88u, kMain80059E6CWords },
+    { 0x80059f88u, 0x80059fc0u, kMain80059F88Words },
+    { 0x80059fc0u, 0x8005a468u, kDisplay80059FC0Words },
+    { 0x8005a468u, 0x8005a4a0u, kMain8005A468Words },
+    { 0x8005a4a0u, 0x8005a4d0u, kMain8005A4A0Words },
+    { 0x8005a4d0u, 0x8005a50cu, kMain8005A4D0Words },
+    { 0x8005a50cu, 0x8005a590u, kMain8005A50CWords },
+    { 0x8005a590u, 0x8005a5d4u, kMain8005A590Words },
+    { 0x8005a5d4u, 0x8005a600u, kMain8005A5D4Words },
+    { 0x8005a600u, 0x8005a658u, kMain8005A600Words },
+    { 0x8005a658u, 0x8005a870u, kMain8005A658Words },
+    { 0x8005a870u, 0x8005ab00u, kDraw8005A870Words },
+    { 0x8005ab00u, 0x8005ab58u, kDraw8005AB00Words },
+    { 0x8005ab58u, 0x8005ac24u, kDraw8005AB58Words },
+    { 0x8005ac24u, 0x8005acf0u, kDraw8005AC24Words },
+    { 0x8005acf0u, 0x8005ad34u, kDraw8005ACF0Words },
+    { 0x8005ad34u, 0x8005adb8u, kDraw8005AD34Words },
+    { 0x8005adb8u, 0x8005ae68u, kMain8005ADB8Words },
+    { 0x8005ae68u, 0x8005ae80u, kMain8005AE68Words },
+    { 0x8005ae80u, 0x8005af68u, kMain8005AE80Words },
+    { 0x8005af68u, 0x8005b1c4u, kClearImage8005AF68Words },
+    { 0x8005b1c4u, 0x8005b400u, kMain8005B1C4Words },
+    { 0x8005b400u, 0x8005b684u, kMain8005B400Words },
+    { 0x8005b684u, 0x8005b6acu, kDisplay8005B684Words },
+    { 0x8005b6acu, 0x8005b6c0u, kMain8005B6ACWords },
+    { 0x8005b6c0u, 0x8005b710u, kMain8005B6C0Words },
+    { 0x8005b710u, 0x8005b75cu, kDraw8005B710Words },
+    { 0x8005b75cu, 0x8005b7b0u, kMain8005B75CWords },
+    { 0x8005b7b0u, 0x8005ba90u, kDraw8005B7B0Words },
+    { 0x8005ba90u, 0x8005bd7cu, kDraw8005BA90Words },
+    { 0x8005bd7cu, 0x8005bed8u, kMain8005BD7CWords },
+    { 0x8005bed8u, 0x8005c020u, kMain8005BED8Words },
+    { 0x8005c020u, 0x8005c054u, kDraw8005C020Words },
+    { 0x8005c054u, 0x8005c1c0u, kMain8005C054Words },
+    { 0x8005c1c0u, 0x8005c29cu, kMain8005C1C0Words },
+    { 0x8005c29cu, 0x8005c2c8u, kMain8005C29CWords },
+    { 0x8005c2c8u, 0x8005c2f8u, kMain8005C2C8Words },
+    { 0x8005c2f8u, 0x8005c324u, kMain8005C2F8Words },
+    { 0x8005c4ccu, 0x8005c4dcu, kMain8005C4CCWords },
+    { 0x8005ce18u, 0x8005ce24u, kMain8005CE18Words },
+    { 0x8005ce28u, 0x8005ce34u, kGte8005CE28Words },
+    { 0x8005ce50u, 0x8005ce5cu, kMain8005CE50Words },
+    { 0x8005ce98u, 0x8005cea4u, kMain8005CE98Words },
+    { 0x8005d184u, 0x8005d244u, kMain8005D184Words },
+    { 0x8005d244u, 0x8005d4b8u, kMain8005D244Words },
+    { 0x8005d4b8u, 0x8005d538u, kMain8005D4B8Words },
+    { 0x8005d538u, 0x8005d6a0u, kMain8005D538Words },
+    { 0x8005d6a0u, 0x8005d6ccu, kMain8005D6A0Words },
+    { 0x8005e188u, 0x8005e1a4u, kMain8005E188Words },
+    { 0x8005e79cu, 0x8005e8e8u, kMain8005E79CWords },
+    { 0x8005e8e8u, 0x8005ea34u, kMain8005E8E8Words },
+    { 0x8005f704u, 0x8005f728u, kMain8005F704Words },
+    { 0x8005f728u, 0x8005f75cu, kMain8005F728Words },
+};
+
+static const FormatterRange kFormatterRanges1[] = {
+    { 0x8005d6ccu, 0x8005d734u, kInputVerifierWords },
+    { 0x8005d734u, 0x8005d8a0u, kInputHandlerWords },
+    { 0x8005d8a0u, 0x8005d8b4u, kInputHandlerClear8005D8A0Words },
+    { 0x8005d8b4u, 0x8005d980u, kMain8005D8B4Words },
+    { 0x8005d980u, 0x8005d9c4u, kInputStop8005D980Words },
+    { 0x8005d9c4u, 0x8005dbd8u, kInputSerialStartWords },
+    { 0x8005dbd8u, 0x8005dca0u, kInputSerialNextWords },
+    { 0x8005dca0u, 0x8005de78u, kInputSerialTransferWords },
+    { 0x8005de78u, 0x8005e0acu, kInputDigital8005DE78Words },
+    { 0x8005e0acu, 0x8005e13cu, kInputSerialIrqWords },
+    { 0x8005e13cu, 0x8005e164u, kInputDigital8005E13CWords },
+    { 0x8005e168u, 0x8005e174u, kMain8005E168Words },
+    { 0x8005e178u, 0x8005e184u, kMain8005E178Words },
+    { 0x8005e1a4u, 0x8005e228u, kInputDigital8005E1A4Words },
+    { 0x8005e228u, 0x8005e374u, kInputResponseModeWords },
+    { 0x8005e374u, 0x8005e3acu, kInputResponse8005E374Words },
+    { 0x8005e3acu, 0x8005e79cu, kInputResponse8005E3ACWords },
+    { 0x8005ea34u, 0x8005ea54u, kInputDigital8005EA34Words },
+    { 0x8005ea54u, 0x8005ea68u, kInputDigital8005EA54Words },
+    { 0x8005ea68u, 0x8005ea88u, kInputDigital8005EA68Words },
+    { 0x8005ea88u, 0x8005eaa8u, kInputDigital8005EA88Words },
+    { 0x8005eaa8u, 0x8005eac8u, kInputDigital8005EAA8Words },
+    { 0x8005eac8u, 0x8005eae8u, kInputDigital8005EAC8Words },
+    { 0x8005eae8u, 0x8005eb28u, kInputSerialDispatchWords },
+    { 0x8005eb28u, 0x8005ec00u, kInputDigital8005EB28Words },
+    { 0x8005ec00u, 0x8005ecc0u, kInputDigital8005EC00Words },
+    { 0x8005ecc0u, 0x8005ed4cu, kInputDigital8005ECC0Words },
+    { 0x8005ed4cu, 0x8005f0c8u, kInputDigital8005ED4CWords },
+    { 0x8005f0c8u, 0x8005f228u, kMain8005F0C8Words },
+    { 0x8005f228u, 0x8005f290u, kMain8005F228Words },
+    { 0x8005f290u, 0x8005f384u, kInputDigital8005F290Words },
+    { 0x8005f384u, 0x8005f394u, kInputResponseClearWords },
+    { 0x8005f394u, 0x8005f450u, kInputDigital8005F394Words },
+    { 0x8005f450u, 0x8005f6ccu, kInputDigital8005F450Words },
+    { 0x8005f6ccu, 0x8005f704u, kInputDigital8005F6CCWords },
+    { 0x8005f75cu, 0x8005f830u, kInputSerialPadWords },
+    { 0x8005f830u, 0x8005fa94u, kInputResponseWords },
+    { 0x8005fa94u, 0x8005fb70u, kInputDigital8005FA94Words },
+    { 0x8005fb70u, 0x8005fb9cu, kInputResponseStatusWords },
+    { 0x8005fba8u, 0x8005fbc8u, kInputTimerStartWords },
+    { 0x8005fbc8u, 0x8005fc68u, kInputTimerPollWords },
+    { 0x8005fc68u, 0x8005fc98u, kMain8005FC68Words },
+    { 0x8005fc98u, 0x8005fcb8u, kMain8005FC98Words },
+    { 0x8005fcb8u, 0x8005fd18u, kMain8005FCB8Words },
+    { 0x8005fd18u, 0x8005fd58u, kMain8005FD18Words },
+    { 0x8005fd58u, 0x8005fdd4u, kMain8005FD58Words },
+    { 0x8005fdd4u, 0x8005ffb4u, kMain8005FDD4Words },
+    { 0x8005ffb4u, 0x80060030u, kMain8005FFB4Words },
+    { 0x80060030u, 0x8006023cu, kMain80060030Words },
+    { 0x8006023cu, 0x800603bcu, kMain8006023CWords },
+    { 0x800603bcu, 0x80060404u, kMain800603BCWords },
+    { 0x80060404u, 0x800604c4u, kMain80060404Words },
+    { 0x800604c4u, 0x80060614u, kMain800604C4Words },
+    { 0x80060614u, 0x800606d4u, kMain80060614Words },
+    { 0x800606d4u, 0x80060824u, kMain800606D4Words },
+    { 0x80060824u, 0x80060930u, kMain80060824Words },
+    { 0x80060930u, 0x80060ae0u, kMain80060930Words },
+    { 0x80060ae0u, 0x80060becu, kMain80060AE0Words },
+    { 0x80060becu, 0x80060d9cu, kMain80060BECWords },
+    { 0x80060d9cu, 0x80061010u, kMain80060D9CWords },
+    { 0x80061010u, 0x80061024u, kMain80061010Words },
+    { 0x80061024u, 0x80061114u, kMain80061024Words },
+    { 0x80061114u, 0x80061344u, kMain80061114Words },
+    { 0x80061344u, 0x80061524u, kMain80061344Words },
+    { 0x80061524u, 0x800615bcu, kMain80061524Words },
+    { 0x800615bcu, 0x80061678u, kMain800615BCWords },
+    { 0x80061678u, 0x800616d0u, kMain80061678Words },
+    { 0x800616d0u, 0x80061770u, kMain800616D0Words },
+    { 0x80061770u, 0x800617ccu, kMain80061770Words },
+    { 0x8006186cu, 0x8006189cu, kMain8006186CWords },
+    { 0x8006189cu, 0x80061a80u, kMain8006189CWords },
+    { 0x80061a80u, 0x80061aa0u, kMain80061A80Words },
+    { 0x80061aa0u, 0x80061b58u, kMain80061AA0Words },
+    { 0x80061b58u, 0x80061c60u, kMain80061B58Words },
+    { 0x80061c60u, 0x80061d3cu, kMain80061C60Words },
+    { 0x80061d3cu, 0x80061e18u, kMain80061D3CWords },
+    { 0x80061e18u, 0x80061e54u, kMain80061E18Words },
+    { 0x80061e54u, 0x80061e90u, kMain80061E54Words },
+    { 0x80061e90u, 0x80061f38u, kMain80061E90Words },
+    { 0x80061f38u, 0x80061f44u, kMain80061F38Words },
+    { 0x80061f48u, 0x80061f54u, kMain80061F48Words },
+    { 0x80061f58u, 0x80061f64u, kMain80061F58Words },
+    { 0x80061f68u, 0x80061f74u, kMain80061F68Words },
+    { 0x80061f78u, 0x80061f84u, kMain80061F78Words },
+    { 0x80061f88u, 0x80061f94u, kMain80061F88Words },
+    { 0x80061f98u, 0x80061fa4u, kMain80061F98Words },
+    { 0x80061fa8u, 0x80062144u, kMain80061FA8Words },
+    { 0x80062144u, 0x80062244u, kMain80062144Words },
+    { 0x80062248u, 0x80062254u, kMain80062248Words },
+    { 0x80062258u, 0x80062264u, kMain80062258Words },
+    { 0x80062268u, 0x80062274u, kMain80062268Words },
+    { 0x80062278u, 0x80062284u, kMain80062278Words },
+    { 0x80062288u, 0x80062294u, kMain80062288Words },
+    { 0x80062298u, 0x800622d0u, kMain80062298Words },
+    { 0x800622d0u, 0x80062328u, kMain800622D0Words },
+    { 0x80062328u, 0x80062360u, kMain80062328Words },
+    { 0x80062360u, 0x80062388u, kMain80062360Words },
+    { 0x80062388u, 0x80062394u, kMain80062388Words },
+    { 0x80062394u, 0x800623a4u, kMain80062394Words },
+    { 0x800623a4u, 0x80062434u, kMain800623A4Words },
+    { 0x80062434u, 0x800624c4u, kMain80062434Words },
+    { 0x800624c4u, 0x800624f4u, kMain800624C4Words },
+    { 0x800624f4u, 0x8006252cu, kMain800624F4Words },
+    { 0x8006252cu, 0x800625a4u, kMain8006252CWords },
+    { 0x800625a4u, 0x800625dcu, kMain800625A4Words },
+    { 0x800625dcu, 0x80062644u, kMain800625DCWords },
+    { 0x80062644u, 0x80062684u, kMain80062644Words },
+    { 0x80062688u, 0x80062694u, kMain80062688Words },
+    { 0x80062698u, 0x800626a4u, kMain80062698Words },
+    { 0x800626a8u, 0x800626b4u, kMain800626A8Words },
+    { 0x800626b8u, 0x800626c4u, kMain800626B8Words },
+    { 0x800626c8u, 0x800626dcu, kMain800626C8Words },
+    { 0x800626dcu, 0x800626f0u, kMain800626DCWords },
+    { 0x800626f0u, 0x80062760u, kMain800626F0Words },
+    { 0x80062768u, 0x800627d0u, kMain80062768Words },
+    { 0x800627d8u, 0x800627e4u, kMain800627D8Words },
+    { 0x800627e8u, 0x800627f4u, kMain800627E8Words },
+    { 0x800627f8u, 0x80062804u, kMain800627F8Words },
+    { 0x80062808u, 0x80062870u, kMain80062808Words },
+    { 0x80062888u, 0x8006289cu, kMain80062888Words },
+    { 0x8006289cu, 0x8006291cu, kMain8006289CWords },
+};
+
+static const FormatterRange kFormatterRanges2[] = {
+    { 0x8004239cu, 0x80042404u, kFile8004239CWords },
+    { 0x80042404u, 0x800424e4u, kFile80042404Words },
+    { 0x800424e4u, 0x80042580u, kFile800424E4Words },
+    { 0x80042580u, 0x800425b0u, kMain80042580Words },
+    { 0x800425b0u, 0x800425e0u, kMain800425B0Words },
+    { 0x8004355cu, 0x8004357cu, kFile8004355CWords },
+    { 0x80044d38u, 0x80044f24u, kCdInitializer80044D38Words },
+    { 0x80044f24u, 0x80045090u, kMain80044F24Words },
+};
+
+static const FormatterRange kFormatterRanges3[] = {
+    { 0x8001971cu, 0x80019930u, kFile8001971CWords },
+    { 0x80019930u, 0x80019990u, kMain80019930Words },
+    { 0x80019990u, 0x80019a10u, kFile80019990Words },
+    { 0x80019a10u, 0x80019a24u, kMain80019A10Words },
+    { 0x8002c8bcu, 0x8002c8f4u, kSpu8002C8BCWords },
+    { 0x8002c8f4u, 0x8002cc4cu, kSpu8002C8F4Words },
+    { 0x8002cc4cu, 0x8002ccb4u, kSpu8002CC4CWords },
+    { 0x8002ccb4u, 0x8002ccd8u, kMain8002CCB4Words },
+    { 0x8002ccd8u, 0x8002cdd8u, kMain8002CCD8Words },
+    { 0x8002d1f0u, 0x8002d240u, kSpu8002D1F0Words },
+    { 0x8002fae0u, 0x8002fb08u, kSpu8002FAE0Words },
+    { 0x80034c24u, 0x80034cf0u, kSpu80034C24Words },
+    { 0x80037004u, 0x80037028u, kSpu80037004Words },
+    { 0x80037028u, 0x80037144u, kMain80037028Words },
+    { 0x80037cc8u, 0x80037cd8u, kSpu80037CC8Words },
+    { 0x80037d98u, 0x80037ea0u, kSpu80037D98Words },
+    { 0x80037ea0u, 0x80037f3cu, kMain80037EA0Words },
+    { 0x80037f3cu, 0x80037fc4u, kMain80037F3CWords },
+    { 0x8003a424u, 0x8003a444u, kSpu8003A424Words },
+    { 0x8003a444u, 0x8003a53cu, kSpu8003A444Words },
+    { 0x8003a53cu, 0x8003a5b8u, kSpu8003A53CWords },
+    { 0x8003a5b8u, 0x8003a84cu, kSpu8003A5B8Words },
+    { 0x8003a84cu, 0x8003aa18u, kSpu8003A84CWords },
+    { 0x8003aa18u, 0x8003aad8u, kMain8003AA18Words },
+    { 0x8003aad8u, 0x8003ab84u, kMain8003AAD8Words },
+    { 0x8003af04u, 0x8003af4cu, kSpu8003AF04Words },
+    { 0x8003b0e4u, 0x8003b14cu, kSpu8003B0E4Words },
+    { 0x8003b14cu, 0x8003b170u, kSpu8003B14CWords },
+    { 0x8003b170u, 0x8003b1ecu, kMain8003B170Words },
+    { 0x8003b1ecu, 0x8003b250u, kSpu8003B1ECWords },
+    { 0x8003b280u, 0x8003b350u, kSpu8003B280Words },
+    { 0x8003b350u, 0x8003b3d0u, kMain8003B350Words },
+    { 0x8003b3d0u, 0x8003b45cu, kSpu8003B3D0Words },
+    { 0x8003b45cu, 0x8003b954u, kSpu8003B45CWords },
+    { 0x8003b954u, 0x8003be24u, kSpu8003B954Words },
+    { 0x8003be24u, 0x8003be74u, kSpu8003BE24Words },
+    { 0x8003be74u, 0x8003be98u, kSpu8003BE74Words },
+    { 0x8003be98u, 0x8003c0a0u, kSpu8003BE98Words },
+    { 0x8003c598u, 0x8003c92cu, kSpu8003C598Words },
+    { 0x8003d424u, 0x8003d434u, kSpu8003D424Words },
+    { 0x8003d434u, 0x8003d454u, kMain8003D434Words },
+    { 0x8003d454u, 0x8003d518u, kMain8003D454Words },
+    { 0x8003d518u, 0x8003d548u, kSpu8003D518Words },
+    { 0x8003d548u, 0x8003d630u, kSpu8003D548Words },
+    { 0x8003d630u, 0x8003d650u, kMain8003D630Words },
+    { 0x8003fa64u, 0x8003fe18u, kSpu8003FA64Words },
+    { 0x8003fe18u, 0x8003fe3cu, kMain8003FE18Words },
+    { 0x8003fe3cu, 0x8004014cu, kSpu8003FE3CWords },
+    { 0x8004014cu, 0x800401a0u, kSpu8004014CWords },
+    { 0x800401a0u, 0x800401ccu, kSpu800401A0Words },
+    { 0x80040868u, 0x80040938u, kSpu80040868Words },
+    { 0x80040938u, 0x80040de8u, kMain80040938Words },
+    { 0x80040de8u, 0x80041354u, kMain80040DE8Words },
+    { 0x80041354u, 0x800413b8u, kMain80041354Words },
+    { 0x800413b8u, 0x80041400u, kMain800413B8Words },
+    { 0x80041400u, 0x80041448u, kMain80041400Words },
+    { 0x80041448u, 0x800414e4u, kMain80041448Words },
+    { 0x800425e0u, 0x80042610u, kSpu800425E0Words },
+    { 0x80042f8cu, 0x80043034u, kSpu80042F8CWords },
+    { 0x80043034u, 0x80043060u, kMain80043034Words },
+    { 0x80043060u, 0x80043078u, kMain80043060Words },
+    { 0x800430b8u, 0x800430dcu, kSpu800430B8Words },
+    { 0x800430dcu, 0x80043300u, kSpu800430DCWords },
+    { 0x80043300u, 0x80043398u, kMain80043300Words },
+    { 0x80043398u, 0x800433c0u, kFile80043398Words },
+    { 0x800433c0u, 0x800433e8u, kFile800433C0Words },
+    { 0x800433e8u, 0x80043410u, kFile800433E8Words },
+    { 0x80043410u, 0x80043420u, kFile80043410Words },
+    { 0x80043420u, 0x80043430u, kFile80043420Words },
+    { 0x80043430u, 0x80043440u, kMain80043430Words },
+    { 0x80043440u, 0x80043450u, kFile80043440Words },
+    { 0x80043450u, 0x800434bcu, kMain80043450Words },
+    { 0x800434bcu, 0x800434dcu, kMain800434BCWords },
+    { 0x800434dcu, 0x800434f4u, kMain800434DCWords },
+    { 0x800434f4u, 0x80043528u, kMain800434F4Words },
+    { 0x80043528u, 0x8004355cu, kMain80043528Words },
+    { 0x8004357cu, 0x8004359cu, kFile8004357CWords },
+    { 0x8004359cu, 0x800435b4u, kMain8004359CWords },
+    { 0x800435b4u, 0x800435ccu, kMain800435B4Words },
+    { 0x800435ccu, 0x80043704u, kFile800435CCWords },
+    { 0x80043704u, 0x80043830u, kFile80043704Words },
+    { 0x80043830u, 0x80043974u, kSpu80043830Words },
+    { 0x80043994u, 0x800439b4u, kFile80043994Words },
+    { 0x800439b4u, 0x800439d4u, kMain800439B4Words },
+    { 0x80043a18u, 0x80043b1cu, kFile80043A18Words },
+    { 0x80043b1cu, 0x80043b9cu, kFile80043B1CWords },
+    { 0x80043b9cu, 0x80044124u, kMain80043B9CWords },
+    { 0x80044124u, 0x800443a4u, kMain80044124Words },
+    { 0x800443a4u, 0x80044670u, kFile800443A4Words },
+    { 0x80044670u, 0x80044a8cu, kMain80044670Words },
+    { 0x80045090u, 0x80045190u, kFile80045090Words },
+    { 0x80045190u, 0x80045280u, kMain80045190Words },
+    { 0x80045280u, 0x80045290u, kMain80045280Words },
+    { 0x80045374u, 0x80045640u, kFile80045374Words },
+    { 0x80045640u, 0x80045660u, kFile80045640Words },
+    { 0x80045660u, 0x80045940u, kFile80045660Words },
+    { 0x80045940u, 0x800459e8u, kFile80045940Words },
+    { 0x800459e8u, 0x80045c94u, kFile800459E8Words },
+    { 0x80045c94u, 0x80045d00u, kFile80045C94Words },
+    { 0x80045d00u, 0x80045fd0u, kFile80045D00Words },
+    { 0x80045fd0u, 0x800460ccu, kMain80045FD0Words },
+    { 0x800460ccu, 0x800462e0u, kFile800460CCWords },
+    { 0x800462e0u, 0x8004637cu, kMain800462E0Words },
+    { 0x8004637cu, 0x80046480u, kFile8004637CWords },
+    { 0x80046480u, 0x8004654cu, kFile80046480Words },
+    { 0x8004654cu, 0x80046564u, kMain8004654CWords },
+    { 0x80046564u, 0x8004657cu, kMain80046564Words },
+    { 0x8005c324u, 0x8005c358u, kFile8005C324Words },
+    { 0x8005c358u, 0x8005c388u, kFile8005C358Words },
+    { 0x8005c388u, 0x8005c49cu, kMain8005C388Words },
+    { 0x8005c49cu, 0x8005c4ccu, kMain8005C49CWords },
+    { 0x8005c4dcu, 0x8005c540u, kFile8005C4DCWords },
+    { 0x8005c540u, 0x8005c584u, kMain8005C540Words },
+    { 0x8005c584u, 0x8005c604u, kFile8005C584Words },
+    { 0x8005c604u, 0x8005c640u, kMain8005C604Words },
+    { 0x8005c640u, 0x8005ccc8u, kMain8005C640Words },
+    { 0x8005ccc8u, 0x8005cd18u, kMain8005CCC8Words },
+    { 0x8005cd18u, 0x8005cd48u, kMain8005CD18Words },
+    { 0x8005cd48u, 0x8005cd98u, kMain8005CD48Words },
+    { 0x8005cd98u, 0x8005ce10u, kMain8005CD98Words },
+    { 0x8005ce68u, 0x8005ce74u, kFile8005CE68Words },
+    { 0x8005ce78u, 0x8005ce84u, kMain8005CE78Words },
+    { 0x8005ce88u, 0x8005ce94u, kMain8005CE88Words },
+    { 0x8005cea8u, 0x8005ceb4u, kFile8005CEA8Words },
+    { 0x8005ceb8u, 0x8005cec4u, kMain8005CEB8Words },
+    { 0x8005cec8u, 0x8005ced4u, kMain8005CEC8Words },
+    { 0x8005ced8u, 0x8005cee4u, kMain8005CED8Words },
+    { 0x8005cee8u, 0x8005cef4u, kMain8005CEE8Words },
+    { 0x8005cef8u, 0x8005cf04u, kMain8005CEF8Words },
+    { 0x8005cf08u, 0x8005cf18u, kMain8005CF08Words },
+    { 0x8005cf18u, 0x8005cf28u, kMain8005CF18Words },
+    { 0x8005cf28u, 0x8005cf34u, kMain8005CF28Words },
+    { 0x8005cf38u, 0x8005cf44u, kMain8005CF38Words },
+    { 0x8005cf48u, 0x8005cf54u, kMain8005CF48Words },
+    { 0x8005cf58u, 0x8005cf64u, kMain8005CF58Words },
+    { 0x8005cf68u, 0x8005d004u, kMain8005CF68Words },
+    { 0x8005d004u, 0x8005d03cu, kMain8005D004Words },
+    { 0x8005d03cu, 0x8005d06cu, kMain8005D03CWords },
+    { 0x8005d06cu, 0x8005d0a0u, kMain8005D06CWords },
+    { 0x8005d0a0u, 0x8005d0d4u, kMain8005D0A0Words },
+    { 0x8005d0d8u, 0x8005d0f8u, kMain8005D0D8Words },
+    { 0x8005d0f8u, 0x8005d118u, kMain8005D0F8Words },
+    { 0x8005d118u, 0x8005d138u, kMain8005D118Words },
+    { 0x8005d138u, 0x8005d184u, kMain8005D138Words },
+};
+
+static const FormatterRange kFormatterRanges4[] = {
+    { 0x800ceec8u, 0x800cf104u, kOverlay0004_800CEEC8Words },
+    { 0x800cf104u, 0x800cf300u, kOverlay0004_800CF104Words },
+    { 0x800cf300u, 0x800cf370u, kOverlay0004_800CF300Words },
+    { 0x800cf370u, 0x800cf3a4u, kOverlay0004_800CF370Words },
+    { 0x800cf3a4u, 0x800cf3e8u, kOverlay0004_800CF3A4Words },
+    { 0x800cf3e8u, 0x800cfb3cu, kOverlay0004_800CF3E8Words },
+    { 0x800cfb3cu, 0x800cfc1cu, kOverlay0004_800CFB3CWords },
+    { 0x800cfc1cu, 0x800cfe00u, kOverlay0004_800CFC1CWords },
+    { 0x800cfe00u, 0x800cfeb4u, kOverlay0004_800CFE00Words },
+    { 0x800cffecu, 0x800d0100u, kOverlay0004_800CFFECWords },
+    { 0x800d1e18u, 0x800d1e9cu, kOverlay0004_800D1E18Words },
+    { 0x800d1e9cu, 0x800d2394u, kOverlay0004_800D1E9CWords },
+    { 0x800d2394u, 0x800d2454u, kOverlay0004_800D2394Words },
+    { 0x800d2454u, 0x800d24d0u, kOverlay0004_800D2454Words },
+    { 0x800d24d0u, 0x800d2704u, kOverlay0004_800D24D0Words },
+    { 0x800d2704u, 0x800d27a0u, kOverlay0004_800D2704Words },
+    { 0x800d27a0u, 0x800d298cu, kOverlay0004_800D27A0Words },
+    { 0x800d298cu, 0x800d2a24u, kOverlay0004_800D298CWords },
+    { 0x800d2a24u, 0x800d2aa0u, kOverlay0004_800D2A24Words },
+    { 0x800d2aa0u, 0x800d2ad8u, kOverlay0004_800D2AA0Words },
+    { 0x800d2c0cu, 0x800d2c88u, kOverlay0004_800D2C0CWords },
+    { 0x800d2c88u, 0x800d2ca8u, kOverlay0004_800D2C88Words },
+    { 0x800d2d44u, 0x800d2d68u, kOverlay0004_800D2D44Words },
+    { 0x800d2d68u, 0x800d2e64u, kOverlay0004_800D2D68Words },
+    { 0x800d2e64u, 0x800d2ef8u, kOverlay0004_800D2E64Words },
+    { 0x800d2ef8u, 0x800d2f88u, kOverlay0004_800D2EF8Words },
+    { 0x800d2f88u, 0x800d3020u, kOverlay0004_800D2F88Words },
+    { 0x800d3020u, 0x800d30b8u, kOverlay0004_800D3020Words },
+    { 0x800d30d0u, 0x800d3200u, kOverlay0004_800D30D0Words },
+    { 0x800d3234u, 0x800d3540u, kOverlay0004_800D3234Words },
+};
+
+static const FormatterRange kFormatterRanges5[] = {
+    { 0x800cedfcu, 0x800cf104u, kOverlay0010_800CEDFCWords },
+    { 0x800cf370u, 0x800cf398u, kOverlay0010_800CF370Words },
+    { 0x800cf398u, 0x800cf3b8u, kOverlay0010_800CF398Words },
+    { 0x800cf3b8u, 0x800cf47cu, kOverlay0010_800CF3B8Words },
+    { 0x800cf47cu, 0x800cf4d4u, kOverlay0010_800CF47CWords },
+    { 0x800cf4d4u, 0x800cf804u, kOverlay0010_800CF4D4Words },
+    { 0x800cf8b4u, 0x800cf8ccu, kOverlay0010_800CF8B4Words },
+    { 0x800cf94cu, 0x800cf990u, kOverlay0010_800CF94CWords },
+    { 0x800cfbbcu, 0x800cfbccu, kOverlay0010_800CFBBCWords },
+    { 0x800cfbf8u, 0x800cfde8u, kOverlay0010_800CFBF8Words },
+    { 0x800cfe60u, 0x800d0214u, kOverlay0010_800CFE60Words },
+    { 0x800d0488u, 0x800d0588u, kOverlay0010_800D0488Words },
+};
+
+static const FormatterRange kFormatterRanges6[] = {
+    { 0x80128420u, 0x801284b8u, kOverlaySc02_80128420Words },
+    { 0x80128c14u, 0x80128c98u, kOverlaySc02_80128C14Words },
+    { 0x80129220u, 0x80129248u, kOverlaySc02_80129220Words },
+    { 0x80129248u, 0x80129258u, kOverlaySc02_80129248Words },
+    { 0x80129258u, 0x8012927cu, kOverlaySc02_80129258Words },
+    { 0x80129c40u, 0x80129cf8u, kOverlaySc02_80129C40Words },
+    { 0x801378f0u, 0x801379d8u, kOverlaySc02_801378F0Words },
+    { 0x8013a860u, 0x8013a8b0u, kOverlaySc02_8013A860Words },
+    { 0x8013c98cu, 0x8013c9c4u, kOverlaySc02_8013C98CWords },
+};
+
+static const FormatterRange kFormatterRanges7[] = {
+    { 0x800cf854u, 0x800cf864u, kOverlay0010_800CF854Words },
+    { 0x800d02c0u, 0x800d02d0u, kOverlay0010_800D02C0Words },
+    { 0x800d0588u, 0x800d05e8u, kOverlay0010_800D0588Words },
+    { 0x800d05e8u, 0x800d0630u, kOverlay0010_800D05E8Words },
+    { 0x800d0630u, 0x800d065cu, kOverlay0010_800D0630Words },
+    { 0x800d065cu, 0x800d0694u, kOverlay0010_800D065CWords },
+    { 0x800d06e8u, 0x800d0c48u, kOverlay0010_800D06E8Words },
+    { 0x800d18dcu, 0x800d1938u, kOverlay0010_800D18DCWords },
+    { 0x800d1938u, 0x800d1984u, kOverlay0010_800D1938Words },
+    { 0x800d1984u, 0x800d19dcu, kOverlay0010_800D1984Words },
+    { 0x800d1e20u, 0x800d1e28u, kOverlay0010_800D1E20Words },
+    { 0x800d1f58u, 0x800d1f90u, kOverlay0010_800D1F58Words },
+    { 0x800d1fc8u, 0x800d20c0u, kOverlay0010_800D1FC8Words },
+};
+
+static const FormatterRange kFormatterRanges8[] = {
+    { 0x80145cecu, 0x80145ee8u, kOverlaySc02_80145CECWords },
+    { 0x8015126cu, 0x80151664u, kOverlaySc02_8015126CWords },
+    { 0x801552f4u, 0x80155344u, kOverlaySc02_801552F4Words },
+    { 0x80158638u, 0x80158794u, kOverlaySc02_80158638Words },
+    { 0x80159a20u, 0x80159b08u, kOverlaySc02_80159A20Words },
+    { 0x80159c84u, 0x8015a1c8u, kOverlaySc02_80159C84Words },
+    { 0x8015a2d8u, 0x8015a3c8u, kOverlaySc02_8015A2D8Words },
+    { 0x801619a4u, 0x801619d0u, kOverlaySc02_801619A4Words },
+    { 0x80161b18u, 0x80161b84u, kOverlaySc02_80161B18Words },
+    { 0x801654a8u, 0x80165580u, kOverlaySc02_801654A8Words },
+    { 0x80171ec8u, 0x80171ffcu, kOverlaySc02_80171EC8Words },
+};
+
+static const FormatterRange kFormatterRanges9[] = {
+    { 0x80147084u, 0x8014708cu, kOverlaySc02_80147084Words },
+    { 0x80147098u, 0x801470a0u, kOverlaySc02_80147098Words },
+    { 0x801470acu, 0x801470b4u, kOverlaySc02_801470ACWords },
+    { 0x80149210u, 0x80149228u, kOverlaySc02_80149210Words },
+    { 0x80149228u, 0x80149284u, kOverlaySc02_80149228Words },
+    { 0x80149284u, 0x80149290u, kOverlaySc02_80149284Words },
+    { 0x80149290u, 0x80149350u, kOverlaySc02_80149290Words },
+    { 0x80149350u, 0x80149374u, kOverlaySc02_80149350Words },
+    { 0x80149374u, 0x801493d0u, kOverlaySc02_80149374Words },
+    { 0x801493d0u, 0x8014942cu, kOverlaySc02_801493D0Words },
+    { 0x8014942cu, 0x80149450u, kOverlaySc02_8014942CWords },
+    { 0x80149450u, 0x801494ccu, kOverlaySc02_80149450Words },
+    { 0x801494ccu, 0x80149544u, kOverlaySc02_801494CCWords },
+    { 0x80149544u, 0x80149584u, kOverlaySc02_80149544Words },
+    { 0x80149584u, 0x801495c4u, kOverlaySc02_80149584Words },
+    { 0x801495c4u, 0x8014964cu, kOverlaySc02_801495C4Words },
+    { 0x8014964cu, 0x801496d4u, kOverlaySc02_8014964CWords },
+    { 0x801496d4u, 0x80149704u, kOverlaySc02_801496D4Words },
+    { 0x80149704u, 0x80149724u, kOverlaySc02_80149704Words },
+    { 0x80149724u, 0x80149744u, kOverlaySc02_80149724Words },
+    { 0x80149744u, 0x80149788u, kOverlaySc02_80149744Words },
+    { 0x80149788u, 0x801497a8u, kOverlaySc02_80149788Words },
+    { 0x801497a8u, 0x80149864u, kOverlaySc02_801497A8Words },
+    { 0x80149864u, 0x80149884u, kOverlaySc02_80149864Words },
+    { 0x80149884u, 0x801498c0u, kOverlaySc02_80149884Words },
+    { 0x801498c0u, 0x801498e0u, kOverlaySc02_801498C0Words },
+    { 0x801498e0u, 0x80149954u, kOverlaySc02_801498E0Words },
+    { 0x80149954u, 0x80149a64u, kOverlaySc02_80149954Words },
+    { 0x80149a64u, 0x80149aa8u, kOverlaySc02_80149A64Words },
+    { 0x80149aa8u, 0x80149ad4u, kOverlaySc02_80149AA8Words },
+    { 0x80149ad4u, 0x80149b14u, kOverlaySc02_80149AD4Words },
+    { 0x80149b14u, 0x80149b54u, kOverlaySc02_80149B14Words },
+    { 0x80149b54u, 0x80149bacu, kOverlaySc02_80149B54Words },
+    { 0x80149bacu, 0x80149becu, kOverlaySc02_80149BACWords },
+    { 0x80149becu, 0x80149c08u, kOverlaySc02_80149BECWords },
+    { 0x80149c08u, 0x80149c94u, kOverlaySc02_80149C08Words },
+    { 0x80149c94u, 0x80149cb4u, kOverlaySc02_80149C94Words },
+    { 0x80149cb4u, 0x80149cd4u, kOverlaySc02_80149CB4Words },
+    { 0x80149cd4u, 0x80149d10u, kOverlaySc02_80149CD4Words },
+    { 0x80149d10u, 0x80149d9cu, kOverlaySc02_80149D10Words },
+    { 0x80149d9cu, 0x80149dd8u, kOverlaySc02_80149D9CWords },
+    { 0x80149dd8u, 0x80149e94u, kOverlaySc02_80149DD8Words },
+    { 0x80149e94u, 0x80149f2cu, kOverlaySc02_80149E94Words },
+    { 0x80149f2cu, 0x80149fa8u, kOverlaySc02_80149F2CWords },
+    { 0x80149fa8u, 0x80149fb0u, kOverlaySc02_80149FA8Words },
+    { 0x80149fb0u, 0x8014a048u, kOverlaySc02_80149FB0Words },
+    { 0x8014a048u, 0x8014a1b0u, kOverlaySc02_8014A048Words },
+    { 0x8014a1b0u, 0x8014a218u, kOverlaySc02_8014A1B0Words },
+    { 0x8014a218u, 0x8014a238u, kOverlaySc02_8014A218Words },
+    { 0x8014a238u, 0x8014a2e4u, kOverlaySc02_8014A238Words },
+    { 0x8014a2e4u, 0x8014a380u, kOverlaySc02_8014A2E4Words },
+    { 0x8014a380u, 0x8014a3e0u, kOverlaySc02_8014A380Words },
+    { 0x8014a3e0u, 0x8014a454u, kOverlaySc02_8014A3E0Words },
+    { 0x8014a454u, 0x8014a4b4u, kOverlaySc02_8014A454Words },
+    { 0x8014a4b4u, 0x8014a4fcu, kOverlaySc02_8014A4B4Words },
+    { 0x8014a4fcu, 0x8014a51cu, kOverlaySc02_8014A4FCWords },
+    { 0x8014a51cu, 0x8014a59cu, kOverlaySc02_8014A51CWords },
+    { 0x8014a59cu, 0x8014a638u, kOverlaySc02_8014A59CWords },
+    { 0x8014a638u, 0x8014a738u, kOverlaySc02_8014A638Words },
+    { 0x8014a738u, 0x8014a850u, kOverlaySc02_8014A738Words },
+    { 0x8014a850u, 0x8014aa04u, kOverlaySc02_8014A850Words },
+    { 0x8014aa04u, 0x8014aa28u, kOverlaySc02_8014AA04Words },
+    { 0x8014aa28u, 0x8014ab5cu, kOverlaySc02_8014AA28Words },
+    { 0x8014ab5cu, 0x8014ab7cu, kOverlaySc02_8014AB5CWords },
+    { 0x8014ab7cu, 0x8014abf0u, kOverlaySc02_8014AB7CWords },
+    { 0x8014abf0u, 0x8014ac10u, kOverlaySc02_8014ABF0Words },
+    { 0x8014ac10u, 0x8014acc0u, kOverlaySc02_8014AC10Words },
+    { 0x8014acc0u, 0x8014ace8u, kOverlaySc02_8014ACC0Words },
+    { 0x8014ace8u, 0x8014ad30u, kOverlaySc02_8014ACE8Words },
+    { 0x8014ad30u, 0x8014ad7cu, kOverlaySc02_8014AD30Words },
+    { 0x8014ad7cu, 0x8014ada8u, kOverlaySc02_8014AD7CWords },
+    { 0x8014ada8u, 0x8014ade0u, kOverlaySc02_8014ADA8Words },
+    { 0x8014ade0u, 0x8014b00cu, kOverlaySc02_8014ADE0Words },
+    { 0x8014b00cu, 0x8014b034u, kOverlaySc02_8014B00CWords },
+    { 0x8014b034u, 0x8014b084u, kOverlaySc02_8014B034Words },
+    { 0x8014b084u, 0x8014b12cu, kOverlaySc02_8014B084Words },
+    { 0x8014b12cu, 0x8014b154u, kOverlaySc02_8014B12CWords },
+    { 0x8014b154u, 0x8014b160u, kOverlaySc02_8014B154Words },
+    { 0x8014b160u, 0x8014b190u, kOverlaySc02_8014B160Words },
+    { 0x8014b190u, 0x8014b2a8u, kOverlaySc02_8014B190Words },
+    { 0x8014b2a8u, 0x8014b2d0u, kOverlaySc02_8014B2A8Words },
+    { 0x8014b2d0u, 0x8014b2f8u, kOverlaySc02_8014B2D0Words },
+    { 0x8014b2f8u, 0x8014b310u, kOverlaySc02_8014B2F8Words },
+    { 0x8014b310u, 0x8014b33cu, kOverlaySc02_8014B310Words },
+    { 0x8014b33cu, 0x8014b350u, kOverlaySc02_8014B33CWords },
+    { 0x8014b350u, 0x8014b4c4u, kOverlaySc02_8014B350Words },
+    { 0x8014b4c4u, 0x8014b4d4u, kOverlaySc02_8014B4C4Words },
+    { 0x8014b4d4u, 0x8014b504u, kOverlaySc02_8014B4D4Words },
+    { 0x8014b504u, 0x8014b598u, kOverlaySc02_8014B504Words },
+    { 0x8014b598u, 0x8014b5b0u, kOverlaySc02_8014B598Words },
+    { 0x8014b5b0u, 0x8014b5b8u, kOverlaySc02_8014B5B0Words },
+    { 0x8014b5b8u, 0x8014b5c4u, kOverlaySc02_8014B5B8Words },
+    { 0x8014b5c4u, 0x8014b5d0u, kOverlaySc02_8014B5C4Words },
+    { 0x8014b5d0u, 0x8014b5d8u, kOverlaySc02_8014B5D0Words },
+    { 0x8014b5d8u, 0x8014b6f0u, kOverlaySc02_8014B5D8Words },
+    { 0x8014b6f0u, 0x8014b768u, kOverlaySc02_8014B6F0Words },
+    { 0x8014b768u, 0x8014b7a4u, kOverlaySc02_8014B768Words },
+    { 0x8014b7a4u, 0x8014b944u, kOverlaySc02_8014B7A4Words },
+    { 0x8014b944u, 0x8014bb0cu, kOverlaySc02_8014B944Words },
+    { 0x8014bb0cu, 0x8014bb24u, kOverlaySc02_8014BB0CWords },
+    { 0x8014bb24u, 0x8014bc0cu, kOverlaySc02_8014BB24Words },
+    { 0x8014bc0cu, 0x8014bc44u, kOverlaySc02_8014BC0CWords },
+    { 0x8014bc44u, 0x8014bc80u, kOverlaySc02_8014BC44Words },
+    { 0x8014bc80u, 0x8014bcc0u, kOverlaySc02_8014BC80Words },
+    { 0x8014bcc0u, 0x8014bcecu, kOverlaySc02_8014BCC0Words },
+    { 0x8014bcecu, 0x8014bd24u, kOverlaySc02_8014BCECWords },
+    { 0x8014bd24u, 0x8014bd60u, kOverlaySc02_8014BD24Words },
+    { 0x8014bd60u, 0x8014bd98u, kOverlaySc02_8014BD60Words },
+    { 0x8014bd98u, 0x8014bdc8u, kOverlaySc02_8014BD98Words },
+    { 0x8014bdc8u, 0x8014bde0u, kOverlaySc02_8014BDC8Words },
+    { 0x8014bde0u, 0x8014bde8u, kOverlaySc02_8014BDE0Words },
+    { 0x8014bde8u, 0x8014be78u, kOverlaySc02_8014BDE8Words },
+    { 0x8014be78u, 0x8014be9cu, kOverlaySc02_8014BE78Words },
+    { 0x8014be9cu, 0x8014bec0u, kOverlaySc02_8014BE9CWords },
+    { 0x8014bec0u, 0x8014bef8u, kOverlaySc02_8014BEC0Words },
+    { 0x8014bef8u, 0x8014bf18u, kOverlaySc02_8014BEF8Words },
+    { 0x8014bf18u, 0x8014bf48u, kOverlaySc02_8014BF18Words },
+    { 0x8014bf48u, 0x8014bf6cu, kOverlaySc02_8014BF48Words },
+    { 0x8014bf6cu, 0x8014bf8cu, kOverlaySc02_8014BF6CWords },
+    { 0x8014bf8cu, 0x8014bfb0u, kOverlaySc02_8014BF8CWords },
+    { 0x8014bfb0u, 0x8014bfd4u, kOverlaySc02_8014BFB0Words },
+    { 0x8014bfd4u, 0x8014bff4u, kOverlaySc02_8014BFD4Words },
+    { 0x8014bff4u, 0x8014c010u, kOverlaySc02_8014BFF4Words },
+    { 0x8014c010u, 0x8014c050u, kOverlaySc02_8014C010Words },
+    { 0x8014c050u, 0x8014c088u, kOverlaySc02_8014C050Words },
+    { 0x8014c088u, 0x8014c0c8u, kOverlaySc02_8014C088Words },
+    { 0x8014c0c8u, 0x8014c118u, kOverlaySc02_8014C0C8Words },
+    { 0x8014c118u, 0x8014c168u, kOverlaySc02_8014C118Words },
+    { 0x8014c168u, 0x8014c1a0u, kOverlaySc02_8014C168Words },
+    { 0x8014c1a0u, 0x8014c1c8u, kOverlaySc02_8014C1A0Words },
+    { 0x8014c1c8u, 0x8014c278u, kOverlaySc02_8014C1C8Words },
+    { 0x8014c278u, 0x8014c2b0u, kOverlaySc02_8014C278Words },
+    { 0x8014c2b0u, 0x8014c308u, kOverlaySc02_8014C2B0Words },
+    { 0x8014c308u, 0x8014c3a4u, kOverlaySc02_8014C308Words },
+    { 0x8014c3a4u, 0x8014c3d0u, kOverlaySc02_8014C3A4Words },
+    { 0x8014c3d0u, 0x8014c43cu, kOverlaySc02_8014C3D0Words },
+    { 0x8014c43cu, 0x8014c4acu, kOverlaySc02_8014C43CWords },
+    { 0x8014c4acu, 0x8014c568u, kOverlaySc02_8014C4ACWords },
+    { 0x8014c568u, 0x8014c59cu, kOverlaySc02_8014C568Words },
+    { 0x8014c59cu, 0x8014c5d0u, kOverlaySc02_8014C59CWords },
+    { 0x8014c5d0u, 0x8014c5fcu, kOverlaySc02_8014C5D0Words },
+    { 0x8014c5fcu, 0x8014c6acu, kOverlaySc02_8014C5FCWords },
+    { 0x8014c6acu, 0x8014c6c0u, kOverlaySc02_8014C6ACWords },
+    { 0x8014c6c0u, 0x8014c6d0u, kOverlaySc02_8014C6C0Words },
+    { 0x8014c6e0u, 0x8014c6f4u, kOverlaySc02_8014C6E0Words },
+    { 0x8014c6f4u, 0x8014c860u, kOverlaySc02_8014C6F4Words },
+    { 0x8014c860u, 0x8014c88cu, kOverlaySc02_8014C860Words },
+    { 0x8014c88cu, 0x8014c8c8u, kOverlaySc02_8014C88CWords },
+    { 0x8014c8c8u, 0x8014c8f0u, kOverlaySc02_8014C8C8Words },
+    { 0x8014c8f0u, 0x8014c918u, kOverlaySc02_8014C8F0Words },
+    { 0x8014c918u, 0x8014c968u, kOverlaySc02_8014C918Words },
+    { 0x80161a90u, 0x80161b18u, kOverlaySc02_80161A90Words },
+    { 0x801627c0u, 0x801627e8u, kOverlaySc02_801627C0Words },
+    { 0x8016533cu, 0x80165374u, kOverlaySc02_8016533CWords },
+    { 0x801659dcu, 0x80165a18u, kOverlaySc02_801659DCWords },
+    { 0x80165a18u, 0x80165a20u, kOverlaySc02_80165A18Words },
+    { 0x8016f14cu, 0x8016f1acu, kOverlaySc02_8016F14CWords },
+    { 0x8016f1c4u, 0x8016f250u, kOverlaySc02_8016F1C4Words },
+    { 0x801719a4u, 0x80171a04u, kOverlaySc02_801719A4Words },
+};
+
+static const FormatterRange kFormatterRanges10[] = {
+    { 0x80128218u, 0x80128228u, kOverlaySc02_80128218Words },
+    { 0x80128288u, 0x801282ccu, kOverlaySc02_80128288Words },
+    { 0x801288b0u, 0x801288e8u, kOverlaySc02_801288B0Words },
+    { 0x80128940u, 0x80128998u, kOverlaySc02_80128940Words },
+    { 0x80128998u, 0x801289f0u, kOverlaySc02_80128998Words },
+    { 0x801289f0u, 0x80128a28u, kOverlaySc02_801289F0Words },
+    { 0x80128c98u, 0x80128cfcu, kOverlaySc02_80128C98Words },
+    { 0x80128cfcu, 0x80128d60u, kOverlaySc02_80128CFCWords },
+    { 0x80128facu, 0x80129010u, kOverlaySc02_80128FACWords },
+    { 0x80133784u, 0x80133ab0u, kOverlaySc02_80133784Words },
+    { 0x80133ab0u, 0x80133cd4u, kOverlaySc02_80133AB0Words },
+    { 0x80144b9cu, 0x801457a4u, kOverlaySc02_80144B9CWords },
+    { 0x801457a4u, 0x801458e0u, kOverlaySc02_801457A4Words },
+    { 0x80145ee8u, 0x80146014u, kOverlaySc02_80145EE8Words },
+    { 0x80146014u, 0x80146074u, kOverlaySc02_80146014Words },
+    { 0x801468c8u, 0x80146924u, kOverlaySc02_801468C8Words },
+    { 0x8014c6d0u, 0x8014c6e0u, kOverlaySc02_8014C6D0Words },
+    { 0x8014c968u, 0x8014c978u, kOverlaySc02_8014C968Words },
+    { 0x8014c978u, 0x8014c98cu, kOverlaySc02_8014C978Words },
+    { 0x8014c98cu, 0x8014c99cu, kOverlaySc02_8014C98CWords },
+    { 0x8014c99cu, 0x8014ca00u, kOverlaySc02_8014C99CWords },
+    { 0x8014ca00u, 0x8014ca14u, kOverlaySc02_8014CA00Words },
+    { 0x8014ca14u, 0x8014ca70u, kOverlaySc02_8014CA14Words },
+    { 0x8014ca70u, 0x8014ca88u, kOverlaySc02_8014CA70Words },
+    { 0x8014ca88u, 0x8014cae4u, kOverlaySc02_8014CA88Words },
+    { 0x8014cae4u, 0x8014cafcu, kOverlaySc02_8014CAE4Words },
+    { 0x8014cafcu, 0x8014cb0cu, kOverlaySc02_8014CAFCWords },
+    { 0x8014cb0cu, 0x8014cb1cu, kOverlaySc02_8014CB0CWords },
+    { 0x8014cb1cu, 0x8014cb2cu, kOverlaySc02_8014CB1CWords },
+    { 0x8014cb2cu, 0x8014cb58u, kOverlaySc02_8014CB2CWords },
+    { 0x8014cb58u, 0x8014cb68u, kOverlaySc02_8014CB58Words },
+    { 0x8014cb68u, 0x8014cb7cu, kOverlaySc02_8014CB68Words },
+    { 0x8014cb7cu, 0x8014cb8cu, kOverlaySc02_8014CB7CWords },
+    { 0x8014cb8cu, 0x8014cb9cu, kOverlaySc02_8014CB8CWords },
+    { 0x8014cb9cu, 0x8014cbd8u, kOverlaySc02_8014CB9CWords },
+    { 0x8014cbd8u, 0x8014cbe8u, kOverlaySc02_8014CBD8Words },
+    { 0x8014cbe8u, 0x8014cbf8u, kOverlaySc02_8014CBE8Words },
+    { 0x8014cbf8u, 0x8014cc28u, kOverlaySc02_8014CBF8Words },
+    { 0x8014cc28u, 0x8014ccb4u, kOverlaySc02_8014CC28Words },
+    { 0x8014ccb4u, 0x8014cd0cu, kOverlaySc02_8014CCB4Words },
+    { 0x8014cd0cu, 0x8014cd80u, kOverlaySc02_8014CD0CWords },
+    { 0x8014cd80u, 0x8014cf04u, kOverlaySc02_8014CD80Words },
+    { 0x8014cf04u, 0x8014d04cu, kOverlaySc02_8014CF04Words },
+    { 0x8014d04cu, 0x8014d0a4u, kOverlaySc02_8014D04CWords },
+    { 0x8014d0a4u, 0x8014d12cu, kOverlaySc02_8014D0A4Words },
+    { 0x8014d12cu, 0x8014d2a0u, kOverlaySc02_8014D12CWords },
+    { 0x8014d2a0u, 0x8014d3e0u, kOverlaySc02_8014D2A0Words },
+    { 0x8014d3e0u, 0x8014d438u, kOverlaySc02_8014D3E0Words },
+    { 0x8014d438u, 0x8014d4c0u, kOverlaySc02_8014D438Words },
+    { 0x8014d4c0u, 0x8014d610u, kOverlaySc02_8014D4C0Words },
+    { 0x8014d610u, 0x8014d738u, kOverlaySc02_8014D610Words },
+    { 0x8014d738u, 0x8014d790u, kOverlaySc02_8014D738Words },
+    { 0x8014d790u, 0x8014d820u, kOverlaySc02_8014D790Words },
+    { 0x8014d820u, 0x8014dce0u, kOverlaySc02_8014D820Words },
+    { 0x8014dce0u, 0x8014dd8cu, kOverlaySc02_8014DCE0Words },
+    { 0x8014dd8cu, 0x8014df3cu, kOverlaySc02_8014DD8CWords },
+    { 0x8014df3cu, 0x8014df94u, kOverlaySc02_8014DF3CWords },
+    { 0x8014df94u, 0x8014e048u, kOverlaySc02_8014DF94Words },
+    { 0x8014e048u, 0x8014e284u, kOverlaySc02_8014E048Words },
+    { 0x8014e284u, 0x8014e434u, kOverlaySc02_8014E284Words },
+    { 0x8014e434u, 0x8014e48cu, kOverlaySc02_8014E434Words },
+    { 0x8014e48cu, 0x8014e514u, kOverlaySc02_8014E48CWords },
+    { 0x8014e514u, 0x8014e5b4u, kOverlaySc02_8014E514Words },
+    { 0x8014e5b4u, 0x8014e6a0u, kOverlaySc02_8014E5B4Words },
+    { 0x8014e6a0u, 0x8014e6f8u, kOverlaySc02_8014E6A0Words },
+    { 0x8014e6f8u, 0x8014e790u, kOverlaySc02_8014E6F8Words },
+    { 0x8014e790u, 0x8014e83cu, kOverlaySc02_8014E790Words },
+    { 0x8014e83cu, 0x8014e934u, kOverlaySc02_8014E83CWords },
+    { 0x8014e934u, 0x8014e98cu, kOverlaySc02_8014E934Words },
+    { 0x8014e98cu, 0x8014ea4cu, kOverlaySc02_8014E98CWords },
+    { 0x8014ea4cu, 0x8014ed28u, kOverlaySc02_8014EA4CWords },
+    { 0x8014ed28u, 0x8014ed80u, kOverlaySc02_8014ED28Words },
+    { 0x8014ed80u, 0x8014ee14u, kOverlaySc02_8014ED80Words },
+    { 0x8014ee14u, 0x8014f1f4u, kOverlaySc02_8014EE14Words },
+    { 0x8014f1f4u, 0x8014f24cu, kOverlaySc02_8014F1F4Words },
+    { 0x8014f24cu, 0x8014f2e0u, kOverlaySc02_8014F24CWords },
+    { 0x8014f2e0u, 0x8014f3e8u, kOverlaySc02_8014F2E0Words },
+    { 0x8014f3e8u, 0x8014f468u, kOverlaySc02_8014F3E8Words },
+    { 0x8014f468u, 0x8014f4c0u, kOverlaySc02_8014F468Words },
+    { 0x8014f4c0u, 0x8014f6f4u, kOverlaySc02_8014F4C0Words },
+    { 0x8014f6f4u, 0x8014f74cu, kOverlaySc02_8014F6F4Words },
+    { 0x8014f74cu, 0x8014fa04u, kOverlaySc02_8014F74CWords },
+    { 0x8014fa04u, 0x8014fa70u, kOverlaySc02_8014FA04Words },
+    { 0x8014fa70u, 0x8014fbc0u, kOverlaySc02_8014FA70Words },
+    { 0x8014fbc0u, 0x8014fc18u, kOverlaySc02_8014FBC0Words },
+    { 0x8014fc18u, 0x8014fcfcu, kOverlaySc02_8014FC18Words },
+    { 0x8014fcfcu, 0x8014fd54u, kOverlaySc02_8014FCFCWords },
+    { 0x8014fd54u, 0x8014fdf4u, kOverlaySc02_8014FD54Words },
+    { 0x8014fdf4u, 0x8014fe60u, kOverlaySc02_8014FDF4Words },
+    { 0x8014fe60u, 0x8014ffdcu, kOverlaySc02_8014FE60Words },
+    { 0x8014ffdcu, 0x80150150u, kOverlaySc02_8014FFDCWords },
+    { 0x80150150u, 0x80150170u, kOverlaySc02_80150150Words },
+    { 0x80150170u, 0x801502ecu, kOverlaySc02_80150170Words },
+    { 0x801502ecu, 0x80150460u, kOverlaySc02_801502ECWords },
+    { 0x80150460u, 0x80150480u, kOverlaySc02_80150460Words },
+    { 0x80150480u, 0x801504d8u, kOverlaySc02_80150480Words },
+    { 0x801504d8u, 0x80150528u, kOverlaySc02_801504D8Words },
+    { 0x80150528u, 0x801505fcu, kOverlaySc02_80150528Words },
+    { 0x801505fcu, 0x801506a4u, kOverlaySc02_801505FCWords },
+    { 0x801506a4u, 0x80150820u, kOverlaySc02_801506A4Words },
+    { 0x80150820u, 0x8015086cu, kOverlaySc02_80150820Words },
+    { 0x8015086cu, 0x801508b4u, kOverlaySc02_8015086CWords },
+    { 0x801508b4u, 0x801508f8u, kOverlaySc02_801508B4Words },
+    { 0x801508f8u, 0x8015094cu, kOverlaySc02_801508F8Words },
+    { 0x8015094cu, 0x80150a70u, kOverlaySc02_8015094CWords },
+    { 0x80150a70u, 0x80150b28u, kOverlaySc02_80150A70Words },
+    { 0x80150b28u, 0x80150b9cu, kOverlaySc02_80150B28Words },
+    { 0x80150b9cu, 0x80150ba4u, kOverlaySc02_80150B9CWords },
+    { 0x80150ba4u, 0x80150bc8u, kOverlaySc02_80150BA4Words },
+    { 0x80150bc8u, 0x80150c48u, kOverlaySc02_80150BC8Words },
+    { 0x80150c48u, 0x80150ca0u, kOverlaySc02_80150C48Words },
+    { 0x80150ca0u, 0x80150cc4u, kOverlaySc02_80150CA0Words },
+    { 0x80150cc4u, 0x80150ce4u, kOverlaySc02_80150CC4Words },
+    { 0x80150ce4u, 0x80150d04u, kOverlaySc02_80150CE4Words },
+    { 0x80150d04u, 0x80150d24u, kOverlaySc02_80150D04Words },
+    { 0x80150d24u, 0x80150d44u, kOverlaySc02_80150D24Words },
+    { 0x80150d44u, 0x80150d64u, kOverlaySc02_80150D44Words },
+    { 0x80150d64u, 0x80150d84u, kOverlaySc02_80150D64Words },
+    { 0x80150d84u, 0x80150da4u, kOverlaySc02_80150D84Words },
+    { 0x80150da4u, 0x80150dc4u, kOverlaySc02_80150DA4Words },
+    { 0x80150dc4u, 0x80150de4u, kOverlaySc02_80150DC4Words },
+    { 0x80150de4u, 0x80150e04u, kOverlaySc02_80150DE4Words },
+    { 0x80150e04u, 0x80150e24u, kOverlaySc02_80150E04Words },
+    { 0x80150e24u, 0x80150e44u, kOverlaySc02_80150E24Words },
+    { 0x80150e44u, 0x80150e64u, kOverlaySc02_80150E44Words },
+    { 0x80150e64u, 0x80150e84u, kOverlaySc02_80150E64Words },
+    { 0x80150e84u, 0x80150ea4u, kOverlaySc02_80150E84Words },
+    { 0x80150ea4u, 0x80150ec4u, kOverlaySc02_80150EA4Words },
+    { 0x80151944u, 0x80151980u, kOverlaySc02_80151944Words },
+    { 0x80151d24u, 0x80151d60u, kOverlaySc02_80151D24Words },
+    { 0x80152058u, 0x80152094u, kOverlaySc02_80152058Words },
+    { 0x801520dcu, 0x80152194u, kOverlaySc02_801520DCWords },
+    { 0x80152370u, 0x801523acu, kOverlaySc02_80152370Words },
+    { 0x80152698u, 0x801526d4u, kOverlaySc02_80152698Words },
+    { 0x8015282cu, 0x80152868u, kOverlaySc02_8015282CWords },
+    { 0x801528b0u, 0x8015294cu, kOverlaySc02_801528B0Words },
+    { 0x80152b6cu, 0x80152ba8u, kOverlaySc02_80152B6CWords },
+    { 0x80152d24u, 0x80152d60u, kOverlaySc02_80152D24Words },
+    { 0x80152da8u, 0x80152e4cu, kOverlaySc02_80152DA8Words },
+    { 0x80153060u, 0x8015309cu, kOverlaySc02_80153060Words },
+    { 0x80153320u, 0x8015335cu, kOverlaySc02_80153320Words },
+    { 0x80153c8cu, 0x80153c9cu, kOverlaySc02_80153C8CWords },
+    { 0x8015444cu, 0x801549f8u, kOverlaySc02_8015444CWords },
+    { 0x80154a74u, 0x80154ab4u, kOverlaySc02_80154A74Words },
+    { 0x80154ab4u, 0x80154ae0u, kOverlaySc02_80154AB4Words },
+    { 0x80154ae0u, 0x80154b20u, kOverlaySc02_80154AE0Words },
+    { 0x80154b20u, 0x80154b4cu, kOverlaySc02_80154B20Words },
+    { 0x80154b4cu, 0x80154b7cu, kOverlaySc02_80154B4CWords },
+    { 0x80154b7cu, 0x80154b98u, kOverlaySc02_80154B7CWords },
+    { 0x80154b98u, 0x80154bc8u, kOverlaySc02_80154B98Words },
+    { 0x80154bc8u, 0x80154be4u, kOverlaySc02_80154BC8Words },
+    { 0x80154be4u, 0x80154c24u, kOverlaySc02_80154BE4Words },
+    { 0x80154c24u, 0x80154ed8u, kOverlaySc02_80154C24Words },
+    { 0x80154ed8u, 0x80154f9cu, kOverlaySc02_80154ED8Words },
+    { 0x80154f9cu, 0x801550fcu, kOverlaySc02_80154F9CWords },
+    { 0x801550fcu, 0x80155150u, kOverlaySc02_801550FCWords },
+    { 0x80155150u, 0x801552f4u, kOverlaySc02_80155150Words },
+    { 0x801553c0u, 0x80155440u, kOverlaySc02_801553C0Words },
+    { 0x80155458u, 0x801554b8u, kOverlaySc02_80155458Words },
+    { 0x801599a4u, 0x801599e0u, kOverlaySc02_801599A4Words },
+    { 0x80159be4u, 0x80159c84u, kOverlaySc02_80159BE4Words },
+    { 0x8015a1c8u, 0x8015a1fcu, kOverlaySc02_8015A1C8Words },
+    { 0x801612b8u, 0x8016130cu, kOverlaySc02_801612B8Words },
+    { 0x80165938u, 0x80165958u, kOverlaySc02_80165938Words },
+    { 0x80180d74u, 0x80180db0u, kOverlaySc02_80180D74Words },
+    { 0x80180db0u, 0x80180df4u, kOverlaySc02_80180DB0Words },
+    { 0x80181224u, 0x8018124cu, kOverlaySc02_80181224Words },
+};
+
+static const FormatterRange kFormatterRanges11[] = {
+    { 0x8012db84u, 0x8012dbd0u, kOverlaySc02_8012DB84Words },
+    { 0x8013373cu, 0x80133784u, kOverlaySc02_8013373CWords },
+    { 0x80133cd4u, 0x80134310u, kOverlaySc02_80133CD4Words },
+    { 0x80136c90u, 0x80136d00u, kOverlaySc02_80136C90Words },
+    { 0x80137b80u, 0x80137bd8u, kOverlaySc02_80137B80Words },
+    { 0x8013ad38u, 0x8013af20u, kOverlaySc02_8013AD38Words },
+    { 0x8013b274u, 0x8013b568u, kOverlaySc02_8013B274Words },
+    { 0x8013b7acu, 0x8013b7f4u, kOverlaySc02_8013B7ACWords },
+    { 0x8013b7f4u, 0x8013b83cu, kOverlaySc02_8013B7F4Words },
+    { 0x8013bd34u, 0x8013bd74u, kOverlaySc02_8013BD34Words },
+    { 0x8013c938u, 0x8013c964u, kOverlaySc02_8013C938Words },
+    { 0x8013c964u, 0x8013c98cu, kOverlaySc02_8013C964Words },
+    { 0x8013c9c4u, 0x8013ca14u, kOverlaySc02_8013C9C4Words },
+    { 0x80161c24u, 0x80161c98u, kOverlaySc02_80161C24Words },
+};
+
+static const FormatterRange kFormatterRanges12[] = {
+    { 0x8012e9c0u, 0x8012ea90u, kOverlaySc02_8012E9C0Words },
+    { 0x8012f828u, 0x8012f87cu, kOverlaySc02_8012F828Words },
+    { 0x8012f8c8u, 0x8012f91cu, kOverlaySc02_8012F8C8Words },
+    { 0x8012fcc4u, 0x8012fda8u, kOverlaySc02_8012FCC4Words },
+    { 0x80130d0cu, 0x80130d48u, kOverlaySc02_80130D0CWords },
+    { 0x80131e00u, 0x80131e38u, kOverlaySc02_80131E00Words },
+    { 0x80131eecu, 0x80131f28u, kOverlaySc02_80131EECWords },
+    { 0x80131f28u, 0x80131f64u, kOverlaySc02_80131F28Words },
+    { 0x80131f64u, 0x80131fa0u, kOverlaySc02_80131F64Words },
+    { 0x80131fa0u, 0x80131fdcu, kOverlaySc02_80131FA0Words },
+    { 0x801320d8u, 0x80132144u, kOverlaySc02_801320D8Words },
+    { 0x80132144u, 0x801321b0u, kOverlaySc02_80132144Words },
+    { 0x801321b0u, 0x8013221cu, kOverlaySc02_801321B0Words },
+    { 0x80136c54u, 0x80136c90u, kOverlaySc02_80136C54Words },
+    { 0x80137d08u, 0x80137dd4u, kOverlaySc02_80137D08Words },
+    { 0x80138be0u, 0x80138c30u, kOverlaySc02_80138BE0Words },
+    { 0x8013bc7cu, 0x8013bcdcu, kOverlaySc02_8013BC7CWords },
+    { 0x8013d064u, 0x8013d13cu, kOverlaySc02_8013D064Words },
+    { 0x8013d13cu, 0x8013d164u, kOverlaySc02_8013D13CWords },
+    { 0x8013d164u, 0x8013d178u, kOverlaySc02_8013D164Words },
+    { 0x8013d9b0u, 0x8013dbe4u, kOverlaySc02_8013D9B0Words },
+    { 0x8013e054u, 0x8013e064u, kOverlaySc02_8013E054Words },
+    { 0x80140f00u, 0x80141100u, kOverlaySc02_80140F00Words },
+    { 0x8014358cu, 0x80143640u, kOverlaySc02_8014358CWords },
+    { 0x80153cccu, 0x80153d34u, kOverlaySc02_80153CCCWords },
+    { 0x80157788u, 0x801577c8u, kOverlaySc02_80157788Words },
+    { 0x801577c8u, 0x80157808u, kOverlaySc02_801577C8Words },
+    { 0x80157808u, 0x80157880u, kOverlaySc02_80157808Words },
+    { 0x8015879cu, 0x80158814u, kOverlaySc02_8015879CWords },
+    { 0x80158814u, 0x80158880u, kOverlaySc02_80158814Words },
+    { 0x80158fa4u, 0x80159070u, kOverlaySc02_80158FA4Words },
+    { 0x8015934cu, 0x801593e4u, kOverlaySc02_8015934CWords },
+    { 0x8015c7e4u, 0x8015c944u, kOverlaySc02_8015C7E4Words },
+    { 0x8015ca28u, 0x8015cb94u, kOverlaySc02_8015CA28Words },
+    { 0x8015cd20u, 0x8015cf24u, kOverlaySc02_8015CD20Words },
+    { 0x8015d5e8u, 0x8015d738u, kOverlaySc02_8015D5E8Words },
+    { 0x8016216cu, 0x801621ccu, kOverlaySc02_8016216CWords },
+    { 0x801622c4u, 0x80162330u, kOverlaySc02_801622C4Words },
+    { 0x80162760u, 0x801627c0u, kOverlaySc02_80162760Words },
+    { 0x80163408u, 0x8016345cu, kOverlaySc02_80163408Words },
+    { 0x801634d8u, 0x80163534u, kOverlaySc02_801634D8Words },
+    { 0x80164ee0u, 0x80164f44u, kOverlaySc02_80164EE0Words },
+    { 0x80165e2cu, 0x80165e90u, kOverlaySc02_80165E2CWords },
+    { 0x80169f3cu, 0x80169fe0u, kOverlaySc02_80169F3CWords },
+    { 0x8016b9f8u, 0x8016ba48u, kOverlaySc02_8016B9F8Words },
+    { 0x8016bea0u, 0x8016bf34u, kOverlaySc02_8016BEA0Words },
+    { 0x8016bfa8u, 0x8016bfd0u, kOverlaySc02_8016BFA8Words },
+    { 0x8016da7cu, 0x8016db34u, kOverlaySc02_8016DA7CWords },
+    { 0x80178438u, 0x8017849cu, kOverlaySc02_80178438Words },
+    { 0x80178840u, 0x801788b8u, kOverlaySc02_80178840Words },
+    { 0x80178cbcu, 0x80178d18u, kOverlaySc02_80178CBCWords },
+    { 0x80178d18u, 0x80178d40u, kOverlaySc02_80178D18Words },
+    { 0x8017a094u, 0x8017a0c4u, kOverlaySc02_8017A094Words },
+    { 0x8017a0c4u, 0x8017a0f4u, kOverlaySc02_8017A0C4Words },
+    { 0x8017a144u, 0x8017a180u, kOverlaySc02_8017A144Words },
+    { 0x8017b1d8u, 0x8017b238u, kOverlaySc02_8017B1D8Words },
+    { 0x8017b7a8u, 0x8017b824u, kOverlaySc02_8017B7A8Words },
+    { 0x8017b880u, 0x8017b8e8u, kOverlaySc02_8017B880Words },
+    { 0x8017b8e8u, 0x8017b940u, kOverlaySc02_8017B8E8Words },
+    { 0x8017bc38u, 0x8017bca0u, kOverlaySc02_8017BC38Words },
+    { 0x8017bca0u, 0x8017bcf4u, kOverlaySc02_8017BCA0Words },
+    { 0x8017bcf4u, 0x8017bd50u, kOverlaySc02_8017BCF4Words },
+};
+
+static const FormatterRange kFormatterRanges13[] = {
+    { 0x80141788u, 0x801417c4u, kOverlaySc02_80141788Words },
+    { 0x80141c0cu, 0x80141c50u, kOverlaySc02_80141C0CWords },
+    { 0x801425ccu, 0x80142608u, kOverlaySc02_801425CCWords },
+    { 0x801427ecu, 0x80142838u, kOverlaySc02_801427ECWords },
+    { 0x8014292cu, 0x80142978u, kOverlaySc02_8014292CWords },
+    { 0x80142978u, 0x801429c4u, kOverlaySc02_80142978Words },
+    { 0x801429c4u, 0x80142a10u, kOverlaySc02_801429C4Words },
+    { 0x80142a10u, 0x80142a80u, kOverlaySc02_80142A10Words },
+    { 0x80143458u, 0x8014350cu, kOverlaySc02_80143458Words },
+    { 0x80143b30u, 0x80143b6cu, kOverlaySc02_80143B30Words },
+    { 0x80143c38u, 0x80143c74u, kOverlaySc02_80143C38Words },
+    { 0x80143c98u, 0x80143cd4u, kOverlaySc02_80143C98Words },
+    { 0x80143e68u, 0x80143ea4u, kOverlaySc02_80143E68Words },
+    { 0x80155580u, 0x801555bcu, kOverlaySc02_80155580Words },
+    { 0x801563ecu, 0x8015640cu, kOverlaySc02_801563ECWords },
+    { 0x80156a1cu, 0x80156a88u, kOverlaySc02_80156A1CWords },
+    { 0x80157544u, 0x80157580u, kOverlaySc02_80157544Words },
+    { 0x801578c0u, 0x8015795cu, kOverlaySc02_801578C0Words },
+    { 0x80157d20u, 0x80157d74u, kOverlaySc02_80157D20Words },
+    { 0x80157dc4u, 0x80157e00u, kOverlaySc02_80157DC4Words },
+    { 0x80157fc4u, 0x80158000u, kOverlaySc02_80157FC4Words },
+    { 0x80158038u, 0x801580b4u, kOverlaySc02_80158038Words },
+    { 0x8015824cu, 0x80158288u, kOverlaySc02_8015824CWords },
+    { 0x80158880u, 0x801588ccu, kOverlaySc02_80158880Words },
+    { 0x80159698u, 0x801596d4u, kOverlaySc02_80159698Words },
+    { 0x80159968u, 0x801599a4u, kOverlaySc02_80159968Words },
+    { 0x80159b70u, 0x80159bacu, kOverlaySc02_80159B70Words },
+    { 0x8015a264u, 0x8015a2a0u, kOverlaySc02_8015A264Words },
+    { 0x8015ac48u, 0x8015ac90u, kOverlaySc02_8015AC48Words },
+    { 0x8015ad3cu, 0x8015ad78u, kOverlaySc02_8015AD3CWords },
+    { 0x8015be38u, 0x8015be74u, kOverlaySc02_8015BE38Words },
+    { 0x8015bff4u, 0x8015c030u, kOverlaySc02_8015BFF4Words },
+    { 0x8015c714u, 0x8015c750u, kOverlaySc02_8015C714Words },
+    { 0x8015c944u, 0x8015ca28u, kOverlaySc02_8015C944Words },
+    { 0x8015cc74u, 0x8015ccb0u, kOverlaySc02_8015CC74Words },
+    { 0x8015cfc0u, 0x8015cffcu, kOverlaySc02_8015CFC0Words },
+    { 0x8015d01cu, 0x8015d104u, kOverlaySc02_8015D01CWords },
+    { 0x8015d104u, 0x8015d1b8u, kOverlaySc02_8015D104Words },
+    { 0x8015d414u, 0x8015d480u, kOverlaySc02_8015D414Words },
+    { 0x8015d4e8u, 0x8015d524u, kOverlaySc02_8015D4E8Words },
+    { 0x8015daf8u, 0x8015db34u, kOverlaySc02_8015DAF8Words },
+    { 0x8015dbd4u, 0x8015dc84u, kOverlaySc02_8015DBD4Words },
+    { 0x8015de58u, 0x8015de94u, kOverlaySc02_8015DE58Words },
+    { 0x8015df34u, 0x8015dfe4u, kOverlaySc02_8015DF34Words },
+    { 0x8015e1b8u, 0x8015e1f4u, kOverlaySc02_8015E1B8Words },
+    { 0x8015e344u, 0x8015e40cu, kOverlaySc02_8015E344Words },
+    { 0x8015e588u, 0x8015e5b0u, kOverlaySc02_8015E588Words },
+    { 0x8015e698u, 0x8015e714u, kOverlaySc02_8015E698Words },
+    { 0x8015e8e8u, 0x8015e924u, kOverlaySc02_8015E8E8Words },
+    { 0x8015ee08u, 0x8015ee44u, kOverlaySc02_8015EE08Words },
+    { 0x8015ee7cu, 0x8015eee0u, kOverlaySc02_8015EE7CWords },
+    { 0x8015eee0u, 0x8015ef9cu, kOverlaySc02_8015EEE0Words },
+    { 0x8015f00cu, 0x8015f048u, kOverlaySc02_8015F00CWords },
+    { 0x8015f118u, 0x8015f260u, kOverlaySc02_8015F118Words },
+    { 0x8015f324u, 0x8015f360u, kOverlaySc02_8015F324Words },
+    { 0x8015f7d4u, 0x8015f810u, kOverlaySc02_8015F7D4Words },
+    { 0x8015f9a4u, 0x8015fa24u, kOverlaySc02_8015F9A4Words },
+    { 0x8015faacu, 0x8015fae8u, kOverlaySc02_8015FAACWords },
+    { 0x8015fbe0u, 0x8015fcc8u, kOverlaySc02_8015FBE0Words },
+    { 0x8015fcc8u, 0x8015fd74u, kOverlaySc02_8015FCC8Words },
+    { 0x8015fd74u, 0x8015fdccu, kOverlaySc02_8015FD74Words },
+    { 0x8015fe70u, 0x8015ff20u, kOverlaySc02_8015FE70Words },
+    { 0x80160138u, 0x80160174u, kOverlaySc02_80160138Words },
+    { 0x801602a4u, 0x8016032cu, kOverlaySc02_801602A4Words },
+    { 0x8016039cu, 0x801603d8u, kOverlaySc02_8016039CWords },
+    { 0x8016084cu, 0x80160888u, kOverlaySc02_8016084CWords },
+    { 0x80160920u, 0x801609b8u, kOverlaySc02_80160920Words },
+    { 0x801609b8u, 0x80160a28u, kOverlaySc02_801609B8Words },
+    { 0x80160b34u, 0x80160b70u, kOverlaySc02_80160B34Words },
+    { 0x80160ea4u, 0x80160ee0u, kOverlaySc02_80160EA4Words },
+    { 0x80161034u, 0x80161094u, kOverlaySc02_80161034Words },
+    { 0x80161c98u, 0x80161cd0u, kOverlaySc02_80161C98Words },
+    { 0x80161cd0u, 0x80161d20u, kOverlaySc02_80161CD0Words },
+    { 0x80161d20u, 0x80161d58u, kOverlaySc02_80161D20Words },
+    { 0x80161d88u, 0x80161e08u, kOverlaySc02_80161D88Words },
+    { 0x80162330u, 0x8016236cu, kOverlaySc02_80162330Words },
+    { 0x80162834u, 0x80162870u, kOverlaySc02_80162834Words },
+    { 0x80162870u, 0x801628f4u, kOverlaySc02_80162870Words },
+};
+
+static const FormatterRange kFormatterRanges14[] = {
+    { 0x80163a58u, 0x80163a94u, kOverlaySc02_80163A58Words },
+    { 0x80164744u, 0x801647a4u, kOverlaySc02_80164744Words },
+    { 0x80164ba0u, 0x80164bdcu, kOverlaySc02_80164BA0Words },
+    { 0x80164ea4u, 0x80164ee0u, kOverlaySc02_80164EA4Words },
+    { 0x80165580u, 0x801655e4u, kOverlaySc02_80165580Words },
+    { 0x80165658u, 0x80165670u, kOverlaySc02_80165658Words },
+    { 0x80165670u, 0x80165694u, kOverlaySc02_80165670Words },
+    { 0x801656d0u, 0x801656e8u, kOverlaySc02_801656D0Words },
+    { 0x801656e8u, 0x80165700u, kOverlaySc02_801656E8Words },
+    { 0x80165700u, 0x80165718u, kOverlaySc02_80165700Words },
+    { 0x80165ac8u, 0x80165b08u, kOverlaySc02_80165AC8Words },
+    { 0x80165b28u, 0x80165b6cu, kOverlaySc02_80165B28Words },
+    { 0x80166018u, 0x80166054u, kOverlaySc02_80166018Words },
+};
+
+static const FormatterRange kFormatterRanges15[] = {
+    { 0x801663fcu, 0x80166438u, kOverlaySc02_801663FCWords },
+    { 0x80166618u, 0x80166654u, kOverlaySc02_80166618Words },
+    { 0x80166654u, 0x80166690u, kOverlaySc02_80166654Words },
+    { 0x801678b4u, 0x801678f0u, kOverlaySc02_801678B4Words },
+    { 0x80167a9cu, 0x80167ad8u, kOverlaySc02_80167A9CWords },
+    { 0x80168744u, 0x80168780u, kOverlaySc02_80168744Words },
+    { 0x801689d8u, 0x80168a14u, kOverlaySc02_801689D8Words },
+    { 0x80168aa8u, 0x80168ae4u, kOverlaySc02_80168AA8Words },
+    { 0x80168d58u, 0x80168d94u, kOverlaySc02_80168D58Words },
+    { 0x8016901cu, 0x80169058u, kOverlaySc02_8016901CWords },
+    { 0x801693ccu, 0x80169408u, kOverlaySc02_801693CCWords },
+    { 0x80169830u, 0x8016986cu, kOverlaySc02_80169830Words },
+    { 0x80169b80u, 0x80169bbcu, kOverlaySc02_80169B80Words },
+    { 0x80169f00u, 0x80169f3cu, kOverlaySc02_80169F00Words },
+    { 0x8016a020u, 0x8016a05cu, kOverlaySc02_8016A020Words },
+    { 0x8016a700u, 0x8016a73cu, kOverlaySc02_8016A700Words },
+    { 0x8016ab30u, 0x8016ab6cu, kOverlaySc02_8016AB30Words },
+    { 0x8016b4bcu, 0x8016b4f8u, kOverlaySc02_8016B4BCWords },
+    { 0x8016bba4u, 0x8016bbe0u, kOverlaySc02_8016BBA4Words },
+    { 0x8016c14cu, 0x8016c188u, kOverlaySc02_8016C14CWords },
+    { 0x8016cb84u, 0x8016cbc0u, kOverlaySc02_8016CB84Words },
+    { 0x8016d19cu, 0x8016d1d8u, kOverlaySc02_8016D19CWords },
+    { 0x8016d428u, 0x8016d464u, kOverlaySc02_8016D428Words },
+    { 0x8016da30u, 0x8016da7cu, kOverlaySc02_8016DA30Words },
+    { 0x8016dea4u, 0x8016dee0u, kOverlaySc02_8016DEA4Words },
+    { 0x8016df20u, 0x8016df5cu, kOverlaySc02_8016DF20Words },
+    { 0x8016e5b8u, 0x8016e5f4u, kOverlaySc02_8016E5B8Words },
+    { 0x8016eac0u, 0x8016eb3cu, kOverlaySc02_8016EAC0Words },
+    { 0x8016f6e0u, 0x8016f71cu, kOverlaySc02_8016F6E0Words },
+    { 0x8016f798u, 0x8016f7d4u, kOverlaySc02_8016F798Words },
+    { 0x8016f834u, 0x8016f870u, kOverlaySc02_8016F834Words },
+    { 0x8016f8e4u, 0x8016f920u, kOverlaySc02_8016F8E4Words },
+    { 0x8016f9c4u, 0x8016fa00u, kOverlaySc02_8016F9C4Words },
+    { 0x8016fa84u, 0x8016fac0u, kOverlaySc02_8016FA84Words },
+    { 0x8016fb7cu, 0x8016fbb8u, kOverlaySc02_8016FB7CWords },
+    { 0x8016fc90u, 0x8016fcccu, kOverlaySc02_8016FC90Words },
+    { 0x8016fdb4u, 0x8016fdf0u, kOverlaySc02_8016FDB4Words },
+    { 0x8016ff30u, 0x8016ff6cu, kOverlaySc02_8016FF30Words },
+    { 0x8016ffdcu, 0x80170018u, kOverlaySc02_8016FFDCWords },
+    { 0x80170150u, 0x8017018cu, kOverlaySc02_80170150Words },
+    { 0x80170240u, 0x8017027cu, kOverlaySc02_80170240Words },
+    { 0x801702fcu, 0x80170338u, kOverlaySc02_801702FCWords },
+    { 0x801703e0u, 0x8017041cu, kOverlaySc02_801703E0Words },
+    { 0x801704b0u, 0x801704ecu, kOverlaySc02_801704B0Words },
+    { 0x80170548u, 0x80170584u, kOverlaySc02_80170548Words },
+    { 0x801705f8u, 0x80170634u, kOverlaySc02_801705F8Words },
+    { 0x801706acu, 0x801706e8u, kOverlaySc02_801706ACWords },
+    { 0x80170748u, 0x80170784u, kOverlaySc02_80170748Words },
+    { 0x80170810u, 0x8017084cu, kOverlaySc02_80170810Words },
+    { 0x80170ad8u, 0x80170b14u, kOverlaySc02_80170AD8Words },
+    { 0x80170bd8u, 0x80170c14u, kOverlaySc02_80170BD8Words },
+    { 0x80170c74u, 0x80170cb0u, kOverlaySc02_80170C74Words },
+    { 0x80170d68u, 0x80170da4u, kOverlaySc02_80170D68Words },
+    { 0x80170e34u, 0x80170e70u, kOverlaySc02_80170E34Words },
+    { 0x80170efcu, 0x80170f38u, kOverlaySc02_80170EFCWords },
+    { 0x80170fb0u, 0x80170fecu, kOverlaySc02_80170FB0Words },
+    { 0x80171064u, 0x801710a0u, kOverlaySc02_80171064Words },
+    { 0x80171120u, 0x8017115cu, kOverlaySc02_80171120Words },
+    { 0x801711c0u, 0x801711fcu, kOverlaySc02_801711C0Words },
+    { 0x80171260u, 0x8017129cu, kOverlaySc02_80171260Words },
+    { 0x801714e4u, 0x80171520u, kOverlaySc02_801714E4Words },
+    { 0x801727d0u, 0x8017280cu, kOverlaySc02_801727D0Words },
+    { 0x801728e4u, 0x80172920u, kOverlaySc02_801728E4Words },
+    { 0x801729f0u, 0x80172a2cu, kOverlaySc02_801729F0Words },
+    { 0x80172b44u, 0x80172b80u, kOverlaySc02_80172B44Words },
+    { 0x80172ca0u, 0x80172cdcu, kOverlaySc02_80172CA0Words },
+    { 0x80172dacu, 0x80172de8u, kOverlaySc02_80172DACWords },
+    { 0x80173078u, 0x801730b4u, kOverlaySc02_80173078Words },
+    { 0x8017319cu, 0x801731d8u, kOverlaySc02_8017319CWords },
+    { 0x80173220u, 0x80173294u, kOverlaySc02_80173220Words },
+    { 0x80173544u, 0x80173580u, kOverlaySc02_80173544Words },
+    { 0x801736fcu, 0x80173738u, kOverlaySc02_801736FCWords },
+    { 0x801737e8u, 0x80173824u, kOverlaySc02_801737E8Words },
+    { 0x8017390cu, 0x80173948u, kOverlaySc02_8017390CWords },
+    { 0x80173b4cu, 0x80173b88u, kOverlaySc02_80173B4CWords },
+    { 0x801742a4u, 0x801742e0u, kOverlaySc02_801742A4Words },
+    { 0x80174384u, 0x801743c0u, kOverlaySc02_80174384Words },
+    { 0x80174474u, 0x801744b0u, kOverlaySc02_80174474Words },
+    { 0x801747ccu, 0x80174808u, kOverlaySc02_801747CCWords },
+    { 0x80174888u, 0x801748c4u, kOverlaySc02_80174888Words },
+    { 0x8017496cu, 0x801749a8u, kOverlaySc02_8017496CWords },
+    { 0x80174bf4u, 0x80174c60u, kOverlaySc02_80174BF4Words },
+    { 0x80174f28u, 0x80174f64u, kOverlaySc02_80174F28Words },
+    { 0x80175184u, 0x801751d8u, kOverlaySc02_80175184Words },
+    { 0x8017553cu, 0x80175590u, kOverlaySc02_8017553CWords },
+    { 0x80175690u, 0x801756e4u, kOverlaySc02_80175690Words },
+};
+
+static const FormatterRange kFormatterRanges16[] = {
+    { 0x80128178u, 0x80128198u, kOverlaySc02_80128178Words },
+    { 0x80128198u, 0x801281b8u, kOverlaySc02_80128198Words },
+    { 0x801281b8u, 0x801281d8u, kOverlaySc02_801281B8Words },
+    { 0x801281d8u, 0x801281f8u, kOverlaySc02_801281D8Words },
+    { 0x801281f8u, 0x80128218u, kOverlaySc02_801281F8Words },
+    { 0x80128228u, 0x80128248u, kOverlaySc02_80128228Words },
+    { 0x80128248u, 0x80128268u, kOverlaySc02_80128248Words },
+    { 0x80128268u, 0x80128288u, kOverlaySc02_80128268Words },
+    { 0x801282ccu, 0x801282ecu, kOverlaySc02_801282CCWords },
+    { 0x801282ecu, 0x8012832cu, kOverlaySc02_801282ECWords },
+    { 0x80128d60u, 0x80128db4u, kOverlaySc02_80128D60Words },
+    { 0x80128ea8u, 0x80128ed8u, kOverlaySc02_80128EA8Words },
+    { 0x8017be60u, 0x8017be9cu, kOverlaySc02_8017BE60Words },
+};
+
+static const FormatterRange kFormatterRanges17[] = {
+    { 0x801290dcu, 0x8012913cu, kOverlaySc02_801290DCWords },
+    { 0x8012913cu, 0x801291c0u, kOverlaySc02_8012913CWords },
+    { 0x801291c0u, 0x80129220u, kOverlaySc02_801291C0Words },
+    { 0x8012927cu, 0x801292c8u, kOverlaySc02_8012927CWords },
+    { 0x801292c8u, 0x8012931cu, kOverlaySc02_801292C8Words },
+    { 0x8012931cu, 0x80129350u, kOverlaySc02_8012931CWords },
+    { 0x80129350u, 0x80129374u, kOverlaySc02_80129350Words },
+    { 0x80129374u, 0x80129398u, kOverlaySc02_80129374Words },
+    { 0x80129428u, 0x8012943cu, kOverlaySc02_80129428Words },
+    { 0x8012943cu, 0x8012944cu, kOverlaySc02_8012943CWords },
+    { 0x80129ff4u, 0x8012a018u, kOverlaySc02_80129FF4Words },
+    { 0x8012a0e0u, 0x8012a100u, kOverlaySc02_8012A0E0Words },
+    { 0x8012a100u, 0x8012a110u, kOverlaySc02_8012A100Words },
+    { 0x8012a110u, 0x8012a1bcu, kOverlaySc02_8012A110Words },
+    { 0x8012a2f4u, 0x8012a304u, kOverlaySc02_8012A2F4Words },
+    { 0x8012a304u, 0x8012a328u, kOverlaySc02_8012A304Words },
+    { 0x8012a418u, 0x8012a464u, kOverlaySc02_8012A418Words },
+    { 0x8012a464u, 0x8012a4bcu, kOverlaySc02_8012A464Words },
+    { 0x8012a4bcu, 0x8012a568u, kOverlaySc02_8012A4BCWords },
+    { 0x8012a568u, 0x8012a598u, kOverlaySc02_8012A568Words },
+    { 0x8012a598u, 0x8012a5f8u, kOverlaySc02_8012A598Words },
+    { 0x8012a5f8u, 0x8012a62cu, kOverlaySc02_8012A5F8Words },
+    { 0x8012a62cu, 0x8012a68cu, kOverlaySc02_8012A62CWords },
+    { 0x8012a68cu, 0x8012a6d0u, kOverlaySc02_8012A68CWords },
+    { 0x8012a6d0u, 0x8012a758u, kOverlaySc02_8012A6D0Words },
+    { 0x8012a758u, 0x8012a79cu, kOverlaySc02_8012A758Words },
+    { 0x8012a79cu, 0x8012a7d4u, kOverlaySc02_8012A79CWords },
+    { 0x8012a7d4u, 0x8012a828u, kOverlaySc02_8012A7D4Words },
+    { 0x8012a860u, 0x8012a8b0u, kOverlaySc02_8012A860Words },
+    { 0x8012a8b0u, 0x8012a8e8u, kOverlaySc02_8012A8B0Words },
+    { 0x8012a8e8u, 0x8012a908u, kOverlaySc02_8012A8E8Words },
+    { 0x8012a908u, 0x8012a988u, kOverlaySc02_8012A908Words },
+};
+
+static const FormatterRange kFormatterRanges18[] = {
+    { 0x8012ad3cu, 0x8012ad44u, kOverlaySc02_8012AD3CWords },
+    { 0x8012ad64u, 0x8012ad6cu, kOverlaySc02_8012AD64Words },
+    { 0x8012ad6cu, 0x8012ad80u, kOverlaySc02_8012AD6CWords },
+    { 0x8012ad80u, 0x8012ade4u, kOverlaySc02_8012AD80Words },
+    { 0x8012ade4u, 0x8012ae00u, kOverlaySc02_8012ADE4Words },
+    { 0x8012b178u, 0x8012b1b4u, kOverlaySc02_8012B178Words },
+    { 0x8012b1b4u, 0x8012b200u, kOverlaySc02_8012B1B4Words },
+    { 0x8012b200u, 0x8012b21cu, kOverlaySc02_8012B200Words },
+    { 0x8012b21cu, 0x8012b23cu, kOverlaySc02_8012B21CWords },
+    { 0x8012b23cu, 0x8012b260u, kOverlaySc02_8012B23CWords },
+    { 0x8012b370u, 0x8012b414u, kOverlaySc02_8012B370Words },
+    { 0x8012b414u, 0x8012b4b8u, kOverlaySc02_8012B414Words },
+    { 0x8012b6d4u, 0x8012b70cu, kOverlaySc02_8012B6D4Words },
+    { 0x8012b70cu, 0x8012b744u, kOverlaySc02_8012B70CWords },
+    { 0x8012b744u, 0x8012b77cu, kOverlaySc02_8012B744Words },
+    { 0x8012b864u, 0x8012b8a4u, kOverlaySc02_8012B864Words },
+    { 0x8012b8a4u, 0x8012b8e4u, kOverlaySc02_8012B8A4Words },
+    { 0x8012bc60u, 0x8012bcccu, kOverlaySc02_8012BC60Words },
+    { 0x8012bd14u, 0x8012bd3cu, kOverlaySc02_8012BD14Words },
+    { 0x8012bd3cu, 0x8012bdbcu, kOverlaySc02_8012BD3CWords },
+    { 0x8012be54u, 0x8012be98u, kOverlaySc02_8012BE54Words },
+    { 0x8012be98u, 0x8012bee8u, kOverlaySc02_8012BE98Words },
+    { 0x8012bf4cu, 0x8012bf54u, kOverlaySc02_8012BF4CWords },
+    { 0x8012bf54u, 0x8012bf68u, kOverlaySc02_8012BF54Words },
+    { 0x8012bf68u, 0x8012bf7cu, kOverlaySc02_8012BF68Words },
+    { 0x8012bf7cu, 0x8012bfa8u, kOverlaySc02_8012BF7CWords },
+    { 0x8012bfa8u, 0x8012c044u, kOverlaySc02_8012BFA8Words },
+    { 0x8012c044u, 0x8012c098u, kOverlaySc02_8012C044Words },
+    { 0x8012c098u, 0x8012c0ecu, kOverlaySc02_8012C098Words },
+    { 0x8012c31cu, 0x8012c354u, kOverlaySc02_8012C31CWords },
+    { 0x8012c724u, 0x8012c750u, kOverlaySc02_8012C724Words },
+    { 0x8012cba4u, 0x8012cbccu, kOverlaySc02_8012CBA4Words },
+    { 0x8012cbccu, 0x8012cbf4u, kOverlaySc02_8012CBCCWords },
+    { 0x8012cbf4u, 0x8012cc1cu, kOverlaySc02_8012CBF4Words },
+    { 0x8012cc1cu, 0x8012cc40u, kOverlaySc02_8012CC1CWords },
+    { 0x8012cc40u, 0x8012cc64u, kOverlaySc02_8012CC40Words },
+    { 0x8012cc64u, 0x8012cc88u, kOverlaySc02_8012CC64Words },
+    { 0x8012d38cu, 0x8012d3acu, kOverlaySc02_8012D38CWords },
+    { 0x8012d3b4u, 0x8012d4b4u, kOverlaySc02_8012D3B4Words },
+    { 0x8012d4b4u, 0x8012d5dcu, kOverlaySc02_8012D4B4Words },
+    { 0x8012d5e4u, 0x8012d624u, kOverlaySc02_8012D5E4Words },
+    { 0x8012d624u, 0x8012d664u, kOverlaySc02_8012D624Words },
+    { 0x8012dfd4u, 0x8012e014u, kOverlaySc02_8012DFD4Words },
+    { 0x8012e27cu, 0x8012e284u, kOverlaySc02_8012E27CWords },
+    { 0x8012e284u, 0x8012e28cu, kOverlaySc02_8012E284Words },
+    { 0x8012e28cu, 0x8012e32cu, kOverlaySc02_8012E28CWords },
+    { 0x8012e32cu, 0x8012e364u, kOverlaySc02_8012E32CWords },
+    { 0x8012e504u, 0x8012e544u, kOverlaySc02_8012E504Words },
+    { 0x8012e544u, 0x8012e57cu, kOverlaySc02_8012E544Words },
+    { 0x8012e57cu, 0x8012e5ccu, kOverlaySc02_8012E57CWords },
+    { 0x8012e778u, 0x8012e88cu, kOverlaySc02_8012E778Words },
+    { 0x8012e88cu, 0x8012e8a8u, kOverlaySc02_8012E88CWords },
+    { 0x8012e8a8u, 0x8012e8c4u, kOverlaySc02_8012E8A8Words },
+    { 0x8012e8c4u, 0x8012e8e0u, kOverlaySc02_8012E8C4Words },
+    { 0x8012ec04u, 0x8012eeccu, kOverlaySc02_8012EC04Words },
+    { 0x8012eeccu, 0x8012ef34u, kOverlaySc02_8012EECCWords },
+    { 0x8012ef34u, 0x8012ef70u, kOverlaySc02_8012EF34Words },
+    { 0x8012ef70u, 0x8012efb8u, kOverlaySc02_8012EF70Words },
+    { 0x8012efb8u, 0x8012f038u, kOverlaySc02_8012EFB8Words },
+    { 0x8012f038u, 0x8012f0bcu, kOverlaySc02_8012F038Words },
+    { 0x8012f0bcu, 0x8012f14cu, kOverlaySc02_8012F0BCWords },
+    { 0x8012f1a4u, 0x8012f214u, kOverlaySc02_8012F1A4Words },
+    { 0x8012f214u, 0x8012f274u, kOverlaySc02_8012F214Words },
+    { 0x8012f2e8u, 0x8012f374u, kOverlaySc02_8012F2E8Words },
+    { 0x8012f374u, 0x8012f40cu, kOverlaySc02_8012F374Words },
+    { 0x8012f5f4u, 0x8012f68cu, kOverlaySc02_8012F5F4Words },
+    { 0x8012f75cu, 0x8012f7b4u, kOverlaySc02_8012F75CWords },
+    { 0x8012f7b4u, 0x8012f828u, kOverlaySc02_8012F7B4Words },
+    { 0x8012f87cu, 0x8012f8c8u, kOverlaySc02_8012F87CWords },
+    { 0x8012f91cu, 0x8012f968u, kOverlaySc02_8012F91CWords },
+    { 0x8012fb54u, 0x8012fc30u, kOverlaySc02_8012FB54Words },
+    { 0x8012fc30u, 0x8012fca4u, kOverlaySc02_8012FC30Words },
+    { 0x8012fca4u, 0x8012fcc4u, kOverlaySc02_8012FCA4Words },
+    { 0x8012fda8u, 0x8012fe70u, kOverlaySc02_8012FDA8Words },
+    { 0x8012fe70u, 0x8012ff00u, kOverlaySc02_8012FE70Words },
+    { 0x8012ff00u, 0x8012ff4cu, kOverlaySc02_8012FF00Words },
+    { 0x8012ff4cu, 0x8012ff98u, kOverlaySc02_8012FF4CWords },
+    { 0x8012ff98u, 0x8013001cu, kOverlaySc02_8012FF98Words },
+    { 0x80130278u, 0x80130314u, kOverlaySc02_80130278Words },
+    { 0x80130314u, 0x80130360u, kOverlaySc02_80130314Words },
+    { 0x80130360u, 0x801303a0u, kOverlaySc02_80130360Words },
+    { 0x801303a0u, 0x801303ecu, kOverlaySc02_801303A0Words },
+    { 0x801303ecu, 0x80130438u, kOverlaySc02_801303ECWords },
+    { 0x80130514u, 0x801305ccu, kOverlaySc02_80130514Words },
+    { 0x801305ccu, 0x80130650u, kOverlaySc02_801305CCWords },
+    { 0x80130650u, 0x80130740u, kOverlaySc02_80130650Words },
+    { 0x80130740u, 0x801307b0u, kOverlaySc02_80130740Words },
+    { 0x801307b0u, 0x80130858u, kOverlaySc02_801307B0Words },
+    { 0x80130858u, 0x80130898u, kOverlaySc02_80130858Words },
+    { 0x80130898u, 0x801308dcu, kOverlaySc02_80130898Words },
+    { 0x801308dcu, 0x80130974u, kOverlaySc02_801308DCWords },
+    { 0x80130974u, 0x80130a18u, kOverlaySc02_80130974Words },
+    { 0x80130a18u, 0x80130ac4u, kOverlaySc02_80130A18Words },
+    { 0x80130af0u, 0x80130c08u, kOverlaySc02_80130AF0Words },
+    { 0x801319e0u, 0x80131a34u, kOverlaySc02_801319E0Words },
+    { 0x80131c78u, 0x80131ca8u, kOverlaySc02_80131C78Words },
+    { 0x80131d68u, 0x80131e00u, kOverlaySc02_80131D68Words },
+    { 0x80131e38u, 0x80131e7cu, kOverlaySc02_80131E38Words },
+    { 0x80131e7cu, 0x80131ee4u, kOverlaySc02_80131E7CWords },
+    { 0x80132784u, 0x80132dc4u, kOverlaySc02_80132784Words },
+    { 0x80132dc4u, 0x80132e6cu, kOverlaySc02_80132DC4Words },
+    { 0x80132e6cu, 0x80132ec4u, kOverlaySc02_80132E6CWords },
+    { 0x80132ec4u, 0x80132ef4u, kOverlaySc02_80132EC4Words },
+    { 0x80132ef4u, 0x80132f40u, kOverlaySc02_80132EF4Words },
+    { 0x80133060u, 0x801330e0u, kOverlaySc02_80133060Words },
+    { 0x801330e0u, 0x80133298u, kOverlaySc02_801330E0Words },
+    { 0x80134310u, 0x8013435cu, kOverlaySc02_80134310Words },
+    { 0x8013435cu, 0x801343c4u, kOverlaySc02_8013435CWords },
+    { 0x80134a28u, 0x80134a74u, kOverlaySc02_80134A28Words },
+    { 0x80134fb8u, 0x80135004u, kOverlaySc02_80134FB8Words },
+    { 0x80136c1cu, 0x80136c3cu, kOverlaySc02_80136C1CWords },
+    { 0x80136c3cu, 0x80136c44u, kOverlaySc02_80136C3CWords },
+    { 0x80136d08u, 0x80136dfcu, kOverlaySc02_80136D08Words },
+    { 0x80136dfcu, 0x80136ec4u, kOverlaySc02_80136DFCWords },
+    { 0x80136eccu, 0x80136f3cu, kOverlaySc02_80136ECCWords },
+    { 0x801375ecu, 0x80137614u, kOverlaySc02_801375ECWords },
+    { 0x80137614u, 0x8013767cu, kOverlaySc02_80137614Words },
+    { 0x8013767cu, 0x801376c8u, kOverlaySc02_8013767CWords },
+    { 0x801376c8u, 0x801376e8u, kOverlaySc02_801376C8Words },
+    { 0x80137840u, 0x801378f0u, kOverlaySc02_80137840Words },
+    { 0x801379d8u, 0x801379ecu, kOverlaySc02_801379D8Words },
+    { 0x801379ecu, 0x801379fcu, kOverlaySc02_801379ECWords },
+};
+
+static const FormatterRange kFormatterRanges19[] = {
+    { 0x80138948u, 0x8013895cu, kOverlaySc02_80138948Words },
+    { 0x80138b88u, 0x80138be0u, kOverlaySc02_80138B88Words },
+    { 0x80138c30u, 0x80138c60u, kOverlaySc02_80138C30Words },
+    { 0x80138d58u, 0x80138db8u, kOverlaySc02_80138D58Words },
+    { 0x80138db8u, 0x80138de0u, kOverlaySc02_80138DB8Words },
+    { 0x801391f0u, 0x80139220u, kOverlaySc02_801391F0Words },
+    { 0x80139220u, 0x801392c8u, kOverlaySc02_80139220Words },
+    { 0x801392c8u, 0x801392fcu, kOverlaySc02_801392C8Words },
+    { 0x801395d4u, 0x80139634u, kOverlaySc02_801395D4Words },
+    { 0x80139634u, 0x80139680u, kOverlaySc02_80139634Words },
+    { 0x80139788u, 0x801397b0u, kOverlaySc02_80139788Words },
+    { 0x80139914u, 0x80139954u, kOverlaySc02_80139914Words },
+    { 0x80139954u, 0x801399a8u, kOverlaySc02_80139954Words },
+    { 0x801399a8u, 0x801399f0u, kOverlaySc02_801399A8Words },
+    { 0x801399f0u, 0x80139a34u, kOverlaySc02_801399F0Words },
+    { 0x80139a34u, 0x80139a44u, kOverlaySc02_80139A34Words },
+    { 0x80139a44u, 0x80139a68u, kOverlaySc02_80139A44Words },
+    { 0x80139a68u, 0x80139a8cu, kOverlaySc02_80139A68Words },
+    { 0x80139b18u, 0x80139be0u, kOverlaySc02_80139B18Words },
+    { 0x80139c7cu, 0x80139d04u, kOverlaySc02_80139C7CWords },
+    { 0x80139dc8u, 0x80139decu, kOverlaySc02_80139DC8Words },
+    { 0x80139f0cu, 0x80139fbcu, kOverlaySc02_80139F0CWords },
+    { 0x80139fbcu, 0x80139fe8u, kOverlaySc02_80139FBCWords },
+    { 0x80139fe8u, 0x8013a0a4u, kOverlaySc02_80139FE8Words },
+    { 0x8013a0a4u, 0x8013a164u, kOverlaySc02_8013A0A4Words },
+    { 0x8013a164u, 0x8013a1e8u, kOverlaySc02_8013A164Words },
+    { 0x8013a1e8u, 0x8013a250u, kOverlaySc02_8013A1E8Words },
+    { 0x8013a250u, 0x8013a2bcu, kOverlaySc02_8013A250Words },
+};
+
+static const FormatterRange kFormatterRanges20[] = {
+    { 0x8012a018u, 0x8012a048u, kOverlaySc02_8012A018Words },
+    { 0x8012a048u, 0x8012a094u, kOverlaySc02_8012A048Words },
+    { 0x8012a094u, 0x8012a0e0u, kOverlaySc02_8012A094Words },
+    { 0x8013a448u, 0x8013a4c4u, kOverlaySc02_8013A448Words },
+    { 0x8013a4c4u, 0x8013a530u, kOverlaySc02_8013A4C4Words },
+    { 0x8013a8b0u, 0x8013a8bcu, kOverlaySc02_8013A8B0Words },
+    { 0x8013a8bcu, 0x8013a8fcu, kOverlaySc02_8013A8BCWords },
+    { 0x8013a9b4u, 0x8013a9f8u, kOverlaySc02_8013A9B4Words },
+    { 0x8013aa24u, 0x8013ab54u, kOverlaySc02_8013AA24Words },
+    { 0x8013ab54u, 0x8013ad38u, kOverlaySc02_8013AB54Words },
+    { 0x8013b204u, 0x8013b274u, kOverlaySc02_8013B204Words },
+    { 0x8013e064u, 0x8013e0fcu, kOverlaySc02_8013E064Words },
+    { 0x8013e0fcu, 0x8013e194u, kOverlaySc02_8013E0FCWords },
+    { 0x8013e194u, 0x8013e22cu, kOverlaySc02_8013E194Words },
+    { 0x8013e22cu, 0x8013e298u, kOverlaySc02_8013E22CWords },
+    { 0x8013e298u, 0x8013e2c4u, kOverlaySc02_8013E298Words },
+    { 0x8013e2c4u, 0x8013e370u, kOverlaySc02_8013E2C4Words },
+    { 0x8013e370u, 0x8013e410u, kOverlaySc02_8013E370Words },
+    { 0x8013e410u, 0x8013e448u, kOverlaySc02_8013E410Words },
+    { 0x8013e558u, 0x8013e588u, kOverlaySc02_8013E558Words },
+    { 0x8013e588u, 0x8013e5e8u, kOverlaySc02_8013E588Words },
+    { 0x8013e67cu, 0x8013e6acu, kOverlaySc02_8013E67CWords },
+    { 0x8013e814u, 0x8013e83cu, kOverlaySc02_8013E814Words },
+    { 0x8014168cu, 0x801416d4u, kOverlaySc02_8014168CWords },
+    { 0x801417c4u, 0x801417f8u, kOverlaySc02_801417C4Words },
+    { 0x801417f8u, 0x80141874u, kOverlaySc02_801417F8Words },
+    { 0x80141c04u, 0x80141c0cu, kOverlaySc02_80141C04Words },
+    { 0x80141c50u, 0x80141ca4u, kOverlaySc02_80141C50Words },
+    { 0x80141ca4u, 0x80142414u, kOverlaySc02_80141CA4Words },
+    { 0x80142414u, 0x80142454u, kOverlaySc02_80142414Words },
+    { 0x801426d4u, 0x80142740u, kOverlaySc02_801426D4Words },
+    { 0x80142740u, 0x80142778u, kOverlaySc02_80142740Words },
+    { 0x80142778u, 0x801427dcu, kOverlaySc02_80142778Words },
+    { 0x80142838u, 0x801428ccu, kOverlaySc02_80142838Words },
+    { 0x801428ccu, 0x8014292cu, kOverlaySc02_801428CCWords },
+    { 0x80142b2cu, 0x80142bb4u, kOverlaySc02_80142B2CWords },
+    { 0x80142bb4u, 0x80142c7cu, kOverlaySc02_80142BB4Words },
+    { 0x80142c84u, 0x80142c9cu, kOverlaySc02_80142C84Words },
+    { 0x80142d38u, 0x80142db8u, kOverlaySc02_80142D38Words },
+    { 0x80142db8u, 0x80142dc4u, kOverlaySc02_80142DB8Words },
+    { 0x80142f68u, 0x80142ffcu, kOverlaySc02_80142F68Words },
+    { 0x80142ffcu, 0x8014305cu, kOverlaySc02_80142FFCWords },
+    { 0x801430f4u, 0x80143188u, kOverlaySc02_801430F4Words },
+    { 0x80143188u, 0x801431e8u, kOverlaySc02_80143188Words },
+    { 0x801432fcu, 0x80143390u, kOverlaySc02_801432FCWords },
+    { 0x80143390u, 0x801433f0u, kOverlaySc02_80143390Words },
+    { 0x801433f0u, 0x80143458u, kOverlaySc02_801433F0Words },
+    { 0x8014350cu, 0x8014358cu, kOverlaySc02_8014350CWords },
+    { 0x80143994u, 0x801439c0u, kOverlaySc02_80143994Words },
+    { 0x801439c0u, 0x801439fcu, kOverlaySc02_801439C0Words },
+    { 0x80143c74u, 0x80143c98u, kOverlaySc02_80143C74Words },
+    { 0x8014a680u, 0x8014a69cu, kOverlaySc02_8014A680Words },
+    { 0x8014a6a8u, 0x8014a6c4u, kOverlaySc02_8014A6A8Words },
+    { 0x8014a6c4u, 0x8014a71cu, kOverlaySc02_8014A6C4Words },
+    { 0x8014a71cu, 0x8014a738u, kOverlaySc02_8014A71CWords },
+    { 0x8014a830u, 0x8014a850u, kOverlaySc02_8014A830Words },
+    { 0x80150f78u, 0x80150f80u, kOverlaySc02_80150F78Words },
+    { 0x80150f80u, 0x80150fb4u, kOverlaySc02_80150F80Words },
+    { 0x80150fb4u, 0x80150fd8u, kOverlaySc02_80150FB4Words },
+    { 0x80150fd8u, 0x80151014u, kOverlaySc02_80150FD8Words },
+    { 0x80151014u, 0x80151038u, kOverlaySc02_80151014Words },
+    { 0x80151038u, 0x80151070u, kOverlaySc02_80151038Words },
+    { 0x80151070u, 0x80151094u, kOverlaySc02_80151070Words },
+    { 0x80151094u, 0x801510b8u, kOverlaySc02_80151094Words },
+    { 0x801510c8u, 0x801510ecu, kOverlaySc02_801510C8Words },
+    { 0x801510ecu, 0x80151110u, kOverlaySc02_801510ECWords },
+    { 0x80151110u, 0x80151130u, kOverlaySc02_80151110Words },
+    { 0x80151138u, 0x8015115cu, kOverlaySc02_80151138Words },
+    { 0x80151164u, 0x80151184u, kOverlaySc02_80151164Words },
+    { 0x80151184u, 0x801511a8u, kOverlaySc02_80151184Words },
+    { 0x801511a8u, 0x801511c4u, kOverlaySc02_801511A8Words },
+    { 0x801511c4u, 0x801511e0u, kOverlaySc02_801511C4Words },
+    { 0x801511e0u, 0x80151204u, kOverlaySc02_801511E0Words },
+    { 0x80151204u, 0x80151238u, kOverlaySc02_80151204Words },
+    { 0x80151238u, 0x8015126cu, kOverlaySc02_80151238Words },
+    { 0x80151664u, 0x801516f0u, kOverlaySc02_80151664Words },
+    { 0x801516f0u, 0x8015173cu, kOverlaySc02_801516F0Words },
+    { 0x8015173cu, 0x80151780u, kOverlaySc02_8015173CWords },
+    { 0x80151878u, 0x80151880u, kOverlaySc02_80151878Words },
+    { 0x80151924u, 0x80151944u, kOverlaySc02_80151924Words },
+    { 0x80151980u, 0x801519c8u, kOverlaySc02_80151980Words },
+    { 0x80151ae4u, 0x80151b98u, kOverlaySc02_80151AE4Words },
+    { 0x80151d60u, 0x80151db0u, kOverlaySc02_80151D60Words },
+    { 0x80151db0u, 0x80151e78u, kOverlaySc02_80151DB0Words },
+    { 0x80151e78u, 0x80151eccu, kOverlaySc02_80151E78Words },
+    { 0x80151eccu, 0x80151f38u, kOverlaySc02_80151ECCWords },
+    { 0x80151f38u, 0x80151fb4u, kOverlaySc02_80151F38Words },
+    { 0x80151fb4u, 0x80152058u, kOverlaySc02_80151FB4Words },
+    { 0x80152094u, 0x801520dcu, kOverlaySc02_80152094Words },
+    { 0x80152194u, 0x8015220cu, kOverlaySc02_80152194Words },
+    { 0x8015220cu, 0x80152254u, kOverlaySc02_8015220CWords },
+    { 0x801522ccu, 0x80152370u, kOverlaySc02_801522CCWords },
+    { 0x801523acu, 0x801523f4u, kOverlaySc02_801523ACWords },
+    { 0x801525f4u, 0x80152698u, kOverlaySc02_801525F4Words },
+    { 0x801526d4u, 0x80152714u, kOverlaySc02_801526D4Words },
+    { 0x80152790u, 0x8015282cu, kOverlaySc02_80152790Words },
+    { 0x80152868u, 0x801528b0u, kOverlaySc02_80152868Words },
+    { 0x8015294cu, 0x80152a08u, kOverlaySc02_8015294CWords },
+    { 0x80152a08u, 0x80152a50u, kOverlaySc02_80152A08Words },
+    { 0x80152ac8u, 0x80152b6cu, kOverlaySc02_80152AC8Words },
+    { 0x80152ba8u, 0x80152bf0u, kOverlaySc02_80152BA8Words },
+    { 0x80152bf0u, 0x80152c40u, kOverlaySc02_80152BF0Words },
+    { 0x80152c40u, 0x80152c80u, kOverlaySc02_80152C40Words },
+    { 0x80152c80u, 0x80152d24u, kOverlaySc02_80152C80Words },
+    { 0x80152d60u, 0x80152da8u, kOverlaySc02_80152D60Words },
+    { 0x80152e4cu, 0x80152efcu, kOverlaySc02_80152E4CWords },
+    { 0x80152efcu, 0x80152f44u, kOverlaySc02_80152EFCWords },
+    { 0x80152fbcu, 0x80153060u, kOverlaySc02_80152FBCWords },
+    { 0x8015309cu, 0x801530e4u, kOverlaySc02_8015309CWords },
+    { 0x801530e4u, 0x80153150u, kOverlaySc02_801530E4Words },
+    { 0x80153150u, 0x801531bcu, kOverlaySc02_80153150Words },
+    { 0x801531bcu, 0x80153204u, kOverlaySc02_801531BCWords },
+    { 0x8015327cu, 0x80153320u, kOverlaySc02_8015327CWords },
+    { 0x8015335cu, 0x801533a4u, kOverlaySc02_8015335CWords },
+    { 0x801533a4u, 0x80153410u, kOverlaySc02_801533A4Words },
+    { 0x80153410u, 0x80153490u, kOverlaySc02_80153410Words },
+    { 0x80153490u, 0x801534d8u, kOverlaySc02_80153490Words },
+    { 0x80153550u, 0x801535f4u, kOverlaySc02_80153550Words },
+    { 0x8015369cu, 0x801536dcu, kOverlaySc02_8015369CWords },
+    { 0x80153bd8u, 0x80153bf0u, kOverlaySc02_80153BD8Words },
+    { 0x80153bf0u, 0x80153c18u, kOverlaySc02_80153BF0Words },
+    { 0x80153c18u, 0x80153c30u, kOverlaySc02_80153C18Words },
+    { 0x80153c30u, 0x80153c44u, kOverlaySc02_80153C30Words },
+    { 0x80153c44u, 0x80153c74u, kOverlaySc02_80153C44Words },
+    { 0x80153c74u, 0x80153c8cu, kOverlaySc02_80153C74Words },
+    { 0x80153c9cu, 0x80153cbcu, kOverlaySc02_80153C9CWords },
+    { 0x80153cbcu, 0x80153cccu, kOverlaySc02_80153CBCWords },
+    { 0x80153d34u, 0x80153d7cu, kOverlaySc02_80153D34Words },
+    { 0x8015410cu, 0x80154134u, kOverlaySc02_8015410CWords },
+    { 0x80154134u, 0x80154150u, kOverlaySc02_80154134Words },
+    { 0x80154150u, 0x80154190u, kOverlaySc02_80154150Words },
+    { 0x80154190u, 0x801541d8u, kOverlaySc02_80154190Words },
+    { 0x801541d8u, 0x80154218u, kOverlaySc02_801541D8Words },
+    { 0x80154218u, 0x80154274u, kOverlaySc02_80154218Words },
+    { 0x80154274u, 0x801542a4u, kOverlaySc02_80154274Words },
+    { 0x801542a4u, 0x801542dcu, kOverlaySc02_801542A4Words },
+    { 0x801542dcu, 0x8015430cu, kOverlaySc02_801542DCWords },
+    { 0x8015430cu, 0x80154358u, kOverlaySc02_8015430CWords },
+    { 0x80154418u, 0x8015444cu, kOverlaySc02_80154418Words },
+    { 0x80155344u, 0x80155394u, kOverlaySc02_80155344Words },
+    { 0x80155394u, 0x801553a8u, kOverlaySc02_80155394Words },
+    { 0x801553a8u, 0x801553c0u, kOverlaySc02_801553A8Words },
+    { 0x80155440u, 0x80155458u, kOverlaySc02_80155440Words },
+    { 0x801554b8u, 0x80155518u, kOverlaySc02_801554B8Words },
+    { 0x80155518u, 0x8015554cu, kOverlaySc02_80155518Words },
+    { 0x8015554cu, 0x80155580u, kOverlaySc02_8015554CWords },
+    { 0x801555bcu, 0x801555f4u, kOverlaySc02_801555BCWords },
+    { 0x80155b20u, 0x80155b9cu, kOverlaySc02_80155B20Words },
+    { 0x80155b9cu, 0x80155c0cu, kOverlaySc02_80155B9CWords },
+    { 0x80155f60u, 0x80155f80u, kOverlaySc02_80155F60Words },
+    { 0x80155f80u, 0x80155fb0u, kOverlaySc02_80155F80Words },
+    { 0x80155fb0u, 0x80155fd4u, kOverlaySc02_80155FB0Words },
+    { 0x80155fd4u, 0x80155ff8u, kOverlaySc02_80155FD4Words },
+    { 0x801565c0u, 0x80156600u, kOverlaySc02_801565C0Words },
+    { 0x80156648u, 0x80156670u, kOverlaySc02_80156648Words },
+    { 0x801567bcu, 0x80156848u, kOverlaySc02_801567BCWords },
+    { 0x80156a14u, 0x80156a1cu, kOverlaySc02_80156A14Words },
+    { 0x80157158u, 0x801571c4u, kOverlaySc02_80157158Words },
+    { 0x801574dcu, 0x80157510u, kOverlaySc02_801574DCWords },
+    { 0x80157510u, 0x80157544u, kOverlaySc02_80157510Words },
+    { 0x80157580u, 0x801575e4u, kOverlaySc02_80157580Words },
+    { 0x8015771cu, 0x8015773cu, kOverlaySc02_8015771CWords },
+    { 0x8015773cu, 0x80157788u, kOverlaySc02_8015773CWords },
+    { 0x80157880u, 0x801578c0u, kOverlaySc02_80157880Words },
+    { 0x80157a8cu, 0x80157ac8u, kOverlaySc02_80157A8CWords },
+    { 0x80157ac8u, 0x80157b74u, kOverlaySc02_80157AC8Words },
+    { 0x80157b74u, 0x80157bc8u, kOverlaySc02_80157B74Words },
+    { 0x80157cccu, 0x80157d20u, kOverlaySc02_80157CCCWords },
+    { 0x80157d74u, 0x80157dc4u, kOverlaySc02_80157D74Words },
+    { 0x80157e00u, 0x80157e38u, kOverlaySc02_80157E00Words },
+    { 0x80157e38u, 0x80157ea4u, kOverlaySc02_80157E38Words },
+    { 0x80157ea4u, 0x80157f64u, kOverlaySc02_80157EA4Words },
+    { 0x80157f64u, 0x80157fc4u, kOverlaySc02_80157F64Words },
+    { 0x80158000u, 0x80158038u, kOverlaySc02_80158000Words },
+    { 0x80158288u, 0x801582c0u, kOverlaySc02_80158288Words },
+    { 0x801582c0u, 0x80158344u, kOverlaySc02_801582C0Words },
+    { 0x80158548u, 0x801585a4u, kOverlaySc02_80158548Words },
+    { 0x801585acu, 0x801585ecu, kOverlaySc02_801585ACWords },
+    { 0x801585ecu, 0x80158638u, kOverlaySc02_801585ECWords },
+    { 0x80158ab4u, 0x80158ae4u, kOverlaySc02_80158AB4Words },
+    { 0x80158ae4u, 0x80158bb0u, kOverlaySc02_80158AE4Words },
+    { 0x801592ccu, 0x8015934cu, kOverlaySc02_801592CCWords },
+    { 0x801593e4u, 0x80159404u, kOverlaySc02_801593E4Words },
+    { 0x801596d4u, 0x801596f0u, kOverlaySc02_801596D4Words },
+    { 0x80159874u, 0x8015987cu, kOverlaySc02_80159874Words },
+    { 0x8015987cu, 0x801598bcu, kOverlaySc02_8015987CWords },
+    { 0x801598bcu, 0x801598e0u, kOverlaySc02_801598BCWords },
+    { 0x801599e0u, 0x80159a18u, kOverlaySc02_801599E0Words },
+    { 0x80159b08u, 0x80159b3cu, kOverlaySc02_80159B08Words },
+    { 0x80159b3cu, 0x80159b70u, kOverlaySc02_80159B3CWords },
+    { 0x80159bacu, 0x80159be4u, kOverlaySc02_80159BACWords },
+    { 0x8015a1fcu, 0x8015a230u, kOverlaySc02_8015A1FCWords },
+    { 0x8015a230u, 0x8015a264u, kOverlaySc02_8015A230Words },
+    { 0x8015a2a0u, 0x8015a2d8u, kOverlaySc02_8015A2A0Words },
+    { 0x8015abd4u, 0x8015ac48u, kOverlaySc02_8015ABD4Words },
+    { 0x8015ac90u, 0x8015acc4u, kOverlaySc02_8015AC90Words },
+    { 0x8015acc4u, 0x8015ad08u, kOverlaySc02_8015ACC4Words },
+    { 0x8015ad08u, 0x8015ad3cu, kOverlaySc02_8015AD08Words },
+    { 0x8015ad78u, 0x8015adb0u, kOverlaySc02_8015AD78Words },
+    { 0x8015adb0u, 0x8015ae2cu, kOverlaySc02_8015ADB0Words },
+    { 0x8015b858u, 0x8015b8f8u, kOverlaySc02_8015B858Words },
+    { 0x8015b8f8u, 0x8015b950u, kOverlaySc02_8015B8F8Words },
+    { 0x8015bd8cu, 0x8015bdd0u, kOverlaySc02_8015BD8CWords },
+    { 0x8015bdd0u, 0x8015be04u, kOverlaySc02_8015BDD0Words },
+    { 0x8015be04u, 0x8015be38u, kOverlaySc02_8015BE04Words },
+    { 0x8015be74u, 0x8015be94u, kOverlaySc02_8015BE74Words },
+    { 0x8015be94u, 0x8015bec4u, kOverlaySc02_8015BE94Words },
+    { 0x8015bec4u, 0x8015bee4u, kOverlaySc02_8015BEC4Words },
+    { 0x8015bee4u, 0x8015bf04u, kOverlaySc02_8015BEE4Words },
+    { 0x8015bf04u, 0x8015bf48u, kOverlaySc02_8015BF04Words },
+    { 0x8015bf48u, 0x8015bf7cu, kOverlaySc02_8015BF48Words },
+    { 0x8015bf7cu, 0x8015bfb0u, kOverlaySc02_8015BF7CWords },
+    { 0x8015bfb0u, 0x8015bff4u, kOverlaySc02_8015BFB0Words },
+    { 0x8015c08cu, 0x8015c0c4u, kOverlaySc02_8015C08CWords },
+    { 0x8015c6acu, 0x8015c6e0u, kOverlaySc02_8015C6ACWords },
+    { 0x8015c6e0u, 0x8015c714u, kOverlaySc02_8015C6E0Words },
+    { 0x8015c750u, 0x8015c788u, kOverlaySc02_8015C750Words },
+    { 0x8015c788u, 0x8015c7e4u, kOverlaySc02_8015C788Words },
+    { 0x8015cb94u, 0x8015cbccu, kOverlaySc02_8015CB94Words },
+    { 0x8015cc0cu, 0x8015cc40u, kOverlaySc02_8015CC0CWords },
+    { 0x8015cc40u, 0x8015cc74u, kOverlaySc02_8015CC40Words },
+    { 0x8015ccb0u, 0x8015ccd0u, kOverlaySc02_8015CCB0Words },
+    { 0x8015ccd0u, 0x8015cd20u, kOverlaySc02_8015CCD0Words },
+    { 0x8015cf24u, 0x8015cf58u, kOverlaySc02_8015CF24Words },
+    { 0x8015cf58u, 0x8015cf8cu, kOverlaySc02_8015CF58Words },
+    { 0x8015cf8cu, 0x8015cfc0u, kOverlaySc02_8015CF8CWords },
+    { 0x8015cffcu, 0x8015d01cu, kOverlaySc02_8015CFFCWords },
+    { 0x8015d480u, 0x8015d4b4u, kOverlaySc02_8015D480Words },
+    { 0x8015d4b4u, 0x8015d4e8u, kOverlaySc02_8015D4B4Words },
+    { 0x8015d524u, 0x8015d544u, kOverlaySc02_8015D524Words },
+    { 0x8015d544u, 0x8015d57cu, kOverlaySc02_8015D544Words },
+    { 0x8015d57cu, 0x8015d5e8u, kOverlaySc02_8015D57CWords },
+    { 0x8015da5cu, 0x8015da90u, kOverlaySc02_8015DA5CWords },
+    { 0x8015da90u, 0x8015dac4u, kOverlaySc02_8015DA90Words },
+    { 0x8015dac4u, 0x8015daf8u, kOverlaySc02_8015DAC4Words },
+    { 0x8015db34u, 0x8015db6cu, kOverlaySc02_8015DB34Words },
+    { 0x8015db6cu, 0x8015dbd4u, kOverlaySc02_8015DB6CWords },
+    { 0x8015dc84u, 0x8015dcb8u, kOverlaySc02_8015DC84Words },
+    { 0x8015dd74u, 0x8015ddf0u, kOverlaySc02_8015DD74Words },
+    { 0x8015ddf0u, 0x8015de24u, kOverlaySc02_8015DDF0Words },
+    { 0x8015de24u, 0x8015de58u, kOverlaySc02_8015DE24Words },
+    { 0x8015de94u, 0x8015deccu, kOverlaySc02_8015DE94Words },
+    { 0x8015deccu, 0x8015df34u, kOverlaySc02_8015DECCWords },
+    { 0x8015dfe4u, 0x8015e018u, kOverlaySc02_8015DFE4Words },
+    { 0x8015e0d4u, 0x8015e150u, kOverlaySc02_8015E0D4Words },
+    { 0x8015e150u, 0x8015e184u, kOverlaySc02_8015E150Words },
+    { 0x8015e184u, 0x8015e1b8u, kOverlaySc02_8015E184Words },
+    { 0x8015e1f4u, 0x8015e22cu, kOverlaySc02_8015E1F4Words },
+    { 0x8015e22cu, 0x8015e288u, kOverlaySc02_8015E22CWords },
+    { 0x8015e288u, 0x8015e344u, kOverlaySc02_8015E288Words },
+    { 0x8015e40cu, 0x8015e4b0u, kOverlaySc02_8015E40CWords },
+    { 0x8015e5b0u, 0x8015e698u, kOverlaySc02_8015E5B0Words },
+    { 0x8015e714u, 0x8015e84cu, kOverlaySc02_8015E714Words },
+    { 0x8015e84cu, 0x8015e880u, kOverlaySc02_8015E84CWords },
+    { 0x8015e880u, 0x8015e8b4u, kOverlaySc02_8015E880Words },
+    { 0x8015e8b4u, 0x8015e8e8u, kOverlaySc02_8015E8B4Words },
+    { 0x8015e924u, 0x8015e95cu, kOverlaySc02_8015E924Words },
+    { 0x8015e95cu, 0x8015e9b8u, kOverlaySc02_8015E95CWords },
+    { 0x8015e9b8u, 0x8015ea3cu, kOverlaySc02_8015E9B8Words },
+    { 0x8015eda0u, 0x8015edd4u, kOverlaySc02_8015EDA0Words },
+    { 0x8015edd4u, 0x8015ee08u, kOverlaySc02_8015EDD4Words },
+    { 0x8015ee44u, 0x8015ee7cu, kOverlaySc02_8015EE44Words },
+    { 0x8015efa4u, 0x8015efd8u, kOverlaySc02_8015EFA4Words },
+    { 0x8015efd8u, 0x8015f00cu, kOverlaySc02_8015EFD8Words },
+    { 0x8015f048u, 0x8015f080u, kOverlaySc02_8015F048Words },
+    { 0x8015f080u, 0x8015f118u, kOverlaySc02_8015F080Words },
+    { 0x8015f260u, 0x8015f2bcu, kOverlaySc02_8015F260Words },
+    { 0x8015f2bcu, 0x8015f2f0u, kOverlaySc02_8015F2BCWords },
+    { 0x8015f2f0u, 0x8015f324u, kOverlaySc02_8015F2F0Words },
+    { 0x8015f360u, 0x8015f380u, kOverlaySc02_8015F360Words },
+    { 0x8015f380u, 0x8015f448u, kOverlaySc02_8015F380Words },
+    { 0x8015f738u, 0x8015f76cu, kOverlaySc02_8015F738Words },
+    { 0x8015f76cu, 0x8015f7a0u, kOverlaySc02_8015F76CWords },
+    { 0x8015f7a0u, 0x8015f7d4u, kOverlaySc02_8015F7A0Words },
+    { 0x8015f810u, 0x8015f848u, kOverlaySc02_8015F810Words },
+    { 0x8015f848u, 0x8015f89cu, kOverlaySc02_8015F848Words },
+    { 0x8015f948u, 0x8015f9a4u, kOverlaySc02_8015F948Words },
+    { 0x8015fa24u, 0x8015fa44u, kOverlaySc02_8015FA24Words },
+    { 0x8015fa44u, 0x8015fa78u, kOverlaySc02_8015FA44Words },
+    { 0x8015fa78u, 0x8015faacu, kOverlaySc02_8015FA78Words },
+    { 0x801600d0u, 0x80160104u, kOverlaySc02_801600D0Words },
+    { 0x80160104u, 0x80160138u, kOverlaySc02_80160104Words },
+    { 0x80160174u, 0x801601acu, kOverlaySc02_80160174Words },
+    { 0x801601acu, 0x801601e4u, kOverlaySc02_801601ACWords },
+    { 0x801601e4u, 0x80160244u, kOverlaySc02_801601E4Words },
+    { 0x80160244u, 0x801602a4u, kOverlaySc02_80160244Words },
+    { 0x80160334u, 0x80160368u, kOverlaySc02_80160334Words },
+    { 0x80160368u, 0x8016039cu, kOverlaySc02_80160368Words },
+    { 0x801603d8u, 0x80160410u, kOverlaySc02_801603D8Words },
+    { 0x801607b8u, 0x801607e4u, kOverlaySc02_801607B8Words },
+    { 0x801607e4u, 0x80160818u, kOverlaySc02_801607E4Words },
+    { 0x80160818u, 0x8016084cu, kOverlaySc02_80160818Words },
+    { 0x80160888u, 0x801608c0u, kOverlaySc02_80160888Words },
+    { 0x801608c0u, 0x80160920u, kOverlaySc02_801608C0Words },
+    { 0x80160a28u, 0x80160a74u, kOverlaySc02_80160A28Words },
+    { 0x80160a74u, 0x80160accu, kOverlaySc02_80160A74Words },
+    { 0x80160accu, 0x80160b00u, kOverlaySc02_80160ACCWords },
+    { 0x80160b00u, 0x80160b34u, kOverlaySc02_80160B00Words },
+    { 0x80160b70u, 0x80160bb4u, kOverlaySc02_80160B70Words },
+    { 0x80160bb4u, 0x80160c28u, kOverlaySc02_80160BB4Words },
+    { 0x80160cb4u, 0x80160d10u, kOverlaySc02_80160CB4Words },
+    { 0x80160decu, 0x80160e3cu, kOverlaySc02_80160DECWords },
+    { 0x80160e3cu, 0x80160e70u, kOverlaySc02_80160E3CWords },
+    { 0x80160e70u, 0x80160ea4u, kOverlaySc02_80160E70Words },
+    { 0x80160ee0u, 0x80160f00u, kOverlaySc02_80160EE0Words },
+    { 0x80160f00u, 0x80160f70u, kOverlaySc02_80160F00Words },
+    { 0x80160f70u, 0x80160fe0u, kOverlaySc02_80160F70Words },
+    { 0x80160fe0u, 0x80161034u, kOverlaySc02_80160FE0Words },
+    { 0x80161094u, 0x801610fcu, kOverlaySc02_80161094Words },
+    { 0x80161104u, 0x80161124u, kOverlaySc02_80161104Words },
+    { 0x80161124u, 0x80161208u, kOverlaySc02_80161124Words },
+    { 0x80161208u, 0x80161240u, kOverlaySc02_80161208Words },
+    { 0x80161240u, 0x80161278u, kOverlaySc02_80161240Words },
+    { 0x80161278u, 0x801612b8u, kOverlaySc02_80161278Words },
+    { 0x8016130cu, 0x80161374u, kOverlaySc02_8016130CWords },
+    { 0x80161418u, 0x80161450u, kOverlaySc02_80161418Words },
+    { 0x80161450u, 0x80161488u, kOverlaySc02_80161450Words },
+    { 0x80161488u, 0x801614e4u, kOverlaySc02_80161488Words },
+    { 0x801614e4u, 0x8016151cu, kOverlaySc02_801614E4Words },
+    { 0x8016151cu, 0x80161554u, kOverlaySc02_8016151CWords },
+    { 0x80161554u, 0x8016158cu, kOverlaySc02_80161554Words },
+    { 0x8016158cu, 0x801615c4u, kOverlaySc02_8016158CWords },
+    { 0x801615c4u, 0x8016163cu, kOverlaySc02_801615C4Words },
+    { 0x80161888u, 0x8016191cu, kOverlaySc02_80161888Words },
+    { 0x8016191cu, 0x8016197cu, kOverlaySc02_8016191CWords },
+    { 0x801619d0u, 0x80161a00u, kOverlaySc02_801619D0Words },
+    { 0x80161a00u, 0x80161a30u, kOverlaySc02_80161A00Words },
+    { 0x80161a30u, 0x80161a60u, kOverlaySc02_80161A30Words },
+    { 0x80161a60u, 0x80161a90u, kOverlaySc02_80161A60Words },
+    { 0x80161b84u, 0x80161be0u, kOverlaySc02_80161B84Words },
+    { 0x80161be0u, 0x80161c24u, kOverlaySc02_80161BE0Words },
+    { 0x80161d58u, 0x80161d88u, kOverlaySc02_80161D58Words },
+    { 0x80162120u, 0x8016216cu, kOverlaySc02_80162120Words },
+    { 0x8016236cu, 0x801623b8u, kOverlaySc02_8016236CWords },
+    { 0x801623b8u, 0x80162414u, kOverlaySc02_801623B8Words },
+    { 0x80162414u, 0x80162438u, kOverlaySc02_80162414Words },
+    { 0x80162714u, 0x80162760u, kOverlaySc02_80162714Words },
+    { 0x80162accu, 0x80162ae0u, kOverlaySc02_80162ACCWords },
+    { 0x80162ae0u, 0x80162af4u, kOverlaySc02_80162AE0Words },
+    { 0x80162cc4u, 0x80162cccu, kOverlaySc02_80162CC4Words },
+    { 0x80162cccu, 0x80162d28u, kOverlaySc02_80162CCCWords },
+    { 0x80162d28u, 0x80162d88u, kOverlaySc02_80162D28Words },
+    { 0x80162d88u, 0x80162de8u, kOverlaySc02_80162D88Words },
+    { 0x80162de8u, 0x80162e48u, kOverlaySc02_80162DE8Words },
+    { 0x80162e48u, 0x80162ea8u, kOverlaySc02_80162E48Words },
+    { 0x80162ea8u, 0x80162f08u, kOverlaySc02_80162EA8Words },
+    { 0x80162f08u, 0x80162f60u, kOverlaySc02_80162F08Words },
+    { 0x80162f60u, 0x80162f80u, kOverlaySc02_80162F60Words },
+    { 0x80162f80u, 0x80162fa0u, kOverlaySc02_80162F80Words },
+    { 0x80162fa0u, 0x80162fc0u, kOverlaySc02_80162FA0Words },
+    { 0x80162fc0u, 0x80162ff4u, kOverlaySc02_80162FC0Words },
+    { 0x80163234u, 0x8016325cu, kOverlaySc02_80163234Words },
+    { 0x801632e0u, 0x801632f0u, kOverlaySc02_801632E0Words },
+    { 0x801632f0u, 0x80163328u, kOverlaySc02_801632F0Words },
+    { 0x801633a8u, 0x80163408u, kOverlaySc02_801633A8Words },
+    { 0x8016345cu, 0x801634d8u, kOverlaySc02_8016345CWords },
+    { 0x80163664u, 0x801636d0u, kOverlaySc02_80163664Words },
+    { 0x801636d0u, 0x80163764u, kOverlaySc02_801636D0Words },
+    { 0x80164270u, 0x801642acu, kOverlaySc02_80164270Words },
+    { 0x801642acu, 0x8016432cu, kOverlaySc02_801642ACWords },
+    { 0x80164a74u, 0x80164accu, kOverlaySc02_80164A74Words },
+    { 0x80164cd4u, 0x80164d4cu, kOverlaySc02_80164CD4Words },
+    { 0x80164d4cu, 0x80164db0u, kOverlaySc02_80164D4CWords },
+    { 0x80164db0u, 0x80164dd0u, kOverlaySc02_80164DB0Words },
+    { 0x80164dd0u, 0x80164e40u, kOverlaySc02_80164DD0Words },
+    { 0x80165024u, 0x80165064u, kOverlaySc02_80165024Words },
+    { 0x80165064u, 0x801650c4u, kOverlaySc02_80165064Words },
+    { 0x801650c4u, 0x80165124u, kOverlaySc02_801650C4Words },
+    { 0x80165124u, 0x80165140u, kOverlaySc02_80165124Words },
+    { 0x80165374u, 0x801653b8u, kOverlaySc02_80165374Words },
+    { 0x801653b8u, 0x801653f4u, kOverlaySc02_801653B8Words },
+    { 0x801655e4u, 0x80165624u, kOverlaySc02_801655E4Words },
+    { 0x80165624u, 0x80165658u, kOverlaySc02_80165624Words },
+    { 0x80165694u, 0x801656d0u, kOverlaySc02_80165694Words },
+    { 0x80165770u, 0x801657a0u, kOverlaySc02_80165770Words },
+    { 0x801657a0u, 0x801657d8u, kOverlaySc02_801657A0Words },
+    { 0x801657d8u, 0x80165840u, kOverlaySc02_801657D8Words },
+    { 0x80165840u, 0x80165874u, kOverlaySc02_80165840Words },
+    { 0x80165874u, 0x801658dcu, kOverlaySc02_80165874Words },
+    { 0x801658dcu, 0x801658ecu, kOverlaySc02_801658DCWords },
+    { 0x801658ecu, 0x80165900u, kOverlaySc02_801658ECWords },
+    { 0x80165900u, 0x80165910u, kOverlaySc02_80165900Words },
+    { 0x80165958u, 0x80165978u, kOverlaySc02_80165958Words },
+    { 0x80165978u, 0x80165988u, kOverlaySc02_80165978Words },
+    { 0x80165988u, 0x801659a8u, kOverlaySc02_80165988Words },
+    { 0x801659a8u, 0x801659b8u, kOverlaySc02_801659A8Words },
+    { 0x801659b8u, 0x801659ccu, kOverlaySc02_801659B8Words },
+    { 0x801659ccu, 0x801659dcu, kOverlaySc02_801659CCWords },
+    { 0x80165a20u, 0x80165a50u, kOverlaySc02_80165A20Words },
+    { 0x80165a50u, 0x80165a78u, kOverlaySc02_80165A50Words },
+    { 0x80165a78u, 0x80165ac8u, kOverlaySc02_80165A78Words },
+    { 0x80165b6cu, 0x80165bb4u, kOverlaySc02_80165B6CWords },
+    { 0x80165bb4u, 0x80165bfcu, kOverlaySc02_80165BB4Words },
+    { 0x80165bfcu, 0x80165c58u, kOverlaySc02_80165BFCWords },
+    { 0x80165c58u, 0x80165c78u, kOverlaySc02_80165C58Words },
+    { 0x80165fa4u, 0x80166018u, kOverlaySc02_80165FA4Words },
+    { 0x801661ccu, 0x80166244u, kOverlaySc02_801661CCWords },
+    { 0x80166244u, 0x8016629cu, kOverlaySc02_80166244Words },
+    { 0x8016629cu, 0x801662f4u, kOverlaySc02_8016629CWords },
+    { 0x801662f4u, 0x8016634cu, kOverlaySc02_801662F4Words },
+    { 0x8016634cu, 0x801663a4u, kOverlaySc02_8016634CWords },
+    { 0x801663a4u, 0x801663fcu, kOverlaySc02_801663A4Words },
+    { 0x801665b4u, 0x80166618u, kOverlaySc02_801665B4Words },
+    { 0x8016706cu, 0x801670e4u, kOverlaySc02_8016706CWords },
+    { 0x8016829cu, 0x80168328u, kOverlaySc02_8016829CWords },
+    { 0x80168328u, 0x801683d8u, kOverlaySc02_80168328Words },
+    { 0x801683d8u, 0x80168430u, kOverlaySc02_801683D8Words },
+    { 0x801684b4u, 0x80168540u, kOverlaySc02_801684B4Words },
+    { 0x80168540u, 0x801685ecu, kOverlaySc02_80168540Words },
+    { 0x801685ecu, 0x80168640u, kOverlaySc02_801685ECWords },
+    { 0x80168640u, 0x80168664u, kOverlaySc02_80168640Words },
+    { 0x80168664u, 0x80168744u, kOverlaySc02_80168664Words },
+    { 0x80168780u, 0x801687ccu, kOverlaySc02_80168780Words },
+    { 0x801687ccu, 0x80168828u, kOverlaySc02_801687CCWords },
+    { 0x80168a14u, 0x80168a88u, kOverlaySc02_80168A14Words },
+    { 0x80168a88u, 0x80168aa8u, kOverlaySc02_80168A88Words },
+    { 0x80168ae4u, 0x80168b70u, kOverlaySc02_80168AE4Words },
+    { 0x80168b70u, 0x80168bdcu, kOverlaySc02_80168B70Words },
+    { 0x80168ec4u, 0x80168f40u, kOverlaySc02_80168EC4Words },
+    { 0x801691b8u, 0x80169228u, kOverlaySc02_801691B8Words },
+    { 0x8016951cu, 0x80169584u, kOverlaySc02_8016951CWords },
+    { 0x801699d0u, 0x80169a4cu, kOverlaySc02_801699D0Words },
+    { 0x80169e44u, 0x80169f00u, kOverlaySc02_80169E44Words },
+    { 0x80169fe0u, 0x8016a020u, kOverlaySc02_80169FE0Words },
+    { 0x8016a05cu, 0x8016a08cu, kOverlaySc02_8016A05CWords },
+    { 0x8016a890u, 0x8016a8fcu, kOverlaySc02_8016A890Words },
+    { 0x8016b3f4u, 0x8016b428u, kOverlaySc02_8016B3F4Words },
+    { 0x8016b428u, 0x8016b448u, kOverlaySc02_8016B428Words },
+    { 0x8016b448u, 0x8016b4bcu, kOverlaySc02_8016B448Words },
+    { 0x8016b91cu, 0x8016b964u, kOverlaySc02_8016B91CWords },
+    { 0x8016b964u, 0x8016b984u, kOverlaySc02_8016B964Words },
+    { 0x8016b984u, 0x8016b9f8u, kOverlaySc02_8016B984Words },
+    { 0x8016ba48u, 0x8016ba68u, kOverlaySc02_8016BA48Words },
+    { 0x8016ba68u, 0x8016badcu, kOverlaySc02_8016BA68Words },
+    { 0x8016badcu, 0x8016bba4u, kOverlaySc02_8016BADCWords },
+    { 0x8016bf34u, 0x8016bf50u, kOverlaySc02_8016BF34Words },
+    { 0x8016bf50u, 0x8016bfa8u, kOverlaySc02_8016BF50Words },
+    { 0x8016d464u, 0x8016d4dcu, kOverlaySc02_8016D464Words },
+    { 0x8016d5ecu, 0x8016d64cu, kOverlaySc02_8016D5ECWords },
+    { 0x8016d64cu, 0x8016d688u, kOverlaySc02_8016D64CWords },
+    { 0x8016d984u, 0x8016da04u, kOverlaySc02_8016D984Words },
+    { 0x8016da04u, 0x8016da30u, kOverlaySc02_8016DA04Words },
+    { 0x8016db34u, 0x8016dbd8u, kOverlaySc02_8016DB34Words },
+    { 0x8016dbd8u, 0x8016dc20u, kOverlaySc02_8016DBD8Words },
+    { 0x8016dee0u, 0x8016df20u, kOverlaySc02_8016DEE0Words },
+    { 0x8016e1ccu, 0x8016e26cu, kOverlaySc02_8016E1CCWords },
+    { 0x8016e26cu, 0x8016e2e8u, kOverlaySc02_8016E26CWords },
+    { 0x8016e2e8u, 0x8016e358u, kOverlaySc02_8016E2E8Words },
+    { 0x8016e358u, 0x8016e3ccu, kOverlaySc02_8016E358Words },
+    { 0x8016e3ccu, 0x8016e460u, kOverlaySc02_8016E3CCWords },
+    { 0x8016e5f4u, 0x8016e688u, kOverlaySc02_8016E5F4Words },
+    { 0x8016e688u, 0x8016e6e4u, kOverlaySc02_8016E688Words },
+    { 0x8016e6e4u, 0x8016e728u, kOverlaySc02_8016E6E4Words },
+    { 0x8016e728u, 0x8016e778u, kOverlaySc02_8016E728Words },
+    { 0x8016e778u, 0x8016e7c8u, kOverlaySc02_8016E778Words },
+    { 0x8016ed6cu, 0x8016ed8cu, kOverlaySc02_8016ED6CWords },
+    { 0x8016ed8cu, 0x8016edbcu, kOverlaySc02_8016ED8CWords },
+    { 0x8016edbcu, 0x8016edecu, kOverlaySc02_8016EDBCWords },
+    { 0x8016edecu, 0x8016ee40u, kOverlaySc02_8016EDECWords },
+    { 0x8016ee40u, 0x8016ee94u, kOverlaySc02_8016EE40Words },
+    { 0x8016ef78u, 0x8016efa8u, kOverlaySc02_8016EF78Words },
+    { 0x8016efa8u, 0x8016efc8u, kOverlaySc02_8016EFA8Words },
+    { 0x8016efc8u, 0x8016f094u, kOverlaySc02_8016EFC8Words },
+    { 0x8016f094u, 0x8016f0acu, kOverlaySc02_8016F094Words },
+    { 0x8016f0acu, 0x8016f0e4u, kOverlaySc02_8016F0ACWords },
+    { 0x8016f1acu, 0x8016f1c4u, kOverlaySc02_8016F1ACWords },
+    { 0x8016f250u, 0x8016f264u, kOverlaySc02_8016F250Words },
+    { 0x8016f264u, 0x8016f288u, kOverlaySc02_8016F264Words },
+    { 0x8016f288u, 0x8016f2a8u, kOverlaySc02_8016F288Words },
+    { 0x8016f2a8u, 0x8016f2c8u, kOverlaySc02_8016F2A8Words },
+    { 0x8016f2c8u, 0x8016f2ecu, kOverlaySc02_8016F2C8Words },
+    { 0x8016f2ecu, 0x8016f30cu, kOverlaySc02_8016F2ECWords },
+    { 0x8016f30cu, 0x8016f330u, kOverlaySc02_8016F30CWords },
+    { 0x8016f330u, 0x8016f350u, kOverlaySc02_8016F330Words },
+    { 0x8016f350u, 0x8016f374u, kOverlaySc02_8016F350Words },
+    { 0x8016f374u, 0x8016f388u, kOverlaySc02_8016F374Words },
+    { 0x8016f388u, 0x8016f398u, kOverlaySc02_8016F388Words },
+    { 0x8016f398u, 0x8016f410u, kOverlaySc02_8016F398Words },
+    { 0x8016f410u, 0x8016f44cu, kOverlaySc02_8016F410Words },
+    { 0x8016f44cu, 0x8016f470u, kOverlaySc02_8016F44CWords },
+    { 0x8016f470u, 0x8016f494u, kOverlaySc02_8016F470Words },
+    { 0x8016f494u, 0x8016f4c4u, kOverlaySc02_8016F494Words },
+    { 0x8016f4c4u, 0x8016f4f4u, kOverlaySc02_8016F4C4Words },
+    { 0x8016f4fcu, 0x8016f540u, kOverlaySc02_8016F4FCWords },
+    { 0x8016f540u, 0x8016f578u, kOverlaySc02_8016F540Words },
+    { 0x8016f578u, 0x8016f5b0u, kOverlaySc02_8016F578Words },
+    { 0x8016f5b0u, 0x8016f5e0u, kOverlaySc02_8016F5B0Words },
+    { 0x8016f5e0u, 0x8016f610u, kOverlaySc02_8016F5E0Words },
+    { 0x8016f610u, 0x8016f648u, kOverlaySc02_8016F610Words },
+    { 0x8016f648u, 0x8016f680u, kOverlaySc02_8016F648Words },
+    { 0x8016f680u, 0x8016f6b0u, kOverlaySc02_8016F680Words },
+    { 0x8016f6b0u, 0x8016f6e0u, kOverlaySc02_8016F6B0Words },
+    { 0x8016f71cu, 0x8016f764u, kOverlaySc02_8016F71CWords },
+    { 0x8016f764u, 0x8016f798u, kOverlaySc02_8016F764Words },
+    { 0x8016f7d4u, 0x8016f804u, kOverlaySc02_8016F7D4Words },
+    { 0x8016f804u, 0x8016f834u, kOverlaySc02_8016F804Words },
+    { 0x8016f870u, 0x8016f8acu, kOverlaySc02_8016F870Words },
+    { 0x8016f8acu, 0x8016f8e4u, kOverlaySc02_8016F8ACWords },
+    { 0x8016f920u, 0x8016f95cu, kOverlaySc02_8016F920Words },
+    { 0x8016fa00u, 0x8016fa44u, kOverlaySc02_8016FA00Words },
+    { 0x8016fa44u, 0x8016fa84u, kOverlaySc02_8016FA44Words },
+    { 0x8016fac0u, 0x8016fb10u, kOverlaySc02_8016FAC0Words },
+    { 0x8016fb10u, 0x8016fb50u, kOverlaySc02_8016FB10Words },
+    { 0x8016fb50u, 0x8016fb7cu, kOverlaySc02_8016FB50Words },
+    { 0x8016fbb8u, 0x8016fc24u, kOverlaySc02_8016FBB8Words },
+    { 0x8016fc24u, 0x8016fc64u, kOverlaySc02_8016FC24Words },
+    { 0x8016fc64u, 0x8016fc90u, kOverlaySc02_8016FC64Words },
+    { 0x8016fcccu, 0x8016fd08u, kOverlaySc02_8016FCCCWords },
+    { 0x8016fd7cu, 0x8016fdb4u, kOverlaySc02_8016FD7CWords },
+    { 0x8016fdf0u, 0x8016fe2cu, kOverlaySc02_8016FDF0Words },
+    { 0x8016fe2cu, 0x8016fe78u, kOverlaySc02_8016FE2CWords },
+    { 0x8016fed0u, 0x8016ff30u, kOverlaySc02_8016FED0Words },
+    { 0x8016ff6cu, 0x8016ffa8u, kOverlaySc02_8016FF6CWords },
+    { 0x8016ffa8u, 0x8016ffdcu, kOverlaySc02_8016FFA8Words },
+    { 0x80170018u, 0x80170068u, kOverlaySc02_80170018Words },
+    { 0x80170068u, 0x801700b8u, kOverlaySc02_80170068Words },
+    { 0x801700b8u, 0x80170100u, kOverlaySc02_801700B8Words },
+    { 0x80170100u, 0x80170150u, kOverlaySc02_80170100Words },
+    { 0x8017018cu, 0x801701c8u, kOverlaySc02_8017018CWords },
+    { 0x801701c8u, 0x80170240u, kOverlaySc02_801701C8Words },
+    { 0x8017027cu, 0x801702b8u, kOverlaySc02_8017027CWords },
+    { 0x801702b8u, 0x801702fcu, kOverlaySc02_801702B8Words },
+    { 0x80170338u, 0x80170374u, kOverlaySc02_80170338Words },
+    { 0x80170374u, 0x801703e0u, kOverlaySc02_80170374Words },
+    { 0x8017041cu, 0x8017044cu, kOverlaySc02_8017041CWords },
+    { 0x8017044cu, 0x801704b0u, kOverlaySc02_8017044CWords },
+    { 0x801704ecu, 0x8017051cu, kOverlaySc02_801704ECWords },
+    { 0x8017051cu, 0x80170548u, kOverlaySc02_8017051CWords },
+    { 0x80170584u, 0x801705c0u, kOverlaySc02_80170584Words },
+    { 0x801705c0u, 0x801705f8u, kOverlaySc02_801705C0Words },
+    { 0x80170634u, 0x80170670u, kOverlaySc02_80170634Words },
+    { 0x80170670u, 0x801706acu, kOverlaySc02_80170670Words },
+    { 0x801706e8u, 0x80170718u, kOverlaySc02_801706E8Words },
+    { 0x80170718u, 0x80170748u, kOverlaySc02_80170718Words },
+    { 0x80170784u, 0x801707d4u, kOverlaySc02_80170784Words },
+    { 0x801707d4u, 0x80170810u, kOverlaySc02_801707D4Words },
+    { 0x8017084cu, 0x801708b0u, kOverlaySc02_8017084CWords },
+    { 0x801708b0u, 0x80170928u, kOverlaySc02_801708B0Words },
+    { 0x80170928u, 0x80170970u, kOverlaySc02_80170928Words },
+    { 0x80170970u, 0x801709b8u, kOverlaySc02_80170970Words },
+    { 0x801709b8u, 0x80170a00u, kOverlaySc02_801709B8Words },
+    { 0x80170a00u, 0x80170a48u, kOverlaySc02_80170A00Words },
+    { 0x80170a48u, 0x80170a90u, kOverlaySc02_80170A48Words },
+    { 0x80170a90u, 0x80170ad8u, kOverlaySc02_80170A90Words },
+    { 0x80170b14u, 0x80170b48u, kOverlaySc02_80170B14Words },
+    { 0x80170b48u, 0x80170b90u, kOverlaySc02_80170B48Words },
+    { 0x80170b90u, 0x80170bd8u, kOverlaySc02_80170B90Words },
+    { 0x80170c14u, 0x80170c44u, kOverlaySc02_80170C14Words },
+    { 0x80170c44u, 0x80170c74u, kOverlaySc02_80170C44Words },
+    { 0x80170cb0u, 0x80170cf0u, kOverlaySc02_80170CB0Words },
+    { 0x80170da4u, 0x80170de0u, kOverlaySc02_80170DA4Words },
+    { 0x80170de0u, 0x80170e34u, kOverlaySc02_80170DE0Words },
+    { 0x80170e70u, 0x80170eacu, kOverlaySc02_80170E70Words },
+    { 0x80170eacu, 0x80170efcu, kOverlaySc02_80170EACWords },
+    { 0x80170f38u, 0x80170f74u, kOverlaySc02_80170F38Words },
+    { 0x80170f74u, 0x80170fb0u, kOverlaySc02_80170F74Words },
+    { 0x80170fecu, 0x80171028u, kOverlaySc02_80170FECWords },
+    { 0x80171028u, 0x80171064u, kOverlaySc02_80171028Words },
+    { 0x801710a0u, 0x801710dcu, kOverlaySc02_801710A0Words },
+    { 0x801710dcu, 0x80171120u, kOverlaySc02_801710DCWords },
+    { 0x8017115cu, 0x8017118cu, kOverlaySc02_8017115CWords },
+    { 0x8017118cu, 0x801711c0u, kOverlaySc02_8017118CWords },
+    { 0x801711fcu, 0x80171238u, kOverlaySc02_801711FCWords },
+    { 0x80171238u, 0x80171260u, kOverlaySc02_80171238Words },
+    { 0x8017162cu, 0x801716acu, kOverlaySc02_8017162CWords },
+    { 0x801717f4u, 0x80171824u, kOverlaySc02_801717F4Words },
+    { 0x80171824u, 0x80171854u, kOverlaySc02_80171824Words },
+    { 0x80171854u, 0x80171884u, kOverlaySc02_80171854Words },
+    { 0x80171884u, 0x801718acu, kOverlaySc02_80171884Words },
+    { 0x801718acu, 0x80171904u, kOverlaySc02_801718ACWords },
+    { 0x80171904u, 0x80171928u, kOverlaySc02_80171904Words },
+    { 0x80171928u, 0x8017196cu, kOverlaySc02_80171928Words },
+    { 0x8017196cu, 0x8017197cu, kOverlaySc02_8017196CWords },
+    { 0x8017197cu, 0x80171990u, kOverlaySc02_8017197CWords },
+    { 0x80171990u, 0x801719a4u, kOverlaySc02_80171990Words },
+    { 0x80171a04u, 0x80171a10u, kOverlaySc02_80171A04Words },
+    { 0x80171a10u, 0x80171a1cu, kOverlaySc02_80171A10Words },
+    { 0x80171a1cu, 0x80171a34u, kOverlaySc02_80171A1CWords },
+    { 0x80171a34u, 0x80171a44u, kOverlaySc02_80171A34Words },
+    { 0x80171a44u, 0x80171a58u, kOverlaySc02_80171A44Words },
+    { 0x80171a58u, 0x80171a6cu, kOverlaySc02_80171A58Words },
+    { 0x80171a6cu, 0x80171a80u, kOverlaySc02_80171A6CWords },
+    { 0x80171b10u, 0x80171b44u, kOverlaySc02_80171B10Words },
+    { 0x80171b44u, 0x80171b4cu, kOverlaySc02_80171B44Words },
+    { 0x80171c64u, 0x80171cc4u, kOverlaySc02_80171C64Words },
+    { 0x80171cc4u, 0x80171d1cu, kOverlaySc02_80171CC4Words },
+    { 0x80171d1cu, 0x80171d78u, kOverlaySc02_80171D1CWords },
+    { 0x801722ccu, 0x80172304u, kOverlaySc02_801722CCWords },
+    { 0x80172310u, 0x80172358u, kOverlaySc02_80172310Words },
+    { 0x80172358u, 0x801723c4u, kOverlaySc02_80172358Words },
+    { 0x801723c4u, 0x80172414u, kOverlaySc02_801723C4Words },
+    { 0x80172414u, 0x8017248cu, kOverlaySc02_80172414Words },
+    { 0x8017248cu, 0x801724ecu, kOverlaySc02_8017248CWords },
+    { 0x801724ecu, 0x8017250cu, kOverlaySc02_801724ECWords },
+    { 0x8017250cu, 0x80172560u, kOverlaySc02_8017250CWords },
+    { 0x80172560u, 0x80172588u, kOverlaySc02_80172560Words },
+    { 0x80172588u, 0x80172590u, kOverlaySc02_80172588Words },
+    { 0x80172590u, 0x801725a4u, kOverlaySc02_80172590Words },
+    { 0x801725a4u, 0x801725b8u, kOverlaySc02_801725A4Words },
+    { 0x801725b8u, 0x801725ccu, kOverlaySc02_801725B8Words },
+    { 0x801725ccu, 0x801725e0u, kOverlaySc02_801725CCWords },
+    { 0x801725e0u, 0x801725f4u, kOverlaySc02_801725E0Words },
+    { 0x801725f4u, 0x80172608u, kOverlaySc02_801725F4Words },
+    { 0x80172608u, 0x8017261cu, kOverlaySc02_80172608Words },
+    { 0x8017261cu, 0x80172630u, kOverlaySc02_8017261CWords },
+    { 0x80172630u, 0x80172644u, kOverlaySc02_80172630Words },
+    { 0x80172644u, 0x80172658u, kOverlaySc02_80172644Words },
+    { 0x80172658u, 0x80172664u, kOverlaySc02_80172658Words },
+    { 0x80172664u, 0x80172670u, kOverlaySc02_80172664Words },
+    { 0x80172670u, 0x8017267cu, kOverlaySc02_80172670Words },
+    { 0x8017267cu, 0x80172688u, kOverlaySc02_8017267CWords },
+    { 0x80172688u, 0x80172694u, kOverlaySc02_80172688Words },
+    { 0x80172694u, 0x801726a0u, kOverlaySc02_80172694Words },
+    { 0x801726a0u, 0x801726acu, kOverlaySc02_801726A0Words },
+    { 0x801726acu, 0x801726b8u, kOverlaySc02_801726ACWords },
+    { 0x801726b8u, 0x801726c4u, kOverlaySc02_801726B8Words },
+    { 0x801726c4u, 0x801726d0u, kOverlaySc02_801726C4Words },
+    { 0x801726d0u, 0x80172710u, kOverlaySc02_801726D0Words },
+    { 0x80172710u, 0x80172738u, kOverlaySc02_80172710Words },
+    { 0x80172738u, 0x80172760u, kOverlaySc02_80172738Words },
+    { 0x80172760u, 0x80172780u, kOverlaySc02_80172760Words },
+    { 0x80172780u, 0x801727d0u, kOverlaySc02_80172780Words },
+    { 0x8017280cu, 0x80172844u, kOverlaySc02_8017280CWords },
+    { 0x80172844u, 0x8017288cu, kOverlaySc02_80172844Words },
+    { 0x80172894u, 0x801728e4u, kOverlaySc02_80172894Words },
+    { 0x80172920u, 0x80172958u, kOverlaySc02_80172920Words },
+    { 0x80172958u, 0x801729a8u, kOverlaySc02_80172958Words },
+    { 0x801729b0u, 0x801729f0u, kOverlaySc02_801729B0Words },
+    { 0x80172a2cu, 0x80172a8cu, kOverlaySc02_80172A2CWords },
+    { 0x80172a8cu, 0x80172accu, kOverlaySc02_80172A8CWords },
+    { 0x80172accu, 0x80172b0cu, kOverlaySc02_80172ACCWords },
+    { 0x80172b14u, 0x80172b44u, kOverlaySc02_80172B14Words },
+    { 0x80172b80u, 0x80172bc8u, kOverlaySc02_80172B80Words },
+    { 0x80172bc8u, 0x80172c48u, kOverlaySc02_80172BC8Words },
+    { 0x80172c50u, 0x80172ca0u, kOverlaySc02_80172C50Words },
+    { 0x80172cdcu, 0x80172d14u, kOverlaySc02_80172CDCWords },
+    { 0x80172d14u, 0x80172d60u, kOverlaySc02_80172D14Words },
+    { 0x80172d68u, 0x80172dacu, kOverlaySc02_80172D68Words },
+    { 0x80172de8u, 0x80172e20u, kOverlaySc02_80172DE8Words },
+    { 0x80172e20u, 0x80172e8cu, kOverlaySc02_80172E20Words },
+    { 0x80172e94u, 0x80172ed4u, kOverlaySc02_80172E94Words },
+    { 0x80172ed4u, 0x80172efcu, kOverlaySc02_80172ED4Words },
+    { 0x80172efcu, 0x80172f24u, kOverlaySc02_80172EFCWords },
+    { 0x80172f24u, 0x80172f4cu, kOverlaySc02_80172F24Words },
+    { 0x80172f4cu, 0x80172f9cu, kOverlaySc02_80172F4CWords },
+    { 0x80172f9cu, 0x80172fecu, kOverlaySc02_80172F9CWords },
+    { 0x80172fecu, 0x8017303cu, kOverlaySc02_80172FECWords },
+    { 0x8017303cu, 0x80173078u, kOverlaySc02_8017303CWords },
+    { 0x801730b4u, 0x801730fcu, kOverlaySc02_801730B4Words },
+    { 0x801730fcu, 0x8017316cu, kOverlaySc02_801730FCWords },
+    { 0x80173174u, 0x8017319cu, kOverlaySc02_80173174Words },
+    { 0x801731d8u, 0x80173220u, kOverlaySc02_801731D8Words },
+    { 0x8017329cu, 0x801732c4u, kOverlaySc02_8017329CWords },
+    { 0x801732c4u, 0x801732f4u, kOverlaySc02_801732C4Words },
+    { 0x801732f4u, 0x8017331cu, kOverlaySc02_801732F4Words },
+    { 0x8017331cu, 0x8017334cu, kOverlaySc02_8017331CWords },
+    { 0x8017334cu, 0x80173374u, kOverlaySc02_8017334CWords },
+    { 0x80173374u, 0x801733a4u, kOverlaySc02_80173374Words },
+    { 0x801733a4u, 0x801733ccu, kOverlaySc02_801733A4Words },
+    { 0x801733ccu, 0x801733fcu, kOverlaySc02_801733CCWords },
+    { 0x801733fcu, 0x80173460u, kOverlaySc02_801733FCWords },
+    { 0x80173460u, 0x801734bcu, kOverlaySc02_80173460Words },
+    { 0x80173580u, 0x801735b8u, kOverlaySc02_80173580Words },
+    { 0x801735b8u, 0x801735ecu, kOverlaySc02_801735B8Words },
+    { 0x801735ecu, 0x80173648u, kOverlaySc02_801735ECWords },
+    { 0x801736b0u, 0x801736fcu, kOverlaySc02_801736B0Words },
+    { 0x80173738u, 0x80173770u, kOverlaySc02_80173738Words },
+    { 0x80173770u, 0x801737b0u, kOverlaySc02_80173770Words },
+    { 0x801737b8u, 0x801737e8u, kOverlaySc02_801737B8Words },
+    { 0x80173824u, 0x8017385cu, kOverlaySc02_80173824Words },
+    { 0x801738dcu, 0x8017390cu, kOverlaySc02_801738DCWords },
+    { 0x80173948u, 0x80173980u, kOverlaySc02_80173948Words },
+    { 0x80173980u, 0x801739d8u, kOverlaySc02_80173980Words },
+    { 0x801739d8u, 0x80173a20u, kOverlaySc02_801739D8Words },
+    { 0x80173a28u, 0x80173a60u, kOverlaySc02_80173A28Words },
+    { 0x80173b88u, 0x80173bc0u, kOverlaySc02_80173B88Words },
+    { 0x80173bc0u, 0x80173c64u, kOverlaySc02_80173BC0Words },
+    { 0x80173c64u, 0x80173cb4u, kOverlaySc02_80173C64Words },
+    { 0x80174158u, 0x80174188u, kOverlaySc02_80174158Words },
+    { 0x80174188u, 0x801741a8u, kOverlaySc02_80174188Words },
+    { 0x801741a8u, 0x801741ecu, kOverlaySc02_801741A8Words },
+    { 0x801741ecu, 0x80174274u, kOverlaySc02_801741ECWords },
+    { 0x8017427cu, 0x801742a4u, kOverlaySc02_8017427CWords },
+    { 0x801742e0u, 0x80174318u, kOverlaySc02_801742E0Words },
+    { 0x80174318u, 0x80174354u, kOverlaySc02_80174318Words },
+    { 0x8017435cu, 0x80174384u, kOverlaySc02_8017435CWords },
+    { 0x801743c0u, 0x801743f0u, kOverlaySc02_801743C0Words },
+    { 0x801743f0u, 0x80174430u, kOverlaySc02_801743F0Words },
+    { 0x80174438u, 0x80174474u, kOverlaySc02_80174438Words },
+    { 0x801744b0u, 0x801744e0u, kOverlaySc02_801744B0Words },
+    { 0x801744e0u, 0x80174524u, kOverlaySc02_801744E0Words },
+    { 0x8017452cu, 0x80174554u, kOverlaySc02_8017452CWords },
+    { 0x80174554u, 0x80174584u, kOverlaySc02_80174554Words },
+    { 0x80174584u, 0x801745acu, kOverlaySc02_80174584Words },
+    { 0x801745acu, 0x801745dcu, kOverlaySc02_801745ACWords },
+    { 0x801745dcu, 0x80174604u, kOverlaySc02_801745DCWords },
+    { 0x80174604u, 0x80174630u, kOverlaySc02_80174604Words },
+    { 0x80174630u, 0x80174650u, kOverlaySc02_80174630Words },
+    { 0x80174650u, 0x80174674u, kOverlaySc02_80174650Words },
+    { 0x80174674u, 0x80174684u, kOverlaySc02_80174674Words },
+    { 0x80174684u, 0x801746a4u, kOverlaySc02_80174684Words },
+    { 0x801746a4u, 0x801746dcu, kOverlaySc02_801746A4Words },
+    { 0x801746dcu, 0x80174714u, kOverlaySc02_801746DCWords },
+    { 0x80174714u, 0x80174754u, kOverlaySc02_80174714Words },
+    { 0x80174754u, 0x80174764u, kOverlaySc02_80174754Words },
+    { 0x80174764u, 0x80174774u, kOverlaySc02_80174764Words },
+    { 0x80174774u, 0x80174784u, kOverlaySc02_80174774Words },
+    { 0x80174784u, 0x801747acu, kOverlaySc02_80174784Words },
+    { 0x801747acu, 0x801747ccu, kOverlaySc02_801747ACWords },
+    { 0x80174808u, 0x8017481cu, kOverlaySc02_80174808Words },
+    { 0x8017481cu, 0x80174824u, kOverlaySc02_8017481CWords },
+    { 0x80174824u, 0x8017484cu, kOverlaySc02_80174824Words },
+    { 0x8017484cu, 0x80174888u, kOverlaySc02_8017484CWords },
+    { 0x801748c4u, 0x801748e4u, kOverlaySc02_801748C4Words },
+    { 0x801748e4u, 0x801748ecu, kOverlaySc02_801748E4Words },
+    { 0x801748ecu, 0x8017496cu, kOverlaySc02_801748ECWords },
+    { 0x801749a8u, 0x801749c8u, kOverlaySc02_801749A8Words },
+    { 0x80174b6cu, 0x80174bbcu, kOverlaySc02_80174B6CWords },
+    { 0x80174bbcu, 0x80174bf4u, kOverlaySc02_80174BBCWords },
+    { 0x80174c60u, 0x80174c80u, kOverlaySc02_80174C60Words },
+    { 0x80174c80u, 0x80174cb0u, kOverlaySc02_80174C80Words },
+    { 0x80174e9cu, 0x80174ed4u, kOverlaySc02_80174E9CWords },
+    { 0x80174ed4u, 0x80174ef0u, kOverlaySc02_80174ED4Words },
+    { 0x80174ef0u, 0x80174f28u, kOverlaySc02_80174EF0Words },
+    { 0x80174f64u, 0x80174fbcu, kOverlaySc02_80174F64Words },
+    { 0x80174fbcu, 0x80175014u, kOverlaySc02_80174FBCWords },
+    { 0x80175014u, 0x8017509cu, kOverlaySc02_80175014Words },
+    { 0x8017509cu, 0x80175114u, kOverlaySc02_8017509CWords },
+    { 0x80175114u, 0x80175150u, kOverlaySc02_80175114Words },
+    { 0x80175150u, 0x80175184u, kOverlaySc02_80175150Words },
+    { 0x801751d8u, 0x80175218u, kOverlaySc02_801751D8Words },
+    { 0x801752bcu, 0x80175308u, kOverlaySc02_801752BCWords },
+    { 0x80175414u, 0x80175454u, kOverlaySc02_80175414Words },
+    { 0x80175454u, 0x80175494u, kOverlaySc02_80175454Words },
+    { 0x80175624u, 0x80175668u, kOverlaySc02_80175624Words },
+    { 0x80175668u, 0x80175690u, kOverlaySc02_80175668Words },
+    { 0x801757e0u, 0x80175820u, kOverlaySc02_801757E0Words },
+    { 0x801787d4u, 0x80178840u, kOverlaySc02_801787D4Words },
+    { 0x80178bb8u, 0x80178bf8u, kOverlaySc02_80178BB8Words },
+    { 0x80179b28u, 0x80179b74u, kOverlaySc02_80179B28Words },
+    { 0x80179d30u, 0x80179d78u, kOverlaySc02_80179D30Words },
+    { 0x80179d78u, 0x80179dccu, kOverlaySc02_80179D78Words },
+    { 0x80179dccu, 0x80179df8u, kOverlaySc02_80179DCCWords },
+    { 0x80179df8u, 0x80179e1cu, kOverlaySc02_80179DF8Words },
+    { 0x80179e1cu, 0x80179e48u, kOverlaySc02_80179E1CWords },
+    { 0x80179e48u, 0x80179e74u, kOverlaySc02_80179E48Words },
+    { 0x80179e74u, 0x80179ea0u, kOverlaySc02_80179E74Words },
+    { 0x80179ea0u, 0x80179ee8u, kOverlaySc02_80179EA0Words },
+    { 0x80179ee8u, 0x80179f14u, kOverlaySc02_80179EE8Words },
+    { 0x80179f14u, 0x80179f44u, kOverlaySc02_80179F14Words },
+    { 0x80179f44u, 0x80179f6cu, kOverlaySc02_80179F44Words },
+    { 0x80179f6cu, 0x80179f98u, kOverlaySc02_80179F6CWords },
+    { 0x80179f98u, 0x80179fecu, kOverlaySc02_80179F98Words },
+    { 0x80179fecu, 0x8017a040u, kOverlaySc02_80179FECWords },
+    { 0x8017a040u, 0x8017a094u, kOverlaySc02_8017A040Words },
+    { 0x8017a0f4u, 0x8017a11cu, kOverlaySc02_8017A0F4Words },
+    { 0x8017a11cu, 0x8017a144u, kOverlaySc02_8017A11CWords },
+    { 0x8017a180u, 0x8017a1a8u, kOverlaySc02_8017A180Words },
+    { 0x8017a1a8u, 0x8017a1d0u, kOverlaySc02_8017A1A8Words },
+    { 0x8017a1d0u, 0x8017a1f8u, kOverlaySc02_8017A1D0Words },
+    { 0x8017a1f8u, 0x8017a220u, kOverlaySc02_8017A1F8Words },
+    { 0x8017a220u, 0x8017a248u, kOverlaySc02_8017A220Words },
+    { 0x8017a248u, 0x8017a270u, kOverlaySc02_8017A248Words },
+    { 0x8017a270u, 0x8017a298u, kOverlaySc02_8017A270Words },
+    { 0x8017a298u, 0x8017a2c0u, kOverlaySc02_8017A298Words },
+    { 0x8017a2c0u, 0x8017a2e8u, kOverlaySc02_8017A2C0Words },
+    { 0x8017a2e8u, 0x8017a310u, kOverlaySc02_8017A2E8Words },
+    { 0x8017a310u, 0x8017a338u, kOverlaySc02_8017A310Words },
+    { 0x8017a338u, 0x8017a360u, kOverlaySc02_8017A338Words },
+    { 0x8017a360u, 0x8017a388u, kOverlaySc02_8017A360Words },
+    { 0x8017a388u, 0x8017a3b0u, kOverlaySc02_8017A388Words },
+    { 0x8017ade8u, 0x8017ae08u, kOverlaySc02_8017ADE8Words },
+    { 0x8017ae08u, 0x8017ae2cu, kOverlaySc02_8017AE08Words },
+    { 0x8018129cu, 0x8018133cu, kOverlaySc02_8018129CWords },
+    { 0x8018133cu, 0x80181378u, kOverlaySc02_8018133CWords },
+    { 0x80181378u, 0x801814e4u, kOverlaySc02_80181378Words },
+    { 0x801814e4u, 0x801816c0u, kOverlaySc02_801814E4Words },
+};
+
+static const FormatterRange kFormatterRanges21[] = {
+    { 0x8012a828u, 0x8012a860u, kOverlaySc02_8012A828Words },
+    { 0x8012aaacu, 0x8012aca0u, kOverlaySc02_8012AAACWords },
+    { 0x8012aca0u, 0x8012ace0u, kOverlaySc02_8012ACA0Words },
+    { 0x8012ad44u, 0x8012ad50u, kOverlaySc02_8012AD44Words },
+    { 0x8012ad50u, 0x8012ad64u, kOverlaySc02_8012AD50Words },
+    { 0x8012b14cu, 0x8012b178u, kOverlaySc02_8012B14CWords },
+    { 0x8012b2ccu, 0x8012b370u, kOverlaySc02_8012B2CCWords },
+    { 0x8012c218u, 0x8012c284u, kOverlaySc02_8012C218Words },
+    { 0x8012c658u, 0x8012c750u, kOverlaySc02_8012C658Words },
+    { 0x8012cae4u, 0x8012cb64u, kOverlaySc02_8012CAE4Words },
+    { 0x8012e8e0u, 0x8012e9c0u, kOverlaySc02_8012E8E0Words },
+    { 0x80143970u, 0x801439fcu, kOverlaySc02_80143970Words },
+    { 0x801439fcu, 0x80143b6cu, kOverlaySc02_801439FCWords },
+    { 0x80143b6cu, 0x80143cd4u, kOverlaySc02_80143B6CWords },
+    { 0x80143cd4u, 0x80143d28u, kOverlaySc02_80143CD4Words },
+    { 0x80143d28u, 0x80143eb4u, kOverlaySc02_80143D28Words },
+    { 0x80143eb4u, 0x80143ebcu, kOverlaySc02_80143EB4Words },
+    { 0x80143ebcu, 0x80144054u, kOverlaySc02_80143EBCWords },
+    { 0x80144054u, 0x80144090u, kOverlaySc02_80144054Words },
+    { 0x80144090u, 0x801442f8u, kOverlaySc02_80144090Words },
+    { 0x801442f8u, 0x80144364u, kOverlaySc02_801442F8Words },
+    { 0x80144364u, 0x80144458u, kOverlaySc02_80144364Words },
+    { 0x80144458u, 0x80144558u, kOverlaySc02_80144458Words },
+    { 0x80144558u, 0x8014462cu, kOverlaySc02_80144558Words },
+    { 0x8014462cu, 0x801446a4u, kOverlaySc02_8014462CWords },
+    { 0x801446a4u, 0x8014477cu, kOverlaySc02_801446A4Words },
+    { 0x8014477cu, 0x80144880u, kOverlaySc02_8014477CWords },
+    { 0x80144880u, 0x80144988u, kOverlaySc02_80144880Words },
+    { 0x80144988u, 0x801449c8u, kOverlaySc02_80144988Words },
+    { 0x801449c8u, 0x80144a04u, kOverlaySc02_801449C8Words },
+    { 0x80144a04u, 0x80144a2cu, kOverlaySc02_80144A04Words },
+    { 0x80144a2cu, 0x80144a68u, kOverlaySc02_80144A2CWords },
+    { 0x80144a68u, 0x80144a90u, kOverlaySc02_80144A68Words },
+    { 0x80144a90u, 0x80144a98u, kOverlaySc02_80144A90Words },
+    { 0x80144a98u, 0x80144aecu, kOverlaySc02_80144A98Words },
+    { 0x80144aecu, 0x80144b14u, kOverlaySc02_80144AECWords },
+    { 0x80144b14u, 0x80144b9cu, kOverlaySc02_80144B14Words },
+    { 0x801458e0u, 0x801458e8u, kOverlaySc02_801458E0Words },
+    { 0x801458e8u, 0x80145934u, kOverlaySc02_801458E8Words },
+    { 0x80145934u, 0x80145a2cu, kOverlaySc02_80145934Words },
+    { 0x80145a2cu, 0x80145b24u, kOverlaySc02_80145A2CWords },
+    { 0x80145b24u, 0x80145bf8u, kOverlaySc02_80145B24Words },
+    { 0x80145bf8u, 0x80145c54u, kOverlaySc02_80145BF8Words },
+    { 0x80145c54u, 0x80145cecu, kOverlaySc02_80145C54Words },
+    { 0x801788b8u, 0x80178970u, kOverlaySc02_801788B8Words },
+    { 0x8017c2b0u, 0x8017c63cu, kOverlaySc02_8017C2B0Words },
+    { 0x8017c63cu, 0x8017c8b4u, kOverlaySc02_8017C63CWords },
+    { 0x8017c8b4u, 0x8017c9fcu, kOverlaySc02_8017C8B4Words },
+    { 0x8017c9fcu, 0x8017cb7cu, kOverlaySc02_8017C9FCWords },
+    { 0x80181a24u, 0x80181a44u, kOverlaySc02_80181A24Words },
+    { 0x80181b78u, 0x80181bb4u, kOverlaySc02_80181B78Words },
+    { 0x80181bb4u, 0x80181c2cu, kOverlaySc02_80181BB4Words },
+    { 0x80181ef0u, 0x80181f20u, kOverlaySc02_80181EF0Words },
+    { 0x80182070u, 0x80182078u, kOverlaySc02_80182070Words },
+    { 0x80182078u, 0x801820e0u, kOverlaySc02_80182078Words },
+    { 0x801820e0u, 0x80182174u, kOverlaySc02_801820E0Words },
+    { 0x80182174u, 0x801821f4u, kOverlaySc02_80182174Words },
+    { 0x801821f4u, 0x80182328u, kOverlaySc02_801821F4Words },
+    { 0x80182328u, 0x801824e4u, kOverlaySc02_80182328Words },
+    { 0x801824e4u, 0x801825e0u, kOverlaySc02_801824E4Words },
+    { 0x801825e0u, 0x80182618u, kOverlaySc02_801825E0Words },
+    { 0x80182618u, 0x80182674u, kOverlaySc02_80182618Words },
+    { 0x80182674u, 0x80182848u, kOverlaySc02_80182674Words },
+    { 0x80182848u, 0x80182994u, kOverlaySc02_80182848Words },
+    { 0x80182994u, 0x801829a0u, kOverlaySc02_80182994Words },
+    { 0x801829a0u, 0x801829a8u, kOverlaySc02_801829A0Words },
+    { 0x801829a8u, 0x801829bcu, kOverlaySc02_801829A8Words },
+    { 0x801829bcu, 0x801829f8u, kOverlaySc02_801829BCWords },
+    { 0x801829f8u, 0x80182a7cu, kOverlaySc02_801829F8Words },
+    { 0x80182a7cu, 0x80182ab4u, kOverlaySc02_80182A7CWords },
+    { 0x80182ab4u, 0x80182b64u, kOverlaySc02_80182AB4Words },
+    { 0x80182b64u, 0x80182ba0u, kOverlaySc02_80182B64Words },
+    { 0x80182ba0u, 0x80182be0u, kOverlaySc02_80182BA0Words },
+    { 0x80182be0u, 0x80182c24u, kOverlaySc02_80182BE0Words },
+    { 0x80182c24u, 0x80182c60u, kOverlaySc02_80182C24Words },
+    { 0x80182c60u, 0x80182cf4u, kOverlaySc02_80182C60Words },
+    { 0x80182cf4u, 0x801832d0u, kOverlaySc02_80182CF4Words },
+    { 0x801848a8u, 0x801848e4u, kOverlaySc02_801848A8Words },
+    { 0x801848e4u, 0x8018496cu, kOverlaySc02_801848E4Words },
+    { 0x8018496cu, 0x80184a2cu, kOverlaySc02_8018496CWords },
+    { 0x80184a2cu, 0x80184a9cu, kOverlaySc02_80184A2CWords },
+    { 0x80184a9cu, 0x80184b94u, kOverlaySc02_80184A9CWords },
+    { 0x80184b94u, 0x80184c24u, kOverlaySc02_80184B94Words },
+};
+
+static const FormatterRange kFormatterRanges22[] = {
+    { 0x8012c194u, 0x8012c1b8u, kOverlaySc02_8012C194Words },
+    { 0x8012c1b8u, 0x8012c1dcu, kOverlaySc02_8012C1B8Words },
+    { 0x8012c1dcu, 0x8012c218u, kOverlaySc02_8012C1DCWords },
+    { 0x80131fdcu, 0x80132018u, kOverlaySc02_80131FDCWords },
+    { 0x8013221cu, 0x80132288u, kOverlaySc02_8013221CWords },
+    { 0x801819e8u, 0x80181a24u, kOverlaySc02_801819E8Words },
+    { 0x80181f20u, 0x80181f5cu, kOverlaySc02_80181F20Words },
+    { 0x80181f5cu, 0x80181fa4u, kOverlaySc02_80181F5CWords },
+    { 0x80181fa4u, 0x80182070u, kOverlaySc02_80181FA4Words },
+};
+
+static const FormatterRange kFormatterRanges23[] = {
+    { 0x801320d0u, 0x801320d8u, kOverlaySc02_801320D0Words },
+    { 0x80134510u, 0x801345f8u, kOverlaySc02_80134510Words },
+    { 0x801345f8u, 0x801347a0u, kOverlaySc02_801345F8Words },
+    { 0x801347a0u, 0x80134a28u, kOverlaySc02_801347A0Words },
+    { 0x80135480u, 0x80135888u, kOverlaySc02_80135480Words },
+    { 0x80135d20u, 0x80135eb0u, kOverlaySc02_80135D20Words },
+    { 0x80135eb0u, 0x80136334u, kOverlaySc02_80135EB0Words },
+    { 0x80136a94u, 0x80136bc4u, kOverlaySc02_80136A94Words },
+    { 0x8013e448u, 0x8013e4b4u, kOverlaySc02_8013E448Words },
+    { 0x80142ec0u, 0x80142f68u, kOverlaySc02_80142EC0Words },
+    { 0x8014305cu, 0x801430f4u, kOverlaySc02_8014305CWords },
+    { 0x80165e90u, 0x80165fa4u, kOverlaySc02_80165E90Words },
+    { 0x8016ee94u, 0x8016ef78u, kOverlaySc02_8016EE94Words },
+};
+
+static const FormatterRange kFormatterRanges24[] = {
+    { 0x8012853cu, 0x80128564u, kOverlaySc02_8012853CWords },
+    { 0x80128564u, 0x801285d4u, kOverlaySc02_80128564Words },
+    { 0x801285d4u, 0x801285e4u, kOverlaySc02_801285D4Words },
+    { 0x801285e4u, 0x80128714u, kOverlaySc02_801285E4Words },
+    { 0x80128714u, 0x801287b8u, kOverlaySc02_80128714Words },
+    { 0x801287b8u, 0x801288e8u, kOverlaySc02_801287B8Words },
+    { 0x801288e8u, 0x80128a28u, kOverlaySc02_801288E8Words },
+    { 0x80128a28u, 0x80128af4u, kOverlaySc02_80128A28Words },
+    { 0x80128af4u, 0x80128c14u, kOverlaySc02_80128AF4Words },
+    { 0x80146074u, 0x8014607cu, kOverlaySc02_80146074Words },
+    { 0x8014607cu, 0x80146128u, kOverlaySc02_8014607CWords },
+    { 0x80146128u, 0x80146360u, kOverlaySc02_80146128Words },
+    { 0x80146360u, 0x801463a0u, kOverlaySc02_80146360Words },
+    { 0x801463a0u, 0x80146534u, kOverlaySc02_801463A0Words },
+    { 0x80146534u, 0x80146554u, kOverlaySc02_80146534Words },
+    { 0x80146554u, 0x80146578u, kOverlaySc02_80146554Words },
+    { 0x80146578u, 0x8014659cu, kOverlaySc02_80146578Words },
+    { 0x8014659cu, 0x801465c0u, kOverlaySc02_8014659CWords },
+    { 0x801465c0u, 0x801465e4u, kOverlaySc02_801465C0Words },
+    { 0x801465e4u, 0x80146608u, kOverlaySc02_801465E4Words },
+    { 0x80146608u, 0x801466b4u, kOverlaySc02_80146608Words },
+    { 0x801466b4u, 0x801466f0u, kOverlaySc02_801466B4Words },
+    { 0x801466f0u, 0x80146750u, kOverlaySc02_801466F0Words },
+    { 0x80146750u, 0x8014680cu, kOverlaySc02_80146750Words },
+    { 0x8014680cu, 0x801468c8u, kOverlaySc02_8014680CWords },
+    { 0x80146924u, 0x80146994u, kOverlaySc02_80146924Words },
+    { 0x80146994u, 0x801469c8u, kOverlaySc02_80146994Words },
+    { 0x801469c8u, 0x80146a6cu, kOverlaySc02_801469C8Words },
+    { 0x80146a6cu, 0x80146ab4u, kOverlaySc02_80146A6CWords },
+    { 0x80146ab4u, 0x80146afcu, kOverlaySc02_80146AB4Words },
+    { 0x80146afcu, 0x80146b9cu, kOverlaySc02_80146AFCWords },
+    { 0x80146b9cu, 0x80146c3cu, kOverlaySc02_80146B9CWords },
+    { 0x80146c3cu, 0x80146c98u, kOverlaySc02_80146C3CWords },
+    { 0x80146c98u, 0x80146ca0u, kOverlaySc02_80146C98Words },
+    { 0x80146ca0u, 0x80146cb4u, kOverlaySc02_80146CA0Words },
+    { 0x80146cb4u, 0x80146cc8u, kOverlaySc02_80146CB4Words },
+    { 0x80146cc8u, 0x80146d30u, kOverlaySc02_80146CC8Words },
+    { 0x80146d30u, 0x80146d80u, kOverlaySc02_80146D30Words },
+    { 0x80146d80u, 0x80146d90u, kOverlaySc02_80146D80Words },
+    { 0x80146d90u, 0x80146db8u, kOverlaySc02_80146D90Words },
+    { 0x80146db8u, 0x80146de8u, kOverlaySc02_80146DB8Words },
+    { 0x80146de8u, 0x80146df8u, kOverlaySc02_80146DE8Words },
+    { 0x80146df8u, 0x80146e90u, kOverlaySc02_80146DF8Words },
+    { 0x80146e90u, 0x80146e98u, kOverlaySc02_80146E90Words },
+    { 0x80146e98u, 0x80146ec0u, kOverlaySc02_80146E98Words },
+    { 0x80146ec0u, 0x80146f58u, kOverlaySc02_80146EC0Words },
+    { 0x80146f58u, 0x80146fc4u, kOverlaySc02_80146F58Words },
+    { 0x80146fc4u, 0x8014704cu, kOverlaySc02_80146FC4Words },
+    { 0x8014704cu, 0x80147054u, kOverlaySc02_8014704CWords },
+    { 0x80147054u, 0x80147060u, kOverlaySc02_80147054Words },
+    { 0x80147060u, 0x8014706cu, kOverlaySc02_80147060Words },
+    { 0x8014706cu, 0x80147078u, kOverlaySc02_8014706CWords },
+    { 0x80147078u, 0x80147084u, kOverlaySc02_80147078Words },
+    { 0x8014708cu, 0x80147098u, kOverlaySc02_8014708CWords },
+    { 0x801470a0u, 0x801470acu, kOverlaySc02_801470A0Words },
+    { 0x801470b4u, 0x801470c0u, kOverlaySc02_801470B4Words },
+    { 0x801470c0u, 0x80147118u, kOverlaySc02_801470C0Words },
+    { 0x80147118u, 0x80147264u, kOverlaySc02_80147118Words },
+    { 0x80147264u, 0x80147290u, kOverlaySc02_80147264Words },
+    { 0x80147290u, 0x801472b4u, kOverlaySc02_80147290Words },
+    { 0x801472b4u, 0x801472c8u, kOverlaySc02_801472B4Words },
+    { 0x801472c8u, 0x801472dcu, kOverlaySc02_801472C8Words },
+    { 0x801472dcu, 0x801472f0u, kOverlaySc02_801472DCWords },
+    { 0x801472f0u, 0x80147300u, kOverlaySc02_801472F0Words },
+    { 0x80147300u, 0x80147324u, kOverlaySc02_80147300Words },
+    { 0x80147324u, 0x80147364u, kOverlaySc02_80147324Words },
+    { 0x80147364u, 0x801473dcu, kOverlaySc02_80147364Words },
+    { 0x801473dcu, 0x801473ecu, kOverlaySc02_801473DCWords },
+    { 0x801473ecu, 0x80147460u, kOverlaySc02_801473ECWords },
+    { 0x80147460u, 0x80147478u, kOverlaySc02_80147460Words },
+    { 0x80147478u, 0x801474d8u, kOverlaySc02_80147478Words },
+    { 0x801474d8u, 0x801474ecu, kOverlaySc02_801474D8Words },
+    { 0x801474ecu, 0x80147514u, kOverlaySc02_801474ECWords },
+    { 0x80147514u, 0x80147628u, kOverlaySc02_80147514Words },
+    { 0x80147628u, 0x80147718u, kOverlaySc02_80147628Words },
+    { 0x80147718u, 0x80147788u, kOverlaySc02_80147718Words },
+    { 0x80147788u, 0x801477a8u, kOverlaySc02_80147788Words },
+    { 0x801477a8u, 0x801477c8u, kOverlaySc02_801477A8Words },
+    { 0x801477c8u, 0x801477e8u, kOverlaySc02_801477C8Words },
+    { 0x801477e8u, 0x80147814u, kOverlaySc02_801477E8Words },
+    { 0x80147814u, 0x80147860u, kOverlaySc02_80147814Words },
+    { 0x80147860u, 0x801478b8u, kOverlaySc02_80147860Words },
+    { 0x801478b8u, 0x80147928u, kOverlaySc02_801478B8Words },
+    { 0x80147928u, 0x80147948u, kOverlaySc02_80147928Words },
+    { 0x80147948u, 0x8014799cu, kOverlaySc02_80147948Words },
+    { 0x8014799cu, 0x801479bcu, kOverlaySc02_8014799CWords },
+    { 0x801479bcu, 0x80147a10u, kOverlaySc02_801479BCWords },
+    { 0x80147a10u, 0x80147a30u, kOverlaySc02_80147A10Words },
+    { 0x80147a30u, 0x80147a84u, kOverlaySc02_80147A30Words },
+    { 0x80147a84u, 0x80147aacu, kOverlaySc02_80147A84Words },
+    { 0x80147aacu, 0x80147ad4u, kOverlaySc02_80147AACWords },
+    { 0x80147ad4u, 0x80147b18u, kOverlaySc02_80147AD4Words },
+    { 0x80147b18u, 0x80147b5cu, kOverlaySc02_80147B18Words },
+    { 0x80147b5cu, 0x80147c30u, kOverlaySc02_80147B5CWords },
+    { 0x80147c30u, 0x80147cc8u, kOverlaySc02_80147C30Words },
+    { 0x80147cc8u, 0x80147d38u, kOverlaySc02_80147CC8Words },
+    { 0x80147d38u, 0x80147dc0u, kOverlaySc02_80147D38Words },
+    { 0x80147dc0u, 0x80147e44u, kOverlaySc02_80147DC0Words },
+    { 0x80147e44u, 0x80147f50u, kOverlaySc02_80147E44Words },
+    { 0x80147f50u, 0x80147f78u, kOverlaySc02_80147F50Words },
+    { 0x80147f78u, 0x80148038u, kOverlaySc02_80147F78Words },
+    { 0x80148038u, 0x80148094u, kOverlaySc02_80148038Words },
+    { 0x80148094u, 0x801483e8u, kOverlaySc02_80148094Words },
+    { 0x801483e8u, 0x801484b0u, kOverlaySc02_801483E8Words },
+    { 0x801484b0u, 0x801484e8u, kOverlaySc02_801484B0Words },
+    { 0x801484e8u, 0x80148534u, kOverlaySc02_801484E8Words },
+    { 0x80148534u, 0x8014856cu, kOverlaySc02_80148534Words },
+    { 0x8014856cu, 0x801485b8u, kOverlaySc02_8014856CWords },
+    { 0x801485b8u, 0x80148634u, kOverlaySc02_801485B8Words },
+    { 0x80148634u, 0x80148648u, kOverlaySc02_80148634Words },
+    { 0x80148648u, 0x801487f4u, kOverlaySc02_80148648Words },
+    { 0x801487f4u, 0x80148800u, kOverlaySc02_801487F4Words },
+    { 0x80175494u, 0x801754a8u, kOverlaySc02_80175494Words },
+};
+
+static const FormatterRange kFormatterRanges25[] = {
+    { 0x801284b8u, 0x801284f0u, kOverlaySc02_801284B8Words },
+    { 0x801284f0u, 0x8012853cu, kOverlaySc02_801284F0Words },
+    { 0x8013b568u, 0x8013b598u, kOverlaySc02_8013B568Words },
+    { 0x8013c08cu, 0x8013c0f8u, kOverlaySc02_8013C08CWords },
+    { 0x8013c0f8u, 0x8013c360u, kOverlaySc02_8013C0F8Words },
+    { 0x8013d3d4u, 0x8013d53cu, kOverlaySc02_8013D3D4Words },
+    { 0x80175308u, 0x80175414u, kOverlaySc02_80175308Words },
+    { 0x801757a0u, 0x801757e0u, kOverlaySc02_801757A0Words },
+    { 0x80175ab8u, 0x80175da8u, kOverlaySc02_80175AB8Words },
+    { 0x80175da8u, 0x80176144u, kOverlaySc02_80175DA8Words },
+    { 0x80176144u, 0x80176218u, kOverlaySc02_80176144Words },
+    { 0x80176d94u, 0x80176ff4u, kOverlaySc02_80176D94Words },
+    { 0x801770e0u, 0x80177340u, kOverlaySc02_801770E0Words },
+    { 0x8017742cu, 0x801775e0u, kOverlaySc02_8017742CWords },
+    { 0x80177784u, 0x801777bcu, kOverlaySc02_80177784Words },
+    { 0x801777bcu, 0x801778a8u, kOverlaySc02_801777BCWords },
+    { 0x80177940u, 0x80177ad4u, kOverlaySc02_80177940Words },
+    { 0x80177b5cu, 0x80177da8u, kOverlaySc02_80177B5CWords },
+    { 0x80177ea4u, 0x80177f84u, kOverlaySc02_80177EA4Words },
+    { 0x80178004u, 0x80178298u, kOverlaySc02_80178004Words },
+    { 0x80178298u, 0x801783d0u, kOverlaySc02_80178298Words },
+    { 0x801783d0u, 0x80178438u, kOverlaySc02_801783D0Words },
+};
+
+static const FormatterRange kFormatterRanges26[] = {
+    { 0x80128158u, 0x80128420u, kOverlaySc02_80128158Words },
+    { 0x80129398u, 0x80129428u, kOverlaySc02_80129398Words },
+    { 0x8012f14cu, 0x8012f1a4u, kOverlaySc02_8012F14CWords },
+    { 0x80148800u, 0x8014880cu, kOverlaySc02_80148800Words },
+    { 0x8014880cu, 0x80148818u, kOverlaySc02_8014880CWords },
+    { 0x80148818u, 0x80148824u, kOverlaySc02_80148818Words },
+    { 0x80148824u, 0x801488a8u, kOverlaySc02_80148824Words },
+    { 0x801488a8u, 0x8014891cu, kOverlaySc02_801488A8Words },
+    { 0x8014891cu, 0x80148980u, kOverlaySc02_8014891CWords },
+    { 0x80148980u, 0x801489e8u, kOverlaySc02_80148980Words },
+    { 0x801489e8u, 0x80148a48u, kOverlaySc02_801489E8Words },
+    { 0x80148a48u, 0x80148aacu, kOverlaySc02_80148A48Words },
+    { 0x80148aacu, 0x80148afcu, kOverlaySc02_80148AACWords },
+    { 0x80148afcu, 0x80148c18u, kOverlaySc02_80148AFCWords },
+    { 0x80148c18u, 0x80148c20u, kOverlaySc02_80148C18Words },
+    { 0x80148c20u, 0x80148c34u, kOverlaySc02_80148C20Words },
+    { 0x80148c34u, 0x80148c4cu, kOverlaySc02_80148C34Words },
+    { 0x80148c4cu, 0x80148c64u, kOverlaySc02_80148C4CWords },
+    { 0x80148c64u, 0x80148c7cu, kOverlaySc02_80148C64Words },
+    { 0x80148c7cu, 0x80148c84u, kOverlaySc02_80148C7CWords },
+    { 0x80148c84u, 0x80148c9cu, kOverlaySc02_80148C84Words },
+    { 0x80148c9cu, 0x80148cb4u, kOverlaySc02_80148C9CWords },
+    { 0x80148cb4u, 0x80148cccu, kOverlaySc02_80148CB4Words },
+    { 0x80148cccu, 0x80148ce4u, kOverlaySc02_80148CCCWords },
+    { 0x80148ce4u, 0x80148cecu, kOverlaySc02_80148CE4Words },
+    { 0x80148cecu, 0x80148cf4u, kOverlaySc02_80148CECWords },
+    { 0x80148cf4u, 0x80148d0cu, kOverlaySc02_80148CF4Words },
+    { 0x80148d0cu, 0x80148d24u, kOverlaySc02_80148D0CWords },
+    { 0x80148d24u, 0x80148d3cu, kOverlaySc02_80148D24Words },
+    { 0x80148d3cu, 0x80148d44u, kOverlaySc02_80148D3CWords },
+    { 0x80148d44u, 0x80148e54u, kOverlaySc02_80148D44Words },
+    { 0x80148e54u, 0x80148f60u, kOverlaySc02_80148E54Words },
+    { 0x80148f60u, 0x80148f68u, kOverlaySc02_80148F60Words },
+    { 0x80148f68u, 0x80148f74u, kOverlaySc02_80148F68Words },
+    { 0x80148f74u, 0x80148f80u, kOverlaySc02_80148F74Words },
+    { 0x80148f80u, 0x80148f8cu, kOverlaySc02_80148F80Words },
+    { 0x80148f8cu, 0x80148f98u, kOverlaySc02_80148F8CWords },
+    { 0x80148f98u, 0x80148fa0u, kOverlaySc02_80148F98Words },
+    { 0x80148fa0u, 0x80148facu, kOverlaySc02_80148FA0Words },
+    { 0x80148facu, 0x80148fb8u, kOverlaySc02_80148FACWords },
+    { 0x80148fb8u, 0x80148fc4u, kOverlaySc02_80148FB8Words },
+    { 0x80148fc4u, 0x80148fd0u, kOverlaySc02_80148FC4Words },
+    { 0x80148fd0u, 0x80148fd8u, kOverlaySc02_80148FD0Words },
+    { 0x80148fd8u, 0x80148fe0u, kOverlaySc02_80148FD8Words },
+    { 0x80148fe0u, 0x80148fecu, kOverlaySc02_80148FE0Words },
+    { 0x80148fecu, 0x80148ff8u, kOverlaySc02_80148FECWords },
+    { 0x80148ff8u, 0x80149004u, kOverlaySc02_80148FF8Words },
+    { 0x80149004u, 0x8014900cu, kOverlaySc02_80149004Words },
+    { 0x8014900cu, 0x80149020u, kOverlaySc02_8014900CWords },
+    { 0x80149020u, 0x80149034u, kOverlaySc02_80149020Words },
+    { 0x80149034u, 0x80149048u, kOverlaySc02_80149034Words },
+    { 0x80149048u, 0x8014905cu, kOverlaySc02_80149048Words },
+    { 0x8014905cu, 0x80149078u, kOverlaySc02_8014905CWords },
+    { 0x80149078u, 0x801490e0u, kOverlaySc02_80149078Words },
+    { 0x801490e0u, 0x801490e8u, kOverlaySc02_801490E0Words },
+    { 0x801490e8u, 0x801490f0u, kOverlaySc02_801490E8Words },
+    { 0x801490f0u, 0x801490f8u, kOverlaySc02_801490F0Words },
+    { 0x801490f8u, 0x80149184u, kOverlaySc02_801490F8Words },
+    { 0x80149184u, 0x801491c4u, kOverlaySc02_80149184Words },
+    { 0x801491c4u, 0x80149204u, kOverlaySc02_801491C4Words },
+    { 0x80149204u, 0x80149210u, kOverlaySc02_80149204Words },
+};
+
+static const FormatterRange kFormatterRanges27[] = {
+    { 0x80017758u, 0x80017778u, kMain80017758Words },
+    { 0x80017778u, 0x800178c8u, kMain80017778Words },
+    { 0x800178c8u, 0x800178ecu, kMain800178C8Words },
+    { 0x800178ecu, 0x80017910u, kMain800178ECWords },
+    { 0x80017910u, 0x80017930u, kMain80017910Words },
+    { 0x80017930u, 0x80017b98u, kMain80017930Words },
+    { 0x80017b98u, 0x80017d98u, kMain80017B98Words },
+    { 0x80017d98u, 0x80017dc4u, kMain80017D98Words },
+    { 0x80017dc4u, 0x80017df8u, kMain80017DC4Words },
+    { 0x80017df8u, 0x80017e30u, kMain80017DF8Words },
+    { 0x80017e30u, 0x80017e68u, kMain80017E30Words },
+    { 0x80017e68u, 0x80017e8cu, kMain80017E68Words },
+    { 0x80017e8cu, 0x80017f14u, kMain80017E8CWords },
+    { 0x80017f14u, 0x80018094u, kMain80017F14Words },
+    { 0x80018094u, 0x80018194u, kMain80018094Words },
+    { 0x80018194u, 0x8001820cu, kMain80018194Words },
+    { 0x8001820cu, 0x80018384u, kMain8001820CWords },
+    { 0x80018384u, 0x800183e0u, kMain80018384Words },
+    { 0x80048384u, 0x800484ecu, kMain80048384Words },
+    { 0x80049610u, 0x80049694u, kMain80049610Words },
+    { 0x8004969cu, 0x8004974cu, kMain8004969CWords },
+    { 0x80058de8u, 0x80058dfcu, kMain80058DE8Words },
+    { 0x80058dfcu, 0x80058e10u, kMain80058DFCWords },
+    { 0x80058e10u, 0x80058e24u, kMain80058E10Words },
+    { 0x80058e24u, 0x80058e38u, kMain80058E24Words },
+    { 0x80058e38u, 0x80058e4cu, kMain80058E38Words },
+    { 0x80058e4cu, 0x80058e60u, kMain80058E4CWords },
+    { 0x80058e60u, 0x80058e74u, kMain80058E60Words },
+    { 0x80058e74u, 0x80058e88u, kMain80058E74Words },
+    { 0x80058e88u, 0x80058e9cu, kMain80058E88Words },
+    { 0x80058e9cu, 0x80058eb0u, kMain80058E9CWords },
+    { 0x80058eb0u, 0x80058ec4u, kMain80058EB0Words },
+    { 0x80058ec4u, 0x80058ee4u, kMain80058EC4Words },
+    { 0x80058ee4u, 0x80058f04u, kMain80058EE4Words },
+    { 0x80058f04u, 0x80058f24u, kMain80058F04Words },
+    { 0x80058f24u, 0x80058f44u, kMain80058F24Words },
+    { 0x80058f44u, 0x80058f70u, kMain80058F44Words },
+    { 0x80058f70u, 0x80058fd0u, kMain80058F70Words },
+    { 0x80058fd0u, 0x8005903cu, kMain80058FD0Words },
+    { 0x8005903cu, 0x80059074u, kMain8005903CWords },
+    { 0x80059074u, 0x80059188u, kMain80059074Words },
+    { 0x80059188u, 0x80059234u, kMain80059188Words },
+    { 0x80059234u, 0x800593b8u, kMain80059234Words },
+    { 0x800593b8u, 0x800594ccu, kMain800593B8Words },
+    { 0x800594ccu, 0x80059530u, kMain800594CCWords },
+    { 0x80059530u, 0x800595dcu, kMain80059530Words },
+    { 0x800595dcu, 0x800595ecu, kMain800595DCWords },
+    { 0x800595ecu, 0x800595fcu, kMain800595ECWords },
+};
+
+static const FormatterRange kFormatterRanges28[] = {
+    { 0x800cedfcu, 0x800cee40u, kOverlay800CEDFCWords },
+    { 0x800cee40u, 0x800cef04u, kOverlay800CEE40Words },
+    { 0x800cef04u, 0x800cef54u, kOverlay800CEF04Words },
+    { 0x800cef54u, 0x800cefa8u, kOverlay800CEF54Words },
+    { 0x800cefa8u, 0x800ceff4u, kOverlay800CEFA8Words },
+    { 0x800ceff4u, 0x800cf038u, kOverlay800CEFF4Words },
+    { 0x800cf038u, 0x800cf0c4u, kOverlay800CF038Words },
+    { 0x800cf0c4u, 0x800cf114u, kOverlay800CF0C4Words },
+    { 0x800cf114u, 0x800cf180u, kOverlay800CF114Words },
+    { 0x800cf180u, 0x800cf290u, kOverlay800CF180Words },
+    { 0x800cf290u, 0x800cf3e8u, kOverlay800CF290Words },
+};
+
+static const FormatterRange kFormatterRanges29[] = {
+    { 0x8005c2c8u, 0x8005c2f8u, kGuardedClear8005C2C8Words },
+    { 0x8005de78u, 0x8005e0acu, kInputDigital8005DE78Words },
+    { 0x8005e13cu, 0x8005e164u, kInputDigital8005E13CWords },
+    { 0x8005e1a4u, 0x8005e228u, kInputDigital8005E1A4Words },
+    { 0x8005ea34u, 0x8005ea54u, kInputDigital8005EA34Words },
+    { 0x8005ea54u, 0x8005ea68u, kInputDigital8005EA54Words },
+    { 0x8005ea68u, 0x8005ea88u, kInputDigital8005EA68Words },
+    { 0x8005ea88u, 0x8005eaa8u, kInputDigital8005EA88Words },
+    { 0x8005eaa8u, 0x8005eac8u, kInputDigital8005EAA8Words },
+    { 0x8005eac8u, 0x8005eae8u, kInputDigital8005EAC8Words },
+    { 0x8005eb28u, 0x8005ec00u, kInputDigital8005EB28Words },
+    { 0x8005ec00u, 0x8005ecc0u, kInputDigital8005EC00Words },
+    { 0x8005ecc0u, 0x8005ed4cu, kInputDigital8005ECC0Words },
+    { 0x8005ed4cu, 0x8005f0c8u, kInputDigital8005ED4CWords },
+    { 0x8005f290u, 0x8005f384u, kInputDigital8005F290Words },
+    { 0x8005f394u, 0x8005f450u, kInputDigital8005F394Words },
+    { 0x8005f450u, 0x8005f6ccu, kInputDigital8005F450Words },
+    { 0x8005f6ccu, 0x8005f704u, kInputDigital8005F6CCWords },
+    { 0x8005fa94u, 0x8005fb70u, kInputDigital8005FA94Words },
+};
+
 
 enum {
     FORMATTER_ENTRY = 0x8005c640u,
@@ -9365,6 +15546,159 @@ enum {
     MERGE_SWR = 4,
 };
 
+/* Generated retire table: an LWR retires when its successor is the next
+ * LWL/SWL/SWR of the same copy block.
+ *
+ * This was 117 `(pc == H && instruction == H && merge_reg == N)` terms in a
+ * single `||` expression. GCC's dominator pass spent 12 of this file's 14
+ * seconds of compile time on that one function -- confirmed with
+ * -fdisable-tree-dom1/2/3=merge_pending_matches, which takes the whole file
+ * from 14.2s to 2.2s. 83 tests in the suite give `cc` a 30-second budget,
+ * so the expression form had already made the file time out under load.
+ *
+ * The terms were machine-generated, and they are data: one row per site,
+ * matched exactly as before on all three fields. */
+typedef struct {
+    uint32_t pc;
+    uint32_t word;
+    uint8_t reg;
+} MergeRetireSite;
+
+static const MergeRetireSite kMergeRetireSites[] = {
+    { 0x800d251cu, 0x88a30007u, 2u },
+    { 0x800d2524u, 0xaba20013u, 3u },
+    { 0x8012a0acu, 0x88830027u, 2u },
+    { 0x8012a0b4u, 0xa882001bu, 3u },
+    { 0x80134268u, 0x8a630007u, 2u },
+    { 0x80134270u, 0xa8a20003u, 3u },
+    { 0x801349ccu, 0x8a830007u, 2u },
+    { 0x801349d4u, 0xa8a20003u, 3u },
+    { 0x80136ca8u, 0x88a30007u, 2u },
+    { 0x80136cb0u, 0x80a40008u, 3u },
+    { 0x8013d65cu, 0x88a30007u, 2u },
+    { 0x8013d664u, 0xa8820003u, 3u },
+    { 0x80146168u, 0x88a30007u, 2u },
+    { 0x80146170u, 0xa8820003u, 3u },
+    { 0x80146490u, 0x88a30007u, 2u },
+    { 0x80146498u, 0xa8820003u, 3u },
+    { 0x80147008u, 0x8a030007u, 2u },
+    { 0x80147010u, 0xaa22008bu, 3u },
+    { 0x80147530u, 0x8a030127u, 2u },
+    { 0x80147538u, 0xaba20013u, 3u },
+    { 0x8014be1cu, 0x8a03009fu, 2u },
+    { 0x8014be24u, 0xaba20013u, 3u },
+    { 0x8014c520u, 0x88e30007u, 2u },
+    { 0x8014c528u, 0xa902007fu, 3u },
+    { 0x8014c758u, 0x88440017u, 3u },
+    { 0x8014c760u, 0xaa030167u, 4u },
+    { 0x8014c868u, 0x88a30007u, 2u },
+    { 0x8014c870u, 0xa8820157u, 3u },
+    { 0x8014c8d0u, 0x88a30007u, 2u },
+    { 0x8014c8d8u, 0xa882015fu, 3u },
+    { 0x8014c8f8u, 0x88830097u, 2u },
+    { 0x8014c900u, 0xa882015fu, 3u },
+    { 0x8014cbacu, 0x88830007u, 2u },
+    { 0x8014cbb4u, 0xa8c20003u, 3u },
+    { 0x8014db78u, 0x8ba3002fu, 2u },
+    { 0x8014db80u, 0xaba20033u, 3u },
+    { 0x8014ea8cu, 0x8a230007u, 2u },
+    { 0x8014ea94u, 0xaba20023u, 3u },
+    { 0x8014f5dcu, 0x88a30007u, 2u },
+    { 0x8014f5e4u, 0xaa020123u, 3u },
+    { 0x8014f614u, 0x88a30007u, 2u },
+    { 0x8014f61cu, 0xaa020123u, 3u },
+    { 0x8014f670u, 0x88a30007u, 2u },
+    { 0x8014f678u, 0xa8820003u, 3u },
+    { 0x8014f6acu, 0x88a30007u, 2u },
+    { 0x8014f6b4u, 0xaa020123u, 3u },
+    { 0x8014f874u, 0x88a30007u, 2u },
+    { 0x8014f87cu, 0xaa020123u, 3u },
+    { 0x8014f8acu, 0x88a30007u, 2u },
+    { 0x8014f8b4u, 0xaa020123u, 3u },
+    { 0x8014f908u, 0x88a30007u, 2u },
+    { 0x8014f910u, 0xa8820003u, 3u },
+    { 0x8014f944u, 0x88a30007u, 2u },
+    { 0x8014f94cu, 0xaa020123u, 3u },
+    { 0x8014fb64u, 0x88a30007u, 2u },
+    { 0x8014fb6cu, 0xa8820003u, 3u },
+    { 0x8014ff20u, 0x8ba30027u, 2u },
+    { 0x8014ff28u, 0xaa020083u, 3u },
+    { 0x8014ff74u, 0x88a30007u, 2u },
+    { 0x8014ff7cu, 0xaa020083u, 3u },
+    { 0x80150008u, 0x8a430007u, 2u },
+    { 0x80150010u, 0xaba20013u, 3u },
+    { 0x80150080u, 0x8ba30017u, 2u },
+    { 0x80150088u, 0xaba2001bu, 3u },
+    { 0x801500d0u, 0x8ba3001fu, 2u },
+    { 0x801500d8u, 0xaa420003u, 3u },
+    { 0x801500f8u, 0x88a30007u, 2u },
+    { 0x80150100u, 0xaa820003u, 3u },
+    { 0x80150230u, 0x8ba30027u, 2u },
+    { 0x80150238u, 0xaa020083u, 3u },
+    { 0x80150284u, 0x88a30007u, 2u },
+    { 0x8015028cu, 0xaa020083u, 3u },
+    { 0x80150318u, 0x8a430007u, 2u },
+    { 0x80150320u, 0xaba20013u, 3u },
+    { 0x80150390u, 0x8ba30017u, 2u },
+    { 0x80150398u, 0xaba2001bu, 3u },
+    { 0x801503e0u, 0x8ba3001fu, 2u },
+    { 0x801503e8u, 0xaa420003u, 3u },
+    { 0x80150408u, 0x88a30007u, 2u },
+    { 0x80150410u, 0xaa820003u, 3u },
+    { 0x80163420u, 0x89230007u, 2u },
+    { 0x80163428u, 0xaba2001bu, 3u },
+    { 0x801634f4u, 0x89480007u, 2u },
+    { 0x801634fcu, 0xaba2001bu, 8u },
+    { 0x80172384u, 0x88a30007u, 2u },
+    { 0x8017238cu, 0xa8820093u, 3u },
+    { 0x801723a4u, 0x88830097u, 2u },
+    { 0x801723acu, 0xa882008bu, 3u },
+    { 0x80172798u, 0x88830007u, 2u },
+    { 0x801727a0u, 0xa8c20003u, 3u },
+    { 0x801728acu, 0x88830007u, 2u },
+    { 0x801728b4u, 0xa8c20003u, 3u },
+    { 0x80172c68u, 0x88830007u, 2u },
+    { 0x80172c70u, 0xa8c20003u, 3u },
+    { 0x80173420u, 0x8a030007u, 2u },
+    { 0x80173428u, 0xa8a20003u, 3u },
+    { 0x80173484u, 0x8a030007u, 2u },
+    { 0x8017348cu, 0xa8a20003u, 3u },
+    { 0x80179488u, 0x8ba4002fu, 2u },
+    { 0x80179490u, 0xaa02000fu, 4u },
+    { 0x801794e8u, 0x8ba4003fu, 2u },
+    { 0x801794f0u, 0xaa02000fu, 4u },
+    { 0x8017b8f8u, 0x88830007u, 2u },
+    { 0x8017b900u, 0xa8c20003u, 3u },
+    { 0x8017b920u, 0x8883000fu, 2u },
+    { 0x8017b928u, 0xa8c20003u, 3u },
+    { 0x8017c4d4u, 0x88c30007u, 2u },
+    { 0x8017c4dcu, 0x88c4000bu, 3u },
+    { 0x8017c4e4u, 0x88c5000fu, 4u },
+    { 0x8017c4ecu, 0xa8e20003u, 5u },
+    { 0x8017c554u, 0x88c30007u, 2u },
+    { 0x8017c55cu, 0x88c4000bu, 3u },
+    { 0x8017c564u, 0xa8e20003u, 4u },
+    { 0x801826b4u, 0x8a630007u, 2u },
+    { 0x801826bcu, 0xaba20013u, 3u },
+    { 0x8018288cu, 0x8a630007u, 2u },
+    { 0x80182894u, 0xaba20013u, 3u },
+    { 0x80183f08u, 0x89829482u, 2u },
+};
+
+MUSASHI_FORMATTER_NOINLINE static int merge_retire_site(uint32_t pc, uint32_t word,
+                                                        unsigned reg) {
+    size_t index;
+
+    for (index = 0; index < sizeof kMergeRetireSites / sizeof kMergeRetireSites[0]; ++index) {
+        if (kMergeRetireSites[index].pc == pc
+                && kMergeRetireSites[index].word == word
+                && kMergeRetireSites[index].reg == reg) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
 static int merge_kind_for(uint32_t pc, uint32_t instruction) {
     static const struct { uint32_t pc, word; uint8_t kind; } sites[] = {
         {0x80045720u,0x88a20003u,MERGE_LWL},
@@ -9462,6 +15796,14 @@ static int merge_kind_for(uint32_t pc, uint32_t instruction) {
         {0x8013ae9cu,0x9b030000u,MERGE_LWR},
         {0x8013aea4u,0xa8430003u,MERGE_SWL},
         {0x8013aea8u,0xb8430000u,MERGE_SWR},
+        {0x8013cc34u,0x882355a3u,MERGE_LWL},
+        {0x8013cc40u,0x982355a0u,MERGE_LWR},
+        {0x8013cc4cu,0x882455a7u,MERGE_LWL},
+        {0x8013cc58u,0x982455a4u,MERGE_LWR},
+        {0x8013cc68u,0xa8c30003u,MERGE_SWL},
+        {0x8013cc6cu,0xb8c30000u,MERGE_SWR},
+        {0x8013cc70u,0xa8c40007u,MERGE_SWL},
+        {0x8013cc74u,0xb8c40004u,MERGE_SWR},
         {0x8013d5fcu,0x882355a3u,MERGE_LWL},
         {0x8013d5fcu,0x8823ecb3u,MERGE_LWL},
         {0x8013d608u,0x982355a0u,MERGE_LWR},
@@ -9974,377 +16316,25 @@ static int merge_pending_matches(const FormatterCpu *cpu, uint32_t instruction) 
     }
     if (cpu->merge_kind == MERGE_LWL)
         return merge_kind_for(cpu->pc, instruction) == MERGE_LWR;
+    /* Generated retire table, now data. See merge_retire_site above. */
     if (cpu->merge_kind == MERGE_LWR &&
-        ((cpu->pc == 0x8012a0acu && instruction == 0x88830027u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8012a0b4u && instruction == 0xa882001bu && cpu->merge_reg == 3u)))
+            merge_retire_site(cpu->pc, instruction, cpu->merge_reg))
         return 1;
-    if (cpu->merge_kind == MERGE_LWR &&
-        ((cpu->pc == 0x800d251cu && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x800d2524u && instruction == 0xaba20013u && cpu->merge_reg == 3u)))
-        return 1;
-    if (cpu->merge_kind == MERGE_LWR &&
-        ((cpu->pc == 0x8017c4d4u && instruction == 0x88c30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8017c4dcu && instruction == 0x88c4000bu && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8017c4e4u && instruction == 0x88c5000fu && cpu->merge_reg == 4u) ||
-         (cpu->pc == 0x8017c4ecu && instruction == 0xa8e20003u && cpu->merge_reg == 5u) ||
-         (cpu->pc == 0x8017c554u && instruction == 0x88c30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8017c55cu && instruction == 0x88c4000bu && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8017c564u && instruction == 0xa8e20003u && cpu->merge_reg == 4u)))
-        return 1;
-    /* BEGIN GENERATED RETIRE TABLE: an LWR retires when its successor
-     * is the next LWL/SWL/SWR of the same copy block. */
-    if (cpu->merge_kind == MERGE_LWR &&
-        (
-         (cpu->pc == 0x800d251cu && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x800d2524u && instruction == 0xaba20013u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8012a0acu && instruction == 0x88830027u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8012a0b4u && instruction == 0xa882001bu && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80134268u && instruction == 0x8a630007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x80134270u && instruction == 0xa8a20003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x801349ccu && instruction == 0x8a830007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x801349d4u && instruction == 0xa8a20003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80136ca8u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8013d65cu && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8013d664u && instruction == 0xa8820003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80146168u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x80146170u && instruction == 0xa8820003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80146490u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x80146498u && instruction == 0xa8820003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80147008u && instruction == 0x8a030007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x80147010u && instruction == 0xaa22008bu && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80147530u && instruction == 0x8a030127u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x80147538u && instruction == 0xaba20013u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014be1cu && instruction == 0x8a03009fu && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014be24u && instruction == 0xaba20013u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014c520u && instruction == 0x88e30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014c528u && instruction == 0xa902007fu && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014c758u && instruction == 0x88440017u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014c760u && instruction == 0xaa030167u && cpu->merge_reg == 4u) ||
-         (cpu->pc == 0x8014c868u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014c870u && instruction == 0xa8820157u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014c8d0u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014c8d8u && instruction == 0xa882015fu && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014c8f8u && instruction == 0x88830097u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014c900u && instruction == 0xa882015fu && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014cbacu && instruction == 0x88830007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014cbb4u && instruction == 0xa8c20003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014db78u && instruction == 0x8ba3002fu && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014db80u && instruction == 0xaba20033u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014ea8cu && instruction == 0x8a230007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014ea94u && instruction == 0xaba20023u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014f5dcu && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014f5e4u && instruction == 0xaa020123u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014f614u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014f61cu && instruction == 0xaa020123u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014f670u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014f678u && instruction == 0xa8820003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014f6acu && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014f6b4u && instruction == 0xaa020123u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014f874u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014f87cu && instruction == 0xaa020123u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014f8acu && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014f8b4u && instruction == 0xaa020123u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014f908u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014f910u && instruction == 0xa8820003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014f944u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014f94cu && instruction == 0xaa020123u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014fb64u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014fb6cu && instruction == 0xa8820003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014ff20u && instruction == 0x8ba30027u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014ff28u && instruction == 0xaa020083u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014ff74u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014ff7cu && instruction == 0xaa020083u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80150008u && instruction == 0x8a430007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x80150010u && instruction == 0xaba20013u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80150080u && instruction == 0x8ba30017u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x80150088u && instruction == 0xaba2001bu && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x801500d0u && instruction == 0x8ba3001fu && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x801500d8u && instruction == 0xaa420003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x801500f8u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x80150100u && instruction == 0xaa820003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80150230u && instruction == 0x8ba30027u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x80150238u && instruction == 0xaa020083u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80150284u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8015028cu && instruction == 0xaa020083u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80150318u && instruction == 0x8a430007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x80150320u && instruction == 0xaba20013u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80150390u && instruction == 0x8ba30017u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x80150398u && instruction == 0xaba2001bu && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x801503e0u && instruction == 0x8ba3001fu && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x801503e8u && instruction == 0xaa420003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80150408u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x80150410u && instruction == 0xaa820003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80163420u && instruction == 0x89230007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x80163428u && instruction == 0xaba2001bu && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x801634f4u && instruction == 0x89480007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x801634fcu && instruction == 0xaba2001bu && cpu->merge_reg == 8u) ||
-         (cpu->pc == 0x80172384u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8017238cu && instruction == 0xa8820093u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x801723a4u && instruction == 0x88830097u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x801723acu && instruction == 0xa882008bu && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80172798u && instruction == 0x88830007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x801727a0u && instruction == 0xa8c20003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x801728acu && instruction == 0x88830007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x801728b4u && instruction == 0xa8c20003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80172c68u && instruction == 0x88830007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x80172c70u && instruction == 0xa8c20003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80173420u && instruction == 0x8a030007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x80173428u && instruction == 0xa8a20003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80173484u && instruction == 0x8a030007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8017348cu && instruction == 0xa8a20003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80179488u && instruction == 0x8ba4002fu && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x80179490u && instruction == 0xaa02000fu && cpu->merge_reg == 4u) ||
-         (cpu->pc == 0x801794e8u && instruction == 0x8ba4003fu && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x801794f0u && instruction == 0xaa02000fu && cpu->merge_reg == 4u) ||
-         (cpu->pc == 0x8017b8f8u && instruction == 0x88830007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8017b900u && instruction == 0xa8c20003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8017b920u && instruction == 0x8883000fu && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8017b928u && instruction == 0xa8c20003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8017c4d4u && instruction == 0x88c30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8017c4dcu && instruction == 0x88c4000bu && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8017c4e4u && instruction == 0x88c5000fu && cpu->merge_reg == 4u) ||
-         (cpu->pc == 0x8017c4ecu && instruction == 0xa8e20003u && cpu->merge_reg == 5u) ||
-         (cpu->pc == 0x8017c554u && instruction == 0x88c30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8017c55cu && instruction == 0x88c4000bu && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8017c564u && instruction == 0xa8e20003u && cpu->merge_reg == 4u) ||
-         (cpu->pc == 0x801826b4u && instruction == 0x8a630007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x801826bcu && instruction == 0xaba20013u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8018288cu && instruction == 0x8a630007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x80182894u && instruction == 0xaba20013u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80183f08u && instruction == 0x89829482u && cpu->merge_reg == 2u) ))
-        return 1;
-    /* END GENERATED RETIRE TABLE */
     /* func_801347A0's two LWL/LWR pairs: the first pair's LWR into v0 is
      * retired by the second pair's LWL into v1, and that pair's LWR into v1
      * by the first SWL. */
 
     /* Generated: an LWR retires when its successor is the next
      * LWL/SWL/SWR of the same copy block. */
-    if (cpu->merge_kind == MERGE_LWR &&
-        (
-         (cpu->pc == 0x8012a0acu && instruction == 0x88830027u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8012a0b4u && instruction == 0xa882001bu && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80134268u && instruction == 0x8a630007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x80134270u && instruction == 0xa8a20003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x801349ccu && instruction == 0x8a830007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x801349d4u && instruction == 0xa8a20003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80136ca8u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8013d65cu && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8013d664u && instruction == 0xa8820003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80146168u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x80146170u && instruction == 0xa8820003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80146490u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x80146498u && instruction == 0xa8820003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80147008u && instruction == 0x8a030007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x80147010u && instruction == 0xaa22008bu && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80147530u && instruction == 0x8a030127u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x80147538u && instruction == 0xaba20013u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014be1cu && instruction == 0x8a03009fu && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014be24u && instruction == 0xaba20013u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014c520u && instruction == 0x88e30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014c528u && instruction == 0xa902007fu && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014c758u && instruction == 0x88440017u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014c760u && instruction == 0xaa030167u && cpu->merge_reg == 4u) ||
-         (cpu->pc == 0x8014c868u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014c870u && instruction == 0xa8820157u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014c8d0u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014c8d8u && instruction == 0xa882015fu && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014c8f8u && instruction == 0x88830097u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014c900u && instruction == 0xa882015fu && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014cbacu && instruction == 0x88830007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014cbb4u && instruction == 0xa8c20003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014db78u && instruction == 0x8ba3002fu && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014db80u && instruction == 0xaba20033u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014ea8cu && instruction == 0x8a230007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014ea94u && instruction == 0xaba20023u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014f5dcu && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014f5e4u && instruction == 0xaa020123u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014f614u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014f61cu && instruction == 0xaa020123u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014f670u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014f678u && instruction == 0xa8820003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014f6acu && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014f6b4u && instruction == 0xaa020123u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014f874u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014f87cu && instruction == 0xaa020123u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014f8acu && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014f8b4u && instruction == 0xaa020123u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014f908u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014f910u && instruction == 0xa8820003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014f944u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014f94cu && instruction == 0xaa020123u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014fb64u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014fb6cu && instruction == 0xa8820003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014ff20u && instruction == 0x8ba30027u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014ff28u && instruction == 0xaa020083u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8014ff74u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8014ff7cu && instruction == 0xaa020083u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80150008u && instruction == 0x8a430007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x80150010u && instruction == 0xaba20013u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80150080u && instruction == 0x8ba30017u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x80150088u && instruction == 0xaba2001bu && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x801500d0u && instruction == 0x8ba3001fu && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x801500d8u && instruction == 0xaa420003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x801500f8u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x80150100u && instruction == 0xaa820003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80150230u && instruction == 0x8ba30027u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x80150238u && instruction == 0xaa020083u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80150284u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8015028cu && instruction == 0xaa020083u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80150318u && instruction == 0x8a430007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x80150320u && instruction == 0xaba20013u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80150390u && instruction == 0x8ba30017u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x80150398u && instruction == 0xaba2001bu && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x801503e0u && instruction == 0x8ba3001fu && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x801503e8u && instruction == 0xaa420003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80150408u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x80150410u && instruction == 0xaa820003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80163420u && instruction == 0x89230007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x80163428u && instruction == 0xaba2001bu && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x801634f4u && instruction == 0x89480007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x801634fcu && instruction == 0xaba2001bu && cpu->merge_reg == 8u) ||
-         (cpu->pc == 0x80172384u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8017238cu && instruction == 0xa8820093u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x801723a4u && instruction == 0x88830097u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x801723acu && instruction == 0xa882008bu && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80172798u && instruction == 0x88830007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x801727a0u && instruction == 0xa8c20003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x801728acu && instruction == 0x88830007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x801728b4u && instruction == 0xa8c20003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80172c68u && instruction == 0x88830007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x80172c70u && instruction == 0xa8c20003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80173420u && instruction == 0x8a030007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x80173428u && instruction == 0xa8a20003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80173484u && instruction == 0x8a030007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8017348cu && instruction == 0xa8a20003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x80179488u && instruction == 0x8ba4002fu && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x80179490u && instruction == 0xaa02000fu && cpu->merge_reg == 4u) ||
-         (cpu->pc == 0x801794e8u && instruction == 0x8ba4003fu && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x801794f0u && instruction == 0xaa02000fu && cpu->merge_reg == 4u) ||
-         (cpu->pc == 0x8017b8f8u && instruction == 0x88830007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8017b900u && instruction == 0xa8c20003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8017b920u && instruction == 0x8883000fu && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8017b928u && instruction == 0xa8c20003u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8017c4d4u && instruction == 0x88c30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8017c4dcu && instruction == 0x88c4000bu && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8017c4e4u && instruction == 0x88c5000fu && cpu->merge_reg == 4u) ||
-         (cpu->pc == 0x8017c4ecu && instruction == 0xa8e20003u && cpu->merge_reg == 5u) ||
-         (cpu->pc == 0x8017c554u && instruction == 0x88c30007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x8017c55cu && instruction == 0x88c4000bu && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8017c564u && instruction == 0xa8e20003u && cpu->merge_reg == 4u) ||
-         (cpu->pc == 0x801826b4u && instruction == 0x8a630007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x801826bcu && instruction == 0xaba20013u && cpu->merge_reg == 3u) ||
-         (cpu->pc == 0x8018288cu && instruction == 0x8a630007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x80182894u && instruction == 0xaba20013u && cpu->merge_reg == 3u) ))
-        return 1;
-    if (cpu->merge_kind == MERGE_LWR &&
-        ((cpu->pc == 0x801349ccu && instruction == 0x8a830007u && cpu->merge_reg == 2u) ||
-         (cpu->pc == 0x801349d4u && instruction == 0xa8a20003u && cpu->merge_reg == 3u)))
-        return 1;
     /* Resident-image interleaved copy blocks: the compiler emits
      * LWL/LWR pairs for two registers back to back and then their SWL/SWR
      * stores, so a pending LWR is retired by the next pair's LWL (or by the
      * first store). Every entry below is that instruction's exact word at
      * that PC in artifacts/sc02-resident-20260910. */
-    if (        (cpu->merge_kind == MERGE_LWR &&
-         ((cpu->pc == 0x80134268u && instruction == 0x8a630007u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x80134270u && instruction == 0xa8a20003u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x80136ca8u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x80136cb0u && instruction == 0x80a40008u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x80146168u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x80146170u && instruction == 0xa8820003u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x80146490u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x80146498u && instruction == 0xa8820003u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x80147008u && instruction == 0x8a030007u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x80147010u && instruction == 0xaa22008bu && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x80147530u && instruction == 0x8a030127u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x80147538u && instruction == 0xaba20013u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x8014be1cu && instruction == 0x8a03009fu && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x8014be24u && instruction == 0xaba20013u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x8014c520u && instruction == 0x88e30007u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x8014c528u && instruction == 0xa902007fu && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x8014c758u && instruction == 0x88440017u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x8014c760u && instruction == 0xaa030167u && cpu->merge_reg == 4u) ||
-             (cpu->pc == 0x8014c868u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x8014c870u && instruction == 0xa8820157u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x8014c8d0u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x8014c8d8u && instruction == 0xa882015fu && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x8014c8f8u && instruction == 0x88830097u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x8014c900u && instruction == 0xa882015fu && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x8014cbacu && instruction == 0x88830007u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x8014cbb4u && instruction == 0xa8c20003u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x8014db78u && instruction == 0x8ba3002fu && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x8014db80u && instruction == 0xaba20033u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x8014ea8cu && instruction == 0x8a230007u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x8014ea94u && instruction == 0xaba20023u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x8014f5dcu && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x8014f5e4u && instruction == 0xaa020123u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x8014f614u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x8014f61cu && instruction == 0xaa020123u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x8014f670u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x8014f678u && instruction == 0xa8820003u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x8014f6acu && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x8014f6b4u && instruction == 0xaa020123u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x8014f874u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x8014f87cu && instruction == 0xaa020123u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x8014f8acu && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x8014f8b4u && instruction == 0xaa020123u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x8014f908u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x8014f910u && instruction == 0xa8820003u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x8014f944u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x8014f94cu && instruction == 0xaa020123u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x8014fb64u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x8014fb6cu && instruction == 0xa8820003u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x8014ff20u && instruction == 0x8ba30027u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x8014ff28u && instruction == 0xaa020083u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x8014ff74u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x8014ff7cu && instruction == 0xaa020083u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x80150008u && instruction == 0x8a430007u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x80150010u && instruction == 0xaba20013u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x80150080u && instruction == 0x8ba30017u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x80150088u && instruction == 0xaba2001bu && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x801500d0u && instruction == 0x8ba3001fu && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x801500d8u && instruction == 0xaa420003u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x801500f8u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x80150100u && instruction == 0xaa820003u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x80150230u && instruction == 0x8ba30027u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x80150238u && instruction == 0xaa020083u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x80150284u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x8015028cu && instruction == 0xaa020083u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x80150318u && instruction == 0x8a430007u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x80150320u && instruction == 0xaba20013u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x80150390u && instruction == 0x8ba30017u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x80150398u && instruction == 0xaba2001bu && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x801503e0u && instruction == 0x8ba3001fu && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x801503e8u && instruction == 0xaa420003u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x80150408u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x80150410u && instruction == 0xaa820003u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x80163420u && instruction == 0x89230007u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x80163428u && instruction == 0xaba2001bu && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x801634f4u && instruction == 0x89480007u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x801634fcu && instruction == 0xaba2001bu && cpu->merge_reg == 8u) ||
-             (cpu->pc == 0x80172384u && instruction == 0x88a30007u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x8017238cu && instruction == 0xa8820093u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x801723a4u && instruction == 0x88830097u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x801723acu && instruction == 0xa882008bu && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x80172798u && instruction == 0x88830007u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x801727a0u && instruction == 0xa8c20003u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x801728acu && instruction == 0x88830007u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x801728b4u && instruction == 0xa8c20003u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x80172c68u && instruction == 0x88830007u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x80172c70u && instruction == 0xa8c20003u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x80173420u && instruction == 0x8a030007u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x80173428u && instruction == 0xa8a20003u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x80173484u && instruction == 0x8a030007u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x8017348cu && instruction == 0xa8a20003u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x8017b8f8u && instruction == 0x88830007u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x8017b900u && instruction == 0xa8c20003u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x8017b920u && instruction == 0x8883000fu && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x8017b928u && instruction == 0xa8c20003u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x801826b4u && instruction == 0x8a630007u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x801826bcu && instruction == 0xaba20013u && cpu->merge_reg == 3u) ||
-             (cpu->pc == 0x8018288cu && instruction == 0x8a630007u && cpu->merge_reg == 2u) ||
-             (cpu->pc == 0x80182894u && instruction == 0xaba20013u && cpu->merge_reg == 3u))))
+    /* Every retire site is one row of kMergeRetireSites. These were
+     * separate `||` chains of the same three-field test; see the table. */
+    if (cpu->merge_kind == MERGE_LWR &&
+            merge_retire_site(cpu->pc, instruction, cpu->merge_reg))
         return 1;
     if (cpu->merge_kind == MERGE_LWR)
         return (cpu->pc == 0x80045728u || cpu->pc == 0x800457ecu ||
@@ -10397,1082 +16387,20 @@ static uint32_t merge_swr_value(uint32_t memory, uint32_t value, unsigned shift)
 static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
     uint32_t instruction;
     if (!cpu || !out || (cpu->pc & 3u)) return 0;
-    if (cpu->pc >= 0x80010000u && cpu->pc < 0x800100a0u)
-        instruction = kCrt80010000Words[(cpu->pc - 0x80010000u) / 4u];
-    else if (cpu->pc >= 0x800100a0u && cpu->pc < 0x80010110u)
-        instruction = kConstructor800100A0Words[(cpu->pc - 0x800100a0u) / 4u];
-    else if (cpu->pc >= 0x80010178u && cpu->pc < 0x8001020cu)
-        instruction = kCaller80010178Words[(cpu->pc - 0x80010178u) / 4u];
-    else if (cpu->pc >= 0x80010214u && cpu->pc < 0x80010938u)
-        instruction = kMain80010214Words[(cpu->pc - 0x80010214u) / 4u];
-    else if (cpu->pc >= 0x80014238u && cpu->pc < 0x800142c8u)
-        instruction = kMain80014238Words[(cpu->pc - 0x80014238u) / 4u];
-    else if (cpu->pc >= 0x8001c044u && cpu->pc < 0x8001c0c8u)
-        instruction = kMain8001C044Words[(cpu->pc - 0x8001c044u) / 4u];
-    else if (cpu->pc >= 0x80015310u && cpu->pc < 0x8001534cu)
-        instruction = kMain80015310Words[(cpu->pc - 0x80015310u) / 4u];
-    else if (cpu->pc >= 0x80028a48u && cpu->pc < 0x80028c50u)
-        instruction = kMain80028A48Words[(cpu->pc - 0x80028a48u) / 4u];
-    else if (cpu->pc >= 0x80028c50u && cpu->pc < 0x80028d58u)
-        instruction = kMain80028C50Words[(cpu->pc - 0x80028c50u) / 4u];
-    else if (cpu->pc >= 0x80047ec8u && cpu->pc < 0x80047f84u)
-        instruction = kMain80047EC8Words[(cpu->pc - 0x80047ec8u) / 4u];
-    else if (cpu->pc >= 0x80047e58u && cpu->pc < 0x80047ec8u)
-        instruction = kMain80047E58Words[(cpu->pc - 0x80047e58u) / 4u];
-    else if (cpu->pc >= 0x80049440u && cpu->pc < 0x80049458u)
-        instruction = kMain80049440Words[(cpu->pc - 0x80049440u) / 4u];
-    else if (cpu->pc >= 0x800128ecu && cpu->pc < 0x800129ccu)
-        instruction = kMain800128ECWords[(cpu->pc - 0x800128ecu) / 4u];
-    else if (cpu->pc >= 0x80014070u && cpu->pc < 0x80014094u)
-        instruction = kMain80014070Words[(cpu->pc - 0x80014070u) / 4u];
-    else if (cpu->pc >= 0x800128b4u && cpu->pc < 0x800128ecu)
-        instruction = kMain800128B4Words[(cpu->pc - 0x800128b4u) / 4u];
-    else if (cpu->pc >= 0x80013fe0u && cpu->pc < 0x80014004u)
-        instruction = kMain80013FE0Words[(cpu->pc - 0x80013fe0u) / 4u];
-    else if (cpu->pc >= 0x80013fbcu && cpu->pc < 0x80013fe0u)
-        instruction = kMain80013FBCWords[(cpu->pc - 0x80013fbcu) / 4u];
-    else if (cpu->pc >= 0x80013f98u && cpu->pc < 0x80013fbcu)
-        instruction = kMain80013F98Words[(cpu->pc - 0x80013f98u) / 4u];
-    else if (cpu->pc >= 0x80013ed0u && cpu->pc < 0x80013f3cu)
-        instruction = kMain80013ED0Words[(cpu->pc - 0x80013ed0u) / 4u];
-    else if (cpu->pc >= 0x8001282cu && cpu->pc < 0x800128b4u)
-        instruction = kMain8001282CWords[(cpu->pc - 0x8001282cu) / 4u];
-    else if (cpu->pc >= 0x80012558u && cpu->pc < 0x800126c4u)
-        instruction = kMain80012558Words[(cpu->pc - 0x80012558u) / 4u];
-    else if (cpu->pc >= 0x800126c4u && cpu->pc < 0x8001282cu)
-        instruction = kMain800126C4Words[(cpu->pc - 0x800126c4u) / 4u];
-    else if (cpu->pc >= 0x80013f3cu && cpu->pc < 0x80013f68u)
-        instruction = kMain80013F3CWords[(cpu->pc - 0x80013f3cu) / 4u];
-    else if (cpu->pc >= 0x800129ccu && cpu->pc < 0x80012a60u)
-        instruction = kMain800129CCWords[(cpu->pc - 0x800129ccu) / 4u];
-    else if (cpu->pc >= 0x8004cfecu && cpu->pc < 0x8004d16cu)
-        instruction = kMain8004CFECWords[(cpu->pc - 0x8004cfecu) / 4u];
-    else if (cpu->pc >= 0x8002d8a8u && cpu->pc < 0x8002d8d4u)
-        instruction = kMain8002D8A8Words[(cpu->pc - 0x8002d8a8u) / 4u];
-    else if (cpu->pc >= 0x800120dcu && cpu->pc < 0x8001212cu)
-        instruction = kMain800120DCWords[(cpu->pc - 0x800120dcu) / 4u];
-    else if (cpu->pc >= 0x800123f0u && cpu->pc < 0x80012558u)
-        instruction = kMain800123F0Words[(cpu->pc - 0x800123f0u) / 4u];
-    else if (cpu->pc >= 0x80029104u && cpu->pc < 0x80029124u)
-        instruction = kMain80029104Words[(cpu->pc - 0x80029104u) / 4u];
-    else if (cpu->pc >= 0x80014928u && cpu->pc < 0x80014960u)
-        instruction = kMain80014928Words[(cpu->pc - 0x80014928u) / 4u];
-    else if (cpu->pc >= 0x8005ce18u && cpu->pc < 0x8005ce24u)
-        instruction = kMain8005CE18Words[(cpu->pc - 0x8005ce18u) / 4u];
-    else if (cpu->pc >= 0x800143acu && cpu->pc < 0x80014444u)
-        instruction = kDraw800143ACWords[(cpu->pc - 0x800143acu) / 4u];
-    else if (cpu->pc >= 0x80014390u && cpu->pc < 0x800143acu)
-        instruction = kMain80014390Words[(cpu->pc - 0x80014390u) / 4u];
-    else if (cpu->pc >= 0x800191a8u && cpu->pc < 0x800191bcu)
-        instruction = kMain800191A8Words[(cpu->pc - 0x800191a8u) / 4u];
-    else if (cpu->pc >= 0x80010a98u && cpu->pc < 0x80010ae0u)
-        instruction = kMain80010A98Words[(cpu->pc - 0x80010a98u) / 4u];
-    else if (cpu->pc >= 0x800595fcu && cpu->pc < 0x80059658u)
-        instruction = kMain800595FCWords[(cpu->pc - 0x800595fcu) / 4u];
-    else if (cpu->pc >= 0x80042610u && cpu->pc < 0x80042644u)
-        instruction = kMain80042610Words[(cpu->pc - 0x80042610u) / 4u];
-    else if (cpu->pc >= 0x800189a8u && cpu->pc < 0x80018a20u)
-        instruction = kMain800189A8Words[(cpu->pc - 0x800189a8u) / 4u];
-    else if (cpu->pc >= 0x80018a20u && cpu->pc < 0x80018c64u)
-        instruction = kMain80018A20Words[(cpu->pc - 0x80018a20u) / 4u];
-    else if (cpu->pc >= 0x8005d184u && cpu->pc < 0x8005d244u)
-        instruction = kMain8005D184Words[(cpu->pc - 0x8005d184u) / 4u];
-    else if (cpu->pc >= 0x8005f704u && cpu->pc < 0x8005f728u)
-        instruction = kMain8005F704Words[(cpu->pc - 0x8005f704u) / 4u];
-    else if (cpu->pc >= 0x8005d244u && cpu->pc < 0x8005d4b8u)
-        instruction = kMain8005D244Words[(cpu->pc - 0x8005d244u) / 4u];
-    else if (cpu->pc >= 0x80028d58u && cpu->pc < 0x80028d78u)
-        instruction = kMain80028D58Words[(cpu->pc - 0x80028d58u) / 4u];
-    else if (cpu->pc >= 0x80029178u && cpu->pc < 0x800291a0u)
-        instruction = kMain80029178Words[(cpu->pc - 0x80029178u) / 4u];
-    else if (cpu->pc >= 0x8005d538u && cpu->pc < 0x8005d6a0u)
-        instruction = kMain8005D538Words[(cpu->pc - 0x8005d538u) / 4u];
-    else if (cpu->pc >= 0x8005e188u && cpu->pc < 0x8005e1a4u)
-        instruction = kMain8005E188Words[(cpu->pc - 0x8005e188u) / 4u];
-    else if (cpu->pc >= 0x8005d4b8u && cpu->pc < 0x8005d538u)
-        instruction = kMain8005D4B8Words[(cpu->pc - 0x8005d4b8u) / 4u];
-    else if (cpu->pc >= 0x8005e79cu && cpu->pc < 0x8005e8e8u)
-        instruction = kMain8005E79CWords[(cpu->pc - 0x8005e79cu) / 4u];
-    else if (cpu->pc >= 0x80018c64u && cpu->pc < 0x80018ce8u)
-        instruction = kMain80018C64Words[(cpu->pc - 0x80018c64u) / 4u];
-    else if (cpu->pc >= 0x80018f88u && cpu->pc < 0x80018fc8u)
-        instruction = kMain80018F88Words[(cpu->pc - 0x80018f88u) / 4u];
-    else if (cpu->pc >= 0x80018ce8u && cpu->pc < 0x80018e78u)
-        instruction = kMain80018CE8Words[(cpu->pc - 0x80018ce8u) / 4u];
-    else if (cpu->pc >= 0x80018f20u && cpu->pc < 0x80018f88u)
-        instruction = kMain80018F20Words[(cpu->pc - 0x80018f20u) / 4u];
-    else if (cpu->pc >= 0x80018e9cu && cpu->pc < 0x80018f20u)
-        instruction = kMain80018E9CWords[(cpu->pc - 0x80018e9cu) / 4u];
-    else if (cpu->pc >= 0x800291b4u && cpu->pc < 0x800291c8u)
-        instruction = kMain800291B4Words[(cpu->pc - 0x800291b4u) / 4u];
-    else if (cpu->pc >= 0x80028d78u && cpu->pc < 0x80028d9cu)
-        instruction = kMain80028D78Words[(cpu->pc - 0x80028d78u) / 4u];
-    else if (cpu->pc >= 0x80015208u && cpu->pc < 0x800152f4u)
-        instruction = kMain80015208Words[(cpu->pc - 0x80015208u) / 4u];
-    else if (cpu->pc >= 0x80059bfcu && cpu->pc < 0x80059cf4u)
-        instruction = kMain80059BFCWords[(cpu->pc - 0x80059bfcu) / 4u];
-    else if (cpu->pc >= 0x80059cf4u && cpu->pc < 0x80059d68u)
-        instruction = kMain80059CF4Words[(cpu->pc - 0x80059cf4u) / 4u];
-    else if (cpu->pc >= 0x8003500cu && cpu->pc < 0x800351e8u)
-        instruction = kMain8003500CWords[(cpu->pc - 0x8003500cu) / 4u];
-    else if (cpu->pc >= 0x8002d034u && cpu->pc < 0x8002d1f0u)
-        instruction = kMain8002D034Words[(cpu->pc - 0x8002d034u) / 4u];
-    else if (cpu->pc >= 0x8002d240u && cpu->pc < 0x8002d29cu)
-        instruction = kMain8002D240Words[(cpu->pc - 0x8002d240u) / 4u];
-    else if (cpu->pc >= 0x8002d29cu && cpu->pc < 0x8002d320u)
-        instruction = kMain8002D29CWords[(cpu->pc - 0x8002d29cu) / 4u];
-    else if (cpu->pc >= 0x8002dc68u && cpu->pc < 0x8002df80u)
-        instruction = kMain8002DC68Words[(cpu->pc - 0x8002dc68u) / 4u];
-    else if (cpu->pc >= 0x8002df80u && cpu->pc < 0x8002e138u)
-        instruction = kMain8002DF80Words[(cpu->pc - 0x8002df80u) / 4u];
-    else if (cpu->pc >= 0x8002e138u && cpu->pc < 0x8002e5bcu)
-        instruction = kMain8002E138Words[(cpu->pc - 0x8002e138u) / 4u];
-    else if (cpu->pc >= 0x8002e5bcu && cpu->pc < 0x8002e5f8u)
-        instruction = kMain8002E5BCWords[(cpu->pc - 0x8002e5bcu) / 4u];
-    else if (cpu->pc >= 0x8002e5f8u && cpu->pc < 0x8002e638u)
-        instruction = kMain8002E5F8Words[(cpu->pc - 0x8002e5f8u) / 4u];
-    else if (cpu->pc >= 0x8002e638u && cpu->pc < 0x8002e700u)
-        instruction = kMain8002E638Words[(cpu->pc - 0x8002e638u) / 4u];
-    else if (cpu->pc >= 0x8002e700u && cpu->pc < 0x8002e79cu)
-        instruction = kMain8002E700Words[(cpu->pc - 0x8002e700u) / 4u];
-    else if (cpu->pc >= 0x8002e79cu && cpu->pc < 0x8002e818u)
-        instruction = kMain8002E79CWords[(cpu->pc - 0x8002e79cu) / 4u];
-    else if (cpu->pc >= 0x8002e818u && cpu->pc < 0x8002e8dcu)
-        instruction = kMain8002E818Words[(cpu->pc - 0x8002e818u) / 4u];
-    else if (cpu->pc >= 0x8002e8dcu && cpu->pc < 0x8002e94cu)
-        instruction = kMain8002E8DCWords[(cpu->pc - 0x8002e8dcu) / 4u];
-    else if (cpu->pc >= 0x8002e94cu && cpu->pc < 0x8002ea10u)
-        instruction = kMain8002E94CWords[(cpu->pc - 0x8002e94cu) / 4u];
-    else if (cpu->pc >= 0x8002ea10u && cpu->pc < 0x8002eab0u)
-        instruction = kMain8002EA10Words[(cpu->pc - 0x8002ea10u) / 4u];
-    else if (cpu->pc >= 0x8002eab0u && cpu->pc < 0x8002eb10u)
-        instruction = kMain8002EAB0Words[(cpu->pc - 0x8002eab0u) / 4u];
-    else if (cpu->pc >= 0x8002eb10u && cpu->pc < 0x8002ebacu)
-        instruction = kMain8002EB10Words[(cpu->pc - 0x8002eb10u) / 4u];
-    else if (cpu->pc >= 0x8002ebacu && cpu->pc < 0x8002ec10u)
-        instruction = kMain8002EBACWords[(cpu->pc - 0x8002ebacu) / 4u];
-    else if (cpu->pc >= 0x8002ede4u && cpu->pc < 0x8002ee64u)
-        instruction = kMain8002EDE4Words[(cpu->pc - 0x8002ede4u) / 4u];
-    else if (cpu->pc >= 0x8002ee90u && cpu->pc < 0x8002eeb8u)
-        instruction = kMain8002EE90Words[(cpu->pc - 0x8002ee90u) / 4u];
-    else if (cpu->pc >= 0x8002eeb8u && cpu->pc < 0x8002eed8u)
-        instruction = kMain8002EEB8Words[(cpu->pc - 0x8002eeb8u) / 4u];
-    else if (cpu->pc >= 0x8002eed8u && cpu->pc < 0x8002efd0u)
-        instruction = kMain8002EED8Words[(cpu->pc - 0x8002eed8u) / 4u];
-    else if (cpu->pc >= 0x8002efd0u && cpu->pc < 0x8002eff8u)
-        instruction = kMain8002EFD0Words[(cpu->pc - 0x8002efd0u) / 4u];
-    else if (cpu->pc >= 0x8002f0d0u && cpu->pc < 0x8002f0f4u)
-        instruction = kMain8002F0D0Words[(cpu->pc - 0x8002f0d0u) / 4u];
-    else if (cpu->pc >= 0x8002f248u && cpu->pc < 0x8002f4e4u)
-        instruction = kMain8002F248Words[(cpu->pc - 0x8002f248u) / 4u];
-    else if (cpu->pc >= 0x8002f4e4u && cpu->pc < 0x8002f5c8u)
-        instruction = kMain8002F4E4Words[(cpu->pc - 0x8002f4e4u) / 4u];
-    else if (cpu->pc >= 0x8002f714u && cpu->pc < 0x8002f80cu)
-        instruction = kMain8002F714Words[(cpu->pc - 0x8002f714u) / 4u];
-    else if (cpu->pc >= 0x8002fa3cu && cpu->pc < 0x8002fae0u)
-        instruction = kMain8002FA3CWords[(cpu->pc - 0x8002fa3cu) / 4u];
-    else if (cpu->pc >= 0x80031b7cu && cpu->pc < 0x80031be0u)
-        instruction = kMain80031B7CWords[(cpu->pc - 0x80031b7cu) / 4u];
-    else if (cpu->pc >= 0x80031cc8u && cpu->pc < 0x80031d70u)
-        instruction = kMain80031CC8Words[(cpu->pc - 0x80031cc8u) / 4u];
-    else if (cpu->pc >= 0x80031decu && cpu->pc < 0x80031e94u)
-        instruction = kMain80031DECWords[(cpu->pc - 0x80031decu) / 4u];
-    else if (cpu->pc >= 0x80031e94u && cpu->pc < 0x80031f14u)
-        instruction = kMain80031E94Words[(cpu->pc - 0x80031e94u) / 4u];
-    else if (cpu->pc >= 0x80031f14u && cpu->pc < 0x80031fc8u)
-        instruction = kMain80031F14Words[(cpu->pc - 0x80031f14u) / 4u];
-    else if (cpu->pc >= 0x80031fc8u && cpu->pc < 0x80032048u)
-        instruction = kMain80031FC8Words[(cpu->pc - 0x80031fc8u) / 4u];
-    else if (cpu->pc >= 0x80032048u && cpu->pc < 0x800322a8u)
-        instruction = kMain80032048Words[(cpu->pc - 0x80032048u) / 4u];
-    else if (cpu->pc >= 0x800322a8u && cpu->pc < 0x800324a4u)
-        instruction = kMain800322A8Words[(cpu->pc - 0x800322a8u) / 4u];
-    else if (cpu->pc >= 0x800324a4u && cpu->pc < 0x80032774u)
-        instruction = kMain800324A4Words[(cpu->pc - 0x800324a4u) / 4u];
-    else if (cpu->pc >= 0x80032774u && cpu->pc < 0x80032a74u)
-        instruction = kMain80032774Words[(cpu->pc - 0x80032774u) / 4u];
-    else if (cpu->pc >= 0x80032a74u && cpu->pc < 0x8003310cu)
-        instruction = kMain80032A74Words[(cpu->pc - 0x80032a74u) / 4u];
-    else if (cpu->pc >= 0x8003310cu && cpu->pc < 0x800331d4u)
-        instruction = kMain8003310CWords[(cpu->pc - 0x8003310cu) / 4u];
-    else if (cpu->pc >= 0x800331d4u && cpu->pc < 0x8003324cu)
-        instruction = kMain800331D4Words[(cpu->pc - 0x800331d4u) / 4u];
-    else if (cpu->pc >= 0x8003324cu && cpu->pc < 0x80033324u)
-        instruction = kMain8003324CWords[(cpu->pc - 0x8003324cu) / 4u];
-    else if (cpu->pc >= 0x80033398u && cpu->pc < 0x8003350cu)
-        instruction = kMain80033398Words[(cpu->pc - 0x80033398u) / 4u];
-    else if (cpu->pc >= 0x8003350cu && cpu->pc < 0x800335b8u)
-        instruction = kMain8003350CWords[(cpu->pc - 0x8003350cu) / 4u];
-    else if (cpu->pc >= 0x800335b8u && cpu->pc < 0x800336a8u)
-        instruction = kMain800335B8Words[(cpu->pc - 0x800335b8u) / 4u];
-    else if (cpu->pc >= 0x80034314u && cpu->pc < 0x80034650u)
-        instruction = kMain80034314Words[(cpu->pc - 0x80034314u) / 4u];
-    else if (cpu->pc >= 0x800346d0u && cpu->pc < 0x800347c8u)
-        instruction = kMain800346D0Words[(cpu->pc - 0x800346d0u) / 4u];
-    else if (cpu->pc >= 0x80034844u && cpu->pc < 0x800348a8u)
-        instruction = kMain80034844Words[(cpu->pc - 0x80034844u) / 4u];
-    else if (cpu->pc >= 0x800348a8u && cpu->pc < 0x8003491cu)
-        instruction = kMain800348A8Words[(cpu->pc - 0x800348a8u) / 4u];
-    else if (cpu->pc >= 0x8003491cu && cpu->pc < 0x80034a54u)
-        instruction = kMain8003491CWords[(cpu->pc - 0x8003491cu) / 4u];
-    else if (cpu->pc >= 0x80034a54u && cpu->pc < 0x80034a9cu)
-        instruction = kMain80034A54Words[(cpu->pc - 0x80034a54u) / 4u];
-    else if (cpu->pc >= 0x80034a9cu && cpu->pc < 0x80034ae0u)
-        instruction = kMain80034A9CWords[(cpu->pc - 0x80034a9cu) / 4u];
-    else if (cpu->pc >= 0x80034ae0u && cpu->pc < 0x80034b0cu)
-        instruction = kMain80034AE0Words[(cpu->pc - 0x80034ae0u) / 4u];
-    else if (cpu->pc >= 0x80034b0cu && cpu->pc < 0x80034b3cu)
-        instruction = kMain80034B0CWords[(cpu->pc - 0x80034b0cu) / 4u];
-    else if (cpu->pc >= 0x80034cf0u && cpu->pc < 0x80034dfcu)
-        instruction = kMain80034CF0Words[(cpu->pc - 0x80034cf0u) / 4u];
-    else if (cpu->pc >= 0x80034dfcu && cpu->pc < 0x8003500cu)
-        instruction = kMain80034DFCWords[(cpu->pc - 0x80034dfcu) / 4u];
-    else if (cpu->pc >= 0x80036d58u && cpu->pc < 0x80036eb4u)
-        instruction = kMain80036D58Words[(cpu->pc - 0x80036d58u) / 4u];
-    else if (cpu->pc >= 0x80036eb4u && cpu->pc < 0x80036ee8u)
-        instruction = kMain80036EB4Words[(cpu->pc - 0x80036eb4u) / 4u];
-    else if (cpu->pc >= 0x80036ee8u && cpu->pc < 0x80036f18u)
-        instruction = kMain80036EE8Words[(cpu->pc - 0x80036ee8u) / 4u];
-    else if (cpu->pc >= 0x80036f18u && cpu->pc < 0x80036f98u)
-        instruction = kMain80036F18Words[(cpu->pc - 0x80036f18u) / 4u];
-    else if (cpu->pc >= 0x800381e4u && cpu->pc < 0x80038210u)
-        instruction = kMain800381E4Words[(cpu->pc - 0x800381e4u) / 4u];
-    else if (cpu->pc >= 0x800383a4u && cpu->pc < 0x800384a8u)
-        instruction = kMain800383A4Words[(cpu->pc - 0x800383a4u) / 4u];
-    else if (cpu->pc >= 0x800384a8u && cpu->pc < 0x800385c0u)
-        instruction = kMain800384A8Words[(cpu->pc - 0x800384a8u) / 4u];
-    else if (cpu->pc >= 0x800385c0u && cpu->pc < 0x80038638u)
-        instruction = kMain800385C0Words[(cpu->pc - 0x800385c0u) / 4u];
-    else if (cpu->pc >= 0x80038668u && cpu->pc < 0x80038698u)
-        instruction = kMain80038668Words[(cpu->pc - 0x80038668u) / 4u];
-    else if (cpu->pc >= 0x80038698u && cpu->pc < 0x800387c0u)
-        instruction = kMain80038698Words[(cpu->pc - 0x80038698u) / 4u];
-    else if (cpu->pc >= 0x800387c0u && cpu->pc < 0x80038838u)
-        instruction = kMain800387C0Words[(cpu->pc - 0x800387c0u) / 4u];
-    else if (cpu->pc >= 0x80038838u && cpu->pc < 0x800388e8u)
-        instruction = kMain80038838Words[(cpu->pc - 0x80038838u) / 4u];
-    else if (cpu->pc >= 0x80038908u && cpu->pc < 0x80038958u)
-        instruction = kMain80038908Words[(cpu->pc - 0x80038908u) / 4u];
-    else if (cpu->pc >= 0x8003916cu && cpu->pc < 0x800391d4u)
-        instruction = kMain8003916CWords[(cpu->pc - 0x8003916cu) / 4u];
-    else if (cpu->pc >= 0x8003ab84u && cpu->pc < 0x8003ae14u)
-        instruction = kMain8003AB84Words[(cpu->pc - 0x8003ab84u) / 4u];
-    else if (cpu->pc >= 0x8003af4cu && cpu->pc < 0x8003aff0u)
-        instruction = kMain8003AF4CWords[(cpu->pc - 0x8003af4cu) / 4u];
-    else if (cpu->pc >= 0x8003b08cu && cpu->pc < 0x8003b0b8u)
-        instruction = kMain8003B08CWords[(cpu->pc - 0x8003b08cu) / 4u];
-    else if (cpu->pc >= 0x8003b0b8u && cpu->pc < 0x8003b0e4u)
-        instruction = kMain8003B0B8Words[(cpu->pc - 0x8003b0b8u) / 4u];
-    else if (cpu->pc >= 0x8003c0a0u && cpu->pc < 0x8003c23cu)
-        instruction = kMain8003C0A0Words[(cpu->pc - 0x8003c0a0u) / 4u];
-    else if (cpu->pc >= 0x8003c92cu && cpu->pc < 0x8003cf68u)
-        instruction = kMain8003C92CWords[(cpu->pc - 0x8003c92cu) / 4u];
-    else if (cpu->pc >= 0x8003cff8u && cpu->pc < 0x8003d134u)
-        instruction = kMain8003CFF8Words[(cpu->pc - 0x8003cff8u) / 4u];
-    else if (cpu->pc >= 0x8003ede8u && cpu->pc < 0x8003eee4u)
-        instruction = kMain8003EDE8Words[(cpu->pc - 0x8003ede8u) / 4u];
-    else if (cpu->pc >= 0x80043974u && cpu->pc < 0x80043994u)
-        instruction = kMain80043974Words[(cpu->pc - 0x80043974u) / 4u];
-    else if (cpu->pc >= 0x80044a8cu && cpu->pc < 0x80044b14u)
-        instruction = kMain80044A8CWords[(cpu->pc - 0x80044a8cu) / 4u];
-    else if (cpu->pc >= 0x8005ce98u && cpu->pc < 0x8005cea4u)
-        instruction = kMain8005CE98Words[(cpu->pc - 0x8005ce98u) / 4u];
-    else if (cpu->pc >= 0x8001a0fcu && cpu->pc < 0x8001a114u)
-        instruction = kMain8001A0FCWords[(cpu->pc - 0x8001a0fcu) / 4u];
-    else if (cpu->pc >= 0x8001a114u && cpu->pc < 0x8001a338u)
-        instruction = kMain8001A114Words[(cpu->pc - 0x8001a114u) / 4u];
-    else if (cpu->pc >= 0x8001af34u && cpu->pc < 0x8001b0d4u)
-        instruction = kMain8001AF34Words[(cpu->pc - 0x8001af34u) / 4u];
-    else if (cpu->pc >= 0x8001b0d4u && cpu->pc < 0x8001b22cu)
-        instruction = kMain8001B0D4Words[(cpu->pc - 0x8001b0d4u) / 4u];
-    else if (cpu->pc >= 0x8001b394u && cpu->pc < 0x8001b3c4u)
-        instruction = kMain8001B394Words[(cpu->pc - 0x8001b394u) / 4u];
-    else if (cpu->pc >= 0x8001b3c4u && cpu->pc < 0x8001b710u)
-        instruction = kMain8001B3C4Words[(cpu->pc - 0x8001b3c4u) / 4u];
-    else if (cpu->pc >= 0x8001b710u && cpu->pc < 0x8001b788u)
-        instruction = kMain8001B710Words[(cpu->pc - 0x8001b710u) / 4u];
-    else if (cpu->pc >= 0x8001b788u && cpu->pc < 0x8001b7c4u)
-        instruction = kMain8001B788Words[(cpu->pc - 0x8001b788u) / 4u];
-    else if (cpu->pc >= 0x8001b7c4u && cpu->pc < 0x8001b85cu)
-        instruction = kMain8001B7C4Words[(cpu->pc - 0x8001b7c4u) / 4u];
-    else if (cpu->pc >= 0x8002d4c8u && cpu->pc < 0x8002d59cu)
-        instruction = kMain8002D4C8Words[(cpu->pc - 0x8002d4c8u) / 4u];
-    else if (cpu->pc >= 0x8002d7fcu && cpu->pc < 0x8002d80cu)
-        instruction = kMain8002D7FCWords[(cpu->pc - 0x8002d7fcu) / 4u];
-    else if (cpu->pc >= 0x8002ed90u && cpu->pc < 0x8002ede4u)
-        instruction = kMain8002ED90Words[(cpu->pc - 0x8002ed90u) / 4u];
-    else if (cpu->pc >= 0x8002fd14u && cpu->pc < 0x8002fdc8u)
-        instruction = kMain8002FD14Words[(cpu->pc - 0x8002fd14u) / 4u];
-    else if (cpu->pc >= 0x8002fde8u && cpu->pc < 0x8002ff0cu)
-        instruction = kMain8002FDE8Words[(cpu->pc - 0x8002fde8u) / 4u];
-    else if (cpu->pc >= 0x8002ff0cu && cpu->pc < 0x800301a4u)
-        instruction = kMain8002FF0CWords[(cpu->pc - 0x8002ff0cu) / 4u];
-    else if (cpu->pc >= 0x80030730u && cpu->pc < 0x80030a14u)
-        instruction = kMain80030730Words[(cpu->pc - 0x80030730u) / 4u];
-    else if (cpu->pc >= 0x80030a14u && cpu->pc < 0x80030ca4u)
-        instruction = kMain80030A14Words[(cpu->pc - 0x80030a14u) / 4u];
-    else if (cpu->pc >= 0x80031a98u && cpu->pc < 0x80031b7cu)
-        instruction = kMain80031A98Words[(cpu->pc - 0x80031a98u) / 4u];
-    else if (cpu->pc >= 0x800363ccu && cpu->pc < 0x80036af8u)
-        instruction = kMain800363CCWords[(cpu->pc - 0x800363ccu) / 4u];
-    else if (cpu->pc >= 0x80036af8u && cpu->pc < 0x80036d24u)
-        instruction = kMain80036AF8Words[(cpu->pc - 0x80036af8u) / 4u];
-    else if (cpu->pc >= 0x80037144u && cpu->pc < 0x80037334u)
-        instruction = kMain80037144Words[(cpu->pc - 0x80037144u) / 4u];
-    else if (cpu->pc >= 0x80037334u && cpu->pc < 0x80037358u)
-        instruction = kMain80037334Words[(cpu->pc - 0x80037334u) / 4u];
-    else if (cpu->pc >= 0x80037358u && cpu->pc < 0x80037368u)
-        instruction = kMain80037358Words[(cpu->pc - 0x80037358u) / 4u];
-    else if (cpu->pc >= 0x80037368u && cpu->pc < 0x800373d0u)
-        instruction = kMain80037368Words[(cpu->pc - 0x80037368u) / 4u];
-    else if (cpu->pc >= 0x800373d0u && cpu->pc < 0x800374ccu)
-        instruction = kMain800373D0Words[(cpu->pc - 0x800373d0u) / 4u];
-    else if (cpu->pc >= 0x800374ccu && cpu->pc < 0x8003750cu)
-        instruction = kMain800374CCWords[(cpu->pc - 0x800374ccu) / 4u];
-    else if (cpu->pc >= 0x8003750cu && cpu->pc < 0x8003775cu)
-        instruction = kMain8003750CWords[(cpu->pc - 0x8003750cu) / 4u];
-    else if (cpu->pc >= 0x800377d8u && cpu->pc < 0x80037cc8u)
-        instruction = kMain800377D8Words[(cpu->pc - 0x800377d8u)/4u];
-    else if (cpu->pc >= 0x8003775cu && cpu->pc < 0x800377d8u)
-        instruction = kMain8003775CWords[(cpu->pc - 0x8003775cu) / 4u];
-    else if (cpu->pc >= 0x80037cd8u && cpu->pc < 0x80037d74u)
-        instruction = kMain80037CD8Words[(cpu->pc - 0x80037cd8u) / 4u];
-    else if (cpu->pc >= 0x80037d74u && cpu->pc < 0x80037d98u)
-        instruction = kMain80037D74Words[(cpu->pc - 0x80037d74u) / 4u];
-    else if (cpu->pc >= 0x800401ccu && cpu->pc < 0x800401e4u)
-        instruction = kMain800401CCWords[(cpu->pc - 0x800401ccu) / 4u];
-    else if (cpu->pc >= 0x800415a8u && cpu->pc < 0x8004162cu)
-        instruction = kMain800415A8Words[(cpu->pc - 0x800415a8u) / 4u];
-    else if (cpu->pc >= 0x8004162cu && cpu->pc < 0x800416a8u)
-        instruction = kMain8004162CWords[(cpu->pc - 0x8004162cu) / 4u];
-    else if (cpu->pc >= 0x800416a8u && cpu->pc < 0x800419b0u)
-        instruction = kMain800416A8Words[(cpu->pc - 0x800416a8u) / 4u];
-    else if (cpu->pc >= 0x800419b0u && cpu->pc < 0x80041a20u)
-        instruction = kMain800419B0Words[(cpu->pc - 0x800419b0u) / 4u];
-    else if (cpu->pc >= 0x80041a80u && cpu->pc < 0x80041ab0u)
-        instruction = kMain80041A80Words[(cpu->pc - 0x80041a80u) / 4u];
-    else if (cpu->pc >= 0x80041ab0u && cpu->pc < 0x80041e8cu)
-        instruction = kMain80041AB0Words[(cpu->pc - 0x80041ab0u) / 4u];
-    else if (cpu->pc >= 0x80041e8cu && cpu->pc < 0x80042004u)
-        instruction = kMain80041E8CWords[(cpu->pc - 0x80041e8cu) / 4u];
-    else if (cpu->pc >= 0x80042374u && cpu->pc < 0x8004239cu)
-        instruction = kMain80042374Words[(cpu->pc - 0x80042374u) / 4u];
-    else if (cpu->pc >= 0x800439d4u && cpu->pc < 0x800439f8u)
-        instruction = kMain800439D4Words[(cpu->pc - 0x800439d4u) / 4u];
-    else if (cpu->pc >= 0x80046630u && cpu->pc < 0x8004674cu)
-        instruction = kMain80046630Words[(cpu->pc - 0x80046630u) / 4u];
-    else if (cpu->pc >= 0x8004674cu && cpu->pc < 0x8004689cu)
-        instruction = kMain8004674CWords[(cpu->pc - 0x8004674cu) / 4u];
-    else if (cpu->pc >= 0x8001aaa0u && cpu->pc < 0x8001aad0u)
-        instruction = kMain8001AAA0Words[(cpu->pc - 0x8001aaa0u) / 4u];
-    else if (cpu->pc >= 0x80014cacu && cpu->pc < 0x80014cf8u)
-        instruction = kMain80014CACWords[(cpu->pc - 0x80014cacu) / 4u];
-    else if (cpu->pc >= 0x8001aa98u && cpu->pc < 0x8001aaa0u)
-        instruction = kMain8001AA98Words[(cpu->pc - 0x8001aa98u) / 4u];
-    else if (cpu->pc >= 0x8001534cu && cpu->pc < 0x800153a4u)
-        instruction = kMain8001534CWords[(cpu->pc - 0x8001534cu) / 4u];
-    else if (cpu->pc >= 0x800153a4u && cpu->pc < 0x800153ccu)
-        instruction = kMain800153A4Words[(cpu->pc - 0x800153a4u) / 4u];
-    else if (cpu->pc >= 0x80010da0u && cpu->pc < 0x80010de0u)
-        instruction = kMain80010DA0Words[(cpu->pc - 0x80010da0u) / 4u];
-    else if (cpu->pc >= 0x800110ccu && cpu->pc < 0x80011144u)
-        instruction = kMain800110CCWords[(cpu->pc - 0x800110ccu) / 4u];
-    else if (cpu->pc >= 0x80011220u && cpu->pc < 0x8001125cu)
-        instruction = kMain80011220Words[(cpu->pc - 0x80011220u) / 4u];
-    else if (cpu->pc >= 0x8001125cu && cpu->pc < 0x800112a8u)
-        instruction = kMain8001125CWords[(cpu->pc - 0x8001125cu) / 4u];
-    else if (cpu->pc >= 0x800111bcu && cpu->pc < 0x80011220u)
-        instruction = kMain800111BCWords[(cpu->pc - 0x800111bcu) / 4u];
-    else if (cpu->pc >= 0x80011144u && cpu->pc < 0x800111bcu)
-        instruction = kMain80011144Words[(cpu->pc - 0x80011144u) / 4u];
-    else if (cpu->pc >= 0x8001a9f8u && cpu->pc < 0x8001aa78u)
-        instruction = kMain8001A9F8Words[(cpu->pc - 0x8001a9f8u) / 4u];
-    else if (cpu->pc >= 0x80010f80u && cpu->pc < 0x800110ccu)
-        instruction = kMain80010F80Words[(cpu->pc - 0x80010f80u) / 4u];
-    else if (cpu->pc >= 0x80029514u && cpu->pc < 0x80029524u)
-        instruction = kMain80029514Words[(cpu->pc - 0x80029514u) / 4u];
-    else if (cpu->pc >= 0x80010ed4u && cpu->pc < 0x80010f80u)
-        instruction = kMain80010ED4Words[(cpu->pc - 0x80010ed4u) / 4u];
-    else if (cpu->pc >= 0x80014338u && cpu->pc < 0x80014390u)
-        instruction = kMain80014338Words[(cpu->pc - 0x80014338u) / 4u];
-    else if (cpu->pc >= 0x80010d60u && cpu->pc < 0x80010da0u)
-        instruction = kMain80010D60Words[(cpu->pc - 0x80010d60u) / 4u];
-    else if (cpu->pc >= 0x8002fdc8u && cpu->pc < 0x8002fde8u)
-        instruction = kMain8002FDC8Words[(cpu->pc - 0x8002fdc8u) / 4u];
-    else if (cpu->pc >= 0x8002fc64u && cpu->pc < 0x8002fd14u)
-        instruction = kMain8002FC64Words[(cpu->pc - 0x8002fc64u) / 4u];
-    else if (cpu->pc >= 0x8003c438u && cpu->pc < 0x8003c498u)
-        instruction = kMain8003C438Words[(cpu->pc - 0x8003c438u) / 4u];
-    else if (cpu->pc >= 0x8003c498u && cpu->pc < 0x8003c4f0u)
-        instruction = kMain8003C498Words[(cpu->pc - 0x8003c498u) / 4u];
-    else if (cpu->pc >= 0x8003ae14u && cpu->pc < 0x8003ae9cu)
-        instruction = kMain8003AE14Words[(cpu->pc - 0x8003ae14u) / 4u];
-    else if (cpu->pc >= 0x800301a4u && cpu->pc < 0x800301c8u)
-        instruction = kMain800301A4Words[(cpu->pc - 0x800301a4u) / 4u];
-    else if (cpu->pc >= 0x8002fb08u && cpu->pc < 0x8002fc64u)
-        instruction = kMain8002FB08Words[(cpu->pc - 0x8002fb08u) / 4u];
-    else if (cpu->pc >= 0x8001abbcu && cpu->pc < 0x8001acf0u)
-        instruction = kMain8001ABBCWords[(cpu->pc - 0x8001abbcu) / 4u];
-    else if (cpu->pc >= 0x8001acf0u && cpu->pc < 0x8001ae90u)
-        instruction = kMain8001ACF0Words[(cpu->pc - 0x8001acf0u) / 4u];
-    else if (cpu->pc >= 0x8001ae90u && cpu->pc < 0x8001af04u)
-        instruction = kMain8001AE90Words[(cpu->pc - 0x8001ae90u) / 4u];
-    else if (cpu->pc >= 0x800149e0u && cpu->pc < 0x80014b10u)
-        instruction = kMain800149E0Words[(cpu->pc - 0x800149e0u) / 4u];
-    else if (cpu->pc >= 0x80014c28u && cpu->pc < 0x80014c54u)
-        instruction = kMain80014C28Words[(cpu->pc - 0x80014c28u) / 4u];
-    else if (cpu->pc >= 0x80014d30u && cpu->pc < 0x80014d68u)
-        instruction = kMain80014D30Words[(cpu->pc - 0x80014d30u) / 4u];
-    else if (cpu->pc >= 0x80014cf8u && cpu->pc < 0x80014d30u)
-        instruction = kMain80014CF8Words[(cpu->pc - 0x80014cf8u) / 4u];
-    else if (cpu->pc >= 0x800167f0u && cpu->pc < 0x800168b4u)
-        instruction = kMain800167F0Words[(cpu->pc - 0x800167f0u) / 4u];
-    else if (cpu->pc >= 0x80053290u && cpu->pc < 0x80053308u)
-        instruction = kMain80053290Words[(cpu->pc - 0x80053290u)/4u];
-    else if (cpu->pc >= 0x800553d8u && cpu->pc < 0x800553f4u)
-        instruction = kMain800553D8Words[(cpu->pc - 0x800553d8u)/4u];
-    else if (cpu->pc >= 0x800553f4u && cpu->pc < 0x80055d40u)
-        instruction = kMain800553F4Words[(cpu->pc - 0x800553f4u)/4u];
-    else if (cpu->pc >= 0x8001c9d0u && cpu->pc < 0x8001ca1cu)
-        instruction = kMain8001C9D0Words[(cpu->pc - 0x8001c9d0u)/4u];
-    else if (cpu->pc >= 0x8001c2c4u && cpu->pc < 0x8001c320u)
-        instruction = kMain8001C2C4Words[(cpu->pc - 0x8001c2c4u)/4u];
-    else if (cpu->pc >= 0x8001c320u && cpu->pc < 0x8001c448u)
-        instruction = kMain8001C320Words[(cpu->pc - 0x8001c320u)/4u];
-    else if (cpu->pc >= 0x800285acu && cpu->pc < 0x800285ccu)
-        instruction = kMain800285ACWords[(cpu->pc - 0x800285acu)/4u];
-    else if (cpu->pc >= 0x8005c4ccu && cpu->pc < 0x8005c4dcu)
-        instruction = kMain8005C4CCWords[(cpu->pc - 0x8005c4ccu) / 4u];
-    else if (cpu->pc >= 0x80011e24u && cpu->pc < 0x80011e84u)
-        instruction = kMain80011E24Words[(cpu->pc - 0x80011e24u) / 4u];
-    else if (cpu->pc >= 0x800295d4u && cpu->pc < 0x80029664u)
-        instruction = kMain800295D4Words[(cpu->pc - 0x800295d4u) / 4u];
-    else if (cpu->pc >= 0x80029664u && cpu->pc < 0x80029690u)
-        instruction = kMain80029664Words[(cpu->pc - 0x80029664u) / 4u];
-    else if (cpu->pc >= 0x80011380u && cpu->pc < 0x80011680u)
-        instruction = kMain80011380Words[(cpu->pc - 0x80011380u) / 4u];
-    else if (cpu->pc >= 0x800118acu && cpu->pc < 0x80011928u)
-        instruction = kMain800118ACWords[(cpu->pc - 0x800118acu) / 4u];
-    else if (cpu->pc >= 0x80010a84u && cpu->pc < 0x80010a98u)
-        instruction = kMain80010A84Words[(cpu->pc - 0x80010a84u) / 4u];
-    else if (cpu->pc >= 0x800146b0u && cpu->pc < 0x80014774u)
-        instruction = kMain800146B0Words[(cpu->pc - 0x800146b0u) / 4u];
-    else if (cpu->pc >= 0x800527c4u && cpu->pc < 0x8005283cu)
-        instruction = kMain800527C4Words[(cpu->pc - 0x800527c4u) / 4u];
-    else if (cpu->pc >= 0x80053eecu && cpu->pc < 0x80053f6cu)
-        instruction = kMain80053EECWords[(cpu->pc - 0x80053eecu) / 4u];
-    else if (cpu->pc >= 0x8001bff8u && cpu->pc < 0x8001c00cu)
-        instruction = kMain8001BFF8Words[(cpu->pc - 0x8001bff8u) / 4u];
-    else if (cpu->pc >= 0x80011928u && cpu->pc < 0x80011998u)
-        instruction = kMain80011928Words[(cpu->pc - 0x80011928u) / 4u];
-    else if (cpu->pc >= 0x8001bfe8u && cpu->pc < 0x8001bff8u)
-        instruction = kMain8001BFE8Words[(cpu->pc - 0x8001bfe8u) / 4u];
-    else if (cpu->pc >= 0x800116e0u && cpu->pc < 0x80011778u)
-        instruction = kMain800116E0Words[(cpu->pc - 0x800116e0u) / 4u];
-    else if (cpu->pc >= 0x80029000u && cpu->pc < 0x80029020u)
-        instruction = kMain80029000Words[(cpu->pc - 0x80029000u) / 4u];
-    else if (cpu->pc >= 0x80028d9cu && cpu->pc < 0x80028dbcu)
-        instruction = kMain80028D9CWords[(cpu->pc - 0x80028d9cu) / 4u];
-    else if (cpu->pc >= 0x80028fbcu && cpu->pc < 0x80028fdcu)
-        instruction = kMain80028FBCWords[(cpu->pc - 0x80028fbcu) / 4u];
-    else if (cpu->pc >= 0x800183e0u && cpu->pc < 0x80018450u)
-        instruction = kMain800183E0Words[(cpu->pc - 0x800183e0u) / 4u];
-    else if (cpu->pc >= 0x800167b8u && cpu->pc < 0x800167f0u)
-        instruction = kMain800167B8Words[(cpu->pc - 0x800167b8u) / 4u];
-    else if (cpu->pc >= 0x80016224u && cpu->pc < 0x80016450u)
-        instruction = kMain80016224Words[(cpu->pc - 0x80016224u) / 4u];
-    else if (cpu->pc >= 0x80010a08u && cpu->pc < 0x80010a84u)
-        instruction = kMain80010A08Words[(cpu->pc - 0x80010a08u) / 4u];
-    else if (cpu->pc >= 0x80016638u && cpu->pc < 0x800166e8u)
-        instruction = kMain80016638Words[(cpu->pc - 0x80016638u) / 4u];
-    else if (cpu->pc >= 0x80010cecu && cpu->pc < 0x80010d60u)
-        instruction = kMain80010CECWords[(cpu->pc - 0x80010cecu) / 4u];
-    else if (cpu->pc >= 0x80011818u && cpu->pc < 0x800118acu)
-        instruction = kMain80011818Words[(cpu->pc - 0x80011818u) / 4u];
-    else if (cpu->pc >= 0x80011a3cu && cpu->pc < 0x80011adcu)
-        instruction = kMain80011A3CWords[(cpu->pc - 0x80011a3cu) / 4u];
-    else if (cpu->pc >= 0x8005b1c4u && cpu->pc < 0x8005b400u)
-        instruction = kMain8005B1C4Words[(cpu->pc - 0x8005b1c4u) / 4u];
-    else if (cpu->pc >= 0x80010c7cu && cpu->pc < 0x80010cecu)
-        instruction = kMain80010C7CWords[(cpu->pc - 0x80010c7cu) / 4u];
-    else if (cpu->pc >= 0x8001513cu && cpu->pc < 0x80015144u)
-        instruction = kMain8001513CWords[(cpu->pc - 0x8001513cu) / 4u];
-    else if (cpu->pc >= 0x80015608u && cpu->pc < 0x80015760u)
-        instruction = kMain80015608Words[(cpu->pc - 0x80015608u) / 4u];
-    else if (cpu->pc >= 0x80015760u && cpu->pc < 0x80015908u)
-        instruction = kMain80015760Words[(cpu->pc - 0x80015760u) / 4u];
-    else if (cpu->pc >= 0x80059a80u && cpu->pc < 0x80059b44u)
-        instruction = kMain80059A80Words[(cpu->pc - 0x80059a80u)/4u];
-    else if (cpu->pc >= 0x80019018u && cpu->pc < 0x80019028u)
-        instruction = kMain80019018Words[(cpu->pc - 0x80019018u)/4u];
-    else if (cpu->pc >= 0x800190acu && cpu->pc < 0x80019198u)
-        instruction = kMain800190ACWords[(cpu->pc - 0x800190acu) / 4u];
-    else if (cpu->pc >= 0x80018e78u && cpu->pc < 0x80018e9cu)
-        instruction = kMain80018E78Words[(cpu->pc - 0x80018e78u)/4u];
-    else if (cpu->pc >= 0x8002ab64u && cpu->pc < 0x8002ac00u)
-        instruction = kMain8002AB64Words[(cpu->pc - 0x8002ab64u)/4u];
-    else if (cpu->pc >= 0x8002ac00u && cpu->pc < 0x8002ac98u)
-        instruction = kMain8002AC00Words[(cpu->pc - 0x8002ac00u)/4u];
-    else if (cpu->pc >= 0x80015978u && cpu->pc < 0x8001599cu)
-        instruction = kMain80015978Words[(cpu->pc - 0x80015978u)/4u];
-    else if (cpu->pc >= 0x80012c6cu && cpu->pc < 0x80012cb8u)
-        instruction = kMain80012C6CWords[(cpu->pc - 0x80012c6cu)/4u];
-    else if (cpu->pc >= 0x80012abcu && cpu->pc < 0x80012b04u)
-        instruction = kMain80012ABCWords[(cpu->pc - 0x80012abcu)/4u];
-    else if (cpu->pc >= 0x80012cb8u && cpu->pc < 0x80012d0cu)
-        instruction = kMain80012CB8Words[(cpu->pc - 0x80012cb8u)/4u];
-    else if (cpu->pc >= 0x80012b04u && cpu->pc < 0x80012b58u)
-        instruction = kMain80012B04Words[(cpu->pc - 0x80012b04u)/4u];
-    else if (cpu->pc >= 0x80012b58u && cpu->pc < 0x80012c6cu)
-        instruction = kMain80012B58Words[(cpu->pc - 0x80012b58u)/4u];
-    else if (cpu->pc >= 0x80012d0cu && cpu->pc < 0x80012dbcu)
-        instruction = kMain80012D0CWords[(cpu->pc - 0x80012d0cu)/4u];
-    else if (cpu->pc >= 0x80012f74u && cpu->pc < 0x80012fc8u)
-        instruction = kMain80012F74Words[(cpu->pc - 0x80012f74u) / 4u];
-    else if (cpu->pc >= 0x80012fc8u && cpu->pc < 0x80013028u)
-        instruction = kMain80012FC8Words[(cpu->pc - 0x80012fc8u) / 4u];
-    else if (cpu->pc >= 0x80013294u && cpu->pc < 0x800132bcu)
-        instruction = kMain80013294Words[(cpu->pc - 0x80013294u) / 4u];
-    else if (cpu->pc >= 0x800132bcu && cpu->pc < 0x80013328u)
-        instruction = kMain800132BCWords[(cpu->pc - 0x800132bcu) / 4u];
-    else if (cpu->pc >= 0x80013328u && cpu->pc < 0x80013350u)
-        instruction = kMain80013328Words[(cpu->pc - 0x80013328u) / 4u];
-    else if (cpu->pc >= 0x80013350u && cpu->pc < 0x800133bcu)
-        instruction = kMain80013350Words[(cpu->pc - 0x80013350u) / 4u];
-    else if (cpu->pc >= 0x80049cacu && cpu->pc < 0x80049f38u)
-        instruction = kMain80049CACWords[(cpu->pc - 0x80049cacu)/4u];
-    else if (cpu->pc >= 0x8004914cu && cpu->pc < 0x8004917cu)
-        instruction = kMain8004914CWords[(cpu->pc - 0x8004914cu)/4u];
-    else if (cpu->pc >= 0x800491acu && cpu->pc < 0x800491ccu)
-        instruction = kMain800491ACWords[(cpu->pc - 0x800491acu)/4u];
-    else if (cpu->pc >= 0x800491ecu && cpu->pc < 0x800491f8u)
-        instruction = kMain800491ECWords[(cpu->pc - 0x800491ecu) / 4u];
-    else if (cpu->pc >= 0x8004945cu && cpu->pc < 0x8004948cu)
-        instruction = kMain8004945CWords[(cpu->pc - 0x8004945cu)/4u];
-    else if (cpu->pc >= 0x80011e84u && cpu->pc < 0x80011eb4u)
-        instruction = kMain80011E84Words[(cpu->pc - 0x80011e84u)/4u];
-    else if (cpu->pc >= 0x8005a600u && cpu->pc < 0x8005a658u)
-        instruction = kMain8005A600Words[(cpu->pc - 0x8005a600u)/4u];
-    else if (cpu->pc >= 0x80024054u && cpu->pc < 0x800241c0u)
-        instruction = kMain80024054Words[(cpu->pc - 0x80024054u)/4u];
-    else if (cpu->pc >= 0x8001c214u && cpu->pc < 0x8001c2c4u)
-        instruction = kMain8001C214Words[(cpu->pc - 0x8001c214u)/4u];
-    else if (cpu->pc >= 0x8001c810u && cpu->pc < 0x8001c8c4u)
-        instruction = kMain8001C810Words[(cpu->pc - 0x8001c810u)/4u];
-    else if (cpu->pc >= 0x8001d050u && cpu->pc < 0x8001d074u)
-        instruction = kMain8001D050Words[(cpu->pc - 0x8001d050u)/4u];
-    else if (cpu->pc >= 0x8001cd50u && cpu->pc < 0x8001cd9cu)
-        instruction = kMain8001CD50Words[(cpu->pc - 0x8001cd50u)/4u];
-    else if (cpu->pc >= 0x800233ccu && cpu->pc < 0x800234e4u)
-        instruction = kMain800233CCWords[(cpu->pc - 0x800233ccu)/4u];
-    else if (cpu->pc >= 0x800234e4u && cpu->pc < 0x80023570u)
-        instruction = kMain800234E4Words[(cpu->pc - 0x800234e4u)/4u];
-    else if (cpu->pc >= 0x80023570u && cpu->pc < 0x8002374cu)
-        instruction = kMain80023570Words[(cpu->pc - 0x80023570u)/4u];
-    else if (cpu->pc >= 0x8001ca1cu && cpu->pc < 0x8001ca88u)
-        instruction = kMain8001CA1CWords[(cpu->pc - 0x8001ca1cu)/4u];
-    else if (cpu->pc >= 0x8001ca88u && cpu->pc < 0x8001cb00u)
-        instruction = kMain8001CA88Words[(cpu->pc - 0x8001ca88u)/4u];
-    else if (cpu->pc >= 0x8001cb00u && cpu->pc < 0x8001cb6cu)
-        instruction = kMain8001CB00Words[(cpu->pc - 0x8001cb00u)/4u];
-    else if (cpu->pc >= 0x8001cb6cu && cpu->pc < 0x8001cbdcu)
-        instruction = kMain8001CB6CWords[(cpu->pc - 0x8001cb6cu)/4u];
-    else if (cpu->pc >= 0x8001cbdcu && cpu->pc < 0x8001cc3cu)
-        instruction = kMain8001CBDCWords[(cpu->pc - 0x8001cbdcu)/4u];
-    else if (cpu->pc >= 0x8001cc3cu && cpu->pc < 0x8001cca0u)
-        instruction = kMain8001CC3CWords[(cpu->pc - 0x8001cc3cu)/4u];
-    else if (cpu->pc >= 0x8001cca0u && cpu->pc < 0x8001cd04u)
-        instruction = kMain8001CCA0Words[(cpu->pc - 0x8001cca0u)/4u];
-    else if (cpu->pc >= 0x8001cd04u && cpu->pc < 0x8001cd50u)
-        instruction = kMain8001CD04Words[(cpu->pc - 0x8001cd04u)/4u];
-    else if (cpu->pc >= 0x8001cd9cu && cpu->pc < 0x8001cde8u)
-        instruction = kMain8001CD9CWords[(cpu->pc - 0x8001cd9cu)/4u];
-    else if (cpu->pc >= 0x8001cde8u && cpu->pc < 0x8001ce28u)
-        instruction = kMain8001CDE8Words[(cpu->pc - 0x8001cde8u)/4u];
-    else if (cpu->pc >= 0x8001ce28u && cpu->pc < 0x8001ce68u)
-        instruction = kMain8001CE28Words[(cpu->pc - 0x8001ce28u)/4u];
-    else if (cpu->pc >= 0x8001ce68u && cpu->pc < 0x8001cec0u)
-        instruction = kMain8001CE68Words[(cpu->pc - 0x8001ce68u)/4u];
-    else if (cpu->pc >= 0x8001cec0u && cpu->pc < 0x8001cf00u)
-        instruction = kMain8001CEC0Words[(cpu->pc - 0x8001cec0u)/4u];
-    else if (cpu->pc >= 0x8001cf00u && cpu->pc < 0x8001cf30u)
-        instruction = kMain8001CF00Words[(cpu->pc - 0x8001cf00u)/4u];
-    else if (cpu->pc >= 0x8001cf30u && cpu->pc < 0x8001cf48u)
-        instruction = kMain8001CF30Words[(cpu->pc - 0x8001cf30u)/4u];
-    else if (cpu->pc >= 0x8001cf48u && cpu->pc < 0x8001cfb8u)
-        instruction = kMain8001CF48Words[(cpu->pc - 0x8001cf48u)/4u];
-    else if (cpu->pc >= 0x8001cfb8u && cpu->pc < 0x8001cfdcu)
-        instruction = kMain8001CFB8Words[(cpu->pc - 0x8001cfb8u)/4u];
-    else if (cpu->pc >= 0x8001d074u && cpu->pc < 0x8001d0e8u)
-        instruction = kMain8001D074Words[(cpu->pc - 0x8001d074u)/4u];
-    else if (cpu->pc >= 0x8001d0e8u && cpu->pc < 0x8001d0f4u)
-        instruction = kMain8001D0E8Words[(cpu->pc - 0x8001d0e8u)/4u];
-    else if (cpu->pc >= 0x8001d0f4u && cpu->pc < 0x8001d130u)
-        instruction = kMain8001D0F4Words[(cpu->pc - 0x8001d0f4u)/4u];
-    else if (cpu->pc >= 0x8001d130u && cpu->pc < 0x8001d150u)
-        instruction = kMain8001D130Words[(cpu->pc - 0x8001d130u)/4u];
-    else if (cpu->pc >= 0x8001d150u && cpu->pc < 0x8001d16cu)
-        instruction = kMain8001D150Words[(cpu->pc - 0x8001d150u)/4u];
-    else if (cpu->pc >= 0x8001c8c4u && cpu->pc < 0x8001c924u)
-        instruction = kMain8001C8C4Words[(cpu->pc - 0x8001c8c4u)/4u];
-    else if (cpu->pc >= 0x8001c924u && cpu->pc < 0x8001c97cu)
-        instruction = kMain8001C924Words[(cpu->pc - 0x8001c924u)/4u];
-    else if (cpu->pc >= 0x8001c97cu && cpu->pc < 0x8001c9d0u)
-        instruction = kMain8001C97CWords[(cpu->pc - 0x8001c97cu)/4u];
-    else if (cpu->pc >= 0x8001cfdcu && cpu->pc < 0x8001d050u)
-        instruction = kMain8001CFDCWords[(cpu->pc - 0x8001cfdcu)/4u];
-    else if (cpu->pc >= 0x800599b8u && cpu->pc < 0x80059a80u)
-        instruction = kMain800599B8Words[(cpu->pc - 0x800599b8u) / 4u];
-    else if (cpu->pc >= 0x80053d44u && cpu->pc < 0x80053e28u)
-        instruction = kMain80053D44Words[(cpu->pc - 0x80053d44u) / 4u];
-    else if (cpu->pc >= 0x80058890u && cpu->pc < 0x80058a4cu)
-        instruction = kMain80058890Words[(cpu->pc - 0x80058890u) / 4u];
-    else if (cpu->pc >= 0x8001fb8cu && cpu->pc < 0x8001fc08u)
-        instruction = kMain8001FB8CWords[(cpu->pc - 0x8001fb8cu) / 4u];
-    else if (cpu->pc >= 0x80020f34u && cpu->pc < 0x80021008u)
-        instruction = kMain80020F34Words[(cpu->pc - 0x80020f34u) / 4u];
-    else if (cpu->pc >= 0x8001d388u && cpu->pc < 0x8001d3fcu)
-        instruction = kMain8001D388Words[(cpu->pc - 0x8001d388u) / 4u];
-    else if (cpu->pc >= 0x80015908u && cpu->pc < 0x80015954u)
-        instruction = kMain80015908Words[(cpu->pc - 0x80015908u) / 4u];
-    else if (cpu->pc >= 0x80015954u && cpu->pc < 0x80015978u)
-        instruction = kMain80015954Words[(cpu->pc - 0x80015954u) / 4u];
-    else if (cpu->pc >= 0x80015a74u && cpu->pc < 0x80015ad0u)
-        instruction = kMain80015A74Words[(cpu->pc - 0x80015a74u) / 4u];
-    else if (cpu->pc >= 0x8005b75cu && cpu->pc < 0x8005b7b0u)
-        instruction = kMain8005B75CWords[(cpu->pc - 0x8005b75cu) / 4u];
-    else if (cpu->pc >= 0x80058b7cu && cpu->pc < 0x80058c6cu)
-        instruction = kMain80058B7CWords[(cpu->pc - 0x80058b7cu) / 4u];
-    else if (cpu->pc >= 0x80058c6cu && cpu->pc < 0x80058ca8u)
-        instruction = kMain80058C6CWords[(cpu->pc - 0x80058c6cu) / 4u];
-    else if (cpu->pc >= 0x8005e8e8u && cpu->pc < 0x8005ea34u)
-        instruction = kMain8005E8E8Words[(cpu->pc - 0x8005e8e8u) / 4u];
-    else if (cpu->pc >= 0x8004974cu && cpu->pc < 0x8004978cu)
-        instruction = kMain8004974CWords[(cpu->pc - 0x8004974cu) / 4u];
-    else if (cpu->pc >= 0x80049a18u && cpu->pc < 0x80049ca8u)
-        instruction = kMain80049A18Words[(cpu->pc - 0x80049a18u) / 4u];
-    else if (cpu->pc >= 0x80052fccu && cpu->pc < 0x80053050u)
-        instruction = kMain80052FCCWords[(cpu->pc - 0x80052fccu) / 4u];
-    else if (cpu->pc >= 0x80054514u && cpu->pc < 0x800547d8u)
-        instruction = kMain80054514Words[(cpu->pc - 0x80054514u) / 4u];
-    else if (cpu->pc >= 0x80054dccu && cpu->pc < 0x800553d8u)
-        instruction = kMain80054DCCWords[(cpu->pc - 0x80054dccu) / 4u];
-    else if (cpu->pc >= 0x80048eacu && cpu->pc < 0x80048fb8u)
-        instruction = kMain80048EACWords[(cpu->pc - 0x80048eacu) / 4u];
-    else if (cpu->pc >= 0x80048fb8u && cpu->pc < 0x80049018u)
-        instruction = kMain80048FB8Words[(cpu->pc - 0x80048fb8u) / 4u];
-    else if (cpu->pc >= 0x80053050u && cpu->pc < 0x80053178u)
-        instruction = kMain80053050Words[(cpu->pc - 0x80053050u) / 4u];
-    else if (cpu->pc >= 0x8005ae80u && cpu->pc < 0x8005af68u)
-        instruction = kMain8005AE80Words[(cpu->pc - 0x8005ae80u) / 4u];
-    else if (cpu->pc >= 0x8005c054u && cpu->pc < 0x8005c1c0u)
-        instruction = kMain8005C054Words[(cpu->pc - 0x8005c054u) / 4u];
-    else if (cpu->pc >= 0x80010b40u && cpu->pc < 0x80010bb4u)
-        instruction = kMain80010B40Words[(cpu->pc - 0x80010b40u) / 4u];
-    else if (cpu->pc >= 0x80010bb4u && cpu->pc < 0x80010c7cu)
-        instruction = kMain80010BB4Words[(cpu->pc - 0x80010bb4u) / 4u];
-    else if (cpu->pc >= 0x80029690u && cpu->pc < 0x800296f8u)
-        instruction = kMain80029690Words[(cpu->pc - 0x80029690u) / 4u];
-    else if (cpu->pc >= 0x80029274u && cpu->pc < 0x8002931cu)
-        instruction = kMain80029274Words[(cpu->pc - 0x80029274u) / 4u];
-    else if (cpu->pc >= 0x8002aef8u && cpu->pc < 0x8002af08u)
-        instruction = kMain8002AEF8Words[(cpu->pc - 0x8002aef8u) / 4u];
-    else if (cpu->pc >= 0x80029254u && cpu->pc < 0x80029264u)
-        instruction = kMain80029254Words[(cpu->pc - 0x80029254u) / 4u];
-    else if (cpu->pc >= 0x80011dccu && cpu->pc < 0x80011df4u)
-        instruction = kMain80011DCCWords[(cpu->pc - 0x80011dccu) / 4u];
-    else if (cpu->pc >= 0x8001b384u && cpu->pc < 0x8001b394u)
-        instruction = kMain8001B384Words[(cpu->pc - 0x8001b384u) / 4u];
-    else if (cpu->pc >= 0x8001c0c8u && cpu->pc < 0x8001c14cu)
-        instruction = kMain8001C0C8Words[(cpu->pc - 0x8001c0c8u) / 4u];
-    else if (cpu->pc >= 0x8001b85cu && cpu->pc < 0x8001b86cu)
-        instruction = kMain8001B85CWords[(cpu->pc - 0x8001b85cu) / 4u];
-    else if (cpu->pc >= 0x80011cfcu && cpu->pc < 0x80011d54u)
-        instruction = kMain80011CFCWords[(cpu->pc - 0x80011cfcu) / 4u];
-    else if (cpu->pc >= 0x80011d54u && cpu->pc < 0x80011da0u)
-        instruction = kMain80011D54Words[(cpu->pc - 0x80011d54u) / 4u];
-    else if (cpu->pc >= 0x800191d4u && cpu->pc < 0x8001923cu)
-        instruction = kMain800191D4Words[(cpu->pc - 0x800191d4u) / 4u];
-    else if (cpu->pc >= 0x800191bcu && cpu->pc < 0x800191d4u)
-        instruction = kMain800191BCWords[(cpu->pc - 0x800191bcu) / 4u];
-    else if (cpu->pc >= 0x8001af04u && cpu->pc < 0x8001af34u)
-        instruction = kMain8001AF04Words[(cpu->pc - 0x8001af04u) / 4u];
-    else if (cpu->pc >= 0x8002f648u && cpu->pc < 0x8002f658u)
-        instruction = kMain8002F648Words[(cpu->pc - 0x8002f648u) / 4u];
-    else if (cpu->pc >= 0x8002f620u && cpu->pc < 0x8002f648u)
-        instruction = kMain8002F620Words[(cpu->pc - 0x8002f620u) / 4u];
-    else if (cpu->pc >= 0x80029504u && cpu->pc < 0x80029514u)
-        instruction = kMain80029504Words[(cpu->pc - 0x80029504u) / 4u];
-    else if (cpu->pc >= 0x8002f658u && cpu->pc < 0x8002f67cu)
-        instruction = kMain8002F658Words[(cpu->pc - 0x8002f658u) / 4u];
-    else if (cpu->pc >= 0x8002f5c8u && cpu->pc < 0x8002f620u)
-        instruction = kMain8002F5C8Words[(cpu->pc - 0x8002f5c8u) / 4u];
-    else if (cpu->pc >= 0x80018714u && cpu->pc < 0x80018730u)
-        instruction = kMain80018714Words[(cpu->pc - 0x80018714u) / 4u];
-    else if (cpu->pc >= 0x80018730u && cpu->pc < 0x80018918u)
-        instruction = kMain80018730Words[(cpu->pc - 0x80018730u) / 4u];
-    else if (cpu->pc >= 0x8002d858u && cpu->pc < 0x8002d8a8u)
-        instruction = kMain8002D858Words[(cpu->pc - 0x8002d858u) / 4u];
-    else if (cpu->pc >= 0x8003d650u && cpu->pc < 0x8003d6e4u)
-        instruction = kMain8003D650Words[(cpu->pc - 0x8003d650u) / 4u];
-    else if (cpu->pc >= 0x8001bfa0u && cpu->pc < 0x8001bfb0u)
-        instruction = kMain8001BFA0Words[(cpu->pc - 0x8001bfa0u) / 4u];
-    else if (cpu->pc >= 0x8001bfb0u && cpu->pc < 0x8001bfd0u)
-        instruction = kMain8001BFB0Words[(cpu->pc - 0x8001bfb0u) / 4u];
-    else if (cpu->pc >= 0x8004657cu && cpu->pc < 0x80046610u)
-        instruction = kMain8004657CWords[(cpu->pc - 0x8004657cu) / 4u];
-    else if (cpu->pc >= 0x80046b44u && cpu->pc < 0x80046bfcu)
-        instruction = kMain80046B44Words[(cpu->pc - 0x80046b44u) / 4u];
-    else if (cpu->pc >= 0x80046c38u && cpu->pc < 0x80046cfcu)
-        instruction = kMain80046C38Words[(cpu->pc - 0x80046c38u) / 4u];
-    else if (cpu->pc >= 0x80046d1cu && cpu->pc < 0x8004768cu)
-        instruction = kMain80046D1CWords[(cpu->pc - 0x80046d1cu) / 4u];
-    else if (cpu->pc >= 0x80043088u && cpu->pc < 0x800430b8u)
-        instruction = kMain80043088Words[(cpu->pc - 0x80043088u) / 4u];
-    else if (cpu->pc >= 0x8004689cu && cpu->pc < 0x800468fcu)
-        instruction = kMain8004689CWords[(cpu->pc - 0x8004689cu) / 4u];
-    else if (cpu->pc >= 0x80046abcu && cpu->pc < 0x80046b44u)
-        instruction = kMain80046ABCWords[(cpu->pc - 0x80046abcu) / 4u];
-    else if (cpu->pc >= 0x800468fcu && cpu->pc < 0x80046980u)
-        instruction = kMain800468FCWords[(cpu->pc - 0x800468fcu) / 4u];
-    else if (cpu->pc >= 0x80046bfcu && cpu->pc < 0x80046c38u)
-        instruction = kMain80046BFCWords[(cpu->pc - 0x80046bfcu) / 4u];
-    else if (cpu->pc >= 0x80046cfcu && cpu->pc < 0x80046d1cu)
-        instruction = kMain80046CFCWords[(cpu->pc - 0x80046cfcu) / 4u];
-    else if (cpu->pc >= 0x800469a8u && cpu->pc < 0x800469ccu)
-        instruction = kMain800469A8Words[(cpu->pc - 0x800469a8u) / 4u];
-    else if (cpu->pc >= 0x80046994u && cpu->pc < 0x800469a8u)
-        instruction = kMain80046994Words[(cpu->pc - 0x80046994u) / 4u];
-    else if (cpu->pc >= 0x800469ccu && cpu->pc < 0x80046a5cu)
-        instruction = kMain800469CCWords[(cpu->pc - 0x800469ccu) / 4u];
-    else if (cpu->pc >= 0x80046610u && cpu->pc < 0x80046630u)
-        instruction = kMain80046610Words[(cpu->pc - 0x80046610u) / 4u];
-    else if (cpu->pc >= 0x8004768cu && cpu->pc < 0x800476c0u)
-        instruction = kMain8004768CWords[(cpu->pc - 0x8004768cu) / 4u];
-    else if (cpu->pc >= 0x800476c0u && cpu->pc < 0x8004787cu)
-        instruction = kMain800476C0Words[(cpu->pc - 0x800476c0u) / 4u];
-    else if (cpu->pc >= 0x8002d8d4u && cpu->pc < 0x8002d904u)
-        instruction = kMain8002D8D4Words[(cpu->pc - 0x8002d8d4u) / 4u];
-    else if (cpu->pc >= 0x80014b10u && cpu->pc < 0x80014bfcu)
-        instruction = kMain80014B10Words[(cpu->pc - 0x80014b10u) / 4u];
-    else if (cpu->pc >= 0x80029344u && cpu->pc < 0x8002941cu)
-        instruction = kMain80029344Words[(cpu->pc - 0x80029344u) / 4u];
-    else if (cpu->pc >= 0x8002941cu && cpu->pc < 0x80029444u)
-        instruction = kMain8002941CWords[(cpu->pc - 0x8002941cu) / 4u];
-    else if (cpu->pc >= 0x80010ae0u && cpu->pc < 0x80010b10u)
-        instruction = kMain80010AE0Words[(cpu->pc - 0x80010ae0u) / 4u];
-    else if (cpu->pc >= 0x80011b7cu && cpu->pc < 0x80011c10u)
-        instruction = kMain80011B7CWords[(cpu->pc - 0x80011b7cu) / 4u];
-    else if (cpu->pc >= 0x80011c10u && cpu->pc < 0x80011c8cu)
-        instruction = kMain80011C10Words[(cpu->pc - 0x80011c10u) / 4u];
-    else if (cpu->pc >= 0x80011778u && cpu->pc < 0x80011818u)
-        instruction = kMain80011778Words[(cpu->pc - 0x80011778u) / 4u];
-    else if (cpu->pc >= 0x80015498u && cpu->pc < 0x80015608u)
-        instruction = kMain80015498Words[(cpu->pc - 0x80015498u) / 4u];
-    else if (cpu->pc >= 0x80058b40u && cpu->pc < 0x80058b7cu)
-        instruction = kMain80058B40Words[(cpu->pc - 0x80058b40u) / 4u];
-    else if (cpu->pc >= 0x8001c00cu && cpu->pc < 0x8001c044u)
-        instruction = kMain8001C00CWords[(cpu->pc - 0x8001c00cu) / 4u];
-    else if (cpu->pc >= 0x8001f9f8u && cpu->pc < 0x8001fb8cu)
-        instruction = kMain8001F9F8Words[(cpu->pc - 0x8001f9f8u) / 4u];
-    else if (cpu->pc >= 0x8001d1c4u && cpu->pc < 0x8001d388u)
-        instruction = kMain8001D1C4Words[(cpu->pc - 0x8001d1c4u) / 4u];
-    else if (cpu->pc >= 0x800184f0u && cpu->pc < 0x80018714u)
-        instruction = kMain800184F0Words[(cpu->pc - 0x800184f0u) / 4u];
-    else if (cpu->pc >= 0x800596f4u && cpu->pc < 0x80059760u)
-        instruction = kMain800596F4Words[(cpu->pc - 0x800596f4u) / 4u];
-    else if (cpu->pc >= 0x8005bed8u && cpu->pc < 0x8005c020u)
-        instruction = kMain8005BED8Words[(cpu->pc - 0x8005bed8u) / 4u];
-    else if (cpu->pc >= 0x8002cdd8u && cpu->pc < 0x8002cfe4u)
-        instruction = kMain8002CDD8Words[(cpu->pc - 0x8002cdd8u) / 4u];
-    else if (cpu->pc >= 0x8003d25cu && cpu->pc < 0x8003d32cu)
-        instruction = kMain8003D25CWords[(cpu->pc - 0x8003d25cu) / 4u];
-    else if (cpu->pc >= 0x8002cfe4u && cpu->pc < 0x8002d034u)
-        instruction = kMain8002CFE4Words[(cpu->pc - 0x8002cfe4u) / 4u];
-    else if (cpu->pc >= 0x8002d904u && cpu->pc < 0x8002dc68u)
-        instruction = kMain8002D904Words[(cpu->pc - 0x8002d904u) / 4u];
-    else if (cpu->pc >= 0x80037fc4u && cpu->pc < 0x8003819cu)
-        instruction = kMain80037FC4Words[(cpu->pc - 0x80037fc4u) / 4u];
-    else if (cpu->pc >= 0x8002ec10u && cpu->pc < 0x8002ed90u)
-        instruction = kMain8002EC10Words[(cpu->pc - 0x8002ec10u) / 4u];
-    else if (cpu->pc >= 0x8003836cu && cpu->pc < 0x800383a4u)
-        instruction = kMain8003836CWords[(cpu->pc - 0x8003836cu) / 4u];
-    else if (cpu->pc >= 0x8003c4f0u && cpu->pc < 0x8003c598u)
-        instruction = kMain8003C4F0Words[(cpu->pc - 0x8003c4f0u) / 4u];
-    else if (cpu->pc >= 0x80030f80u && cpu->pc < 0x800314dcu)
-        instruction = kMain80030F80Words[(cpu->pc - 0x80030f80u) / 4u];
-    else if (cpu->pc >= 0x8002d320u && cpu->pc < 0x8002d4b8u)
-        instruction = kMain8002D320Words[(cpu->pc - 0x8002d320u) / 4u];
-    else if (cpu->pc >= 0x8002ee64u && cpu->pc < 0x8002ee90u)
-        instruction = kMain8002EE64Words[(cpu->pc - 0x8002ee64u) / 4u];
-    else if (cpu->pc >= 0x8002eff8u && cpu->pc < 0x8002f064u)
-        instruction = kMain8002EFF8Words[(cpu->pc - 0x8002eff8u) / 4u];
-    else if (cpu->pc >= 0x800314dcu && cpu->pc < 0x800316f8u)
-        instruction = kMain800314DCWords[(cpu->pc - 0x800314dcu) / 4u];
-    else if (cpu->pc >= 0x800316f8u && cpu->pc < 0x80031988u)
-        instruction = kMain800316F8Words[(cpu->pc - 0x800316f8u) / 4u];
-    else if (cpu->pc >= 0x80031988u && cpu->pc < 0x80031a98u)
-        instruction = kMain80031988Words[(cpu->pc - 0x80031988u) / 4u];
-    else if (cpu->pc >= 0x8003819cu && cpu->pc < 0x800381e4u)
-        instruction = kMain8003819CWords[(cpu->pc - 0x8003819cu) / 4u];
-    else if (cpu->pc >= 0x80038210u && cpu->pc < 0x80038308u)
-        instruction = kMain80038210Words[(cpu->pc - 0x80038210u) / 4u];
-    else if (cpu->pc >= 0x80038308u && cpu->pc < 0x8003834cu)
-        instruction = kMain80038308Words[(cpu->pc - 0x80038308u) / 4u];
-    else if (cpu->pc >= 0x8003834cu && cpu->pc < 0x8003836cu)
-        instruction = kMain8003834CWords[(cpu->pc - 0x8003834cu) / 4u];
-    else if (cpu->pc >= 0x80038638u && cpu->pc < 0x80038668u)
-        instruction = kMain80038638Words[(cpu->pc - 0x80038638u) / 4u];
-    else if (cpu->pc >= 0x8003b250u && cpu->pc < 0x8003b280u)
-        instruction = kMain8003B250Words[(cpu->pc - 0x8003b250u) / 4u];
-    else if (cpu->pc >= 0x8003c23cu && cpu->pc < 0x8003c438u)
-        instruction = kMain8003C23CWords[(cpu->pc - 0x8003c23cu) / 4u];
-    else if (cpu->pc >= 0x8003d3b4u && cpu->pc < 0x8003d3f8u)
-        instruction = kMain8003D3B4Words[(cpu->pc - 0x8003d3b4u) / 4u];
-    else if (cpu->pc >= 0x80031be0u && cpu->pc < 0x80031cc8u)
-        instruction = kMain80031BE0Words[(cpu->pc - 0x80031be0u) / 4u];
-    else if (cpu->pc >= 0x8002f064u && cpu->pc < 0x8002f0d0u)
-        instruction = kMain8002F064Words[(cpu->pc - 0x8002f064u) / 4u];
-    else if (cpu->pc >= 0x80030ca4u && cpu->pc < 0x80030d80u)
-        instruction = kMain80030CA4Words[(cpu->pc - 0x80030ca4u) / 4u];
-    else if (cpu->pc >= 0x80030d80u && cpu->pc < 0x80030f80u)
-        instruction = kMain80030D80Words[(cpu->pc - 0x80030d80u) / 4u];
-    else if (cpu->pc >= 0x800336a8u && cpu->pc < 0x8003388cu)
-        instruction = kMain800336A8Words[(cpu->pc - 0x800336a8u) / 4u];
-    else if (cpu->pc >= 0x8003388cu && cpu->pc < 0x800342e8u)
-        instruction = kMain8003388CWords[(cpu->pc - 0x8003388cu) / 4u];
-    else if (cpu->pc >= 0x80034650u && cpu->pc < 0x800346d0u)
-        instruction = kMain80034650Words[(cpu->pc - 0x80034650u) / 4u];
-    else if (cpu->pc >= 0x8003f144u && cpu->pc < 0x8003f380u)
-        instruction = kMain8003F144Words[(cpu->pc - 0x8003f144u) / 4u];
-    else if (cpu->pc >= 0x8003f380u && cpu->pc < 0x8003f434u)
-        instruction = kMain8003F380Words[(cpu->pc - 0x8003f380u) / 4u];
-    else if (cpu->pc >= 0x800414e4u && cpu->pc < 0x800415a8u)
-        instruction = kMain800414E4Words[(cpu->pc - 0x800414e4u) / 4u];
-    else if (cpu->pc >= 0x800145ecu && cpu->pc < 0x800146b0u)
-        instruction = kDraw800145ECWords[(cpu->pc - 0x800145ecu) / 4u];
-    else if (cpu->pc >= 0x800525dcu && cpu->pc < 0x80052654u)
-        instruction = kDraw800525DCWords[(cpu->pc - 0x800525dcu) / 4u];
-    else if (cpu->pc >= 0x80052654u && cpu->pc < 0x800527c4u)
-        instruction = kDraw80052654Words[(cpu->pc - 0x80052654u) / 4u];
-    else if (cpu->pc >= 0x80059d68u && cpu->pc < 0x80059e6cu)
-        instruction = kDraw80059D68Words[(cpu->pc - 0x80059d68u) / 4u];
-    else if (cpu->pc >= 0x8005a870u && cpu->pc < 0x8005ab00u)
-        instruction = kDraw8005A870Words[(cpu->pc - 0x8005a870u) / 4u];
-    else if (cpu->pc >= 0x8005ab00u && cpu->pc < 0x8005ab58u)
-        instruction = kDraw8005AB00Words[(cpu->pc - 0x8005ab00u) / 4u];
-    else if (cpu->pc >= 0x8005ab58u && cpu->pc < 0x8005ac24u)
-        instruction = kDraw8005AB58Words[(cpu->pc - 0x8005ab58u) / 4u];
-    else if (cpu->pc >= 0x8005ac24u && cpu->pc < 0x8005acf0u)
-        instruction = kDraw8005AC24Words[(cpu->pc - 0x8005ac24u) / 4u];
-    else if (cpu->pc >= 0x8005acf0u && cpu->pc < 0x8005ad34u)
-        instruction = kDraw8005ACF0Words[(cpu->pc - 0x8005acf0u) / 4u];
-    else if (cpu->pc >= 0x8005ad34u && cpu->pc < 0x8005adb8u)
-        instruction = kDraw8005AD34Words[(cpu->pc - 0x8005ad34u) / 4u];
-    else if (cpu->pc >= 0x8005b7b0u && cpu->pc < 0x8005ba90u)
-        instruction = kDraw8005B7B0Words[(cpu->pc - 0x8005b7b0u) / 4u];
-    else if (cpu->pc >= 0x8005ba90u && cpu->pc < 0x8005bd7cu)
-        instruction = kDraw8005BA90Words[(cpu->pc - 0x8005ba90u) / 4u];
-    else if (cpu->pc >= 0x8001099cu && cpu->pc < 0x80010a08u)
-        instruction = kMain8001099CWords[(cpu->pc - 0x8001099cu) / 4u];
-    else if (cpu->pc >= 0x80058ce4u && cpu->pc < 0x80058d20u)
-        instruction = kMain80058CE4Words[(cpu->pc - 0x80058ce4u) / 4u];
-    else if (cpu->pc >= 0x8005b710u && cpu->pc < 0x8005b75cu)
-        instruction = kDraw8005B710Words[(cpu->pc - 0x8005b710u) / 4u];
-    else if (cpu->pc >= 0x8005c020u && cpu->pc < 0x8005c054u)
-        instruction = kDraw8005C020Words[(cpu->pc - 0x8005c020u) / 4u];
-    else if (cpu->pc >= 0x8005283cu && cpu->pc < 0x80052aa0u)
-        instruction = kProjection8005283CWords[(cpu->pc - 0x8005283cu) / 4u];
-    else if (cpu->pc >= 0x80052d00u && cpu->pc < 0x80052d90u)
-        instruction = kProjection80052D00Words[(cpu->pc - 0x80052d00u) / 4u];
-    else if (cpu->pc >= 0x80052d90u && cpu->pc < 0x80052e38u)
-        instruction = kProjection80052D90Words[(cpu->pc - 0x80052d90u) / 4u];
-    else if (cpu->pc >= 0x80052becu && cpu->pc < 0x80052d00u)
-        instruction = kProjection80052BECWords[(cpu->pc - 0x80052becu) / 4u];
-    else if (cpu->pc >= 0x80053178u && cpu->pc < 0x80053218u)
-        instruction = kProjection80053178Words[(cpu->pc - 0x80053178u) / 4u];
-    else if (cpu->pc >= 0x80053218u && cpu->pc < 0x80053290u)
-        instruction = kDrawFollowup80053218Words[(cpu->pc - 0x80053218u) / 4u];
-    else if (cpu->pc >= 0x80014774u && cpu->pc < 0x800147b8u)
-        instruction = kDrawFollowup80014774Words[(cpu->pc - 0x80014774u) / 4u];
-    else if (cpu->pc >= 0x800147b8u && cpu->pc < 0x80014928u)
-        instruction = kDrawFollowup800147B8Words[(cpu->pc - 0x800147b8u) / 4u];
-    else if (cpu->pc >= 0x800144d4u && cpu->pc < 0x80014554u)
-        instruction = kCamera800144D4Words[(cpu->pc - 0x800144d4u) / 4u];
-    else if (cpu->pc >= 0x80014554u && cpu->pc < 0x800145ecu)
-        instruction = kSecondGeom80014554Words[(cpu->pc - 0x80014554u) / 4u];
-    else if (cpu->pc >= 0x8002850cu && cpu->pc < 0x80028558u)
-        instruction = kSecondGeom8002850CWords[(cpu->pc - 0x8002850cu) / 4u];
-    else if (cpu->pc >= 0x80053af8u && cpu->pc < 0x80053b20u)
-        instruction = kSecondGeom80053AF8Words[(cpu->pc - 0x80053af8u) / 4u];
-    else if (cpu->pc >= 0x8002823cu && cpu->pc < 0x80028304u)
-        instruction = kSecondGeom8002823CWords[(cpu->pc - 0x8002823cu) / 4u];
-    else if (cpu->pc >= 0x80028620u && cpu->pc < 0x80028694u)
-        instruction = kSecondGeom80028620Words[(cpu->pc - 0x80028620u) / 4u];
-    else if (cpu->pc >= 0x80053308u && cpu->pc < 0x80053328u)
-        instruction = kCamera80053308Words[(cpu->pc - 0x80053308u) / 4u];
-    else if (cpu->pc >= 0x80053328u && cpu->pc < 0x80053804u)
-        instruction = kCamera80053328Words[(cpu->pc - 0x80053328u) / 4u];
-    else if (cpu->pc >= 0x8005386cu && cpu->pc < 0x800538bcu)
-        instruction = kCamera8005386CWords[(cpu->pc - 0x8005386cu) / 4u];
-    else if (cpu->pc >= 0x80053804u && cpu->pc < 0x8005386cu)
-        instruction = kCamera80053804Words[(cpu->pc - 0x80053804u) / 4u];
-    else if (cpu->pc >= 0x800538bcu && cpu->pc < 0x800538ecu)
-        instruction = kCamera800538BCWords[(cpu->pc - 0x800538bcu) / 4u];
-    else if (cpu->pc >= 0x800538ecu && cpu->pc < 0x80053978u)
-        instruction = kCamera800538ECWords[(cpu->pc - 0x800538ecu) / 4u];
-    else if (cpu->pc >= 0x80053f6cu && cpu->pc < 0x80054340u)
-        instruction = kCamera80053F6CWords[(cpu->pc - 0x80053f6cu) / 4u];
-    else if (cpu->pc >= 0x80053e28u && cpu->pc < 0x80053eecu)
-        instruction = kCamera80053E28Words[(cpu->pc - 0x80053e28u) / 4u];
-    else if (cpu->pc >= 0x80048d9cu && cpu->pc < 0x80048eacu)
-        instruction = kCamera80048D9CWords[(cpu->pc - 0x80048d9cu) / 4u];
-    else if (cpu->pc >= 0x800484ecu && cpu->pc < 0x8004864cu)
-        instruction = kCamera800484ECWords[(cpu->pc - 0x800484ecu) / 4u];
-    else if (cpu->pc >= 0x8004864cu && cpu->pc < 0x8004867cu)
-        instruction = kMain8004864CWords[(cpu->pc - 0x8004864cu) / 4u];
-    else if (cpu->pc >= 0x80048b6cu && cpu->pc < 0x80048ca4u)
-        instruction = kMain80048B6CWords[(cpu->pc - 0x80048b6cu) / 4u];
-    else if (cpu->pc >= 0x80053b20u && cpu->pc < 0x80053bd8u)
-        instruction = kCamera80053B20Words[(cpu->pc - 0x80053b20u) / 4u];
-    else if (cpu->pc >= 0x8004787cu && cpu->pc < 0x800478b8u)
-        instruction = kCamera8004787CWords[(cpu->pc - 0x8004787cu) / 4u];
-    else if (cpu->pc >= 0x800478b8u && cpu->pc < 0x80047948u)
-        instruction = kCamera800478B8Words[(cpu->pc - 0x800478b8u) / 4u];
-    else if (cpu->pc >= 0x80047948u && cpu->pc < 0x800479e8u)
-        instruction = kCamera80047948Words[(cpu->pc - 0x80047948u) / 4u];
-    else if (cpu->pc >= 0x800479e8u && cpu->pc < 0x80047b3cu)
-        instruction = kMain800479E8Words[(cpu->pc - 0x800479e8u) / 4u];
-    else if (cpu->pc >= 0x80047b3cu && cpu->pc < 0x80047bd8u)
-        instruction = kMain80047B3CWords[(cpu->pc - 0x80047b3cu) / 4u];
-    else if (cpu->pc >= 0x80054340u && cpu->pc < 0x80054430u)
-        instruction = kCamera80054340Words[(cpu->pc - 0x80054340u) / 4u];
-    else if (cpu->pc >= 0x80054430u && cpu->pc < 0x800544f8u)
-        instruction = kCamera80054430Words[(cpu->pc - 0x80054430u) / 4u];
-    else if (cpu->pc >= 0x800544f8u && cpu->pc < 0x80054514u)
-        instruction = kCamera800544F8Words[(cpu->pc - 0x800544f8u) / 4u];
-    else if (cpu->pc >= 0x80047d3cu && cpu->pc < 0x80047dc0u)
-        instruction = kCamera80047D3CWords[(cpu->pc - 0x80047d3cu) / 4u];
-    else if (cpu->pc >= 0x80014444u && cpu->pc < 0x800144d4u)
-        instruction = kSecondGeom80014444Words[(cpu->pc - 0x80014444u) / 4u];
-    else if (cpu->pc >= 0x8004923cu && cpu->pc < 0x80049248u)
-        instruction = kSecondGeom8004923CWords[(cpu->pc - 0x8004923cu) / 4u];
-    else if (cpu->pc >= 0x80049324u && cpu->pc < 0x8004934cu)
-        instruction = kMain80049324Words[(cpu->pc - 0x80049324u) / 4u];
-    else if (cpu->pc >= 0x80058a4cu && cpu->pc < 0x80058b04u)
-        instruction = kDrawEnv80058A4CWords[(cpu->pc - 0x80058a4cu) / 4u];
-    else if (cpu->pc >= 0x80058b04u && cpu->pc < 0x80058b40u)
-        instruction = kDrawEnv80058B04Words[(cpu->pc - 0x80058b04u) / 4u];
-    else if (cpu->pc >= 0x80014960u && cpu->pc < 0x80014998u)
-        instruction = kDrawEnv80014960Words[(cpu->pc - 0x80014960u) / 4u];
-    else if (cpu->pc >= 0x80014998u && cpu->pc < 0x800149e0u)
-        instruction = kDrawEnv80014998Words[(cpu->pc - 0x80014998u) / 4u];
-    else if (cpu->pc >= 0x80059888u && cpu->pc < 0x8005991cu)
-        instruction = kClearImage80059888Words[(cpu->pc - 0x80059888u) / 4u];
-    else if (cpu->pc >= 0x80059760u && cpu->pc < 0x80059888u)
-        instruction = kClearImage80059760Words[(cpu->pc - 0x80059760u) / 4u];
-    else if (cpu->pc >= 0x8005af68u && cpu->pc < 0x8005b1c4u)
-        instruction = kClearImage8005AF68Words[(cpu->pc - 0x8005af68u) / 4u];
-    else if (cpu->pc >= 0x80053cf8u && cpu->pc < 0x80053d44u)
-        instruction = kGte80053CF8Words[(cpu->pc - 0x80053cf8u) / 4u];
-    else if (cpu->pc >= 0x80047cb4u && cpu->pc < 0x80047d34u)
-        instruction = kGte80047CB4Words[(cpu->pc - 0x80047cb4u) / 4u];
-    else if (cpu->pc >= 0x8004d16cu && cpu->pc < 0x8004d1d4u)
-        instruction = kGte8004D16CWords[(cpu->pc - 0x8004d16cu) / 4u];
-    else if (cpu->pc >= 0x8004d504u && cpu->pc < 0x8004d6b4u)
-        instruction = kMain8004D504Words[(cpu->pc - 0x8004d504u) / 4u];
-    else if (cpu->pc >= 0x80053ad8u && cpu->pc < 0x80053af8u)
-        instruction = kGte80053AD8Words[(cpu->pc - 0x80053ad8u) / 4u];
-    else if (cpu->pc >= 0x800491fcu && cpu->pc < 0x8004921cu)
-        instruction = kGte800491FCWords[(cpu->pc - 0x800491fcu) / 4u];
-    else if (cpu->pc >= 0x8004921cu && cpu->pc < 0x80049234u)
-        instruction = kGte8004921CWords[(cpu->pc - 0x8004921cu) / 4u];
-    else if (cpu->pc >= 0x8005ce28u && cpu->pc < 0x8005ce34u)
-        instruction = kGte8005CE28Words[(cpu->pc - 0x8005ce28u) / 4u];
-    else if (cpu->pc >= 0x80043078u && cpu->pc < 0x80043088u)
-        instruction = kDisplay80043078Words[(cpu->pc - 0x80043078u) / 4u];
-    else if (cpu->pc >= 0x80059fc0u && cpu->pc < 0x8005a468u)
-        instruction = kDisplay80059FC0Words[(cpu->pc - 0x80059fc0u) / 4u];
-    else if (cpu->pc >= 0x8005b684u && cpu->pc < 0x8005b6acu)
-        instruction = kDisplay8005B684Words[(cpu->pc - 0x8005b684u) / 4u];
-    else if (cpu->pc >= 0x800426fcu && cpu->pc < 0x80042718u)
-        instruction = kDraw800426FCWords[(cpu->pc - 0x800426fcu) / 4u];
+    if (formatter_range_word(kFormatterRanges0,
+            sizeof kFormatterRanges0 / sizeof kFormatterRanges0[0], cpu->pc,
+            &instruction)) {
+        /* value written by formatter_range_word */
+    }
     else if (cpu->pc >= CD_ENTER_CRITICAL && cpu->pc < CD_ENTER_CRITICAL + 16u)
         instruction = kSys1Words[(cpu->pc - CD_ENTER_CRITICAL) / 4u];
     else if (cpu->pc >= CALLBACK_EXIT_CRITICAL && cpu->pc < CALLBACK_EXIT_CRITICAL + 16u)
         instruction = kSys2Words[(cpu->pc - CALLBACK_EXIT_CRITICAL) / 4u];
-    else if (cpu->pc >= 0x8005de78u && cpu->pc < 0x8005e0acu)
-        instruction = kInputDigital8005DE78Words[(cpu->pc - 0x8005de78u) / 4u];
-    else if (cpu->pc >= 0x8005e13cu && cpu->pc < 0x8005e164u)
-        instruction = kInputDigital8005E13CWords[(cpu->pc - 0x8005e13cu) / 4u];
-    else if (cpu->pc >= 0x8005e1a4u && cpu->pc < 0x8005e228u)
-        instruction = kInputDigital8005E1A4Words[(cpu->pc - 0x8005e1a4u) / 4u];
-    else if (cpu->pc >= 0x8005ea34u && cpu->pc < 0x8005ea54u)
-        instruction = kInputDigital8005EA34Words[(cpu->pc - 0x8005ea34u) / 4u];
-    else if (cpu->pc >= 0x8005ea54u && cpu->pc < 0x8005ea68u)
-        instruction = kInputDigital8005EA54Words[(cpu->pc - 0x8005ea54u) / 4u];
-    else if (cpu->pc >= 0x8005ea68u && cpu->pc < 0x8005ea88u)
-        instruction = kInputDigital8005EA68Words[(cpu->pc - 0x8005ea68u) / 4u];
-    else if (cpu->pc >= 0x8005ea88u && cpu->pc < 0x8005eaa8u)
-        instruction = kInputDigital8005EA88Words[(cpu->pc - 0x8005ea88u) / 4u];
-    else if (cpu->pc >= 0x8005eaa8u && cpu->pc < 0x8005eac8u)
-        instruction = kInputDigital8005EAA8Words[(cpu->pc - 0x8005eaa8u) / 4u];
-    else if (cpu->pc >= 0x8005eac8u && cpu->pc < 0x8005eae8u)
-        instruction = kInputDigital8005EAC8Words[(cpu->pc - 0x8005eac8u) / 4u];
-    else if (cpu->pc >= 0x8005eb28u && cpu->pc < 0x8005ec00u)
-        instruction = kInputDigital8005EB28Words[(cpu->pc - 0x8005eb28u) / 4u];
-    else if (cpu->pc >= 0x8005ec00u && cpu->pc < 0x8005ecc0u)
-        instruction = kInputDigital8005EC00Words[(cpu->pc - 0x8005ec00u) / 4u];
-    else if (cpu->pc >= 0x8005ecc0u && cpu->pc < 0x8005ed4cu)
-        instruction = kInputDigital8005ECC0Words[(cpu->pc - 0x8005ecc0u) / 4u];
-    else if (cpu->pc >= 0x8005ed4cu && cpu->pc < 0x8005f0c8u)
-        instruction = kInputDigital8005ED4CWords[(cpu->pc - 0x8005ed4cu) / 4u];
-    else if (cpu->pc >= 0x8005f290u && cpu->pc < 0x8005f384u)
-        instruction = kInputDigital8005F290Words[(cpu->pc - 0x8005f290u) / 4u];
-    else if (cpu->pc >= 0x8005f394u && cpu->pc < 0x8005f450u)
-        instruction = kInputDigital8005F394Words[(cpu->pc - 0x8005f394u) / 4u];
-    else if (cpu->pc >= 0x8005f450u && cpu->pc < 0x8005f6ccu)
-        instruction = kInputDigital8005F450Words[(cpu->pc - 0x8005f450u) / 4u];
-    else if (cpu->pc >= 0x8005f6ccu && cpu->pc < 0x8005f704u)
-        instruction = kInputDigital8005F6CCWords[(cpu->pc - 0x8005f6ccu) / 4u];
-    else if (cpu->pc >= 0x8005fa94u && cpu->pc < 0x8005fb70u)
-        instruction = kInputDigital8005FA94Words[(cpu->pc - 0x8005fa94u) / 4u];
-    else if (cpu->pc >= 0x8005d6ccu && cpu->pc < 0x8005d734u)
-        instruction = kInputVerifierWords[(cpu->pc - 0x8005d6ccu) / 4u];
-    else if (cpu->pc >= 0x8005d734u && cpu->pc < 0x8005d8a0u)
-        instruction = kInputHandlerWords[(cpu->pc - 0x8005d734u) / 4u];
-    else if (cpu->pc >= 0x8005d8a0u && cpu->pc < 0x8005d8b4u)
-        instruction = kInputHandlerClear8005D8A0Words[(cpu->pc - 0x8005d8a0u) / 4u];
-    else if (cpu->pc >= 0x8005d980u && cpu->pc < 0x8005d9c4u)
-        instruction = kInputStop8005D980Words[(cpu->pc - 0x8005d980u) / 4u];
-    else if (cpu->pc >= 0x8005d9c4u && cpu->pc < 0x8005dbd8u)
-        instruction = kInputSerialStartWords[(cpu->pc - 0x8005d9c4u) / 4u];
-    else if (cpu->pc >= 0x8005dbd8u && cpu->pc < 0x8005dca0u)
-        instruction = kInputSerialNextWords[(cpu->pc - 0x8005dbd8u) / 4u];
-    else if (cpu->pc >= 0x8005eae8u && cpu->pc < 0x8005eb28u)
-        instruction = kInputSerialDispatchWords[(cpu->pc - 0x8005eae8u) / 4u];
-    else if (cpu->pc >= 0x8005f75cu && cpu->pc < 0x8005f830u)
-        instruction = kInputSerialPadWords[(cpu->pc - 0x8005f75cu) / 4u];
-    else if (cpu->pc >= 0x8005dca0u && cpu->pc < 0x8005de78u)
-        instruction = kInputSerialTransferWords[(cpu->pc - 0x8005dca0u) / 4u];
-    else if (cpu->pc >= 0x8005e0acu && cpu->pc < 0x8005e13cu)
-        instruction = kInputSerialIrqWords[(cpu->pc - 0x8005e0acu) / 4u];
-    else if (cpu->pc >= 0x8005fba8u && cpu->pc < 0x8005fbc8u)
-        instruction = kInputTimerStartWords[(cpu->pc - 0x8005fba8u) / 4u];
-    else if (cpu->pc >= 0x8005fbc8u && cpu->pc < 0x8005fc68u)
-        instruction = kInputTimerPollWords[(cpu->pc - 0x8005fbc8u) / 4u];
-    else if (cpu->pc >= 0x8005f830u && cpu->pc < 0x8005fa94u)
-        instruction = kInputResponseWords[(cpu->pc - 0x8005f830u) / 4u];
-    else if (cpu->pc >= 0x8005fb70u && cpu->pc < 0x8005fb9cu)
-        instruction = kInputResponseStatusWords[(cpu->pc - 0x8005fb70u) / 4u];
-    else if (cpu->pc >= 0x8005e228u && cpu->pc < 0x8005e374u)
-        instruction = kInputResponseModeWords[(cpu->pc - 0x8005e228u) / 4u];
-    else if (cpu->pc >= 0x8005e374u && cpu->pc < 0x8005e3acu)
-        instruction = kInputResponse8005E374Words[(cpu->pc - 0x8005e374u) / 4u];
-    else if (cpu->pc >= 0x8005e3acu && cpu->pc < 0x8005e79cu)
-        instruction = kInputResponse8005E3ACWords[(cpu->pc - 0x8005e3acu) / 4u];
-    else if (cpu->pc >= 0x8005f384u && cpu->pc < 0x8005f394u)
-        instruction = kInputResponseClearWords[(cpu->pc - 0x8005f384u) / 4u];
+    else if (formatter_range_word(kFormatterRanges1,
+            sizeof kFormatterRanges1 / sizeof kFormatterRanges1[0], cpu->pc,
+            &instruction)) {
+        /* value written by formatter_range_word */
+    }
     else if (cpu->pc >= EVENT_REGISTER && cpu->pc < EVENT_REGISTER + sizeof(kEventRegisterWords))
         instruction = kEventRegisterWords[(cpu->pc - EVENT_REGISTER) / 4u];
     else if (cpu->pc >= 0x80061b58u && cpu->pc < 0x80061b58u + sizeof(kEventTestWords))
@@ -11617,16 +16545,11 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
         instruction = kFile80019AF8Words[(cpu->pc - 0x80019af8u) / 4u];
     else if (cpu->pc >= 0x8001a338u && cpu->pc < 0x8001a9d8u && cpu->cd_irq_frame)
         instruction = kFile8001A338Words[(cpu->pc - 0x8001a338u) / 4u];
-    else if (cpu->pc >= 0x8004355cu && cpu->pc < 0x8004357cu)
-        instruction = kFile8004355CWords[(cpu->pc - 0x8004355cu) / 4u];
-    else if (cpu->pc >= 0x8004239cu && cpu->pc < 0x80042404u)
-        instruction = kFile8004239CWords[(cpu->pc - 0x8004239cu) / 4u];
-    else if (cpu->pc >= 0x80042404u && cpu->pc < 0x800424e4u)
-        instruction = kFile80042404Words[(cpu->pc - 0x80042404u) / 4u];
-    else if (cpu->pc >= 0x800424e4u && cpu->pc < 0x80042580u)
-        instruction = kFile800424E4Words[(cpu->pc - 0x800424e4u) / 4u];
-    else if (cpu->pc >= 0x80044dbcu && cpu->pc < 0x80044f24u)
-        instruction = kFile80044DBCWords[(cpu->pc - 0x80044dbcu) / 4u];
+    else if (formatter_range_word(kFormatterRanges2,
+            sizeof kFormatterRanges2 / sizeof kFormatterRanges2[0], cpu->pc,
+            &instruction)) {
+        /* value written by formatter_range_word */
+    }
     else if (cpu->pc >= STATUS_FIRST_POLL && cpu->pc < STATUS_FIRST_POLL_END)
         instruction = kStatusFirstPoll80044124Words[
             (cpu->pc - STATUS_FIRST_POLL) / 4u];
@@ -11639,152 +16562,11 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
         instruction = 0x00001021u; /* 8004424C: addu v0, zero, zero. */
     else if (cpu->pc >= STATUS_POST_DIAGNOSTIC && cpu->pc < STATUS_LOOP_END)
         instruction = kStatusLoop80044250Words[(cpu->pc - STATUS_POST_DIAGNOSTIC) / 4u];
-    else if (cpu->pc >= 0x8002c8f4u && cpu->pc < 0x8002cc4cu)
-        instruction = kSpu8002C8F4Words[(cpu->pc - 0x8002c8f4u) / 4u];
-    else if (cpu->pc >= 0x8003a424u && cpu->pc < 0x8003a444u)
-        instruction = kSpu8003A424Words[(cpu->pc - 0x8003a424u) / 4u];
-    else if (cpu->pc >= 0x8003a444u && cpu->pc < 0x8003a53cu)
-        instruction = kSpu8003A444Words[(cpu->pc - 0x8003a444u) / 4u];
-    else if (cpu->pc >= 0x8003a53cu && cpu->pc < 0x8003a5b8u)
-        instruction = kSpu8003A53CWords[(cpu->pc - 0x8003a53cu) / 4u];
-    else if (cpu->pc >= 0x8003a5b8u && cpu->pc < 0x8003a84cu)
-        instruction = kSpu8003A5B8Words[(cpu->pc - 0x8003a5b8u) / 4u];
-    else if (cpu->pc >= 0x8003a84cu && cpu->pc < 0x8003aa18u)
-        instruction = kSpu8003A84CWords[(cpu->pc - 0x8003a84cu) / 4u];
-    else if (cpu->pc >= 0x8003af04u && cpu->pc < 0x8003af4cu)
-        instruction = kSpu8003AF04Words[(cpu->pc - 0x8003af04u) / 4u];
-    else if (cpu->pc >= 0x8003b0e4u && cpu->pc < 0x8003b14cu)
-        instruction = kSpu8003B0E4Words[(cpu->pc - 0x8003b0e4u) / 4u];
-    else if (cpu->pc >= 0x8003b14cu && cpu->pc < 0x8003b170u)
-        instruction = kSpu8003B14CWords[(cpu->pc - 0x8003b14cu) / 4u];
-    else if (cpu->pc >= 0x8003be24u && cpu->pc < 0x8003be74u)
-        instruction = kSpu8003BE24Words[(cpu->pc - 0x8003be24u) / 4u];
-    else if (cpu->pc >= 0x8003b3d0u && cpu->pc < 0x8003b45cu)
-        instruction = kSpu8003B3D0Words[(cpu->pc - 0x8003b3d0u) / 4u];
-    else if (cpu->pc >= 0x8002d1f0u && cpu->pc < 0x8002d240u)
-        instruction = kSpu8002D1F0Words[(cpu->pc - 0x8002d1f0u) / 4u];
-    else if (cpu->pc >= 0x8003b45cu && cpu->pc < 0x8003b954u)
-        instruction = kSpu8003B45CWords[(cpu->pc - 0x8003b45cu) / 4u];
-    else if (cpu->pc >= 0x8003b954u && cpu->pc < 0x8003be24u)
-        instruction = kSpu8003B954Words[(cpu->pc - 0x8003b954u) / 4u];
-    else if (cpu->pc >= 0x8003b280u && cpu->pc < 0x8003b350u)
-        instruction = kSpu8003B280Words[(cpu->pc - 0x8003b280u) / 4u];
-    else if (cpu->pc >= 0x8001971cu && cpu->pc < 0x80019930u)
-        instruction = kFile8001971CWords[(cpu->pc - 0x8001971cu) / 4u];
-    else if (cpu->pc >= 0x80019990u && cpu->pc < 0x80019a10u)
-        instruction = kFile80019990Words[(cpu->pc - 0x80019990u) / 4u];
-    else if (cpu->pc >= 0x80045374u && cpu->pc < 0x80045640u)
-        instruction = kFile80045374Words[(cpu->pc - 0x80045374u) / 4u];
-    else if (cpu->pc >= 0x80045640u && cpu->pc < 0x80045660u)
-        instruction = kFile80045640Words[(cpu->pc - 0x80045640u) / 4u];
-    else if (cpu->pc >= 0x80045660u && cpu->pc < 0x80045940u)
-        instruction = kFile80045660Words[(cpu->pc - 0x80045660u) / 4u];
-    else if (cpu->pc >= 0x80045940u && cpu->pc < 0x800459e8u)
-        instruction = kFile80045940Words[(cpu->pc - 0x80045940u) / 4u];
-    else if (cpu->pc >= 0x800459e8u && cpu->pc < 0x80045c94u)
-        instruction = kFile800459E8Words[(cpu->pc - 0x800459e8u) / 4u];
-    else if (cpu->pc >= 0x80045c94u && cpu->pc < 0x80045d00u)
-        instruction = kFile80045C94Words[(cpu->pc - 0x80045c94u) / 4u];
-    else if (cpu->pc >= 0x80043a18u && cpu->pc < 0x80043b1cu)
-        instruction = kFile80043A18Words[(cpu->pc - 0x80043a18u) / 4u];
-    else if (cpu->pc >= 0x80043398u && cpu->pc < 0x800433c0u)
-        instruction = kFile80043398Words[(cpu->pc - 0x80043398u) / 4u];
-    else if (cpu->pc >= 0x800433c0u && cpu->pc < 0x800433e8u)
-        instruction = kFile800433C0Words[(cpu->pc - 0x800433c0u) / 4u];
-    else if (cpu->pc >= 0x800433e8u && cpu->pc < 0x80043410u)
-        instruction = kFile800433E8Words[(cpu->pc - 0x800433e8u) / 4u];
-    else if (cpu->pc >= 0x80043410u && cpu->pc < 0x80043420u)
-        instruction = kFile80043410Words[(cpu->pc - 0x80043410u) / 4u];
-    else if (cpu->pc >= 0x800435ccu && cpu->pc < 0x80043704u)
-        instruction = kFile800435CCWords[(cpu->pc - 0x800435ccu) / 4u];
-    else if (cpu->pc >= 0x80043704u && cpu->pc < 0x80043830u)
-        instruction = kFile80043704Words[(cpu->pc - 0x80043704u) / 4u];
-    else if (cpu->pc >= 0x80043994u && cpu->pc < 0x800439b4u)
-        instruction = kFile80043994Words[(cpu->pc - 0x80043994u) / 4u];
-    else if (cpu->pc >= 0x80043b1cu && cpu->pc < 0x80043b9cu)
-        instruction = kFile80043B1CWords[(cpu->pc - 0x80043b1cu) / 4u];
-    else if (cpu->pc >= 0x800443a4u && cpu->pc < 0x80044670u)
-        instruction = kFile800443A4Words[(cpu->pc - 0x800443a4u) / 4u];
-    else if (cpu->pc >= 0x80044670u && cpu->pc < 0x80044a8cu)
-        instruction = kMain80044670Words[(cpu->pc - 0x80044670u) / 4u];
-    else if (cpu->pc >= 0x80045090u && cpu->pc < 0x80045190u)
-        instruction = kFile80045090Words[(cpu->pc - 0x80045090u) / 4u];
-    else if (cpu->pc >= 0x80045d00u && cpu->pc < 0x80045fd0u)
-        instruction = kFile80045D00Words[(cpu->pc - 0x80045d00u) / 4u];
-    else if (cpu->pc >= 0x800460ccu && cpu->pc < 0x800462e0u)
-        instruction = kFile800460CCWords[(cpu->pc - 0x800460ccu) / 4u];
-    else if (cpu->pc >= 0x8004637cu && cpu->pc < 0x80046480u)
-        instruction = kFile8004637CWords[(cpu->pc - 0x8004637cu) / 4u];
-    else if (cpu->pc >= 0x80046480u && cpu->pc < 0x8004654cu)
-        instruction = kFile80046480Words[(cpu->pc - 0x80046480u) / 4u];
-    else if (cpu->pc >= 0x8005c324u && cpu->pc < 0x8005c358u)
-        instruction = kFile8005C324Words[(cpu->pc - 0x8005c324u) / 4u];
-    else if (cpu->pc >= 0x8005c358u && cpu->pc < 0x8005c388u)
-        instruction = kFile8005C358Words[(cpu->pc - 0x8005c358u) / 4u];
-    else if (cpu->pc >= 0x8005c49cu && cpu->pc < 0x8005c4ccu)
-        instruction = kMain8005C49CWords[(cpu->pc - 0x8005c49cu) / 4u];
-    else if (cpu->pc >= 0x8005c4dcu && cpu->pc < 0x8005c540u)
-        instruction = kFile8005C4DCWords[(cpu->pc - 0x8005c4dcu) / 4u];
-    else if (cpu->pc >= 0x8005c584u && cpu->pc < 0x8005c604u)
-        instruction = kFile8005C584Words[(cpu->pc - 0x8005c584u) / 4u];
-    else if (cpu->pc >= 0x8005ce68u && cpu->pc < 0x8005ce74u)
-        instruction = kFile8005CE68Words[(cpu->pc - 0x8005ce68u) / 4u];
-    else if (cpu->pc >= 0x8005cea8u && cpu->pc < 0x8005ceb4u)
-        instruction = kFile8005CEA8Words[(cpu->pc - 0x8005cea8u) / 4u];
-    else if (cpu->pc >= 0x80043420u && cpu->pc < 0x80043430u)
-        instruction = kFile80043420Words[(cpu->pc - 0x80043420u) / 4u];
-    else if (cpu->pc >= 0x80043440u && cpu->pc < 0x80043450u)
-        instruction = kFile80043440Words[(cpu->pc - 0x80043440u) / 4u];
-    else if (cpu->pc >= 0x8004357cu && cpu->pc < 0x8004359cu)
-        instruction = kFile8004357CWords[(cpu->pc - 0x8004357cu) / 4u];
-    else if (cpu->pc >= 0x80037d98u && cpu->pc < 0x80037ea0u)
-        instruction = kSpu80037D98Words[(cpu->pc - 0x80037d98u) / 4u];
-    else if (cpu->pc >= 0x8003d424u && cpu->pc < 0x8003d434u)
-        instruction = kSpu8003D424Words[(cpu->pc - 0x8003d424u) / 4u];
-    else if (cpu->pc >= 0x8002cc4cu && cpu->pc < 0x8002ccb4u)
-        instruction = kSpu8002CC4CWords[(cpu->pc - 0x8002cc4cu) / 4u];
-    else if (cpu->pc >= 0x8002fae0u && cpu->pc < 0x8002fb08u)
-        instruction = kSpu8002FAE0Words[(cpu->pc - 0x8002fae0u) / 4u];
-    else if (cpu->pc >= 0x8002c8bcu && cpu->pc < 0x8002c8f4u)
-        instruction = kSpu8002C8BCWords[(cpu->pc - 0x8002c8bcu) / 4u];
-    else if (cpu->pc >= 0x80037cc8u && cpu->pc < 0x80037cd8u)
-        instruction = kSpu80037CC8Words[(cpu->pc - 0x80037cc8u) / 4u];
-    else if (cpu->pc >= 0x8003be74u && cpu->pc < 0x8003be98u)
-        instruction = kSpu8003BE74Words[(cpu->pc - 0x8003be74u) / 4u];
-    else if (cpu->pc >= 0x8003be98u && cpu->pc < 0x8003c0a0u)
-        instruction = kSpu8003BE98Words[(cpu->pc - 0x8003be98u) / 4u];
-    else if (cpu->pc >= 0x8003b1ecu && cpu->pc < 0x8003b250u)
-        instruction = kSpu8003B1ECWords[(cpu->pc - 0x8003b1ecu) / 4u];
-    else if (cpu->pc >= 0x80034c24u && cpu->pc < 0x80034cf0u)
-        instruction = kSpu80034C24Words[(cpu->pc - 0x80034c24u) / 4u];
-    else if (cpu->pc >= 0x800430b8u && cpu->pc < 0x800430dcu)
-        instruction = kSpu800430B8Words[(cpu->pc - 0x800430b8u) / 4u];
-    else if (cpu->pc >= 0x800430dcu && cpu->pc < 0x80043300u)
-        instruction = kSpu800430DCWords[(cpu->pc - 0x800430dcu) / 4u];
-    else if (cpu->pc >= 0x80043830u && cpu->pc < 0x80043974u)
-        instruction = kSpu80043830Words[(cpu->pc - 0x80043830u) / 4u];
-    else if (cpu->pc >= 0x80037004u && cpu->pc < 0x80037028u)
-        instruction = kSpu80037004Words[(cpu->pc - 0x80037004u) / 4u];
-    else if (cpu->pc >= 0x8003c598u && cpu->pc < 0x8003c92cu)
-        instruction = kSpu8003C598Words[(cpu->pc - 0x8003c598u) / 4u];
-    else if (cpu->pc >= 0x8003d518u && cpu->pc < 0x8003d548u)
-        instruction = kSpu8003D518Words[(cpu->pc - 0x8003d518u) / 4u];
-    else if (cpu->pc >= 0x8003d548u && cpu->pc < 0x8003d630u)
-        instruction = kSpu8003D548Words[(cpu->pc - 0x8003d548u) / 4u];
-    else if (cpu->pc >= 0x8003fe3cu && cpu->pc < 0x8004014cu)
-        instruction = kSpu8003FE3CWords[(cpu->pc - 0x8003fe3cu) / 4u];
-    else if (cpu->pc >= 0x8004014cu && cpu->pc < 0x800401a0u)
-        instruction = kSpu8004014CWords[(cpu->pc - 0x8004014cu) / 4u];
-    else if (cpu->pc >= 0x800401a0u && cpu->pc < 0x800401ccu)
-        instruction = kSpu800401A0Words[(cpu->pc - 0x800401a0u) / 4u];
-    else if (cpu->pc >= 0x80040868u && cpu->pc < 0x80040938u)
-        instruction = kSpu80040868Words[(cpu->pc - 0x80040868u) / 4u];
-    else if (cpu->pc >= 0x8003fa64u && cpu->pc < 0x8003fe18u)
-        instruction = kSpu8003FA64Words[(cpu->pc - 0x8003fa64u) / 4u];
-    else if (cpu->pc >= 0x800425e0u && cpu->pc < 0x80042610u)
-        instruction = kSpu800425E0Words[(cpu->pc - 0x800425e0u) / 4u];
-    else if (cpu->pc >= 0x80042f8cu && cpu->pc < 0x80043034u)
-        instruction = kSpu80042F8CWords[(cpu->pc - 0x80042f8cu) / 4u];
+    else if (formatter_range_word(kFormatterRanges3,
+            sizeof kFormatterRanges3 / sizeof kFormatterRanges3[0], cpu->pc,
+            &instruction)) {
+        /* value written by formatter_range_word */
+    }
     else if (cpu->pc >= STATUS_READY_QUERY && cpu->pc < STATUS_READY_QUERY + 16u)
         instruction = kReadyQuery800426D4Words[(cpu->pc - STATUS_READY_QUERY) / 4u];
     else if (cpu->pc >= STATUS_WORKER && cpu->pc < STATUS_WORKER_END)
@@ -11798,556 +16580,42 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
             (cpu->pc - CD_STATE_RESET_WRAPPER) / 4u];
     else if (cpu->pc >= STARTUP_DISPATCH && cpu->pc < STARTUP_DISPATCH_END)
         instruction = kStartupDispatcher80043300Words[(cpu->pc - STARTUP_DISPATCH) / 4u];
-    else if (g_overlay_0004_words &&
-             cpu->pc >= 0x800ceec8u && cpu->pc < 0x800cf104u)
-        instruction = kOverlay0004_800CEEC8Words[(cpu->pc - 0x800ceec8u)/4u];
-    else if (g_overlay_0004_words &&
-             cpu->pc >= 0x800d1e18u && cpu->pc < 0x800d1e9cu)
-        instruction = kOverlay0004_800D1E18Words[(cpu->pc - 0x800d1e18u)/4u];
-    else if (g_overlay_0004_words &&
-             cpu->pc >= 0x800cfb3cu && cpu->pc < 0x800cfc1cu)
-        instruction = kOverlay0004_800CFB3CWords[(cpu->pc - 0x800cfb3cu)/4u];
-    else if (g_overlay_0004_words &&
-             cpu->pc >= 0x800d1e9cu && cpu->pc < 0x800d2394u)
-        instruction = kOverlay0004_800D1E9CWords[(cpu->pc - 0x800d1e9cu)/4u];
-    else if (g_overlay_0004_words &&
-             cpu->pc >= 0x800d2394u && cpu->pc < 0x800d2454u)
-        instruction = kOverlay0004_800D2394Words[(cpu->pc - 0x800d2394u)/4u];
-    else if (g_overlay_0004_words &&
-             cpu->pc >= 0x800d2454u && cpu->pc < 0x800d24d0u)
-        instruction = kOverlay0004_800D2454Words[(cpu->pc - 0x800d2454u)/4u];
-    else if (g_overlay_0004_words &&
-             cpu->pc >= 0x800d2aa0u && cpu->pc < 0x800d2ad8u)
-        instruction = kOverlay0004_800D2AA0Words[(cpu->pc - 0x800d2aa0u)/4u];
-    else if (g_overlay_0004_words &&
-             cpu->pc >= 0x800d2d44u && cpu->pc < 0x800d2d68u)
-        instruction = kOverlay0004_800D2D44Words[(cpu->pc - 0x800d2d44u)/4u];
-    else if (g_overlay_0004_words &&
-             cpu->pc >= 0x800d2a24u && cpu->pc < 0x800d2aa0u)
-        instruction = kOverlay0004_800D2A24Words[(cpu->pc - 0x800d2a24u)/4u];
-    else if (g_overlay_0004_words &&
-             cpu->pc >= 0x800d2704u && cpu->pc < 0x800d27a0u)
-        instruction = kOverlay0004_800D2704Words[(cpu->pc - 0x800d2704u)/4u];
-    else if (g_overlay_0004_words &&
-             cpu->pc >= 0x800d298cu && cpu->pc < 0x800d2a24u)
-        instruction = kOverlay0004_800D298CWords[(cpu->pc - 0x800d298cu)/4u];
-    else if (g_overlay_0004_words &&
-             cpu->pc >= 0x800d2c0cu && cpu->pc < 0x800d2c88u)
-        instruction = kOverlay0004_800D2C0CWords[(cpu->pc - 0x800d2c0cu)/4u];
-    else if (g_overlay_0004_words &&
-             cpu->pc >= 0x800d2c88u && cpu->pc < 0x800d2ca8u)
-        instruction = kOverlay0004_800D2C88Words[(cpu->pc - 0x800d2c88u)/4u];
-    else if (g_overlay_0004_words &&
-             cpu->pc >= 0x800d24d0u && cpu->pc < 0x800d2704u)
-        instruction = kOverlay0004_800D24D0Words[(cpu->pc - 0x800d24d0u)/4u];
-    else if (g_overlay_0004_words &&
-             cpu->pc >= 0x800d2d68u && cpu->pc < 0x800d2e64u)
-        instruction = kOverlay0004_800D2D68Words[(cpu->pc - 0x800d2d68u)/4u];
-    else if (g_overlay_0004_words &&
-             cpu->pc >= 0x800d27a0u && cpu->pc < 0x800d298cu)
-        instruction = kOverlay0004_800D27A0Words[(cpu->pc - 0x800d27a0u)/4u];
-    else if (g_overlay_0004_words &&
-             cpu->pc >= 0x800d3234u && cpu->pc < 0x800d3540u)
-        instruction = kOverlay0004_800D3234Words[(cpu->pc - 0x800d3234u)/4u];
-    else if (g_overlay_0004_words &&
-             cpu->pc >= 0x800d2e64u && cpu->pc < 0x800d2ef8u)
-        instruction = kOverlay0004_800D2E64Words[(cpu->pc - 0x800d2e64u)/4u];
-    else if (g_overlay_0004_words &&
-             cpu->pc >= 0x800d2ef8u && cpu->pc < 0x800d2f88u)
-        instruction = kOverlay0004_800D2EF8Words[(cpu->pc - 0x800d2ef8u)/4u];
-    else if (g_overlay_0004_words &&
-             cpu->pc >= 0x800d2f88u && cpu->pc < 0x800d3020u)
-        instruction = kOverlay0004_800D2F88Words[(cpu->pc - 0x800d2f88u)/4u];
-    else if (g_overlay_0004_words &&
-             cpu->pc >= 0x800d3020u && cpu->pc < 0x800d30b8u)
-        instruction = kOverlay0004_800D3020Words[(cpu->pc - 0x800d3020u)/4u];
-    else if (g_overlay_0004_words &&
-             cpu->pc >= 0x800d30d0u && cpu->pc < 0x800d3200u)
-        instruction = kOverlay0004_800D30D0Words[(cpu->pc - 0x800d30d0u)/4u];
-    else if (g_overlay_0004_words &&
-             cpu->pc >= 0x800cffecu && cpu->pc < 0x800d0100u)
-        instruction = kOverlay0004_800CFFECWords[(cpu->pc - 0x800cffecu)/4u];
-    else if (g_overlay_0004_words &&
-             cpu->pc >= 0x800cf3e8u && cpu->pc < 0x800cfb3cu)
-        instruction = kOverlay0004_800CF3E8Words[(cpu->pc - 0x800cf3e8u)/4u];
-    else if (g_overlay_0004_words &&
-             cpu->pc >= 0x800cfc1cu && cpu->pc < 0x800cfe00u)
-        instruction = kOverlay0004_800CFC1CWords[(cpu->pc - 0x800cfc1cu)/4u];
-    else if (g_overlay_0004_words &&
-             cpu->pc >= 0x800cf3a4u && cpu->pc < 0x800cf3e8u)
-        instruction = kOverlay0004_800CF3A4Words[(cpu->pc - 0x800cf3a4u)/4u];
-    else if (g_overlay_0004_words &&
-             cpu->pc >= 0x800cf370u && cpu->pc < 0x800cf3a4u)
-        instruction = kOverlay0004_800CF370Words[(cpu->pc - 0x800cf370u)/4u];
-    else if (g_overlay_0004_words &&
-             cpu->pc >= 0x800cf300u && cpu->pc < 0x800cf370u)
-        instruction = kOverlay0004_800CF300Words[(cpu->pc - 0x800cf300u)/4u];
-    else if (g_overlay_0004_words &&
-             cpu->pc >= 0x800cf104u && cpu->pc < 0x800cf300u)
-        instruction = kOverlay0004_800CF104Words[(cpu->pc - 0x800cf104u)/4u];
-    else if (g_overlay_0004_words &&
-             cpu->pc >= 0x800cfe00u && cpu->pc < 0x800cfeb4u)
-        instruction = kOverlay0004_800CFE00Words[(cpu->pc - 0x800cfe00u)/4u];
-    else if (g_overlay_0010_words &&
-             cpu->pc >= 0x800cedfcu && cpu->pc < 0x800cf104u)
-        instruction = kOverlay0010_800CEDFCWords[(cpu->pc - 0x800cedfcu) / 4u];
-    else if (g_overlay_0010_words &&
-             cpu->pc >= 0x800cfbbcu && cpu->pc < 0x800cfbccu)
-        instruction = kOverlay0010_800CFBBCWords[(cpu->pc - 0x800cfbbcu) / 4u];
-    else if (g_overlay_0010_words &&
-             cpu->pc >= 0x800cf8b4u && cpu->pc < 0x800cf8ccu)
-        instruction = kOverlay0010_800CF8B4Words[(cpu->pc - 0x800cf8b4u) / 4u];
-    else if (g_overlay_0010_words &&
-             cpu->pc >= 0x800d0488u && cpu->pc < 0x800d0588u)
-        instruction = kOverlay0010_800D0488Words[(cpu->pc - 0x800d0488u) / 4u];
-    else if (g_overlay_0010_words &&
-             cpu->pc >= 0x800cf370u && cpu->pc < 0x800cf398u)
-        instruction = kOverlay0010_800CF370Words[(cpu->pc - 0x800cf370u) / 4u];
-    else if (g_overlay_0010_words &&
-             cpu->pc >= 0x800cf398u && cpu->pc < 0x800cf3b8u)
-        instruction = kOverlay0010_800CF398Words[(cpu->pc - 0x800cf398u) / 4u];
-    else if (g_overlay_0010_words &&
-             cpu->pc >= 0x800cf3b8u && cpu->pc < 0x800cf47cu)
-        instruction = kOverlay0010_800CF3B8Words[(cpu->pc - 0x800cf3b8u) / 4u];
-    else if (g_overlay_0010_words &&
-             cpu->pc >= 0x800cf47cu && cpu->pc < 0x800cf4d4u)
-        instruction = kOverlay0010_800CF47CWords[(cpu->pc - 0x800cf47cu) / 4u];
-    else if (g_overlay_0010_words &&
-             cpu->pc >= 0x800cf4d4u && cpu->pc < 0x800cf804u)
-        instruction = kOverlay0010_800CF4D4Words[(cpu->pc - 0x800cf4d4u) / 4u];
-    else if (g_overlay_0010_words &&
-             cpu->pc >= 0x800cfbf8u && cpu->pc < 0x800cfde8u)
-        instruction = kOverlay0010_800CFBF8Words[(cpu->pc - 0x800cfbf8u) / 4u];
-    else if (g_overlay_0010_words &&
-             cpu->pc >= 0x800cfe60u && cpu->pc < 0x800d0214u)
-        instruction = kOverlay0010_800CFE60Words[(cpu->pc - 0x800cfe60u) / 4u];
-    else if (g_overlay_0010_words &&
-             cpu->pc >= 0x800cf94cu && cpu->pc < 0x800cf990u)
-        instruction = kOverlay0010_800CF94CWords[(cpu->pc - 0x800cf94cu) / 4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80128420u && cpu->pc < 0x801284b8u)
-        instruction = kOverlaySc02_80128420Words[(cpu->pc - 0x80128420u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80129220u && cpu->pc < 0x80129248u)
-        instruction = kOverlaySc02_80129220Words[(cpu->pc - 0x80129220u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80129248u && cpu->pc < 0x80129258u)
-        instruction = kOverlaySc02_80129248Words[(cpu->pc - 0x80129248u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80129258u && cpu->pc < 0x8012927cu)
-        instruction = kOverlaySc02_80129258Words[(cpu->pc - 0x80129258u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801378f0u && cpu->pc < 0x801379d8u)
-        instruction = kOverlaySc02_801378F0Words[(cpu->pc - 0x801378f0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013a860u && cpu->pc < 0x8013a8b0u)
-        instruction = kOverlaySc02_8013A860Words[(cpu->pc - 0x8013a860u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80128c14u && cpu->pc < 0x80128c98u)
-        instruction = kOverlaySc02_80128C14Words[(cpu->pc - 0x80128c14u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013c98cu && cpu->pc < 0x8013c9c4u)
-        instruction = kOverlaySc02_8013C98CWords[(cpu->pc - 0x8013c98cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80129c40u && cpu->pc < 0x80129cf8u)
-        instruction = kOverlaySc02_80129C40Words[(cpu->pc - 0x80129c40u)/4u];
+    else if (g_overlay_0004_words && formatter_range_word(kFormatterRanges4,
+            sizeof kFormatterRanges4 / sizeof kFormatterRanges4[0], cpu->pc,
+            &instruction)) {
+        /* value written by formatter_range_word */
+    }
+    else if (g_overlay_0010_words && formatter_range_word(kFormatterRanges5,
+            sizeof kFormatterRanges5 / sizeof kFormatterRanges5[0], cpu->pc,
+            &instruction)) {
+        /* value written by formatter_range_word */
+    }
+    else if (g_overlay_sc02_0031_words && formatter_range_word(kFormatterRanges6,
+            sizeof kFormatterRanges6 / sizeof kFormatterRanges6[0], cpu->pc,
+            &instruction)) {
+        /* value written by formatter_range_word */
+    }
     else if (cpu->pc >= 0x80129cf8u && cpu->pc < 0x80129ff4u)
         instruction = kOverlaySc02_80129CF8Words[(cpu->pc - 0x80129cf8u)/4u];
     else if (cpu->pc >= 0x8012a328u && cpu->pc < 0x8012a418u)
         instruction = kOverlaySc02_8012A328Words[(cpu->pc - 0x8012a328u)/4u];
-    else if (g_overlay_0010_words && cpu->pc >= 0x800d05e8u && cpu->pc < 0x800d0630u)
-        instruction = kOverlay0010_800D05E8Words[(cpu->pc - 0x800d05e8u)/4u];
-    else if (g_overlay_0010_words && cpu->pc >= 0x800d0588u && cpu->pc < 0x800d05e8u)
-        instruction = kOverlay0010_800D0588Words[(cpu->pc - 0x800d0588u)/4u];
-    else if (g_overlay_0010_words && cpu->pc >= 0x800cf854u && cpu->pc < 0x800cf864u)
-        instruction = kOverlay0010_800CF854Words[(cpu->pc - 0x800cf854u)/4u];
-    else if (g_overlay_0010_words && cpu->pc >= 0x800d1e20u && cpu->pc < 0x800d1e28u)
-        instruction = kOverlay0010_800D1E20Words[(cpu->pc - 0x800d1e20u)/4u];
-    else if (g_overlay_0010_words && cpu->pc >= 0x800d18dcu && cpu->pc < 0x800d1938u)
-        instruction = kOverlay0010_800D18DCWords[(cpu->pc - 0x800d18dcu)/4u];
-    else if (g_overlay_0010_words && cpu->pc >= 0x800d1938u && cpu->pc < 0x800d1984u)
-        instruction = kOverlay0010_800D1938Words[(cpu->pc - 0x800d1938u)/4u];
-    else if (g_overlay_0010_words && cpu->pc >= 0x800d1984u && cpu->pc < 0x800d19dcu)
-        instruction = kOverlay0010_800D1984Words[(cpu->pc - 0x800d1984u)/4u];
-    else if (g_overlay_0010_words && cpu->pc >= 0x800d1f58u && cpu->pc < 0x800d1f90u)
-        instruction = kOverlay0010_800D1F58Words[(cpu->pc - 0x800d1f58u)/4u];
-    else if (g_overlay_0010_words &&
-             cpu->pc >= 0x800d1fc8u && cpu->pc < 0x800d20c0u)
-        instruction = kOverlay0010_800D1FC8Words[(cpu->pc - 0x800d1fc8u)/4u];
-    else if (g_overlay_0010_words && cpu->pc >= 0x800d02c0u && cpu->pc < 0x800d02d0u)
-        instruction = kOverlay0010_800D02C0Words[(cpu->pc - 0x800d02c0u)/4u];
-    else if (g_overlay_0010_words &&
-             cpu->pc >= 0x800d0630u && cpu->pc < 0x800d065cu)
-        instruction = kOverlay0010_800D0630Words[(cpu->pc - 0x800d0630u)/4u];
-    else if (g_overlay_0010_words &&
-             cpu->pc >= 0x800d065cu && cpu->pc < 0x800d0694u)
-        instruction = kOverlay0010_800D065CWords[(cpu->pc - 0x800d065cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80145cecu && cpu->pc < 0x80145ee8u)
-        instruction = kOverlaySc02_80145CECWords[(cpu->pc - 0x80145cecu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801552f4u && cpu->pc < 0x80155344u)
-        instruction = kOverlaySc02_801552F4Words[(cpu->pc - 0x801552f4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015a2d8u && cpu->pc < 0x8015a3c8u)
-        instruction = kOverlaySc02_8015A2D8Words[(cpu->pc - 0x8015a2d8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801619a4u && cpu->pc < 0x801619d0u)
-        instruction = kOverlaySc02_801619A4Words[(cpu->pc - 0x801619a4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80161b18u && cpu->pc < 0x80161b84u)
-        instruction = kOverlaySc02_80161B18Words[(cpu->pc - 0x80161b18u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80159c84u && cpu->pc < 0x8015a1c8u)
-        instruction = kOverlaySc02_80159C84Words[(cpu->pc - 0x80159c84u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015126cu && cpu->pc < 0x80151664u)
-        instruction = kOverlaySc02_8015126CWords[(cpu->pc - 0x8015126cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80158638u && cpu->pc < 0x80158794u)
-        instruction = kOverlaySc02_80158638Words[(cpu->pc - 0x80158638u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80159a20u && cpu->pc < 0x80159b08u)
-        instruction = kOverlaySc02_80159A20Words[(cpu->pc - 0x80159a20u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801654a8u && cpu->pc < 0x80165580u)
-        instruction = kOverlaySc02_801654A8Words[(cpu->pc - 0x801654a8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80171ec8u && cpu->pc < 0x80171ffcu)
-        instruction = kOverlaySc02_80171EC8Words[(cpu->pc - 0x80171ec8u)/4u];
+    else if (g_overlay_0010_words && formatter_range_word(kFormatterRanges7,
+            sizeof kFormatterRanges7 / sizeof kFormatterRanges7[0], cpu->pc,
+            &instruction)) {
+        /* value written by formatter_range_word */
+    }
+    else if (g_overlay_sc02_0031_words && formatter_range_word(kFormatterRanges8,
+            sizeof kFormatterRanges8 / sizeof kFormatterRanges8[0], cpu->pc,
+            &instruction)) {
+        /* value written by formatter_range_word */
+    }
     else if (cpu->pc >= 0x8017849cu && cpu->pc < 0x80178608u)
         instruction = kOverlaySc02_8017849CWords[(cpu->pc - 0x8017849cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801719a4u && cpu->pc < 0x80171a04u)
-        instruction = kOverlaySc02_801719A4Words[(cpu->pc - 0x801719a4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f14cu && cpu->pc < 0x8016f1acu)
-        instruction = kOverlaySc02_8016F14CWords[(cpu->pc - 0x8016f14cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f1c4u && cpu->pc < 0x8016f250u)
-        instruction = kOverlaySc02_8016F1C4Words[(cpu->pc - 0x8016f1c4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80161a90u && cpu->pc < 0x80161b18u)
-        instruction = kOverlaySc02_80161A90Words[(cpu->pc - 0x80161a90u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80147084u && cpu->pc < 0x8014708cu)
-        instruction = kOverlaySc02_80147084Words[(cpu->pc - 0x80147084u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80147098u && cpu->pc < 0x801470a0u)
-        instruction = kOverlaySc02_80147098Words[(cpu->pc - 0x80147098u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801470acu && cpu->pc < 0x801470b4u)
-        instruction = kOverlaySc02_801470ACWords[(cpu->pc - 0x801470acu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80149210u && cpu->pc < 0x80149228u)
-        instruction = kOverlaySc02_80149210Words[(cpu->pc - 0x80149210u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149228u && cpu->pc < 0x80149284u)
-        instruction = kOverlaySc02_80149228Words[(cpu->pc - 0x80149228u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149284u && cpu->pc < 0x80149290u)
-        instruction = kOverlaySc02_80149284Words[(cpu->pc - 0x80149284u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149290u && cpu->pc < 0x80149350u)
-        instruction = kOverlaySc02_80149290Words[(cpu->pc - 0x80149290u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149350u && cpu->pc < 0x80149374u)
-        instruction = kOverlaySc02_80149350Words[(cpu->pc - 0x80149350u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149374u && cpu->pc < 0x801493d0u)
-        instruction = kOverlaySc02_80149374Words[(cpu->pc - 0x80149374u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801493d0u && cpu->pc < 0x8014942cu)
-        instruction = kOverlaySc02_801493D0Words[(cpu->pc - 0x801493d0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014942cu && cpu->pc < 0x80149450u)
-        instruction = kOverlaySc02_8014942CWords[(cpu->pc - 0x8014942cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149450u && cpu->pc < 0x801494ccu)
-        instruction = kOverlaySc02_80149450Words[(cpu->pc - 0x80149450u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801494ccu && cpu->pc < 0x80149544u)
-        instruction = kOverlaySc02_801494CCWords[(cpu->pc - 0x801494ccu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149544u && cpu->pc < 0x80149584u)
-        instruction = kOverlaySc02_80149544Words[(cpu->pc - 0x80149544u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149584u && cpu->pc < 0x801495c4u)
-        instruction = kOverlaySc02_80149584Words[(cpu->pc - 0x80149584u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801495c4u && cpu->pc < 0x8014964cu)
-        instruction = kOverlaySc02_801495C4Words[(cpu->pc - 0x801495c4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014964cu && cpu->pc < 0x801496d4u)
-        instruction = kOverlaySc02_8014964CWords[(cpu->pc - 0x8014964cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801496d4u && cpu->pc < 0x80149704u)
-        instruction = kOverlaySc02_801496D4Words[(cpu->pc - 0x801496d4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149704u && cpu->pc < 0x80149724u)
-        instruction = kOverlaySc02_80149704Words[(cpu->pc - 0x80149704u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149724u && cpu->pc < 0x80149744u)
-        instruction = kOverlaySc02_80149724Words[(cpu->pc - 0x80149724u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149744u && cpu->pc < 0x80149788u)
-        instruction = kOverlaySc02_80149744Words[(cpu->pc - 0x80149744u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149788u && cpu->pc < 0x801497a8u)
-        instruction = kOverlaySc02_80149788Words[(cpu->pc - 0x80149788u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801497a8u && cpu->pc < 0x80149864u)
-        instruction = kOverlaySc02_801497A8Words[(cpu->pc - 0x801497a8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149864u && cpu->pc < 0x80149884u)
-        instruction = kOverlaySc02_80149864Words[(cpu->pc - 0x80149864u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149884u && cpu->pc < 0x801498c0u)
-        instruction = kOverlaySc02_80149884Words[(cpu->pc - 0x80149884u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801498c0u && cpu->pc < 0x801498e0u)
-        instruction = kOverlaySc02_801498C0Words[(cpu->pc - 0x801498c0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801498e0u && cpu->pc < 0x80149954u)
-        instruction = kOverlaySc02_801498E0Words[(cpu->pc - 0x801498e0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149954u && cpu->pc < 0x80149a64u)
-        instruction = kOverlaySc02_80149954Words[(cpu->pc - 0x80149954u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149a64u && cpu->pc < 0x80149aa8u)
-        instruction = kOverlaySc02_80149A64Words[(cpu->pc - 0x80149a64u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149aa8u && cpu->pc < 0x80149ad4u)
-        instruction = kOverlaySc02_80149AA8Words[(cpu->pc - 0x80149aa8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149ad4u && cpu->pc < 0x80149b14u)
-        instruction = kOverlaySc02_80149AD4Words[(cpu->pc - 0x80149ad4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149b14u && cpu->pc < 0x80149b54u)
-        instruction = kOverlaySc02_80149B14Words[(cpu->pc - 0x80149b14u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149b54u && cpu->pc < 0x80149bacu)
-        instruction = kOverlaySc02_80149B54Words[(cpu->pc - 0x80149b54u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149bacu && cpu->pc < 0x80149becu)
-        instruction = kOverlaySc02_80149BACWords[(cpu->pc - 0x80149bacu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149becu && cpu->pc < 0x80149c08u)
-        instruction = kOverlaySc02_80149BECWords[(cpu->pc - 0x80149becu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149c08u && cpu->pc < 0x80149c94u)
-        instruction = kOverlaySc02_80149C08Words[(cpu->pc - 0x80149c08u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149c94u && cpu->pc < 0x80149cb4u)
-        instruction = kOverlaySc02_80149C94Words[(cpu->pc - 0x80149c94u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149cb4u && cpu->pc < 0x80149cd4u)
-        instruction = kOverlaySc02_80149CB4Words[(cpu->pc - 0x80149cb4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149cd4u && cpu->pc < 0x80149d10u)
-        instruction = kOverlaySc02_80149CD4Words[(cpu->pc - 0x80149cd4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149d10u && cpu->pc < 0x80149d9cu)
-        instruction = kOverlaySc02_80149D10Words[(cpu->pc - 0x80149d10u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149d9cu && cpu->pc < 0x80149dd8u)
-        instruction = kOverlaySc02_80149D9CWords[(cpu->pc - 0x80149d9cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149dd8u && cpu->pc < 0x80149e94u)
-        instruction = kOverlaySc02_80149DD8Words[(cpu->pc - 0x80149dd8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149e94u && cpu->pc < 0x80149f2cu)
-        instruction = kOverlaySc02_80149E94Words[(cpu->pc - 0x80149e94u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149f2cu && cpu->pc < 0x80149fa8u)
-        instruction = kOverlaySc02_80149F2CWords[(cpu->pc - 0x80149f2cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149fa8u && cpu->pc < 0x80149fb0u)
-        instruction = kOverlaySc02_80149FA8Words[(cpu->pc - 0x80149fa8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149fb0u && cpu->pc < 0x8014a048u)
-        instruction = kOverlaySc02_80149FB0Words[(cpu->pc - 0x80149fb0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014a048u && cpu->pc < 0x8014a1b0u)
-        instruction = kOverlaySc02_8014A048Words[(cpu->pc - 0x8014a048u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014a1b0u && cpu->pc < 0x8014a218u)
-        instruction = kOverlaySc02_8014A1B0Words[(cpu->pc - 0x8014a1b0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014a218u && cpu->pc < 0x8014a238u)
-        instruction = kOverlaySc02_8014A218Words[(cpu->pc - 0x8014a218u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014a238u && cpu->pc < 0x8014a2e4u)
-        instruction = kOverlaySc02_8014A238Words[(cpu->pc - 0x8014a238u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014a2e4u && cpu->pc < 0x8014a380u)
-        instruction = kOverlaySc02_8014A2E4Words[(cpu->pc - 0x8014a2e4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014a380u && cpu->pc < 0x8014a3e0u)
-        instruction = kOverlaySc02_8014A380Words[(cpu->pc - 0x8014a380u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014a3e0u && cpu->pc < 0x8014a454u)
-        instruction = kOverlaySc02_8014A3E0Words[(cpu->pc - 0x8014a3e0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014a454u && cpu->pc < 0x8014a4b4u)
-        instruction = kOverlaySc02_8014A454Words[(cpu->pc - 0x8014a454u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014a4b4u && cpu->pc < 0x8014a4fcu)
-        instruction = kOverlaySc02_8014A4B4Words[(cpu->pc - 0x8014a4b4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014a4fcu && cpu->pc < 0x8014a51cu)
-        instruction = kOverlaySc02_8014A4FCWords[(cpu->pc - 0x8014a4fcu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014a51cu && cpu->pc < 0x8014a59cu)
-        instruction = kOverlaySc02_8014A51CWords[(cpu->pc - 0x8014a51cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014a59cu && cpu->pc < 0x8014a638u)
-        instruction = kOverlaySc02_8014A59CWords[(cpu->pc - 0x8014a59cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014a638u && cpu->pc < 0x8014a738u)
-        instruction = kOverlaySc02_8014A638Words[(cpu->pc - 0x8014a638u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014a738u && cpu->pc < 0x8014a850u)
-        instruction = kOverlaySc02_8014A738Words[(cpu->pc - 0x8014a738u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014a850u && cpu->pc < 0x8014aa04u)
-        instruction = kOverlaySc02_8014A850Words[(cpu->pc - 0x8014a850u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014aa04u && cpu->pc < 0x8014aa28u)
-        instruction = kOverlaySc02_8014AA04Words[(cpu->pc - 0x8014aa04u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014aa28u && cpu->pc < 0x8014ab5cu)
-        instruction = kOverlaySc02_8014AA28Words[(cpu->pc - 0x8014aa28u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014ab5cu && cpu->pc < 0x8014ab7cu)
-        instruction = kOverlaySc02_8014AB5CWords[(cpu->pc - 0x8014ab5cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014ab7cu && cpu->pc < 0x8014abf0u)
-        instruction = kOverlaySc02_8014AB7CWords[(cpu->pc - 0x8014ab7cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014abf0u && cpu->pc < 0x8014ac10u)
-        instruction = kOverlaySc02_8014ABF0Words[(cpu->pc - 0x8014abf0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014ac10u && cpu->pc < 0x8014acc0u)
-        instruction = kOverlaySc02_8014AC10Words[(cpu->pc - 0x8014ac10u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014acc0u && cpu->pc < 0x8014ace8u)
-        instruction = kOverlaySc02_8014ACC0Words[(cpu->pc - 0x8014acc0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014ace8u && cpu->pc < 0x8014ad30u)
-        instruction = kOverlaySc02_8014ACE8Words[(cpu->pc - 0x8014ace8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014ad30u && cpu->pc < 0x8014ad7cu)
-        instruction = kOverlaySc02_8014AD30Words[(cpu->pc - 0x8014ad30u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014ad7cu && cpu->pc < 0x8014ada8u)
-        instruction = kOverlaySc02_8014AD7CWords[(cpu->pc - 0x8014ad7cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014ada8u && cpu->pc < 0x8014ade0u)
-        instruction = kOverlaySc02_8014ADA8Words[(cpu->pc - 0x8014ada8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014ade0u && cpu->pc < 0x8014b00cu)
-        instruction = kOverlaySc02_8014ADE0Words[(cpu->pc - 0x8014ade0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014b00cu && cpu->pc < 0x8014b034u)
-        instruction = kOverlaySc02_8014B00CWords[(cpu->pc - 0x8014b00cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014b034u && cpu->pc < 0x8014b084u)
-        instruction = kOverlaySc02_8014B034Words[(cpu->pc - 0x8014b034u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014b084u && cpu->pc < 0x8014b12cu)
-        instruction = kOverlaySc02_8014B084Words[(cpu->pc - 0x8014b084u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014b12cu && cpu->pc < 0x8014b154u)
-        instruction = kOverlaySc02_8014B12CWords[(cpu->pc - 0x8014b12cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014b154u && cpu->pc < 0x8014b160u)
-        instruction = kOverlaySc02_8014B154Words[(cpu->pc - 0x8014b154u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014b160u && cpu->pc < 0x8014b190u)
-        instruction = kOverlaySc02_8014B160Words[(cpu->pc - 0x8014b160u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014b190u && cpu->pc < 0x8014b2a8u)
-        instruction = kOverlaySc02_8014B190Words[(cpu->pc - 0x8014b190u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014b2a8u && cpu->pc < 0x8014b2d0u)
-        instruction = kOverlaySc02_8014B2A8Words[(cpu->pc - 0x8014b2a8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014b2d0u && cpu->pc < 0x8014b2f8u)
-        instruction = kOverlaySc02_8014B2D0Words[(cpu->pc - 0x8014b2d0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014b2f8u && cpu->pc < 0x8014b310u)
-        instruction = kOverlaySc02_8014B2F8Words[(cpu->pc - 0x8014b2f8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014b310u && cpu->pc < 0x8014b33cu)
-        instruction = kOverlaySc02_8014B310Words[(cpu->pc - 0x8014b310u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014b33cu && cpu->pc < 0x8014b350u)
-        instruction = kOverlaySc02_8014B33CWords[(cpu->pc - 0x8014b33cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014b350u && cpu->pc < 0x8014b4c4u)
-        instruction = kOverlaySc02_8014B350Words[(cpu->pc - 0x8014b350u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014b4c4u && cpu->pc < 0x8014b4d4u)
-        instruction = kOverlaySc02_8014B4C4Words[(cpu->pc - 0x8014b4c4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014b4d4u && cpu->pc < 0x8014b504u)
-        instruction = kOverlaySc02_8014B4D4Words[(cpu->pc - 0x8014b4d4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014b504u && cpu->pc < 0x8014b598u)
-        instruction = kOverlaySc02_8014B504Words[(cpu->pc - 0x8014b504u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014b598u && cpu->pc < 0x8014b5b0u)
-        instruction = kOverlaySc02_8014B598Words[(cpu->pc - 0x8014b598u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014b5b0u && cpu->pc < 0x8014b5b8u)
-        instruction = kOverlaySc02_8014B5B0Words[(cpu->pc - 0x8014b5b0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014b5b8u && cpu->pc < 0x8014b5c4u)
-        instruction = kOverlaySc02_8014B5B8Words[(cpu->pc - 0x8014b5b8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014b5c4u && cpu->pc < 0x8014b5d0u)
-        instruction = kOverlaySc02_8014B5C4Words[(cpu->pc - 0x8014b5c4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014b5d0u && cpu->pc < 0x8014b5d8u)
-        instruction = kOverlaySc02_8014B5D0Words[(cpu->pc - 0x8014b5d0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014b5d8u && cpu->pc < 0x8014b6f0u)
-        instruction = kOverlaySc02_8014B5D8Words[(cpu->pc - 0x8014b5d8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014b6f0u && cpu->pc < 0x8014b768u)
-        instruction = kOverlaySc02_8014B6F0Words[(cpu->pc - 0x8014b6f0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014b768u && cpu->pc < 0x8014b7a4u)
-        instruction = kOverlaySc02_8014B768Words[(cpu->pc - 0x8014b768u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014b7a4u && cpu->pc < 0x8014b944u)
-        instruction = kOverlaySc02_8014B7A4Words[(cpu->pc - 0x8014b7a4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014b944u && cpu->pc < 0x8014bb0cu)
-        instruction = kOverlaySc02_8014B944Words[(cpu->pc - 0x8014b944u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014bb0cu && cpu->pc < 0x8014bb24u)
-        instruction = kOverlaySc02_8014BB0CWords[(cpu->pc - 0x8014bb0cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014bb24u && cpu->pc < 0x8014bc0cu)
-        instruction = kOverlaySc02_8014BB24Words[(cpu->pc - 0x8014bb24u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014bc0cu && cpu->pc < 0x8014bc44u)
-        instruction = kOverlaySc02_8014BC0CWords[(cpu->pc - 0x8014bc0cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014bc44u && cpu->pc < 0x8014bc80u)
-        instruction = kOverlaySc02_8014BC44Words[(cpu->pc - 0x8014bc44u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014bc80u && cpu->pc < 0x8014bcc0u)
-        instruction = kOverlaySc02_8014BC80Words[(cpu->pc - 0x8014bc80u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014bcc0u && cpu->pc < 0x8014bcecu)
-        instruction = kOverlaySc02_8014BCC0Words[(cpu->pc - 0x8014bcc0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014bcecu && cpu->pc < 0x8014bd24u)
-        instruction = kOverlaySc02_8014BCECWords[(cpu->pc - 0x8014bcecu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014bd24u && cpu->pc < 0x8014bd60u)
-        instruction = kOverlaySc02_8014BD24Words[(cpu->pc - 0x8014bd24u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014bd60u && cpu->pc < 0x8014bd98u)
-        instruction = kOverlaySc02_8014BD60Words[(cpu->pc - 0x8014bd60u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014bd98u && cpu->pc < 0x8014bdc8u)
-        instruction = kOverlaySc02_8014BD98Words[(cpu->pc - 0x8014bd98u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014bdc8u && cpu->pc < 0x8014bde0u)
-        instruction = kOverlaySc02_8014BDC8Words[(cpu->pc - 0x8014bdc8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014bde0u && cpu->pc < 0x8014bde8u)
-        instruction = kOverlaySc02_8014BDE0Words[(cpu->pc - 0x8014bde0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014bde8u && cpu->pc < 0x8014be78u)
-        instruction = kOverlaySc02_8014BDE8Words[(cpu->pc - 0x8014bde8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014be78u && cpu->pc < 0x8014be9cu)
-        instruction = kOverlaySc02_8014BE78Words[(cpu->pc - 0x8014be78u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8014be9cu && cpu->pc < 0x8014bec0u)
-        instruction = kOverlaySc02_8014BE9CWords[(cpu->pc - 0x8014be9cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014bec0u && cpu->pc < 0x8014bef8u)
-        instruction = kOverlaySc02_8014BEC0Words[(cpu->pc - 0x8014bec0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014bef8u && cpu->pc < 0x8014bf18u)
-        instruction = kOverlaySc02_8014BEF8Words[(cpu->pc - 0x8014bef8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014bf18u && cpu->pc < 0x8014bf48u)
-        instruction = kOverlaySc02_8014BF18Words[(cpu->pc - 0x8014bf18u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014bf48u && cpu->pc < 0x8014bf6cu)
-        instruction = kOverlaySc02_8014BF48Words[(cpu->pc - 0x8014bf48u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014bf6cu && cpu->pc < 0x8014bf8cu)
-        instruction = kOverlaySc02_8014BF6CWords[(cpu->pc - 0x8014bf6cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014bf8cu && cpu->pc < 0x8014bfb0u)
-        instruction = kOverlaySc02_8014BF8CWords[(cpu->pc - 0x8014bf8cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014bfb0u && cpu->pc < 0x8014bfd4u)
-        instruction = kOverlaySc02_8014BFB0Words[(cpu->pc - 0x8014bfb0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014bfd4u && cpu->pc < 0x8014bff4u)
-        instruction = kOverlaySc02_8014BFD4Words[(cpu->pc - 0x8014bfd4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014bff4u && cpu->pc < 0x8014c010u)
-        instruction = kOverlaySc02_8014BFF4Words[(cpu->pc - 0x8014bff4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014c010u && cpu->pc < 0x8014c050u)
-        instruction = kOverlaySc02_8014C010Words[(cpu->pc - 0x8014c010u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014c050u && cpu->pc < 0x8014c088u)
-        instruction = kOverlaySc02_8014C050Words[(cpu->pc - 0x8014c050u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014c088u && cpu->pc < 0x8014c0c8u)
-        instruction = kOverlaySc02_8014C088Words[(cpu->pc - 0x8014c088u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014c0c8u && cpu->pc < 0x8014c118u)
-        instruction = kOverlaySc02_8014C0C8Words[(cpu->pc - 0x8014c0c8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014c118u && cpu->pc < 0x8014c168u)
-        instruction = kOverlaySc02_8014C118Words[(cpu->pc - 0x8014c118u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014c168u && cpu->pc < 0x8014c1a0u)
-        instruction = kOverlaySc02_8014C168Words[(cpu->pc - 0x8014c168u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014c1a0u && cpu->pc < 0x8014c1c8u)
-        instruction = kOverlaySc02_8014C1A0Words[(cpu->pc - 0x8014c1a0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014c1c8u && cpu->pc < 0x8014c278u)
-        instruction = kOverlaySc02_8014C1C8Words[(cpu->pc - 0x8014c1c8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014c278u && cpu->pc < 0x8014c2b0u)
-        instruction = kOverlaySc02_8014C278Words[(cpu->pc - 0x8014c278u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014c2b0u && cpu->pc < 0x8014c308u)
-        instruction = kOverlaySc02_8014C2B0Words[(cpu->pc - 0x8014c2b0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014c308u && cpu->pc < 0x8014c3a4u)
-        instruction = kOverlaySc02_8014C308Words[(cpu->pc - 0x8014c308u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014c3a4u && cpu->pc < 0x8014c3d0u)
-        instruction = kOverlaySc02_8014C3A4Words[(cpu->pc - 0x8014c3a4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014c3d0u && cpu->pc < 0x8014c43cu)
-        instruction = kOverlaySc02_8014C3D0Words[(cpu->pc - 0x8014c3d0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014c43cu && cpu->pc < 0x8014c4acu)
-        instruction = kOverlaySc02_8014C43CWords[(cpu->pc - 0x8014c43cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014c4acu && cpu->pc < 0x8014c568u)
-        instruction = kOverlaySc02_8014C4ACWords[(cpu->pc - 0x8014c4acu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014c568u && cpu->pc < 0x8014c59cu)
-        instruction = kOverlaySc02_8014C568Words[(cpu->pc - 0x8014c568u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014c59cu && cpu->pc < 0x8014c5d0u)
-        instruction = kOverlaySc02_8014C59CWords[(cpu->pc - 0x8014c59cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014c5d0u && cpu->pc < 0x8014c5fcu)
-        instruction = kOverlaySc02_8014C5D0Words[(cpu->pc - 0x8014c5d0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014c5fcu && cpu->pc < 0x8014c6acu)
-        instruction = kOverlaySc02_8014C5FCWords[(cpu->pc - 0x8014c5fcu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014c6acu && cpu->pc < 0x8014c6c0u)
-        instruction = kOverlaySc02_8014C6ACWords[(cpu->pc - 0x8014c6acu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014c6c0u && cpu->pc < 0x8014c6d0u)
-        instruction = kOverlaySc02_8014C6C0Words[(cpu->pc - 0x8014c6c0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014c6e0u && cpu->pc < 0x8014c6f4u)
-        instruction = kOverlaySc02_8014C6E0Words[(cpu->pc - 0x8014c6e0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014c6f4u && cpu->pc < 0x8014c860u)
-        instruction = kOverlaySc02_8014C6F4Words[(cpu->pc - 0x8014c6f4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014c860u && cpu->pc < 0x8014c88cu)
-        instruction = kOverlaySc02_8014C860Words[(cpu->pc - 0x8014c860u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014c88cu && cpu->pc < 0x8014c8c8u)
-        instruction = kOverlaySc02_8014C88CWords[(cpu->pc - 0x8014c88cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014c8c8u && cpu->pc < 0x8014c8f0u)
-        instruction = kOverlaySc02_8014C8C8Words[(cpu->pc - 0x8014c8c8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014c8f0u && cpu->pc < 0x8014c918u)
-        instruction = kOverlaySc02_8014C8F0Words[(cpu->pc - 0x8014c8f0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014c918u && cpu->pc < 0x8014c968u)
-        instruction = kOverlaySc02_8014C918Words[(cpu->pc - 0x8014c918u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016533cu && cpu->pc < 0x80165374u)
-        instruction = kOverlaySc02_8016533CWords[(cpu->pc - 0x8016533cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801659dcu && cpu->pc < 0x80165a18u)
-        instruction = kOverlaySc02_801659DCWords[(cpu->pc - 0x801659dcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80165a18u && cpu->pc < 0x80165a20u)
-        instruction = kOverlaySc02_80165A18Words[(cpu->pc - 0x80165a18u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801627c0u && cpu->pc < 0x801627e8u)
-        instruction = kOverlaySc02_801627C0Words[(cpu->pc - 0x801627c0u)/4u];
+    else if (g_overlay_sc02_0031_words && formatter_range_word(kFormatterRanges9,
+            sizeof kFormatterRanges9 / sizeof kFormatterRanges9[0], cpu->pc,
+            &instruction)) {
+        /* value written by formatter_range_word */
+    }
     else if (cpu->pc >= 0x801627e8u && cpu->pc < 0x80162834u)
         instruction = kOverlaySc02_801627E8Words[(cpu->pc - 0x801627e8u)/4u];
     else if (g_overlay_sc02_0031_words &&
@@ -12360,441 +16628,18 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
         instruction = kOverlaySc02_80165C78Words[(cpu->pc - 0x80165c78u)/4u];
     else if (cpu->pc >= 0x80165ca0u && cpu->pc < 0x80165e2cu)
         instruction = kOverlaySc02_80165CA0Words[(cpu->pc - 0x80165ca0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801468c8u && cpu->pc < 0x80146924u)
-        instruction = kOverlaySc02_801468C8Words[(cpu->pc - 0x801468c8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80145ee8u && cpu->pc < 0x80146014u)
-        instruction = kOverlaySc02_80145EE8Words[(cpu->pc - 0x80145ee8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80146014u && cpu->pc < 0x80146074u)
-        instruction = kOverlaySc02_80146014Words[(cpu->pc - 0x80146014u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8014c968u && cpu->pc < 0x8014c978u)
-        instruction = kOverlaySc02_8014C968Words[(cpu->pc - 0x8014c968u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014c978u && cpu->pc < 0x8014c98cu)
-        instruction = kOverlaySc02_8014C978Words[(cpu->pc - 0x8014c978u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014c98cu && cpu->pc < 0x8014c99cu)
-        instruction = kOverlaySc02_8014C98CWords[(cpu->pc - 0x8014c98cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014c99cu && cpu->pc < 0x8014ca00u)
-        instruction = kOverlaySc02_8014C99CWords[(cpu->pc - 0x8014c99cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014ca00u && cpu->pc < 0x8014ca14u)
-        instruction = kOverlaySc02_8014CA00Words[(cpu->pc - 0x8014ca00u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014ca14u && cpu->pc < 0x8014ca70u)
-        instruction = kOverlaySc02_8014CA14Words[(cpu->pc - 0x8014ca14u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014ca70u && cpu->pc < 0x8014ca88u)
-        instruction = kOverlaySc02_8014CA70Words[(cpu->pc - 0x8014ca70u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014ca88u && cpu->pc < 0x8014cae4u)
-        instruction = kOverlaySc02_8014CA88Words[(cpu->pc - 0x8014ca88u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014cae4u && cpu->pc < 0x8014cafcu)
-        instruction = kOverlaySc02_8014CAE4Words[(cpu->pc - 0x8014cae4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014cafcu && cpu->pc < 0x8014cb0cu)
-        instruction = kOverlaySc02_8014CAFCWords[(cpu->pc - 0x8014cafcu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014cb0cu && cpu->pc < 0x8014cb1cu)
-        instruction = kOverlaySc02_8014CB0CWords[(cpu->pc - 0x8014cb0cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014cb1cu && cpu->pc < 0x8014cb2cu)
-        instruction = kOverlaySc02_8014CB1CWords[(cpu->pc - 0x8014cb1cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014cb2cu && cpu->pc < 0x8014cb58u)
-        instruction = kOverlaySc02_8014CB2CWords[(cpu->pc - 0x8014cb2cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014cb58u && cpu->pc < 0x8014cb68u)
-        instruction = kOverlaySc02_8014CB58Words[(cpu->pc - 0x8014cb58u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014cb68u && cpu->pc < 0x8014cb7cu)
-        instruction = kOverlaySc02_8014CB68Words[(cpu->pc - 0x8014cb68u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014cb7cu && cpu->pc < 0x8014cb8cu)
-        instruction = kOverlaySc02_8014CB7CWords[(cpu->pc - 0x8014cb7cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014cb8cu && cpu->pc < 0x8014cb9cu)
-        instruction = kOverlaySc02_8014CB8CWords[(cpu->pc - 0x8014cb8cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014cb9cu && cpu->pc < 0x8014cbd8u)
-        instruction = kOverlaySc02_8014CB9CWords[(cpu->pc - 0x8014cb9cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014cbd8u && cpu->pc < 0x8014cbe8u)
-        instruction = kOverlaySc02_8014CBD8Words[(cpu->pc - 0x8014cbd8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014cbe8u && cpu->pc < 0x8014cbf8u)
-        instruction = kOverlaySc02_8014CBE8Words[(cpu->pc - 0x8014cbe8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014cbf8u && cpu->pc < 0x8014cc28u)
-        instruction = kOverlaySc02_8014CBF8Words[(cpu->pc - 0x8014cbf8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014cc28u && cpu->pc < 0x8014ccb4u)
-        instruction = kOverlaySc02_8014CC28Words[(cpu->pc - 0x8014cc28u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014ccb4u && cpu->pc < 0x8014cd0cu)
-        instruction = kOverlaySc02_8014CCB4Words[(cpu->pc - 0x8014ccb4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014cd0cu && cpu->pc < 0x8014cd80u)
-        instruction = kOverlaySc02_8014CD0CWords[(cpu->pc - 0x8014cd0cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014cd80u && cpu->pc < 0x8014cf04u)
-        instruction = kOverlaySc02_8014CD80Words[(cpu->pc - 0x8014cd80u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014cf04u && cpu->pc < 0x8014d04cu)
-        instruction = kOverlaySc02_8014CF04Words[(cpu->pc - 0x8014cf04u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014d04cu && cpu->pc < 0x8014d0a4u)
-        instruction = kOverlaySc02_8014D04CWords[(cpu->pc - 0x8014d04cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014d0a4u && cpu->pc < 0x8014d12cu)
-        instruction = kOverlaySc02_8014D0A4Words[(cpu->pc - 0x8014d0a4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014d12cu && cpu->pc < 0x8014d2a0u)
-        instruction = kOverlaySc02_8014D12CWords[(cpu->pc - 0x8014d12cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014d2a0u && cpu->pc < 0x8014d3e0u)
-        instruction = kOverlaySc02_8014D2A0Words[(cpu->pc - 0x8014d2a0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014d3e0u && cpu->pc < 0x8014d438u)
-        instruction = kOverlaySc02_8014D3E0Words[(cpu->pc - 0x8014d3e0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014d438u && cpu->pc < 0x8014d4c0u)
-        instruction = kOverlaySc02_8014D438Words[(cpu->pc - 0x8014d438u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014d4c0u && cpu->pc < 0x8014d610u)
-        instruction = kOverlaySc02_8014D4C0Words[(cpu->pc - 0x8014d4c0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014d610u && cpu->pc < 0x8014d738u)
-        instruction = kOverlaySc02_8014D610Words[(cpu->pc - 0x8014d610u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014d738u && cpu->pc < 0x8014d790u)
-        instruction = kOverlaySc02_8014D738Words[(cpu->pc - 0x8014d738u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014d790u && cpu->pc < 0x8014d820u)
-        instruction = kOverlaySc02_8014D790Words[(cpu->pc - 0x8014d790u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014d820u && cpu->pc < 0x8014dce0u)
-        instruction = kOverlaySc02_8014D820Words[(cpu->pc - 0x8014d820u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014dce0u && cpu->pc < 0x8014dd8cu)
-        instruction = kOverlaySc02_8014DCE0Words[(cpu->pc - 0x8014dce0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014dd8cu && cpu->pc < 0x8014df3cu)
-        instruction = kOverlaySc02_8014DD8CWords[(cpu->pc - 0x8014dd8cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014df3cu && cpu->pc < 0x8014df94u)
-        instruction = kOverlaySc02_8014DF3CWords[(cpu->pc - 0x8014df3cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014df94u && cpu->pc < 0x8014e048u)
-        instruction = kOverlaySc02_8014DF94Words[(cpu->pc - 0x8014df94u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014e048u && cpu->pc < 0x8014e284u)
-        instruction = kOverlaySc02_8014E048Words[(cpu->pc - 0x8014e048u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014e284u && cpu->pc < 0x8014e434u)
-        instruction = kOverlaySc02_8014E284Words[(cpu->pc - 0x8014e284u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014e434u && cpu->pc < 0x8014e48cu)
-        instruction = kOverlaySc02_8014E434Words[(cpu->pc - 0x8014e434u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014e48cu && cpu->pc < 0x8014e514u)
-        instruction = kOverlaySc02_8014E48CWords[(cpu->pc - 0x8014e48cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014e514u && cpu->pc < 0x8014e5b4u)
-        instruction = kOverlaySc02_8014E514Words[(cpu->pc - 0x8014e514u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014e5b4u && cpu->pc < 0x8014e6a0u)
-        instruction = kOverlaySc02_8014E5B4Words[(cpu->pc - 0x8014e5b4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014e6a0u && cpu->pc < 0x8014e6f8u)
-        instruction = kOverlaySc02_8014E6A0Words[(cpu->pc - 0x8014e6a0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014e6f8u && cpu->pc < 0x8014e790u)
-        instruction = kOverlaySc02_8014E6F8Words[(cpu->pc - 0x8014e6f8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014e790u && cpu->pc < 0x8014e83cu)
-        instruction = kOverlaySc02_8014E790Words[(cpu->pc - 0x8014e790u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014e83cu && cpu->pc < 0x8014e934u)
-        instruction = kOverlaySc02_8014E83CWords[(cpu->pc - 0x8014e83cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014e934u && cpu->pc < 0x8014e98cu)
-        instruction = kOverlaySc02_8014E934Words[(cpu->pc - 0x8014e934u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014e98cu && cpu->pc < 0x8014ea4cu)
-        instruction = kOverlaySc02_8014E98CWords[(cpu->pc - 0x8014e98cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014ea4cu && cpu->pc < 0x8014ed28u)
-        instruction = kOverlaySc02_8014EA4CWords[(cpu->pc - 0x8014ea4cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014ed28u && cpu->pc < 0x8014ed80u)
-        instruction = kOverlaySc02_8014ED28Words[(cpu->pc - 0x8014ed28u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014ed80u && cpu->pc < 0x8014ee14u)
-        instruction = kOverlaySc02_8014ED80Words[(cpu->pc - 0x8014ed80u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014ee14u && cpu->pc < 0x8014f1f4u)
-        instruction = kOverlaySc02_8014EE14Words[(cpu->pc - 0x8014ee14u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014f1f4u && cpu->pc < 0x8014f24cu)
-        instruction = kOverlaySc02_8014F1F4Words[(cpu->pc - 0x8014f1f4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014f24cu && cpu->pc < 0x8014f2e0u)
-        instruction = kOverlaySc02_8014F24CWords[(cpu->pc - 0x8014f24cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014f2e0u && cpu->pc < 0x8014f3e8u)
-        instruction = kOverlaySc02_8014F2E0Words[(cpu->pc - 0x8014f2e0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014f3e8u && cpu->pc < 0x8014f468u)
-        instruction = kOverlaySc02_8014F3E8Words[(cpu->pc - 0x8014f3e8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014f468u && cpu->pc < 0x8014f4c0u)
-        instruction = kOverlaySc02_8014F468Words[(cpu->pc - 0x8014f468u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014f4c0u && cpu->pc < 0x8014f6f4u)
-        instruction = kOverlaySc02_8014F4C0Words[(cpu->pc - 0x8014f4c0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014f6f4u && cpu->pc < 0x8014f74cu)
-        instruction = kOverlaySc02_8014F6F4Words[(cpu->pc - 0x8014f6f4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014f74cu && cpu->pc < 0x8014fa04u)
-        instruction = kOverlaySc02_8014F74CWords[(cpu->pc - 0x8014f74cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014fa04u && cpu->pc < 0x8014fa70u)
-        instruction = kOverlaySc02_8014FA04Words[(cpu->pc - 0x8014fa04u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014fa70u && cpu->pc < 0x8014fbc0u)
-        instruction = kOverlaySc02_8014FA70Words[(cpu->pc - 0x8014fa70u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014fbc0u && cpu->pc < 0x8014fc18u)
-        instruction = kOverlaySc02_8014FBC0Words[(cpu->pc - 0x8014fbc0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014fc18u && cpu->pc < 0x8014fcfcu)
-        instruction = kOverlaySc02_8014FC18Words[(cpu->pc - 0x8014fc18u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014fcfcu && cpu->pc < 0x8014fd54u)
-        instruction = kOverlaySc02_8014FCFCWords[(cpu->pc - 0x8014fcfcu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014fd54u && cpu->pc < 0x8014fdf4u)
-        instruction = kOverlaySc02_8014FD54Words[(cpu->pc - 0x8014fd54u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014fdf4u && cpu->pc < 0x8014fe60u)
-        instruction = kOverlaySc02_8014FDF4Words[(cpu->pc - 0x8014fdf4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014fe60u && cpu->pc < 0x8014ffdcu)
-        instruction = kOverlaySc02_8014FE60Words[(cpu->pc - 0x8014fe60u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014ffdcu && cpu->pc < 0x80150150u)
-        instruction = kOverlaySc02_8014FFDCWords[(cpu->pc - 0x8014ffdcu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80150150u && cpu->pc < 0x80150170u)
-        instruction = kOverlaySc02_80150150Words[(cpu->pc - 0x80150150u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80150170u && cpu->pc < 0x801502ecu)
-        instruction = kOverlaySc02_80150170Words[(cpu->pc - 0x80150170u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801502ecu && cpu->pc < 0x80150460u)
-        instruction = kOverlaySc02_801502ECWords[(cpu->pc - 0x801502ecu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80150460u && cpu->pc < 0x80150480u)
-        instruction = kOverlaySc02_80150460Words[(cpu->pc - 0x80150460u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80150480u && cpu->pc < 0x801504d8u)
-        instruction = kOverlaySc02_80150480Words[(cpu->pc - 0x80150480u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801504d8u && cpu->pc < 0x80150528u)
-        instruction = kOverlaySc02_801504D8Words[(cpu->pc - 0x801504d8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80150528u && cpu->pc < 0x801505fcu)
-        instruction = kOverlaySc02_80150528Words[(cpu->pc - 0x80150528u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801505fcu && cpu->pc < 0x801506a4u)
-        instruction = kOverlaySc02_801505FCWords[(cpu->pc - 0x801505fcu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801506a4u && cpu->pc < 0x80150820u)
-        instruction = kOverlaySc02_801506A4Words[(cpu->pc - 0x801506a4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80150820u && cpu->pc < 0x8015086cu)
-        instruction = kOverlaySc02_80150820Words[(cpu->pc - 0x80150820u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8015086cu && cpu->pc < 0x801508b4u)
-        instruction = kOverlaySc02_8015086CWords[(cpu->pc - 0x8015086cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801508b4u && cpu->pc < 0x801508f8u)
-        instruction = kOverlaySc02_801508B4Words[(cpu->pc - 0x801508b4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801508f8u && cpu->pc < 0x8015094cu)
-        instruction = kOverlaySc02_801508F8Words[(cpu->pc - 0x801508f8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8015094cu && cpu->pc < 0x80150a70u)
-        instruction = kOverlaySc02_8015094CWords[(cpu->pc - 0x8015094cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80150a70u && cpu->pc < 0x80150b28u)
-        instruction = kOverlaySc02_80150A70Words[(cpu->pc - 0x80150a70u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80150b28u && cpu->pc < 0x80150b9cu)
-        instruction = kOverlaySc02_80150B28Words[(cpu->pc - 0x80150b28u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80150b9cu && cpu->pc < 0x80150ba4u)
-        instruction = kOverlaySc02_80150B9CWords[(cpu->pc - 0x80150b9cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80150ba4u && cpu->pc < 0x80150bc8u)
-        instruction = kOverlaySc02_80150BA4Words[(cpu->pc - 0x80150ba4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80150bc8u && cpu->pc < 0x80150c48u)
-        instruction = kOverlaySc02_80150BC8Words[(cpu->pc - 0x80150bc8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80150c48u && cpu->pc < 0x80150ca0u)
-        instruction = kOverlaySc02_80150C48Words[(cpu->pc - 0x80150c48u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80150ca0u && cpu->pc < 0x80150cc4u)
-        instruction = kOverlaySc02_80150CA0Words[(cpu->pc - 0x80150ca0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80150cc4u && cpu->pc < 0x80150ce4u)
-        instruction = kOverlaySc02_80150CC4Words[(cpu->pc - 0x80150cc4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80150ce4u && cpu->pc < 0x80150d04u)
-        instruction = kOverlaySc02_80150CE4Words[(cpu->pc - 0x80150ce4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80150d04u && cpu->pc < 0x80150d24u)
-        instruction = kOverlaySc02_80150D04Words[(cpu->pc - 0x80150d04u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80150d24u && cpu->pc < 0x80150d44u)
-        instruction = kOverlaySc02_80150D24Words[(cpu->pc - 0x80150d24u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80150d44u && cpu->pc < 0x80150d64u)
-        instruction = kOverlaySc02_80150D44Words[(cpu->pc - 0x80150d44u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80150d64u && cpu->pc < 0x80150d84u)
-        instruction = kOverlaySc02_80150D64Words[(cpu->pc - 0x80150d64u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80150d84u && cpu->pc < 0x80150da4u)
-        instruction = kOverlaySc02_80150D84Words[(cpu->pc - 0x80150d84u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80150da4u && cpu->pc < 0x80150dc4u)
-        instruction = kOverlaySc02_80150DA4Words[(cpu->pc - 0x80150da4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80150dc4u && cpu->pc < 0x80150de4u)
-        instruction = kOverlaySc02_80150DC4Words[(cpu->pc - 0x80150dc4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80150de4u && cpu->pc < 0x80150e04u)
-        instruction = kOverlaySc02_80150DE4Words[(cpu->pc - 0x80150de4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80150e04u && cpu->pc < 0x80150e24u)
-        instruction = kOverlaySc02_80150E04Words[(cpu->pc - 0x80150e04u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80150e24u && cpu->pc < 0x80150e44u)
-        instruction = kOverlaySc02_80150E24Words[(cpu->pc - 0x80150e24u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80150e44u && cpu->pc < 0x80150e64u)
-        instruction = kOverlaySc02_80150E44Words[(cpu->pc - 0x80150e44u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80150e64u && cpu->pc < 0x80150e84u)
-        instruction = kOverlaySc02_80150E64Words[(cpu->pc - 0x80150e64u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80150e84u && cpu->pc < 0x80150ea4u)
-        instruction = kOverlaySc02_80150E84Words[(cpu->pc - 0x80150e84u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80150ea4u && cpu->pc < 0x80150ec4u)
-        instruction = kOverlaySc02_80150EA4Words[(cpu->pc - 0x80150ea4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8014c6d0u && cpu->pc < 0x8014c6e0u)
-        instruction = kOverlaySc02_8014C6D0Words[(cpu->pc - 0x8014c6d0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80165938u && cpu->pc < 0x80165958u)
-        instruction = kOverlaySc02_80165938Words[(cpu->pc - 0x80165938u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80153c8cu && cpu->pc < 0x80153c9cu)
-        instruction = kOverlaySc02_80153C8CWords[(cpu->pc - 0x80153c8cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80144b9cu && cpu->pc < 0x801457a4u)
-        instruction = kOverlaySc02_80144B9CWords[(cpu->pc - 0x80144b9cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801457a4u && cpu->pc < 0x801458e0u)
-        instruction = kOverlaySc02_801457A4Words[(cpu->pc - 0x801457a4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80180d74u && cpu->pc < 0x80180db0u)
-        instruction = kOverlaySc02_80180D74Words[(cpu->pc - 0x80180d74u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80180db0u && cpu->pc < 0x80180df4u)
-        instruction = kOverlaySc02_80180DB0Words[(cpu->pc - 0x80180db0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80181224u && cpu->pc < 0x8018124cu)
-        instruction = kOverlaySc02_80181224Words[(cpu->pc - 0x80181224u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801599a4u && cpu->pc < 0x801599e0u)
-        instruction = kOverlaySc02_801599A4Words[(cpu->pc - 0x801599a4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015a1c8u && cpu->pc < 0x8015a1fcu)
-        instruction = kOverlaySc02_8015A1C8Words[(cpu->pc - 0x8015a1c8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801553c0u && cpu->pc < 0x80155440u)
-        instruction = kOverlaySc02_801553C0Words[(cpu->pc - 0x801553c0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80154a74u && cpu->pc < 0x80154ab4u)
-        instruction = kOverlaySc02_80154A74Words[(cpu->pc - 0x80154a74u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80154ab4u && cpu->pc < 0x80154ae0u)
-        instruction = kOverlaySc02_80154AB4Words[(cpu->pc - 0x80154ab4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80154ae0u && cpu->pc < 0x80154b20u)
-        instruction = kOverlaySc02_80154AE0Words[(cpu->pc - 0x80154ae0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80154b20u && cpu->pc < 0x80154b4cu)
-        instruction = kOverlaySc02_80154B20Words[(cpu->pc - 0x80154b20u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80154b4cu && cpu->pc < 0x80154b7cu)
-        instruction = kOverlaySc02_80154B4CWords[(cpu->pc - 0x80154b4cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80154b7cu && cpu->pc < 0x80154b98u)
-        instruction = kOverlaySc02_80154B7CWords[(cpu->pc - 0x80154b7cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80154b98u && cpu->pc < 0x80154bc8u)
-        instruction = kOverlaySc02_80154B98Words[(cpu->pc - 0x80154b98u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80154bc8u && cpu->pc < 0x80154be4u)
-        instruction = kOverlaySc02_80154BC8Words[(cpu->pc - 0x80154bc8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80154be4u && cpu->pc < 0x80154c24u)
-        instruction = kOverlaySc02_80154BE4Words[(cpu->pc - 0x80154be4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80154c24u && cpu->pc < 0x80154ed8u)
-        instruction = kOverlaySc02_80154C24Words[(cpu->pc - 0x80154c24u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80154ed8u && cpu->pc < 0x80154f9cu)
-        instruction = kOverlaySc02_80154ED8Words[(cpu->pc - 0x80154ed8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80154f9cu && cpu->pc < 0x801550fcu)
-        instruction = kOverlaySc02_80154F9CWords[(cpu->pc - 0x80154f9cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801550fcu && cpu->pc < 0x80155150u)
-        instruction = kOverlaySc02_801550FCWords[(cpu->pc - 0x801550fcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80155150u && cpu->pc < 0x801552f4u)
-        instruction = kOverlaySc02_80155150Words[(cpu->pc - 0x80155150u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80151944u && cpu->pc < 0x80151980u)
-        instruction = kOverlaySc02_80151944Words[(cpu->pc - 0x80151944u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80151d24u && cpu->pc < 0x80151d60u)
-        instruction = kOverlaySc02_80151D24Words[(cpu->pc - 0x80151d24u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80152058u && cpu->pc < 0x80152094u)
-        instruction = kOverlaySc02_80152058Words[(cpu->pc - 0x80152058u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801520dcu && cpu->pc < 0x80152194u)
-        instruction = kOverlaySc02_801520DCWords[(cpu->pc - 0x801520dcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80152370u && cpu->pc < 0x801523acu)
-        instruction = kOverlaySc02_80152370Words[(cpu->pc - 0x80152370u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80152698u && cpu->pc < 0x801526d4u)
-        instruction = kOverlaySc02_80152698Words[(cpu->pc - 0x80152698u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015282cu && cpu->pc < 0x80152868u)
-        instruction = kOverlaySc02_8015282CWords[(cpu->pc - 0x8015282cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801528b0u && cpu->pc < 0x8015294cu)
-        instruction = kOverlaySc02_801528B0Words[(cpu->pc - 0x801528b0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80152b6cu && cpu->pc < 0x80152ba8u)
-        instruction = kOverlaySc02_80152B6CWords[(cpu->pc - 0x80152b6cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80152d24u && cpu->pc < 0x80152d60u)
-        instruction = kOverlaySc02_80152D24Words[(cpu->pc - 0x80152d24u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80152da8u && cpu->pc < 0x80152e4cu)
-        instruction = kOverlaySc02_80152DA8Words[(cpu->pc - 0x80152da8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80153060u && cpu->pc < 0x8015309cu)
-        instruction = kOverlaySc02_80153060Words[(cpu->pc - 0x80153060u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80153320u && cpu->pc < 0x8015335cu)
-        instruction = kOverlaySc02_80153320Words[(cpu->pc - 0x80153320u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80128288u && cpu->pc < 0x801282ccu)
-        instruction = kOverlaySc02_80128288Words[(cpu->pc - 0x80128288u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801612b8u && cpu->pc < 0x8016130cu)
-        instruction = kOverlaySc02_801612B8Words[(cpu->pc - 0x801612b8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80133784u && cpu->pc < 0x80133ab0u)
-        instruction = kOverlaySc02_80133784Words[(cpu->pc - 0x80133784u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80133ab0u && cpu->pc < 0x80133cd4u)
-        instruction = kOverlaySc02_80133AB0Words[(cpu->pc - 0x80133ab0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80159be4u && cpu->pc < 0x80159c84u)
-        instruction = kOverlaySc02_80159BE4Words[(cpu->pc - 0x80159be4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015444cu && cpu->pc < 0x801549f8u)
-        instruction = kOverlaySc02_8015444CWords[(cpu->pc - 0x8015444cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80155458u && cpu->pc < 0x801554b8u)
-        instruction = kOverlaySc02_80155458Words[(cpu->pc - 0x80155458u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80128218u && cpu->pc < 0x80128228u)
-        instruction = kOverlaySc02_80128218Words[(cpu->pc - 0x80128218u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801288b0u && cpu->pc < 0x801288e8u)
-        instruction = kOverlaySc02_801288B0Words[(cpu->pc - 0x801288b0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80128940u && cpu->pc < 0x80128998u)
-        instruction = kOverlaySc02_80128940Words[(cpu->pc - 0x80128940u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80128998u && cpu->pc < 0x801289f0u)
-        instruction = kOverlaySc02_80128998Words[(cpu->pc - 0x80128998u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801289f0u && cpu->pc < 0x80128a28u)
-        instruction = kOverlaySc02_801289F0Words[(cpu->pc - 0x801289f0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80128c98u && cpu->pc < 0x80128cfcu)
-        instruction = kOverlaySc02_80128C98Words[(cpu->pc - 0x80128c98u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80128cfcu && cpu->pc < 0x80128d60u)
-        instruction = kOverlaySc02_80128CFCWords[(cpu->pc - 0x80128cfcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80128facu && cpu->pc < 0x80129010u)
-        instruction = kOverlaySc02_80128FACWords[(cpu->pc - 0x80128facu)/4u];
+    else if (g_overlay_sc02_0031_words && formatter_range_word(kFormatterRanges10,
+            sizeof kFormatterRanges10 / sizeof kFormatterRanges10[0], cpu->pc,
+            &instruction)) {
+        /* value written by formatter_range_word */
+    }
     else if (cpu->pc >= 0x80129010u && cpu->pc < 0x801290dcu)
         instruction = kOverlaySc02_80129010Words[(cpu->pc - 0x80129010u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012db84u && cpu->pc < 0x8012dbd0u)
-        instruction = kOverlaySc02_8012DB84Words[(cpu->pc - 0x8012db84u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013373cu && cpu->pc < 0x80133784u)
-        instruction = kOverlaySc02_8013373CWords[(cpu->pc - 0x8013373cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80133cd4u && cpu->pc < 0x80134310u)
-        instruction = kOverlaySc02_80133CD4Words[(cpu->pc - 0x80133cd4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80136c90u && cpu->pc < 0x80136d00u)
-        instruction = kOverlaySc02_80136C90Words[(cpu->pc - 0x80136c90u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80137b80u && cpu->pc < 0x80137bd8u)
-        instruction = kOverlaySc02_80137B80Words[(cpu->pc - 0x80137b80u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013ad38u && cpu->pc < 0x8013af20u)
-        instruction = kOverlaySc02_8013AD38Words[(cpu->pc - 0x8013ad38u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013b274u && cpu->pc < 0x8013b568u)
-        instruction = kOverlaySc02_8013B274Words[(cpu->pc - 0x8013b274u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013b7acu && cpu->pc < 0x8013b7f4u)
-        instruction = kOverlaySc02_8013B7ACWords[(cpu->pc - 0x8013b7acu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013b7f4u && cpu->pc < 0x8013b83cu)
-        instruction = kOverlaySc02_8013B7F4Words[(cpu->pc - 0x8013b7f4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013bd34u && cpu->pc < 0x8013bd74u)
-        instruction = kOverlaySc02_8013BD34Words[(cpu->pc - 0x8013bd34u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013c938u && cpu->pc < 0x8013c964u)
-        instruction = kOverlaySc02_8013C938Words[(cpu->pc - 0x8013c938u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013c964u && cpu->pc < 0x8013c98cu)
-        instruction = kOverlaySc02_8013C964Words[(cpu->pc - 0x8013c964u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80161c24u && cpu->pc < 0x80161c98u)
-        instruction = kOverlaySc02_80161C24Words[(cpu->pc - 0x80161c24u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013c9c4u && cpu->pc < 0x8013ca14u)
-        instruction = kOverlaySc02_8013C9C4Words[(cpu->pc - 0x8013c9c4u)/4u];
+    else if (g_overlay_sc02_0031_words && formatter_range_word(kFormatterRanges11,
+            sizeof kFormatterRanges11 / sizeof kFormatterRanges11[0], cpu->pc,
+            &instruction)) {
+        /* value written by formatter_range_word */
+    }
     else if (cpu->pc >= 0x8013ca14u && cpu->pc < 0x8013cabcu)
         instruction = kOverlaySc02_8013CA14Words[(cpu->pc - 0x8013ca14u)/4u];
     else if (g_overlay_sc02_0031_words &&
@@ -12815,3649 +16660,69 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
     else if (g_overlay_sc02_0031_words &&
              cpu->pc >= 0x8013cb5cu && cpu->pc < 0x8013cb84u)
         instruction = kOverlaySc02_8013CB5CWords[(cpu->pc - 0x8013cb5cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013d064u && cpu->pc < 0x8013d13cu)
-        instruction = kOverlaySc02_8013D064Words[(cpu->pc - 0x8013d064u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013d13cu && cpu->pc < 0x8013d164u)
-        instruction = kOverlaySc02_8013D13CWords[(cpu->pc - 0x8013d13cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013d164u && cpu->pc < 0x8013d178u)
-        instruction = kOverlaySc02_8013D164Words[(cpu->pc - 0x8013d164u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013d9b0u && cpu->pc < 0x8013dbe4u)
-        instruction = kOverlaySc02_8013D9B0Words[(cpu->pc - 0x8013d9b0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013e054u && cpu->pc < 0x8013e064u)
-        instruction = kOverlaySc02_8013E054Words[(cpu->pc - 0x8013e054u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80140f00u && cpu->pc < 0x80141100u)
-        instruction = kOverlaySc02_80140F00Words[(cpu->pc - 0x80140f00u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8014358cu && cpu->pc < 0x80143640u)
-        instruction = kOverlaySc02_8014358CWords[(cpu->pc - 0x8014358cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80153cccu && cpu->pc < 0x80153d34u)
-        instruction = kOverlaySc02_80153CCCWords[(cpu->pc - 0x80153cccu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80157788u && cpu->pc < 0x801577c8u)
-        instruction = kOverlaySc02_80157788Words[(cpu->pc - 0x80157788u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801577c8u && cpu->pc < 0x80157808u)
-        instruction = kOverlaySc02_801577C8Words[(cpu->pc - 0x801577c8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80157808u && cpu->pc < 0x80157880u)
-        instruction = kOverlaySc02_80157808Words[(cpu->pc - 0x80157808u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015879cu && cpu->pc < 0x80158814u)
-        instruction = kOverlaySc02_8015879CWords[(cpu->pc - 0x8015879cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80158814u && cpu->pc < 0x80158880u)
-        instruction = kOverlaySc02_80158814Words[(cpu->pc - 0x80158814u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80158fa4u && cpu->pc < 0x80159070u)
-        instruction = kOverlaySc02_80158FA4Words[(cpu->pc - 0x80158fa4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015934cu && cpu->pc < 0x801593e4u)
-        instruction = kOverlaySc02_8015934CWords[(cpu->pc - 0x8015934cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015c7e4u && cpu->pc < 0x8015c944u)
-        instruction = kOverlaySc02_8015C7E4Words[(cpu->pc - 0x8015c7e4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015ca28u && cpu->pc < 0x8015cb94u)
-        instruction = kOverlaySc02_8015CA28Words[(cpu->pc - 0x8015ca28u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015cd20u && cpu->pc < 0x8015cf24u)
-        instruction = kOverlaySc02_8015CD20Words[(cpu->pc - 0x8015cd20u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015d5e8u && cpu->pc < 0x8015d738u)
-        instruction = kOverlaySc02_8015D5E8Words[(cpu->pc - 0x8015d5e8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016216cu && cpu->pc < 0x801621ccu)
-        instruction = kOverlaySc02_8016216CWords[(cpu->pc - 0x8016216cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801622c4u && cpu->pc < 0x80162330u)
-        instruction = kOverlaySc02_801622C4Words[(cpu->pc - 0x801622c4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80162760u && cpu->pc < 0x801627c0u)
-        instruction = kOverlaySc02_80162760Words[(cpu->pc - 0x80162760u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80163408u && cpu->pc < 0x8016345cu)
-        instruction = kOverlaySc02_80163408Words[(cpu->pc - 0x80163408u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801634d8u && cpu->pc < 0x80163534u)
-        instruction = kOverlaySc02_801634D8Words[(cpu->pc - 0x801634d8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80164ee0u && cpu->pc < 0x80164f44u)
-        instruction = kOverlaySc02_80164EE0Words[(cpu->pc - 0x80164ee0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80165e2cu && cpu->pc < 0x80165e90u)
-        instruction = kOverlaySc02_80165E2CWords[(cpu->pc - 0x80165e2cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80169f3cu && cpu->pc < 0x80169fe0u)
-        instruction = kOverlaySc02_80169F3CWords[(cpu->pc - 0x80169f3cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016b9f8u && cpu->pc < 0x8016ba48u)
-        instruction = kOverlaySc02_8016B9F8Words[(cpu->pc - 0x8016b9f8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016bea0u && cpu->pc < 0x8016bf34u)
-        instruction = kOverlaySc02_8016BEA0Words[(cpu->pc - 0x8016bea0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016bfa8u && cpu->pc < 0x8016bfd0u)
-        instruction = kOverlaySc02_8016BFA8Words[(cpu->pc - 0x8016bfa8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016da7cu && cpu->pc < 0x8016db34u)
-        instruction = kOverlaySc02_8016DA7CWords[(cpu->pc - 0x8016da7cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80178438u && cpu->pc < 0x8017849cu)
-        instruction = kOverlaySc02_80178438Words[(cpu->pc - 0x80178438u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80178840u && cpu->pc < 0x801788b8u)
-        instruction = kOverlaySc02_80178840Words[(cpu->pc - 0x80178840u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80178cbcu && cpu->pc < 0x80178d18u)
-        instruction = kOverlaySc02_80178CBCWords[(cpu->pc - 0x80178cbcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80178d18u && cpu->pc < 0x80178d40u)
-        instruction = kOverlaySc02_80178D18Words[(cpu->pc - 0x80178d18u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017a094u && cpu->pc < 0x8017a0c4u)
-        instruction = kOverlaySc02_8017A094Words[(cpu->pc - 0x8017a094u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017a0c4u && cpu->pc < 0x8017a0f4u)
-        instruction = kOverlaySc02_8017A0C4Words[(cpu->pc - 0x8017a0c4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017a144u && cpu->pc < 0x8017a180u)
-        instruction = kOverlaySc02_8017A144Words[(cpu->pc - 0x8017a144u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017b1d8u && cpu->pc < 0x8017b238u)
-        instruction = kOverlaySc02_8017B1D8Words[(cpu->pc - 0x8017b1d8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017b7a8u && cpu->pc < 0x8017b824u)
-        instruction = kOverlaySc02_8017B7A8Words[(cpu->pc - 0x8017b7a8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017b880u && cpu->pc < 0x8017b8e8u)
-        instruction = kOverlaySc02_8017B880Words[(cpu->pc - 0x8017b880u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017b8e8u && cpu->pc < 0x8017b940u)
-        instruction = kOverlaySc02_8017B8E8Words[(cpu->pc - 0x8017b8e8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017bc38u && cpu->pc < 0x8017bca0u)
-        instruction = kOverlaySc02_8017BC38Words[(cpu->pc - 0x8017bc38u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017bca0u && cpu->pc < 0x8017bcf4u)
-        instruction = kOverlaySc02_8017BCA0Words[(cpu->pc - 0x8017bca0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017bcf4u && cpu->pc < 0x8017bd50u)
-        instruction = kOverlaySc02_8017BCF4Words[(cpu->pc - 0x8017bcf4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012e9c0u && cpu->pc < 0x8012ea90u)
-        instruction = kOverlaySc02_8012E9C0Words[(cpu->pc - 0x8012e9c0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012f828u && cpu->pc < 0x8012f87cu)
-        instruction = kOverlaySc02_8012F828Words[(cpu->pc - 0x8012f828u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012f8c8u && cpu->pc < 0x8012f91cu)
-        instruction = kOverlaySc02_8012F8C8Words[(cpu->pc - 0x8012f8c8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012fcc4u && cpu->pc < 0x8012fda8u)
-        instruction = kOverlaySc02_8012FCC4Words[(cpu->pc - 0x8012fcc4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80130d0cu && cpu->pc < 0x80130d48u)
-        instruction = kOverlaySc02_80130D0CWords[(cpu->pc - 0x80130d0cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80131e00u && cpu->pc < 0x80131e38u)
-        instruction = kOverlaySc02_80131E00Words[(cpu->pc - 0x80131e00u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80131eecu && cpu->pc < 0x80131f28u)
-        instruction = kOverlaySc02_80131EECWords[(cpu->pc - 0x80131eecu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80131f28u && cpu->pc < 0x80131f64u)
-        instruction = kOverlaySc02_80131F28Words[(cpu->pc - 0x80131f28u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80131f64u && cpu->pc < 0x80131fa0u)
-        instruction = kOverlaySc02_80131F64Words[(cpu->pc - 0x80131f64u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80131fa0u && cpu->pc < 0x80131fdcu)
-        instruction = kOverlaySc02_80131FA0Words[(cpu->pc - 0x80131fa0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801320d8u && cpu->pc < 0x80132144u)
-        instruction = kOverlaySc02_801320D8Words[(cpu->pc - 0x801320d8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80132144u && cpu->pc < 0x801321b0u)
-        instruction = kOverlaySc02_80132144Words[(cpu->pc - 0x80132144u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801321b0u && cpu->pc < 0x8013221cu)
-        instruction = kOverlaySc02_801321B0Words[(cpu->pc - 0x801321b0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80136c54u && cpu->pc < 0x80136c90u)
-        instruction = kOverlaySc02_80136C54Words[(cpu->pc - 0x80136c54u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80137d08u && cpu->pc < 0x80137dd4u)
-        instruction = kOverlaySc02_80137D08Words[(cpu->pc - 0x80137d08u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80138be0u && cpu->pc < 0x80138c30u)
-        instruction = kOverlaySc02_80138BE0Words[(cpu->pc - 0x80138be0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013bc7cu && cpu->pc < 0x8013bcdcu)
-        instruction = kOverlaySc02_8013BC7CWords[(cpu->pc - 0x8013bc7cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80141788u && cpu->pc < 0x801417c4u)
-        instruction = kOverlaySc02_80141788Words[(cpu->pc - 0x80141788u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80141c0cu && cpu->pc < 0x80141c50u)
-        instruction = kOverlaySc02_80141C0CWords[(cpu->pc - 0x80141c0cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801425ccu && cpu->pc < 0x80142608u)
-        instruction = kOverlaySc02_801425CCWords[(cpu->pc - 0x801425ccu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801427ecu && cpu->pc < 0x80142838u)
-        instruction = kOverlaySc02_801427ECWords[(cpu->pc - 0x801427ecu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8014292cu && cpu->pc < 0x80142978u)
-        instruction = kOverlaySc02_8014292CWords[(cpu->pc - 0x8014292cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80142978u && cpu->pc < 0x801429c4u)
-        instruction = kOverlaySc02_80142978Words[(cpu->pc - 0x80142978u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801429c4u && cpu->pc < 0x80142a10u)
-        instruction = kOverlaySc02_801429C4Words[(cpu->pc - 0x801429c4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80142a10u && cpu->pc < 0x80142a80u)
-        instruction = kOverlaySc02_80142A10Words[(cpu->pc - 0x80142a10u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80143458u && cpu->pc < 0x8014350cu)
-        instruction = kOverlaySc02_80143458Words[(cpu->pc - 0x80143458u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80143b30u && cpu->pc < 0x80143b6cu)
-        instruction = kOverlaySc02_80143B30Words[(cpu->pc - 0x80143b30u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80143c38u && cpu->pc < 0x80143c74u)
-        instruction = kOverlaySc02_80143C38Words[(cpu->pc - 0x80143c38u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80143c98u && cpu->pc < 0x80143cd4u)
-        instruction = kOverlaySc02_80143C98Words[(cpu->pc - 0x80143c98u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80143e68u && cpu->pc < 0x80143ea4u)
-        instruction = kOverlaySc02_80143E68Words[(cpu->pc - 0x80143e68u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80155580u && cpu->pc < 0x801555bcu)
-        instruction = kOverlaySc02_80155580Words[(cpu->pc - 0x80155580u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801563ecu && cpu->pc < 0x8015640cu)
-        instruction = kOverlaySc02_801563ECWords[(cpu->pc - 0x801563ecu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80156a1cu && cpu->pc < 0x80156a88u)
-        instruction = kOverlaySc02_80156A1CWords[(cpu->pc - 0x80156a1cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80157544u && cpu->pc < 0x80157580u)
-        instruction = kOverlaySc02_80157544Words[(cpu->pc - 0x80157544u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801578c0u && cpu->pc < 0x8015795cu)
-        instruction = kOverlaySc02_801578C0Words[(cpu->pc - 0x801578c0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80157d20u && cpu->pc < 0x80157d74u)
-        instruction = kOverlaySc02_80157D20Words[(cpu->pc - 0x80157d20u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80157dc4u && cpu->pc < 0x80157e00u)
-        instruction = kOverlaySc02_80157DC4Words[(cpu->pc - 0x80157dc4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80157fc4u && cpu->pc < 0x80158000u)
-        instruction = kOverlaySc02_80157FC4Words[(cpu->pc - 0x80157fc4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80158038u && cpu->pc < 0x801580b4u)
-        instruction = kOverlaySc02_80158038Words[(cpu->pc - 0x80158038u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015824cu && cpu->pc < 0x80158288u)
-        instruction = kOverlaySc02_8015824CWords[(cpu->pc - 0x8015824cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80158880u && cpu->pc < 0x801588ccu)
-        instruction = kOverlaySc02_80158880Words[(cpu->pc - 0x80158880u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80159698u && cpu->pc < 0x801596d4u)
-        instruction = kOverlaySc02_80159698Words[(cpu->pc - 0x80159698u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80159968u && cpu->pc < 0x801599a4u)
-        instruction = kOverlaySc02_80159968Words[(cpu->pc - 0x80159968u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80159b70u && cpu->pc < 0x80159bacu)
-        instruction = kOverlaySc02_80159B70Words[(cpu->pc - 0x80159b70u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015a264u && cpu->pc < 0x8015a2a0u)
-        instruction = kOverlaySc02_8015A264Words[(cpu->pc - 0x8015a264u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015ac48u && cpu->pc < 0x8015ac90u)
-        instruction = kOverlaySc02_8015AC48Words[(cpu->pc - 0x8015ac48u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015ad3cu && cpu->pc < 0x8015ad78u)
-        instruction = kOverlaySc02_8015AD3CWords[(cpu->pc - 0x8015ad3cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015be38u && cpu->pc < 0x8015be74u)
-        instruction = kOverlaySc02_8015BE38Words[(cpu->pc - 0x8015be38u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015bff4u && cpu->pc < 0x8015c030u)
-        instruction = kOverlaySc02_8015BFF4Words[(cpu->pc - 0x8015bff4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015c714u && cpu->pc < 0x8015c750u)
-        instruction = kOverlaySc02_8015C714Words[(cpu->pc - 0x8015c714u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015c944u && cpu->pc < 0x8015ca28u)
-        instruction = kOverlaySc02_8015C944Words[(cpu->pc - 0x8015c944u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015cc74u && cpu->pc < 0x8015ccb0u)
-        instruction = kOverlaySc02_8015CC74Words[(cpu->pc - 0x8015cc74u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015cfc0u && cpu->pc < 0x8015cffcu)
-        instruction = kOverlaySc02_8015CFC0Words[(cpu->pc - 0x8015cfc0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015d01cu && cpu->pc < 0x8015d104u)
-        instruction = kOverlaySc02_8015D01CWords[(cpu->pc - 0x8015d01cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015d104u && cpu->pc < 0x8015d1b8u)
-        instruction = kOverlaySc02_8015D104Words[(cpu->pc - 0x8015d104u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015d414u && cpu->pc < 0x8015d480u)
-        instruction = kOverlaySc02_8015D414Words[(cpu->pc - 0x8015d414u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015d4e8u && cpu->pc < 0x8015d524u)
-        instruction = kOverlaySc02_8015D4E8Words[(cpu->pc - 0x8015d4e8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015daf8u && cpu->pc < 0x8015db34u)
-        instruction = kOverlaySc02_8015DAF8Words[(cpu->pc - 0x8015daf8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015dbd4u && cpu->pc < 0x8015dc84u)
-        instruction = kOverlaySc02_8015DBD4Words[(cpu->pc - 0x8015dbd4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015de58u && cpu->pc < 0x8015de94u)
-        instruction = kOverlaySc02_8015DE58Words[(cpu->pc - 0x8015de58u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015df34u && cpu->pc < 0x8015dfe4u)
-        instruction = kOverlaySc02_8015DF34Words[(cpu->pc - 0x8015df34u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015e1b8u && cpu->pc < 0x8015e1f4u)
-        instruction = kOverlaySc02_8015E1B8Words[(cpu->pc - 0x8015e1b8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015e344u && cpu->pc < 0x8015e40cu)
-        instruction = kOverlaySc02_8015E344Words[(cpu->pc - 0x8015e344u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015e588u && cpu->pc < 0x8015e5b0u)
-        instruction = kOverlaySc02_8015E588Words[(cpu->pc - 0x8015e588u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015e698u && cpu->pc < 0x8015e714u)
-        instruction = kOverlaySc02_8015E698Words[(cpu->pc - 0x8015e698u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015e8e8u && cpu->pc < 0x8015e924u)
-        instruction = kOverlaySc02_8015E8E8Words[(cpu->pc - 0x8015e8e8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015ee08u && cpu->pc < 0x8015ee44u)
-        instruction = kOverlaySc02_8015EE08Words[(cpu->pc - 0x8015ee08u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015ee7cu && cpu->pc < 0x8015eee0u)
-        instruction = kOverlaySc02_8015EE7CWords[(cpu->pc - 0x8015ee7cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015eee0u && cpu->pc < 0x8015ef9cu)
-        instruction = kOverlaySc02_8015EEE0Words[(cpu->pc - 0x8015eee0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015f00cu && cpu->pc < 0x8015f048u)
-        instruction = kOverlaySc02_8015F00CWords[(cpu->pc - 0x8015f00cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015f118u && cpu->pc < 0x8015f260u)
-        instruction = kOverlaySc02_8015F118Words[(cpu->pc - 0x8015f118u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015f324u && cpu->pc < 0x8015f360u)
-        instruction = kOverlaySc02_8015F324Words[(cpu->pc - 0x8015f324u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015f7d4u && cpu->pc < 0x8015f810u)
-        instruction = kOverlaySc02_8015F7D4Words[(cpu->pc - 0x8015f7d4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015f9a4u && cpu->pc < 0x8015fa24u)
-        instruction = kOverlaySc02_8015F9A4Words[(cpu->pc - 0x8015f9a4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015faacu && cpu->pc < 0x8015fae8u)
-        instruction = kOverlaySc02_8015FAACWords[(cpu->pc - 0x8015faacu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015fbe0u && cpu->pc < 0x8015fcc8u)
-        instruction = kOverlaySc02_8015FBE0Words[(cpu->pc - 0x8015fbe0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015fcc8u && cpu->pc < 0x8015fd74u)
-        instruction = kOverlaySc02_8015FCC8Words[(cpu->pc - 0x8015fcc8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015fd74u && cpu->pc < 0x8015fdccu)
-        instruction = kOverlaySc02_8015FD74Words[(cpu->pc - 0x8015fd74u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015fe70u && cpu->pc < 0x8015ff20u)
-        instruction = kOverlaySc02_8015FE70Words[(cpu->pc - 0x8015fe70u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80160138u && cpu->pc < 0x80160174u)
-        instruction = kOverlaySc02_80160138Words[(cpu->pc - 0x80160138u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801602a4u && cpu->pc < 0x8016032cu)
-        instruction = kOverlaySc02_801602A4Words[(cpu->pc - 0x801602a4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016039cu && cpu->pc < 0x801603d8u)
-        instruction = kOverlaySc02_8016039CWords[(cpu->pc - 0x8016039cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016084cu && cpu->pc < 0x80160888u)
-        instruction = kOverlaySc02_8016084CWords[(cpu->pc - 0x8016084cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80160920u && cpu->pc < 0x801609b8u)
-        instruction = kOverlaySc02_80160920Words[(cpu->pc - 0x80160920u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801609b8u && cpu->pc < 0x80160a28u)
-        instruction = kOverlaySc02_801609B8Words[(cpu->pc - 0x801609b8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80160b34u && cpu->pc < 0x80160b70u)
-        instruction = kOverlaySc02_80160B34Words[(cpu->pc - 0x80160b34u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80160ea4u && cpu->pc < 0x80160ee0u)
-        instruction = kOverlaySc02_80160EA4Words[(cpu->pc - 0x80160ea4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80161034u && cpu->pc < 0x80161094u)
-        instruction = kOverlaySc02_80161034Words[(cpu->pc - 0x80161034u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80161c98u && cpu->pc < 0x80161cd0u)
-        instruction = kOverlaySc02_80161C98Words[(cpu->pc - 0x80161c98u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80161cd0u && cpu->pc < 0x80161d20u)
-        instruction = kOverlaySc02_80161CD0Words[(cpu->pc - 0x80161cd0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80161d20u && cpu->pc < 0x80161d58u)
-        instruction = kOverlaySc02_80161D20Words[(cpu->pc - 0x80161d20u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80161d88u && cpu->pc < 0x80161e08u)
-        instruction = kOverlaySc02_80161D88Words[(cpu->pc - 0x80161d88u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80162330u && cpu->pc < 0x8016236cu)
-        instruction = kOverlaySc02_80162330Words[(cpu->pc - 0x80162330u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80162834u && cpu->pc < 0x80162870u)
-        instruction = kOverlaySc02_80162834Words[(cpu->pc - 0x80162834u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80162870u && cpu->pc < 0x801628f4u)
-        instruction = kOverlaySc02_80162870Words[(cpu->pc - 0x80162870u)/4u];
+    else if (cpu->pc >= 0x8013cb84u && cpu->pc < 0x8013cf68u)
+        instruction = kOverlaySc02_8013CB84Words[(cpu->pc - 0x8013cb84u)/4u];
+    else if (g_overlay_sc02_0031_words && formatter_range_word(kFormatterRanges12,
+            sizeof kFormatterRanges12 / sizeof kFormatterRanges12[0], cpu->pc,
+            &instruction)) {
+        /* value written by formatter_range_word */
+    }
+    else if (cpu->pc >= 0x8013bcdcu && cpu->pc < 0x8013bd34u)
+        instruction = kOverlaySc02_8013BCDCWords[(cpu->pc - 0x8013bcdcu)/4u];
+    else if (g_overlay_sc02_0031_words && formatter_range_word(kFormatterRanges13,
+            sizeof kFormatterRanges13 / sizeof kFormatterRanges13[0], cpu->pc,
+            &instruction)) {
+        /* value written by formatter_range_word */
+    }
     else if (cpu->pc >= 0x80162968u && cpu->pc < 0x80162ac0u)
         instruction = kOverlaySc02_80162968Words[(cpu->pc - 0x80162968u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80163a58u && cpu->pc < 0x80163a94u)
-        instruction = kOverlaySc02_80163A58Words[(cpu->pc - 0x80163a58u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80164744u && cpu->pc < 0x801647a4u)
-        instruction = kOverlaySc02_80164744Words[(cpu->pc - 0x80164744u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80164ba0u && cpu->pc < 0x80164bdcu)
-        instruction = kOverlaySc02_80164BA0Words[(cpu->pc - 0x80164ba0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80164ea4u && cpu->pc < 0x80164ee0u)
-        instruction = kOverlaySc02_80164EA4Words[(cpu->pc - 0x80164ea4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80165580u && cpu->pc < 0x801655e4u)
-        instruction = kOverlaySc02_80165580Words[(cpu->pc - 0x80165580u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80165658u && cpu->pc < 0x80165670u)
-        instruction = kOverlaySc02_80165658Words[(cpu->pc - 0x80165658u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80165670u && cpu->pc < 0x80165694u)
-        instruction = kOverlaySc02_80165670Words[(cpu->pc - 0x80165670u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801656d0u && cpu->pc < 0x801656e8u)
-        instruction = kOverlaySc02_801656D0Words[(cpu->pc - 0x801656d0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801656e8u && cpu->pc < 0x80165700u)
-        instruction = kOverlaySc02_801656E8Words[(cpu->pc - 0x801656e8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80165700u && cpu->pc < 0x80165718u)
-        instruction = kOverlaySc02_80165700Words[(cpu->pc - 0x80165700u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80165ac8u && cpu->pc < 0x80165b08u)
-        instruction = kOverlaySc02_80165AC8Words[(cpu->pc - 0x80165ac8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80165b28u && cpu->pc < 0x80165b6cu)
-        instruction = kOverlaySc02_80165B28Words[(cpu->pc - 0x80165b28u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80166018u && cpu->pc < 0x80166054u)
-        instruction = kOverlaySc02_80166018Words[(cpu->pc - 0x80166018u)/4u];
+    else if (g_overlay_sc02_0031_words && formatter_range_word(kFormatterRanges14,
+            sizeof kFormatterRanges14 / sizeof kFormatterRanges14[0], cpu->pc,
+            &instruction)) {
+        /* value written by formatter_range_word */
+    }
     else if (cpu->pc >= 0x80166054u && cpu->pc < 0x801661ccu)
         instruction = kOverlaySc02_80166054Words[(cpu->pc - 0x80166054u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801663fcu && cpu->pc < 0x80166438u)
-        instruction = kOverlaySc02_801663FCWords[(cpu->pc - 0x801663fcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80166618u && cpu->pc < 0x80166654u)
-        instruction = kOverlaySc02_80166618Words[(cpu->pc - 0x80166618u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80166654u && cpu->pc < 0x80166690u)
-        instruction = kOverlaySc02_80166654Words[(cpu->pc - 0x80166654u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801678b4u && cpu->pc < 0x801678f0u)
-        instruction = kOverlaySc02_801678B4Words[(cpu->pc - 0x801678b4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80167a9cu && cpu->pc < 0x80167ad8u)
-        instruction = kOverlaySc02_80167A9CWords[(cpu->pc - 0x80167a9cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80168744u && cpu->pc < 0x80168780u)
-        instruction = kOverlaySc02_80168744Words[(cpu->pc - 0x80168744u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801689d8u && cpu->pc < 0x80168a14u)
-        instruction = kOverlaySc02_801689D8Words[(cpu->pc - 0x801689d8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80168aa8u && cpu->pc < 0x80168ae4u)
-        instruction = kOverlaySc02_80168AA8Words[(cpu->pc - 0x80168aa8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80168d58u && cpu->pc < 0x80168d94u)
-        instruction = kOverlaySc02_80168D58Words[(cpu->pc - 0x80168d58u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016901cu && cpu->pc < 0x80169058u)
-        instruction = kOverlaySc02_8016901CWords[(cpu->pc - 0x8016901cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801693ccu && cpu->pc < 0x80169408u)
-        instruction = kOverlaySc02_801693CCWords[(cpu->pc - 0x801693ccu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80169830u && cpu->pc < 0x8016986cu)
-        instruction = kOverlaySc02_80169830Words[(cpu->pc - 0x80169830u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80169b80u && cpu->pc < 0x80169bbcu)
-        instruction = kOverlaySc02_80169B80Words[(cpu->pc - 0x80169b80u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80169f00u && cpu->pc < 0x80169f3cu)
-        instruction = kOverlaySc02_80169F00Words[(cpu->pc - 0x80169f00u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016a020u && cpu->pc < 0x8016a05cu)
-        instruction = kOverlaySc02_8016A020Words[(cpu->pc - 0x8016a020u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016a700u && cpu->pc < 0x8016a73cu)
-        instruction = kOverlaySc02_8016A700Words[(cpu->pc - 0x8016a700u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016ab30u && cpu->pc < 0x8016ab6cu)
-        instruction = kOverlaySc02_8016AB30Words[(cpu->pc - 0x8016ab30u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016b4bcu && cpu->pc < 0x8016b4f8u)
-        instruction = kOverlaySc02_8016B4BCWords[(cpu->pc - 0x8016b4bcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016bba4u && cpu->pc < 0x8016bbe0u)
-        instruction = kOverlaySc02_8016BBA4Words[(cpu->pc - 0x8016bba4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016c14cu && cpu->pc < 0x8016c188u)
-        instruction = kOverlaySc02_8016C14CWords[(cpu->pc - 0x8016c14cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016cb84u && cpu->pc < 0x8016cbc0u)
-        instruction = kOverlaySc02_8016CB84Words[(cpu->pc - 0x8016cb84u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016d19cu && cpu->pc < 0x8016d1d8u)
-        instruction = kOverlaySc02_8016D19CWords[(cpu->pc - 0x8016d19cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016d428u && cpu->pc < 0x8016d464u)
-        instruction = kOverlaySc02_8016D428Words[(cpu->pc - 0x8016d428u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016da30u && cpu->pc < 0x8016da7cu)
-        instruction = kOverlaySc02_8016DA30Words[(cpu->pc - 0x8016da30u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016dea4u && cpu->pc < 0x8016dee0u)
-        instruction = kOverlaySc02_8016DEA4Words[(cpu->pc - 0x8016dea4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016df20u && cpu->pc < 0x8016df5cu)
-        instruction = kOverlaySc02_8016DF20Words[(cpu->pc - 0x8016df20u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016e5b8u && cpu->pc < 0x8016e5f4u)
-        instruction = kOverlaySc02_8016E5B8Words[(cpu->pc - 0x8016e5b8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016eac0u && cpu->pc < 0x8016eb3cu)
-        instruction = kOverlaySc02_8016EAC0Words[(cpu->pc - 0x8016eac0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f6e0u && cpu->pc < 0x8016f71cu)
-        instruction = kOverlaySc02_8016F6E0Words[(cpu->pc - 0x8016f6e0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f798u && cpu->pc < 0x8016f7d4u)
-        instruction = kOverlaySc02_8016F798Words[(cpu->pc - 0x8016f798u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f834u && cpu->pc < 0x8016f870u)
-        instruction = kOverlaySc02_8016F834Words[(cpu->pc - 0x8016f834u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f8e4u && cpu->pc < 0x8016f920u)
-        instruction = kOverlaySc02_8016F8E4Words[(cpu->pc - 0x8016f8e4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f9c4u && cpu->pc < 0x8016fa00u)
-        instruction = kOverlaySc02_8016F9C4Words[(cpu->pc - 0x8016f9c4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016fa84u && cpu->pc < 0x8016fac0u)
-        instruction = kOverlaySc02_8016FA84Words[(cpu->pc - 0x8016fa84u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016fb7cu && cpu->pc < 0x8016fbb8u)
-        instruction = kOverlaySc02_8016FB7CWords[(cpu->pc - 0x8016fb7cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016fc90u && cpu->pc < 0x8016fcccu)
-        instruction = kOverlaySc02_8016FC90Words[(cpu->pc - 0x8016fc90u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016fdb4u && cpu->pc < 0x8016fdf0u)
-        instruction = kOverlaySc02_8016FDB4Words[(cpu->pc - 0x8016fdb4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016ff30u && cpu->pc < 0x8016ff6cu)
-        instruction = kOverlaySc02_8016FF30Words[(cpu->pc - 0x8016ff30u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016ffdcu && cpu->pc < 0x80170018u)
-        instruction = kOverlaySc02_8016FFDCWords[(cpu->pc - 0x8016ffdcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170150u && cpu->pc < 0x8017018cu)
-        instruction = kOverlaySc02_80170150Words[(cpu->pc - 0x80170150u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170240u && cpu->pc < 0x8017027cu)
-        instruction = kOverlaySc02_80170240Words[(cpu->pc - 0x80170240u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801702fcu && cpu->pc < 0x80170338u)
-        instruction = kOverlaySc02_801702FCWords[(cpu->pc - 0x801702fcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801703e0u && cpu->pc < 0x8017041cu)
-        instruction = kOverlaySc02_801703E0Words[(cpu->pc - 0x801703e0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801704b0u && cpu->pc < 0x801704ecu)
-        instruction = kOverlaySc02_801704B0Words[(cpu->pc - 0x801704b0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170548u && cpu->pc < 0x80170584u)
-        instruction = kOverlaySc02_80170548Words[(cpu->pc - 0x80170548u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801705f8u && cpu->pc < 0x80170634u)
-        instruction = kOverlaySc02_801705F8Words[(cpu->pc - 0x801705f8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801706acu && cpu->pc < 0x801706e8u)
-        instruction = kOverlaySc02_801706ACWords[(cpu->pc - 0x801706acu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170748u && cpu->pc < 0x80170784u)
-        instruction = kOverlaySc02_80170748Words[(cpu->pc - 0x80170748u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170810u && cpu->pc < 0x8017084cu)
-        instruction = kOverlaySc02_80170810Words[(cpu->pc - 0x80170810u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170ad8u && cpu->pc < 0x80170b14u)
-        instruction = kOverlaySc02_80170AD8Words[(cpu->pc - 0x80170ad8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170bd8u && cpu->pc < 0x80170c14u)
-        instruction = kOverlaySc02_80170BD8Words[(cpu->pc - 0x80170bd8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170c74u && cpu->pc < 0x80170cb0u)
-        instruction = kOverlaySc02_80170C74Words[(cpu->pc - 0x80170c74u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170d68u && cpu->pc < 0x80170da4u)
-        instruction = kOverlaySc02_80170D68Words[(cpu->pc - 0x80170d68u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170e34u && cpu->pc < 0x80170e70u)
-        instruction = kOverlaySc02_80170E34Words[(cpu->pc - 0x80170e34u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170efcu && cpu->pc < 0x80170f38u)
-        instruction = kOverlaySc02_80170EFCWords[(cpu->pc - 0x80170efcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170fb0u && cpu->pc < 0x80170fecu)
-        instruction = kOverlaySc02_80170FB0Words[(cpu->pc - 0x80170fb0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80171064u && cpu->pc < 0x801710a0u)
-        instruction = kOverlaySc02_80171064Words[(cpu->pc - 0x80171064u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80171120u && cpu->pc < 0x8017115cu)
-        instruction = kOverlaySc02_80171120Words[(cpu->pc - 0x80171120u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801711c0u && cpu->pc < 0x801711fcu)
-        instruction = kOverlaySc02_801711C0Words[(cpu->pc - 0x801711c0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80171260u && cpu->pc < 0x8017129cu)
-        instruction = kOverlaySc02_80171260Words[(cpu->pc - 0x80171260u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801714e4u && cpu->pc < 0x80171520u)
-        instruction = kOverlaySc02_801714E4Words[(cpu->pc - 0x801714e4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801727d0u && cpu->pc < 0x8017280cu)
-        instruction = kOverlaySc02_801727D0Words[(cpu->pc - 0x801727d0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801728e4u && cpu->pc < 0x80172920u)
-        instruction = kOverlaySc02_801728E4Words[(cpu->pc - 0x801728e4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801729f0u && cpu->pc < 0x80172a2cu)
-        instruction = kOverlaySc02_801729F0Words[(cpu->pc - 0x801729f0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172b44u && cpu->pc < 0x80172b80u)
-        instruction = kOverlaySc02_80172B44Words[(cpu->pc - 0x80172b44u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172ca0u && cpu->pc < 0x80172cdcu)
-        instruction = kOverlaySc02_80172CA0Words[(cpu->pc - 0x80172ca0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172dacu && cpu->pc < 0x80172de8u)
-        instruction = kOverlaySc02_80172DACWords[(cpu->pc - 0x80172dacu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80173078u && cpu->pc < 0x801730b4u)
-        instruction = kOverlaySc02_80173078Words[(cpu->pc - 0x80173078u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017319cu && cpu->pc < 0x801731d8u)
-        instruction = kOverlaySc02_8017319CWords[(cpu->pc - 0x8017319cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80173220u && cpu->pc < 0x80173294u)
-        instruction = kOverlaySc02_80173220Words[(cpu->pc - 0x80173220u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80173544u && cpu->pc < 0x80173580u)
-        instruction = kOverlaySc02_80173544Words[(cpu->pc - 0x80173544u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801736fcu && cpu->pc < 0x80173738u)
-        instruction = kOverlaySc02_801736FCWords[(cpu->pc - 0x801736fcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801737e8u && cpu->pc < 0x80173824u)
-        instruction = kOverlaySc02_801737E8Words[(cpu->pc - 0x801737e8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017390cu && cpu->pc < 0x80173948u)
-        instruction = kOverlaySc02_8017390CWords[(cpu->pc - 0x8017390cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80173b4cu && cpu->pc < 0x80173b88u)
-        instruction = kOverlaySc02_80173B4CWords[(cpu->pc - 0x80173b4cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801742a4u && cpu->pc < 0x801742e0u)
-        instruction = kOverlaySc02_801742A4Words[(cpu->pc - 0x801742a4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80174384u && cpu->pc < 0x801743c0u)
-        instruction = kOverlaySc02_80174384Words[(cpu->pc - 0x80174384u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80174474u && cpu->pc < 0x801744b0u)
-        instruction = kOverlaySc02_80174474Words[(cpu->pc - 0x80174474u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801747ccu && cpu->pc < 0x80174808u)
-        instruction = kOverlaySc02_801747CCWords[(cpu->pc - 0x801747ccu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80174888u && cpu->pc < 0x801748c4u)
-        instruction = kOverlaySc02_80174888Words[(cpu->pc - 0x80174888u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017496cu && cpu->pc < 0x801749a8u)
-        instruction = kOverlaySc02_8017496CWords[(cpu->pc - 0x8017496cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80174bf4u && cpu->pc < 0x80174c60u)
-        instruction = kOverlaySc02_80174BF4Words[(cpu->pc - 0x80174bf4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80174f28u && cpu->pc < 0x80174f64u)
-        instruction = kOverlaySc02_80174F28Words[(cpu->pc - 0x80174f28u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80175184u && cpu->pc < 0x801751d8u)
-        instruction = kOverlaySc02_80175184Words[(cpu->pc - 0x80175184u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017553cu && cpu->pc < 0x80175590u)
-        instruction = kOverlaySc02_8017553CWords[(cpu->pc - 0x8017553cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80175690u && cpu->pc < 0x801756e4u)
-        instruction = kOverlaySc02_80175690Words[(cpu->pc - 0x80175690u)/4u];
+    else if (g_overlay_sc02_0031_words && formatter_range_word(kFormatterRanges15,
+            sizeof kFormatterRanges15 / sizeof kFormatterRanges15[0], cpu->pc,
+            &instruction)) {
+        /* value written by formatter_range_word */
+    }
     else if (cpu->pc >= 0x80175798u && cpu->pc < 0x801757a0u)
         instruction = kOverlaySc02_80175798Words[(cpu->pc - 0x80175798u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017be60u && cpu->pc < 0x8017be9cu)
-        instruction = kOverlaySc02_8017BE60Words[(cpu->pc - 0x8017be60u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80128178u && cpu->pc < 0x80128198u)
-        instruction = kOverlaySc02_80128178Words[(cpu->pc - 0x80128178u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80128198u && cpu->pc < 0x801281b8u)
-        instruction = kOverlaySc02_80128198Words[(cpu->pc - 0x80128198u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801281b8u && cpu->pc < 0x801281d8u)
-        instruction = kOverlaySc02_801281B8Words[(cpu->pc - 0x801281b8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801281d8u && cpu->pc < 0x801281f8u)
-        instruction = kOverlaySc02_801281D8Words[(cpu->pc - 0x801281d8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801281f8u && cpu->pc < 0x80128218u)
-        instruction = kOverlaySc02_801281F8Words[(cpu->pc - 0x801281f8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80128228u && cpu->pc < 0x80128248u)
-        instruction = kOverlaySc02_80128228Words[(cpu->pc - 0x80128228u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80128248u && cpu->pc < 0x80128268u)
-        instruction = kOverlaySc02_80128248Words[(cpu->pc - 0x80128248u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80128268u && cpu->pc < 0x80128288u)
-        instruction = kOverlaySc02_80128268Words[(cpu->pc - 0x80128268u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801282ccu && cpu->pc < 0x801282ecu)
-        instruction = kOverlaySc02_801282CCWords[(cpu->pc - 0x801282ccu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801282ecu && cpu->pc < 0x8012832cu)
-        instruction = kOverlaySc02_801282ECWords[(cpu->pc - 0x801282ecu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80128d60u && cpu->pc < 0x80128db4u)
-        instruction = kOverlaySc02_80128D60Words[(cpu->pc - 0x80128d60u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80128ea8u && cpu->pc < 0x80128ed8u)
-        instruction = kOverlaySc02_80128EA8Words[(cpu->pc - 0x80128ea8u)/4u];
+    else if (g_overlay_sc02_0031_words && formatter_range_word(kFormatterRanges16,
+            sizeof kFormatterRanges16 / sizeof kFormatterRanges16[0], cpu->pc,
+            &instruction)) {
+        /* value written by formatter_range_word */
+    }
     else if (cpu->pc >= 0x80128ed8u && cpu->pc < 0x80128facu)
         instruction = kOverlaySc02_80128ED8Words[(cpu->pc - 0x80128ed8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801290dcu && cpu->pc < 0x8012913cu)
-        instruction = kOverlaySc02_801290DCWords[(cpu->pc - 0x801290dcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012913cu && cpu->pc < 0x801291c0u)
-        instruction = kOverlaySc02_8012913CWords[(cpu->pc - 0x8012913cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801291c0u && cpu->pc < 0x80129220u)
-        instruction = kOverlaySc02_801291C0Words[(cpu->pc - 0x801291c0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012927cu && cpu->pc < 0x801292c8u)
-        instruction = kOverlaySc02_8012927CWords[(cpu->pc - 0x8012927cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801292c8u && cpu->pc < 0x8012931cu)
-        instruction = kOverlaySc02_801292C8Words[(cpu->pc - 0x801292c8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012931cu && cpu->pc < 0x80129350u)
-        instruction = kOverlaySc02_8012931CWords[(cpu->pc - 0x8012931cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80129350u && cpu->pc < 0x80129374u)
-        instruction = kOverlaySc02_80129350Words[(cpu->pc - 0x80129350u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80129374u && cpu->pc < 0x80129398u)
-        instruction = kOverlaySc02_80129374Words[(cpu->pc - 0x80129374u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80129428u && cpu->pc < 0x8012943cu)
-        instruction = kOverlaySc02_80129428Words[(cpu->pc - 0x80129428u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012943cu && cpu->pc < 0x8012944cu)
-        instruction = kOverlaySc02_8012943CWords[(cpu->pc - 0x8012943cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80129ff4u && cpu->pc < 0x8012a018u)
-        instruction = kOverlaySc02_80129FF4Words[(cpu->pc - 0x80129ff4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012a0e0u && cpu->pc < 0x8012a100u)
-        instruction = kOverlaySc02_8012A0E0Words[(cpu->pc - 0x8012a0e0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012a100u && cpu->pc < 0x8012a110u)
-        instruction = kOverlaySc02_8012A100Words[(cpu->pc - 0x8012a100u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012a110u && cpu->pc < 0x8012a1bcu)
-        instruction = kOverlaySc02_8012A110Words[(cpu->pc - 0x8012a110u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012a2f4u && cpu->pc < 0x8012a304u)
-        instruction = kOverlaySc02_8012A2F4Words[(cpu->pc - 0x8012a2f4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012a304u && cpu->pc < 0x8012a328u)
-        instruction = kOverlaySc02_8012A304Words[(cpu->pc - 0x8012a304u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012a418u && cpu->pc < 0x8012a464u)
-        instruction = kOverlaySc02_8012A418Words[(cpu->pc - 0x8012a418u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012a464u && cpu->pc < 0x8012a4bcu)
-        instruction = kOverlaySc02_8012A464Words[(cpu->pc - 0x8012a464u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012a4bcu && cpu->pc < 0x8012a568u)
-        instruction = kOverlaySc02_8012A4BCWords[(cpu->pc - 0x8012a4bcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012a568u && cpu->pc < 0x8012a598u)
-        instruction = kOverlaySc02_8012A568Words[(cpu->pc - 0x8012a568u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012a598u && cpu->pc < 0x8012a5f8u)
-        instruction = kOverlaySc02_8012A598Words[(cpu->pc - 0x8012a598u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012a5f8u && cpu->pc < 0x8012a62cu)
-        instruction = kOverlaySc02_8012A5F8Words[(cpu->pc - 0x8012a5f8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012a62cu && cpu->pc < 0x8012a68cu)
-        instruction = kOverlaySc02_8012A62CWords[(cpu->pc - 0x8012a62cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012a68cu && cpu->pc < 0x8012a6d0u)
-        instruction = kOverlaySc02_8012A68CWords[(cpu->pc - 0x8012a68cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012a6d0u && cpu->pc < 0x8012a758u)
-        instruction = kOverlaySc02_8012A6D0Words[(cpu->pc - 0x8012a6d0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012a758u && cpu->pc < 0x8012a79cu)
-        instruction = kOverlaySc02_8012A758Words[(cpu->pc - 0x8012a758u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012a79cu && cpu->pc < 0x8012a7d4u)
-        instruction = kOverlaySc02_8012A79CWords[(cpu->pc - 0x8012a79cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012a7d4u && cpu->pc < 0x8012a828u)
-        instruction = kOverlaySc02_8012A7D4Words[(cpu->pc - 0x8012a7d4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012a860u && cpu->pc < 0x8012a8b0u)
-        instruction = kOverlaySc02_8012A860Words[(cpu->pc - 0x8012a860u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012a8b0u && cpu->pc < 0x8012a8e8u)
-        instruction = kOverlaySc02_8012A8B0Words[(cpu->pc - 0x8012a8b0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012a8e8u && cpu->pc < 0x8012a908u)
-        instruction = kOverlaySc02_8012A8E8Words[(cpu->pc - 0x8012a8e8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012a908u && cpu->pc < 0x8012a988u)
-        instruction = kOverlaySc02_8012A908Words[(cpu->pc - 0x8012a908u)/4u];
+    else if (g_overlay_sc02_0031_words && formatter_range_word(kFormatterRanges17,
+            sizeof kFormatterRanges17 / sizeof kFormatterRanges17[0], cpu->pc,
+            &instruction)) {
+        /* value written by formatter_range_word */
+    }
     else if (cpu->pc >= 0x8012a988u && cpu->pc < 0x8012aaacu)
         instruction = kOverlaySc02_8012A988Words[(cpu->pc - 0x8012a988u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012ad3cu && cpu->pc < 0x8012ad44u)
-        instruction = kOverlaySc02_8012AD3CWords[(cpu->pc - 0x8012ad3cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012ad64u && cpu->pc < 0x8012ad6cu)
-        instruction = kOverlaySc02_8012AD64Words[(cpu->pc - 0x8012ad64u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012ad6cu && cpu->pc < 0x8012ad80u)
-        instruction = kOverlaySc02_8012AD6CWords[(cpu->pc - 0x8012ad6cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012ad80u && cpu->pc < 0x8012ade4u)
-        instruction = kOverlaySc02_8012AD80Words[(cpu->pc - 0x8012ad80u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012ade4u && cpu->pc < 0x8012ae00u)
-        instruction = kOverlaySc02_8012ADE4Words[(cpu->pc - 0x8012ade4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012b178u && cpu->pc < 0x8012b1b4u)
-        instruction = kOverlaySc02_8012B178Words[(cpu->pc - 0x8012b178u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012b1b4u && cpu->pc < 0x8012b200u)
-        instruction = kOverlaySc02_8012B1B4Words[(cpu->pc - 0x8012b1b4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012b200u && cpu->pc < 0x8012b21cu)
-        instruction = kOverlaySc02_8012B200Words[(cpu->pc - 0x8012b200u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012b21cu && cpu->pc < 0x8012b23cu)
-        instruction = kOverlaySc02_8012B21CWords[(cpu->pc - 0x8012b21cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012b23cu && cpu->pc < 0x8012b260u)
-        instruction = kOverlaySc02_8012B23CWords[(cpu->pc - 0x8012b23cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012b370u && cpu->pc < 0x8012b414u)
-        instruction = kOverlaySc02_8012B370Words[(cpu->pc - 0x8012b370u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012b414u && cpu->pc < 0x8012b4b8u)
-        instruction = kOverlaySc02_8012B414Words[(cpu->pc - 0x8012b414u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012b6d4u && cpu->pc < 0x8012b70cu)
-        instruction = kOverlaySc02_8012B6D4Words[(cpu->pc - 0x8012b6d4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012b70cu && cpu->pc < 0x8012b744u)
-        instruction = kOverlaySc02_8012B70CWords[(cpu->pc - 0x8012b70cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012b744u && cpu->pc < 0x8012b77cu)
-        instruction = kOverlaySc02_8012B744Words[(cpu->pc - 0x8012b744u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012b864u && cpu->pc < 0x8012b8a4u)
-        instruction = kOverlaySc02_8012B864Words[(cpu->pc - 0x8012b864u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012b8a4u && cpu->pc < 0x8012b8e4u)
-        instruction = kOverlaySc02_8012B8A4Words[(cpu->pc - 0x8012b8a4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012bc60u && cpu->pc < 0x8012bcccu)
-        instruction = kOverlaySc02_8012BC60Words[(cpu->pc - 0x8012bc60u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012bd14u && cpu->pc < 0x8012bd3cu)
-        instruction = kOverlaySc02_8012BD14Words[(cpu->pc - 0x8012bd14u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012bd3cu && cpu->pc < 0x8012bdbcu)
-        instruction = kOverlaySc02_8012BD3CWords[(cpu->pc - 0x8012bd3cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012be54u && cpu->pc < 0x8012be98u)
-        instruction = kOverlaySc02_8012BE54Words[(cpu->pc - 0x8012be54u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012be98u && cpu->pc < 0x8012bee8u)
-        instruction = kOverlaySc02_8012BE98Words[(cpu->pc - 0x8012be98u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012bf4cu && cpu->pc < 0x8012bf54u)
-        instruction = kOverlaySc02_8012BF4CWords[(cpu->pc - 0x8012bf4cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012bf54u && cpu->pc < 0x8012bf68u)
-        instruction = kOverlaySc02_8012BF54Words[(cpu->pc - 0x8012bf54u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012bf68u && cpu->pc < 0x8012bf7cu)
-        instruction = kOverlaySc02_8012BF68Words[(cpu->pc - 0x8012bf68u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012bf7cu && cpu->pc < 0x8012bfa8u)
-        instruction = kOverlaySc02_8012BF7CWords[(cpu->pc - 0x8012bf7cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012bfa8u && cpu->pc < 0x8012c044u)
-        instruction = kOverlaySc02_8012BFA8Words[(cpu->pc - 0x8012bfa8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012c044u && cpu->pc < 0x8012c098u)
-        instruction = kOverlaySc02_8012C044Words[(cpu->pc - 0x8012c044u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012c098u && cpu->pc < 0x8012c0ecu)
-        instruction = kOverlaySc02_8012C098Words[(cpu->pc - 0x8012c098u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012c31cu && cpu->pc < 0x8012c354u)
-        instruction = kOverlaySc02_8012C31CWords[(cpu->pc - 0x8012c31cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012c724u && cpu->pc < 0x8012c750u)
-        instruction = kOverlaySc02_8012C724Words[(cpu->pc - 0x8012c724u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012cba4u && cpu->pc < 0x8012cbccu)
-        instruction = kOverlaySc02_8012CBA4Words[(cpu->pc - 0x8012cba4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012cbccu && cpu->pc < 0x8012cbf4u)
-        instruction = kOverlaySc02_8012CBCCWords[(cpu->pc - 0x8012cbccu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012cbf4u && cpu->pc < 0x8012cc1cu)
-        instruction = kOverlaySc02_8012CBF4Words[(cpu->pc - 0x8012cbf4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012cc1cu && cpu->pc < 0x8012cc40u)
-        instruction = kOverlaySc02_8012CC1CWords[(cpu->pc - 0x8012cc1cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012cc40u && cpu->pc < 0x8012cc64u)
-        instruction = kOverlaySc02_8012CC40Words[(cpu->pc - 0x8012cc40u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012cc64u && cpu->pc < 0x8012cc88u)
-        instruction = kOverlaySc02_8012CC64Words[(cpu->pc - 0x8012cc64u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012d38cu && cpu->pc < 0x8012d3acu)
-        instruction = kOverlaySc02_8012D38CWords[(cpu->pc - 0x8012d38cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012d3b4u && cpu->pc < 0x8012d4b4u)
-        instruction = kOverlaySc02_8012D3B4Words[(cpu->pc - 0x8012d3b4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012d4b4u && cpu->pc < 0x8012d5dcu)
-        instruction = kOverlaySc02_8012D4B4Words[(cpu->pc - 0x8012d4b4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012d5e4u && cpu->pc < 0x8012d624u)
-        instruction = kOverlaySc02_8012D5E4Words[(cpu->pc - 0x8012d5e4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012d624u && cpu->pc < 0x8012d664u)
-        instruction = kOverlaySc02_8012D624Words[(cpu->pc - 0x8012d624u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012dfd4u && cpu->pc < 0x8012e014u)
-        instruction = kOverlaySc02_8012DFD4Words[(cpu->pc - 0x8012dfd4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012e27cu && cpu->pc < 0x8012e284u)
-        instruction = kOverlaySc02_8012E27CWords[(cpu->pc - 0x8012e27cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012e284u && cpu->pc < 0x8012e28cu)
-        instruction = kOverlaySc02_8012E284Words[(cpu->pc - 0x8012e284u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012e28cu && cpu->pc < 0x8012e32cu)
-        instruction = kOverlaySc02_8012E28CWords[(cpu->pc - 0x8012e28cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012e32cu && cpu->pc < 0x8012e364u)
-        instruction = kOverlaySc02_8012E32CWords[(cpu->pc - 0x8012e32cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012e504u && cpu->pc < 0x8012e544u)
-        instruction = kOverlaySc02_8012E504Words[(cpu->pc - 0x8012e504u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012e544u && cpu->pc < 0x8012e57cu)
-        instruction = kOverlaySc02_8012E544Words[(cpu->pc - 0x8012e544u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012e57cu && cpu->pc < 0x8012e5ccu)
-        instruction = kOverlaySc02_8012E57CWords[(cpu->pc - 0x8012e57cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012e778u && cpu->pc < 0x8012e88cu)
-        instruction = kOverlaySc02_8012E778Words[(cpu->pc - 0x8012e778u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012e88cu && cpu->pc < 0x8012e8a8u)
-        instruction = kOverlaySc02_8012E88CWords[(cpu->pc - 0x8012e88cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012e8a8u && cpu->pc < 0x8012e8c4u)
-        instruction = kOverlaySc02_8012E8A8Words[(cpu->pc - 0x8012e8a8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012e8c4u && cpu->pc < 0x8012e8e0u)
-        instruction = kOverlaySc02_8012E8C4Words[(cpu->pc - 0x8012e8c4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012ec04u && cpu->pc < 0x8012eeccu)
-        instruction = kOverlaySc02_8012EC04Words[(cpu->pc - 0x8012ec04u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012eeccu && cpu->pc < 0x8012ef34u)
-        instruction = kOverlaySc02_8012EECCWords[(cpu->pc - 0x8012eeccu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012ef34u && cpu->pc < 0x8012ef70u)
-        instruction = kOverlaySc02_8012EF34Words[(cpu->pc - 0x8012ef34u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012ef70u && cpu->pc < 0x8012efb8u)
-        instruction = kOverlaySc02_8012EF70Words[(cpu->pc - 0x8012ef70u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012efb8u && cpu->pc < 0x8012f038u)
-        instruction = kOverlaySc02_8012EFB8Words[(cpu->pc - 0x8012efb8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012f038u && cpu->pc < 0x8012f0bcu)
-        instruction = kOverlaySc02_8012F038Words[(cpu->pc - 0x8012f038u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012f0bcu && cpu->pc < 0x8012f14cu)
-        instruction = kOverlaySc02_8012F0BCWords[(cpu->pc - 0x8012f0bcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012f1a4u && cpu->pc < 0x8012f214u)
-        instruction = kOverlaySc02_8012F1A4Words[(cpu->pc - 0x8012f1a4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012f214u && cpu->pc < 0x8012f274u)
-        instruction = kOverlaySc02_8012F214Words[(cpu->pc - 0x8012f214u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012f2e8u && cpu->pc < 0x8012f374u)
-        instruction = kOverlaySc02_8012F2E8Words[(cpu->pc - 0x8012f2e8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012f374u && cpu->pc < 0x8012f40cu)
-        instruction = kOverlaySc02_8012F374Words[(cpu->pc - 0x8012f374u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012f5f4u && cpu->pc < 0x8012f68cu)
-        instruction = kOverlaySc02_8012F5F4Words[(cpu->pc - 0x8012f5f4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012f75cu && cpu->pc < 0x8012f7b4u)
-        instruction = kOverlaySc02_8012F75CWords[(cpu->pc - 0x8012f75cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012f7b4u && cpu->pc < 0x8012f828u)
-        instruction = kOverlaySc02_8012F7B4Words[(cpu->pc - 0x8012f7b4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012f87cu && cpu->pc < 0x8012f8c8u)
-        instruction = kOverlaySc02_8012F87CWords[(cpu->pc - 0x8012f87cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012f91cu && cpu->pc < 0x8012f968u)
-        instruction = kOverlaySc02_8012F91CWords[(cpu->pc - 0x8012f91cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012fb54u && cpu->pc < 0x8012fc30u)
-        instruction = kOverlaySc02_8012FB54Words[(cpu->pc - 0x8012fb54u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012fc30u && cpu->pc < 0x8012fca4u)
-        instruction = kOverlaySc02_8012FC30Words[(cpu->pc - 0x8012fc30u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012fca4u && cpu->pc < 0x8012fcc4u)
-        instruction = kOverlaySc02_8012FCA4Words[(cpu->pc - 0x8012fca4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012fda8u && cpu->pc < 0x8012fe70u)
-        instruction = kOverlaySc02_8012FDA8Words[(cpu->pc - 0x8012fda8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012fe70u && cpu->pc < 0x8012ff00u)
-        instruction = kOverlaySc02_8012FE70Words[(cpu->pc - 0x8012fe70u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012ff00u && cpu->pc < 0x8012ff4cu)
-        instruction = kOverlaySc02_8012FF00Words[(cpu->pc - 0x8012ff00u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012ff4cu && cpu->pc < 0x8012ff98u)
-        instruction = kOverlaySc02_8012FF4CWords[(cpu->pc - 0x8012ff4cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012ff98u && cpu->pc < 0x8013001cu)
-        instruction = kOverlaySc02_8012FF98Words[(cpu->pc - 0x8012ff98u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80130278u && cpu->pc < 0x80130314u)
-        instruction = kOverlaySc02_80130278Words[(cpu->pc - 0x80130278u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80130314u && cpu->pc < 0x80130360u)
-        instruction = kOverlaySc02_80130314Words[(cpu->pc - 0x80130314u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80130360u && cpu->pc < 0x801303a0u)
-        instruction = kOverlaySc02_80130360Words[(cpu->pc - 0x80130360u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801303a0u && cpu->pc < 0x801303ecu)
-        instruction = kOverlaySc02_801303A0Words[(cpu->pc - 0x801303a0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801303ecu && cpu->pc < 0x80130438u)
-        instruction = kOverlaySc02_801303ECWords[(cpu->pc - 0x801303ecu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80130514u && cpu->pc < 0x801305ccu)
-        instruction = kOverlaySc02_80130514Words[(cpu->pc - 0x80130514u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801305ccu && cpu->pc < 0x80130650u)
-        instruction = kOverlaySc02_801305CCWords[(cpu->pc - 0x801305ccu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80130650u && cpu->pc < 0x80130740u)
-        instruction = kOverlaySc02_80130650Words[(cpu->pc - 0x80130650u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80130740u && cpu->pc < 0x801307b0u)
-        instruction = kOverlaySc02_80130740Words[(cpu->pc - 0x80130740u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801307b0u && cpu->pc < 0x80130858u)
-        instruction = kOverlaySc02_801307B0Words[(cpu->pc - 0x801307b0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80130858u && cpu->pc < 0x80130898u)
-        instruction = kOverlaySc02_80130858Words[(cpu->pc - 0x80130858u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80130898u && cpu->pc < 0x801308dcu)
-        instruction = kOverlaySc02_80130898Words[(cpu->pc - 0x80130898u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801308dcu && cpu->pc < 0x80130974u)
-        instruction = kOverlaySc02_801308DCWords[(cpu->pc - 0x801308dcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80130974u && cpu->pc < 0x80130a18u)
-        instruction = kOverlaySc02_80130974Words[(cpu->pc - 0x80130974u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80130a18u && cpu->pc < 0x80130ac4u)
-        instruction = kOverlaySc02_80130A18Words[(cpu->pc - 0x80130a18u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80130af0u && cpu->pc < 0x80130c08u)
-        instruction = kOverlaySc02_80130AF0Words[(cpu->pc - 0x80130af0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801319e0u && cpu->pc < 0x80131a34u)
-        instruction = kOverlaySc02_801319E0Words[(cpu->pc - 0x801319e0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80131c78u && cpu->pc < 0x80131ca8u)
-        instruction = kOverlaySc02_80131C78Words[(cpu->pc - 0x80131c78u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80131d68u && cpu->pc < 0x80131e00u)
-        instruction = kOverlaySc02_80131D68Words[(cpu->pc - 0x80131d68u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80131e38u && cpu->pc < 0x80131e7cu)
-        instruction = kOverlaySc02_80131E38Words[(cpu->pc - 0x80131e38u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80131e7cu && cpu->pc < 0x80131ee4u)
-        instruction = kOverlaySc02_80131E7CWords[(cpu->pc - 0x80131e7cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80132784u && cpu->pc < 0x80132dc4u)
-        instruction = kOverlaySc02_80132784Words[(cpu->pc - 0x80132784u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80132dc4u && cpu->pc < 0x80132e6cu)
-        instruction = kOverlaySc02_80132DC4Words[(cpu->pc - 0x80132dc4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80132e6cu && cpu->pc < 0x80132ec4u)
-        instruction = kOverlaySc02_80132E6CWords[(cpu->pc - 0x80132e6cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80132ec4u && cpu->pc < 0x80132ef4u)
-        instruction = kOverlaySc02_80132EC4Words[(cpu->pc - 0x80132ec4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80132ef4u && cpu->pc < 0x80132f40u)
-        instruction = kOverlaySc02_80132EF4Words[(cpu->pc - 0x80132ef4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80133060u && cpu->pc < 0x801330e0u)
-        instruction = kOverlaySc02_80133060Words[(cpu->pc - 0x80133060u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801330e0u && cpu->pc < 0x80133298u)
-        instruction = kOverlaySc02_801330E0Words[(cpu->pc - 0x801330e0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80134310u && cpu->pc < 0x8013435cu)
-        instruction = kOverlaySc02_80134310Words[(cpu->pc - 0x80134310u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013435cu && cpu->pc < 0x801343c4u)
-        instruction = kOverlaySc02_8013435CWords[(cpu->pc - 0x8013435cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80134a28u && cpu->pc < 0x80134a74u)
-        instruction = kOverlaySc02_80134A28Words[(cpu->pc - 0x80134a28u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80134fb8u && cpu->pc < 0x80135004u)
-        instruction = kOverlaySc02_80134FB8Words[(cpu->pc - 0x80134fb8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80136c1cu && cpu->pc < 0x80136c3cu)
-        instruction = kOverlaySc02_80136C1CWords[(cpu->pc - 0x80136c1cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80136c3cu && cpu->pc < 0x80136c44u)
-        instruction = kOverlaySc02_80136C3CWords[(cpu->pc - 0x80136c3cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80136d08u && cpu->pc < 0x80136dfcu)
-        instruction = kOverlaySc02_80136D08Words[(cpu->pc - 0x80136d08u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80136dfcu && cpu->pc < 0x80136ec4u)
-        instruction = kOverlaySc02_80136DFCWords[(cpu->pc - 0x80136dfcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80136eccu && cpu->pc < 0x80136f3cu)
-        instruction = kOverlaySc02_80136ECCWords[(cpu->pc - 0x80136eccu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801375ecu && cpu->pc < 0x80137614u)
-        instruction = kOverlaySc02_801375ECWords[(cpu->pc - 0x801375ecu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80137614u && cpu->pc < 0x8013767cu)
-        instruction = kOverlaySc02_80137614Words[(cpu->pc - 0x80137614u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013767cu && cpu->pc < 0x801376c8u)
-        instruction = kOverlaySc02_8013767CWords[(cpu->pc - 0x8013767cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801376c8u && cpu->pc < 0x801376e8u)
-        instruction = kOverlaySc02_801376C8Words[(cpu->pc - 0x801376c8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80137840u && cpu->pc < 0x801378f0u)
-        instruction = kOverlaySc02_80137840Words[(cpu->pc - 0x80137840u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801379d8u && cpu->pc < 0x801379ecu)
-        instruction = kOverlaySc02_801379D8Words[(cpu->pc - 0x801379d8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801379ecu && cpu->pc < 0x801379fcu)
-        instruction = kOverlaySc02_801379ECWords[(cpu->pc - 0x801379ecu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80138948u && cpu->pc < 0x8013895cu)
-        instruction = kOverlaySc02_80138948Words[(cpu->pc - 0x80138948u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80138b88u && cpu->pc < 0x80138be0u)
-        instruction = kOverlaySc02_80138B88Words[(cpu->pc - 0x80138b88u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80138c30u && cpu->pc < 0x80138c60u)
-        instruction = kOverlaySc02_80138C30Words[(cpu->pc - 0x80138c30u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80138d58u && cpu->pc < 0x80138db8u)
-        instruction = kOverlaySc02_80138D58Words[(cpu->pc - 0x80138d58u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80138db8u && cpu->pc < 0x80138de0u)
-        instruction = kOverlaySc02_80138DB8Words[(cpu->pc - 0x80138db8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801391f0u && cpu->pc < 0x80139220u)
-        instruction = kOverlaySc02_801391F0Words[(cpu->pc - 0x801391f0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80139220u && cpu->pc < 0x801392c8u)
-        instruction = kOverlaySc02_80139220Words[(cpu->pc - 0x80139220u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801392c8u && cpu->pc < 0x801392fcu)
-        instruction = kOverlaySc02_801392C8Words[(cpu->pc - 0x801392c8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801395d4u && cpu->pc < 0x80139634u)
-        instruction = kOverlaySc02_801395D4Words[(cpu->pc - 0x801395d4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80139634u && cpu->pc < 0x80139680u)
-        instruction = kOverlaySc02_80139634Words[(cpu->pc - 0x80139634u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80139788u && cpu->pc < 0x801397b0u)
-        instruction = kOverlaySc02_80139788Words[(cpu->pc - 0x80139788u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80139914u && cpu->pc < 0x80139954u)
-        instruction = kOverlaySc02_80139914Words[(cpu->pc - 0x80139914u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80139954u && cpu->pc < 0x801399a8u)
-        instruction = kOverlaySc02_80139954Words[(cpu->pc - 0x80139954u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801399a8u && cpu->pc < 0x801399f0u)
-        instruction = kOverlaySc02_801399A8Words[(cpu->pc - 0x801399a8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801399f0u && cpu->pc < 0x80139a34u)
-        instruction = kOverlaySc02_801399F0Words[(cpu->pc - 0x801399f0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80139a34u && cpu->pc < 0x80139a44u)
-        instruction = kOverlaySc02_80139A34Words[(cpu->pc - 0x80139a34u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80139a44u && cpu->pc < 0x80139a68u)
-        instruction = kOverlaySc02_80139A44Words[(cpu->pc - 0x80139a44u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80139a68u && cpu->pc < 0x80139a8cu)
-        instruction = kOverlaySc02_80139A68Words[(cpu->pc - 0x80139a68u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80139b18u && cpu->pc < 0x80139be0u)
-        instruction = kOverlaySc02_80139B18Words[(cpu->pc - 0x80139b18u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80139c7cu && cpu->pc < 0x80139d04u)
-        instruction = kOverlaySc02_80139C7CWords[(cpu->pc - 0x80139c7cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80139dc8u && cpu->pc < 0x80139decu)
-        instruction = kOverlaySc02_80139DC8Words[(cpu->pc - 0x80139dc8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80139f0cu && cpu->pc < 0x80139fbcu)
-        instruction = kOverlaySc02_80139F0CWords[(cpu->pc - 0x80139f0cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80139fbcu && cpu->pc < 0x80139fe8u)
-        instruction = kOverlaySc02_80139FBCWords[(cpu->pc - 0x80139fbcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80139fe8u && cpu->pc < 0x8013a0a4u)
-        instruction = kOverlaySc02_80139FE8Words[(cpu->pc - 0x80139fe8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013a0a4u && cpu->pc < 0x8013a164u)
-        instruction = kOverlaySc02_8013A0A4Words[(cpu->pc - 0x8013a0a4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013a164u && cpu->pc < 0x8013a1e8u)
-        instruction = kOverlaySc02_8013A164Words[(cpu->pc - 0x8013a164u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013a1e8u && cpu->pc < 0x8013a250u)
-        instruction = kOverlaySc02_8013A1E8Words[(cpu->pc - 0x8013a1e8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013a250u && cpu->pc < 0x8013a2bcu)
-        instruction = kOverlaySc02_8013A250Words[(cpu->pc - 0x8013a250u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013a448u && cpu->pc < 0x8013a4c4u)
-        instruction = kOverlaySc02_8013A448Words[(cpu->pc - 0x8013a448u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013a4c4u && cpu->pc < 0x8013a530u)
-        instruction = kOverlaySc02_8013A4C4Words[(cpu->pc - 0x8013a4c4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013a8b0u && cpu->pc < 0x8013a8bcu)
-        instruction = kOverlaySc02_8013A8B0Words[(cpu->pc - 0x8013a8b0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013a8bcu && cpu->pc < 0x8013a8fcu)
-        instruction = kOverlaySc02_8013A8BCWords[(cpu->pc - 0x8013a8bcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013a9b4u && cpu->pc < 0x8013a9f8u)
-        instruction = kOverlaySc02_8013A9B4Words[(cpu->pc - 0x8013a9b4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013aa24u && cpu->pc < 0x8013ab54u)
-        instruction = kOverlaySc02_8013AA24Words[(cpu->pc - 0x8013aa24u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013ab54u && cpu->pc < 0x8013ad38u)
-        instruction = kOverlaySc02_8013AB54Words[(cpu->pc - 0x8013ab54u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013b204u && cpu->pc < 0x8013b274u)
-        instruction = kOverlaySc02_8013B204Words[(cpu->pc - 0x8013b204u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013e064u && cpu->pc < 0x8013e0fcu)
-        instruction = kOverlaySc02_8013E064Words[(cpu->pc - 0x8013e064u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013e0fcu && cpu->pc < 0x8013e194u)
-        instruction = kOverlaySc02_8013E0FCWords[(cpu->pc - 0x8013e0fcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013e194u && cpu->pc < 0x8013e22cu)
-        instruction = kOverlaySc02_8013E194Words[(cpu->pc - 0x8013e194u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013e22cu && cpu->pc < 0x8013e298u)
-        instruction = kOverlaySc02_8013E22CWords[(cpu->pc - 0x8013e22cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013e298u && cpu->pc < 0x8013e2c4u)
-        instruction = kOverlaySc02_8013E298Words[(cpu->pc - 0x8013e298u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013e2c4u && cpu->pc < 0x8013e370u)
-        instruction = kOverlaySc02_8013E2C4Words[(cpu->pc - 0x8013e2c4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013e370u && cpu->pc < 0x8013e410u)
-        instruction = kOverlaySc02_8013E370Words[(cpu->pc - 0x8013e370u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013e410u && cpu->pc < 0x8013e448u)
-        instruction = kOverlaySc02_8013E410Words[(cpu->pc - 0x8013e410u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013e558u && cpu->pc < 0x8013e588u)
-        instruction = kOverlaySc02_8013E558Words[(cpu->pc - 0x8013e558u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013e588u && cpu->pc < 0x8013e5e8u)
-        instruction = kOverlaySc02_8013E588Words[(cpu->pc - 0x8013e588u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013e67cu && cpu->pc < 0x8013e6acu)
-        instruction = kOverlaySc02_8013E67CWords[(cpu->pc - 0x8013e67cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8013e814u && cpu->pc < 0x8013e83cu)
-        instruction = kOverlaySc02_8013E814Words[(cpu->pc - 0x8013e814u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8014168cu && cpu->pc < 0x801416d4u)
-        instruction = kOverlaySc02_8014168CWords[(cpu->pc - 0x8014168cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801417c4u && cpu->pc < 0x801417f8u)
-        instruction = kOverlaySc02_801417C4Words[(cpu->pc - 0x801417c4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801417f8u && cpu->pc < 0x80141874u)
-        instruction = kOverlaySc02_801417F8Words[(cpu->pc - 0x801417f8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80141c04u && cpu->pc < 0x80141c0cu)
-        instruction = kOverlaySc02_80141C04Words[(cpu->pc - 0x80141c04u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80141c50u && cpu->pc < 0x80141ca4u)
-        instruction = kOverlaySc02_80141C50Words[(cpu->pc - 0x80141c50u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80141ca4u && cpu->pc < 0x80142414u)
-        instruction = kOverlaySc02_80141CA4Words[(cpu->pc - 0x80141ca4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80142414u && cpu->pc < 0x80142454u)
-        instruction = kOverlaySc02_80142414Words[(cpu->pc - 0x80142414u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801426d4u && cpu->pc < 0x80142740u)
-        instruction = kOverlaySc02_801426D4Words[(cpu->pc - 0x801426d4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80142740u && cpu->pc < 0x80142778u)
-        instruction = kOverlaySc02_80142740Words[(cpu->pc - 0x80142740u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80142778u && cpu->pc < 0x801427dcu)
-        instruction = kOverlaySc02_80142778Words[(cpu->pc - 0x80142778u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80142838u && cpu->pc < 0x801428ccu)
-        instruction = kOverlaySc02_80142838Words[(cpu->pc - 0x80142838u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801428ccu && cpu->pc < 0x8014292cu)
-        instruction = kOverlaySc02_801428CCWords[(cpu->pc - 0x801428ccu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80142b2cu && cpu->pc < 0x80142bb4u)
-        instruction = kOverlaySc02_80142B2CWords[(cpu->pc - 0x80142b2cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80142bb4u && cpu->pc < 0x80142c7cu)
-        instruction = kOverlaySc02_80142BB4Words[(cpu->pc - 0x80142bb4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80142c84u && cpu->pc < 0x80142c9cu)
-        instruction = kOverlaySc02_80142C84Words[(cpu->pc - 0x80142c84u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80142d38u && cpu->pc < 0x80142db8u)
-        instruction = kOverlaySc02_80142D38Words[(cpu->pc - 0x80142d38u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80142db8u && cpu->pc < 0x80142dc4u)
-        instruction = kOverlaySc02_80142DB8Words[(cpu->pc - 0x80142db8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80142f68u && cpu->pc < 0x80142ffcu)
-        instruction = kOverlaySc02_80142F68Words[(cpu->pc - 0x80142f68u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80142ffcu && cpu->pc < 0x8014305cu)
-        instruction = kOverlaySc02_80142FFCWords[(cpu->pc - 0x80142ffcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801430f4u && cpu->pc < 0x80143188u)
-        instruction = kOverlaySc02_801430F4Words[(cpu->pc - 0x801430f4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80143188u && cpu->pc < 0x801431e8u)
-        instruction = kOverlaySc02_80143188Words[(cpu->pc - 0x80143188u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801432fcu && cpu->pc < 0x80143390u)
-        instruction = kOverlaySc02_801432FCWords[(cpu->pc - 0x801432fcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80143390u && cpu->pc < 0x801433f0u)
-        instruction = kOverlaySc02_80143390Words[(cpu->pc - 0x80143390u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801433f0u && cpu->pc < 0x80143458u)
-        instruction = kOverlaySc02_801433F0Words[(cpu->pc - 0x801433f0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8014350cu && cpu->pc < 0x8014358cu)
-        instruction = kOverlaySc02_8014350CWords[(cpu->pc - 0x8014350cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80143994u && cpu->pc < 0x801439c0u)
-        instruction = kOverlaySc02_80143994Words[(cpu->pc - 0x80143994u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801439c0u && cpu->pc < 0x801439fcu)
-        instruction = kOverlaySc02_801439C0Words[(cpu->pc - 0x801439c0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80143c74u && cpu->pc < 0x80143c98u)
-        instruction = kOverlaySc02_80143C74Words[(cpu->pc - 0x80143c74u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8014a680u && cpu->pc < 0x8014a69cu)
-        instruction = kOverlaySc02_8014A680Words[(cpu->pc - 0x8014a680u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8014a6a8u && cpu->pc < 0x8014a6c4u)
-        instruction = kOverlaySc02_8014A6A8Words[(cpu->pc - 0x8014a6a8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8014a6c4u && cpu->pc < 0x8014a71cu)
-        instruction = kOverlaySc02_8014A6C4Words[(cpu->pc - 0x8014a6c4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8014a71cu && cpu->pc < 0x8014a738u)
-        instruction = kOverlaySc02_8014A71CWords[(cpu->pc - 0x8014a71cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8014a830u && cpu->pc < 0x8014a850u)
-        instruction = kOverlaySc02_8014A830Words[(cpu->pc - 0x8014a830u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80150f78u && cpu->pc < 0x80150f80u)
-        instruction = kOverlaySc02_80150F78Words[(cpu->pc - 0x80150f78u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80150f80u && cpu->pc < 0x80150fb4u)
-        instruction = kOverlaySc02_80150F80Words[(cpu->pc - 0x80150f80u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80150fb4u && cpu->pc < 0x80150fd8u)
-        instruction = kOverlaySc02_80150FB4Words[(cpu->pc - 0x80150fb4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80150fd8u && cpu->pc < 0x80151014u)
-        instruction = kOverlaySc02_80150FD8Words[(cpu->pc - 0x80150fd8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80151014u && cpu->pc < 0x80151038u)
-        instruction = kOverlaySc02_80151014Words[(cpu->pc - 0x80151014u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80151038u && cpu->pc < 0x80151070u)
-        instruction = kOverlaySc02_80151038Words[(cpu->pc - 0x80151038u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80151070u && cpu->pc < 0x80151094u)
-        instruction = kOverlaySc02_80151070Words[(cpu->pc - 0x80151070u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80151094u && cpu->pc < 0x801510b8u)
-        instruction = kOverlaySc02_80151094Words[(cpu->pc - 0x80151094u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801510c8u && cpu->pc < 0x801510ecu)
-        instruction = kOverlaySc02_801510C8Words[(cpu->pc - 0x801510c8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801510ecu && cpu->pc < 0x80151110u)
-        instruction = kOverlaySc02_801510ECWords[(cpu->pc - 0x801510ecu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80151110u && cpu->pc < 0x80151130u)
-        instruction = kOverlaySc02_80151110Words[(cpu->pc - 0x80151110u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80151138u && cpu->pc < 0x8015115cu)
-        instruction = kOverlaySc02_80151138Words[(cpu->pc - 0x80151138u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80151164u && cpu->pc < 0x80151184u)
-        instruction = kOverlaySc02_80151164Words[(cpu->pc - 0x80151164u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80151184u && cpu->pc < 0x801511a8u)
-        instruction = kOverlaySc02_80151184Words[(cpu->pc - 0x80151184u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801511a8u && cpu->pc < 0x801511c4u)
-        instruction = kOverlaySc02_801511A8Words[(cpu->pc - 0x801511a8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801511c4u && cpu->pc < 0x801511e0u)
-        instruction = kOverlaySc02_801511C4Words[(cpu->pc - 0x801511c4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801511e0u && cpu->pc < 0x80151204u)
-        instruction = kOverlaySc02_801511E0Words[(cpu->pc - 0x801511e0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80151204u && cpu->pc < 0x80151238u)
-        instruction = kOverlaySc02_80151204Words[(cpu->pc - 0x80151204u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80151238u && cpu->pc < 0x8015126cu)
-        instruction = kOverlaySc02_80151238Words[(cpu->pc - 0x80151238u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80151664u && cpu->pc < 0x801516f0u)
-        instruction = kOverlaySc02_80151664Words[(cpu->pc - 0x80151664u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801516f0u && cpu->pc < 0x8015173cu)
-        instruction = kOverlaySc02_801516F0Words[(cpu->pc - 0x801516f0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015173cu && cpu->pc < 0x80151780u)
-        instruction = kOverlaySc02_8015173CWords[(cpu->pc - 0x8015173cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80151878u && cpu->pc < 0x80151880u)
-        instruction = kOverlaySc02_80151878Words[(cpu->pc - 0x80151878u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80151924u && cpu->pc < 0x80151944u)
-        instruction = kOverlaySc02_80151924Words[(cpu->pc - 0x80151924u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80151980u && cpu->pc < 0x801519c8u)
-        instruction = kOverlaySc02_80151980Words[(cpu->pc - 0x80151980u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80151ae4u && cpu->pc < 0x80151b98u)
-        instruction = kOverlaySc02_80151AE4Words[(cpu->pc - 0x80151ae4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80151d60u && cpu->pc < 0x80151db0u)
-        instruction = kOverlaySc02_80151D60Words[(cpu->pc - 0x80151d60u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80151db0u && cpu->pc < 0x80151e78u)
-        instruction = kOverlaySc02_80151DB0Words[(cpu->pc - 0x80151db0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80151e78u && cpu->pc < 0x80151eccu)
-        instruction = kOverlaySc02_80151E78Words[(cpu->pc - 0x80151e78u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80151eccu && cpu->pc < 0x80151f38u)
-        instruction = kOverlaySc02_80151ECCWords[(cpu->pc - 0x80151eccu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80151f38u && cpu->pc < 0x80151fb4u)
-        instruction = kOverlaySc02_80151F38Words[(cpu->pc - 0x80151f38u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80151fb4u && cpu->pc < 0x80152058u)
-        instruction = kOverlaySc02_80151FB4Words[(cpu->pc - 0x80151fb4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80152094u && cpu->pc < 0x801520dcu)
-        instruction = kOverlaySc02_80152094Words[(cpu->pc - 0x80152094u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80152194u && cpu->pc < 0x8015220cu)
-        instruction = kOverlaySc02_80152194Words[(cpu->pc - 0x80152194u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015220cu && cpu->pc < 0x80152254u)
-        instruction = kOverlaySc02_8015220CWords[(cpu->pc - 0x8015220cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801522ccu && cpu->pc < 0x80152370u)
-        instruction = kOverlaySc02_801522CCWords[(cpu->pc - 0x801522ccu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801523acu && cpu->pc < 0x801523f4u)
-        instruction = kOverlaySc02_801523ACWords[(cpu->pc - 0x801523acu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801525f4u && cpu->pc < 0x80152698u)
-        instruction = kOverlaySc02_801525F4Words[(cpu->pc - 0x801525f4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801526d4u && cpu->pc < 0x80152714u)
-        instruction = kOverlaySc02_801526D4Words[(cpu->pc - 0x801526d4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80152790u && cpu->pc < 0x8015282cu)
-        instruction = kOverlaySc02_80152790Words[(cpu->pc - 0x80152790u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80152868u && cpu->pc < 0x801528b0u)
-        instruction = kOverlaySc02_80152868Words[(cpu->pc - 0x80152868u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015294cu && cpu->pc < 0x80152a08u)
-        instruction = kOverlaySc02_8015294CWords[(cpu->pc - 0x8015294cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80152a08u && cpu->pc < 0x80152a50u)
-        instruction = kOverlaySc02_80152A08Words[(cpu->pc - 0x80152a08u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80152ac8u && cpu->pc < 0x80152b6cu)
-        instruction = kOverlaySc02_80152AC8Words[(cpu->pc - 0x80152ac8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80152ba8u && cpu->pc < 0x80152bf0u)
-        instruction = kOverlaySc02_80152BA8Words[(cpu->pc - 0x80152ba8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80152bf0u && cpu->pc < 0x80152c40u)
-        instruction = kOverlaySc02_80152BF0Words[(cpu->pc - 0x80152bf0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80152c40u && cpu->pc < 0x80152c80u)
-        instruction = kOverlaySc02_80152C40Words[(cpu->pc - 0x80152c40u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80152c80u && cpu->pc < 0x80152d24u)
-        instruction = kOverlaySc02_80152C80Words[(cpu->pc - 0x80152c80u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80152d60u && cpu->pc < 0x80152da8u)
-        instruction = kOverlaySc02_80152D60Words[(cpu->pc - 0x80152d60u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80152e4cu && cpu->pc < 0x80152efcu)
-        instruction = kOverlaySc02_80152E4CWords[(cpu->pc - 0x80152e4cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80152efcu && cpu->pc < 0x80152f44u)
-        instruction = kOverlaySc02_80152EFCWords[(cpu->pc - 0x80152efcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80152fbcu && cpu->pc < 0x80153060u)
-        instruction = kOverlaySc02_80152FBCWords[(cpu->pc - 0x80152fbcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015309cu && cpu->pc < 0x801530e4u)
-        instruction = kOverlaySc02_8015309CWords[(cpu->pc - 0x8015309cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801530e4u && cpu->pc < 0x80153150u)
-        instruction = kOverlaySc02_801530E4Words[(cpu->pc - 0x801530e4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80153150u && cpu->pc < 0x801531bcu)
-        instruction = kOverlaySc02_80153150Words[(cpu->pc - 0x80153150u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801531bcu && cpu->pc < 0x80153204u)
-        instruction = kOverlaySc02_801531BCWords[(cpu->pc - 0x801531bcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015327cu && cpu->pc < 0x80153320u)
-        instruction = kOverlaySc02_8015327CWords[(cpu->pc - 0x8015327cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015335cu && cpu->pc < 0x801533a4u)
-        instruction = kOverlaySc02_8015335CWords[(cpu->pc - 0x8015335cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801533a4u && cpu->pc < 0x80153410u)
-        instruction = kOverlaySc02_801533A4Words[(cpu->pc - 0x801533a4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80153410u && cpu->pc < 0x80153490u)
-        instruction = kOverlaySc02_80153410Words[(cpu->pc - 0x80153410u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80153490u && cpu->pc < 0x801534d8u)
-        instruction = kOverlaySc02_80153490Words[(cpu->pc - 0x80153490u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80153550u && cpu->pc < 0x801535f4u)
-        instruction = kOverlaySc02_80153550Words[(cpu->pc - 0x80153550u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015369cu && cpu->pc < 0x801536dcu)
-        instruction = kOverlaySc02_8015369CWords[(cpu->pc - 0x8015369cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80153bd8u && cpu->pc < 0x80153bf0u)
-        instruction = kOverlaySc02_80153BD8Words[(cpu->pc - 0x80153bd8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80153bf0u && cpu->pc < 0x80153c18u)
-        instruction = kOverlaySc02_80153BF0Words[(cpu->pc - 0x80153bf0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80153c18u && cpu->pc < 0x80153c30u)
-        instruction = kOverlaySc02_80153C18Words[(cpu->pc - 0x80153c18u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80153c30u && cpu->pc < 0x80153c44u)
-        instruction = kOverlaySc02_80153C30Words[(cpu->pc - 0x80153c30u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80153c44u && cpu->pc < 0x80153c74u)
-        instruction = kOverlaySc02_80153C44Words[(cpu->pc - 0x80153c44u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80153c74u && cpu->pc < 0x80153c8cu)
-        instruction = kOverlaySc02_80153C74Words[(cpu->pc - 0x80153c74u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80153c9cu && cpu->pc < 0x80153cbcu)
-        instruction = kOverlaySc02_80153C9CWords[(cpu->pc - 0x80153c9cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80153cbcu && cpu->pc < 0x80153cccu)
-        instruction = kOverlaySc02_80153CBCWords[(cpu->pc - 0x80153cbcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80153d34u && cpu->pc < 0x80153d7cu)
-        instruction = kOverlaySc02_80153D34Words[(cpu->pc - 0x80153d34u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015410cu && cpu->pc < 0x80154134u)
-        instruction = kOverlaySc02_8015410CWords[(cpu->pc - 0x8015410cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80154134u && cpu->pc < 0x80154150u)
-        instruction = kOverlaySc02_80154134Words[(cpu->pc - 0x80154134u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80154150u && cpu->pc < 0x80154190u)
-        instruction = kOverlaySc02_80154150Words[(cpu->pc - 0x80154150u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80154190u && cpu->pc < 0x801541d8u)
-        instruction = kOverlaySc02_80154190Words[(cpu->pc - 0x80154190u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801541d8u && cpu->pc < 0x80154218u)
-        instruction = kOverlaySc02_801541D8Words[(cpu->pc - 0x801541d8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80154218u && cpu->pc < 0x80154274u)
-        instruction = kOverlaySc02_80154218Words[(cpu->pc - 0x80154218u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80154274u && cpu->pc < 0x801542a4u)
-        instruction = kOverlaySc02_80154274Words[(cpu->pc - 0x80154274u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801542a4u && cpu->pc < 0x801542dcu)
-        instruction = kOverlaySc02_801542A4Words[(cpu->pc - 0x801542a4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801542dcu && cpu->pc < 0x8015430cu)
-        instruction = kOverlaySc02_801542DCWords[(cpu->pc - 0x801542dcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015430cu && cpu->pc < 0x80154358u)
-        instruction = kOverlaySc02_8015430CWords[(cpu->pc - 0x8015430cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80154418u && cpu->pc < 0x8015444cu)
-        instruction = kOverlaySc02_80154418Words[(cpu->pc - 0x80154418u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80155344u && cpu->pc < 0x80155394u)
-        instruction = kOverlaySc02_80155344Words[(cpu->pc - 0x80155344u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80155394u && cpu->pc < 0x801553a8u)
-        instruction = kOverlaySc02_80155394Words[(cpu->pc - 0x80155394u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801553a8u && cpu->pc < 0x801553c0u)
-        instruction = kOverlaySc02_801553A8Words[(cpu->pc - 0x801553a8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80155440u && cpu->pc < 0x80155458u)
-        instruction = kOverlaySc02_80155440Words[(cpu->pc - 0x80155440u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801554b8u && cpu->pc < 0x80155518u)
-        instruction = kOverlaySc02_801554B8Words[(cpu->pc - 0x801554b8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80155518u && cpu->pc < 0x8015554cu)
-        instruction = kOverlaySc02_80155518Words[(cpu->pc - 0x80155518u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015554cu && cpu->pc < 0x80155580u)
-        instruction = kOverlaySc02_8015554CWords[(cpu->pc - 0x8015554cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801555bcu && cpu->pc < 0x801555f4u)
-        instruction = kOverlaySc02_801555BCWords[(cpu->pc - 0x801555bcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80155b20u && cpu->pc < 0x80155b9cu)
-        instruction = kOverlaySc02_80155B20Words[(cpu->pc - 0x80155b20u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80155b9cu && cpu->pc < 0x80155c0cu)
-        instruction = kOverlaySc02_80155B9CWords[(cpu->pc - 0x80155b9cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80155f60u && cpu->pc < 0x80155f80u)
-        instruction = kOverlaySc02_80155F60Words[(cpu->pc - 0x80155f60u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80155f80u && cpu->pc < 0x80155fb0u)
-        instruction = kOverlaySc02_80155F80Words[(cpu->pc - 0x80155f80u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80155fb0u && cpu->pc < 0x80155fd4u)
-        instruction = kOverlaySc02_80155FB0Words[(cpu->pc - 0x80155fb0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80155fd4u && cpu->pc < 0x80155ff8u)
-        instruction = kOverlaySc02_80155FD4Words[(cpu->pc - 0x80155fd4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801565c0u && cpu->pc < 0x80156600u)
-        instruction = kOverlaySc02_801565C0Words[(cpu->pc - 0x801565c0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80156648u && cpu->pc < 0x80156670u)
-        instruction = kOverlaySc02_80156648Words[(cpu->pc - 0x80156648u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801567bcu && cpu->pc < 0x80156848u)
-        instruction = kOverlaySc02_801567BCWords[(cpu->pc - 0x801567bcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80156a14u && cpu->pc < 0x80156a1cu)
-        instruction = kOverlaySc02_80156A14Words[(cpu->pc - 0x80156a14u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80157158u && cpu->pc < 0x801571c4u)
-        instruction = kOverlaySc02_80157158Words[(cpu->pc - 0x80157158u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801574dcu && cpu->pc < 0x80157510u)
-        instruction = kOverlaySc02_801574DCWords[(cpu->pc - 0x801574dcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80157510u && cpu->pc < 0x80157544u)
-        instruction = kOverlaySc02_80157510Words[(cpu->pc - 0x80157510u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80157580u && cpu->pc < 0x801575e4u)
-        instruction = kOverlaySc02_80157580Words[(cpu->pc - 0x80157580u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015771cu && cpu->pc < 0x8015773cu)
-        instruction = kOverlaySc02_8015771CWords[(cpu->pc - 0x8015771cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015773cu && cpu->pc < 0x80157788u)
-        instruction = kOverlaySc02_8015773CWords[(cpu->pc - 0x8015773cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80157880u && cpu->pc < 0x801578c0u)
-        instruction = kOverlaySc02_80157880Words[(cpu->pc - 0x80157880u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80157a8cu && cpu->pc < 0x80157ac8u)
-        instruction = kOverlaySc02_80157A8CWords[(cpu->pc - 0x80157a8cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80157ac8u && cpu->pc < 0x80157b74u)
-        instruction = kOverlaySc02_80157AC8Words[(cpu->pc - 0x80157ac8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80157b74u && cpu->pc < 0x80157bc8u)
-        instruction = kOverlaySc02_80157B74Words[(cpu->pc - 0x80157b74u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80157cccu && cpu->pc < 0x80157d20u)
-        instruction = kOverlaySc02_80157CCCWords[(cpu->pc - 0x80157cccu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80157d74u && cpu->pc < 0x80157dc4u)
-        instruction = kOverlaySc02_80157D74Words[(cpu->pc - 0x80157d74u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80157e00u && cpu->pc < 0x80157e38u)
-        instruction = kOverlaySc02_80157E00Words[(cpu->pc - 0x80157e00u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80157e38u && cpu->pc < 0x80157ea4u)
-        instruction = kOverlaySc02_80157E38Words[(cpu->pc - 0x80157e38u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80157ea4u && cpu->pc < 0x80157f64u)
-        instruction = kOverlaySc02_80157EA4Words[(cpu->pc - 0x80157ea4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80157f64u && cpu->pc < 0x80157fc4u)
-        instruction = kOverlaySc02_80157F64Words[(cpu->pc - 0x80157f64u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80158000u && cpu->pc < 0x80158038u)
-        instruction = kOverlaySc02_80158000Words[(cpu->pc - 0x80158000u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80158288u && cpu->pc < 0x801582c0u)
-        instruction = kOverlaySc02_80158288Words[(cpu->pc - 0x80158288u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801582c0u && cpu->pc < 0x80158344u)
-        instruction = kOverlaySc02_801582C0Words[(cpu->pc - 0x801582c0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80158548u && cpu->pc < 0x801585a4u)
-        instruction = kOverlaySc02_80158548Words[(cpu->pc - 0x80158548u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801585acu && cpu->pc < 0x801585ecu)
-        instruction = kOverlaySc02_801585ACWords[(cpu->pc - 0x801585acu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801585ecu && cpu->pc < 0x80158638u)
-        instruction = kOverlaySc02_801585ECWords[(cpu->pc - 0x801585ecu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80158ab4u && cpu->pc < 0x80158ae4u)
-        instruction = kOverlaySc02_80158AB4Words[(cpu->pc - 0x80158ab4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80158ae4u && cpu->pc < 0x80158bb0u)
-        instruction = kOverlaySc02_80158AE4Words[(cpu->pc - 0x80158ae4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801592ccu && cpu->pc < 0x8015934cu)
-        instruction = kOverlaySc02_801592CCWords[(cpu->pc - 0x801592ccu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801593e4u && cpu->pc < 0x80159404u)
-        instruction = kOverlaySc02_801593E4Words[(cpu->pc - 0x801593e4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801596d4u && cpu->pc < 0x801596f0u)
-        instruction = kOverlaySc02_801596D4Words[(cpu->pc - 0x801596d4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80159874u && cpu->pc < 0x8015987cu)
-        instruction = kOverlaySc02_80159874Words[(cpu->pc - 0x80159874u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015987cu && cpu->pc < 0x801598bcu)
-        instruction = kOverlaySc02_8015987CWords[(cpu->pc - 0x8015987cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801598bcu && cpu->pc < 0x801598e0u)
-        instruction = kOverlaySc02_801598BCWords[(cpu->pc - 0x801598bcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801599e0u && cpu->pc < 0x80159a18u)
-        instruction = kOverlaySc02_801599E0Words[(cpu->pc - 0x801599e0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80159b08u && cpu->pc < 0x80159b3cu)
-        instruction = kOverlaySc02_80159B08Words[(cpu->pc - 0x80159b08u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80159b3cu && cpu->pc < 0x80159b70u)
-        instruction = kOverlaySc02_80159B3CWords[(cpu->pc - 0x80159b3cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80159bacu && cpu->pc < 0x80159be4u)
-        instruction = kOverlaySc02_80159BACWords[(cpu->pc - 0x80159bacu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015a1fcu && cpu->pc < 0x8015a230u)
-        instruction = kOverlaySc02_8015A1FCWords[(cpu->pc - 0x8015a1fcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015a230u && cpu->pc < 0x8015a264u)
-        instruction = kOverlaySc02_8015A230Words[(cpu->pc - 0x8015a230u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015a2a0u && cpu->pc < 0x8015a2d8u)
-        instruction = kOverlaySc02_8015A2A0Words[(cpu->pc - 0x8015a2a0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015abd4u && cpu->pc < 0x8015ac48u)
-        instruction = kOverlaySc02_8015ABD4Words[(cpu->pc - 0x8015abd4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015ac90u && cpu->pc < 0x8015acc4u)
-        instruction = kOverlaySc02_8015AC90Words[(cpu->pc - 0x8015ac90u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015acc4u && cpu->pc < 0x8015ad08u)
-        instruction = kOverlaySc02_8015ACC4Words[(cpu->pc - 0x8015acc4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015ad08u && cpu->pc < 0x8015ad3cu)
-        instruction = kOverlaySc02_8015AD08Words[(cpu->pc - 0x8015ad08u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015ad78u && cpu->pc < 0x8015adb0u)
-        instruction = kOverlaySc02_8015AD78Words[(cpu->pc - 0x8015ad78u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015adb0u && cpu->pc < 0x8015ae2cu)
-        instruction = kOverlaySc02_8015ADB0Words[(cpu->pc - 0x8015adb0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015b858u && cpu->pc < 0x8015b8f8u)
-        instruction = kOverlaySc02_8015B858Words[(cpu->pc - 0x8015b858u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015b8f8u && cpu->pc < 0x8015b950u)
-        instruction = kOverlaySc02_8015B8F8Words[(cpu->pc - 0x8015b8f8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015bd8cu && cpu->pc < 0x8015bdd0u)
-        instruction = kOverlaySc02_8015BD8CWords[(cpu->pc - 0x8015bd8cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015bdd0u && cpu->pc < 0x8015be04u)
-        instruction = kOverlaySc02_8015BDD0Words[(cpu->pc - 0x8015bdd0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015be04u && cpu->pc < 0x8015be38u)
-        instruction = kOverlaySc02_8015BE04Words[(cpu->pc - 0x8015be04u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015be74u && cpu->pc < 0x8015be94u)
-        instruction = kOverlaySc02_8015BE74Words[(cpu->pc - 0x8015be74u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015be94u && cpu->pc < 0x8015bec4u)
-        instruction = kOverlaySc02_8015BE94Words[(cpu->pc - 0x8015be94u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015bec4u && cpu->pc < 0x8015bee4u)
-        instruction = kOverlaySc02_8015BEC4Words[(cpu->pc - 0x8015bec4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015bee4u && cpu->pc < 0x8015bf04u)
-        instruction = kOverlaySc02_8015BEE4Words[(cpu->pc - 0x8015bee4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015bf04u && cpu->pc < 0x8015bf48u)
-        instruction = kOverlaySc02_8015BF04Words[(cpu->pc - 0x8015bf04u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015bf48u && cpu->pc < 0x8015bf7cu)
-        instruction = kOverlaySc02_8015BF48Words[(cpu->pc - 0x8015bf48u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015bf7cu && cpu->pc < 0x8015bfb0u)
-        instruction = kOverlaySc02_8015BF7CWords[(cpu->pc - 0x8015bf7cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015bfb0u && cpu->pc < 0x8015bff4u)
-        instruction = kOverlaySc02_8015BFB0Words[(cpu->pc - 0x8015bfb0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015c08cu && cpu->pc < 0x8015c0c4u)
-        instruction = kOverlaySc02_8015C08CWords[(cpu->pc - 0x8015c08cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015c6acu && cpu->pc < 0x8015c6e0u)
-        instruction = kOverlaySc02_8015C6ACWords[(cpu->pc - 0x8015c6acu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015c6e0u && cpu->pc < 0x8015c714u)
-        instruction = kOverlaySc02_8015C6E0Words[(cpu->pc - 0x8015c6e0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015c750u && cpu->pc < 0x8015c788u)
-        instruction = kOverlaySc02_8015C750Words[(cpu->pc - 0x8015c750u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015c788u && cpu->pc < 0x8015c7e4u)
-        instruction = kOverlaySc02_8015C788Words[(cpu->pc - 0x8015c788u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015cb94u && cpu->pc < 0x8015cbccu)
-        instruction = kOverlaySc02_8015CB94Words[(cpu->pc - 0x8015cb94u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015cc0cu && cpu->pc < 0x8015cc40u)
-        instruction = kOverlaySc02_8015CC0CWords[(cpu->pc - 0x8015cc0cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015cc40u && cpu->pc < 0x8015cc74u)
-        instruction = kOverlaySc02_8015CC40Words[(cpu->pc - 0x8015cc40u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015ccb0u && cpu->pc < 0x8015ccd0u)
-        instruction = kOverlaySc02_8015CCB0Words[(cpu->pc - 0x8015ccb0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015ccd0u && cpu->pc < 0x8015cd20u)
-        instruction = kOverlaySc02_8015CCD0Words[(cpu->pc - 0x8015ccd0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015cf24u && cpu->pc < 0x8015cf58u)
-        instruction = kOverlaySc02_8015CF24Words[(cpu->pc - 0x8015cf24u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015cf58u && cpu->pc < 0x8015cf8cu)
-        instruction = kOverlaySc02_8015CF58Words[(cpu->pc - 0x8015cf58u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015cf8cu && cpu->pc < 0x8015cfc0u)
-        instruction = kOverlaySc02_8015CF8CWords[(cpu->pc - 0x8015cf8cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015cffcu && cpu->pc < 0x8015d01cu)
-        instruction = kOverlaySc02_8015CFFCWords[(cpu->pc - 0x8015cffcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015d480u && cpu->pc < 0x8015d4b4u)
-        instruction = kOverlaySc02_8015D480Words[(cpu->pc - 0x8015d480u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015d4b4u && cpu->pc < 0x8015d4e8u)
-        instruction = kOverlaySc02_8015D4B4Words[(cpu->pc - 0x8015d4b4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015d524u && cpu->pc < 0x8015d544u)
-        instruction = kOverlaySc02_8015D524Words[(cpu->pc - 0x8015d524u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015d544u && cpu->pc < 0x8015d57cu)
-        instruction = kOverlaySc02_8015D544Words[(cpu->pc - 0x8015d544u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015d57cu && cpu->pc < 0x8015d5e8u)
-        instruction = kOverlaySc02_8015D57CWords[(cpu->pc - 0x8015d57cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015da5cu && cpu->pc < 0x8015da90u)
-        instruction = kOverlaySc02_8015DA5CWords[(cpu->pc - 0x8015da5cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015da90u && cpu->pc < 0x8015dac4u)
-        instruction = kOverlaySc02_8015DA90Words[(cpu->pc - 0x8015da90u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015dac4u && cpu->pc < 0x8015daf8u)
-        instruction = kOverlaySc02_8015DAC4Words[(cpu->pc - 0x8015dac4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015db34u && cpu->pc < 0x8015db6cu)
-        instruction = kOverlaySc02_8015DB34Words[(cpu->pc - 0x8015db34u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015db6cu && cpu->pc < 0x8015dbd4u)
-        instruction = kOverlaySc02_8015DB6CWords[(cpu->pc - 0x8015db6cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015dc84u && cpu->pc < 0x8015dcb8u)
-        instruction = kOverlaySc02_8015DC84Words[(cpu->pc - 0x8015dc84u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015dd74u && cpu->pc < 0x8015ddf0u)
-        instruction = kOverlaySc02_8015DD74Words[(cpu->pc - 0x8015dd74u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015ddf0u && cpu->pc < 0x8015de24u)
-        instruction = kOverlaySc02_8015DDF0Words[(cpu->pc - 0x8015ddf0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015de24u && cpu->pc < 0x8015de58u)
-        instruction = kOverlaySc02_8015DE24Words[(cpu->pc - 0x8015de24u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015de94u && cpu->pc < 0x8015deccu)
-        instruction = kOverlaySc02_8015DE94Words[(cpu->pc - 0x8015de94u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015deccu && cpu->pc < 0x8015df34u)
-        instruction = kOverlaySc02_8015DECCWords[(cpu->pc - 0x8015deccu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015dfe4u && cpu->pc < 0x8015e018u)
-        instruction = kOverlaySc02_8015DFE4Words[(cpu->pc - 0x8015dfe4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015e0d4u && cpu->pc < 0x8015e150u)
-        instruction = kOverlaySc02_8015E0D4Words[(cpu->pc - 0x8015e0d4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015e150u && cpu->pc < 0x8015e184u)
-        instruction = kOverlaySc02_8015E150Words[(cpu->pc - 0x8015e150u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015e184u && cpu->pc < 0x8015e1b8u)
-        instruction = kOverlaySc02_8015E184Words[(cpu->pc - 0x8015e184u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015e1f4u && cpu->pc < 0x8015e22cu)
-        instruction = kOverlaySc02_8015E1F4Words[(cpu->pc - 0x8015e1f4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015e22cu && cpu->pc < 0x8015e288u)
-        instruction = kOverlaySc02_8015E22CWords[(cpu->pc - 0x8015e22cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015e288u && cpu->pc < 0x8015e344u)
-        instruction = kOverlaySc02_8015E288Words[(cpu->pc - 0x8015e288u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015e40cu && cpu->pc < 0x8015e4b0u)
-        instruction = kOverlaySc02_8015E40CWords[(cpu->pc - 0x8015e40cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015e5b0u && cpu->pc < 0x8015e698u)
-        instruction = kOverlaySc02_8015E5B0Words[(cpu->pc - 0x8015e5b0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015e714u && cpu->pc < 0x8015e84cu)
-        instruction = kOverlaySc02_8015E714Words[(cpu->pc - 0x8015e714u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015e84cu && cpu->pc < 0x8015e880u)
-        instruction = kOverlaySc02_8015E84CWords[(cpu->pc - 0x8015e84cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015e880u && cpu->pc < 0x8015e8b4u)
-        instruction = kOverlaySc02_8015E880Words[(cpu->pc - 0x8015e880u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015e8b4u && cpu->pc < 0x8015e8e8u)
-        instruction = kOverlaySc02_8015E8B4Words[(cpu->pc - 0x8015e8b4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015e924u && cpu->pc < 0x8015e95cu)
-        instruction = kOverlaySc02_8015E924Words[(cpu->pc - 0x8015e924u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015e95cu && cpu->pc < 0x8015e9b8u)
-        instruction = kOverlaySc02_8015E95CWords[(cpu->pc - 0x8015e95cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015e9b8u && cpu->pc < 0x8015ea3cu)
-        instruction = kOverlaySc02_8015E9B8Words[(cpu->pc - 0x8015e9b8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015eda0u && cpu->pc < 0x8015edd4u)
-        instruction = kOverlaySc02_8015EDA0Words[(cpu->pc - 0x8015eda0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015edd4u && cpu->pc < 0x8015ee08u)
-        instruction = kOverlaySc02_8015EDD4Words[(cpu->pc - 0x8015edd4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015ee44u && cpu->pc < 0x8015ee7cu)
-        instruction = kOverlaySc02_8015EE44Words[(cpu->pc - 0x8015ee44u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015efa4u && cpu->pc < 0x8015efd8u)
-        instruction = kOverlaySc02_8015EFA4Words[(cpu->pc - 0x8015efa4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015efd8u && cpu->pc < 0x8015f00cu)
-        instruction = kOverlaySc02_8015EFD8Words[(cpu->pc - 0x8015efd8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015f048u && cpu->pc < 0x8015f080u)
-        instruction = kOverlaySc02_8015F048Words[(cpu->pc - 0x8015f048u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015f080u && cpu->pc < 0x8015f118u)
-        instruction = kOverlaySc02_8015F080Words[(cpu->pc - 0x8015f080u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015f260u && cpu->pc < 0x8015f2bcu)
-        instruction = kOverlaySc02_8015F260Words[(cpu->pc - 0x8015f260u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015f2bcu && cpu->pc < 0x8015f2f0u)
-        instruction = kOverlaySc02_8015F2BCWords[(cpu->pc - 0x8015f2bcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015f2f0u && cpu->pc < 0x8015f324u)
-        instruction = kOverlaySc02_8015F2F0Words[(cpu->pc - 0x8015f2f0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015f360u && cpu->pc < 0x8015f380u)
-        instruction = kOverlaySc02_8015F360Words[(cpu->pc - 0x8015f360u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015f380u && cpu->pc < 0x8015f448u)
-        instruction = kOverlaySc02_8015F380Words[(cpu->pc - 0x8015f380u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015f738u && cpu->pc < 0x8015f76cu)
-        instruction = kOverlaySc02_8015F738Words[(cpu->pc - 0x8015f738u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015f76cu && cpu->pc < 0x8015f7a0u)
-        instruction = kOverlaySc02_8015F76CWords[(cpu->pc - 0x8015f76cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015f7a0u && cpu->pc < 0x8015f7d4u)
-        instruction = kOverlaySc02_8015F7A0Words[(cpu->pc - 0x8015f7a0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015f810u && cpu->pc < 0x8015f848u)
-        instruction = kOverlaySc02_8015F810Words[(cpu->pc - 0x8015f810u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015f848u && cpu->pc < 0x8015f89cu)
-        instruction = kOverlaySc02_8015F848Words[(cpu->pc - 0x8015f848u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015f948u && cpu->pc < 0x8015f9a4u)
-        instruction = kOverlaySc02_8015F948Words[(cpu->pc - 0x8015f948u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015fa24u && cpu->pc < 0x8015fa44u)
-        instruction = kOverlaySc02_8015FA24Words[(cpu->pc - 0x8015fa24u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015fa44u && cpu->pc < 0x8015fa78u)
-        instruction = kOverlaySc02_8015FA44Words[(cpu->pc - 0x8015fa44u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8015fa78u && cpu->pc < 0x8015faacu)
-        instruction = kOverlaySc02_8015FA78Words[(cpu->pc - 0x8015fa78u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801600d0u && cpu->pc < 0x80160104u)
-        instruction = kOverlaySc02_801600D0Words[(cpu->pc - 0x801600d0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80160104u && cpu->pc < 0x80160138u)
-        instruction = kOverlaySc02_80160104Words[(cpu->pc - 0x80160104u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80160174u && cpu->pc < 0x801601acu)
-        instruction = kOverlaySc02_80160174Words[(cpu->pc - 0x80160174u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801601acu && cpu->pc < 0x801601e4u)
-        instruction = kOverlaySc02_801601ACWords[(cpu->pc - 0x801601acu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801601e4u && cpu->pc < 0x80160244u)
-        instruction = kOverlaySc02_801601E4Words[(cpu->pc - 0x801601e4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80160244u && cpu->pc < 0x801602a4u)
-        instruction = kOverlaySc02_80160244Words[(cpu->pc - 0x80160244u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80160334u && cpu->pc < 0x80160368u)
-        instruction = kOverlaySc02_80160334Words[(cpu->pc - 0x80160334u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80160368u && cpu->pc < 0x8016039cu)
-        instruction = kOverlaySc02_80160368Words[(cpu->pc - 0x80160368u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801603d8u && cpu->pc < 0x80160410u)
-        instruction = kOverlaySc02_801603D8Words[(cpu->pc - 0x801603d8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801607b8u && cpu->pc < 0x801607e4u)
-        instruction = kOverlaySc02_801607B8Words[(cpu->pc - 0x801607b8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801607e4u && cpu->pc < 0x80160818u)
-        instruction = kOverlaySc02_801607E4Words[(cpu->pc - 0x801607e4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80160818u && cpu->pc < 0x8016084cu)
-        instruction = kOverlaySc02_80160818Words[(cpu->pc - 0x80160818u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80160888u && cpu->pc < 0x801608c0u)
-        instruction = kOverlaySc02_80160888Words[(cpu->pc - 0x80160888u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801608c0u && cpu->pc < 0x80160920u)
-        instruction = kOverlaySc02_801608C0Words[(cpu->pc - 0x801608c0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80160a28u && cpu->pc < 0x80160a74u)
-        instruction = kOverlaySc02_80160A28Words[(cpu->pc - 0x80160a28u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80160a74u && cpu->pc < 0x80160accu)
-        instruction = kOverlaySc02_80160A74Words[(cpu->pc - 0x80160a74u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80160accu && cpu->pc < 0x80160b00u)
-        instruction = kOverlaySc02_80160ACCWords[(cpu->pc - 0x80160accu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80160b00u && cpu->pc < 0x80160b34u)
-        instruction = kOverlaySc02_80160B00Words[(cpu->pc - 0x80160b00u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80160b70u && cpu->pc < 0x80160bb4u)
-        instruction = kOverlaySc02_80160B70Words[(cpu->pc - 0x80160b70u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80160bb4u && cpu->pc < 0x80160c28u)
-        instruction = kOverlaySc02_80160BB4Words[(cpu->pc - 0x80160bb4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80160cb4u && cpu->pc < 0x80160d10u)
-        instruction = kOverlaySc02_80160CB4Words[(cpu->pc - 0x80160cb4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80160decu && cpu->pc < 0x80160e3cu)
-        instruction = kOverlaySc02_80160DECWords[(cpu->pc - 0x80160decu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80160e3cu && cpu->pc < 0x80160e70u)
-        instruction = kOverlaySc02_80160E3CWords[(cpu->pc - 0x80160e3cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80160e70u && cpu->pc < 0x80160ea4u)
-        instruction = kOverlaySc02_80160E70Words[(cpu->pc - 0x80160e70u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80160ee0u && cpu->pc < 0x80160f00u)
-        instruction = kOverlaySc02_80160EE0Words[(cpu->pc - 0x80160ee0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80160f00u && cpu->pc < 0x80160f70u)
-        instruction = kOverlaySc02_80160F00Words[(cpu->pc - 0x80160f00u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80160f70u && cpu->pc < 0x80160fe0u)
-        instruction = kOverlaySc02_80160F70Words[(cpu->pc - 0x80160f70u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80160fe0u && cpu->pc < 0x80161034u)
-        instruction = kOverlaySc02_80160FE0Words[(cpu->pc - 0x80160fe0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80161094u && cpu->pc < 0x801610fcu)
-        instruction = kOverlaySc02_80161094Words[(cpu->pc - 0x80161094u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80161104u && cpu->pc < 0x80161124u)
-        instruction = kOverlaySc02_80161104Words[(cpu->pc - 0x80161104u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80161124u && cpu->pc < 0x80161208u)
-        instruction = kOverlaySc02_80161124Words[(cpu->pc - 0x80161124u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80161208u && cpu->pc < 0x80161240u)
-        instruction = kOverlaySc02_80161208Words[(cpu->pc - 0x80161208u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80161240u && cpu->pc < 0x80161278u)
-        instruction = kOverlaySc02_80161240Words[(cpu->pc - 0x80161240u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80161278u && cpu->pc < 0x801612b8u)
-        instruction = kOverlaySc02_80161278Words[(cpu->pc - 0x80161278u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016130cu && cpu->pc < 0x80161374u)
-        instruction = kOverlaySc02_8016130CWords[(cpu->pc - 0x8016130cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80161418u && cpu->pc < 0x80161450u)
-        instruction = kOverlaySc02_80161418Words[(cpu->pc - 0x80161418u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80161450u && cpu->pc < 0x80161488u)
-        instruction = kOverlaySc02_80161450Words[(cpu->pc - 0x80161450u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80161488u && cpu->pc < 0x801614e4u)
-        instruction = kOverlaySc02_80161488Words[(cpu->pc - 0x80161488u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801614e4u && cpu->pc < 0x8016151cu)
-        instruction = kOverlaySc02_801614E4Words[(cpu->pc - 0x801614e4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016151cu && cpu->pc < 0x80161554u)
-        instruction = kOverlaySc02_8016151CWords[(cpu->pc - 0x8016151cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80161554u && cpu->pc < 0x8016158cu)
-        instruction = kOverlaySc02_80161554Words[(cpu->pc - 0x80161554u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016158cu && cpu->pc < 0x801615c4u)
-        instruction = kOverlaySc02_8016158CWords[(cpu->pc - 0x8016158cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801615c4u && cpu->pc < 0x8016163cu)
-        instruction = kOverlaySc02_801615C4Words[(cpu->pc - 0x801615c4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80161888u && cpu->pc < 0x8016191cu)
-        instruction = kOverlaySc02_80161888Words[(cpu->pc - 0x80161888u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016191cu && cpu->pc < 0x8016197cu)
-        instruction = kOverlaySc02_8016191CWords[(cpu->pc - 0x8016191cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801619d0u && cpu->pc < 0x80161a00u)
-        instruction = kOverlaySc02_801619D0Words[(cpu->pc - 0x801619d0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80161a00u && cpu->pc < 0x80161a30u)
-        instruction = kOverlaySc02_80161A00Words[(cpu->pc - 0x80161a00u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80161a30u && cpu->pc < 0x80161a60u)
-        instruction = kOverlaySc02_80161A30Words[(cpu->pc - 0x80161a30u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80161a60u && cpu->pc < 0x80161a90u)
-        instruction = kOverlaySc02_80161A60Words[(cpu->pc - 0x80161a60u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80161b84u && cpu->pc < 0x80161be0u)
-        instruction = kOverlaySc02_80161B84Words[(cpu->pc - 0x80161b84u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80161be0u && cpu->pc < 0x80161c24u)
-        instruction = kOverlaySc02_80161BE0Words[(cpu->pc - 0x80161be0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80161d58u && cpu->pc < 0x80161d88u)
-        instruction = kOverlaySc02_80161D58Words[(cpu->pc - 0x80161d58u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80162120u && cpu->pc < 0x8016216cu)
-        instruction = kOverlaySc02_80162120Words[(cpu->pc - 0x80162120u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016236cu && cpu->pc < 0x801623b8u)
-        instruction = kOverlaySc02_8016236CWords[(cpu->pc - 0x8016236cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801623b8u && cpu->pc < 0x80162414u)
-        instruction = kOverlaySc02_801623B8Words[(cpu->pc - 0x801623b8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80162414u && cpu->pc < 0x80162438u)
-        instruction = kOverlaySc02_80162414Words[(cpu->pc - 0x80162414u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80162714u && cpu->pc < 0x80162760u)
-        instruction = kOverlaySc02_80162714Words[(cpu->pc - 0x80162714u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80162accu && cpu->pc < 0x80162ae0u)
-        instruction = kOverlaySc02_80162ACCWords[(cpu->pc - 0x80162accu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80162ae0u && cpu->pc < 0x80162af4u)
-        instruction = kOverlaySc02_80162AE0Words[(cpu->pc - 0x80162ae0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80162cc4u && cpu->pc < 0x80162cccu)
-        instruction = kOverlaySc02_80162CC4Words[(cpu->pc - 0x80162cc4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80162cccu && cpu->pc < 0x80162d28u)
-        instruction = kOverlaySc02_80162CCCWords[(cpu->pc - 0x80162cccu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80162d28u && cpu->pc < 0x80162d88u)
-        instruction = kOverlaySc02_80162D28Words[(cpu->pc - 0x80162d28u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80162d88u && cpu->pc < 0x80162de8u)
-        instruction = kOverlaySc02_80162D88Words[(cpu->pc - 0x80162d88u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80162de8u && cpu->pc < 0x80162e48u)
-        instruction = kOverlaySc02_80162DE8Words[(cpu->pc - 0x80162de8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80162e48u && cpu->pc < 0x80162ea8u)
-        instruction = kOverlaySc02_80162E48Words[(cpu->pc - 0x80162e48u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80162ea8u && cpu->pc < 0x80162f08u)
-        instruction = kOverlaySc02_80162EA8Words[(cpu->pc - 0x80162ea8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80162f08u && cpu->pc < 0x80162f60u)
-        instruction = kOverlaySc02_80162F08Words[(cpu->pc - 0x80162f08u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80162f60u && cpu->pc < 0x80162f80u)
-        instruction = kOverlaySc02_80162F60Words[(cpu->pc - 0x80162f60u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80162f80u && cpu->pc < 0x80162fa0u)
-        instruction = kOverlaySc02_80162F80Words[(cpu->pc - 0x80162f80u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80162fa0u && cpu->pc < 0x80162fc0u)
-        instruction = kOverlaySc02_80162FA0Words[(cpu->pc - 0x80162fa0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80162fc0u && cpu->pc < 0x80162ff4u)
-        instruction = kOverlaySc02_80162FC0Words[(cpu->pc - 0x80162fc0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80163234u && cpu->pc < 0x8016325cu)
-        instruction = kOverlaySc02_80163234Words[(cpu->pc - 0x80163234u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801632e0u && cpu->pc < 0x801632f0u)
-        instruction = kOverlaySc02_801632E0Words[(cpu->pc - 0x801632e0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801632f0u && cpu->pc < 0x80163328u)
-        instruction = kOverlaySc02_801632F0Words[(cpu->pc - 0x801632f0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801633a8u && cpu->pc < 0x80163408u)
-        instruction = kOverlaySc02_801633A8Words[(cpu->pc - 0x801633a8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016345cu && cpu->pc < 0x801634d8u)
-        instruction = kOverlaySc02_8016345CWords[(cpu->pc - 0x8016345cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80163664u && cpu->pc < 0x801636d0u)
-        instruction = kOverlaySc02_80163664Words[(cpu->pc - 0x80163664u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801636d0u && cpu->pc < 0x80163764u)
-        instruction = kOverlaySc02_801636D0Words[(cpu->pc - 0x801636d0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80164270u && cpu->pc < 0x801642acu)
-        instruction = kOverlaySc02_80164270Words[(cpu->pc - 0x80164270u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801642acu && cpu->pc < 0x8016432cu)
-        instruction = kOverlaySc02_801642ACWords[(cpu->pc - 0x801642acu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80164a74u && cpu->pc < 0x80164accu)
-        instruction = kOverlaySc02_80164A74Words[(cpu->pc - 0x80164a74u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80164cd4u && cpu->pc < 0x80164d4cu)
-        instruction = kOverlaySc02_80164CD4Words[(cpu->pc - 0x80164cd4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80164d4cu && cpu->pc < 0x80164db0u)
-        instruction = kOverlaySc02_80164D4CWords[(cpu->pc - 0x80164d4cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80164db0u && cpu->pc < 0x80164dd0u)
-        instruction = kOverlaySc02_80164DB0Words[(cpu->pc - 0x80164db0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80164dd0u && cpu->pc < 0x80164e40u)
-        instruction = kOverlaySc02_80164DD0Words[(cpu->pc - 0x80164dd0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80165024u && cpu->pc < 0x80165064u)
-        instruction = kOverlaySc02_80165024Words[(cpu->pc - 0x80165024u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80165064u && cpu->pc < 0x801650c4u)
-        instruction = kOverlaySc02_80165064Words[(cpu->pc - 0x80165064u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801650c4u && cpu->pc < 0x80165124u)
-        instruction = kOverlaySc02_801650C4Words[(cpu->pc - 0x801650c4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80165124u && cpu->pc < 0x80165140u)
-        instruction = kOverlaySc02_80165124Words[(cpu->pc - 0x80165124u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80165374u && cpu->pc < 0x801653b8u)
-        instruction = kOverlaySc02_80165374Words[(cpu->pc - 0x80165374u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801653b8u && cpu->pc < 0x801653f4u)
-        instruction = kOverlaySc02_801653B8Words[(cpu->pc - 0x801653b8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801655e4u && cpu->pc < 0x80165624u)
-        instruction = kOverlaySc02_801655E4Words[(cpu->pc - 0x801655e4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80165624u && cpu->pc < 0x80165658u)
-        instruction = kOverlaySc02_80165624Words[(cpu->pc - 0x80165624u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80165694u && cpu->pc < 0x801656d0u)
-        instruction = kOverlaySc02_80165694Words[(cpu->pc - 0x80165694u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80165770u && cpu->pc < 0x801657a0u)
-        instruction = kOverlaySc02_80165770Words[(cpu->pc - 0x80165770u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801657a0u && cpu->pc < 0x801657d8u)
-        instruction = kOverlaySc02_801657A0Words[(cpu->pc - 0x801657a0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801657d8u && cpu->pc < 0x80165840u)
-        instruction = kOverlaySc02_801657D8Words[(cpu->pc - 0x801657d8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80165840u && cpu->pc < 0x80165874u)
-        instruction = kOverlaySc02_80165840Words[(cpu->pc - 0x80165840u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80165874u && cpu->pc < 0x801658dcu)
-        instruction = kOverlaySc02_80165874Words[(cpu->pc - 0x80165874u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801658dcu && cpu->pc < 0x801658ecu)
-        instruction = kOverlaySc02_801658DCWords[(cpu->pc - 0x801658dcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801658ecu && cpu->pc < 0x80165900u)
-        instruction = kOverlaySc02_801658ECWords[(cpu->pc - 0x801658ecu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80165900u && cpu->pc < 0x80165910u)
-        instruction = kOverlaySc02_80165900Words[(cpu->pc - 0x80165900u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80165958u && cpu->pc < 0x80165978u)
-        instruction = kOverlaySc02_80165958Words[(cpu->pc - 0x80165958u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80165978u && cpu->pc < 0x80165988u)
-        instruction = kOverlaySc02_80165978Words[(cpu->pc - 0x80165978u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80165988u && cpu->pc < 0x801659a8u)
-        instruction = kOverlaySc02_80165988Words[(cpu->pc - 0x80165988u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801659a8u && cpu->pc < 0x801659b8u)
-        instruction = kOverlaySc02_801659A8Words[(cpu->pc - 0x801659a8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801659b8u && cpu->pc < 0x801659ccu)
-        instruction = kOverlaySc02_801659B8Words[(cpu->pc - 0x801659b8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801659ccu && cpu->pc < 0x801659dcu)
-        instruction = kOverlaySc02_801659CCWords[(cpu->pc - 0x801659ccu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80165a20u && cpu->pc < 0x80165a50u)
-        instruction = kOverlaySc02_80165A20Words[(cpu->pc - 0x80165a20u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80165a50u && cpu->pc < 0x80165a78u)
-        instruction = kOverlaySc02_80165A50Words[(cpu->pc - 0x80165a50u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80165a78u && cpu->pc < 0x80165ac8u)
-        instruction = kOverlaySc02_80165A78Words[(cpu->pc - 0x80165a78u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80165b6cu && cpu->pc < 0x80165bb4u)
-        instruction = kOverlaySc02_80165B6CWords[(cpu->pc - 0x80165b6cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80165bb4u && cpu->pc < 0x80165bfcu)
-        instruction = kOverlaySc02_80165BB4Words[(cpu->pc - 0x80165bb4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80165bfcu && cpu->pc < 0x80165c58u)
-        instruction = kOverlaySc02_80165BFCWords[(cpu->pc - 0x80165bfcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80165c58u && cpu->pc < 0x80165c78u)
-        instruction = kOverlaySc02_80165C58Words[(cpu->pc - 0x80165c58u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80165fa4u && cpu->pc < 0x80166018u)
-        instruction = kOverlaySc02_80165FA4Words[(cpu->pc - 0x80165fa4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801661ccu && cpu->pc < 0x80166244u)
-        instruction = kOverlaySc02_801661CCWords[(cpu->pc - 0x801661ccu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80166244u && cpu->pc < 0x8016629cu)
-        instruction = kOverlaySc02_80166244Words[(cpu->pc - 0x80166244u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016629cu && cpu->pc < 0x801662f4u)
-        instruction = kOverlaySc02_8016629CWords[(cpu->pc - 0x8016629cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801662f4u && cpu->pc < 0x8016634cu)
-        instruction = kOverlaySc02_801662F4Words[(cpu->pc - 0x801662f4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016634cu && cpu->pc < 0x801663a4u)
-        instruction = kOverlaySc02_8016634CWords[(cpu->pc - 0x8016634cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801663a4u && cpu->pc < 0x801663fcu)
-        instruction = kOverlaySc02_801663A4Words[(cpu->pc - 0x801663a4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801665b4u && cpu->pc < 0x80166618u)
-        instruction = kOverlaySc02_801665B4Words[(cpu->pc - 0x801665b4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016706cu && cpu->pc < 0x801670e4u)
-        instruction = kOverlaySc02_8016706CWords[(cpu->pc - 0x8016706cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016829cu && cpu->pc < 0x80168328u)
-        instruction = kOverlaySc02_8016829CWords[(cpu->pc - 0x8016829cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80168328u && cpu->pc < 0x801683d8u)
-        instruction = kOverlaySc02_80168328Words[(cpu->pc - 0x80168328u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801683d8u && cpu->pc < 0x80168430u)
-        instruction = kOverlaySc02_801683D8Words[(cpu->pc - 0x801683d8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801684b4u && cpu->pc < 0x80168540u)
-        instruction = kOverlaySc02_801684B4Words[(cpu->pc - 0x801684b4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80168540u && cpu->pc < 0x801685ecu)
-        instruction = kOverlaySc02_80168540Words[(cpu->pc - 0x80168540u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801685ecu && cpu->pc < 0x80168640u)
-        instruction = kOverlaySc02_801685ECWords[(cpu->pc - 0x801685ecu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80168640u && cpu->pc < 0x80168664u)
-        instruction = kOverlaySc02_80168640Words[(cpu->pc - 0x80168640u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80168664u && cpu->pc < 0x80168744u)
-        instruction = kOverlaySc02_80168664Words[(cpu->pc - 0x80168664u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80168780u && cpu->pc < 0x801687ccu)
-        instruction = kOverlaySc02_80168780Words[(cpu->pc - 0x80168780u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801687ccu && cpu->pc < 0x80168828u)
-        instruction = kOverlaySc02_801687CCWords[(cpu->pc - 0x801687ccu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80168a14u && cpu->pc < 0x80168a88u)
-        instruction = kOverlaySc02_80168A14Words[(cpu->pc - 0x80168a14u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80168a88u && cpu->pc < 0x80168aa8u)
-        instruction = kOverlaySc02_80168A88Words[(cpu->pc - 0x80168a88u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80168ae4u && cpu->pc < 0x80168b70u)
-        instruction = kOverlaySc02_80168AE4Words[(cpu->pc - 0x80168ae4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80168b70u && cpu->pc < 0x80168bdcu)
-        instruction = kOverlaySc02_80168B70Words[(cpu->pc - 0x80168b70u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80168ec4u && cpu->pc < 0x80168f40u)
-        instruction = kOverlaySc02_80168EC4Words[(cpu->pc - 0x80168ec4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801691b8u && cpu->pc < 0x80169228u)
-        instruction = kOverlaySc02_801691B8Words[(cpu->pc - 0x801691b8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016951cu && cpu->pc < 0x80169584u)
-        instruction = kOverlaySc02_8016951CWords[(cpu->pc - 0x8016951cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801699d0u && cpu->pc < 0x80169a4cu)
-        instruction = kOverlaySc02_801699D0Words[(cpu->pc - 0x801699d0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80169e44u && cpu->pc < 0x80169f00u)
-        instruction = kOverlaySc02_80169E44Words[(cpu->pc - 0x80169e44u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80169fe0u && cpu->pc < 0x8016a020u)
-        instruction = kOverlaySc02_80169FE0Words[(cpu->pc - 0x80169fe0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016a05cu && cpu->pc < 0x8016a08cu)
-        instruction = kOverlaySc02_8016A05CWords[(cpu->pc - 0x8016a05cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016a890u && cpu->pc < 0x8016a8fcu)
-        instruction = kOverlaySc02_8016A890Words[(cpu->pc - 0x8016a890u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016b3f4u && cpu->pc < 0x8016b428u)
-        instruction = kOverlaySc02_8016B3F4Words[(cpu->pc - 0x8016b3f4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016b428u && cpu->pc < 0x8016b448u)
-        instruction = kOverlaySc02_8016B428Words[(cpu->pc - 0x8016b428u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016b448u && cpu->pc < 0x8016b4bcu)
-        instruction = kOverlaySc02_8016B448Words[(cpu->pc - 0x8016b448u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016b91cu && cpu->pc < 0x8016b964u)
-        instruction = kOverlaySc02_8016B91CWords[(cpu->pc - 0x8016b91cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016b964u && cpu->pc < 0x8016b984u)
-        instruction = kOverlaySc02_8016B964Words[(cpu->pc - 0x8016b964u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016b984u && cpu->pc < 0x8016b9f8u)
-        instruction = kOverlaySc02_8016B984Words[(cpu->pc - 0x8016b984u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016ba48u && cpu->pc < 0x8016ba68u)
-        instruction = kOverlaySc02_8016BA48Words[(cpu->pc - 0x8016ba48u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016ba68u && cpu->pc < 0x8016badcu)
-        instruction = kOverlaySc02_8016BA68Words[(cpu->pc - 0x8016ba68u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016badcu && cpu->pc < 0x8016bba4u)
-        instruction = kOverlaySc02_8016BADCWords[(cpu->pc - 0x8016badcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016bf34u && cpu->pc < 0x8016bf50u)
-        instruction = kOverlaySc02_8016BF34Words[(cpu->pc - 0x8016bf34u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016bf50u && cpu->pc < 0x8016bfa8u)
-        instruction = kOverlaySc02_8016BF50Words[(cpu->pc - 0x8016bf50u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016d464u && cpu->pc < 0x8016d4dcu)
-        instruction = kOverlaySc02_8016D464Words[(cpu->pc - 0x8016d464u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016d5ecu && cpu->pc < 0x8016d64cu)
-        instruction = kOverlaySc02_8016D5ECWords[(cpu->pc - 0x8016d5ecu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016d64cu && cpu->pc < 0x8016d688u)
-        instruction = kOverlaySc02_8016D64CWords[(cpu->pc - 0x8016d64cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016d984u && cpu->pc < 0x8016da04u)
-        instruction = kOverlaySc02_8016D984Words[(cpu->pc - 0x8016d984u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016da04u && cpu->pc < 0x8016da30u)
-        instruction = kOverlaySc02_8016DA04Words[(cpu->pc - 0x8016da04u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016db34u && cpu->pc < 0x8016dbd8u)
-        instruction = kOverlaySc02_8016DB34Words[(cpu->pc - 0x8016db34u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016dbd8u && cpu->pc < 0x8016dc20u)
-        instruction = kOverlaySc02_8016DBD8Words[(cpu->pc - 0x8016dbd8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016dee0u && cpu->pc < 0x8016df20u)
-        instruction = kOverlaySc02_8016DEE0Words[(cpu->pc - 0x8016dee0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016e1ccu && cpu->pc < 0x8016e26cu)
-        instruction = kOverlaySc02_8016E1CCWords[(cpu->pc - 0x8016e1ccu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016e26cu && cpu->pc < 0x8016e2e8u)
-        instruction = kOverlaySc02_8016E26CWords[(cpu->pc - 0x8016e26cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016e2e8u && cpu->pc < 0x8016e358u)
-        instruction = kOverlaySc02_8016E2E8Words[(cpu->pc - 0x8016e2e8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016e358u && cpu->pc < 0x8016e3ccu)
-        instruction = kOverlaySc02_8016E358Words[(cpu->pc - 0x8016e358u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016e3ccu && cpu->pc < 0x8016e460u)
-        instruction = kOverlaySc02_8016E3CCWords[(cpu->pc - 0x8016e3ccu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016e5f4u && cpu->pc < 0x8016e688u)
-        instruction = kOverlaySc02_8016E5F4Words[(cpu->pc - 0x8016e5f4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016e688u && cpu->pc < 0x8016e6e4u)
-        instruction = kOverlaySc02_8016E688Words[(cpu->pc - 0x8016e688u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016e6e4u && cpu->pc < 0x8016e728u)
-        instruction = kOverlaySc02_8016E6E4Words[(cpu->pc - 0x8016e6e4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016e728u && cpu->pc < 0x8016e778u)
-        instruction = kOverlaySc02_8016E728Words[(cpu->pc - 0x8016e728u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016e778u && cpu->pc < 0x8016e7c8u)
-        instruction = kOverlaySc02_8016E778Words[(cpu->pc - 0x8016e778u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016ed6cu && cpu->pc < 0x8016ed8cu)
-        instruction = kOverlaySc02_8016ED6CWords[(cpu->pc - 0x8016ed6cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016ed8cu && cpu->pc < 0x8016edbcu)
-        instruction = kOverlaySc02_8016ED8CWords[(cpu->pc - 0x8016ed8cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016edbcu && cpu->pc < 0x8016edecu)
-        instruction = kOverlaySc02_8016EDBCWords[(cpu->pc - 0x8016edbcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016edecu && cpu->pc < 0x8016ee40u)
-        instruction = kOverlaySc02_8016EDECWords[(cpu->pc - 0x8016edecu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016efa8u && cpu->pc < 0x8016efc8u)
-        instruction = kOverlaySc02_8016EFA8Words[(cpu->pc - 0x8016efa8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f094u && cpu->pc < 0x8016f0acu)
-        instruction = kOverlaySc02_8016F094Words[(cpu->pc - 0x8016f094u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f0acu && cpu->pc < 0x8016f0e4u)
-        instruction = kOverlaySc02_8016F0ACWords[(cpu->pc - 0x8016f0acu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f1acu && cpu->pc < 0x8016f1c4u)
-        instruction = kOverlaySc02_8016F1ACWords[(cpu->pc - 0x8016f1acu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f250u && cpu->pc < 0x8016f264u)
-        instruction = kOverlaySc02_8016F250Words[(cpu->pc - 0x8016f250u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f264u && cpu->pc < 0x8016f288u)
-        instruction = kOverlaySc02_8016F264Words[(cpu->pc - 0x8016f264u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f288u && cpu->pc < 0x8016f2a8u)
-        instruction = kOverlaySc02_8016F288Words[(cpu->pc - 0x8016f288u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f2a8u && cpu->pc < 0x8016f2c8u)
-        instruction = kOverlaySc02_8016F2A8Words[(cpu->pc - 0x8016f2a8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f2c8u && cpu->pc < 0x8016f2ecu)
-        instruction = kOverlaySc02_8016F2C8Words[(cpu->pc - 0x8016f2c8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f2ecu && cpu->pc < 0x8016f30cu)
-        instruction = kOverlaySc02_8016F2ECWords[(cpu->pc - 0x8016f2ecu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f30cu && cpu->pc < 0x8016f330u)
-        instruction = kOverlaySc02_8016F30CWords[(cpu->pc - 0x8016f30cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f330u && cpu->pc < 0x8016f350u)
-        instruction = kOverlaySc02_8016F330Words[(cpu->pc - 0x8016f330u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f350u && cpu->pc < 0x8016f374u)
-        instruction = kOverlaySc02_8016F350Words[(cpu->pc - 0x8016f350u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f374u && cpu->pc < 0x8016f388u)
-        instruction = kOverlaySc02_8016F374Words[(cpu->pc - 0x8016f374u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f388u && cpu->pc < 0x8016f398u)
-        instruction = kOverlaySc02_8016F388Words[(cpu->pc - 0x8016f388u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f398u && cpu->pc < 0x8016f410u)
-        instruction = kOverlaySc02_8016F398Words[(cpu->pc - 0x8016f398u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f410u && cpu->pc < 0x8016f44cu)
-        instruction = kOverlaySc02_8016F410Words[(cpu->pc - 0x8016f410u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f44cu && cpu->pc < 0x8016f470u)
-        instruction = kOverlaySc02_8016F44CWords[(cpu->pc - 0x8016f44cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f470u && cpu->pc < 0x8016f494u)
-        instruction = kOverlaySc02_8016F470Words[(cpu->pc - 0x8016f470u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f494u && cpu->pc < 0x8016f4c4u)
-        instruction = kOverlaySc02_8016F494Words[(cpu->pc - 0x8016f494u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f4c4u && cpu->pc < 0x8016f4f4u)
-        instruction = kOverlaySc02_8016F4C4Words[(cpu->pc - 0x8016f4c4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f4fcu && cpu->pc < 0x8016f540u)
-        instruction = kOverlaySc02_8016F4FCWords[(cpu->pc - 0x8016f4fcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f540u && cpu->pc < 0x8016f578u)
-        instruction = kOverlaySc02_8016F540Words[(cpu->pc - 0x8016f540u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f578u && cpu->pc < 0x8016f5b0u)
-        instruction = kOverlaySc02_8016F578Words[(cpu->pc - 0x8016f578u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f5b0u && cpu->pc < 0x8016f5e0u)
-        instruction = kOverlaySc02_8016F5B0Words[(cpu->pc - 0x8016f5b0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f5e0u && cpu->pc < 0x8016f610u)
-        instruction = kOverlaySc02_8016F5E0Words[(cpu->pc - 0x8016f5e0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f610u && cpu->pc < 0x8016f648u)
-        instruction = kOverlaySc02_8016F610Words[(cpu->pc - 0x8016f610u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f648u && cpu->pc < 0x8016f680u)
-        instruction = kOverlaySc02_8016F648Words[(cpu->pc - 0x8016f648u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f680u && cpu->pc < 0x8016f6b0u)
-        instruction = kOverlaySc02_8016F680Words[(cpu->pc - 0x8016f680u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f6b0u && cpu->pc < 0x8016f6e0u)
-        instruction = kOverlaySc02_8016F6B0Words[(cpu->pc - 0x8016f6b0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f71cu && cpu->pc < 0x8016f764u)
-        instruction = kOverlaySc02_8016F71CWords[(cpu->pc - 0x8016f71cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f764u && cpu->pc < 0x8016f798u)
-        instruction = kOverlaySc02_8016F764Words[(cpu->pc - 0x8016f764u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f7d4u && cpu->pc < 0x8016f804u)
-        instruction = kOverlaySc02_8016F7D4Words[(cpu->pc - 0x8016f7d4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f804u && cpu->pc < 0x8016f834u)
-        instruction = kOverlaySc02_8016F804Words[(cpu->pc - 0x8016f804u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f870u && cpu->pc < 0x8016f8acu)
-        instruction = kOverlaySc02_8016F870Words[(cpu->pc - 0x8016f870u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f8acu && cpu->pc < 0x8016f8e4u)
-        instruction = kOverlaySc02_8016F8ACWords[(cpu->pc - 0x8016f8acu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016f920u && cpu->pc < 0x8016f95cu)
-        instruction = kOverlaySc02_8016F920Words[(cpu->pc - 0x8016f920u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016fa00u && cpu->pc < 0x8016fa44u)
-        instruction = kOverlaySc02_8016FA00Words[(cpu->pc - 0x8016fa00u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016fa44u && cpu->pc < 0x8016fa84u)
-        instruction = kOverlaySc02_8016FA44Words[(cpu->pc - 0x8016fa44u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016fac0u && cpu->pc < 0x8016fb10u)
-        instruction = kOverlaySc02_8016FAC0Words[(cpu->pc - 0x8016fac0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016fb10u && cpu->pc < 0x8016fb50u)
-        instruction = kOverlaySc02_8016FB10Words[(cpu->pc - 0x8016fb10u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016fb50u && cpu->pc < 0x8016fb7cu)
-        instruction = kOverlaySc02_8016FB50Words[(cpu->pc - 0x8016fb50u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016fbb8u && cpu->pc < 0x8016fc24u)
-        instruction = kOverlaySc02_8016FBB8Words[(cpu->pc - 0x8016fbb8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016fc24u && cpu->pc < 0x8016fc64u)
-        instruction = kOverlaySc02_8016FC24Words[(cpu->pc - 0x8016fc24u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016fc64u && cpu->pc < 0x8016fc90u)
-        instruction = kOverlaySc02_8016FC64Words[(cpu->pc - 0x8016fc64u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016fcccu && cpu->pc < 0x8016fd08u)
-        instruction = kOverlaySc02_8016FCCCWords[(cpu->pc - 0x8016fcccu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016fd7cu && cpu->pc < 0x8016fdb4u)
-        instruction = kOverlaySc02_8016FD7CWords[(cpu->pc - 0x8016fd7cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016fdf0u && cpu->pc < 0x8016fe2cu)
-        instruction = kOverlaySc02_8016FDF0Words[(cpu->pc - 0x8016fdf0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016fe2cu && cpu->pc < 0x8016fe78u)
-        instruction = kOverlaySc02_8016FE2CWords[(cpu->pc - 0x8016fe2cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016fed0u && cpu->pc < 0x8016ff30u)
-        instruction = kOverlaySc02_8016FED0Words[(cpu->pc - 0x8016fed0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016ff6cu && cpu->pc < 0x8016ffa8u)
-        instruction = kOverlaySc02_8016FF6CWords[(cpu->pc - 0x8016ff6cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016ffa8u && cpu->pc < 0x8016ffdcu)
-        instruction = kOverlaySc02_8016FFA8Words[(cpu->pc - 0x8016ffa8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170018u && cpu->pc < 0x80170068u)
-        instruction = kOverlaySc02_80170018Words[(cpu->pc - 0x80170018u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170068u && cpu->pc < 0x801700b8u)
-        instruction = kOverlaySc02_80170068Words[(cpu->pc - 0x80170068u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801700b8u && cpu->pc < 0x80170100u)
-        instruction = kOverlaySc02_801700B8Words[(cpu->pc - 0x801700b8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170100u && cpu->pc < 0x80170150u)
-        instruction = kOverlaySc02_80170100Words[(cpu->pc - 0x80170100u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017018cu && cpu->pc < 0x801701c8u)
-        instruction = kOverlaySc02_8017018CWords[(cpu->pc - 0x8017018cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801701c8u && cpu->pc < 0x80170240u)
-        instruction = kOverlaySc02_801701C8Words[(cpu->pc - 0x801701c8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017027cu && cpu->pc < 0x801702b8u)
-        instruction = kOverlaySc02_8017027CWords[(cpu->pc - 0x8017027cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801702b8u && cpu->pc < 0x801702fcu)
-        instruction = kOverlaySc02_801702B8Words[(cpu->pc - 0x801702b8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170338u && cpu->pc < 0x80170374u)
-        instruction = kOverlaySc02_80170338Words[(cpu->pc - 0x80170338u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170374u && cpu->pc < 0x801703e0u)
-        instruction = kOverlaySc02_80170374Words[(cpu->pc - 0x80170374u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017041cu && cpu->pc < 0x8017044cu)
-        instruction = kOverlaySc02_8017041CWords[(cpu->pc - 0x8017041cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017044cu && cpu->pc < 0x801704b0u)
-        instruction = kOverlaySc02_8017044CWords[(cpu->pc - 0x8017044cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801704ecu && cpu->pc < 0x8017051cu)
-        instruction = kOverlaySc02_801704ECWords[(cpu->pc - 0x801704ecu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017051cu && cpu->pc < 0x80170548u)
-        instruction = kOverlaySc02_8017051CWords[(cpu->pc - 0x8017051cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170584u && cpu->pc < 0x801705c0u)
-        instruction = kOverlaySc02_80170584Words[(cpu->pc - 0x80170584u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801705c0u && cpu->pc < 0x801705f8u)
-        instruction = kOverlaySc02_801705C0Words[(cpu->pc - 0x801705c0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170634u && cpu->pc < 0x80170670u)
-        instruction = kOverlaySc02_80170634Words[(cpu->pc - 0x80170634u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170670u && cpu->pc < 0x801706acu)
-        instruction = kOverlaySc02_80170670Words[(cpu->pc - 0x80170670u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801706e8u && cpu->pc < 0x80170718u)
-        instruction = kOverlaySc02_801706E8Words[(cpu->pc - 0x801706e8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170718u && cpu->pc < 0x80170748u)
-        instruction = kOverlaySc02_80170718Words[(cpu->pc - 0x80170718u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170784u && cpu->pc < 0x801707d4u)
-        instruction = kOverlaySc02_80170784Words[(cpu->pc - 0x80170784u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801707d4u && cpu->pc < 0x80170810u)
-        instruction = kOverlaySc02_801707D4Words[(cpu->pc - 0x801707d4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017084cu && cpu->pc < 0x801708b0u)
-        instruction = kOverlaySc02_8017084CWords[(cpu->pc - 0x8017084cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801708b0u && cpu->pc < 0x80170928u)
-        instruction = kOverlaySc02_801708B0Words[(cpu->pc - 0x801708b0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170928u && cpu->pc < 0x80170970u)
-        instruction = kOverlaySc02_80170928Words[(cpu->pc - 0x80170928u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170970u && cpu->pc < 0x801709b8u)
-        instruction = kOverlaySc02_80170970Words[(cpu->pc - 0x80170970u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801709b8u && cpu->pc < 0x80170a00u)
-        instruction = kOverlaySc02_801709B8Words[(cpu->pc - 0x801709b8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170a00u && cpu->pc < 0x80170a48u)
-        instruction = kOverlaySc02_80170A00Words[(cpu->pc - 0x80170a00u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170a48u && cpu->pc < 0x80170a90u)
-        instruction = kOverlaySc02_80170A48Words[(cpu->pc - 0x80170a48u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170a90u && cpu->pc < 0x80170ad8u)
-        instruction = kOverlaySc02_80170A90Words[(cpu->pc - 0x80170a90u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170b14u && cpu->pc < 0x80170b48u)
-        instruction = kOverlaySc02_80170B14Words[(cpu->pc - 0x80170b14u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170b48u && cpu->pc < 0x80170b90u)
-        instruction = kOverlaySc02_80170B48Words[(cpu->pc - 0x80170b48u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170b90u && cpu->pc < 0x80170bd8u)
-        instruction = kOverlaySc02_80170B90Words[(cpu->pc - 0x80170b90u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170c14u && cpu->pc < 0x80170c44u)
-        instruction = kOverlaySc02_80170C14Words[(cpu->pc - 0x80170c14u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170c44u && cpu->pc < 0x80170c74u)
-        instruction = kOverlaySc02_80170C44Words[(cpu->pc - 0x80170c44u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170cb0u && cpu->pc < 0x80170cf0u)
-        instruction = kOverlaySc02_80170CB0Words[(cpu->pc - 0x80170cb0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170da4u && cpu->pc < 0x80170de0u)
-        instruction = kOverlaySc02_80170DA4Words[(cpu->pc - 0x80170da4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170de0u && cpu->pc < 0x80170e34u)
-        instruction = kOverlaySc02_80170DE0Words[(cpu->pc - 0x80170de0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170e70u && cpu->pc < 0x80170eacu)
-        instruction = kOverlaySc02_80170E70Words[(cpu->pc - 0x80170e70u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170eacu && cpu->pc < 0x80170efcu)
-        instruction = kOverlaySc02_80170EACWords[(cpu->pc - 0x80170eacu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170f38u && cpu->pc < 0x80170f74u)
-        instruction = kOverlaySc02_80170F38Words[(cpu->pc - 0x80170f38u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170f74u && cpu->pc < 0x80170fb0u)
-        instruction = kOverlaySc02_80170F74Words[(cpu->pc - 0x80170f74u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80170fecu && cpu->pc < 0x80171028u)
-        instruction = kOverlaySc02_80170FECWords[(cpu->pc - 0x80170fecu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80171028u && cpu->pc < 0x80171064u)
-        instruction = kOverlaySc02_80171028Words[(cpu->pc - 0x80171028u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801710a0u && cpu->pc < 0x801710dcu)
-        instruction = kOverlaySc02_801710A0Words[(cpu->pc - 0x801710a0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801710dcu && cpu->pc < 0x80171120u)
-        instruction = kOverlaySc02_801710DCWords[(cpu->pc - 0x801710dcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017115cu && cpu->pc < 0x8017118cu)
-        instruction = kOverlaySc02_8017115CWords[(cpu->pc - 0x8017115cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017118cu && cpu->pc < 0x801711c0u)
-        instruction = kOverlaySc02_8017118CWords[(cpu->pc - 0x8017118cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801711fcu && cpu->pc < 0x80171238u)
-        instruction = kOverlaySc02_801711FCWords[(cpu->pc - 0x801711fcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80171238u && cpu->pc < 0x80171260u)
-        instruction = kOverlaySc02_80171238Words[(cpu->pc - 0x80171238u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017162cu && cpu->pc < 0x801716acu)
-        instruction = kOverlaySc02_8017162CWords[(cpu->pc - 0x8017162cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801717f4u && cpu->pc < 0x80171824u)
-        instruction = kOverlaySc02_801717F4Words[(cpu->pc - 0x801717f4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80171824u && cpu->pc < 0x80171854u)
-        instruction = kOverlaySc02_80171824Words[(cpu->pc - 0x80171824u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80171854u && cpu->pc < 0x80171884u)
-        instruction = kOverlaySc02_80171854Words[(cpu->pc - 0x80171854u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80171884u && cpu->pc < 0x801718acu)
-        instruction = kOverlaySc02_80171884Words[(cpu->pc - 0x80171884u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801718acu && cpu->pc < 0x80171904u)
-        instruction = kOverlaySc02_801718ACWords[(cpu->pc - 0x801718acu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80171904u && cpu->pc < 0x80171928u)
-        instruction = kOverlaySc02_80171904Words[(cpu->pc - 0x80171904u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80171928u && cpu->pc < 0x8017196cu)
-        instruction = kOverlaySc02_80171928Words[(cpu->pc - 0x80171928u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017196cu && cpu->pc < 0x8017197cu)
-        instruction = kOverlaySc02_8017196CWords[(cpu->pc - 0x8017196cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017197cu && cpu->pc < 0x80171990u)
-        instruction = kOverlaySc02_8017197CWords[(cpu->pc - 0x8017197cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80171990u && cpu->pc < 0x801719a4u)
-        instruction = kOverlaySc02_80171990Words[(cpu->pc - 0x80171990u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80171a04u && cpu->pc < 0x80171a10u)
-        instruction = kOverlaySc02_80171A04Words[(cpu->pc - 0x80171a04u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80171a10u && cpu->pc < 0x80171a1cu)
-        instruction = kOverlaySc02_80171A10Words[(cpu->pc - 0x80171a10u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80171a1cu && cpu->pc < 0x80171a34u)
-        instruction = kOverlaySc02_80171A1CWords[(cpu->pc - 0x80171a1cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80171a34u && cpu->pc < 0x80171a44u)
-        instruction = kOverlaySc02_80171A34Words[(cpu->pc - 0x80171a34u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80171a44u && cpu->pc < 0x80171a58u)
-        instruction = kOverlaySc02_80171A44Words[(cpu->pc - 0x80171a44u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80171a58u && cpu->pc < 0x80171a6cu)
-        instruction = kOverlaySc02_80171A58Words[(cpu->pc - 0x80171a58u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80171a6cu && cpu->pc < 0x80171a80u)
-        instruction = kOverlaySc02_80171A6CWords[(cpu->pc - 0x80171a6cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80171b10u && cpu->pc < 0x80171b44u)
-        instruction = kOverlaySc02_80171B10Words[(cpu->pc - 0x80171b10u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80171b44u && cpu->pc < 0x80171b4cu)
-        instruction = kOverlaySc02_80171B44Words[(cpu->pc - 0x80171b44u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80171c64u && cpu->pc < 0x80171cc4u)
-        instruction = kOverlaySc02_80171C64Words[(cpu->pc - 0x80171c64u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80171cc4u && cpu->pc < 0x80171d1cu)
-        instruction = kOverlaySc02_80171CC4Words[(cpu->pc - 0x80171cc4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80171d1cu && cpu->pc < 0x80171d78u)
-        instruction = kOverlaySc02_80171D1CWords[(cpu->pc - 0x80171d1cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801722ccu && cpu->pc < 0x80172304u)
-        instruction = kOverlaySc02_801722CCWords[(cpu->pc - 0x801722ccu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172310u && cpu->pc < 0x80172358u)
-        instruction = kOverlaySc02_80172310Words[(cpu->pc - 0x80172310u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172358u && cpu->pc < 0x801723c4u)
-        instruction = kOverlaySc02_80172358Words[(cpu->pc - 0x80172358u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801723c4u && cpu->pc < 0x80172414u)
-        instruction = kOverlaySc02_801723C4Words[(cpu->pc - 0x801723c4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172414u && cpu->pc < 0x8017248cu)
-        instruction = kOverlaySc02_80172414Words[(cpu->pc - 0x80172414u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017248cu && cpu->pc < 0x801724ecu)
-        instruction = kOverlaySc02_8017248CWords[(cpu->pc - 0x8017248cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801724ecu && cpu->pc < 0x8017250cu)
-        instruction = kOverlaySc02_801724ECWords[(cpu->pc - 0x801724ecu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017250cu && cpu->pc < 0x80172560u)
-        instruction = kOverlaySc02_8017250CWords[(cpu->pc - 0x8017250cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172560u && cpu->pc < 0x80172588u)
-        instruction = kOverlaySc02_80172560Words[(cpu->pc - 0x80172560u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172588u && cpu->pc < 0x80172590u)
-        instruction = kOverlaySc02_80172588Words[(cpu->pc - 0x80172588u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172590u && cpu->pc < 0x801725a4u)
-        instruction = kOverlaySc02_80172590Words[(cpu->pc - 0x80172590u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801725a4u && cpu->pc < 0x801725b8u)
-        instruction = kOverlaySc02_801725A4Words[(cpu->pc - 0x801725a4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801725b8u && cpu->pc < 0x801725ccu)
-        instruction = kOverlaySc02_801725B8Words[(cpu->pc - 0x801725b8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801725ccu && cpu->pc < 0x801725e0u)
-        instruction = kOverlaySc02_801725CCWords[(cpu->pc - 0x801725ccu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801725e0u && cpu->pc < 0x801725f4u)
-        instruction = kOverlaySc02_801725E0Words[(cpu->pc - 0x801725e0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801725f4u && cpu->pc < 0x80172608u)
-        instruction = kOverlaySc02_801725F4Words[(cpu->pc - 0x801725f4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172608u && cpu->pc < 0x8017261cu)
-        instruction = kOverlaySc02_80172608Words[(cpu->pc - 0x80172608u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017261cu && cpu->pc < 0x80172630u)
-        instruction = kOverlaySc02_8017261CWords[(cpu->pc - 0x8017261cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172630u && cpu->pc < 0x80172644u)
-        instruction = kOverlaySc02_80172630Words[(cpu->pc - 0x80172630u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172644u && cpu->pc < 0x80172658u)
-        instruction = kOverlaySc02_80172644Words[(cpu->pc - 0x80172644u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172658u && cpu->pc < 0x80172664u)
-        instruction = kOverlaySc02_80172658Words[(cpu->pc - 0x80172658u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172664u && cpu->pc < 0x80172670u)
-        instruction = kOverlaySc02_80172664Words[(cpu->pc - 0x80172664u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172670u && cpu->pc < 0x8017267cu)
-        instruction = kOverlaySc02_80172670Words[(cpu->pc - 0x80172670u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017267cu && cpu->pc < 0x80172688u)
-        instruction = kOverlaySc02_8017267CWords[(cpu->pc - 0x8017267cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172688u && cpu->pc < 0x80172694u)
-        instruction = kOverlaySc02_80172688Words[(cpu->pc - 0x80172688u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172694u && cpu->pc < 0x801726a0u)
-        instruction = kOverlaySc02_80172694Words[(cpu->pc - 0x80172694u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801726a0u && cpu->pc < 0x801726acu)
-        instruction = kOverlaySc02_801726A0Words[(cpu->pc - 0x801726a0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801726acu && cpu->pc < 0x801726b8u)
-        instruction = kOverlaySc02_801726ACWords[(cpu->pc - 0x801726acu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801726b8u && cpu->pc < 0x801726c4u)
-        instruction = kOverlaySc02_801726B8Words[(cpu->pc - 0x801726b8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801726c4u && cpu->pc < 0x801726d0u)
-        instruction = kOverlaySc02_801726C4Words[(cpu->pc - 0x801726c4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172710u && cpu->pc < 0x80172738u)
-        instruction = kOverlaySc02_80172710Words[(cpu->pc - 0x80172710u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172738u && cpu->pc < 0x80172760u)
-        instruction = kOverlaySc02_80172738Words[(cpu->pc - 0x80172738u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172760u && cpu->pc < 0x80172780u)
-        instruction = kOverlaySc02_80172760Words[(cpu->pc - 0x80172760u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172780u && cpu->pc < 0x801727d0u)
-        instruction = kOverlaySc02_80172780Words[(cpu->pc - 0x80172780u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017280cu && cpu->pc < 0x80172844u)
-        instruction = kOverlaySc02_8017280CWords[(cpu->pc - 0x8017280cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172844u && cpu->pc < 0x8017288cu)
-        instruction = kOverlaySc02_80172844Words[(cpu->pc - 0x80172844u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172894u && cpu->pc < 0x801728e4u)
-        instruction = kOverlaySc02_80172894Words[(cpu->pc - 0x80172894u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172920u && cpu->pc < 0x80172958u)
-        instruction = kOverlaySc02_80172920Words[(cpu->pc - 0x80172920u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172958u && cpu->pc < 0x801729a8u)
-        instruction = kOverlaySc02_80172958Words[(cpu->pc - 0x80172958u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801729b0u && cpu->pc < 0x801729f0u)
-        instruction = kOverlaySc02_801729B0Words[(cpu->pc - 0x801729b0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172a2cu && cpu->pc < 0x80172a8cu)
-        instruction = kOverlaySc02_80172A2CWords[(cpu->pc - 0x80172a2cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172a8cu && cpu->pc < 0x80172accu)
-        instruction = kOverlaySc02_80172A8CWords[(cpu->pc - 0x80172a8cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172accu && cpu->pc < 0x80172b0cu)
-        instruction = kOverlaySc02_80172ACCWords[(cpu->pc - 0x80172accu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172b14u && cpu->pc < 0x80172b44u)
-        instruction = kOverlaySc02_80172B14Words[(cpu->pc - 0x80172b14u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172b80u && cpu->pc < 0x80172bc8u)
-        instruction = kOverlaySc02_80172B80Words[(cpu->pc - 0x80172b80u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172bc8u && cpu->pc < 0x80172c48u)
-        instruction = kOverlaySc02_80172BC8Words[(cpu->pc - 0x80172bc8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172c50u && cpu->pc < 0x80172ca0u)
-        instruction = kOverlaySc02_80172C50Words[(cpu->pc - 0x80172c50u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172cdcu && cpu->pc < 0x80172d14u)
-        instruction = kOverlaySc02_80172CDCWords[(cpu->pc - 0x80172cdcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172d14u && cpu->pc < 0x80172d60u)
-        instruction = kOverlaySc02_80172D14Words[(cpu->pc - 0x80172d14u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172d68u && cpu->pc < 0x80172dacu)
-        instruction = kOverlaySc02_80172D68Words[(cpu->pc - 0x80172d68u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172de8u && cpu->pc < 0x80172e20u)
-        instruction = kOverlaySc02_80172DE8Words[(cpu->pc - 0x80172de8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172e20u && cpu->pc < 0x80172e8cu)
-        instruction = kOverlaySc02_80172E20Words[(cpu->pc - 0x80172e20u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172e94u && cpu->pc < 0x80172ed4u)
-        instruction = kOverlaySc02_80172E94Words[(cpu->pc - 0x80172e94u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172ed4u && cpu->pc < 0x80172efcu)
-        instruction = kOverlaySc02_80172ED4Words[(cpu->pc - 0x80172ed4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172efcu && cpu->pc < 0x80172f24u)
-        instruction = kOverlaySc02_80172EFCWords[(cpu->pc - 0x80172efcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172f24u && cpu->pc < 0x80172f4cu)
-        instruction = kOverlaySc02_80172F24Words[(cpu->pc - 0x80172f24u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172f4cu && cpu->pc < 0x80172f9cu)
-        instruction = kOverlaySc02_80172F4CWords[(cpu->pc - 0x80172f4cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172f9cu && cpu->pc < 0x80172fecu)
-        instruction = kOverlaySc02_80172F9CWords[(cpu->pc - 0x80172f9cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80172fecu && cpu->pc < 0x8017303cu)
-        instruction = kOverlaySc02_80172FECWords[(cpu->pc - 0x80172fecu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017303cu && cpu->pc < 0x80173078u)
-        instruction = kOverlaySc02_8017303CWords[(cpu->pc - 0x8017303cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801730b4u && cpu->pc < 0x801730fcu)
-        instruction = kOverlaySc02_801730B4Words[(cpu->pc - 0x801730b4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801730fcu && cpu->pc < 0x8017316cu)
-        instruction = kOverlaySc02_801730FCWords[(cpu->pc - 0x801730fcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80173174u && cpu->pc < 0x8017319cu)
-        instruction = kOverlaySc02_80173174Words[(cpu->pc - 0x80173174u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801731d8u && cpu->pc < 0x80173220u)
-        instruction = kOverlaySc02_801731D8Words[(cpu->pc - 0x801731d8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017329cu && cpu->pc < 0x801732c4u)
-        instruction = kOverlaySc02_8017329CWords[(cpu->pc - 0x8017329cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801732c4u && cpu->pc < 0x801732f4u)
-        instruction = kOverlaySc02_801732C4Words[(cpu->pc - 0x801732c4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801732f4u && cpu->pc < 0x8017331cu)
-        instruction = kOverlaySc02_801732F4Words[(cpu->pc - 0x801732f4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017331cu && cpu->pc < 0x8017334cu)
-        instruction = kOverlaySc02_8017331CWords[(cpu->pc - 0x8017331cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017334cu && cpu->pc < 0x80173374u)
-        instruction = kOverlaySc02_8017334CWords[(cpu->pc - 0x8017334cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80173374u && cpu->pc < 0x801733a4u)
-        instruction = kOverlaySc02_80173374Words[(cpu->pc - 0x80173374u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801733a4u && cpu->pc < 0x801733ccu)
-        instruction = kOverlaySc02_801733A4Words[(cpu->pc - 0x801733a4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801733ccu && cpu->pc < 0x801733fcu)
-        instruction = kOverlaySc02_801733CCWords[(cpu->pc - 0x801733ccu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801733fcu && cpu->pc < 0x80173460u)
-        instruction = kOverlaySc02_801733FCWords[(cpu->pc - 0x801733fcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80173460u && cpu->pc < 0x801734bcu)
-        instruction = kOverlaySc02_80173460Words[(cpu->pc - 0x80173460u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80173580u && cpu->pc < 0x801735b8u)
-        instruction = kOverlaySc02_80173580Words[(cpu->pc - 0x80173580u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801735b8u && cpu->pc < 0x801735ecu)
-        instruction = kOverlaySc02_801735B8Words[(cpu->pc - 0x801735b8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801735ecu && cpu->pc < 0x80173648u)
-        instruction = kOverlaySc02_801735ECWords[(cpu->pc - 0x801735ecu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801736b0u && cpu->pc < 0x801736fcu)
-        instruction = kOverlaySc02_801736B0Words[(cpu->pc - 0x801736b0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80173738u && cpu->pc < 0x80173770u)
-        instruction = kOverlaySc02_80173738Words[(cpu->pc - 0x80173738u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80173770u && cpu->pc < 0x801737b0u)
-        instruction = kOverlaySc02_80173770Words[(cpu->pc - 0x80173770u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801737b8u && cpu->pc < 0x801737e8u)
-        instruction = kOverlaySc02_801737B8Words[(cpu->pc - 0x801737b8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80173824u && cpu->pc < 0x8017385cu)
-        instruction = kOverlaySc02_80173824Words[(cpu->pc - 0x80173824u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801738dcu && cpu->pc < 0x8017390cu)
-        instruction = kOverlaySc02_801738DCWords[(cpu->pc - 0x801738dcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80173948u && cpu->pc < 0x80173980u)
-        instruction = kOverlaySc02_80173948Words[(cpu->pc - 0x80173948u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80173980u && cpu->pc < 0x801739d8u)
-        instruction = kOverlaySc02_80173980Words[(cpu->pc - 0x80173980u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801739d8u && cpu->pc < 0x80173a20u)
-        instruction = kOverlaySc02_801739D8Words[(cpu->pc - 0x801739d8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80173a28u && cpu->pc < 0x80173a60u)
-        instruction = kOverlaySc02_80173A28Words[(cpu->pc - 0x80173a28u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80173b88u && cpu->pc < 0x80173bc0u)
-        instruction = kOverlaySc02_80173B88Words[(cpu->pc - 0x80173b88u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80173bc0u && cpu->pc < 0x80173c64u)
-        instruction = kOverlaySc02_80173BC0Words[(cpu->pc - 0x80173bc0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80173c64u && cpu->pc < 0x80173cb4u)
-        instruction = kOverlaySc02_80173C64Words[(cpu->pc - 0x80173c64u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80174158u && cpu->pc < 0x80174188u)
-        instruction = kOverlaySc02_80174158Words[(cpu->pc - 0x80174158u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80174188u && cpu->pc < 0x801741a8u)
-        instruction = kOverlaySc02_80174188Words[(cpu->pc - 0x80174188u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801741a8u && cpu->pc < 0x801741ecu)
-        instruction = kOverlaySc02_801741A8Words[(cpu->pc - 0x801741a8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801741ecu && cpu->pc < 0x80174274u)
-        instruction = kOverlaySc02_801741ECWords[(cpu->pc - 0x801741ecu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017427cu && cpu->pc < 0x801742a4u)
-        instruction = kOverlaySc02_8017427CWords[(cpu->pc - 0x8017427cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801742e0u && cpu->pc < 0x80174318u)
-        instruction = kOverlaySc02_801742E0Words[(cpu->pc - 0x801742e0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80174318u && cpu->pc < 0x80174354u)
-        instruction = kOverlaySc02_80174318Words[(cpu->pc - 0x80174318u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017435cu && cpu->pc < 0x80174384u)
-        instruction = kOverlaySc02_8017435CWords[(cpu->pc - 0x8017435cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801743c0u && cpu->pc < 0x801743f0u)
-        instruction = kOverlaySc02_801743C0Words[(cpu->pc - 0x801743c0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801743f0u && cpu->pc < 0x80174430u)
-        instruction = kOverlaySc02_801743F0Words[(cpu->pc - 0x801743f0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80174438u && cpu->pc < 0x80174474u)
-        instruction = kOverlaySc02_80174438Words[(cpu->pc - 0x80174438u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801744b0u && cpu->pc < 0x801744e0u)
-        instruction = kOverlaySc02_801744B0Words[(cpu->pc - 0x801744b0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801744e0u && cpu->pc < 0x80174524u)
-        instruction = kOverlaySc02_801744E0Words[(cpu->pc - 0x801744e0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017452cu && cpu->pc < 0x80174554u)
-        instruction = kOverlaySc02_8017452CWords[(cpu->pc - 0x8017452cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80174554u && cpu->pc < 0x80174584u)
-        instruction = kOverlaySc02_80174554Words[(cpu->pc - 0x80174554u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80174584u && cpu->pc < 0x801745acu)
-        instruction = kOverlaySc02_80174584Words[(cpu->pc - 0x80174584u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801745acu && cpu->pc < 0x801745dcu)
-        instruction = kOverlaySc02_801745ACWords[(cpu->pc - 0x801745acu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801745dcu && cpu->pc < 0x80174604u)
-        instruction = kOverlaySc02_801745DCWords[(cpu->pc - 0x801745dcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80174604u && cpu->pc < 0x80174630u)
-        instruction = kOverlaySc02_80174604Words[(cpu->pc - 0x80174604u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80174630u && cpu->pc < 0x80174650u)
-        instruction = kOverlaySc02_80174630Words[(cpu->pc - 0x80174630u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80174674u && cpu->pc < 0x80174684u)
-        instruction = kOverlaySc02_80174674Words[(cpu->pc - 0x80174674u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80174684u && cpu->pc < 0x801746a4u)
-        instruction = kOverlaySc02_80174684Words[(cpu->pc - 0x80174684u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801746a4u && cpu->pc < 0x801746dcu)
-        instruction = kOverlaySc02_801746A4Words[(cpu->pc - 0x801746a4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801746dcu && cpu->pc < 0x80174714u)
-        instruction = kOverlaySc02_801746DCWords[(cpu->pc - 0x801746dcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80174714u && cpu->pc < 0x80174754u)
-        instruction = kOverlaySc02_80174714Words[(cpu->pc - 0x80174714u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80174754u && cpu->pc < 0x80174764u)
-        instruction = kOverlaySc02_80174754Words[(cpu->pc - 0x80174754u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80174764u && cpu->pc < 0x80174774u)
-        instruction = kOverlaySc02_80174764Words[(cpu->pc - 0x80174764u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80174774u && cpu->pc < 0x80174784u)
-        instruction = kOverlaySc02_80174774Words[(cpu->pc - 0x80174774u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80174784u && cpu->pc < 0x801747acu)
-        instruction = kOverlaySc02_80174784Words[(cpu->pc - 0x80174784u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801747acu && cpu->pc < 0x801747ccu)
-        instruction = kOverlaySc02_801747ACWords[(cpu->pc - 0x801747acu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80174808u && cpu->pc < 0x8017481cu)
-        instruction = kOverlaySc02_80174808Words[(cpu->pc - 0x80174808u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017481cu && cpu->pc < 0x80174824u)
-        instruction = kOverlaySc02_8017481CWords[(cpu->pc - 0x8017481cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80174824u && cpu->pc < 0x8017484cu)
-        instruction = kOverlaySc02_80174824Words[(cpu->pc - 0x80174824u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017484cu && cpu->pc < 0x80174888u)
-        instruction = kOverlaySc02_8017484CWords[(cpu->pc - 0x8017484cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801748c4u && cpu->pc < 0x801748e4u)
-        instruction = kOverlaySc02_801748C4Words[(cpu->pc - 0x801748c4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801748e4u && cpu->pc < 0x801748ecu)
-        instruction = kOverlaySc02_801748E4Words[(cpu->pc - 0x801748e4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801748ecu && cpu->pc < 0x8017496cu)
-        instruction = kOverlaySc02_801748ECWords[(cpu->pc - 0x801748ecu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801749a8u && cpu->pc < 0x801749c8u)
-        instruction = kOverlaySc02_801749A8Words[(cpu->pc - 0x801749a8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80174b6cu && cpu->pc < 0x80174bbcu)
-        instruction = kOverlaySc02_80174B6CWords[(cpu->pc - 0x80174b6cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80174bbcu && cpu->pc < 0x80174bf4u)
-        instruction = kOverlaySc02_80174BBCWords[(cpu->pc - 0x80174bbcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80174c60u && cpu->pc < 0x80174c80u)
-        instruction = kOverlaySc02_80174C60Words[(cpu->pc - 0x80174c60u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80174c80u && cpu->pc < 0x80174cb0u)
-        instruction = kOverlaySc02_80174C80Words[(cpu->pc - 0x80174c80u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80174e9cu && cpu->pc < 0x80174ed4u)
-        instruction = kOverlaySc02_80174E9CWords[(cpu->pc - 0x80174e9cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80174ed4u && cpu->pc < 0x80174ef0u)
-        instruction = kOverlaySc02_80174ED4Words[(cpu->pc - 0x80174ed4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80174ef0u && cpu->pc < 0x80174f28u)
-        instruction = kOverlaySc02_80174EF0Words[(cpu->pc - 0x80174ef0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80174f64u && cpu->pc < 0x80174fbcu)
-        instruction = kOverlaySc02_80174F64Words[(cpu->pc - 0x80174f64u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80174fbcu && cpu->pc < 0x80175014u)
-        instruction = kOverlaySc02_80174FBCWords[(cpu->pc - 0x80174fbcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80175014u && cpu->pc < 0x8017509cu)
-        instruction = kOverlaySc02_80175014Words[(cpu->pc - 0x80175014u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017509cu && cpu->pc < 0x80175114u)
-        instruction = kOverlaySc02_8017509CWords[(cpu->pc - 0x8017509cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80175114u && cpu->pc < 0x80175150u)
-        instruction = kOverlaySc02_80175114Words[(cpu->pc - 0x80175114u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80175150u && cpu->pc < 0x80175184u)
-        instruction = kOverlaySc02_80175150Words[(cpu->pc - 0x80175150u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801751d8u && cpu->pc < 0x80175218u)
-        instruction = kOverlaySc02_801751D8Words[(cpu->pc - 0x801751d8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801752bcu && cpu->pc < 0x80175308u)
-        instruction = kOverlaySc02_801752BCWords[(cpu->pc - 0x801752bcu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80175414u && cpu->pc < 0x80175454u)
-        instruction = kOverlaySc02_80175414Words[(cpu->pc - 0x80175414u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80175454u && cpu->pc < 0x80175494u)
-        instruction = kOverlaySc02_80175454Words[(cpu->pc - 0x80175454u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80175624u && cpu->pc < 0x80175668u)
-        instruction = kOverlaySc02_80175624Words[(cpu->pc - 0x80175624u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80175668u && cpu->pc < 0x80175690u)
-        instruction = kOverlaySc02_80175668Words[(cpu->pc - 0x80175668u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801757e0u && cpu->pc < 0x80175820u)
-        instruction = kOverlaySc02_801757E0Words[(cpu->pc - 0x801757e0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801787d4u && cpu->pc < 0x80178840u)
-        instruction = kOverlaySc02_801787D4Words[(cpu->pc - 0x801787d4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80178bb8u && cpu->pc < 0x80178bf8u)
-        instruction = kOverlaySc02_80178BB8Words[(cpu->pc - 0x80178bb8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80179b28u && cpu->pc < 0x80179b74u)
-        instruction = kOverlaySc02_80179B28Words[(cpu->pc - 0x80179b28u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80179d30u && cpu->pc < 0x80179d78u)
-        instruction = kOverlaySc02_80179D30Words[(cpu->pc - 0x80179d30u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80179d78u && cpu->pc < 0x80179dccu)
-        instruction = kOverlaySc02_80179D78Words[(cpu->pc - 0x80179d78u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80179dccu && cpu->pc < 0x80179df8u)
-        instruction = kOverlaySc02_80179DCCWords[(cpu->pc - 0x80179dccu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80179df8u && cpu->pc < 0x80179e1cu)
-        instruction = kOverlaySc02_80179DF8Words[(cpu->pc - 0x80179df8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80179e1cu && cpu->pc < 0x80179e48u)
-        instruction = kOverlaySc02_80179E1CWords[(cpu->pc - 0x80179e1cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80179e48u && cpu->pc < 0x80179e74u)
-        instruction = kOverlaySc02_80179E48Words[(cpu->pc - 0x80179e48u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80179e74u && cpu->pc < 0x80179ea0u)
-        instruction = kOverlaySc02_80179E74Words[(cpu->pc - 0x80179e74u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80179ea0u && cpu->pc < 0x80179ee8u)
-        instruction = kOverlaySc02_80179EA0Words[(cpu->pc - 0x80179ea0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80179ee8u && cpu->pc < 0x80179f14u)
-        instruction = kOverlaySc02_80179EE8Words[(cpu->pc - 0x80179ee8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80179f14u && cpu->pc < 0x80179f44u)
-        instruction = kOverlaySc02_80179F14Words[(cpu->pc - 0x80179f14u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80179f44u && cpu->pc < 0x80179f6cu)
-        instruction = kOverlaySc02_80179F44Words[(cpu->pc - 0x80179f44u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80179f6cu && cpu->pc < 0x80179f98u)
-        instruction = kOverlaySc02_80179F6CWords[(cpu->pc - 0x80179f6cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80179f98u && cpu->pc < 0x80179fecu)
-        instruction = kOverlaySc02_80179F98Words[(cpu->pc - 0x80179f98u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80179fecu && cpu->pc < 0x8017a040u)
-        instruction = kOverlaySc02_80179FECWords[(cpu->pc - 0x80179fecu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017a040u && cpu->pc < 0x8017a094u)
-        instruction = kOverlaySc02_8017A040Words[(cpu->pc - 0x8017a040u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017a0f4u && cpu->pc < 0x8017a11cu)
-        instruction = kOverlaySc02_8017A0F4Words[(cpu->pc - 0x8017a0f4u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017a11cu && cpu->pc < 0x8017a144u)
-        instruction = kOverlaySc02_8017A11CWords[(cpu->pc - 0x8017a11cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017a180u && cpu->pc < 0x8017a1a8u)
-        instruction = kOverlaySc02_8017A180Words[(cpu->pc - 0x8017a180u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017a1a8u && cpu->pc < 0x8017a1d0u)
-        instruction = kOverlaySc02_8017A1A8Words[(cpu->pc - 0x8017a1a8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017a1d0u && cpu->pc < 0x8017a1f8u)
-        instruction = kOverlaySc02_8017A1D0Words[(cpu->pc - 0x8017a1d0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017a1f8u && cpu->pc < 0x8017a220u)
-        instruction = kOverlaySc02_8017A1F8Words[(cpu->pc - 0x8017a1f8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017a220u && cpu->pc < 0x8017a248u)
-        instruction = kOverlaySc02_8017A220Words[(cpu->pc - 0x8017a220u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017a248u && cpu->pc < 0x8017a270u)
-        instruction = kOverlaySc02_8017A248Words[(cpu->pc - 0x8017a248u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017a270u && cpu->pc < 0x8017a298u)
-        instruction = kOverlaySc02_8017A270Words[(cpu->pc - 0x8017a270u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017a298u && cpu->pc < 0x8017a2c0u)
-        instruction = kOverlaySc02_8017A298Words[(cpu->pc - 0x8017a298u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017a2c0u && cpu->pc < 0x8017a2e8u)
-        instruction = kOverlaySc02_8017A2C0Words[(cpu->pc - 0x8017a2c0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017a2e8u && cpu->pc < 0x8017a310u)
-        instruction = kOverlaySc02_8017A2E8Words[(cpu->pc - 0x8017a2e8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017a310u && cpu->pc < 0x8017a338u)
-        instruction = kOverlaySc02_8017A310Words[(cpu->pc - 0x8017a310u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017a338u && cpu->pc < 0x8017a360u)
-        instruction = kOverlaySc02_8017A338Words[(cpu->pc - 0x8017a338u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017a360u && cpu->pc < 0x8017a388u)
-        instruction = kOverlaySc02_8017A360Words[(cpu->pc - 0x8017a360u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017a388u && cpu->pc < 0x8017a3b0u)
-        instruction = kOverlaySc02_8017A388Words[(cpu->pc - 0x8017a388u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017ade8u && cpu->pc < 0x8017ae08u)
-        instruction = kOverlaySc02_8017ADE8Words[(cpu->pc - 0x8017ade8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8017ae08u && cpu->pc < 0x8017ae2cu)
-        instruction = kOverlaySc02_8017AE08Words[(cpu->pc - 0x8017ae08u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016ee40u && cpu->pc < 0x8016ee94u)
-        instruction = kOverlaySc02_8016EE40Words[(cpu->pc - 0x8016ee40u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016ef78u && cpu->pc < 0x8016efa8u)
-        instruction = kOverlaySc02_8016EF78Words[(cpu->pc - 0x8016ef78u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8016efc8u && cpu->pc < 0x8016f094u)
-        instruction = kOverlaySc02_8016EFC8Words[(cpu->pc - 0x8016efc8u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801726d0u && cpu->pc < 0x80172710u)
-        instruction = kOverlaySc02_801726D0Words[(cpu->pc - 0x801726d0u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80174650u && cpu->pc < 0x80174674u)
-        instruction = kOverlaySc02_80174650Words[(cpu->pc - 0x80174650u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8018129cu && cpu->pc < 0x8018133cu)
-        instruction = kOverlaySc02_8018129CWords[(cpu->pc - 0x8018129cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012a018u && cpu->pc < 0x8012a048u)
-        instruction = kOverlaySc02_8012A018Words[(cpu->pc - 0x8012a018u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012a048u && cpu->pc < 0x8012a094u)
-        instruction = kOverlaySc02_8012A048Words[(cpu->pc - 0x8012a048u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8012a094u && cpu->pc < 0x8012a0e0u)
-        instruction = kOverlaySc02_8012A094Words[(cpu->pc - 0x8012a094u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x8018133cu && cpu->pc < 0x80181378u)
-        instruction = kOverlaySc02_8018133CWords[(cpu->pc - 0x8018133cu)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80181378u && cpu->pc < 0x801814e4u)
-        instruction = kOverlaySc02_80181378Words[(cpu->pc - 0x80181378u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x801814e4u && cpu->pc < 0x801816c0u)
-        instruction = kOverlaySc02_801814E4Words[(cpu->pc - 0x801814e4u)/4u];
+    else if (g_overlay_sc02_0031_words && formatter_range_word(kFormatterRanges18,
+            sizeof kFormatterRanges18 / sizeof kFormatterRanges18[0], cpu->pc,
+            &instruction)) {
+        /* value written by formatter_range_word */
+    }
+    else if (cpu->pc >= 0x801379fcu && cpu->pc < 0x80137b80u)
+        instruction = kOverlaySc02_801379FCWords[(cpu->pc - 0x801379fcu)/4u];
+    else if (g_overlay_sc02_0031_words && formatter_range_word(kFormatterRanges19,
+            sizeof kFormatterRanges19 / sizeof kFormatterRanges19[0], cpu->pc,
+            &instruction)) {
+        /* value written by formatter_range_word */
+    }
+    else if (cpu->pc >= 0x8013a380u && cpu->pc < 0x8013a448u)
+        instruction = kOverlaySc02_8013A380Words[(cpu->pc - 0x8013a380u)/4u];
+    else if (g_overlay_sc02_0031_words && formatter_range_word(kFormatterRanges20,
+            sizeof kFormatterRanges20 / sizeof kFormatterRanges20[0], cpu->pc,
+            &instruction)) {
+        /* value written by formatter_range_word */
+    }
     else if (cpu->pc >= 0x801816c0u && cpu->pc < 0x80181868u)
         instruction = kOverlaySc02_801816C0Words[(cpu->pc - 0x801816c0u)/4u];
     else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8013b83cu && cpu->pc < 0x8013bc7cu)
@@ -16562,222 +16827,31 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
         instruction = kOverlaySc02_8017F24CWords[(cpu->pc - 0x8017f24cu)/4u];
     else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8017f3c0u && cpu->pc < 0x8017f400u)
         instruction = kOverlaySc02_8017F3C0Words[(cpu->pc - 0x8017f3c0u)/4u];
+    else if (cpu->pc >= 0x8017f53cu && cpu->pc < 0x8017f590u)
+        instruction = kOverlaySc02_8017F53CWords[(cpu->pc - 0x8017f53cu)/4u];
     else if (cpu->pc >= 0x8017f590u && cpu->pc < 0x8017f5b4u)
         instruction = kOverlaySc02_8017F590Words[(cpu->pc - 0x8017f590u)/4u];
     else if (cpu->pc >= 0x8017f5b4u && cpu->pc < 0x80180d50u)
         instruction = kOverlaySc02_8017F5B4Words[(cpu->pc - 0x8017f5b4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8017c2b0u && cpu->pc < 0x8017c63cu)
-        instruction = kOverlaySc02_8017C2B0Words[(cpu->pc - 0x8017c2b0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8017c63cu && cpu->pc < 0x8017c8b4u)
-        instruction = kOverlaySc02_8017C63CWords[(cpu->pc - 0x8017c63cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8017c8b4u && cpu->pc < 0x8017c9fcu)
-        instruction = kOverlaySc02_8017C8B4Words[(cpu->pc - 0x8017c8b4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8017c9fcu && cpu->pc < 0x8017cb7cu)
-        instruction = kOverlaySc02_8017C9FCWords[(cpu->pc - 0x8017c9fcu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801788b8u && cpu->pc < 0x80178970u)
-        instruction = kOverlaySc02_801788B8Words[(cpu->pc - 0x801788b8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8012c658u && cpu->pc < 0x8012c750u)
-        instruction = kOverlaySc02_8012C658Words[(cpu->pc - 0x8012c658u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8012e8e0u && cpu->pc < 0x8012e9c0u)
-        instruction = kOverlaySc02_8012E8E0Words[(cpu->pc - 0x8012e8e0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80144988u && cpu->pc < 0x801449c8u)
-        instruction = kOverlaySc02_80144988Words[(cpu->pc - 0x80144988u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801449c8u && cpu->pc < 0x80144a04u)
-        instruction = kOverlaySc02_801449C8Words[(cpu->pc - 0x801449c8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80144a04u && cpu->pc < 0x80144a2cu)
-        instruction = kOverlaySc02_80144A04Words[(cpu->pc - 0x80144a04u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80144a2cu && cpu->pc < 0x80144a68u)
-        instruction = kOverlaySc02_80144A2CWords[(cpu->pc - 0x80144a2cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80144a68u && cpu->pc < 0x80144a90u)
-        instruction = kOverlaySc02_80144A68Words[(cpu->pc - 0x80144a68u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80144a90u && cpu->pc < 0x80144a98u)
-        instruction = kOverlaySc02_80144A90Words[(cpu->pc - 0x80144a90u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80144a98u && cpu->pc < 0x80144aecu)
-        instruction = kOverlaySc02_80144A98Words[(cpu->pc - 0x80144a98u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80144aecu && cpu->pc < 0x80144b14u)
-        instruction = kOverlaySc02_80144AECWords[(cpu->pc - 0x80144aecu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80144b14u && cpu->pc < 0x80144b9cu)
-        instruction = kOverlaySc02_80144B14Words[(cpu->pc - 0x80144b14u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8012ad44u && cpu->pc < 0x8012ad50u)
-        instruction = kOverlaySc02_8012AD44Words[(cpu->pc - 0x8012ad44u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801848a8u && cpu->pc < 0x801848e4u)
-        instruction = kOverlaySc02_801848A8Words[(cpu->pc - 0x801848a8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801848e4u && cpu->pc < 0x8018496cu)
-        instruction = kOverlaySc02_801848E4Words[(cpu->pc - 0x801848e4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8018496cu && cpu->pc < 0x80184a2cu)
-        instruction = kOverlaySc02_8018496CWords[(cpu->pc - 0x8018496cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80184a2cu && cpu->pc < 0x80184a9cu)
-        instruction = kOverlaySc02_80184A2CWords[(cpu->pc - 0x80184a2cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80184a9cu && cpu->pc < 0x80184b94u)
-        instruction = kOverlaySc02_80184A9CWords[(cpu->pc - 0x80184a9cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80184b94u && cpu->pc < 0x80184c24u)
-        instruction = kOverlaySc02_80184B94Words[(cpu->pc - 0x80184b94u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80143970u && cpu->pc < 0x801439fcu)
-        instruction = kOverlaySc02_80143970Words[(cpu->pc - 0x80143970u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801439fcu && cpu->pc < 0x80143b6cu)
-        instruction = kOverlaySc02_801439FCWords[(cpu->pc - 0x801439fcu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80143b6cu && cpu->pc < 0x80143cd4u)
-        instruction = kOverlaySc02_80143B6CWords[(cpu->pc - 0x80143b6cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80143cd4u && cpu->pc < 0x80143d28u)
-        instruction = kOverlaySc02_80143CD4Words[(cpu->pc - 0x80143cd4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80143d28u && cpu->pc < 0x80143eb4u)
-        instruction = kOverlaySc02_80143D28Words[(cpu->pc - 0x80143d28u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80143eb4u && cpu->pc < 0x80143ebcu)
-        instruction = kOverlaySc02_80143EB4Words[(cpu->pc - 0x80143eb4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80143ebcu && cpu->pc < 0x80144054u)
-        instruction = kOverlaySc02_80143EBCWords[(cpu->pc - 0x80143ebcu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80144054u && cpu->pc < 0x80144090u)
-        instruction = kOverlaySc02_80144054Words[(cpu->pc - 0x80144054u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80144090u && cpu->pc < 0x801442f8u)
-        instruction = kOverlaySc02_80144090Words[(cpu->pc - 0x80144090u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801442f8u && cpu->pc < 0x80144364u)
-        instruction = kOverlaySc02_801442F8Words[(cpu->pc - 0x801442f8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80144364u && cpu->pc < 0x80144458u)
-        instruction = kOverlaySc02_80144364Words[(cpu->pc - 0x80144364u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80144458u && cpu->pc < 0x80144558u)
-        instruction = kOverlaySc02_80144458Words[(cpu->pc - 0x80144458u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80144558u && cpu->pc < 0x8014462cu)
-        instruction = kOverlaySc02_80144558Words[(cpu->pc - 0x80144558u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014462cu && cpu->pc < 0x801446a4u)
-        instruction = kOverlaySc02_8014462CWords[(cpu->pc - 0x8014462cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801446a4u && cpu->pc < 0x8014477cu)
-        instruction = kOverlaySc02_801446A4Words[(cpu->pc - 0x801446a4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014477cu && cpu->pc < 0x80144880u)
-        instruction = kOverlaySc02_8014477CWords[(cpu->pc - 0x8014477cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80144880u && cpu->pc < 0x80144988u)
-        instruction = kOverlaySc02_80144880Words[(cpu->pc - 0x80144880u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801458e8u && cpu->pc < 0x80145934u)
-        instruction = kOverlaySc02_801458E8Words[(cpu->pc - 0x801458e8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80145934u && cpu->pc < 0x80145a2cu)
-        instruction = kOverlaySc02_80145934Words[(cpu->pc - 0x80145934u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80145a2cu && cpu->pc < 0x80145b24u)
-        instruction = kOverlaySc02_80145A2CWords[(cpu->pc - 0x80145a2cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80145b24u && cpu->pc < 0x80145bf8u)
-        instruction = kOverlaySc02_80145B24Words[(cpu->pc - 0x80145b24u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80145bf8u && cpu->pc < 0x80145c54u)
-        instruction = kOverlaySc02_80145BF8Words[(cpu->pc - 0x80145bf8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80145c54u && cpu->pc < 0x80145cecu)
-        instruction = kOverlaySc02_80145C54Words[(cpu->pc - 0x80145c54u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8012a828u && cpu->pc < 0x8012a860u)
-        instruction = kOverlaySc02_8012A828Words[(cpu->pc - 0x8012a828u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8012c218u && cpu->pc < 0x8012c284u)
-        instruction = kOverlaySc02_8012C218Words[(cpu->pc - 0x8012c218u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8012aaacu && cpu->pc < 0x8012aca0u)
-        instruction = kOverlaySc02_8012AAACWords[(cpu->pc - 0x8012aaacu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8012aca0u && cpu->pc < 0x8012ace0u)
-        instruction = kOverlaySc02_8012ACA0Words[(cpu->pc - 0x8012aca0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80182070u && cpu->pc < 0x80182078u)
-        instruction = kOverlaySc02_80182070Words[(cpu->pc - 0x80182070u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80182078u && cpu->pc < 0x801820e0u)
-        instruction = kOverlaySc02_80182078Words[(cpu->pc - 0x80182078u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801820e0u && cpu->pc < 0x80182174u)
-        instruction = kOverlaySc02_801820E0Words[(cpu->pc - 0x801820e0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80182174u && cpu->pc < 0x801821f4u)
-        instruction = kOverlaySc02_80182174Words[(cpu->pc - 0x80182174u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801821f4u && cpu->pc < 0x80182328u)
-        instruction = kOverlaySc02_801821F4Words[(cpu->pc - 0x801821f4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80182328u && cpu->pc < 0x801824e4u)
-        instruction = kOverlaySc02_80182328Words[(cpu->pc - 0x80182328u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801824e4u && cpu->pc < 0x801825e0u)
-        instruction = kOverlaySc02_801824E4Words[(cpu->pc - 0x801824e4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801825e0u && cpu->pc < 0x80182618u)
-        instruction = kOverlaySc02_801825E0Words[(cpu->pc - 0x801825e0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80182618u && cpu->pc < 0x80182674u)
-        instruction = kOverlaySc02_80182618Words[(cpu->pc - 0x80182618u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80182674u && cpu->pc < 0x80182848u)
-        instruction = kOverlaySc02_80182674Words[(cpu->pc - 0x80182674u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80182848u && cpu->pc < 0x80182994u)
-        instruction = kOverlaySc02_80182848Words[(cpu->pc - 0x80182848u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80182994u && cpu->pc < 0x801829a0u)
-        instruction = kOverlaySc02_80182994Words[(cpu->pc - 0x80182994u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801829a0u && cpu->pc < 0x801829a8u)
-        instruction = kOverlaySc02_801829A0Words[(cpu->pc - 0x801829a0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801829a8u && cpu->pc < 0x801829bcu)
-        instruction = kOverlaySc02_801829A8Words[(cpu->pc - 0x801829a8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801829bcu && cpu->pc < 0x801829f8u)
-        instruction = kOverlaySc02_801829BCWords[(cpu->pc - 0x801829bcu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801829f8u && cpu->pc < 0x80182a7cu)
-        instruction = kOverlaySc02_801829F8Words[(cpu->pc - 0x801829f8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80182a7cu && cpu->pc < 0x80182ab4u)
-        instruction = kOverlaySc02_80182A7CWords[(cpu->pc - 0x80182a7cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80182ab4u && cpu->pc < 0x80182b64u)
-        instruction = kOverlaySc02_80182AB4Words[(cpu->pc - 0x80182ab4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80182b64u && cpu->pc < 0x80182ba0u)
-        instruction = kOverlaySc02_80182B64Words[(cpu->pc - 0x80182b64u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80182ba0u && cpu->pc < 0x80182be0u)
-        instruction = kOverlaySc02_80182BA0Words[(cpu->pc - 0x80182ba0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80182be0u && cpu->pc < 0x80182c24u)
-        instruction = kOverlaySc02_80182BE0Words[(cpu->pc - 0x80182be0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80182c24u && cpu->pc < 0x80182c60u)
-        instruction = kOverlaySc02_80182C24Words[(cpu->pc - 0x80182c24u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80182c60u && cpu->pc < 0x80182cf4u)
-        instruction = kOverlaySc02_80182C60Words[(cpu->pc - 0x80182c60u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80182cf4u && cpu->pc < 0x801832d0u)
-        instruction = kOverlaySc02_80182CF4Words[(cpu->pc - 0x80182cf4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8012cae4u && cpu->pc < 0x8012cb64u)
-        instruction = kOverlaySc02_8012CAE4Words[(cpu->pc - 0x8012cae4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8012b2ccu && cpu->pc < 0x8012b370u)
-        instruction = kOverlaySc02_8012B2CCWords[(cpu->pc - 0x8012b2ccu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8012b14cu && cpu->pc < 0x8012b178u)
-        instruction = kOverlaySc02_8012B14CWords[(cpu->pc - 0x8012b14cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80181ef0u && cpu->pc < 0x80181f20u)
-        instruction = kOverlaySc02_80181EF0Words[(cpu->pc - 0x80181ef0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80181bb4u && cpu->pc < 0x80181c2cu)
-        instruction = kOverlaySc02_80181BB4Words[(cpu->pc - 0x80181bb4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80181b78u && cpu->pc < 0x80181bb4u)
-        instruction = kOverlaySc02_80181B78Words[(cpu->pc - 0x80181b78u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8012ad50u && cpu->pc < 0x8012ad64u)
-        instruction = kOverlaySc02_8012AD50Words[(cpu->pc - 0x8012ad50u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80181a24u && cpu->pc < 0x80181a44u)
-        instruction = kOverlaySc02_80181A24Words[(cpu->pc - 0x80181a24u)/4u];
+    else if (g_overlay_sc02_0031_words && formatter_range_word(kFormatterRanges21,
+            sizeof kFormatterRanges21 / sizeof kFormatterRanges21[0], cpu->pc,
+            &instruction)) {
+        /* value written by formatter_range_word */
+    }
     else if (cpu->pc >= 0x80181a44u && cpu->pc < 0x80181ae0u)
         instruction = kOverlaySc02_80181A44Words[(cpu->pc - 0x80181a44u)/4u];
     else if (cpu->pc >= 0x80181ae0u && cpu->pc < 0x80181b78u)
         instruction = kOverlaySc02_80181AE0Words[(cpu->pc - 0x80181ae0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801819e8u && cpu->pc < 0x80181a24u)
-        instruction = kOverlaySc02_801819E8Words[(cpu->pc - 0x801819e8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80181f5cu && cpu->pc < 0x80181fa4u)
-        instruction = kOverlaySc02_80181F5CWords[(cpu->pc - 0x80181f5cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80181fa4u && cpu->pc < 0x80182070u)
-        instruction = kOverlaySc02_80181FA4Words[(cpu->pc - 0x80181fa4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80181f20u && cpu->pc < 0x80181f5cu)
-        instruction = kOverlaySc02_80181F20Words[(cpu->pc - 0x80181f20u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8012c194u && cpu->pc < 0x8012c1b8u)
-        instruction = kOverlaySc02_8012C194Words[(cpu->pc - 0x8012c194u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8012c1b8u && cpu->pc < 0x8012c1dcu)
-        instruction = kOverlaySc02_8012C1B8Words[(cpu->pc - 0x8012c1b8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8012c1dcu && cpu->pc < 0x8012c218u)
-        instruction = kOverlaySc02_8012C1DCWords[(cpu->pc - 0x8012c1dcu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8013221cu && cpu->pc < 0x80132288u)
-        instruction = kOverlaySc02_8013221CWords[(cpu->pc - 0x8013221cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80131fdcu && cpu->pc < 0x80132018u)
-        instruction = kOverlaySc02_80131FDCWords[(cpu->pc - 0x80131fdcu)/4u];
-    else if (cpu->pc >= 0x801320d0u && cpu->pc < 0x801320d8u)
-        instruction = kOverlaySc02_801320D0Words[(cpu->pc - 0x801320d0u)/4u];
-    else if (cpu->pc >= 0x80134510u && cpu->pc < 0x801345f8u)
-        instruction = kOverlaySc02_80134510Words[(cpu->pc - 0x80134510u)/4u];
-    else if (cpu->pc >= 0x801345f8u && cpu->pc < 0x801347a0u)
-        instruction = kOverlaySc02_801345F8Words[(cpu->pc - 0x801345f8u)/4u];
-    else if (cpu->pc >= 0x801347a0u && cpu->pc < 0x80134a28u)
-        instruction = kOverlaySc02_801347A0Words[(cpu->pc - 0x801347a0u)/4u];
-    else if (cpu->pc >= 0x80135480u && cpu->pc < 0x80135888u)
-        instruction = kOverlaySc02_80135480Words[(cpu->pc - 0x80135480u)/4u];
-    else if (cpu->pc >= 0x80135d20u && cpu->pc < 0x80135eb0u)
-        instruction = kOverlaySc02_80135D20Words[(cpu->pc - 0x80135d20u)/4u];
-    else if (cpu->pc >= 0x80135eb0u && cpu->pc < 0x80136334u)
-        instruction = kOverlaySc02_80135EB0Words[(cpu->pc - 0x80135eb0u)/4u];
-    else if (cpu->pc >= 0x80136a94u && cpu->pc < 0x80136bc4u)
-        instruction = kOverlaySc02_80136A94Words[(cpu->pc - 0x80136a94u)/4u];
-    else if (cpu->pc >= 0x8013e448u && cpu->pc < 0x8013e4b4u)
-        instruction = kOverlaySc02_8013E448Words[(cpu->pc - 0x8013e448u)/4u];
-    else if (cpu->pc >= 0x80142ec0u && cpu->pc < 0x80142f68u)
-        instruction = kOverlaySc02_80142EC0Words[(cpu->pc - 0x80142ec0u)/4u];
-    else if (cpu->pc >= 0x8014305cu && cpu->pc < 0x801430f4u)
-        instruction = kOverlaySc02_8014305CWords[(cpu->pc - 0x8014305cu)/4u];
-    else if (cpu->pc >= 0x80165e90u && cpu->pc < 0x80165fa4u)
-        instruction = kOverlaySc02_80165E90Words[(cpu->pc - 0x80165e90u)/4u];
-    else if (cpu->pc >= 0x8016ee94u && cpu->pc < 0x8016ef78u)
-        instruction = kOverlaySc02_8016EE94Words[(cpu->pc - 0x8016ee94u)/4u];
+    else if (g_overlay_sc02_0031_words && formatter_range_word(kFormatterRanges22,
+            sizeof kFormatterRanges22 / sizeof kFormatterRanges22[0], cpu->pc,
+            &instruction)) {
+        /* value written by formatter_range_word */
+    }
+    else if (formatter_range_word(kFormatterRanges23,
+            sizeof kFormatterRanges23 / sizeof kFormatterRanges23[0], cpu->pc,
+            &instruction)) {
+        /* value written by formatter_range_word */
+    }
     else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8012c890u && cpu->pc < 0x8012cae4u)
         instruction = kOverlaySc02_8012C890Words[(cpu->pc - 0x8012c890u)/4u];
     else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8012c750u && cpu->pc < 0x8012c820u)
@@ -16794,282 +16868,24 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
         instruction = kOverlaySc02_80178BF8Words[(cpu->pc - 0x80178bf8u)/4u];
     else if (cpu->pc >= 0x80178d40u && cpu->pc < 0x80179b28u)
         instruction = kOverlaySc02_80178D40Words[(cpu->pc - 0x80178d40u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80128564u && cpu->pc < 0x801285d4u)
-        instruction = kOverlaySc02_80128564Words[(cpu->pc - 0x80128564u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801285d4u && cpu->pc < 0x801285e4u)
-        instruction = kOverlaySc02_801285D4Words[(cpu->pc - 0x801285d4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801285e4u && cpu->pc < 0x80128714u)
-        instruction = kOverlaySc02_801285E4Words[(cpu->pc - 0x801285e4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80128714u && cpu->pc < 0x801287b8u)
-        instruction = kOverlaySc02_80128714Words[(cpu->pc - 0x80128714u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801287b8u && cpu->pc < 0x801288e8u)
-        instruction = kOverlaySc02_801287B8Words[(cpu->pc - 0x801287b8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801288e8u && cpu->pc < 0x80128a28u)
-        instruction = kOverlaySc02_801288E8Words[(cpu->pc - 0x801288e8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80128a28u && cpu->pc < 0x80128af4u)
-        instruction = kOverlaySc02_80128A28Words[(cpu->pc - 0x80128a28u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80128af4u && cpu->pc < 0x80128c14u)
-        instruction = kOverlaySc02_80128AF4Words[(cpu->pc - 0x80128af4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80146074u && cpu->pc < 0x8014607cu)
-        instruction = kOverlaySc02_80146074Words[(cpu->pc - 0x80146074u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014607cu && cpu->pc < 0x80146128u)
-        instruction = kOverlaySc02_8014607CWords[(cpu->pc - 0x8014607cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80146128u && cpu->pc < 0x80146360u)
-        instruction = kOverlaySc02_80146128Words[(cpu->pc - 0x80146128u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80146360u && cpu->pc < 0x801463a0u)
-        instruction = kOverlaySc02_80146360Words[(cpu->pc - 0x80146360u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801463a0u && cpu->pc < 0x80146534u)
-        instruction = kOverlaySc02_801463A0Words[(cpu->pc - 0x801463a0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80146534u && cpu->pc < 0x80146554u)
-        instruction = kOverlaySc02_80146534Words[(cpu->pc - 0x80146534u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80146554u && cpu->pc < 0x80146578u)
-        instruction = kOverlaySc02_80146554Words[(cpu->pc - 0x80146554u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80146578u && cpu->pc < 0x8014659cu)
-        instruction = kOverlaySc02_80146578Words[(cpu->pc - 0x80146578u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014659cu && cpu->pc < 0x801465c0u)
-        instruction = kOverlaySc02_8014659CWords[(cpu->pc - 0x8014659cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801465c0u && cpu->pc < 0x801465e4u)
-        instruction = kOverlaySc02_801465C0Words[(cpu->pc - 0x801465c0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801465e4u && cpu->pc < 0x80146608u)
-        instruction = kOverlaySc02_801465E4Words[(cpu->pc - 0x801465e4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80146608u && cpu->pc < 0x801466b4u)
-        instruction = kOverlaySc02_80146608Words[(cpu->pc - 0x80146608u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801466b4u && cpu->pc < 0x801466f0u)
-        instruction = kOverlaySc02_801466B4Words[(cpu->pc - 0x801466b4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801466f0u && cpu->pc < 0x80146750u)
-        instruction = kOverlaySc02_801466F0Words[(cpu->pc - 0x801466f0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80146750u && cpu->pc < 0x8014680cu)
-        instruction = kOverlaySc02_80146750Words[(cpu->pc - 0x80146750u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014680cu && cpu->pc < 0x801468c8u)
-        instruction = kOverlaySc02_8014680CWords[(cpu->pc - 0x8014680cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80146924u && cpu->pc < 0x80146994u)
-        instruction = kOverlaySc02_80146924Words[(cpu->pc - 0x80146924u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80146994u && cpu->pc < 0x801469c8u)
-        instruction = kOverlaySc02_80146994Words[(cpu->pc - 0x80146994u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801469c8u && cpu->pc < 0x80146a6cu)
-        instruction = kOverlaySc02_801469C8Words[(cpu->pc - 0x801469c8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80146a6cu && cpu->pc < 0x80146ab4u)
-        instruction = kOverlaySc02_80146A6CWords[(cpu->pc - 0x80146a6cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80146ab4u && cpu->pc < 0x80146afcu)
-        instruction = kOverlaySc02_80146AB4Words[(cpu->pc - 0x80146ab4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80146afcu && cpu->pc < 0x80146b9cu)
-        instruction = kOverlaySc02_80146AFCWords[(cpu->pc - 0x80146afcu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80146b9cu && cpu->pc < 0x80146c3cu)
-        instruction = kOverlaySc02_80146B9CWords[(cpu->pc - 0x80146b9cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80146c3cu && cpu->pc < 0x80146c98u)
-        instruction = kOverlaySc02_80146C3CWords[(cpu->pc - 0x80146c3cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80146c98u && cpu->pc < 0x80146ca0u)
-        instruction = kOverlaySc02_80146C98Words[(cpu->pc - 0x80146c98u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80146ca0u && cpu->pc < 0x80146cb4u)
-        instruction = kOverlaySc02_80146CA0Words[(cpu->pc - 0x80146ca0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80146cb4u && cpu->pc < 0x80146cc8u)
-        instruction = kOverlaySc02_80146CB4Words[(cpu->pc - 0x80146cb4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80146cc8u && cpu->pc < 0x80146d30u)
-        instruction = kOverlaySc02_80146CC8Words[(cpu->pc - 0x80146cc8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80146d30u && cpu->pc < 0x80146d80u)
-        instruction = kOverlaySc02_80146D30Words[(cpu->pc - 0x80146d30u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80146d80u && cpu->pc < 0x80146d90u)
-        instruction = kOverlaySc02_80146D80Words[(cpu->pc - 0x80146d80u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80146d90u && cpu->pc < 0x80146db8u)
-        instruction = kOverlaySc02_80146D90Words[(cpu->pc - 0x80146d90u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80146db8u && cpu->pc < 0x80146de8u)
-        instruction = kOverlaySc02_80146DB8Words[(cpu->pc - 0x80146db8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80146de8u && cpu->pc < 0x80146df8u)
-        instruction = kOverlaySc02_80146DE8Words[(cpu->pc - 0x80146de8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80146df8u && cpu->pc < 0x80146e90u)
-        instruction = kOverlaySc02_80146DF8Words[(cpu->pc - 0x80146df8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80146e90u && cpu->pc < 0x80146e98u)
-        instruction = kOverlaySc02_80146E90Words[(cpu->pc - 0x80146e90u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80146e98u && cpu->pc < 0x80146ec0u)
-        instruction = kOverlaySc02_80146E98Words[(cpu->pc - 0x80146e98u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80146ec0u && cpu->pc < 0x80146f58u)
-        instruction = kOverlaySc02_80146EC0Words[(cpu->pc - 0x80146ec0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80146f58u && cpu->pc < 0x80146fc4u)
-        instruction = kOverlaySc02_80146F58Words[(cpu->pc - 0x80146f58u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80146fc4u && cpu->pc < 0x8014704cu)
-        instruction = kOverlaySc02_80146FC4Words[(cpu->pc - 0x80146fc4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014704cu && cpu->pc < 0x80147054u)
-        instruction = kOverlaySc02_8014704CWords[(cpu->pc - 0x8014704cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80147054u && cpu->pc < 0x80147060u)
-        instruction = kOverlaySc02_80147054Words[(cpu->pc - 0x80147054u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80147060u && cpu->pc < 0x8014706cu)
-        instruction = kOverlaySc02_80147060Words[(cpu->pc - 0x80147060u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014706cu && cpu->pc < 0x80147078u)
-        instruction = kOverlaySc02_8014706CWords[(cpu->pc - 0x8014706cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80147078u && cpu->pc < 0x80147084u)
-        instruction = kOverlaySc02_80147078Words[(cpu->pc - 0x80147078u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014708cu && cpu->pc < 0x80147098u)
-        instruction = kOverlaySc02_8014708CWords[(cpu->pc - 0x8014708cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801470a0u && cpu->pc < 0x801470acu)
-        instruction = kOverlaySc02_801470A0Words[(cpu->pc - 0x801470a0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801470b4u && cpu->pc < 0x801470c0u)
-        instruction = kOverlaySc02_801470B4Words[(cpu->pc - 0x801470b4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801470c0u && cpu->pc < 0x80147118u)
-        instruction = kOverlaySc02_801470C0Words[(cpu->pc - 0x801470c0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80147118u && cpu->pc < 0x80147264u)
-        instruction = kOverlaySc02_80147118Words[(cpu->pc - 0x80147118u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80147264u && cpu->pc < 0x80147290u)
-        instruction = kOverlaySc02_80147264Words[(cpu->pc - 0x80147264u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80147290u && cpu->pc < 0x801472b4u)
-        instruction = kOverlaySc02_80147290Words[(cpu->pc - 0x80147290u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801472b4u && cpu->pc < 0x801472c8u)
-        instruction = kOverlaySc02_801472B4Words[(cpu->pc - 0x801472b4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801472c8u && cpu->pc < 0x801472dcu)
-        instruction = kOverlaySc02_801472C8Words[(cpu->pc - 0x801472c8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801472dcu && cpu->pc < 0x801472f0u)
-        instruction = kOverlaySc02_801472DCWords[(cpu->pc - 0x801472dcu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801472f0u && cpu->pc < 0x80147300u)
-        instruction = kOverlaySc02_801472F0Words[(cpu->pc - 0x801472f0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80147300u && cpu->pc < 0x80147324u)
-        instruction = kOverlaySc02_80147300Words[(cpu->pc - 0x80147300u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80147324u && cpu->pc < 0x80147364u)
-        instruction = kOverlaySc02_80147324Words[(cpu->pc - 0x80147324u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80147364u && cpu->pc < 0x801473dcu)
-        instruction = kOverlaySc02_80147364Words[(cpu->pc - 0x80147364u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801473dcu && cpu->pc < 0x801473ecu)
-        instruction = kOverlaySc02_801473DCWords[(cpu->pc - 0x801473dcu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801473ecu && cpu->pc < 0x80147460u)
-        instruction = kOverlaySc02_801473ECWords[(cpu->pc - 0x801473ecu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80147460u && cpu->pc < 0x80147478u)
-        instruction = kOverlaySc02_80147460Words[(cpu->pc - 0x80147460u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80147478u && cpu->pc < 0x801474d8u)
-        instruction = kOverlaySc02_80147478Words[(cpu->pc - 0x80147478u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801474d8u && cpu->pc < 0x801474ecu)
-        instruction = kOverlaySc02_801474D8Words[(cpu->pc - 0x801474d8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801474ecu && cpu->pc < 0x80147514u)
-        instruction = kOverlaySc02_801474ECWords[(cpu->pc - 0x801474ecu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80147514u && cpu->pc < 0x80147628u)
-        instruction = kOverlaySc02_80147514Words[(cpu->pc - 0x80147514u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80147628u && cpu->pc < 0x80147718u)
-        instruction = kOverlaySc02_80147628Words[(cpu->pc - 0x80147628u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80147718u && cpu->pc < 0x80147788u)
-        instruction = kOverlaySc02_80147718Words[(cpu->pc - 0x80147718u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80147788u && cpu->pc < 0x801477a8u)
-        instruction = kOverlaySc02_80147788Words[(cpu->pc - 0x80147788u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801477a8u && cpu->pc < 0x801477c8u)
-        instruction = kOverlaySc02_801477A8Words[(cpu->pc - 0x801477a8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801477c8u && cpu->pc < 0x801477e8u)
-        instruction = kOverlaySc02_801477C8Words[(cpu->pc - 0x801477c8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801477e8u && cpu->pc < 0x80147814u)
-        instruction = kOverlaySc02_801477E8Words[(cpu->pc - 0x801477e8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80147814u && cpu->pc < 0x80147860u)
-        instruction = kOverlaySc02_80147814Words[(cpu->pc - 0x80147814u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80147860u && cpu->pc < 0x801478b8u)
-        instruction = kOverlaySc02_80147860Words[(cpu->pc - 0x80147860u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801478b8u && cpu->pc < 0x80147928u)
-        instruction = kOverlaySc02_801478B8Words[(cpu->pc - 0x801478b8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80147928u && cpu->pc < 0x80147948u)
-        instruction = kOverlaySc02_80147928Words[(cpu->pc - 0x80147928u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80147948u && cpu->pc < 0x8014799cu)
-        instruction = kOverlaySc02_80147948Words[(cpu->pc - 0x80147948u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014799cu && cpu->pc < 0x801479bcu)
-        instruction = kOverlaySc02_8014799CWords[(cpu->pc - 0x8014799cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801479bcu && cpu->pc < 0x80147a10u)
-        instruction = kOverlaySc02_801479BCWords[(cpu->pc - 0x801479bcu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80147a10u && cpu->pc < 0x80147a30u)
-        instruction = kOverlaySc02_80147A10Words[(cpu->pc - 0x80147a10u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80147a30u && cpu->pc < 0x80147a84u)
-        instruction = kOverlaySc02_80147A30Words[(cpu->pc - 0x80147a30u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80147a84u && cpu->pc < 0x80147aacu)
-        instruction = kOverlaySc02_80147A84Words[(cpu->pc - 0x80147a84u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80147aacu && cpu->pc < 0x80147ad4u)
-        instruction = kOverlaySc02_80147AACWords[(cpu->pc - 0x80147aacu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80147ad4u && cpu->pc < 0x80147b18u)
-        instruction = kOverlaySc02_80147AD4Words[(cpu->pc - 0x80147ad4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80147b18u && cpu->pc < 0x80147b5cu)
-        instruction = kOverlaySc02_80147B18Words[(cpu->pc - 0x80147b18u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80147b5cu && cpu->pc < 0x80147c30u)
-        instruction = kOverlaySc02_80147B5CWords[(cpu->pc - 0x80147b5cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80147c30u && cpu->pc < 0x80147cc8u)
-        instruction = kOverlaySc02_80147C30Words[(cpu->pc - 0x80147c30u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80147cc8u && cpu->pc < 0x80147d38u)
-        instruction = kOverlaySc02_80147CC8Words[(cpu->pc - 0x80147cc8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80147d38u && cpu->pc < 0x80147dc0u)
-        instruction = kOverlaySc02_80147D38Words[(cpu->pc - 0x80147d38u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80147dc0u && cpu->pc < 0x80147e44u)
-        instruction = kOverlaySc02_80147DC0Words[(cpu->pc - 0x80147dc0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80147e44u && cpu->pc < 0x80147f50u)
-        instruction = kOverlaySc02_80147E44Words[(cpu->pc - 0x80147e44u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80147f50u && cpu->pc < 0x80147f78u)
-        instruction = kOverlaySc02_80147F50Words[(cpu->pc - 0x80147f50u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80147f78u && cpu->pc < 0x80148038u)
-        instruction = kOverlaySc02_80147F78Words[(cpu->pc - 0x80147f78u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148038u && cpu->pc < 0x80148094u)
-        instruction = kOverlaySc02_80148038Words[(cpu->pc - 0x80148038u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148094u && cpu->pc < 0x801483e8u)
-        instruction = kOverlaySc02_80148094Words[(cpu->pc - 0x80148094u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801483e8u && cpu->pc < 0x801484b0u)
-        instruction = kOverlaySc02_801483E8Words[(cpu->pc - 0x801483e8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801484b0u && cpu->pc < 0x801484e8u)
-        instruction = kOverlaySc02_801484B0Words[(cpu->pc - 0x801484b0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801484e8u && cpu->pc < 0x80148534u)
-        instruction = kOverlaySc02_801484E8Words[(cpu->pc - 0x801484e8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148534u && cpu->pc < 0x8014856cu)
-        instruction = kOverlaySc02_80148534Words[(cpu->pc - 0x80148534u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014856cu && cpu->pc < 0x801485b8u)
-        instruction = kOverlaySc02_8014856CWords[(cpu->pc - 0x8014856cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801485b8u && cpu->pc < 0x80148634u)
-        instruction = kOverlaySc02_801485B8Words[(cpu->pc - 0x801485b8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148634u && cpu->pc < 0x80148648u)
-        instruction = kOverlaySc02_80148634Words[(cpu->pc - 0x80148634u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148648u && cpu->pc < 0x801487f4u)
-        instruction = kOverlaySc02_80148648Words[(cpu->pc - 0x80148648u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801487f4u && cpu->pc < 0x80148800u)
-        instruction = kOverlaySc02_801487F4Words[(cpu->pc - 0x801487f4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8012853cu && cpu->pc < 0x80128564u)
-        instruction = kOverlaySc02_8012853CWords[(cpu->pc - 0x8012853cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80175494u && cpu->pc < 0x801754a8u)
-        instruction = kOverlaySc02_80175494Words[(cpu->pc - 0x80175494u)/4u];
+    else if (g_overlay_sc02_0031_words && formatter_range_word(kFormatterRanges24,
+            sizeof kFormatterRanges24 / sizeof kFormatterRanges24[0], cpu->pc,
+            &instruction)) {
+        /* value written by formatter_range_word */
+    }
     else if (cpu->pc >= 0x801754a8u && cpu->pc < 0x8017553cu)
         instruction = kOverlaySc02_801754A8Words[(cpu->pc - 0x801754a8u)/4u];
     else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8016e8f0u && cpu->pc < 0x8016e918u)
         instruction = kOverlaySc02_8016E8F0Words[(cpu->pc - 0x8016e8f0u)/4u];
     else if (cpu->pc >= 0x8016e95cu && cpu->pc < 0x8016e9ecu)
         instruction = kOverlaySc02_8016E95CWords[(cpu->pc - 0x8016e95cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80178004u && cpu->pc < 0x80178298u)
-        instruction = kOverlaySc02_80178004Words[(cpu->pc - 0x80178004u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80176144u && cpu->pc < 0x80176218u)
-        instruction = kOverlaySc02_80176144Words[(cpu->pc - 0x80176144u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80178298u && cpu->pc < 0x801783d0u)
-        instruction = kOverlaySc02_80178298Words[(cpu->pc - 0x80178298u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80177940u && cpu->pc < 0x80177ad4u)
-        instruction = kOverlaySc02_80177940Words[(cpu->pc - 0x80177940u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80177b5cu && cpu->pc < 0x80177da8u)
-        instruction = kOverlaySc02_80177B5CWords[(cpu->pc - 0x80177b5cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80177ea4u && cpu->pc < 0x80177f84u)
-        instruction = kOverlaySc02_80177EA4Words[(cpu->pc - 0x80177ea4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801770e0u && cpu->pc < 0x80177340u)
-        instruction = kOverlaySc02_801770E0Words[(cpu->pc - 0x801770e0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801777bcu && cpu->pc < 0x801778a8u)
-        instruction = kOverlaySc02_801777BCWords[(cpu->pc - 0x801777bcu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801783d0u && cpu->pc < 0x80178438u)
-        instruction = kOverlaySc02_801783D0Words[(cpu->pc - 0x801783d0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80177784u && cpu->pc < 0x801777bcu)
-        instruction = kOverlaySc02_80177784Words[(cpu->pc - 0x80177784u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80176d94u && cpu->pc < 0x80176ff4u)
-        instruction = kOverlaySc02_80176D94Words[(cpu->pc - 0x80176d94u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80175ab8u && cpu->pc < 0x80175da8u)
-        instruction = kOverlaySc02_80175AB8Words[(cpu->pc - 0x80175ab8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8017742cu && cpu->pc < 0x801775e0u)
-        instruction = kOverlaySc02_8017742CWords[(cpu->pc - 0x8017742cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80175da8u && cpu->pc < 0x80176144u)
-        instruction = kOverlaySc02_80175DA8Words[(cpu->pc - 0x80175da8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801757a0u && cpu->pc < 0x801757e0u)
-        instruction = kOverlaySc02_801757A0Words[(cpu->pc - 0x801757a0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80175308u && cpu->pc < 0x80175414u)
-        instruction = kOverlaySc02_80175308Words[(cpu->pc - 0x80175308u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801284f0u && cpu->pc < 0x8012853cu)
-        instruction = kOverlaySc02_801284F0Words[(cpu->pc - 0x801284f0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801284b8u && cpu->pc < 0x801284f0u)
-        instruction = kOverlaySc02_801284B8Words[(cpu->pc - 0x801284b8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8013d3d4u && cpu->pc < 0x8013d53cu)
-        instruction = kOverlaySc02_8013D3D4Words[(cpu->pc - 0x8013d3d4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8013c0f8u && cpu->pc < 0x8013c360u)
-        instruction = kOverlaySc02_8013C0F8Words[(cpu->pc - 0x8013c0f8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8013c08cu && cpu->pc < 0x8013c0f8u)
-        instruction = kOverlaySc02_8013C08CWords[(cpu->pc - 0x8013c08cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8013b568u && cpu->pc < 0x8013b598u)
-        instruction = kOverlaySc02_8013B568Words[(cpu->pc - 0x8013b568u)/4u];
+    else if (g_overlay_sc02_0031_words && formatter_range_word(kFormatterRanges25,
+            sizeof kFormatterRanges25 / sizeof kFormatterRanges25[0], cpu->pc,
+            &instruction)) {
+        /* value written by formatter_range_word */
+    }
+    else if (cpu->pc >= 0x8013b598u && cpu->pc < 0x8013b6a0u)
+        instruction = kOverlaySc02_8013B598Words[(cpu->pc - 0x8013b598u)/4u];
     else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80136bc4u && cpu->pc < 0x80136c1cu)
         instruction = kOverlaySc02_80136BC4Words[(cpu->pc - 0x80136bc4u)/4u];
     else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801336e8u && cpu->pc < 0x8013373cu)
@@ -17078,129 +16894,11 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
         instruction = kOverlaySc02_8012944CWords[(cpu->pc - 0x8012944cu)/4u];
     else if (cpu->pc >= 0x8012956cu && cpu->pc < 0x801298f4u)
         instruction = kOverlaySc02_8012956CWords[(cpu->pc - 0x8012956cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80129398u && cpu->pc < 0x80129428u)
-        instruction = kOverlaySc02_80129398Words[(cpu->pc - 0x80129398u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8012f14cu && cpu->pc < 0x8012f1a4u)
-        instruction = kOverlaySc02_8012F14CWords[(cpu->pc - 0x8012f14cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148800u && cpu->pc < 0x8014880cu)
-        instruction = kOverlaySc02_80148800Words[(cpu->pc - 0x80148800u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014880cu && cpu->pc < 0x80148818u)
-        instruction = kOverlaySc02_8014880CWords[(cpu->pc - 0x8014880cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148818u && cpu->pc < 0x80148824u)
-        instruction = kOverlaySc02_80148818Words[(cpu->pc - 0x80148818u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148824u && cpu->pc < 0x801488a8u)
-        instruction = kOverlaySc02_80148824Words[(cpu->pc - 0x80148824u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801488a8u && cpu->pc < 0x8014891cu)
-        instruction = kOverlaySc02_801488A8Words[(cpu->pc - 0x801488a8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014891cu && cpu->pc < 0x80148980u)
-        instruction = kOverlaySc02_8014891CWords[(cpu->pc - 0x8014891cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148980u && cpu->pc < 0x801489e8u)
-        instruction = kOverlaySc02_80148980Words[(cpu->pc - 0x80148980u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801489e8u && cpu->pc < 0x80148a48u)
-        instruction = kOverlaySc02_801489E8Words[(cpu->pc - 0x801489e8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148a48u && cpu->pc < 0x80148aacu)
-        instruction = kOverlaySc02_80148A48Words[(cpu->pc - 0x80148a48u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148aacu && cpu->pc < 0x80148afcu)
-        instruction = kOverlaySc02_80148AACWords[(cpu->pc - 0x80148aacu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148afcu && cpu->pc < 0x80148c18u)
-        instruction = kOverlaySc02_80148AFCWords[(cpu->pc - 0x80148afcu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148c18u && cpu->pc < 0x80148c20u)
-        instruction = kOverlaySc02_80148C18Words[(cpu->pc - 0x80148c18u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148c20u && cpu->pc < 0x80148c34u)
-        instruction = kOverlaySc02_80148C20Words[(cpu->pc - 0x80148c20u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148c34u && cpu->pc < 0x80148c4cu)
-        instruction = kOverlaySc02_80148C34Words[(cpu->pc - 0x80148c34u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148c4cu && cpu->pc < 0x80148c64u)
-        instruction = kOverlaySc02_80148C4CWords[(cpu->pc - 0x80148c4cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148c64u && cpu->pc < 0x80148c7cu)
-        instruction = kOverlaySc02_80148C64Words[(cpu->pc - 0x80148c64u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148c7cu && cpu->pc < 0x80148c84u)
-        instruction = kOverlaySc02_80148C7CWords[(cpu->pc - 0x80148c7cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148c84u && cpu->pc < 0x80148c9cu)
-        instruction = kOverlaySc02_80148C84Words[(cpu->pc - 0x80148c84u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148c9cu && cpu->pc < 0x80148cb4u)
-        instruction = kOverlaySc02_80148C9CWords[(cpu->pc - 0x80148c9cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148cb4u && cpu->pc < 0x80148cccu)
-        instruction = kOverlaySc02_80148CB4Words[(cpu->pc - 0x80148cb4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148cccu && cpu->pc < 0x80148ce4u)
-        instruction = kOverlaySc02_80148CCCWords[(cpu->pc - 0x80148cccu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148ce4u && cpu->pc < 0x80148cecu)
-        instruction = kOverlaySc02_80148CE4Words[(cpu->pc - 0x80148ce4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148cecu && cpu->pc < 0x80148cf4u)
-        instruction = kOverlaySc02_80148CECWords[(cpu->pc - 0x80148cecu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148cf4u && cpu->pc < 0x80148d0cu)
-        instruction = kOverlaySc02_80148CF4Words[(cpu->pc - 0x80148cf4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148d0cu && cpu->pc < 0x80148d24u)
-        instruction = kOverlaySc02_80148D0CWords[(cpu->pc - 0x80148d0cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148d24u && cpu->pc < 0x80148d3cu)
-        instruction = kOverlaySc02_80148D24Words[(cpu->pc - 0x80148d24u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148d3cu && cpu->pc < 0x80148d44u)
-        instruction = kOverlaySc02_80148D3CWords[(cpu->pc - 0x80148d3cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148d44u && cpu->pc < 0x80148e54u)
-        instruction = kOverlaySc02_80148D44Words[(cpu->pc - 0x80148d44u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148e54u && cpu->pc < 0x80148f60u)
-        instruction = kOverlaySc02_80148E54Words[(cpu->pc - 0x80148e54u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148f60u && cpu->pc < 0x80148f68u)
-        instruction = kOverlaySc02_80148F60Words[(cpu->pc - 0x80148f60u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148f68u && cpu->pc < 0x80148f74u)
-        instruction = kOverlaySc02_80148F68Words[(cpu->pc - 0x80148f68u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148f74u && cpu->pc < 0x80148f80u)
-        instruction = kOverlaySc02_80148F74Words[(cpu->pc - 0x80148f74u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148f80u && cpu->pc < 0x80148f8cu)
-        instruction = kOverlaySc02_80148F80Words[(cpu->pc - 0x80148f80u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148f8cu && cpu->pc < 0x80148f98u)
-        instruction = kOverlaySc02_80148F8CWords[(cpu->pc - 0x80148f8cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148f98u && cpu->pc < 0x80148fa0u)
-        instruction = kOverlaySc02_80148F98Words[(cpu->pc - 0x80148f98u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148fa0u && cpu->pc < 0x80148facu)
-        instruction = kOverlaySc02_80148FA0Words[(cpu->pc - 0x80148fa0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148facu && cpu->pc < 0x80148fb8u)
-        instruction = kOverlaySc02_80148FACWords[(cpu->pc - 0x80148facu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148fb8u && cpu->pc < 0x80148fc4u)
-        instruction = kOverlaySc02_80148FB8Words[(cpu->pc - 0x80148fb8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148fc4u && cpu->pc < 0x80148fd0u)
-        instruction = kOverlaySc02_80148FC4Words[(cpu->pc - 0x80148fc4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148fd0u && cpu->pc < 0x80148fd8u)
-        instruction = kOverlaySc02_80148FD0Words[(cpu->pc - 0x80148fd0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148fd8u && cpu->pc < 0x80148fe0u)
-        instruction = kOverlaySc02_80148FD8Words[(cpu->pc - 0x80148fd8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148fe0u && cpu->pc < 0x80148fecu)
-        instruction = kOverlaySc02_80148FE0Words[(cpu->pc - 0x80148fe0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148fecu && cpu->pc < 0x80148ff8u)
-        instruction = kOverlaySc02_80148FECWords[(cpu->pc - 0x80148fecu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80148ff8u && cpu->pc < 0x80149004u)
-        instruction = kOverlaySc02_80148FF8Words[(cpu->pc - 0x80148ff8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149004u && cpu->pc < 0x8014900cu)
-        instruction = kOverlaySc02_80149004Words[(cpu->pc - 0x80149004u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014900cu && cpu->pc < 0x80149020u)
-        instruction = kOverlaySc02_8014900CWords[(cpu->pc - 0x8014900cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149020u && cpu->pc < 0x80149034u)
-        instruction = kOverlaySc02_80149020Words[(cpu->pc - 0x80149020u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149034u && cpu->pc < 0x80149048u)
-        instruction = kOverlaySc02_80149034Words[(cpu->pc - 0x80149034u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149048u && cpu->pc < 0x8014905cu)
-        instruction = kOverlaySc02_80149048Words[(cpu->pc - 0x80149048u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x8014905cu && cpu->pc < 0x80149078u)
-        instruction = kOverlaySc02_8014905CWords[(cpu->pc - 0x8014905cu)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149078u && cpu->pc < 0x801490e0u)
-        instruction = kOverlaySc02_80149078Words[(cpu->pc - 0x80149078u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801490e0u && cpu->pc < 0x801490e8u)
-        instruction = kOverlaySc02_801490E0Words[(cpu->pc - 0x801490e0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801490e8u && cpu->pc < 0x801490f0u)
-        instruction = kOverlaySc02_801490E8Words[(cpu->pc - 0x801490e8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801490f0u && cpu->pc < 0x801490f8u)
-        instruction = kOverlaySc02_801490F0Words[(cpu->pc - 0x801490f0u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801490f8u && cpu->pc < 0x80149184u)
-        instruction = kOverlaySc02_801490F8Words[(cpu->pc - 0x801490f8u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149184u && cpu->pc < 0x801491c4u)
-        instruction = kOverlaySc02_80149184Words[(cpu->pc - 0x80149184u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x801491c4u && cpu->pc < 0x80149204u)
-        instruction = kOverlaySc02_801491C4Words[(cpu->pc - 0x801491c4u)/4u];
-    else if (g_overlay_sc02_0031_words && cpu->pc >= 0x80149204u && cpu->pc < 0x80149210u)
-        instruction = kOverlaySc02_80149204Words[(cpu->pc - 0x80149204u)/4u];
-    else if (g_overlay_sc02_0031_words &&
-             cpu->pc >= 0x80128158u && cpu->pc < 0x80128420u)
-        instruction = kOverlaySc02_80128158Words[(cpu->pc - 0x80128158u)/4u];
+    else if (g_overlay_sc02_0031_words && formatter_range_word(kFormatterRanges26,
+            sizeof kFormatterRanges26 / sizeof kFormatterRanges26[0], cpu->pc,
+            &instruction)) {
+        /* value written by formatter_range_word */
+    }
     else if (cpu->pc >= 0x80128158u && cpu->pc < 0x80128420u)
         instruction = kOverlaySc01_80128158Words[(cpu->pc - 0x80128158u)/4u];
     else if (cpu->pc >= 0x80128158u && cpu->pc < 0x80128178u)
@@ -17227,22 +16925,11 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
     else if (g_overlay_0007_words &&
              cpu->pc >= 0x800cf02cu && cpu->pc < 0x800d1378u)
         instruction = kOverlay800CF02CWords[(cpu->pc - 0x800cf02cu) / 4u];
-    else if (cpu->pc >= 0x80017758u && cpu->pc < 0x80017778u)
-        instruction = kMain80017758Words[(cpu->pc - 0x80017758u)/4u];
-    else if (cpu->pc >= 0x80017778u && cpu->pc < 0x800178c8u)
-        instruction = kMain80017778Words[(cpu->pc - 0x80017778u)/4u];
-    else if (cpu->pc >= 0x80017e68u && cpu->pc < 0x80017e8cu)
-        instruction = kMain80017E68Words[(cpu->pc - 0x80017e68u)/4u];
-    else if (cpu->pc >= 0x80017e8cu && cpu->pc < 0x80017f14u)
-        instruction = kMain80017E8CWords[(cpu->pc - 0x80017e8cu)/4u];
-    else if (cpu->pc >= 0x80018094u && cpu->pc < 0x80018194u)
-        instruction = kMain80018094Words[(cpu->pc - 0x80018094u) / 4u];
-    else if (cpu->pc >= 0x80048384u && cpu->pc < 0x800484ecu)
-        instruction = kMain80048384Words[(cpu->pc - 0x80048384u)/4u];
-    else if (cpu->pc >= 0x80049610u && cpu->pc < 0x80049694u)
-        instruction = kMain80049610Words[(cpu->pc - 0x80049610u)/4u];
-    else if (cpu->pc >= 0x80058de8u && cpu->pc < 0x80058dfcu)
-        instruction = kMain80058DE8Words[(cpu->pc - 0x80058de8u)/4u];
+    else if (formatter_range_word(kFormatterRanges27,
+            sizeof kFormatterRanges27 / sizeof kFormatterRanges27[0], cpu->pc,
+            &instruction)) {
+        /* value written by formatter_range_word */
+    }
     else if (g_overlay_0010_words &&
              cpu->pc >= 0x800cefd0u && cpu->pc < 0x800cf104u)
         instruction = kOverlay0010_800CEFD0Words[(cpu->pc - 0x800cefd0u)/4u];
@@ -17267,28 +16954,11 @@ static int formatter_fetch(const FormatterCpu *cpu, uint32_t *out) {
     /* A selected overlay must never fetch member-zero words. */
     else if (g_overlay_0004_words || g_overlay_0007_words || g_overlay_0010_words)
         return 0;
-    else if (cpu->pc >= 0x800cedfcu && cpu->pc < 0x800cee40u)
-        instruction = kOverlay800CEDFCWords[(cpu->pc - 0x800cedfcu) / 4u];
-    else if (cpu->pc >= 0x800cee40u && cpu->pc < 0x800cef04u)
-        instruction = kOverlay800CEE40Words[(cpu->pc - 0x800cee40u) / 4u];
-    else if (cpu->pc >= 0x800cef04u && cpu->pc < 0x800cef54u)
-        instruction = kOverlay800CEF04Words[(cpu->pc - 0x800cef04u) / 4u];
-    else if (cpu->pc >= 0x800cf290u && cpu->pc < 0x800cf3e8u)
-        instruction = kOverlay800CF290Words[(cpu->pc - 0x800cf290u) / 4u];
-    else if (cpu->pc >= 0x800cef54u && cpu->pc < 0x800cefa8u)
-        instruction = kOverlay800CEF54Words[(cpu->pc - 0x800cef54u) / 4u];
-    else if (cpu->pc >= 0x800cefa8u && cpu->pc < 0x800ceff4u)
-        instruction = kOverlay800CEFA8Words[(cpu->pc - 0x800cefa8u) / 4u];
-    else if (cpu->pc >= 0x800ceff4u && cpu->pc < 0x800cf038u)
-        instruction = kOverlay800CEFF4Words[(cpu->pc - 0x800ceff4u) / 4u];
-    else if (cpu->pc >= 0x800cf038u && cpu->pc < 0x800cf0c4u)
-        instruction = kOverlay800CF038Words[(cpu->pc - 0x800cf038u) / 4u];
-    else if (cpu->pc >= 0x800cf0c4u && cpu->pc < 0x800cf114u)
-        instruction = kOverlay800CF0C4Words[(cpu->pc - 0x800cf0c4u) / 4u];
-    else if (cpu->pc >= 0x800cf114u && cpu->pc < 0x800cf180u)
-        instruction = kOverlay800CF114Words[(cpu->pc - 0x800cf114u) / 4u];
-    else if (cpu->pc >= 0x800cf180u && cpu->pc < 0x800cf290u)
-        instruction = kOverlay800CF180Words[(cpu->pc - 0x800cf180u) / 4u];
+    else if (formatter_range_word(kFormatterRanges28,
+            sizeof kFormatterRanges28 / sizeof kFormatterRanges28[0], cpu->pc,
+            &instruction)) {
+        /* value written by formatter_range_word */
+    }
     else
         return 0;
     *out = instruction;
@@ -17592,8 +17262,46 @@ static int gte_47d3c_caller(uint32_t ra) {
  * 0..4, MTC2 data 9..11, the 4A49E012 command, MFC2 data 9..11) that the guest
  * reaches by fall-through, so RA is stale and cannot gate it. Slots:
  * 0 = control write, 1 = data read, 3 = data write, 4 = command. */
+
+/* Shared (pc, word) site lookup for the GTE bank helpers.
+ *
+ * Eight of these tables used to carry their own copy of the scan. With the
+ * element count visible as a constant, GCC unrolls the loop and its
+ * dominator pass explores the unrolled paths: on gte_4d504_site alone that
+ * cost 13.8 of this file's 14 seconds of compile time, measured with -Q,
+ * and the whole file dropped to 2.2s under -fno-tree-dominator-opts. That
+ * matters because 83 tests in the suite give `cc` a 30-second budget and
+ * the file already timed out under load.
+ *
+ * Taking the count as a parameter leaves one small loop in the translation
+ * unit instead of eight unrollable ones. The lookup is unchanged: first
+ * entry whose pc and word both match, slot written only on a hit, and slot
+ * may be null.
+ */
+typedef struct {
+    uint32_t pc;
+    uint32_t word;
+    uint8_t slot;
+} GteSite;
+
+MUSASHI_FORMATTER_NOINLINE static int gte_site_lookup(const GteSite *sites, size_t count,
+                           uint32_t pc, uint32_t word, unsigned *slot) {
+    size_t index;
+
+    for (index = 0; index < count; ++index) {
+        if (sites[index].pc != pc || sites[index].word != word) {
+            continue;
+        }
+        if (slot != NULL) {
+            *slot = sites[index].slot;
+        }
+        return 1;
+    }
+    return 0;
+}
+
 static int gte_12558_site(uint32_t pc, uint32_t word, unsigned *slot) {
-    static const struct { uint32_t pc, word; uint8_t slot; } sites[] = {
+    static const GteSite sites[] = {
         {0x800125bcu,0x48cc0000u,0}, {0x800125c0u,0x48cd0800u,0},
         {0x800125d0u,0x48cc1000u,0}, {0x800125d4u,0x48cd1800u,0},
         {0x800125d8u,0x48ce2000u,0},
@@ -17703,13 +17411,7 @@ static int gte_12558_site(uint32_t pc, uint32_t word, unsigned *slot) {
         ,{0x80048ff8u,0x48095000u,1u}
         ,{0x80048ffcu,0x480a5800u,1u}
     };
-    unsigned i;
-    for (i = 0; i < sizeof(sites)/sizeof(sites[0]); ++i)
-        if (sites[i].pc == pc && sites[i].word == word) {
-            if (slot) *slot = sites[i].slot;
-            return 1;
-        }
-    return 0;
+    return gte_site_lookup(sites, sizeof sites / sizeof sites[0], pc, word, slot);
 }
 
 /* True when the instruction is one of the library routine's COP2 commands. */
@@ -17830,19 +17532,13 @@ static int gte_exported_srav_site(uint32_t pc, uint32_t word) {
  * callers are JAL sites (return aliases 80013274, 80013308, 8001339C,
  * 80013430, 8002C710). Slots: 0 = data write, 1 = command, 2 = data read. */
 static int gte_49324_site(uint32_t pc, uint32_t word, unsigned *slot) {
-    static const struct { uint32_t pc, word; uint8_t slot; } sites[] = {
+    static const GteSite sites[] = {
         {0x80049324u, 0xc8890000u, 0u}, {0x80049328u, 0xc88a0004u, 0u},
         {0x8004932cu, 0xc88b0008u, 0u}, {0x80049334u, 0x4aa00428u, 1u},
         {0x80049338u, 0xe8b90000u, 2u}, {0x8004933cu, 0xe8ba0004u, 2u},
         {0x80049340u, 0xe8bb0008u, 2u}
     };
-    unsigned i;
-    for (i = 0; i < sizeof(sites)/sizeof(sites[0]); ++i)
-        if (sites[i].pc == pc && sites[i].word == word) {
-            if (slot) *slot = sites[i].slot;
-            return 1;
-        }
-    return 0;
+    return gte_site_lookup(sites, sizeof sites / sizeof sites[0], pc, word, slot);
 }
 
 static int gte_49324_caller(uint32_t ra) {
@@ -17857,7 +17553,7 @@ static int gte_49324_caller(uint32_t ra) {
  * alias. Slots match gte_48d9c_site: 0 = control write, 1 = data read,
  * 3 = data write, 4 = command. */
 static int gte_48eac_site(uint32_t pc, uint32_t word, unsigned *slot) {
-    static const struct { uint32_t pc, word; uint8_t slot; } sites[] = {
+    static const GteSite sites[] = {
         {0x80048ec0u,0x48c80000u,0u}, {0x80048ec4u,0x48c90800u,0u},
         {0x80048ec8u,0x48ca1000u,0u}, {0x80048eccu,0x48cb1800u,0u},
         {0x80048ed0u,0x48cc2000u,0u},
@@ -17873,13 +17569,7 @@ static int gte_48eac_site(uint32_t pc, uint32_t word, unsigned *slot) {
         {0x80048f5cu,0x4a486012u,4u},
         {0x80048f80u,0x48084800u,1u}, {0x80048f84u,0x48095000u,1u}
     };
-    unsigned i;
-    for (i = 0; i < sizeof(sites)/sizeof(sites[0]); ++i)
-        if (sites[i].pc == pc && sites[i].word == word) {
-            if (slot) *slot = sites[i].slot;
-            return 1;
-        }
-    return 0;
+    return gte_site_lookup(sites, sizeof sites / sizeof sites[0], pc, word, slot);
 }
 
 /* The retail call sites of func_80048EAC: five JAL sites in the executable
@@ -17900,7 +17590,7 @@ static int gte_48eac_caller(uint32_t ra) {
  * [8004D504,8004D6B4): five CTC2 control writes, then two rounds of an MTC2
  * pair, an MVMVA and an MFC2 read trio. Slots as above. */
 static int gte_4d504_site(uint32_t pc, uint32_t word, unsigned *slot) {
-    static const struct { uint32_t pc, word; uint8_t slot; } sites[] = {
+    static const GteSite sites[] = {
         {0x8004d558u,0x48c80000u,0u}, {0x8004d55cu,0x48c90800u,0u},
         {0x8004d560u,0x48ca1000u,0u}, {0x8004d564u,0x48cb1800u,0u},
         {0x8004d568u,0x48cc2000u,0u},
@@ -17913,13 +17603,7 @@ static int gte_4d504_site(uint32_t pc, uint32_t word, unsigned *slot) {
         {0x8004d688u,0x4808c800u,1u}, {0x8004d68cu,0x4809d000u,1u},
         {0x8004d690u,0x480ad800u,1u}
     };
-    unsigned i;
-    for (i = 0; i < sizeof(sites)/sizeof(sites[0]); ++i)
-        if (sites[i].pc == pc && sites[i].word == word) {
-            if (slot) *slot = sites[i].slot;
-            return 1;
-        }
-    return 0;
+    return gte_site_lookup(sites, sizeof sites / sizeof sites[0], pc, word, slot);
 }
 
 static int gte_4d504_caller(uint32_t ra) {
@@ -17934,7 +17618,7 @@ static int gte_4d504_caller(uint32_t ra) {
 /* func_80048B6C is the fourth exported main-exec GTE bank routine
  * [80048B6C,80048CA4), same shape as func_8004D504. */
 static int gte_48b6c_site(uint32_t pc, uint32_t word, unsigned *slot) {
-    static const struct { uint32_t pc, word; uint8_t slot; } sites[] = {
+    static const GteSite sites[] = {
         {0x80048bf0u,0x488b4800u,3u}, {0x80048bf4u,0x488c5000u,3u},
         {0x80048bf8u,0x488d5800u,3u}, {0x80048c00u,0x4a41e012u,4u},
         {0x80048c04u,0x480bc800u,1u}, {0x80048c08u,0x480cd000u,1u},
@@ -17944,13 +17628,7 @@ static int gte_48b6c_site(uint32_t pc, uint32_t word, unsigned *slot) {
         {0x80048c78u,0x4808c800u,1u}, {0x80048c7cu,0x4809d000u,1u},
         {0x80048c80u,0x480ad800u,1u}
     };
-    unsigned i;
-    for (i = 0; i < sizeof(sites)/sizeof(sites[0]); ++i)
-        if (sites[i].pc == pc && sites[i].word == word) {
-            if (slot) *slot = sites[i].slot;
-            return 1;
-        }
-    return 0;
+    return gte_site_lookup(sites, sizeof sites / sizeof sites[0], pc, word, slot);
 }
 
 static int gte_48b6c_caller(uint32_t ra) {
@@ -17962,17 +17640,11 @@ static int gte_48b6c_caller(uint32_t ra) {
 /* func_8004864C is the fifth exported main-exec GTE bank routine
  * [8004864C,8004867C): an MTC2 pair and its MVMVA. */
 static int gte_4864c_site(uint32_t pc, uint32_t word, unsigned *slot) {
-    static const struct { uint32_t pc, word; uint8_t slot; } sites[] = {
+    static const GteSite sites[] = {
         {0x80048654u,0x48880000u,3u}, {0x80048658u,0x48890800u,3u},
         {0x80048660u,0x4a486012u,4u}
     };
-    unsigned i;
-    for (i = 0; i < sizeof(sites)/sizeof(sites[0]); ++i)
-        if (sites[i].pc == pc && sites[i].word == word) {
-            if (slot) *slot = sites[i].slot;
-            return 1;
-        }
-    return 0;
+    return gte_site_lookup(sites, sizeof sites / sizeof sites[0], pc, word, slot);
 }
 
 static int gte_4864c_caller(uint32_t ra) {
@@ -17988,7 +17660,7 @@ static int gte_4864c_caller(uint32_t ra) {
  * Slots: 0 = control write (CTC2), 1 = data read (MFC2), 3 = data write
  * (MTC2), 4 = command, 5 = control read (CFC2). */
 static int gte_bank_site(uint32_t pc, uint32_t word, unsigned *slot) {
-    static const struct { uint32_t pc, word; uint8_t slot; } sites[] = {
+    static const GteSite sites[] = {
         {0x80047ce8u,0x48c8e800u,0u},
         {0x80047cf4u,0x48c8f000u,0u},
         {0x80047d00u,0x48c8d000u,0u},
@@ -18257,14 +17929,78 @@ static int gte_bank_site(uint32_t pc, uint32_t word, unsigned *slot) {
         {0x80184af0u,0x48cc2800u,0u},
         {0x80184af8u,0x48cd3000u,0u},
         {0x80184afcu,0x48ce3800u,0u},
+        /* func_80020598 / func_80021174 COP2 stream. Slots match 8012E7AC. */
+        {0x800207c0u,0x48cc0000u,0u},
+        {0x800207c4u,0x48cd0800u,0u},
+        {0x800207d4u,0x48cc1000u,0u},
+        {0x800207d8u,0x48cd1800u,0u},
+        {0x800207dcu,0x48ce2000u,0u},
+        {0x800207ecu,0x488c4800u,3u},
+        {0x800207f0u,0x488d5000u,3u},
+        {0x800207f4u,0x488e5800u,3u},
+        {0x80020800u,0x4a49e012u,4u},
+        {0x80020804u,0x480c4800u,1u},
+        {0x80020808u,0x480d5000u,1u},
+        {0x8002080cu,0x480e5800u,1u},
+        {0x80020828u,0x488c4800u,3u},
+        {0x8002082cu,0x488d5000u,3u},
+        {0x80020830u,0x488e5800u,3u},
+        {0x8002083cu,0x4a49e012u,4u},
+        {0x80020844u,0x480c4800u,1u},
+        {0x80020848u,0x480d5000u,1u},
+        {0x8002084cu,0x480e5800u,1u},
+        {0x80020868u,0x488c4800u,3u},
+        {0x8002086cu,0x488d5000u,3u},
+        {0x80020870u,0x488e5800u,3u},
+        {0x8002087cu,0x4a49e012u,4u},
+        {0x80020884u,0x480c4800u,1u},
+        {0x80020888u,0x480d5000u,1u},
+        {0x8002088cu,0x480e5800u,1u},
+        {0x800208acu,0x48cc0000u,0u},
+        {0x800208b0u,0x48cd0800u,0u},
+        {0x800208c0u,0x48cc1000u,0u},
+        {0x800208c4u,0x48cd1800u,0u},
+        {0x800208c8u,0x48ce2000u,0u},
+        {0x800208d8u,0x488c4800u,3u},
+        {0x800208dcu,0x488d5000u,3u},
+        {0x800208e0u,0x488e5800u,3u},
+        {0x800208ecu,0x4a49e012u,4u},
+        {0x800208f4u,0x480c4800u,1u},
+        {0x800208f8u,0x480d5000u,1u},
+        {0x800208fcu,0x480e5800u,1u},
+        {0x80020918u,0x488c4800u,3u},
+        {0x8002091cu,0x488d5000u,3u},
+        {0x80020920u,0x488e5800u,3u},
+        {0x8002092cu,0x4a49e012u,4u},
+        {0x80020934u,0x480c4800u,1u},
+        {0x80020938u,0x480d5000u,1u},
+        {0x8002093cu,0x480e5800u,1u},
+        {0x80020958u,0x488c4800u,3u},
+        {0x8002095cu,0x488d5000u,3u},
+        {0x80020960u,0x488e5800u,3u},
+        {0x8002096cu,0x4a49e012u,4u},
+        {0x80020974u,0x480c4800u,1u},
+        {0x80020978u,0x480d5000u,1u},
+        {0x8002097cu,0x480e5800u,1u},
+        {0x80020994u,0x48cc2800u,0u},
+        {0x8002099cu,0x48cd3000u,0u},
+        {0x800209a0u,0x48ce3800u,0u},
+        {0x800209b8u,0x488c0000u,3u},
+        {0x800209c8u,0x4a480012u,4u},
+        {0x8002119cu,0x48cc0000u,0u},
+        {0x800211a0u,0x48cd0800u,0u},
+        {0x800211b0u,0x48cc1000u,0u},
+        {0x800211b4u,0x48cd1800u,0u},
+        {0x800211b8u,0x48ce2000u,0u},
+        {0x800211c4u,0x48cc2800u,0u},
+        {0x800211ccu,0x48cd3000u,0u},
+        {0x800211d0u,0x48ce3800u,0u},
+        {0x800211e4u,0x488c0000u,3u},
+        {0x800211f4u,0x4a180001u,4u},
+        {0x80021200u,0x484cf800u,5u},
+        {0x80021210u,0x480c9800u,1u},
     };
-    unsigned i;
-    for (i = 0; i < sizeof(sites)/sizeof(sites[0]); ++i)
-        if (sites[i].pc == pc && sites[i].word == word) {
-            if (slot) *slot = sites[i].slot;
-            return 1;
-        }
-    return 0;
+    return gte_site_lookup(sites, sizeof sites / sizeof sites[0], pc, word, slot);
 }
 
 /* LWC2 loads inside exported ranges: hardware LWC2 writes the GTE data bank
@@ -18353,6 +18089,8 @@ static int lwc2_site(uint32_t pc, uint32_t word) {
         {0x80183e00u,0xc8490000u},
         {0x80183e04u,0xc84a0004u},
         {0x80183e08u,0xc84b0008u},
+        {0x800209bcu,0xc8410008u},
+        {0x800211e8u,0xc8a10008u},
     };
     unsigned i;
     for (i = 0; i < sizeof(sites)/sizeof(sites[0]); ++i)
@@ -18456,6 +18194,10 @@ static int swc2_site(uint32_t pc, uint32_t word) {
         {0x80183e18u,0xe8590000u},
         {0x80183e1cu,0xe85a0004u},
         {0x80183e20u,0xe85b0008u},
+        {0x800209d0u,0xe8590000u},
+        {0x800209d4u,0xe85a0004u},
+        {0x800209d8u,0xe85b0008u},
+        {0x800211f8u,0xebae0000u},
     };
     unsigned i;
     for (i = 0; i < sizeof(sites)/sizeof(sites[0]); ++i)
@@ -18467,7 +18209,7 @@ static int swc2_site(uint32_t pc, uint32_t word) {
  * three rounds of an MTC2 quad (IR0..IR3), a 4B98003D GPF, and an MFC2 trio
  * from IR1..IR3. Slots as elsewhere. */
 static int gte_20f34_site(uint32_t pc, uint32_t word, unsigned *slot) {
-    static const struct { uint32_t pc, word; uint8_t slot; } sites[] = {
+    static const GteSite sites[] = {
         {0x80020f44u,0x48884000u,3u}, {0x80020f48u,0x48894800u,3u},
         {0x80020f4cu,0x488a5000u,3u}, {0x80020f50u,0x488b5800u,3u},
         {0x80020f5cu,0x4b98003du,4u},
@@ -18484,13 +18226,7 @@ static int gte_20f34_site(uint32_t pc, uint32_t word, unsigned *slot) {
         {0x80020fe8u,0x480c4800u,1u}, {0x80020fecu,0x480d5000u,1u},
         {0x80020ff0u,0x480e5800u,1u}
     };
-    unsigned i;
-    for (i = 0; i < sizeof(sites)/sizeof(sites[0]); ++i)
-        if (sites[i].pc == pc && sites[i].word == word) {
-            if (slot) *slot = sites[i].slot;
-            return 1;
-        }
-    return 0;
+    return gte_site_lookup(sites, sizeof sites / sizeof sites[0], pc, word, slot);
 }
 
 static int gte_20f34_caller(uint32_t ra) {
@@ -18518,7 +18254,7 @@ static int gte_491_pair_caller(uint32_t ra) {
 }
 
 static int gte_48d9c_site(uint32_t pc, uint32_t word, unsigned *slot) {
-    static const struct { uint32_t pc, word; uint8_t slot; } sites[] = {
+    static const GteSite sites[] = {
         {0x80048ddcu, 0x48880000u, 0}, {0x80048de0u, 0x488a0800u, 0},
         {0x80048e0cu, 0x48880000u, 0}, {0x80048e10u, 0x488a0800u, 0},
         {0x80048e40u, 0x48880000u, 0}, {0x80048e44u, 0x488a0800u, 0},
@@ -18529,13 +18265,7 @@ static int gte_48d9c_site(uint32_t pc, uint32_t word, unsigned *slot) {
         {0x80048de8u, 0x4a486012u, 2}, {0x80048e18u, 0x4a486012u, 2},
         {0x80048e4cu, 0x4a486012u, 2}
     };
-    unsigned i;
-    for (i = 0; i < sizeof(sites)/sizeof(sites[0]); ++i)
-        if (sites[i].pc == pc && sites[i].word == word) {
-            *slot = sites[i].slot;
-            return 1;
-        }
-    return 0;
+    return gte_site_lookup(sites, sizeof sites / sizeof sites[0], pc, word, slot);
 }
 
 /* 800484EC COP2 sites: same slot convention (0=MTC2 write_data, 1=MFC2
@@ -18559,7 +18289,7 @@ static int gte_484ec_caller(uint32_t ra) {
 }
 
 static int gte_484ec_site(uint32_t pc, uint32_t word, unsigned *slot) {
-    static const struct { uint32_t pc, word; uint8_t slot; } sites[] = {
+    static const GteSite sites[] = {
         {0x80048598u, 0x488b4800u, 0}, {0x8004859cu, 0x488c5000u, 0},
         {0x800485a0u, 0x488d5800u, 0}, {0x800485b8u, 0x48884800u, 0},
         {0x800485bcu, 0x48895000u, 0}, {0x800485c0u, 0x488a5800u, 0},
@@ -18568,13 +18298,7 @@ static int gte_484ec_site(uint32_t pc, uint32_t word, unsigned *slot) {
         {0x80048624u, 0x4809d000u, 1}, {0x80048628u, 0x480ad800u, 1},
         {0x800485a8u, 0x4a41e012u, 2}, {0x800485c8u, 0x4a49e012u, 2}
     };
-    unsigned i;
-    for (i = 0; i < sizeof(sites)/sizeof(sites[0]); ++i)
-        if (sites[i].pc == pc && sites[i].word == word) {
-            *slot = sites[i].slot;
-            return 1;
-        }
-    return 0;
+    return gte_site_lookup(sites, sizeof sites / sizeof sites[0], pc, word, slot);
 }
 
 /* Stepper-side check: a pending MFC2 load may only survive across loop
@@ -18804,6 +18528,7 @@ static int formatter_step(MusashiBootMemory *memory, FormatterCpu *cpu) {
     if ((cpu->pc >= 0x80128158u && cpu->pc < 0x801fff00u) ||
         (g_overlay_0004_words && cpu->pc >= 0x800cedf8u && cpu->pc < 0x80100000u) ||
         (g_overlay_0010_words && ((cpu->pc >= 0x800d0630u && cpu->pc < 0x800d0694u) ||
+                                  (cpu->pc >= 0x800d06e8u && cpu->pc < 0x800d0c48u) ||
                                   (cpu->pc >= 0x800d22e4u && cpu->pc < 0x800d2318u) ||
                                   (cpu->pc >= 0x800d21c4u && cpu->pc < 0x800d222cu) ||
                                   (cpu->pc >= 0x800d1fc8u && cpu->pc < 0x800d20c0u) ||
@@ -20326,44 +20051,11 @@ static int input_callback_word(uint32_t pc, uint32_t *word) {
         *word = kInputResponseClearWords[(pc-0x8005f384u)/4u];
     else if (pc >= 0x8005f228u && pc < 0x8005f290u)
         *word = kInputRecordCallback8005F228Words[(pc-0x8005f228u)/4u];
-    else if (pc >= 0x8005de78u && pc < 0x8005e0acu)
-        *word = kInputDigital8005DE78Words[(pc - 0x8005de78u) / 4u];
-    else if (pc >= 0x8005e13cu && pc < 0x8005e164u)
-        *word = kInputDigital8005E13CWords[(pc - 0x8005e13cu) / 4u];
-    else if (pc >= 0x8005e1a4u && pc < 0x8005e228u)
-        *word = kInputDigital8005E1A4Words[(pc - 0x8005e1a4u) / 4u];
-    else if (pc >= 0x8005ea34u && pc < 0x8005ea54u)
-        *word = kInputDigital8005EA34Words[(pc - 0x8005ea34u) / 4u];
-    else if (pc >= 0x8005ea54u && pc < 0x8005ea68u)
-        *word = kInputDigital8005EA54Words[(pc - 0x8005ea54u) / 4u];
-    else if (pc >= 0x8005ea68u && pc < 0x8005ea88u)
-        *word = kInputDigital8005EA68Words[(pc - 0x8005ea68u) / 4u];
-    else if (pc >= 0x8005ea88u && pc < 0x8005eaa8u)
-        *word = kInputDigital8005EA88Words[(pc - 0x8005ea88u) / 4u];
-    else if (pc >= 0x8005eaa8u && pc < 0x8005eac8u)
-        *word = kInputDigital8005EAA8Words[(pc - 0x8005eaa8u) / 4u];
-    else if (pc >= 0x8005eac8u && pc < 0x8005eae8u)
-        *word = kInputDigital8005EAC8Words[(pc - 0x8005eac8u) / 4u];
-    else if (pc >= 0x8005eb28u && pc < 0x8005ec00u)
-        *word = kInputDigital8005EB28Words[(pc - 0x8005eb28u) / 4u];
-    else if (pc >= 0x8005ec00u && pc < 0x8005ecc0u)
-        *word = kInputDigital8005EC00Words[(pc - 0x8005ec00u) / 4u];
-    else if (pc >= 0x8005ecc0u && pc < 0x8005ed4cu)
-        *word = kInputDigital8005ECC0Words[(pc - 0x8005ecc0u) / 4u];
-    else if (pc >= 0x8005ed4cu && pc < 0x8005f0c8u)
-        *word = kInputDigital8005ED4CWords[(pc - 0x8005ed4cu) / 4u];
-    else if (pc >= 0x8005f290u && pc < 0x8005f384u)
-        *word = kInputDigital8005F290Words[(pc - 0x8005f290u) / 4u];
-    else if (pc >= 0x8005f394u && pc < 0x8005f450u)
-        *word = kInputDigital8005F394Words[(pc - 0x8005f394u) / 4u];
-    else if (pc >= 0x8005f450u && pc < 0x8005f6ccu)
-        *word = kInputDigital8005F450Words[(pc - 0x8005f450u) / 4u];
-    else if (pc >= 0x8005f6ccu && pc < 0x8005f704u)
-        *word = kInputDigital8005F6CCWords[(pc - 0x8005f6ccu) / 4u];
-    else if (pc >= 0x8005fa94u && pc < 0x8005fb70u)
-        *word = kInputDigital8005FA94Words[(pc - 0x8005fa94u) / 4u];
-    else if (pc >= 0x8005c2c8u && pc < 0x8005c2f8u)
-        *word = kGuardedClear8005C2C8Words[(pc - 0x8005c2c8u) / 4u];
+    else if (formatter_range_word(kFormatterRanges29,
+            sizeof kFormatterRanges29 / sizeof kFormatterRanges29[0], pc,
+            &*word)) {
+        /* value written by formatter_range_word */
+    }
     else return 0;
     return 1;
 }

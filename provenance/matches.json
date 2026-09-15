@@ -4620,6 +4620,16 @@
       "extent": "function"
     },
     {
+      "name": "func_8003B170",
+      "vram": 2147725680,
+      "size": 124,
+      "region": "main",
+      "source": "src/main/8003b170.c",
+      "recovery": "c",
+      "extent": "function",
+      "optimization": "-O2"
+    },
+    {
       "name": "func_8003B250",
       "vram": 2147725904,
       "size": 48,
@@ -25674,6 +25684,16 @@
       "size": 36,
       "region": "main_0012",
       "source": "src/overlays/main_0012/8017ae08.c",
+      "recovery": "c",
+      "extent": "function",
+      "optimization": "-O2"
+    },
+    {
+      "name": "func_8017B0E4",
+      "vram": 2149036260,
+      "size": 244,
+      "region": "main_0012",
+      "source": "src/overlays/main_0012/8017b0e4.c",
       "recovery": "c",
       "extent": "function",
       "optimization": "-O2"

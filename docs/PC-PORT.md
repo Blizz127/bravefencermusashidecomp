@@ -258,6 +258,76 @@ reason=REFUSED`, `startup=PARTIAL`, `menu=NOT_REACHED`,
 handled above, not a proven dead end, and it is **not** evidence that the menu
 is reachable: no frame from the boot path has been looked at by a human.
 
+### Third wave: closing the `8001FB8C…80021284` seam (2026-09-11)
+
+The six gaps left between the second-wave carves are closed, so the native
+seam now covers `8001FB8C…80021284` contiguously — every span verified
+byte-exact against `extracted/disc/files/SLUS_007.26` with the SHA256 in its
+file header:
+
+| range | words | shape |
+| --- | --- | --- |
+| `80020248…80020598` | 212 | word export only (GTE-heavy, calls `80020DA4`) |
+| `80020A28…80020DA4` | 223 | word export only |
+| `80021008…80021050` | 18 | word export + pre-existing m2c C below `#else` |
+| `80021050…8002109C` | 19 | word export + pre-existing m2c C below `#else` |
+| `8002109C…80021120` | 33 | word export + pre-existing m2c C below `#else` |
+| `80021120…80021174` | 21 | word export + pre-existing m2c C below `#else` |
+
+The four `800210xx` files existed since the Codex import as C-only drafts;
+they were wrapped in `#ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT` rather than
+rewritten, so their oracle C claims are untouched (and still unverified —
+no MIPS toolchain is installed here to run `tools/match_function.py`).
+Each range got its CMake `addr:count` entry, formatter table and fetch
+branch. Also fixed while here, pre-existing and unrelated to the carve
+work: the `kOverlaySc02_801458E0Words` table had no fetch branch, which
+failed `test_bios_event_callbacks.py` under `-Werror` even on HEAD.
+
+### The formatter compile wall, and why it was a correctness risk (2026-09-15)
+
+`pc_port/mips_formatter.c` took **16.7 seconds** to compile at `-O2`. 83
+tests in the suite give `cc` a 30-second budget, so under any load the
+file blew that budget and the test reported
+`subprocess.TimeoutExpired`. That is what the 39 failures and 11 errors in
+the 2026-09-14 full run were: not regressions, compile timeouts. A red
+suite that is red for a reason unrelated to the code under test is worse
+than a slow one, because it stops being evidence.
+
+`-ftime-report` put 83% of the time in the dominator pass, and
+`-fdisable-tree-dom1/2/3=<function>` narrowed it to one function.
+Three things were wrong, all of them the same mistake in different
+clothing — machine-generated *code* where the data belonged in a *table*:
+
+| change | effect |
+| --- | --- |
+| `merge_pending_matches`: six `\|\|` chains, 225 `(pc && word && reg)` terms, folded into `kMergeRetireSites` (118 unique rows) | 14.2s → 1.8s |
+| `formatter_fetch`: 2,077 `else if (pc >= a && pc < b)` branches in 17 runs, replaced by sorted tables and a binary search | 5,659 → 579 lines in that function |
+| eight GTE site scans sharing one `noinline` lookup instead of eight unrollable copies | keeps the trip count opaque to the optimizer |
+
+Result: **16.7s → 1.43s**, and the file shrank from 27,087 to 22,356
+lines. `tests/test_pvd_irq.py` went from 4 failures to 5 passes.
+
+This mattered beyond the clock. The dispatch was O(n) in the number of
+carved ranges at run time as well as compile time, and the seam is meant
+to hold all 3,962 functions — roughly three times today's count.
+
+Both rewrites were proven equivalent rather than reviewed and hoped over,
+by building the old and new translation units as two shared objects and
+comparing them directly:
+
+- `formatter_fetch`: every 4-byte-aligned address in `[80000000,80200000)`
+  under all 16 combinations of the four overlay selections —
+  **8,388,608 fetches, 0 differences**.
+- `merge_pending_matches`: every `(pc, word, reg)` triple named anywhere in
+  the old file, crossed with every merge kind, register, pending, delay-slot
+  and branch state, plus deliberately mismatched words —
+  **162,965 cases, 0 differences**.
+
+A binary search is only equivalent to an ordered chain when the ranges are
+disjoint, so the transform refuses any run containing an overlap. That is
+what keeps the SC01/0012 overlay alias at `80128158` spelled as ordered
+branches, along with every branch carrying a condition beyond its pc range.
+
 ## Merge availability and the GTE library path (2026-09-10)
 
 `merge_memory_available` judged availability with `musashi_boot_ram_span`, which
