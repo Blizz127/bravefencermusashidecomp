@@ -33,7 +33,11 @@ def test_sc02_entry_identity(tmp_path):
     assert struct.pack('<178I', *words) == code[:712]
     assert words[(0x801282AC-0x80128158)//4] == 0x8C224F08
     formatter = (ROOT / 'pc_port/mips_formatter.c').read_text()
-    helper = formatter[formatter.index('static int sc02_entry_matches('):formatter.index('static int formatter_step(')]
+    # Slice only the function under test. Reaching to formatter_step now drags
+    # in refusal_trace/fprintf helpers that the harness does not declare, and
+    # GCC 16's C23 default rejects the implicit declarations.
+    _start = formatter.index('static int sc02_entry_matches(')
+    helper = formatter[_start:formatter.index('\n\n/*', _start)]
     harness = '''#include <stdint.h>
 typedef struct { uint32_t words[178]; int fail; } MusashiBootMemory;
 static const uint32_t kOverlaySc02_80128158Words[] = {''' + ','.join(map(str,words)) + '''};

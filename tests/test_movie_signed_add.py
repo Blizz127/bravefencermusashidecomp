@@ -13,7 +13,10 @@ def test_add_signed_boundaries():
 #include <stdint.h>
 #include <limits.h>
 #include <assert.h>
-typedef struct { uint32_t r[32]; } CPU;
+typedef struct { uint32_t r[32]; uint32_t pc; } CPU;
+/* The production ADD body refuses overflow through this helper; the probe
+ * only cares that the refusal happens before the destination is published. */
+static int formatter_refuse0(int line, uint32_t pc) { (void)line; (void)pc; return 0; }
 static int step(CPU *cpu) {
  unsigned rs=1, rt=2, rd=3;
  switch(32) { case 32: {
@@ -21,7 +24,7 @@ static int step(CPU *cpu) {
  } return 1;
 }
 int main(void) {
- CPU c={{0}};
+ CPU c={{0},0};
  const uint32_t pairs[][3] = {
  {0,0,0},{0x7fffffff,0,0x7fffffff},{0x80000000,0,0x80000000},
  {0xffffffff,1,0},{0x80000000,0x7fffffff,0xffffffff},

@@ -16,7 +16,12 @@ def test_sb_drives_full_shifted_source_word():
 #include <assert.h>
 typedef struct { uint8_t byte; } MusashiBootMemory;
 typedef struct { void *userdata; int (*write8)(void*,uint32_t,uint8_t); } Device;
-typedef struct { uint32_t r[32]; Device *input_device,*cd_register_device; } FormatterCpu;
+typedef struct { uint32_t r[32]; uint32_t pc; Device *input_device,*cd_register_device; } FormatterCpu;
+/* The production byte-write path refuses through this helper; the probe only
+ * checks that the refusal happens before any DMA register effect. */
+static int access_refuse0(uint32_t pc, uint32_t address, unsigned width, int store) {
+ (void)pc;(void)address;(void)width;(void)store;return 0;
+}
 static MusashiDmaController dma;
 static uint8_t *cpu_ram_span(MusashiBootMemory *m,const FormatterCpu *c,uint32_t a,unsigned n) {
  (void)c;(void)n;return a==0x80000000u?&m->byte:0;

@@ -39,6 +39,12 @@ int main(void) {
  assert(!cd_irq_sector_progress(6163,6165,6163));
  assert(!cd_irq_sector_progress(6163,6164,6162));
  assert(!cd_irq_sector_progress(UINT_MAX,0,UINT_MAX));
+ /* cd_irq_bank_progress is production code in this slice; exercise it so the
+  * probe both covers it and does not fail -Werror=unused-function. */
+ assert(cd_irq_bank_progress(1,2,6163,6164,6163));
+ assert(!cd_irq_bank_progress(4,2,6163,6164,6163));
+ assert(!cd_irq_bank_progress(1,0,6163,6164,6163));
+ assert(!cd_irq_bank_progress(1,2,6163,6163,6163));
  return 0;
 }
 '''
