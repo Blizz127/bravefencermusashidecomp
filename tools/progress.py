@@ -139,20 +139,26 @@ def classify_recovery(source: str) -> str:
     return "unclassified"
 
 
-def _qualifies(match: dict[str, Any]) -> bool:
-    """Complete reviewed C or assembly functions only; mixed/partial/unclassified do not count."""
+PORTABLE_RECOVERIES = frozenset({"c"})
+
+
+def _qualifies(match: dict[str, Any], recoveries: frozenset = QUALIFYING_RECOVERIES) -> bool:
+    """Complete reviewed functions only; mixed/partial/unclassified do not count."""
 
     recovery = match.get("recovery", "unclassified")
     extent = match.get("extent", "unclassified")
-    return recovery in QUALIFYING_RECOVERIES and extent == "function"
+    return recovery in recoveries and extent == "function"
 
 
-def unique_qualifying_bytes(matches: list[dict[str, Any]]) -> int:
+def unique_qualifying_bytes(
+    matches: list[dict[str, Any]],
+    recoveries: frozenset = QUALIFYING_RECOVERIES,
+) -> int:
     """Union overlapping vram spans per region; overlapping ranges count once."""
 
     spans: dict[str, list[tuple[int, int]]] = {}
     for match in matches:
-        if not _qualifies(match):
+        if not _qualifies(match, recoveries):
             continue
         start = match["vram"]
         end = start + match["size"]
@@ -179,8 +185,10 @@ def qualifying_coverage(
     """Unique qualifying coverage against the identified-code denominator."""
 
     unique = unique_qualifying_bytes(matches)
+    portable = unique_qualifying_bytes(matches, PORTABLE_RECOVERIES)
     return {
         "unique_qualifying_bytes": unique,
+        "unique_c_bytes": portable,
         "identified_bytes": identified_bytes,
         "meets_threshold": unique >= COVERAGE_THRESHOLD_BYTES,
     }
@@ -258,6 +266,7 @@ def summarise(matches: list[dict[str, Any]]) -> dict[str, Any]:
 
     trivial = sum(1 for m in matches if m["size"] <= TRIVIAL_MAX_BYTES)
     coverage = qualifying_coverage(matches)
+    portable = unique_qualifying_bytes(matches, PORTABLE_RECOVERIES)
     return {
         # Historical keys retained for callers; these count ranges, not proven
         # functions, and the size threshold does not imply substantive recovery.
@@ -270,6 +279,7 @@ def summarise(matches: list[dict[str, Any]]) -> dict[str, Any]:
         "bytes_by_recovery": dict(recovery_bytes),
         "by_extent": dict(extents),
         "unique_qualifying_bytes": coverage["unique_qualifying_bytes"],
+        "unique_c_bytes": portable,
         "identified_bytes": coverage["identified_bytes"],
         "meets_coverage_threshold": coverage["meets_threshold"],
     }
@@ -306,8 +316,10 @@ def main(argv: list[str] | None = None) -> int:
             print(f"  {extent:<12} {count:>4} ranges")
         print()
         unique = summary["unique_qualifying_bytes"]
+        portable = summary["unique_c_bytes"]
         identified = summary["identified_bytes"]
         percent = (100.0 * unique / identified) if identified else 0.0
+        c_percent = (100.0 * portable / identified) if identified else 0.0
         print(
             "Qualifying unique coverage (complete C/assembly functions, "
             "overlap-unioned per region):"
@@ -315,6 +327,14 @@ def main(argv: list[str] | None = None) -> int:
         print(
             f"  {unique:,} / {identified:,} bytes "
             f"({percent:.2f}%)"
+        )
+        print(
+            "Portable C-only subset (complete C functions; what the "
+            "native port can execute):"
+        )
+        print(
+            f"  {portable:,} / {identified:,} bytes "
+            f"({c_percent:.2f}%)"
         )
         print(
             f"  30% threshold: {COVERAGE_THRESHOLD_BYTES:,} bytes"

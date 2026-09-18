@@ -1,3 +1,10 @@
+> **PROJECT GOAL:** a native PC port in the mould of Ship of Harkinian /
+> the Silent Hill decomp ports, ultimately re-rendered (HD-2D).
+> **Read `docs/PORT_GOAL_AND_PLAN.md` before planning any work.**
+> The port is the deliverable; the decompilation is how you get there.
+> Recovered *assembly* is worth nothing to the port -- you cannot run PS1 MIPS
+> on x86. Report C-only executed-path coverage, not just total coverage.
+
 # Definition of Done — byte-for-byte retail decompilation + native PC port
 
 Status date: 2026-09-11. Owner: this repository. This file is the authority for

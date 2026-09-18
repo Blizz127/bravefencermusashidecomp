@@ -415,6 +415,49 @@ class UniqueQualifyingCoverageTests(unittest.TestCase):
         self.assertEqual(summary["identified_bytes"], 806272)
         self.assertFalse(summary["meets_coverage_threshold"])
 
+    def test_c_only_subset_excludes_assembly(self) -> None:
+        matches = [
+            entry("c_fn", 40, vram=0x80001000, recovery="c", extent="function"),
+            entry("asm_fn", 100, vram=0x80002000, recovery="assembly", extent="function"),
+            entry("mixed_fn", 60, vram=0x80003000, recovery="mixed", extent="function"),
+        ]
+        self.assertEqual(progress.unique_qualifying_bytes(matches), 140)
+        self.assertEqual(
+            progress.unique_qualifying_bytes(matches, progress.PORTABLE_RECOVERIES), 40
+        )
+
+    def test_c_only_subset_unions_overlaps_per_region(self) -> None:
+        matches = [
+            entry("outer", 200, vram=0x80001000, recovery="c", extent="function"),
+            entry("inner", 100, vram=0x80001040, recovery="c", extent="function"),
+            entry("asm", 50, vram=0x80001000 + 200, recovery="assembly", extent="function"),
+        ]
+        coverage = progress.qualifying_coverage(matches)
+        self.assertEqual(coverage["unique_qualifying_bytes"], 250)
+        self.assertEqual(coverage["unique_c_bytes"], 200)
+
+    def test_summarise_exposes_c_only_subset(self) -> None:
+        summary = progress.summarise([
+            entry("ok", 40, recovery="c", extent="function"),
+            entry("asm_ok", 16, recovery="assembly", extent="function"),
+        ])
+        self.assertEqual(summary["unique_c_bytes"], 40)
+
+    def test_cli_prints_both_qualifying_and_c_only_numbers(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            path = Path(temp) / "matches.json"
+            path.write_text(json.dumps({"matches": [
+                entry("ok", 40, vram=0x80001000, recovery="c", extent="function"),
+                entry("asm_ok", 16, vram=0x80002000, recovery="assembly", extent="function"),
+            ]}))
+            output = io.StringIO()
+            with contextlib.redirect_stdout(output):
+                self.assertEqual(progress.main(["--registry", str(path)]), 0)
+            text = output.getvalue()
+            self.assertIn("56 / 806,272", text)
+            self.assertIn("Portable C-only subset", text)
+            self.assertIn("40 / 806,272", text)
+
     def test_cli_prints_unique_qualifying_coverage_not_a_raw_percentage_of_all_rows(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
             path = Path(temp) / "matches.json"

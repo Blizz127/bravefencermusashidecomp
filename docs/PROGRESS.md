@@ -1,3 +1,10 @@
+> **PROJECT GOAL:** a native PC port in the mould of Ship of Harkinian /
+> the Silent Hill decomp ports, ultimately re-rendered (HD-2D).
+> **Read `docs/PORT_GOAL_AND_PLAN.md` before planning any work.**
+> The port is the deliverable; the decompilation is how you get there.
+> Recovered *assembly* is worth nothing to the port -- you cannot run PS1 MIPS
+> on x86. Report C-only executed-path coverage, not just total coverage.
+
 # Interpreting progress
 
 `python3 tools/progress.py` reports registered byte ranges and sums their sizes.
@@ -8,6 +15,13 @@ counted once per region, against the identified split-code denominator
 chunk `[0x28000, 0x86000)` 385024 = 806272 bytes). The 30% bar is 241882
 unique qualifying bytes. `partial`/`unclassified`/`mixed` rows and
 non-function extents are excluded from that numerator.
+
+Alongside it, always reported and never alone, is the portable C-only
+subset: the same overlap-union restricted to reviewed `c` functions. Only
+that subset can execute natively — assembly recovery, however exactly
+byte-matched, runs solely through the word-stepping CPU. The two numbers
+answer different questions (how much is understood vs how much of the
+port can exist) and must travel together.
 
 It reads claims from `provenance/matches.json`; it does not compile or compare
 anything. Run `python3 tools/verify_registry.py` to re-earn the byte matches.
@@ -57,3 +71,33 @@ None of these figures proves native startup, an interactive menu, or full retail
 parity. The historical `function_count`, `trivial_count`, and `substantive_count`
 Python summary keys remain for existing callers, but mean range count and the
 two size buckets only. The command-line output uses those accurate labels.
+
+## The function ceiling: why the meter cannot reach 100%
+
+The denominator (806272 bytes) is identified *code-segment* bytes, not
+function bytes: the flat SLUS `.text`, all of member 0007, and member
+0012's code chunk all embed data-in-text (jump tables, pointer tables,
+globals, string/const pools) plus alignment padding. Those bytes can never
+be complete functions, so they can never enter the qualifying numerator.
+The reachable maximum is the splat-enumerated function total, audited
+2026-09-11 with `/tmp/gap_analysis.py` (every non-function byte classified):
+
+| Region | Denominator | Function bytes | Proven non-function remainder |
+| --- | --- | --- | --- |
+| main | 411648 | 341688 (1531 fns) | ~70KB: BIOS A0-call stub chains, jump tables (e.g. 6E930), globals (e.g. D_80062998), const data, zero padding. Only `jal`-evidenced starts were added (8005CE38, 80062988); no prologue pattern and no `j`/`jal` target exists anywhere else in the holes. |
+| main_0007 | 9600 | 3208 (19 fns) | 0x34-byte string header, ~6.3KB data tail (pointer table at 800D134C included) with zero `jr`, zero real `j`, zero prologues, zero call targets. |
+| main_0012 | 385024 | 352736 (2412 fns) | One 32260-byte tail hole `[8017E354,80186158)`: 1961 pointer-like words, 2576 zeros, game-data shorts/IDs, uniform-random opcode spread, zero prologues, zero call targets. |
+| Total | 806272 | 697632 (3962 fns) | **Ceiling 86.53%.** |
+
+Do not move the denominator to hit a target: the gap is documented
+non-function bytes, and redefining the meter around them would be exactly
+the inflation this file guards against. The honest end-state is every one
+of the 3962 functions matched (≈86%), with the residual identified above.
+
+Two mechanical notes from the audit: spimdisasm renders a function symbol
+as `.word` data (with an `enddlabel`) when its span contains a single
+invalid word, so recovered starts abutting data need exact `size:` bounds
+in the symbol_addrs files (see `config/symbol_addrs.main.auto.txt`); and
+three member-0007 functions open with a scheduled global-load pair above
+the stack adjust, so their symbols sit at the `lui`, not the prologue
+pattern (`config/symbol_addrs.main_0007.auto.txt`).
