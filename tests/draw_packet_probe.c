@@ -158,7 +158,10 @@ static void guard_case(const uint8_t *exe,size_t size,unsigned site,unsigned mut
     assert(memcmp(&memory,&baseline,sizeof(memory))==0);
 }
 static void unmapped_queue(void) {
-    const uint32_t holes[]={0x8005b7e4,0x8005b8f8,0x8005ba6c};
+    /* Non-function bytes inside main's text: no formatter range covers them,
+     * so the fetch must refuse. (The old 0x8005B7xx "holes" have since been
+     * carved into real ranges; do not reuse addresses from carved regions.) */
+    const uint32_t holes[]={0x80063000,0x8006a000,0x80070000};
     for(unsigned i=0;i<3;++i) {
         FormatterCpu cpu,before;init_cpu(&cpu,holes[i]);before=cpu;baseline=memory;
         assert(!formatter_step(&memory,&cpu));
