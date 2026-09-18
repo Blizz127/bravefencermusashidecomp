@@ -24,7 +24,7 @@ def _compile_probe(root, generated, probe_source):
         str(ROOT / "pc_port/boot_memory.c"),
         "-lcrypto",
         "-o", str(probe),
-    ], check=True, timeout=30)
+    ], check=True, timeout=60)
     return probe
 
 

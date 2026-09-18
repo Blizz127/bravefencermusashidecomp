@@ -29,7 +29,11 @@ options:
   src_path: src/overlays/main_0007
   build_path: build
   ld_script_path: config/main_0007.ld
-  symbol_addrs_path: config/symbol_addrs.main_0007.txt
+  # The .auto file holds the 17 evidenced starts (see its header); the plain
+  # file holds hand-curated names. Same layout as overlay_main_0012.yaml.
+  symbol_addrs_path:
+    - config/symbol_addrs.main_0007.auto.txt
+    - config/symbol_addrs.main_0007.txt
   undefined_syms_auto_path: config/undefined_syms.main_0007.auto.txt
   undefined_funcs_auto_path: config/undefined_funcs.main_0007.auto.txt
   create_undefined_syms_auto: True

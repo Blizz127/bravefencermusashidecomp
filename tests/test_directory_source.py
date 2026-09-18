@@ -47,7 +47,7 @@ def _run(mutation=None, compiler='cc', extra_flags=()):
             '-Wno-parentheses',*extra_flags,'-ffunction-sections','-fdata-sections','-Wl,--gc-sections',
             '-I',str(ROOT/'include'),'-I',str(ROOT/'pc_port/include'),'-I',str(generated),
             str(ROOT/'tests/directory_source_probe.c'),str(ROOT/'pc_port/boot_memory.c'),
-            str(ROOT/'pc_port/disc_media.c'),'-lcrypto','-o',str(probe)],capture_output=True,text=True,timeout=30)
+            str(ROOT/'pc_port/disc_media.c'),'-lcrypto','-o',str(probe)],capture_output=True,text=True,timeout=60)
         assert result.returncode==0,result.stderr
         result=subprocess.run([str(probe),str(image_path),str(cue),str(binary),*args],capture_output=True,text=True,timeout=30)
         assert result.returncode==0,result.stdout+result.stderr

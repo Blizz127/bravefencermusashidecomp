@@ -105,6 +105,9 @@ static void transform_failures(const uint8_t *exe,size_t size) {
         reject=2;refusal();close_fixture();
     }
     const uint32_t sites[]={0x80049160,0x800491b8,0x8004945c,0x80049468,0x8004946c,0x80049474,0x80049480};
+    /* Exact-site admissions need no caller and no SC02 overlay selection:
+     * bank slot 0 for the InitGeom CTC2 pair, library_vector for the
+     * 0x8004945c LWC2. The transfer and clock guards refuse everywhere. */
     for(unsigned i=0;i<7;i++)for(unsigned kind=0;kind<4;kind++) {
         setup(exe,size,0);
         position(sites[i],i==0?0x8012f170:i==1?0x8012f178:0x8012f188);
@@ -112,7 +115,10 @@ static void transform_failures(const uint8_t *exe,size_t size) {
         else if(kind==1)f.cpu.cpu_transfer=NULL;
         else if(kind==2)f.refuse_clock_pc=sites[i];
         else g_overlay_sc02_0031_words=0;
-        refusal();close_fixture();
+        if((kind==0||kind==3)&&i<3) {
+            assert(formatter_step(&f.memory,&f.cpu)); assert(f.cpu.pc==sites[i]+4u);
+        } else refusal();
+        close_fixture();
     }
     for(unsigned i=0;i<4;i++) {
         setup(exe,size,0);
@@ -122,7 +128,9 @@ static void transform_failures(const uint8_t *exe,size_t size) {
     for(unsigned i=0;i<2;i++) {
         setup(exe,size,0);
         position(i?0x80049474:0x8004945c,0x8012f188);
-        f.cpu.r[i?5:4]=0x80200000;refusal();close_fixture();
+        /* 0x80800000 is past the first-8MB RAM mirror window: genuinely
+         * out of RAM. 0x80200000 would alias physical 0 and succeed. */
+        f.cpu.r[i?5:4]=0x80800000;refusal();close_fixture();
     }
 }
 int main(int argc,char **argv) {

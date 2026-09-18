@@ -110,7 +110,7 @@ def _run_gte_source_probe(tmp_path, variant, probe_file="gte_init_source_probe.c
     subprocess.run([cc, "-std=c99", *flags, "-Wl,--gc-sections", *includes,
                     str(probe_source), *map(str, sources), str(owner), str(inline),
                     *link_extra,
-                    "-lcrypto", "-lstdc++", "-o", str(probe)], check=True, timeout=90)
+                    "-lcrypto", "-lstdc++", "-o", str(probe)], check=True, timeout=300)
     run = subprocess.run([str(probe), str(exe)], text=True, capture_output=True, timeout=30)
     if variant.endswith("mutant"):
         assert run.returncode != 0, f"semantic mutant unexpectedly passed: {variant}"

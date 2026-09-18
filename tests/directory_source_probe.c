@@ -59,7 +59,10 @@ static void lookup_tests(void) {
     reset(); memset(span(0x80076a00,44*128),0,44*128); path(0,1,"AAA");
     cpu_init(&cpu,&clock,0x80045940); cpu.r[4]=1; cpu.r[5]=0x801ffffe;
     memcpy(span(0x801ffffe,2),"AA",2);
-    assert(!run(&cpu,UINT32_MAX,1000)); assert(cpu.pc==0x8005c514); /* actual RAM boundary */
+    /* KUSEG mirrors 2MB RAM across the first 8MB, so 0x80200000 aliases
+     * physical 0 (fixture RAM[0] is 0): the compare mismatches and the
+     * lookup reports absent instead of refusing. */
+    assert(run(&cpu,UINT32_MAX,1000)); returned(&cpu); assert(cpu.r[2]==UINT32_MAX);
 }
 static void compare_tests(void) {
     FormatterCpu cpu; Clock clock;
@@ -154,12 +157,16 @@ static void parser_tests(const uint8_t retail[4096]) {
     cpu.r[18]=2; cpu.r[17]=48; cpu.r[21]=TABLE; cpu.r[19]=TABLE+56; cpu.r[20]=TABLE+48;
     assert(run(&cpu,UINT32_MAX,10000)); assert(get(TABLE+52)==0x12345678);
     assert(!memcmp(span(TABLE+56,6),"CROSS",6));
-    /* By contrast, actual2MiB RAM exhaustion refuses at the checked second
-     * merge group, retaining earlier BCD writes. This is not ISO validation. */
+    /* By contrast, the KUSEG mirror serves the record tail from physical 0
+     * (fixture zeros), so the length-40 record at the top of RAM parses and
+     * returns instead of refusing at the second merge group. BCD writes and
+     * the untouched o[3] match the oracle. This is not ISO validation. */
     reset(); parser_init(&cpu,&clock,1); cpu.r[16]=0x801ffff8;
     span(0x801ffff8,8)[0]=40; store_le(span(0x801ffffa,4),75);
-    assert(!run(&cpu,UINT32_MAX,10000)); assert(cpu.pc==0x80045b0c);
+    assert(run(&cpu,UINT32_MAX,10000)); returned(&cpu);
+    assert(cpu.r[2]==1 && get(0x8006cf94)==1);
     assert(span(TABLE,3)[0]==0 && span(TABLE,3)[1]==3 && span(TABLE,3)[2]==0);
+    assert(span(TABLE,4)[3]==0xa5);
 }
 static uint32_t load_bytes(const uint8_t *p) { return le32(p); }
 static void merge_tests(void) {
@@ -206,7 +213,9 @@ static void lb_tests(void) {
     }
     for(unsigned kind=0;kind<3;++kind) {
         FormatterCpu cpu,before; Clock clock; reset(); cpu_init(&cpu,&clock,0x80045b54);
-        cpu.r[3]=(kind==0?0x80200000u:kind==1?0x1f801800u:QUERY)-0x3a1a;
+        /* 0x80800000 is past the first-8MB RAM mirror window: genuinely
+         * unmapped. 0x80200000 would alias physical 0 and succeed. */
+        cpu.r[3]=(kind==0?0x80800000u:kind==1?0x1f801800u:QUERY)-0x3a1a;
         if(kind==2) clock.refuse=1;
         before=cpu; assert(!formatter_step(&ram,&cpu)); assert(!memcmp(&cpu,&before,sizeof(cpu)));
         assert(clock.calls==0 && clock.cost==0);

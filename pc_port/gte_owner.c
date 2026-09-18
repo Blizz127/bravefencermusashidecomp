@@ -266,10 +266,12 @@ int musashi_gte_owner_read_data(MusashiGteOwner *owner,
     uint32_t local;
     if (owner_reentry(owner)) return 0;
     if (owner == NULL || value == NULL ||
-        (selector != 5u && selector != 6u && selector != 8u &&
-         selector != 9u && selector != 10u && selector != 11u &&
-         selector != 12u && selector != 13u && selector != 14u &&
-         selector != 19u && selector != 25u && selector != 26u &&
+        (selector != 0u && selector != 4u && selector != 5u &&
+         selector != 6u && selector != 8u && selector != 9u &&
+         selector != 10u && selector != 11u && selector != 12u &&
+         selector != 13u && selector != 14u && selector != 16u &&
+         selector != 17u && selector != 18u && selector != 19u &&
+         selector != 24u && selector != 25u && selector != 26u &&
          selector != 27u && selector != 29u && selector != 30u &&
          selector != 31u) ||
         owner->data_read_count == UINT64_MAX) return 0;

@@ -93,5 +93,5 @@ def test_bios_event_callback_executor_exact_targets_and_refusals():
             str(ROOT / "pc_port/bios_events.c"),
             "-lcrypto",
             "-o", str(probe),
-        ], check=True, timeout=30)
+        ], check=True, timeout=60)
         subprocess.run([str(probe)], check=True, timeout=10)

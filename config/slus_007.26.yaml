@@ -21,7 +21,11 @@ options:
   src_path: src
   build_path: build
   ld_script_path: config/SLUS_007.26.ld
-  symbol_addrs_path: config/symbol_addrs.txt
+  # The .auto file holds hole-evidenced starts (see its header); the plain
+  # file holds hand-curated names. Same layout as overlay_main_0012.yaml.
+  symbol_addrs_path:
+    - config/symbol_addrs.main.auto.txt
+    - config/symbol_addrs.txt
   undefined_syms_auto_path: config/undefined_syms.auto.txt
   undefined_funcs_auto_path: config/undefined_funcs.auto.txt
   create_undefined_syms_auto: True

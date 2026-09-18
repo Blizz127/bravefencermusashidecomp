@@ -235,6 +235,9 @@ int main(void) {
         assert(!musashi_gte_owner_read_control(&owner, &context, 8,
                                                &sentinel));
         assert(sentinel == 0xdeadbeefu);
+        assert(!musashi_gte_owner_read_control(&owner, &context, 9,
+                                               &sentinel));
+        assert(sentinel == 0xdeadbeefu);
         assert(!musashi_gte_owner_read_control(&owner, &context, 12,
                                                &sentinel));
         assert(sentinel == 0xdeadbeefu);

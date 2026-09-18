@@ -240,8 +240,10 @@ static void test_mmio_and_end_refusal(void) {
     assert(!formatter_step(&memory, &cpu));
     assert(clock.calls == 0u);
 
+    /* End of the mirrored RAM window: 0x80200000 would alias physical 0
+     * and succeed. */
     init_cpu(&cpu, &clock, P_LWL);
-    cpu.r[5] = 0x801ffffdu;
+    cpu.r[5] = 0x807ffffdu;
     assert(!formatter_step(&memory, &cpu));
     assert(clock.calls == 0u);
 }
@@ -413,11 +415,13 @@ static void test_palette_copy_merge(void) {
     /* Out-of-RAM and MMIO accesses must fail before pending publication. */
     for(unsigned i=0;i<2;i++) {
         FormatterCpu cpu;Clock clock;palette_setup(&memory,&cpu,&clock,0,0x80);
-        cpu.r[1]=(i?0x1f801000u:0x80200000u)-0x55a3u;
+        /* 0x80800000 is past the first-8MB RAM mirror window: genuinely
+         * out of RAM. 0x80200000 would alias physical 0 and succeed. */
+        cpu.r[1]=(i?0x1f801000u:0x80800000u)-0x55a3u;
         palette_refusal(&memory,&cpu,&clock);
         palette_setup(&memory,&cpu,&clock,0,0x80);
         cpu.pc=0x8013d630;cpu.npc=cpu.pc+4;
-        cpu.r[6]=(i?0x1f801000u:0x80200000u)-3u;
+        cpu.r[6]=(i?0x1f801000u:0x80800000u)-3u;
         palette_refusal(&memory,&cpu,&clock);
     }
     g_overlay_sc02_0031_words=0;
