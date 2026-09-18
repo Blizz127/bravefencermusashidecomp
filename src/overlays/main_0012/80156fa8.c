@@ -1,7 +1,9 @@
 /* Overlay range [80156FA8,80157158) from MAIN.CD member 0012.
  * SHA256(span)=1be9cbcd53e448e69513ed7c4e616d793a0ec6a3a985ca05a6c79e581dfe5937.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFD8)
 MUSASHI_NATIVE_MIPS_WORD(0xAFB1001C)
@@ -115,46 +117,39 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #include "psx_types.h"
 #include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* func_80156FA8 - 108 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern s32 func_80013294(void *a0, void *a1);
 
-s32 func_80013294(void *, s16);                     /* extern */
-
-void func_80156FA8(void *arg0, void *arg1, void *arg2) {
-    s16 sp14;
-    s16 sp12;
-    s16 sp10;
-    s16 temp_v0;
-    s16 temp_v1;
-
-    sp10 = (M2C_FIELD(arg1, s16 *, 0) - M2C_FIELD(arg0, s16 *, 0)) / 3;
-    sp12 = (M2C_FIELD(arg1, s16 *, 2) - M2C_FIELD(arg0, s16 *, 2)) / 3;
-    temp_v0 = M2C_FIELD(arg1, s16 *, 4);
-    temp_v1 = M2C_FIELD(arg0, s16 *, 4);
-    sp14 = (temp_v0 - temp_v1) / 3;
-    M2C_FIELD(arg0, s16 *, 6) = 0;
-    if (func_80013294(arg0, (temp_v0 - temp_v1) / 3) >= 0x41) {
-        if ((sp10 != 0) || (sp12 != 0) || (sp14 != 0)) {
-            M2C_FIELD(arg2, s16 *, 0) = (s16) ((u16) M2C_FIELD(arg1, s16 *, 0) - (u16) sp10);
-            M2C_FIELD(arg2, s16 *, 2) = (s16) ((u16) M2C_FIELD(arg1, s16 *, 2) - (u16) sp12);
-            M2C_FIELD(arg2, s16 *, 6) = 0;
-            M2C_FIELD(arg2, s16 *, 4) = (s16) ((u16) M2C_FIELD(arg1, s16 *, 4) - (u16) sp14);
+void func_80156FA8(s16 *param_1, s16 *param_2, s16 *param_3)
+{
+    s16 d[3];
+    d[0] = ((s32)param_2[0] - (s32)param_1[0]) / 3;
+    d[1] = ((s32)param_2[1] - (s32)param_1[1]) / 3;
+    d[2] = ((s32)param_2[2] - (s32)param_1[2]) / 3;
+    param_1[3] = 0;
+    if (((s32 (*)(s16 *))func_80013294)(param_1) >= 0x41) {
+        if (d[0] != 0 || d[1] != 0 || d[2] != 0) {
+            param_3[0] = param_2[0] - d[0];
+            param_3[1] = param_2[1] - d[1];
+            param_3[2] = param_2[2] - d[2];
+            param_3[3] = 0;
         } else {
-            M2C_FIELD(arg2, s16 *, 6) = 1;
+            param_3[3] = 1;
         }
-        if ((sp10 != 0) || (sp12 != 0) || (sp14 != 0)) {
-            M2C_FIELD(arg1, s16 *, 0) = (s16) ((u16) M2C_FIELD(arg0, s16 *, 0) + (u16) sp10);
-            M2C_FIELD(arg1, s16 *, 2) = (s16) ((u16) M2C_FIELD(arg0, s16 *, 2) + (u16) sp12);
-            M2C_FIELD(arg1, s16 *, 6) = 0;
-            M2C_FIELD(arg1, s16 *, 4) = (s16) ((u16) M2C_FIELD(arg0, s16 *, 4) + (u16) sp14);
+        if (d[0] != 0 || d[1] != 0 || d[2] != 0) {
+            param_2[0] = param_1[0] + d[0];
+            param_2[1] = param_1[1] + d[1];
+            param_2[2] = param_1[2] + d[2];
+            param_2[3] = 0;
             return;
         }
-        goto block_11;
+        param_2[3] = 1;
+        return;
     }
-    M2C_FIELD(arg2, s16 *, 6) = 1;
-block_11:
-    M2C_FIELD(arg1, s16 *, 6) = 1;
+    param_3[3] = 1;
+    param_2[3] = 1;
 }
 #endif

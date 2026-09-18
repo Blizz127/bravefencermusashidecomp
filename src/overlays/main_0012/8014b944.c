@@ -1,7 +1,9 @@
 /* Overlay range [8014B944,8014BB0C) from MAIN.CD member 0012.
  * SHA256(span)=52641c4e5ddf6da66af09b88dd47eb697b9b96f1029adaeafa1fb3c7226566e3.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE0)
 MUSASHI_NATIVE_MIPS_WORD(0xAFB10014)
@@ -121,53 +123,59 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #include "psx_types.h"
 #include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
-
-s32 func_80029178();                         /* extern */
-extern s32 *D_80078E78;
+/* func_8014B944 - 114 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern s32 func_80029178(s32 arg);
+extern u8 D_80078E78[];
 extern s32 D_80078EA4;
-extern s16 D_80078EA6;
+extern u16 D_80078EA6;
 
-void func_8014B944(s32 arg1, s32 arg2) {
-    s32 var_v0;
-
-    if (arg2 != 0) {
-        D_80078EA4 += arg1;
-        var_v0 = 0xA00000;
-        if (D_80078EA6 >= 0xA1) {
-            goto block_8;
+void func_8014B944(s32 a0, s32 a1, s32 a2)
+{
+    u8 *base = D_80078E78;
+    if (a2 != 0) {
+        D_80078EA4 += a1;
+        __asm__ __volatile__("" ::: "memory");
+        if ((s16)D_80078EA6 >= 0xA1) {
+            D_80078EA4 = 0xA00000;
         }
-    } else if (func_80029178(0x1B) & 0xFF) {
-        D_80078EA4 += arg1;
-        var_v0 = 0xA00000;
-        if (D_80078EA6 >= 0xA1) {
-            goto block_8;
-        }
-    } else if (D_80078EA6 < 0x80) {
-        D_80078EA4 += arg1;
-        var_v0 = 0x800000;
-        if (D_80078EA6 >= 0x81) {
-block_8:
-            D_80078EA4 = var_v0;
+    } else {
+        if ((func_80029178(0x1B) & 0xFF) != 0) {
+            D_80078EA4 += a1;
+            __asm__ __volatile__("" ::: "memory");
+            if ((s16)D_80078EA6 >= 0xA1) {
+                D_80078EA4 = 0xA00000;
+            }
+        } else {
+            if ((s16)D_80078EA6 < 0x80) {
+                D_80078EA4 += a1;
+                __asm__ __volatile__("" ::: "memory");
+                if ((s16)D_80078EA6 >= 0x81) {
+                    D_80078EA4 = 0x800000;
+                }
+            }
         }
     }
-    if (arg2 != 0) {
-        M2C_FIELD(&D_80078E78, s32 *, 0x60) = (s32) (M2C_FIELD(&D_80078E78, s32 *, 0x60) + arg1);
-        if (M2C_FIELD(&D_80078E78, s16 *, 0x62) >= 0xA1) {
-            M2C_FIELD(&D_80078E78, s32 *, 0x60) = 0xA00000;
+    if (a2 != 0) {
+        *(s32 *)(base + 0x60) += a1;
+        if (*(s16 *)(base + 0x62) >= 0xA1) {
+            *(s32 *)(base + 0x60) = 0xA00000;
         }
-    } else if (func_80029178(0x1B) & 0xFF) {
-        M2C_FIELD(&D_80078E78, s32 *, 0x60) = (s32) (M2C_FIELD(&D_80078E78, s32 *, 0x60) + arg1);
-        if (M2C_FIELD(&D_80078E78, s16 *, 0x62) >= 0xA1) {
-            M2C_FIELD(&D_80078E78, s32 *, 0x60) = 0xA00000;
-        }
-    } else if (M2C_FIELD(&D_80078E78, s16 *, 0x62) < 0x80) {
-        M2C_FIELD(&D_80078E78, s32 *, 0x60) = (s32) (M2C_FIELD(&D_80078E78, s32 *, 0x60) + arg1);
-        if (M2C_FIELD(&D_80078E78, s16 *, 0x62) >= 0x81) {
-            M2C_FIELD(&D_80078E78, s32 *, 0x60) = 0x800000;
+    } else {
+        if ((func_80029178(0x1B) & 0xFF) != 0) {
+            *(s32 *)(base + 0x60) += a1;
+            if (*(s16 *)(base + 0x62) >= 0xA1) {
+                *(s32 *)(base + 0x60) = 0xA00000;
+            }
+        } else {
+            if (*(s16 *)(base + 0x62) < 0x80) {
+                *(s32 *)(base + 0x60) += a1;
+                if (*(s16 *)(base + 0x62) >= 0x81) {
+                    *(s32 *)(base + 0x60) = 0x800000;
+                }
+            }
         }
     }
 }

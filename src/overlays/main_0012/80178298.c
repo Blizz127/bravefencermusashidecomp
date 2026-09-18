@@ -1,7 +1,9 @@
 /* Overlay range [80178298,801783D0) from MAIN.CD member 0012.
  * SHA256(span)=877e1f8f1fc80ad2f24d89d606edc8d64e55129f8ba2fcd01675a091464bd149.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x90A20000)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
@@ -82,83 +84,62 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x01201021)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
+#include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* func_80178298 - 78 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
 
-s32 *func_80178298(s32 *arg0, u8 *arg1, s16 arg2, s16 arg3) {
-    s16 temp_v1;
-    s16 var_a2;
-    s16 var_v0;
-    s32 *var_t1;
-    u8 *var_a1;
-    u8 temp_v1_2;
-    void *var_t0;
 
-    var_a1 = arg1;
-    var_a2 = arg2;
-    var_t1 = arg0;
-    if ((u8) *var_a1 < 0x80U) {
-        var_t0 = arg0 + 0x12;
+u32 *func_80178298(u32 *param_1, u8 *param_2, short param_3, short param_4) {
+    u8 bVar1;
+    short sVar2;
+    if (*param_2 < 0x80) {
         do {
-            temp_v1 = var_a1->unk0;
-            if (temp_v1 != 0x3870) {
-                if (temp_v1 < 0x3871) {
-                    if (temp_v1 != 0x1850) {
-                        var_v0 = var_a2 + 4;
-                        if (temp_v1 != 0x1858) {
-                            var_t0->unk-A = var_a2;
-                            goto block_15;
-                        }
-                        goto block_11;
-                    }
-                    var_v0 = var_a2 + 4;
-block_11:
-                    var_t0->unk-A = var_v0;
-                    var_t0->unk-8 = (s16) (arg3 - 7);
-                    goto block_18;
-                }
-                if (temp_v1 != 0x3871) {
-                    if (temp_v1 != 0x3872) {
-                        var_t0->unk-A = var_a2;
-block_15:
-                        var_t0->unk-8 = arg3;
-                        if (var_a1->unk0 >= 0x861) {
-                            var_a2 += 8;
-                        } else {
-                            var_a2 += 7;
-                        }
-block_18:
-                        *var_t1 = ((var_t1 - 0x14) & 0xFFFFFF) | 0x04000000;
-                        var_t0->unk-E = 0x64808080;
-                        var_t1 += 0x14;
-                        var_t0->unk-6 = (u8) var_a1->unk0;
-                        temp_v1_2 = var_a1->unk1;
-                        var_a1 = var_a1 + 1 + 1;
-                        var_t0->unk-4 = 0x4056;
-                        var_t0->unk-2 = 8;
-                        var_t0->unk0 = 8;
-                        var_t0->unk-5 = temp_v1_2;
-                        var_t0 += 0x14;
-                    } else {
-                        var_a2 += 2;
-                        var_a1 += 2;
-                    }
+            sVar2 = *(short *)param_2;
+            switch (sVar2) {
+            case 0x1850:
+            case 0x1858:
+                *(short *)((u8 *)param_1 + 8) = param_3 + 4;
+                *(short *)((u8 *)param_1 + 0xA) = param_4 + -7;
+                break;
+            case 0x3870:
+                param_3 = param_3 + 8;
+                param_2 = param_2 + 2;
+                continue;
+            case 0x3871:
+                param_3 = param_3 + 4;
+                param_2 = param_2 + 2;
+                continue;
+            case 0x3872:
+                param_3 = param_3 + 2;
+                param_2 = param_2 + 2;
+                continue;
+            default:
+                *(short *)((u8 *)param_1 + 8) = param_3;
+                *(short *)((u8 *)param_1 + 0xA) = param_4;
+                if (*(short *)param_2 >= 0x861) {
+                    param_3 = param_3 + 8;
                 } else {
-                    var_a2 += 4;
-                    var_a1 += 2;
+                    param_3 = param_3 + 7;
                 }
-            } else {
-                var_a2 += 8;
-                var_a1 += 2;
+                break;
             }
-        } while ((u8) *var_a1 < 0x80U);
+            *param_1 = (u32)(param_1 + -5) & 0xffffff | 0x4000000;
+            *(u32 *)((u8 *)param_1 + 4) = 0x64808080;
+            ((u8 *)param_1)[0xC] = *param_2;
+            param_2 = param_2 + 1;
+            bVar1 = *param_2;
+            param_2 = param_2 + 1;
+            *(short *)((u8 *)param_1 + 0xE) = 0x4056;
+            ((u8 *)param_1)[0xD] = bVar1;
+            *(short *)((u8 *)param_1 + 0x10) = 8;
+            *(short *)((u8 *)param_1 + 0x12) = 8;
+            param_1 = param_1 + 5;
+        } while (*param_2 < 0x80);
     }
-    return var_t1;
+    return param_1;
 }
 #endif

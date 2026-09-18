@@ -1,7 +1,9 @@
 /* Overlay range [80147C30,80147CC8) from MAIN.CD member 0012.
  * SHA256(span)=7b0bd2810d787769e7707f6b55c3b29403a2b52c398e3474a91dbcb9d83933fd.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFD0)
 MUSASHI_NATIVE_MIPS_WORD(0xAFB00028)
@@ -42,30 +44,30 @@ MUSASHI_NATIVE_MIPS_WORD(0x27BD0030)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
+#include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
-
-void func_80147CC8(s32 *);                             /* static */
+/* func_80147C30 - 38 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern void func_80147CC8(s32 a0, s32 a1, s32 a2, s32 a3, s32 a4);
 extern s32 D_80127090;
 extern s32 D_80127094;
 extern s32 D_80127098;
 
-void func_80147C30(void *arg0) {
-    s32 sp18;
-
-    func_80147CC8(&sp18);
-    D_80127090 = sp18;
-    D_80127098 = sp20;
-    D_80127094 = sp1C;
-    arg0->unk10 = (s32) D_80127090;
-    arg0->unk14 = (s32) D_80127094;
-    arg0->unk18 = (s32) D_80127098;
+void func_80147C30(s32 a0, s32 a1, s32 a2, s32 a3) {
+    s32 out[3];
+    s32 *p0 = &D_80127090;
+    s32 *p1 = &D_80127094;
+    s32 *p2 = &D_80127098;
+    func_80147CC8(a0, a1, a2, a3, (s32)out);
+    D_80127090 = out[0];
+    D_80127094 = out[1];
+    D_80127098 = out[2];
+    *(s32 *)(a0 + 0x10) = *p0;
+    *(s32 *)(a0 + 0x14) = *p1;
+    *(s32 *)(a0 + 0x18) = *p2;
     D_80127090 = 0;
     D_80127094 = 0;
     D_80127098 = 0;

@@ -1,7 +1,9 @@
 /* Overlay range [80129398,80129428) from MAIN.CD member 0012.
  * SHA256(span)=558825bbb197af6fe6653c25bd3f61022a6fb04d484982aecdba712acba2689e.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x00002021)
 MUSASHI_NATIVE_MIPS_WORD(0x24087FFF)
@@ -40,41 +42,37 @@ MUSASHI_NATIVE_MIPS_WORD(0x24630054)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
+#include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* func_80129398 - 36 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern s16 D_800B9AAC[];
+extern s16 D_800B9AAE[];
+extern s16 D_800B9AB0[];
+extern s16 D_800B9AB2[];
+extern s16 D_800B9AB4[];
+extern s16 D_800B9AB6[];
+extern s16 D_800B9AB8[];
+extern s16 D_800B9ABA[];
 
-extern s32 *D_800B9AAC;
-extern s32 *D_800B9AAE;
-extern s32 *D_800B9AB0;
-extern s32 *D_800B9AB2;
-extern s32 *D_800B9AB4;
-extern s32 *D_800B9AB6;
-extern s32 *D_800B9AB8;
-extern s32 *D_800B9ABA;
-
-void func_80129398(void) {
-    s32 var_a0;
-    s32 var_v1;
-
-    var_a0 = 0;
-    var_v1 = 0;
-    do {
-        *(&D_800B9AAC + var_v1) = 0x7FFF;
-        *(&D_800B9AAE + var_v1) = 0;
-        *(&D_800B9AB0 + var_v1) = 0xFFFF;
-        *(&D_800B9AB2 + var_v1) = 0;
-        *(&D_800B9AB4 + var_v1) = 0x140;
-        *(&D_800B9AB6 + var_v1) = 0xEE;
-        *(&D_800B9AB8 + var_v1) = 0;
-        *(&D_800B9ABA + var_v1) = 0;
-        var_a0 += 1;
-        var_v1 += 0x54;
-    } while (var_a0 < 2);
+void func_80129398(void)
+{
+    s32 i;
+    s32 off;
+    for (i = 0; i < 2; i++) {
+        off = i * 0x54;
+        *(s16 *)((char *)D_800B9AAC + off) = 0x7FFF;
+        *(s16 *)((char *)D_800B9AAE + off) = 0;
+        *(u16 *)((char *)D_800B9AB0 + off) = 0xFFFF;
+        *(s16 *)((char *)D_800B9AB2 + off) = 0;
+        *(s16 *)((char *)D_800B9AB4 + off) = 0x140;
+        *(s16 *)((char *)D_800B9AB6 + off) = 0xEE;
+        *(s16 *)((char *)D_800B9AB8 + off) = 0;
+        *(s16 *)((char *)D_800B9ABA + off) = 0;
+        off += 0x54;
+    }
 }
 #endif

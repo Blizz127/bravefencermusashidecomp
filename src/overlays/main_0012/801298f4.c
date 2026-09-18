@@ -1,7 +1,9 @@
 /* Overlay range [801298F4,801299C8) from MAIN.CD member 0012.
  * SHA256(span)=85a655fbd2c89b7495210a290d4d76f0cd585027849366d7dce6aa80f1e7b4c8.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x00803821)
 MUSASHI_NATIVE_MIPS_WORD(0x8CE3004C)
@@ -60,48 +62,53 @@ MUSASHI_NATIVE_MIPS_WORD(0xACE00030)
 #include "psx_types.h"
 #include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
-
-extern u16 D_800B99F0;
+/* func_801298F4 - 53 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern unsigned short D_800B99F0;
 
 void func_801298F4(void *arg0) {
-    void *temp_v0;
-    void *temp_v0_2;
-    void *temp_v0_3;
-    void *temp_v0_4;
-    void *temp_v1;
-
-    temp_v0 = M2C_FIELD(arg0, void **, 0x50);
-    temp_v1 = M2C_FIELD(arg0, s32 *, 0x4C) + 8;
-    temp_v0_2 = temp_v0 + 4;
-    temp_v0_3 = temp_v0_2 + 1;
-    M2C_FIELD(arg0, s16 *, 2) = (s16) M2C_FIELD(temp_v0, u8 *, 4);
-    temp_v0_4 = temp_v0_3 + 1;
-    M2C_FIELD(arg0, s16 *, 4) = (s16) M2C_FIELD(temp_v0_2, u8 *, 1);
-    M2C_FIELD(arg0, u8 *, 0) = (u8) M2C_FIELD(temp_v0_3, u8 *, 1);
-    M2C_FIELD(arg0, void **, 8) = temp_v1;
-    M2C_FIELD(arg0, s32 *, 0xC) = (s32) (temp_v0_4 + 1 + 1);
-    M2C_FIELD(arg0, u8 *, 1) = (u8) M2C_FIELD(temp_v0_4, u8 *, 1);
-    M2C_FIELD(arg0, u16 *, 0x14) = (u16) M2C_FIELD(arg0, u16 *, 0x38);
-    M2C_FIELD(arg0, u16 *, 0x1A) = (u16) M2C_FIELD(arg0, u16 *, 0x3E);
-    M2C_FIELD(arg0, u16 *, 0x16) = (u16) M2C_FIELD(arg0, u16 *, 0x3A);
-    M2C_FIELD(arg0, u16 *, 0x18) = (u16) M2C_FIELD(arg0, u16 *, 0x3C);
-    M2C_FIELD(arg0, s32 *, 0x10) = (s32) ((((u8) M2C_FIELD(temp_v1, u8 *, 6) >> 7) << 0x18) | 0x08000000);
+    register u8 *a __asm__("$7");
+    register s32 base4C __asm__("$3");
+    register u32 b __asm__("$4");
+    register u16 f38 __asm__("$6");
+    register u16 f3E __asm__("$5");
+    register u32 sh __asm__("$2");
+    u8 *p;
+    a = (u8 *) arg0;
+    base4C = *(s32 *)(a + 0x4C);
+    p = *(u8 **)(a + 0x50);
+    f38 = *(u16 *)(a + 0x38);
+    f3E = *(u16 *)(a + 0x3E);
+    base4C += 8;
+    p += 4;
+    b = *p++; *(s16 *)(a + 0x2) = (u16) b;
+    b = *p++; *(s16 *)(a + 0x4) = (u16) b;
+    b = *p++; *(u8 *)(a + 0x0) = b;
+    b = *p++; *(s32 *)(a + 0x8) = base4C;
+    *(s32 *)(a + 0xC) = (s32) p;
+    *(u8 *)(a + 0x1) = b;
+    sh = ((u32)(u8) *(u8 *)(base4C + 0x6) >> 7) << 0x18;
+    base4C = *(u16 *)(a + 0x3A);
+    b = *(u16 *)(a + 0x3C);
+    *(s16 *)(a + 0x14) = f38;
+    *(s16 *)(a + 0x1A) = f3E;
+    *(s16 *)(a + 0x16) = base4C;
+    *(s16 *)(a + 0x18) = b;
+    *(s32 *)(a + 0x10) = sh | 0x08000000;
     if (D_800B99F0 == 0) {
-        M2C_FIELD(arg0, s16 *, 0x1E) = 0;
-        M2C_FIELD(arg0, s16 *, 0x1C) = 0;
+        *(s16 *)(a + 0x1E) = 0;
+        *(s16 *)(a + 0x1C) = 0;
     }
-    M2C_FIELD(arg0, s8 *, 0x22) = 0x80;
-    M2C_FIELD(arg0, s8 *, 0x21) = 0x80;
-    M2C_FIELD(arg0, s8 *, 0x20) = 0x80;
-    M2C_FIELD(arg0, s16 *, 0x28) = 0xA0;
-    M2C_FIELD(arg0, s16 *, 0x2A) = 0x78;
-    M2C_FIELD(arg0, void **, 0x24) = arg0;
-    M2C_FIELD(arg0, s16 *, 0x2E) = 0x1000;
-    M2C_FIELD(arg0, s16 *, 0x2C) = 0x1000;
-    M2C_FIELD(arg0, s32 *, 0x30) = 0;
+    *(u8 *)(a + 0x22) = 0x80;
+    *(u8 *)(a + 0x21) = 0x80;
+    *(u8 *)(a + 0x20) = 0x80;
+    *(s16 *)(a + 0x28) = 0xA0;
+    *(s16 *)(a + 0x2A) = 0x78;
+    *(s32 *)(a + 0x24) = (s32) a;
+    *(s16 *)(a + 0x2E) = 0x1000;
+    *(s16 *)(a + 0x2C) = 0x1000;
+    *(s32 *)(a + 0x30) = 0;
 }
 #endif

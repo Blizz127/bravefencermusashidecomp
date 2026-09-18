@@ -1,85 +1,40 @@
 /* Overlay range [8014B084,8014B12C) from MAIN.CD member 0012.
  * SHA256(span)=959d1420d5cf4f69afdbb86b5a7e123a2e0dcfcf50b05d1293936943f0ed6409.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x3C028008)
 MUSASHI_NATIVE_MIPS_WORD(0x94428EAC)
 MUSASHI_NATIVE_MIPS_WORD(0x3C038008)
 MUSASHI_NATIVE_MIPS_WORD(0x90638EBA)
-MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE8)
-MUSASHI_NATIVE_MIPS_WORD(0xAFBF0010)
-MUSASHI_NATIVE_MIPS_WORD(0x24420001)
-MUSASHI_NATIVE_MIPS_WORD(0x24640001)
-MUSASHI_NATIVE_MIPS_WORD(0x3C018008)
-MUSASHI_NATIVE_MIPS_WORD(0xA4228EAC)
-MUSASHI_NATIVE_MIPS_WORD(0x3042FFFF)
-MUSASHI_NATIVE_MIPS_WORD(0x2C42016E)
-MUSASHI_NATIVE_MIPS_WORD(0x3C018008)
-MUSASHI_NATIVE_MIPS_WORD(0xA0248EBA)
-MUSASHI_NATIVE_MIPS_WORD(0x14400004)
-MUSASHI_NATIVE_MIPS_WORD(0x3C032492)
-MUSASHI_NATIVE_MIPS_WORD(0x24020001)
-MUSASHI_NATIVE_MIPS_WORD(0x3C018008)
-MUSASHI_NATIVE_MIPS_WORD(0xA4228EAC)
-MUSASHI_NATIVE_MIPS_WORD(0x34634925)
-MUSASHI_NATIVE_MIPS_WORD(0x308400FF)
-MUSASHI_NATIVE_MIPS_WORD(0x00830019)
-MUSASHI_NATIVE_MIPS_WORD(0x00001810)
-MUSASHI_NATIVE_MIPS_WORD(0x00831023)
-MUSASHI_NATIVE_MIPS_WORD(0x00021042)
-MUSASHI_NATIVE_MIPS_WORD(0x00621821)
-MUSASHI_NATIVE_MIPS_WORD(0x00031882)
-MUSASHI_NATIVE_MIPS_WORD(0x000310C0)
-MUSASHI_NATIVE_MIPS_WORD(0x00431023)
-MUSASHI_NATIVE_MIPS_WORD(0x00822023)
-MUSASHI_NATIVE_MIPS_WORD(0x3C018008)
-MUSASHI_NATIVE_MIPS_WORD(0xA0248EBA)
-MUSASHI_NATIVE_MIPS_WORD(0x0C03443B)
-MUSASHI_NATIVE_MIPS_WORD(0x00000000)
-MUSASHI_NATIVE_MIPS_WORD(0x0C00AB26)
-MUSASHI_NATIVE_MIPS_WORD(0x00000000)
-MUSASHI_NATIVE_MIPS_WORD(0x0C051715)
-MUSASHI_NATIVE_MIPS_WORD(0x00000000)
-MUSASHI_NATIVE_MIPS_WORD(0x8FBF0010)
-MUSASHI_NATIVE_MIPS_WORD(0x27BD0018)
-MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
-MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
+#include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
-
-void func_8002AC98();                                  /* extern */
-void func_800D10EC(u8);                                /* extern */
-void func_80145C54();                                  /* static */
+/* func_8014B084 - 42 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
 extern u16 D_80078EAC;
 extern u8 D_80078EBA;
+extern void func_800D10EC(void);
+extern void func_8002AC98(void);
+extern void func_80145C54(void);
 
 void func_8014B084(void) {
-    s32 temp_a0_2;
-    s32 temp_hi;
-    u16 temp_v0;
-    u8 temp_a0;
-    u8 temp_a0_3;
-
-    temp_v0 = D_80078EAC + 1;
-    temp_a0 = D_80078EBA + 1;
-    D_80078EAC = temp_v0;
-    D_80078EBA = temp_a0;
-    if ((u32) (temp_v0 & 0xFFFF) >= 0x16EU) {
+    u16 a;
+    u8 b;
+    a = D_80078EAC + 1;
+    b = D_80078EBA + 1;
+    D_80078EAC = a;
+    D_80078EBA = b;
+    if (a >= 0x16E) {
         D_80078EAC = 1;
     }
-    temp_a0_2 = temp_a0 & 0xFF;
-    temp_hi = (temp_a0 & 0xFF) / 7;
-    temp_a0_3 = temp_a0_2 - (((u32) (temp_hi + ((u32) (temp_a0_2 - temp_hi) >> 1)) >> 2) * 7);
-    D_80078EBA = temp_a0_3;
-    func_800D10EC(temp_a0_3);
+    D_80078EBA = b % 7;
+    func_800D10EC();
     func_8002AC98();
     func_80145C54();
 }

@@ -1,7 +1,9 @@
 /* Overlay range [801488A8,8014891C) from MAIN.CD member 0012.
  * SHA256(span)=f1d643f29936a018ecea6acbf834702bb644fd3db10e6415460d452cfcaf0a2d.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x908300A9)
 MUSASHI_NATIVE_MIPS_WORD(0x24020053)
@@ -36,40 +38,38 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #include "psx_types.h"
 #include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* func_801488A8 - 29 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
 
-s32 func_801488A8(void *arg0) {
-    s32 temp_v1_2;
-    s32 var_v0;
-    u16 temp_a0;
-    u8 temp_v1;
 
-    temp_v1 = M2C_FIELD(arg0, u8 *, 0xA9);
-    if (temp_v1 != 0x53) {
-        if ((s32) temp_v1 < 0x54) {
-            if (temp_v1 != 0x41) {
-                return 0;
-            }
-            return M2C_FIELD(arg0, u16 *, 0xAA) & 0xF000;
+s32 func_801488A8(u8 *a0) {
+    u8 c;
+    s32 v0;
+    u32 h;
+    s32 lo;
+    c = a0[0xA9];
+    switch (c) {
+    case 0x41:
+        v0 = *(u16 *)(a0 + 0xAA) & 0xF000;
+        break;
+    case 0x53:
+    case 0x73:
+        h = *(u16 *)(a0 + 0xAE);
+        lo = h & 0xFF;
+        if (lo != 0x80) {
+            return 1;
         }
-        if (temp_v1 != 0x73) {
-            return 0;
+        if ((s32)(h >> 8) != lo) {
+            return 1;
         }
-        goto block_7;
+        v0 = 0;
+        break;
+    default:
+        v0 = 0;
+        break;
     }
-block_7:
-    temp_a0 = M2C_FIELD(arg0, u16 *, 0xAE);
-    temp_v1_2 = temp_a0 & 0xFF;
-    var_v0 = 1;
-    if (temp_v1_2 == 0x80) {
-        var_v0 = 1;
-        if ((temp_a0 >> 8) == temp_v1_2) {
-            var_v0 = 0;
-        }
-    }
-    return var_v0;
+    return v0;
 }
 #endif

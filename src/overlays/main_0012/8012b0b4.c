@@ -1,7 +1,9 @@
 /* Overlay range [8012B0B4,8012B14C) from MAIN.CD member 0012.
  * SHA256(span)=c09c5dbc239a729e1c5e2886118b949d331e05ac400a04bc5d26e41c1cabb228.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFD8)
 MUSASHI_NATIVE_MIPS_WORD(0xAFB20018)
@@ -42,24 +44,38 @@ MUSASHI_NATIVE_MIPS_WORD(0x27BD0028)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
+#include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* func_8012B0B4 - 38 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern int func_80047948(int a0);
+extern int func_8004787C(int a0);
 
-s32 func_8004787C(s32);                             /* extern */
-s32 func_80047948(s32);                             /* extern */
-
-void func_8012B0B4(s32 *arg0, s32 arg1, s32 arg2) {
-    s32 temp_s0;
-    s32 temp_s3;
-
-    temp_s0 = (arg1 - 0x400) & 0xFFF;
-    temp_s3 = (saved_reg_s3 & 0xFFFF0000) | (((s32) (func_80047948(temp_s0) * arg2) >> 0xC) & 0xFFFF);
-    *arg0 = (temp_s3 & 0xFFFF) | (((s32) (func_8004787C(temp_s0) * -arg2) >> 0xC) << 0x10);
+void func_8012B0B4(unsigned int *param_1, int param_2, int param_3)
+{
+    int iVar1, iVar2;
+    register int prod __asm__("$7");          /* mflo dest = $a3 (both products) */
+    register unsigned int *p __asm__("$2");    /* store addr copied into $v0 */
+    register int sh1 __asm__("$2");            /* shares $v0 with p (non-overlapping) */
+    register int sh2 __asm__("$3");            /* 2nd-product shift -> $v1 */
+    unsigned int uVar3, result;
+    uVar3 = (param_2 - 0x400U) & 0xfff;
+    iVar1 = func_80047948(uVar3);
+    result &= 0xFFFF0000;
+    prod = iVar1 * param_3;
+    sh1 = prod >> 0xc;
+    result |= sh1 & 0xFFFF;
+    iVar2 = func_8004787C(uVar3);
+    prod = iVar2 * -param_3;
+    result &= 0xFFFF;
+    /* Force the param_1->$v0 copy AND let the scheduler hoist it into the
+       mult->mflo delay slot (a plain `p = param_1` gets coalesced away). */
+    __asm__ ("addu %0,%1,$zero" : "=r"(p) : "r"(param_1));
+    sh2 = prod >> 0xc;
+    result |= sh2 << 0x10;
+    *p = result;
 }
 #endif

@@ -1,7 +1,9 @@
 /* Overlay range [80178744,801787D4) from MAIN.CD member 0012.
  * SHA256(span)=b3a12e4bd639082008c908b1d91e5619f8bf79d6f47baf9b8b813f85676a8d25.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE0)
 MUSASHI_NATIVE_MIPS_WORD(0xAFB00010)
@@ -40,33 +42,32 @@ MUSASHI_NATIVE_MIPS_WORD(0x27BD0020)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
+#include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* func_80178744 - 36 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern void func_80178744(s32 a0, s32 a1);
 
-void func_80178744(void *arg0, s16 arg1) {
-    s16 var_v0;
-    void *temp_a0;
-    void *temp_v0;
-
-    temp_a0 = arg0->unk6C;
-    if (temp_a0 != 0) {
-        func_80178744(temp_a0);
+void func_80178744(s32 a0, s32 a1) {
+    s32 v0;
+    s16 sv;
+    if (*(s32 *)(a0 + 0x6C) != 0) {
+        func_80178744(*(s32 *)(a0 + 0x6C), a1);
     }
-    temp_v0 = arg0->unk20;
-    temp_v0->unk1C = arg1;
-    temp_v0->unk1A = arg1;
-    temp_v0->unk18 = arg1;
-    if (arg1 == 0x1000) {
-        var_v0 = arg0->unk20->unk2C & 0xFFEF;
+    v0 = *(s32 *)(a0 + 0x20);
+    sv = a1;
+    *(s16 *)(v0 + 0x1C) = sv;
+    *(s16 *)(v0 + 0x1A) = sv;
+    *(s16 *)(v0 + 0x18) = sv;
+    if (a1 == 0x1000) {
+        s32 v1 = *(s32 *)(a0 + 0x20);
+        *(u16 *)(v1 + 0x2C) = *(u16 *)(v1 + 0x2C) & 0xFFEF;
     } else {
-        var_v0 = arg0->unk20->unk2C | 0x10;
+        s32 v1 = *(s32 *)(a0 + 0x20);
+        *(u16 *)(v1 + 0x2C) = *(u16 *)(v1 + 0x2C) | 0x10;
     }
-    arg0->unk20->unk2C = var_v0;
 }
 #endif

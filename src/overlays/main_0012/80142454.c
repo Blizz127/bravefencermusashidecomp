@@ -1,7 +1,9 @@
 /* Overlay range [80142454,801424E4) from MAIN.CD member 0012.
  * SHA256(span)=581b6c1dc31610e6283dea060c4b3d71b6737f29bfbd87a0008358e7d42229b5.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFC8)
 MUSASHI_NATIVE_MIPS_WORD(0xAFB00028)
@@ -43,39 +45,32 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #include "psx_types.h"
 #include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
-
-void *func_8012C51C(u16 *, s32);                /* static */
+/* func_80142454 - 36 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
 extern u16 D_80126B5E;
 extern u16 D_80126B62;
 extern u16 D_80126B66;
+extern s32 func_8012C51C(void *a0, s32 a1);
 
-void func_80142454(s16 arg0) {
-    s32 sp20;
-    s16 sp1E;
-    s16 sp1A;
-    s16 sp18;
-    s16 sp16;
-    u16 sp14;
-    u16 sp12;
-    u16 sp10;
-    void *temp_v0;
-
-    sp16 = 0x13;
-    sp18 = 1;
-    sp1A = 0;
-    sp1E = 0;
-    sp20 = 0;
-    sp12 = D_80126B62;
-    sp14 = D_80126B66;
-    sp10 = D_80126B5E;
-    temp_v0 = func_8012C51C(&sp10, 0);
-    if (temp_v0 != 0) {
-        M2C_FIELD(temp_v0, s16 *, 0x52) = arg0;
-        M2C_FIELD(temp_v0, u16 **, 0x64) = (u16 *) (&D_80126B5E - 6);
+void func_80142454(s32 a0) {
+    s32 s0 = a0;
+    u16 *s1 = &D_80126B5E;
+    s32 ret;
+    s16 st[10];
+    st[3] = 0x13;
+    st[0] = *s1;
+    st[1] = D_80126B62;
+    st[2] = D_80126B66;
+    st[4] = 1;
+    st[5] = 0;
+    st[7] = 0;
+    *(s32 *)&st[8] = 0;
+    ret = ((s32 (*)(void *, s32))func_8012C51C)(st, 0);
+    if (ret != 0) {
+        *(s16 *)(ret + 0x52) = s0;
+        *(s32 *)(ret + 0x64) = (s32)s1 - 6;
     }
 }
 #endif

@@ -1,142 +1,67 @@
 /* Overlay range [8016A08C,8016A1CC) from MAIN.CD member 0012.
  * SHA256(span)=52fd67dfe63353c8e5a918821f20d57d2a5fca15dde63ae49f09d340a9fafc8e.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x3C028008)
 MUSASHI_NATIVE_MIPS_WORD(0x90428EBF)
-MUSASHI_NATIVE_MIPS_WORD(0x27BDFFC0)
-MUSASHI_NATIVE_MIPS_WORD(0xAFB00030)
-MUSASHI_NATIVE_MIPS_WORD(0x00808021)
-MUSASHI_NATIVE_MIPS_WORD(0xAFBF0038)
-MUSASHI_NATIVE_MIPS_WORD(0x1040003E)
-MUSASHI_NATIVE_MIPS_WORD(0xAFB10034)
-MUSASHI_NATIVE_MIPS_WORD(0x27A40020)
-MUSASHI_NATIVE_MIPS_WORD(0x27B10028)
-MUSASHI_NATIVE_MIPS_WORD(0x0C05214D)
-MUSASHI_NATIVE_MIPS_WORD(0x02202821)
-MUSASHI_NATIVE_MIPS_WORD(0x3C028008)
-MUSASHI_NATIVE_MIPS_WORD(0x90428EBF)
-MUSASHI_NATIVE_MIPS_WORD(0x00000000)
-MUSASHI_NATIVE_MIPS_WORD(0x2442FFE8)
-MUSASHI_NATIVE_MIPS_WORD(0x04400039)
-MUSASHI_NATIVE_MIPS_WORD(0xAE020030)
-MUSASHI_NATIVE_MIPS_WORD(0x02002021)
-MUSASHI_NATIVE_MIPS_WORD(0x27A50020)
-MUSASHI_NATIVE_MIPS_WORD(0x0C05A8A4)
-MUSASHI_NATIVE_MIPS_WORD(0x02203021)
-MUSASHI_NATIVE_MIPS_WORD(0x8E02001C)
-MUSASHI_NATIVE_MIPS_WORD(0x24030004)
-MUSASHI_NATIVE_MIPS_WORD(0x24420001)
-MUSASHI_NATIVE_MIPS_WORD(0x14430003)
-MUSASHI_NATIVE_MIPS_WORD(0xAE02001C)
-MUSASHI_NATIVE_MIPS_WORD(0x0C051CC9)
-MUSASHI_NATIVE_MIPS_WORD(0x2404044C)
-MUSASHI_NATIVE_MIPS_WORD(0x3C028008)
-MUSASHI_NATIVE_MIPS_WORD(0x90428EBF)
-MUSASHI_NATIVE_MIPS_WORD(0x00000000)
-MUSASHI_NATIVE_MIPS_WORD(0x2C420080)
-MUSASHI_NATIVE_MIPS_WORD(0x10400013)
-MUSASHI_NATIVE_MIPS_WORD(0x00001821)
-MUSASHI_NATIVE_MIPS_WORD(0x24620001)
-MUSASHI_NATIVE_MIPS_WORD(0x00401821)
-MUSASHI_NATIVE_MIPS_WORD(0x00021400)
-MUSASHI_NATIVE_MIPS_WORD(0x00021403)
-MUSASHI_NATIVE_MIPS_WORD(0x28420002)
-MUSASHI_NATIVE_MIPS_WORD(0x1440FFFB)
-MUSASHI_NATIVE_MIPS_WORD(0x24620001)
-MUSASHI_NATIVE_MIPS_WORD(0x24040017)
-MUSASHI_NATIVE_MIPS_WORD(0x86060006)
-MUSASHI_NATIVE_MIPS_WORD(0x8607000A)
-MUSASHI_NATIVE_MIPS_WORD(0x8602000E)
-MUSASHI_NATIVE_MIPS_WORD(0x02002821)
-MUSASHI_NATIVE_MIPS_WORD(0xAFA00014)
-MUSASHI_NATIVE_MIPS_WORD(0xAFA00018)
-MUSASHI_NATIVE_MIPS_WORD(0x0C051A9B)
-MUSASHI_NATIVE_MIPS_WORD(0xAFA20010)
-MUSASHI_NATIVE_MIPS_WORD(0x0805A86D)
-MUSASHI_NATIVE_MIPS_WORD(0x00000000)
-MUSASHI_NATIVE_MIPS_WORD(0x8602002A)
-MUSASHI_NATIVE_MIPS_WORD(0x00000000)
-MUSASHI_NATIVE_MIPS_WORD(0x14400004)
-MUSASHI_NATIVE_MIPS_WORD(0x24020001)
-MUSASHI_NATIVE_MIPS_WORD(0xA602002A)
-MUSASHI_NATIVE_MIPS_WORD(0x24020100)
-MUSASHI_NATIVE_MIPS_WORD(0xAE02001C)
-MUSASHI_NATIVE_MIPS_WORD(0x8E02001C)
-MUSASHI_NATIVE_MIPS_WORD(0x00000000)
-MUSASHI_NATIVE_MIPS_WORD(0x3042001F)
-MUSASHI_NATIVE_MIPS_WORD(0x1440000A)
-MUSASHI_NATIVE_MIPS_WORD(0x00000000)
-MUSASHI_NATIVE_MIPS_WORD(0x0C051CC9)
-MUSASHI_NATIVE_MIPS_WORD(0x2404044D)
-MUSASHI_NATIVE_MIPS_WORD(0x0805A86D)
-MUSASHI_NATIVE_MIPS_WORD(0x00000000)
-MUSASHI_NATIVE_MIPS_WORD(0x24040004)
-MUSASHI_NATIVE_MIPS_WORD(0x0C051CD9)
-MUSASHI_NATIVE_MIPS_WORD(0x2405044C)
-MUSASHI_NATIVE_MIPS_WORD(0x0C051B0F)
-MUSASHI_NATIVE_MIPS_WORD(0x02002021)
-MUSASHI_NATIVE_MIPS_WORD(0x8FBF0038)
-MUSASHI_NATIVE_MIPS_WORD(0x8FB10034)
-MUSASHI_NATIVE_MIPS_WORD(0x8FB00030)
-MUSASHI_NATIVE_MIPS_WORD(0x27BD0040)
-MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
-MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
 #include "psx_types.h"
 #include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
-
-void func_80146A6C(s32, void *, s16, s16, s32, s32, s32); /* static */
-void func_80146C3C(void *);                      /* static */
-void func_80147324();                     /* static */
-void func_80147364(s32, s32);            /* static */
-void func_80148534(void *, void *);        /* static */
-void func_8016A290(void *, void *, void *); /* static */
+/* func_8016A08C - 80 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
 extern u8 D_80078EBF;
+extern void func_80148534(s32 a0, s32 a1);
+extern void func_8016A290();
+extern void func_80147324(s32 arg0);
+extern s32 func_80146A6C(s32 a0, void *a1, s32 a2, s32 a3, s32 a4, s32 a5, s32 a6);
+extern void func_80147364();
+extern void func_80146C3C();
 
-void func_8016A08C(void *arg0) {
-    s32 sp28;
-    s32 sp20;
-    s16 var_v0;
-    s32 temp_v0;
-    s32 temp_v0_2;
-
+void func_8016A08C(s32 param_1) {
+    register s32 s0 __asm__("$16");
+    register void *s1 __asm__("$17");
+    u8 buf20[8];
+    u8 buf18[8];
+    s32 iVar4;
+    s16 sVar2;
+    s0 = param_1;
     if (D_80078EBF != 0) {
-        func_80148534(&sp20, &sp28);
-        temp_v0 = D_80078EBF - 0x18;
-        M2C_FIELD(arg0, s32 *, 0x30) = temp_v0;
-        if (temp_v0 >= 0) {
-            func_8016A290(arg0, &sp20, &sp28);
-            temp_v0_2 = M2C_FIELD(arg0, s32 *, 0x1C) + 1;
-            M2C_FIELD(arg0, s32 *, 0x1C) = temp_v0_2;
-            if (temp_v0_2 == 4) {
+        s1 = buf18;
+        ((void (*)(void *, void *))func_80148534)(buf20, s1);
+        *(s32 *)(s0 + 0x30) = (s32)(u32)D_80078EBF - 0x18;
+        if ((s32)((u32)D_80078EBF - 0x18) >= 0) {
+            func_8016A290(s0, buf20, s1);
+            iVar4 = *(s32 *)(s0 + 0x1C) + 1;
+            *(s32 *)(s0 + 0x1C) = iVar4;
+            if (iVar4 == 4) {
                 func_80147324(0x44C);
             }
-            if ((u8) D_80078EBF < 0x80U) {
-                var_v0 = 1;
+            if (D_80078EBF < 0x80) {
+                sVar2 = 0;
                 do {
-                    var_v0 += 1;
-                } while (var_v0 < 2);
-                func_80146A6C(0x17, arg0, M2C_FIELD(arg0, s16 *, 6), M2C_FIELD(arg0, s16 *, 0xA), (s32) M2C_FIELD(arg0, s16 *, 0xE), 0, 0);
-                return;
-            }
-            if (M2C_FIELD(arg0, s16 *, 0x2A) == 0) {
-                M2C_FIELD(arg0, s16 *, 0x2A) = 1;
-                M2C_FIELD(arg0, s32 *, 0x1C) = 0x100;
-            }
-            if (!(M2C_FIELD(arg0, s32 *, 0x1C) & 0x1F)) {
-                func_80147324(0x44D);
+                    sVar2 = sVar2 + 1;
+                } while (sVar2 < 2);
+                ((void (*)(s32, s32, s32, s32, s32, s32, s32))func_80146A6C)(0x17, s0, (s32)*(s16 *)(s0 + 6), (s32)*(s16 *)(s0 + 0xA),
+                              (s32)*(s16 *)(s0 + 0xE), 0, 0);
+            } else {
+                if (*(s16 *)(s0 + 0x2A) == 0) {
+                    *(s16 *)(s0 + 0x2A) = 1;
+                    *(s32 *)(s0 + 0x1C) = 0x100;
+                }
+                if ((*(u32 *)(s0 + 0x1C) & 0x1F) == 0) {
+                    func_80147324(0x44D);
+                }
             }
         }
     } else {
-        func_80147364(4, 0x44C);
-        func_80146C3C(arg0);
+        ((void (*)(s32, s32))func_80147364)(4, 0x44C);
+        ((void (*)(s32))func_80146C3C)(s0);
     }
 }
 #endif

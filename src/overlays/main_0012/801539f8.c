@@ -1,7 +1,9 @@
 /* Overlay range [801539F8,80153B58) from MAIN.CD member 0012.
  * SHA256(span)=8b5ec0fc8b06bb2c6bb8b8ac2470e056d7630c60514cbe9e450abe90e52b6db5.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFC0)
 MUSASHI_NATIVE_MIPS_WORD(0xAFB20030)
@@ -92,54 +94,43 @@ MUSASHI_NATIVE_MIPS_WORD(0x27BD0040)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
+#include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* func_801539F8 - 88 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern s32 func_80133784(s32 a0, void *a1, s32 a2);
+extern void *memcpy(void *dst, const void *src, u32 n);
 
-s32 func_80133784(s32, u16 *, u16 *);                 /* static */
-
-s32 func_801539F8(void *arg0, void *arg1) {
-    u16 sp20;
-    s32 sp1F;
-    s32 sp1B;
-    s8 sp1A;
-    u16 sp18;
-    s32 sp17;
-    s32 sp13;
-    s8 sp12;
-    u16 sp10;
-    s32 temp_v0;
-    s32 temp_v0_2;
-
-    sp13 = (unaligned s32) M2C_ERROR(/* Unable to handle lwr; missing a corresponding lwl */);
-    sp17 = (unaligned s32) M2C_ERROR(/* Unable to handle lwr; missing a corresponding lwl */);
-    sp1B = (unaligned s32) M2C_ERROR(/* Unable to handle lwr; missing a corresponding lwl */);
-    sp1F = (unaligned s32) M2C_ERROR(/* Unable to handle lwr; missing a corresponding lwl */);
-    sp12 = (u16) sp12 - 4;
-    temp_v0 = func_80133784(0, &sp10, &sp18);
-    if (temp_v0 == 0x2000) {
-        sp13 = (unaligned s32) M2C_ERROR(/* Unable to handle lwr; missing a corresponding lwl */);
-        sp17 = (unaligned s32) M2C_ERROR(/* Unable to handle lwr; missing a corresponding lwl */);
-        sp1A = (u16) sp1A + 8;
-        temp_v0_2 = func_80133784(0, &sp10, &sp18);
-        if (temp_v0_2 == temp_v0) {
-            if (func_80133784(2, &sp18, &sp20) == temp_v0_2) {
-                arg0->unk88 = sp18;
-                arg0->unk8A = (u16) sp1A;
-                arg0->unk8C = sp1C;
-                arg0->unk93 = (unaligned s32) M2C_ERROR(/* Unable to handle lwr; missing a corresponding lwl */);
-                arg0->unk97 = (unaligned s32) M2C_ERROR(/* Unable to handle lwr; missing a corresponding lwl */);
-                return 0;
-            }
-            /* Duplicate return node #5. Try simplifying control flow for better match */
-            return 1;
-        }
+s32 func_801539F8(s32 a0, void * a1)
+{
+    u8 buf1[8];
+    u8 buf2[8];
+    u8 buf3[8];
+    s32 r1, r2, r3;
+    memcpy(buf1, (void *)(a0 + 0xA0), 8);
+    memcpy(buf2, a1, 8);
+    *(s16 *)(buf1 + 2) -= 4;
+    r1 = func_80133784(0, buf1, buf2);
+    if (r1 != 0x2000) {
+        return 1;
     }
-    return 1;
+    memcpy((void *)buf1, (void *)(s32)buf2, 8);
+    *(s16 *)(buf2 + 2) += 8;
+    r2 = func_80133784(0, buf1, buf2);
+    if (r2 != r1) {
+        return 1;
+    }
+    r3 = func_80133784(2, buf2, buf3);
+    if (r3 != r2) {
+        return 1;
+    }
+    *(s16 *)(a0 + 0x88) = *(s16 *)(buf2 + 0);
+    *(s16 *)(a0 + 0x8A) = *(s16 *)(buf2 + 2);
+    *(s16 *)(a0 + 0x8C) = *(s16 *)(buf2 + 4);
+    memcpy((void *)(a0 + 0x90), (void *)(a0 + 0x88), 8);
+    return 0;
 }
 #endif

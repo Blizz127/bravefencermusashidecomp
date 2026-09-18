@@ -1,7 +1,9 @@
 /* Overlay range [8013A2BC,8013A378) from MAIN.CD member 0012.
  * SHA256(span)=f81c78471f49131a9c886c48dc7bd3abc9dab45f47e741c62d67d61f63c5ecff.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE8)
 MUSASHI_NATIVE_MIPS_WORD(0xAFB00010)
@@ -50,40 +52,43 @@ MUSASHI_NATIVE_MIPS_WORD(0x8FB00010)
 MUSASHI_NATIVE_MIPS_WORD(0x27BD0018)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
+MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
 #include "psx_types.h"
 #include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* func_8013A2BC - 47 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern s32 D_80127524;
+extern s32 D_80127528;
+extern void func_80138C30(void *a0);
 
-void func_80138C30(void *);                      /* static */
-extern void *D_80127524;
-extern void *D_80127528;
-
-void func_8013A2BC(void *arg0) {
-    s16 *temp_v1;
-    s16 var_v0;
-    void *temp_v0;
-
-    temp_v1 = M2C_FIELD(arg0, s16 **, 0x40);
-    if ((temp_v1 == 0) || (M2C_FIELD(arg0, u16 *, 0x18) == 0) || (*temp_v1 == 4)) {
-        if (D_80127524 == arg0) {
-            temp_v0 = D_80127528;
+void func_8013A2BC(s32 a0) {
+    s32 s0 = a0;
+    s32 *v1;
+    s32 *p;
+    s32 v0;
+    v1 = *(s32 **)(s0 + 0x40);
+    if (v1 == 0 || *(u16 *)(s0 + 0x18) == 0 || *(s16 *)v1 == 4) {
+        p = &D_80127524;
+        if (*p == s0) {
+            v0 = D_80127528;
             D_80127528 = 0;
-            D_80127524 = temp_v0;
-            if (temp_v0 != 0) {
-                M2C_FIELD(D_80127524, s16 *, 0x1A) = 1;
-                func_80138C30(D_80127524);
+            *p = v0;
+            if (v0 != 0) {
+                *(s16 *)(D_80127524 + 0x1A) = 1;
+                __asm__ __volatile__("" : : : "memory");
+                ((void (*)(s32))func_80138C30)(*p);
             }
         }
-        var_v0 = 0xE;
-        if (!(M2C_FIELD(arg0, s32 *, 8) & 0x8000)) {
-            var_v0 = 0xD;
+        if ((*(s32 *)(s0 + 8) & 0x8000) == 0) {
+            *(s16 *)(s0 + 4) = 0xD;
+        } else {
+            *(s16 *)(s0 + 4) = 0xE;
         }
-        M2C_FIELD(arg0, s16 *, 4) = var_v0;
     }
 }
 #endif

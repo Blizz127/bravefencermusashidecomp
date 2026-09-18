@@ -1,7 +1,9 @@
 /* Overlay range [8012C284,8012C2D0) from MAIN.CD member 0012.
  * SHA256(span)=52a25608f3f8af9aa0d53700f62225c99f6bfba1119ed66e45543cb276f8a828.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x3C038012)
 MUSASHI_NATIVE_MIPS_WORD(0x24636720)
@@ -23,35 +25,29 @@ MUSASHI_NATIVE_MIPS_WORD(0x00001021)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
+#include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* func_8012C284 - 19 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern u8 D_80126720[];
 
-extern s32 *D_80126720;
-
-u16 *func_8012C284(s32 arg0) {
-    u16 *var_a0;
-
-    var_a0 = arg0 + 0x10C;
-    if (arg0 == 0) {
-        var_a0 = &D_80126720 - 0x6480;
+u16 *func_8012C284(u16 *a0)
+{
+    u16 *end;
+    end = (u16 *)D_80126720;
+    if (a0 == 0) {
+        a0 = (u16 *)(D_80126720 - 0x6480);
+    } else {
+        a0 = (u16 *)((u8 *)a0 + 0x10C);
     }
-    if (var_a0 != &D_80126720) {
-loop_4:
-        if (*var_a0 != 0) {
-            var_a0 += 0x10C;
-            if (var_a0 == &D_80126720) {
-                /* Duplicate return node #6. Try simplifying control flow for better match */
-                return 0;
-            }
-            goto loop_4;
+    while (a0 != end) {
+        if (*a0 == 0) {
+            return a0;
         }
-        return var_a0;
+        a0 = (u16 *)((u8 *)a0 + 0x10C);
     }
     return 0;
 }

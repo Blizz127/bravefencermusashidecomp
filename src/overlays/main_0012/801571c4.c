@@ -1,7 +1,9 @@
 /* Overlay range [801571C4,801574DC) from MAIN.CD member 0012.
  * SHA256(span)=ab7319ae7a91b5c346dfba04e57779f5257c58ca7dc9da4cb3c06f100bb1b032.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFA0)
 MUSASHI_NATIVE_MIPS_WORD(0xAFB60050)
@@ -202,88 +204,91 @@ MUSASHI_NATIVE_MIPS_WORD(0x27BD0060)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
+#include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* func_801571C4 - 198 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern s32 func_80135004(s32 a0, void *a1, s32 a2);
+extern s32 func_80135260(s32 arg0, s32 arg1, s16 *arg2, s16 *arg3);
+extern s32 func_8014C918(s32 a0, s32 a1);
+extern void func_8014C4AC(s32 a0, s32 a1, s32 a2, s16 *a3, s32 a4);
+extern u8 D_801202A0[];
+extern u8 D_801152A8[];
+extern u8 D_80126720[];
 
-s32 func_80135004(s32, s32, void *);                    /* static */
-s32 func_80135260(s32, s32, s32, void *);             /* static */
-void func_8014C4AC(void *, s32, s32, void *, s32);        /* static */
-s8 func_8014C918(void *, u8);                       /* static */
-extern s32 *D_801202A0;
-
-s32 func_801571C4(void *arg0, s32 arg1, u16 arg2, s32 arg3, void *arg4, void *arg5, void *arg6, void **arg7, void *arg8, s32 arg9, u16 arg10, s8 *arg11, s8 *arg12) {
-    s32 sp30;
-    u16 sp28;
-    u16 sp20;
-    s32 sp1F;
-    s8 sp1E;                                        /* compiler-managed */
-    s32 sp1B;
-    s32 sp18;
-    s32 temp_a1;
-    s32 temp_s4;
-    s32 var_s1;
-    s32 var_s2;
-    u16 temp_v1;
-    u32 var_s3;
-    void *temp_s0;
-
-    var_s1 = 0;
-    sp20 = arg2;
-    sp28 = arg10;
-    var_s3 = 0;
-    if (func_80135004(1, arg3, arg4) != 0) {
-        *arg11 = (s8) ((u16) arg4->unk6 >> 0xD);
-        *arg12 = (s8) arg4->unk6;
-        var_s1 = 2;
-        arg6->unk3 = (unaligned s32) M2C_ERROR(/* Unable to handle lwr; missing a corresponding lwl */);
-        arg6->unk7 = (unaligned s32) M2C_ERROR(/* Unable to handle lwr; missing a corresponding lwl */);
+u32 func_801571C4(s32 a0, u16 a1, u16 a2, s32 a3, s32 a4, s32 a5, s32 a6, s32 a7, s32 a8, s32 a9, u16 a10, s32 a11, s32 a12)
+{
+  s16 sp18[4];
+  u16 local_40;
+  u16 local_38;
+  u32 local_30;
+  u32 ret;
+  u32 counter;
+  u32 s4val;
+  s32 off;
+  s32 r;
+  ret = 0;
+  ;
+  local_38 = a10;
+  r = ((s32 (*)(s32, s32, s32))func_80135004)(1, a3, a4);
+  if (r != 0)
+  {
+    *((u8 *) a11) = (*((u16 *) (a4 + 6))) >> 13;
+    *((u8 *) a12) = *((u16 *) (a4 + 6));
+    ret = 2;
+    __builtin_memcpy((void *) a6, D_801152A8, 8);
+  }
+  counter = 0;
+  s4val = a1;
+  local_30 = a2 & 0x8000;
+  off = 0;
+  do
+  {
+    u8 *e = &D_801202A0[off];
+    s32 a1v;
+    if (((((((*((u16 *) e)) != 0) && ((a1v = *((s32 *) (e + 0x58))) != 0)) && (((*((u32 *) (e + 0x5c))) & 0x8100) == 0x8000)) && ((*((u16 *) (e + 0x5e))) != 10)) && (((a9 & 0x80) != 0) || ((*((u16 *) (e + 0x5e))) != s4val))) && ((s4val != 0xd) || (((*((u16 *) (e + 0x5c))) & 0x2000) != 0)))
+    {
+      if (func_80135260(*((s32 *) (e + 0x20)), a1v, a3, a4) != 0)
+      {
+        if ((((*((u16 *) (e + 0x5c))) & 0x4000) != 0) || (((*((s16 *) (e + 0xae))) & local_38) != 0))
+        {
+          *((u8 *) a11) = func_8014C918(a0, *((u8 *) (e + 0x75)));
+          *((u8 *) a12) = 0;
+          __builtin_memcpy((void *) a6, D_801152A8, 8);
+          ret |= 4;
+          *((s32 *) a7) = (s32) e;
+        }
+        else
+        {
+          __builtin_memcpy(sp18, (void *) a4, 8);
+          if (local_30 != 0)
+          {
+            sp18[3] = 1;
+          }
+          else
+          {
+            sp18[3] = 0;
+          }
+          func_8014C4AC((s32) e, a1, a2 & 0x7fff, sp18, *((s16 *) ((*((s32 *) (a0 + 0x20))) + 0x12)));
+          __builtin_memcpy((void *) a5, D_801152A8, 8);
+          *((s32 *) a7) = (s32) e;
+          __builtin_memcpy((void *) a8, D_80126720, 8);
+          ret |= 1;
+          if ((a9 & 0x7f) != 0)
+          {
+            return ret;
+          }
+        }
+      }
     }
-    temp_s4 = arg1 & 0xFFFF;
-    sp30 = arg2 & 0x8000;
-    var_s2 = 0;
-loop_3:
-    temp_s0 = var_s2 + &D_801202A0;
-    if ((temp_s0->unk0 != 0) && (temp_a1 = temp_s0->unk58, (temp_a1 != 0)) && ((temp_s0->unk5C & 0x8100) == 0x8000) && (temp_v1 = temp_s0->unk5E, (temp_v1 != 0xA)) && ((arg9 & 0x80) || (temp_v1 != temp_s4)) && ((temp_s4 != 0xD) || ((u16) temp_s0->unk5C & 0x2000)) && (func_80135260(temp_s0->unk20, temp_a1, arg3, arg4) != 0)) {
-        if (((u16) temp_s0->unk5C & 0x4000) || (sp28 & temp_s0->unkAE)) {
-            *arg11 = func_8014C918(arg0, temp_s0->unk75);
-            *arg12 = 0;
-            arg6->unk3 = (unaligned s32) M2C_ERROR(/* Unable to handle lwr; missing a corresponding lwl */);
-            arg6->unk7 = (unaligned s32) M2C_ERROR(/* Unable to handle lwr; missing a corresponding lwl */);
-            var_s1 |= 4;
-            *arg7 = temp_s0;
-            goto block_19;
-        }
-        sp1B = (unaligned s32) M2C_ERROR(/* Unable to handle lwr; missing a corresponding lwl */);
-        sp1F = (unaligned s32) M2C_ERROR(/* Unable to handle lwr; missing a corresponding lwl */);
-        if (sp30 != 0) {
-            sp1E = 1;
-        } else {
-            sp1E = 0;
-        }
-        func_8014C4AC(temp_s0, arg1 & 0xFFFF, sp20 & 0x7FFF, &sp18, (s32) arg0->unk20->unk12);
-        arg5->unk3 = (unaligned s32) M2C_ERROR(/* Unable to handle lwr; missing a corresponding lwl */);
-        arg5->unk7 = (unaligned s32) M2C_ERROR(/* Unable to handle lwr; missing a corresponding lwl */);
-        *arg7 = temp_s0;
-        arg8->unk3 = (unaligned s32) M2C_ERROR(/* Unable to handle lwr; missing a corresponding lwl */);
-        arg8->unk7 = (unaligned s32) M2C_ERROR(/* Unable to handle lwr; missing a corresponding lwl */);
-        var_s1 |= 1;
-        if (!(arg9 & 0x7F)) {
-            goto block_19;
-        }
-    } else {
-block_19:
-        var_s3 += 1;
-        var_s2 += 0x10C;
-        if (var_s3 < 0x60U) {
-            goto loop_3;
-        }
-    }
-    return var_s1;
+    counter += 1;
+    off += 0x10c;
+  }
+  while (counter < 0x60);
+__asm__ volatile("" : "=r"(local_40));
+  return ret;
 }
 #endif

@@ -1,7 +1,9 @@
 /* Overlay range [801379FC,80137B80) from MAIN.CD member 0012.
  * SHA256(span)=68af08ce9ce96315182b02587d020b3c2f2ade8695cfddf976c87e1ae4032e74.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE0)
 MUSASHI_NATIVE_MIPS_WORD(0x3C048012)
@@ -101,76 +103,78 @@ MUSASHI_NATIVE_MIPS_WORD(0x27BD0020)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
+#include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
-
-void func_80137BD8(s32 *);                             /* static */
-void func_80138BE0(s32 *);                             /* static */
-void func_8013A380();                                  /* static */
-extern s32 *D_801269F0;
-extern s32 *D_801269F4;
-extern s32 *D_801269F8;
-extern s32 *D_80127524;
-extern s32 D_80127548;
+/* func_801379FC - 97 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern s32 D_80127524;
+extern s32 D_80127548[];
+extern s32 D_801269F0;
+extern s16 D_801269F4;
+extern s32 D_801269F8;
+extern void func_80138BE0(s32 a0);
+extern void func_80137BD8(s32 a0);
+extern void func_8013A380(void);
 
 void func_801379FC(void) {
-    s32 *var_s0;
-    s32 *var_s2_2;
-    s32 *var_s2_3;
-    s32 temp_v1;
-    s32 var_s0_2;
-    s32 var_s0_3;
-    s32 var_s1;
-    s32 var_s1_2;
-    s32 var_s2;
-
-    D_80127548 = 0x24;
-    var_s1 = 0;
-    if ((D_80127524 != 0) && (*D_80127524 != 0)) {
-        var_s2 = 0;
+    s32 i;
+    (*(s32 *)D_80127548) = 0x24;
+    if ((D_80127524 != 0) && (*(s32 *)D_80127524 != 0)) {
+        s32 p;
+        s32 idx;
         func_80138BE0(D_80127524);
-        var_s0 = &D_801269F0;
+        i = 0;
+        p = (s32)&D_801269F0;
+        idx = 0;
         do {
-            if ((var_s0 != D_80127524) && (*(&D_801269F0 + var_s2) != 0)) {
-                func_80138BE0(var_s0);
+            if ((p != D_80127524) && (*(s32 *)((s32)&D_801269F0 + idx) != 0)) {
+                func_80138BE0(p);
             }
-            var_s0 += 0x4C;
-            var_s1 += 1;
-            var_s2 += 0x4C;
-        } while (var_s1 < 3);
-        var_s1_2 = 0;
+            p = p + 0x4c;
+            i = i + 1;
+            idx = idx + 0x4c;
+        } while (i < 3);
     } else {
-        var_s2_2 = &D_801269F0;
-        var_s0_2 = 0;
+        s32 p;
+        s32 idx;
+        i = 0;
+        p = (s32)&D_801269F0;
+        idx = 0;
         do {
-            if (*(&D_801269F0 + var_s0_2) != 0) {
-                func_80138BE0(var_s2_2);
+            if (*(s32 *)((s32)&D_801269F0 + idx) != 0) {
+                func_80138BE0(p);
             }
-            var_s2_2 += 0x4C;
-            var_s1 += 1;
-            var_s0_2 += 0x4C;
-        } while (var_s1 < 3);
-        var_s1_2 = 0;
+            p = p + 0x4c;
+            i = i + 1;
+            idx = idx + 0x4c;
+        } while (i < 3);
     }
-    var_s2_3 = &D_801269F0;
-    var_s0_3 = 0;
-    do {
-        if ((*(&D_801269F4 + var_s0_3) != 0) && (*(&D_801269F0 + var_s0_3) != 0)) {
-            temp_v1 = *(&D_801269F8 + var_s0_3);
-            if ((temp_v1 & 0x1000) && !(temp_v1 & 0x2000)) {
-                func_80137BD8(var_s2_3);
+    {
+        s32 p;
+        s32 idx;
+        s32 flags;
+        i = 0;
+        p = (s32)&D_801269F0;
+        idx = 0;
+        do {
+            if (*(s16 *)((s32)&D_801269F4 + idx) != 0) {
+                if (*(s32 *)((s32)&D_801269F0 + idx) != 0) {
+                    flags = *(s32 *)((s32)&D_801269F8 + idx);
+                    if ((flags & 0x1000) != 0) {
+                        if ((flags & 0x2000) == 0) {
+                            func_80137BD8(p);
+                        }
+                    }
+                }
             }
-        }
-        var_s2_3 += 0x4C;
-        var_s1_2 += 1;
-        var_s0_3 += 0x4C;
-    } while (var_s1_2 < 3);
+            p = p + 0x4c;
+            i = i + 1;
+            idx = idx + 0x4c;
+        } while (i < 3);
+    }
     func_8013A380();
 }
 #endif

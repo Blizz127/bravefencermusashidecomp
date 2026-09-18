@@ -1,7 +1,9 @@
 /* Overlay range [80169228,801693CC) from MAIN.CD member 0012.
  * SHA256(span)=108664f4213025ebf530e04d2c9ac0fbd10b102d013c9b36589d76298fba950a.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFF80)
 MUSASHI_NATIVE_MIPS_WORD(0xAFB10074)
@@ -112,115 +114,76 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #include "psx_types.h"
 #include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* func_80169228 - 105 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern s32  func_80017DC4(void *a0, void *a1);
+extern void func_80048EAC(void *a0, void *a1);
+extern s32  func_80017758(void *a0, void *a1);
 
-void func_80017758(s16 *, void *);            /* extern */
-void func_80017DC4(s16 *, void *);            /* extern */
-void func_80048EAC(void *, void *);           /* extern */
-
-void func_80169228(void *arg0) {
-    s16 sp6C;
-    s16 sp6A;
-    s16 sp68;
-    s32 sp64;
-    s32 sp60;
-    s32 sp5C;
-    s32 sp48;
-    s32 sp40;
-    s8 sp3E;
-    s8 sp3D;
-    s8 sp3C;
-    s8 sp3A;
-    s8 sp39;
-    s8 sp38;
-    s8 sp36;
-    s8 sp35;
-    s8 sp34;
-    s8 sp32;
-    s8 sp31;
-    s8 sp30;
-    s16 sp2C;
-    s16 sp2A;
-    s16 sp28;
-    s16 sp24;
-    s16 sp22;
-    s16 sp20;
-    s16 sp1C;
-    s16 sp1A;
-    s16 sp18;
-    s16 sp14;
-    s16 sp12;
-    s16 sp10;
-    s16 temp_v0_3;
-    s32 var_v1;
-    s8 temp_v0;
-    s8 temp_v0_2;
-
-    sp18 = -5;
-    sp10 = -5;
-    sp28 = 5;
-    sp20 = 5;
-    sp22 = -5;
-    sp12 = -5;
-    sp2A = 5;
-    sp1A = 5;
-    sp2C = 0;
-    sp24 = 0;
-    sp1C = 0;
-    sp14 = 0;
-    if (!(M2C_FIELD(arg0, s32 *, 0x2C) & 2)) {
-        temp_v0 = -0x40 - (M2C_FIELD(arg0, s32 *, 0x1C) * 0x10);
-        sp3E = temp_v0;
-        sp3D = temp_v0;
-        sp3A = temp_v0;
-        sp39 = temp_v0;
-        sp36 = temp_v0;
-        sp35 = temp_v0;
-        sp32 = temp_v0;
-        sp31 = temp_v0;
-        sp3C = temp_v0;
-        sp38 = temp_v0;
-        sp34 = temp_v0;
-        sp30 = temp_v0;
+s32 func_80169228(void)
+{
+    register s32 a0v __asm__("$4");
+    s32 arg0 = a0v;
+    u8 buf[0x60];               /* $sp+0x10 .. $sp+0x6F */
+    register u8 *p __asm__("$16");   /* $sp+0x48 (matrix, a1 to the calls) -> $s0 */
+    s32 col;
+    s16 base;
+    s16 v;
+    /* first-draw SVECTOR verts — source order == target store order */
+    *(s16 *)(buf + 0x08) = -5;   /* 0x18 */
+    *(s16 *)(buf + 0x00) = -5;   /* 0x10 */
+    *(s16 *)(buf + 0x18) = 5;    /* 0x28 */
+    *(s16 *)(buf + 0x10) = 5;    /* 0x20 */
+    *(s16 *)(buf + 0x12) = -5;   /* 0x22 */
+    *(s16 *)(buf + 0x02) = -5;   /* 0x12 */
+    *(s16 *)(buf + 0x1a) = 5;    /* 0x2A */
+    *(s16 *)(buf + 0x0a) = 5;    /* 0x1A */
+    *(s16 *)(buf + 0x1c) = 0;    /* 0x2C */
+    *(s16 *)(buf + 0x14) = 0;    /* 0x24 */
+    *(s16 *)(buf + 0x0c) = 0;    /* 0x1C */
+    *(s16 *)(buf + 0x04) = 0;    /* 0x14 */
+    /* colors */
+    if ((*(u32 *)(arg0 + 0x2c) & 2) == 0) {
+        col = -0x40 - (*(s32 *)(arg0 + 0x1c) << 4);
+        *(u8 *)(buf + 0x21) = *(u8 *)(buf + 0x22) =
+        *(u8 *)(buf + 0x25) = *(u8 *)(buf + 0x26) =
+        *(u8 *)(buf + 0x29) = *(u8 *)(buf + 0x2a) =
+        *(u8 *)(buf + 0x2d) = *(u8 *)(buf + 0x2e) = col;
+        *(u8 *)(buf + 0x20) = *(u8 *)(buf + 0x24) =
+        *(u8 *)(buf + 0x28) = *(u8 *)(buf + 0x2c) = col;
     } else {
-        sp3E = 0x20;
-        sp3A = 0x20;
-        sp34 = 0x20;
-        sp30 = 0x20;
-        temp_v0_2 = -0x40 - (M2C_FIELD(arg0, s32 *, 0x1C) * 0x10);
-        sp3D = temp_v0_2;
-        sp39 = temp_v0_2;
-        sp35 = temp_v0_2;
-        sp31 = temp_v0_2;
-        sp3D = 0x20;
-        sp39 = 0x20;
+        col = -0x40 - (*(s32 *)(arg0 + 0x1c) << 4);
+        *(u8 *)(buf + 0x20) = *(u8 *)(buf + 0x24) =
+        *(u8 *)(buf + 0x2a) = *(u8 *)(buf + 0x2e) = 0x20;
+        *(u8 *)(buf + 0x21) = *(u8 *)(buf + 0x25) =
+        *(u8 *)(buf + 0x29) = *(u8 *)(buf + 0x2d) = col;
+        *(u8 *)(buf + 0x29) = *(u8 *)(buf + 0x2d) = 0x20;
     }
-    sp40 = 0x50000000;
-    var_v1 = 0x800;
-    if (M2C_FIELD(arg0, s32 *, 0x2C) & 1) {
-        var_v1 = 0x4CC;
-    }
-    temp_v0_3 = var_v1 + (M2C_FIELD(arg0, s32 *, 0x1C) << 7);
-    sp6C = temp_v0_3;
-    sp6A = temp_v0_3;
-    sp68 = temp_v0_3;
-    func_80017DC4(&sp68, &sp48);
-    func_80048EAC(arg0 + 0x38, &sp48);
-    sp5C = (s32) M2C_FIELD(arg0, s16 *, 6);
-    sp60 = (s32) M2C_FIELD(arg0, s16 *, 0xA);
-    sp64 = (s32) M2C_FIELD(arg0, s16 *, 0xE);
-    func_80017758(&sp10, &sp48);
-    sp10 = -7;
-    sp20 = 0;
-    sp18 = 0;
-    sp28 = 7;
-    sp2A = 0;
-    sp12 = 0;
-    sp1A = 7;
-    sp22 = -7;
-    func_80017758(&sp10, &sp48);
+    *(s32 *)(buf + 0x30) = 0x50000000;   /* 0x40 tag */
+    base = 0x800;
+    if (*(u32 *)(arg0 + 0x2c) & 1) base = 0x4cc;
+    v = base + (*(s32 *)(arg0 + 0x1c) << 7);
+    *(u16 *)(buf + 0x5c) = v;   /* 0x6C */
+    *(u16 *)(buf + 0x5a) = v;   /* 0x6A */
+    *(u16 *)(buf + 0x58) = v;   /* 0x68 */
+    p = buf + 0x38;
+    func_80017DC4(buf + 0x58, p);
+    func_80048EAC((void *)(arg0 + 0x38), p);
+    *(s32 *)(buf + 0x4c) = (s32)*(s16 *)(arg0 + 6);    /* 0x5C */
+    *(s32 *)(buf + 0x50) = (s32)*(s16 *)(arg0 + 0xa);  /* 0x60 */
+    *(s32 *)(buf + 0x54) = (s32)*(s16 *)(arg0 + 0xe);  /* 0x64 */
+    func_80017758(buf + 0x00, p);
+    /* second-draw SVECTOR verts */
+    *(s16 *)(buf + 0x00) = -7;   /* 0x10 */
+    *(s16 *)(buf + 0x10) = 0;    /* 0x20 */
+    *(s16 *)(buf + 0x08) = 0;    /* 0x18 */
+    *(s16 *)(buf + 0x18) = 7;    /* 0x28 */
+    *(s16 *)(buf + 0x1a) = 0;    /* 0x2A */
+    *(s16 *)(buf + 0x02) = 0;    /* 0x12 */
+    *(s16 *)(buf + 0x0a) = 7;    /* 0x1A */
+    *(s16 *)(buf + 0x12) = -7;   /* 0x22 */
+    func_80017758(buf + 0x00, p);
 }
 #endif

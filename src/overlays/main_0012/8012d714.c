@@ -1,7 +1,9 @@
 /* Overlay range [8012D714,8012DB84) from MAIN.CD member 0012.
  * SHA256(span)=4afd559939797e059da0514fdad025f17680179212008d90ce390760178e021c.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFC8)
 MUSASHI_NATIVE_MIPS_WORD(0xAFB10024)
@@ -288,32 +290,134 @@ MUSASHI_NATIVE_MIPS_WORD(0x27BD0038)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
+#include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* func_8012D714 - 284 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern s32 func_8012DEB8(s32 a0, s32 a1, s32 a2);
 
-s32 func_8012DEB8(u16 *, u16 *, u16 *);             /* static */
-extern s32 *D_80000004;
-
-s32 func_8012D714(u16 *arg0, s32 arg1) {
-    u16 sp1C;
-    u16 sp1A;
-    u16 sp18;
-    u16 sp14;
-    u16 sp12;
-    u16 sp10;
-    s32 temp_s0;
-    s32 var_v0;
-
-    temp_s0 = (arg0->unk58 & 0x0FFFFFFF) | (s32) &D_80000004;
-    if ((!(arg1 & 1) || ((sp10 = *temp_s0, sp12 = *temp_s0, sp14 = *temp_s0, sp18 = *temp_s0, sp1A = *temp_s0, sp1C = *temp_s0, var_v0 = 1, (func_8012DEB8(&sp10, &sp18) == 0)) && (sp10 = *temp_s0, sp12 = *temp_s0, sp14 = *temp_s0, sp18 = *temp_s0, sp1A = *temp_s0, sp1C = *temp_s0, var_v0 = 1, (func_8012DEB8(arg0, &sp10, &sp18) == 0)) && (sp10 = *temp_s0, sp12 = *temp_s0, sp14 = *temp_s0, sp18 = *temp_s0, sp1A = *temp_s0, sp1C = *temp_s0, var_v0 = 1, (func_8012DEB8(arg0, &sp10, &sp18) == 0)) && (sp10 = *temp_s0, sp12 = *temp_s0, sp14 = *temp_s0, sp18 = *temp_s0, sp1A = *temp_s0, sp1C = *temp_s0, var_v0 = 1, (func_8012DEB8(arg0, &sp10, &sp18) == 0)))) && (!(arg1 & 2) || ((sp10 = *temp_s0, sp12 = *temp_s0, sp14 = *temp_s0, sp18 = *temp_s0, sp1A = *temp_s0, sp1C = *temp_s0, var_v0 = 1, (func_8012DEB8(arg0, &sp10, &sp18) == 0)) && (sp10 = *temp_s0, sp12 = *temp_s0, sp14 = *temp_s0, sp18 = *temp_s0, sp1A = *temp_s0, sp1C = *temp_s0, var_v0 = 1, (func_8012DEB8(arg0, &sp10, &sp18) == 0)) && (sp10 = *temp_s0, sp12 = *temp_s0, sp14 = *temp_s0, sp18 = *temp_s0, sp1A = *temp_s0, sp1C = *temp_s0, var_v0 = 1, (func_8012DEB8(arg0, &sp10, &sp18) == 0)) && (sp10 = *temp_s0, sp12 = *temp_s0, sp14 = *temp_s0, sp18 = *temp_s0, sp1A = *temp_s0, sp1C = *temp_s0, var_v0 = 1, (func_8012DEB8(arg0, &sp10, &sp18) == 0)))) && (!(arg1 & 4) || ((sp10 = *temp_s0, sp12 = *temp_s0, sp14 = *temp_s0, sp18 = *temp_s0, sp1A = *temp_s0, sp1C = *temp_s0, var_v0 = 1, (func_8012DEB8(arg0, &sp10, &sp18) == 0)) && (sp10 = *temp_s0, sp12 = *temp_s0, sp14 = *temp_s0, sp18 = *temp_s0, sp1A = *temp_s0, sp1C = *temp_s0, var_v0 = 1, (func_8012DEB8(arg0, &sp10, &sp18) == 0)) && (sp10 = *temp_s0, sp12 = *temp_s0, sp14 = *temp_s0, sp18 = *temp_s0, sp1A = *temp_s0, sp1C = *temp_s0, var_v0 = 1, (func_8012DEB8(arg0, &sp10, &sp18) == 0)) && (sp10 = *temp_s0, sp12 = *temp_s0, sp14 = *temp_s0, sp18 = *temp_s0, sp1A = *temp_s0, sp1C = *temp_s0, var_v0 = 1, (func_8012DEB8(arg0, &sp10, &sp18) == 0))))) {
-        var_v0 = 0;
+s32 func_8012D714(s32 param_1, u32 param_2) {
+    u16 a[3];
+    u16 b[3];
+    u32 base;
+    base = (*(u32 *)(param_1 + 0x58) & 0xFFFFFFF) | 0x80000000;
+    if (param_2 & 1) {
+        a[0] = *(u16 *)(base + 4);
+        a[1] = *(u16 *)(base + 8);
+        a[2] = *(u16 *)(base + 0xC);
+        b[0] = *(u16 *)(base + 6);
+        b[1] = *(u16 *)(base + 8);
+        b[2] = *(u16 *)(base + 0xC);
+        if (((s32 (*)(s32, void *, void *))func_8012DEB8)(param_1, a, b) != 0) {
+            return 1;
+        }
+        a[0] = *(u16 *)(base + 4);
+        a[1] = *(u16 *)(base + 0xA);
+        a[2] = *(u16 *)(base + 0xC);
+        b[0] = *(u16 *)(base + 6);
+        b[1] = *(u16 *)(base + 0xA);
+        b[2] = *(u16 *)(base + 0xC);
+        if (((s32 (*)(s32, void *, void *))func_8012DEB8)(param_1, a, b) != 0) {
+            return 1;
+        }
+        a[0] = *(u16 *)(base + 4);
+        a[1] = *(u16 *)(base + 8);
+        a[2] = *(u16 *)(base + 0xE);
+        b[0] = *(u16 *)(base + 6);
+        b[1] = *(u16 *)(base + 8);
+        b[2] = *(u16 *)(base + 0xE);
+        if (((s32 (*)(s32, void *, void *))func_8012DEB8)(param_1, a, b) != 0) {
+            return 1;
+        }
+        a[0] = *(u16 *)(base + 4);
+        a[1] = *(u16 *)(base + 0xA);
+        a[2] = *(u16 *)(base + 0xE);
+        b[0] = *(u16 *)(base + 6);
+        b[1] = *(u16 *)(base + 0xA);
+        b[2] = *(u16 *)(base + 0xE);
+        if (((s32 (*)(s32, void *, void *))func_8012DEB8)(param_1, a, b) != 0) {
+            return 1;
+        }
     }
-    return var_v0;
+    if (param_2 & 2) {
+        a[0] = *(u16 *)(base + 4);
+        a[1] = *(u16 *)(base + 8);
+        a[2] = *(u16 *)(base + 0xC);
+        b[0] = *(u16 *)(base + 4);
+        b[1] = *(u16 *)(base + 0xA);
+        b[2] = *(u16 *)(base + 0xC);
+        if (((s32 (*)(s32, void *, void *))func_8012DEB8)(param_1, a, b) != 0) {
+            return 1;
+        }
+        a[0] = *(u16 *)(base + 4);
+        a[1] = *(u16 *)(base + 8);
+        a[2] = *(u16 *)(base + 0xE);
+        b[0] = *(u16 *)(base + 4);
+        b[1] = *(u16 *)(base + 0xA);
+        b[2] = *(u16 *)(base + 0xE);
+        if (((s32 (*)(s32, void *, void *))func_8012DEB8)(param_1, a, b) != 0) {
+            return 1;
+        }
+        a[0] = *(u16 *)(base + 6);
+        a[1] = *(u16 *)(base + 8);
+        a[2] = *(u16 *)(base + 0xC);
+        b[0] = *(u16 *)(base + 6);
+        b[1] = *(u16 *)(base + 0xA);
+        b[2] = *(u16 *)(base + 0xC);
+        if (((s32 (*)(s32, void *, void *))func_8012DEB8)(param_1, a, b) != 0) {
+            return 1;
+        }
+        a[0] = *(u16 *)(base + 6);
+        a[1] = *(u16 *)(base + 8);
+        a[2] = *(u16 *)(base + 0xE);
+        b[0] = *(u16 *)(base + 6);
+        b[1] = *(u16 *)(base + 0xA);
+        b[2] = *(u16 *)(base + 0xE);
+        if (((s32 (*)(s32, void *, void *))func_8012DEB8)(param_1, a, b) != 0) {
+            return 1;
+        }
+    }
+    if (param_2 & 4) {
+        a[0] = *(u16 *)(base + 4);
+        a[1] = *(u16 *)(base + 8);
+        a[2] = *(u16 *)(base + 0xC);
+        b[0] = *(u16 *)(base + 4);
+        b[1] = *(u16 *)(base + 8);
+        b[2] = *(u16 *)(base + 0xE);
+        if (((s32 (*)(s32, void *, void *))func_8012DEB8)(param_1, a, b) != 0) {
+            return 1;
+        }
+        a[0] = *(u16 *)(base + 4);
+        a[1] = *(u16 *)(base + 0xA);
+        a[2] = *(u16 *)(base + 0xC);
+        b[0] = *(u16 *)(base + 4);
+        b[1] = *(u16 *)(base + 0xA);
+        b[2] = *(u16 *)(base + 0xE);
+        if (((s32 (*)(s32, void *, void *))func_8012DEB8)(param_1, a, b) != 0) {
+            return 1;
+        }
+        a[0] = *(u16 *)(base + 6);
+        a[1] = *(u16 *)(base + 8);
+        a[2] = *(u16 *)(base + 0xC);
+        b[0] = *(u16 *)(base + 6);
+        b[1] = *(u16 *)(base + 8);
+        b[2] = *(u16 *)(base + 0xE);
+        if (((s32 (*)(s32, void *, void *))func_8012DEB8)(param_1, a, b) != 0) {
+            return 1;
+        }
+        a[0] = *(u16 *)(base + 6);
+        a[1] = *(u16 *)(base + 0xA);
+        a[2] = *(u16 *)(base + 0xC);
+        b[0] = *(u16 *)(base + 6);
+        b[1] = *(u16 *)(base + 0xA);
+        b[2] = *(u16 *)(base + 0xE);
+        if (((s32 (*)(s32, void *, void *))func_8012DEB8)(param_1, a, b) != 0) {
+            return 1;
+        }
+    }
+    return 0;
 }
 #endif

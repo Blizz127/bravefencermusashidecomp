@@ -1,7 +1,9 @@
 /* Overlay range [8013914C,801391F0) from MAIN.CD member 0012.
  * SHA256(span)=8868c2714bb1d5a336d07d383494d1db1f8f7d9402233a8f4bcc4d04f17b2fac.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE0)
 MUSASHI_NATIVE_MIPS_WORD(0xAFB00010)
@@ -48,22 +50,24 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #include "psx_types.h"
 #include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* func_8013914C - 41 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern s32 func_80139220(s32 a0);
 
-s32 func_80139220();                                /* static */
-
-s32 func_8013914C(void *arg0, void *arg1) {
-    s32 var_v0;
-
-    if (((s32) M2C_FIELD(arg0, u16 *, 0x14) < M2C_FIELD(arg0, s16 *, 0x2C)) || (var_v0 = 1, (func_80139220() == 0))) {
-        M2C_FIELD(arg1, s16 *, 0) = (s16) (M2C_FIELD(arg0, u16 *, 0x38) + ((u32) (M2C_FIELD(arg0, u16 *, 0x14) * 3) >> 1));
-        M2C_FIELD(arg1, s16 *, 2) = (s16) (M2C_FIELD(arg0, u16 *, 0x3A) + (M2C_FIELD(arg0, u16 *, 0x12) * 0xC));
-        var_v0 = 0;
-        M2C_FIELD(arg0, u16 *, 0x14) = (u16) (M2C_FIELD(arg0, u16 *, 0x14) + 1);
+s32 func_8013914C(s32 a0, s32 a1) {
+    s32 t;
+    if ((s32)*(u16 *)(a0 + 0x14) >= *(s16 *)(a0 + 0x2C)) {
+        if (func_80139220(a0) != 0) {
+            return 1;
+        }
     }
-    return var_v0;
+    t = *(u16 *)(a0 + 0x14);
+    *(s16 *)(a1 + 0x0) = *(u16 *)(a0 + 0x38) + (((u32)(t * 3)) >> 1);
+    t = *(u16 *)(a0 + 0x12);
+    *(s16 *)(a1 + 0x2) = *(u16 *)(a0 + 0x3A) + ((t * 3) << 2);
+    *(s16 *)(a0 + 0x14) = *(u16 *)(a0 + 0x14) + 1;
+    return 0;
 }
 #endif

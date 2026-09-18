@@ -1,7 +1,9 @@
 /* Overlay range [80163950,80163A58) from MAIN.CD member 0012.
  * SHA256(span)=5bf50b3adfff3d1ae737b428d8795cc7ad3b20231008a2832c17e23f7d0ebc8d.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFC8)
 MUSASHI_NATIVE_MIPS_WORD(0xAFB3002C)
@@ -73,56 +75,33 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #include "psx_types.h"
 #include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* func_80163950 - 66 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern u8 D_801202A0[];
+extern u8 D_80126720[];
+extern void func_80015978(s32 a0, s32 *a1);
+extern s32 func_80135A4C(s32 a0, s32 a1, s32 *a2, s32 a3);
+extern void func_80015954(s32 a0, s32 a1);
 
-void func_80015954(void *, s32);              /* extern */
-void func_80015978(s32, void *);              /* extern */
-s32 func_80135A4C(s32, s32, void *, void *);  /* static */
-extern u16 D_801202A0;
-extern s32 *D_80126720;
-
-s32 func_80163950(s32 arg0) {
-    u16 sp1A;
-    s32 sp18;
-    u16 sp12;
-    s32 sp10;
-    s32 temp_a1;
-    s32 temp_s0;
-    u16 *var_s0;
-    u16 *var_s1;
-
-    temp_s0 = arg0 + 4;
-    func_80015978(temp_s0, &sp10);
-    func_80015978(temp_s0, &sp18);
-    var_s1 = &D_801202A0;
-    sp12 -= 0x20;
-    sp1A += 8;
-    if ((u32) &D_801202A0 < (u32) (&D_801202A0 + 0x6480)) {
-        var_s0 = &D_801202A0 + 0x20;
-loop_2:
-        if ((*var_s1 != 0) && (M2C_FIELD(var_s0, u16 *, 0x3C) & 0x400)) {
-            temp_a1 = M2C_FIELD(var_s0, s32 *, 0x38);
-            if (temp_a1 != 0) {
-                var_s1 += 0x10C;
-                if (func_80135A4C(M2C_FIELD(var_s0, s32 *, 0), temp_a1, &sp10, &sp18) != 0) {
-                    func_80015954(&sp18, arg0 + 4);
-                    return 1;
-                }
-                goto block_8;
-            }
+s32 func_80163950(s32 a0) {
+    s32 sp10[2];
+    s32 sp18[2];
+    u8 *p;
+    func_80015978(a0 + 4, sp10);
+    func_80015978(a0 + 4, sp18);
+    *(s16 *)((s32)sp10 + 0x2) = *(u16 *)((s32)sp10 + 0x2) - 0x20;
+    *(s16 *)((s32)sp18 + 0x2) = *(u16 *)((s32)sp18 + 0x2) + 0x8;
+    for (p = D_801202A0; p < D_801202A0 + 0x6480; p += 0x10C) {
+        if (*(u16 *)p == 0) continue;
+        if ((*(u16 *)(p + 0x5C) & 0x400) == 0) continue;
+        if (*(s32 *)(p + 0x58) == 0) continue;
+        if (func_80135A4C(*(s32 *)(p + 0x20), *(s32 *)(p + 0x58), sp10, (s32)sp18) != 0) {
+            func_80015954((s32)sp18, a0 + 4);
+            return 1;
         }
-        var_s1 += 0x10C;
-block_8:
-        var_s0 += 0x10C;
-        if ((u32) var_s1 >= (u32) &D_80126720) {
-            goto block_9;
-        }
-        goto loop_2;
     }
-block_9:
     return 0;
 }
 #endif

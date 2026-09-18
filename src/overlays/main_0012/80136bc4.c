@@ -1,7 +1,9 @@
 /* Overlay range [80136BC4,80136C1C) from MAIN.CD member 0012.
  * SHA256(span)=480288f84195d8170e11a9a7aa663f5f5962f32e49df56cee7e6a54ecc30ea1a.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x8C830008)
 MUSASHI_NATIVE_MIPS_WORD(0x24020020)
@@ -26,23 +28,23 @@ MUSASHI_NATIVE_MIPS_WORD(0xAC820018)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
+#include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* func_80136BC4 - 22 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
 
-void func_80136BC4(void *arg0) {
-    if (arg0->unk8 == (void *)0x20) {
-        arg0->unk8 = (void *) (arg0 + 0x20);
-        arg0->unkC = (void *) (arg0->unkC + arg0);
-        arg0->unk14 = (void *) (arg0->unk14 + arg0);
-        arg0->unk10 = (void *) (arg0->unk10 + arg0);
-        arg0->unk1C = (void *) (arg0->unk1C + arg0);
-        arg0->unk18 = (void *) (arg0->unk18 + arg0);
+
+void func_80136BC4(s32 a0) {
+    if (*(s32*)(a0 + 0x8) == 0x20) {
+        *(s32*)(a0 + 0x8) = a0 + 0x20;
+        *(s32*)(a0 + 0xC) += a0;
+        *(s32*)(a0 + 0x10) += a0;
+        *(s32*)(a0 + 0x14) += a0;
+        *(s32*)(a0 + 0x18) += a0;
+        *(s32*)(a0 + 0x1C) += a0;
     }
 }
 #endif

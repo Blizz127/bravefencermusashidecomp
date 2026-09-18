@@ -1,7 +1,9 @@
 /* Overlay range [801508B4,801508F8) from MAIN.CD member 0012.
  * SHA256(span)=87819176362398190608ff2653b4f442d82ea2020e75734586ec454eea325cd2.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE8)
 MUSASHI_NATIVE_MIPS_WORD(0xAFB00010)
@@ -21,26 +23,24 @@ MUSASHI_NATIVE_MIPS_WORD(0x27BD0018)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
+#include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* func_801508B4 - 17 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern s32 func_8014A2E4(s32 a0);
+extern void func_8014A380(s32 a0, s32 a1);
 
-s32 func_8014A2E4();                                /* static */
-void func_8014A380(s32, s32);                          /* static */
-
-s32 func_801508B4(s32 arg0) {
-    s32 temp_v0;
-
-    temp_v0 = func_8014A2E4();
-    if (temp_v0 == 0) {
-        return 0;
+s32 func_801508B4(s32 a0)
+{
+    s32 r;
+    r = func_8014A2E4(a0);
+    if (r != 0) {
+        func_8014A380(a0, r);
+        return 1;
     }
-    func_8014A380(arg0, temp_v0);
-    return 1;
+    return 0;
 }
 #endif

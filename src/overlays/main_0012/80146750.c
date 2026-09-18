@@ -1,7 +1,9 @@
 /* Overlay range [80146750,8014680C) from MAIN.CD member 0012.
  * SHA256(span)=41bb9a073aabd8da638ef6808116eb0452f7e7b1f3fd9aecc32ab41f297aa535.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x24060008)
 MUSASHI_NATIVE_MIPS_WORD(0x3C078012)
@@ -54,47 +56,47 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #include "psx_types.h"
 #include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* func_80146750 - 47 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern unsigned short D_8011FD10;
+extern int D_8011FA1C;
+extern unsigned short D_8011F9D6;
+extern unsigned short D_8011F9DA;
+extern unsigned short D_8011F9DE;
+extern int D_8011FA20;
+extern int D_8011FA24;
 
-extern s32 *D_8011F9D6;
-extern s32 *D_8011F9DA;
-extern s32 *D_8011F9DE;
-extern s32 *D_8011FA1C;
-extern s32 *D_8011FA20;
-extern s32 *D_8011FA24;
-extern u16 D_8011FD10;
-
-u16 *func_80146750(void *arg0) {
-    s32 var_a1;
-    s32 var_a2;
-    u16 *var_a3;
-    u16 *var_v1;
-
-    var_a2 = 8;
-    var_a3 = &D_8011FD10;
-    var_v1 = &D_8011FD10;
-    var_a1 = 0x340;
-loop_1:
-    if (*var_v1 == 0) {
-        *(&D_8011FA1C + var_a1) = M2C_FIELD(arg0, s32 *, 8);
-        *var_v1 = M2C_FIELD(arg0, u16 *, 0);
-        *(&D_8011F9D6 + var_a1) = M2C_FIELD(arg0, u16 *, 2);
-        *(&D_8011F9DA + var_a1) = M2C_FIELD(arg0, u16 *, 4);
-        *(&D_8011F9DE + var_a1) = M2C_FIELD(arg0, u16 *, 6);
-        *(&D_8011FA20 + var_a1) = M2C_FIELD(arg0, s32 *, 0xC);
-        *(&D_8011FA24 + var_a1) = M2C_FIELD(arg0, s32 *, 0x10);
-        return var_a3;
-    }
-    var_a3 += 0x68;
-    var_v1 += 0x68;
-    var_a2 += 1;
-    var_a1 += 0x68;
-    if (var_a2 >= 0x14) {
-        return 0;
-    }
-    goto loop_1;
+unsigned short *func_80146750(unsigned short *a0)
+{
+    register int a6 __asm__("6");
+    register unsigned short *a7 __asm__("7");
+    register int a5 __asm__("5");
+    unsigned short *v1;
+    unsigned short *v0;
+    a6 = 0x8;
+    a7 = &D_8011FD10;
+    v1 = a7;
+    a5 = 0x340;
+    do {
+        v0 = v1;
+        if (*v0 != 0) {
+            a7 = (unsigned short *)((char *)a7 + 0x68);
+            v1 = (unsigned short *)((char *)v1 + 0x68);
+            a6 = a6 + 1;
+            a5 = a5 + 0x68;
+        } else {
+            *(int *)((char *)&D_8011FA1C + a5) = *(int *)((char *)a0 + 0x8);
+            *v1 = *a0;
+            *(unsigned short *)((char *)&D_8011F9D6 + a5) = *(unsigned short *)((char *)a0 + 0x2);
+            *(unsigned short *)((char *)&D_8011F9DA + a5) = *(unsigned short *)((char *)a0 + 0x4);
+            *(unsigned short *)((char *)&D_8011F9DE + a5) = *(unsigned short *)((char *)a0 + 0x6);
+            *(int *)((char *)&D_8011FA20 + a5) = *(int *)((char *)a0 + 0xC);
+            *(int *)((char *)&D_8011FA24 + a5) = *(int *)((char *)a0 + 0x10);
+            return a7;
+        }
+    } while (a6 < 0x14);
+    return (unsigned short *)0;
 }
 #endif

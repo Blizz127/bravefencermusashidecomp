@@ -1,7 +1,9 @@
 /* Overlay range [8012C51C,8012C588) from MAIN.CD member 0012.
  * SHA256(span)=edde7c6eacd220c84cc5a4f4dbac6f9015f0976aeb1fef6a3499442be260046f.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE8)
 MUSASHI_NATIVE_MIPS_WORD(0x00A03021)
@@ -31,44 +33,37 @@ MUSASHI_NATIVE_MIPS_WORD(0x27BD0018)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
+#include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* func_8012C51C - 27 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern u8 D_80126720[];
+extern s32 func_8012C890(s32 a0, s32 a1, s32 a2);
 
-s32 func_8012C890(u16 *, s32);                      /* static */
-extern s32 *D_80126720;
-
-s32 func_8012C51C(s32 arg1) {
-    s32 var_v0;
-    u16 *var_a1;
-
-    if (arg1 == 0) {
-        var_a1 = &D_80126720 - 0x6480;
+s32 func_8012C51C(void *a0, s32 a1) {
+    u8 *base = D_80126720;
+    u8 *p;
+    s32 ret;
+    if (a1 == 0) {
+        p = base - 0x6480;
     } else {
-        var_a1 = arg1 + 0x10C;
+        p = (u8 *)(a1 + 0x10C);
     }
-    if (var_a1 != &D_80126720) {
-loop_4:
-        if (*var_a1 != 0) {
-            var_a1 += 0x10C;
-            if (var_a1 == &D_80126720) {
-                goto block_6;
-            }
-            goto loop_4;
-        }
-    } else {
-block_6:
-        var_a1 = 0;
+    if (p != base) {
+        do {
+            if (*(u16 *)p == 0) goto found;
+            p += 0x10C;
+        } while (p != base);
     }
-    var_v0 = 0;
-    if (var_a1 != 0) {
-        var_v0 = func_8012C890(var_a1, arg1);
+    p = 0;
+found:
+    ret = 0;
+    if (p != 0) {
+        ret = func_8012C890((s32)a0, (s32)p, a1);
     }
-    return var_v0;
+    return ret;
 }
 #endif

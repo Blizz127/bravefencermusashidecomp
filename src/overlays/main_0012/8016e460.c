@@ -1,7 +1,9 @@
 /* Overlay range [8016E460,8016E5B8) from MAIN.CD member 0012.
  * SHA256(span)=214bac07f34c477a288b86e62605fd0a384c4901295b20b75ca71594a4717f8a.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFF70)
 MUSASHI_NATIVE_MIPS_WORD(0xAFB10074)
@@ -93,97 +95,71 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #include "psx_types.h"
 #include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* func_8016E460 - 86 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern s32  func_80017DC4(void *a0, void *a1);
+extern void func_80048EAC(void *a0, void *a1);
+extern s32  func_80017758(void *a0, void *a1);
 
-void func_80017758(s16 *, void *);            /* extern */
-void func_80017DC4(u16 *, void *);            /* extern */
-void func_80048EAC(s32, void *);          /* extern */
-
-void func_8016E460(void *arg0, s32 arg1) {
-    u16 sp6A;
-    u16 sp68;
-    s32 sp64;
-    s32 sp60;
-    s32 sp5C;
-    s32 sp48;
-    s32 sp40;
-    s8 sp3E;
-    s8 sp3D;
-    s8 sp3C;
-    u8 sp3A;
-    s8 sp39;
-    u8 sp38;
-    u8 sp36;
-    s8 sp35;
-    u8 sp34;
-    s8 sp32;
-    s8 sp31;
-    s8 sp30;
-    s16 sp2C;
-    s16 sp2A;
-    s16 sp28;
-    s16 sp24;
-    s16 sp22;
-    s16 sp20;
-    s16 sp1C;
-    s16 sp1A;
-    s16 sp18;
-    s16 sp14;
-    s16 sp12;
-    s16 sp10;
-    u16 temp_v0_2;
-    u32 temp_a1;
-    u32 temp_v0;
-    u8 temp_v1;
-
-    sp10 = 7;
-    sp20 = 0;
-    sp18 = 0;
-    sp28 = -7;
-    sp1A = 3;
-    sp2A = 0;
-    sp12 = 0;
-    sp22 = -3;
-    sp2C = 0;
-    sp24 = 0;
-    sp1C = 0;
-    sp14 = 0;
-    temp_v1 = M2C_FIELD(arg0, u8 *, 0x30);
-    sp40 = 0x50000000;
-    temp_a1 = temp_v1 >> 2;
-    temp_v0 = temp_a1 >> 2;
-    sp3A = temp_v1;
-    sp36 = temp_v1;
-    sp38 = temp_v1;
-    sp34 = temp_v1;
-    sp39 = (s8) temp_a1;
-    sp35 = (s8) temp_a1;
-    sp3C = (s8) temp_v0;
-    sp30 = (s8) temp_v0;
-    sp3E = (s8) temp_v0;
-    sp32 = (s8) temp_v0;
-    sp3D = (s8) temp_v0;
-    sp31 = (s8) temp_v0;
-    temp_v0_2 = M2C_FIELD(arg0, u16 *, 0x2C);
-    sp6A = temp_v0_2;
-    sp68 = temp_v0_2;
-    func_80017DC4(&sp68, &sp48);
-    func_80048EAC(arg1, &sp48);
-    sp5C = (s32) M2C_FIELD(arg0, s16 *, 6);
-    sp60 = (s32) M2C_FIELD(arg0, s16 *, 0xA);
-    sp64 = (s32) M2C_FIELD(arg0, s16 *, 0xE);
-    func_80017758(&sp10, &sp48);
-    sp10 = 3;
-    sp20 = 0;
-    sp18 = 0;
-    sp28 = -3;
-    sp1A = 7;
-    sp2A = 0;
-    sp12 = 0;
-    sp22 = -7;
-    func_80017758(&sp10, &sp48);
+void func_8016E460(void *arg0, void *arg1) {
+    u8 buf[0x5C];               /* spans $sp+0x10 .. $sp+0x6B */
+    u8 *p = buf + 0x38;          /* $sp+0x48, passed to calls */
+    u8 *q = buf + 0x58;          /* $sp+0x68, first call a0 */
+    u8 v1;
+    u8 v0;
+    u8 w;
+    u16 t2c;
+    s32 c7  = 7;
+    s32 cm7 = -7;
+    s32 c3  = 3;
+    s32 cm3 = -3;
+    *(s16 *)(buf + 0x00) = c7;    /* 0x10 */
+    *(s16 *)(buf + 0x10) = 0;     /* 0x20 */
+    *(s16 *)(buf + 0x08) = 0;     /* 0x18 */
+    *(s16 *)(buf + 0x18) = cm7;   /* 0x28 */
+    *(s16 *)(buf + 0x0a) = c3;    /* 0x1A */
+    *(s16 *)(buf + 0x1a) = 0;     /* 0x2A */
+    *(s16 *)(buf + 0x02) = 0;     /* 0x12 */
+    *(s16 *)(buf + 0x12) = cm3;   /* 0x22 */
+    *(s16 *)(buf + 0x1c) = 0;     /* 0x2C */
+    *(s16 *)(buf + 0x14) = 0;     /* 0x24 */
+    *(s16 *)(buf + 0x0c) = 0;     /* 0x1C */
+    *(s16 *)(buf + 0x04) = 0;     /* 0x14 */
+    v1 = *(u8 *)((u8 *)arg0 + 0x30);
+    *(s32 *)(buf + 0x30) = 0x50000000;  /* 0x40 */
+    v0 = v1 >> 2;
+    w  = v0 >> 2;
+    *(u8 *)(buf + 0x2a) = v1;     /* 0x3A */
+    *(u8 *)(buf + 0x26) = v1;     /* 0x36 */
+    *(u8 *)(buf + 0x28) = v1;     /* 0x38 */
+    *(u8 *)(buf + 0x24) = v1;     /* 0x34 */
+    *(u8 *)(buf + 0x29) = v0;     /* 0x39 */
+    *(u8 *)(buf + 0x25) = v0;     /* 0x35 */
+    *(u8 *)(buf + 0x2c) = w;      /* 0x3C */
+    *(u8 *)(buf + 0x20) = w;      /* 0x30 */
+    *(u8 *)(buf + 0x2e) = w;      /* 0x3E */
+    *(u8 *)(buf + 0x22) = w;      /* 0x32 */
+    *(u8 *)(buf + 0x2d) = w;      /* 0x3D */
+    *(u8 *)(buf + 0x21) = w;      /* 0x31 */
+    t2c = *(u16 *)((u8 *)arg0 + 0x2c);
+    *(u16 *)(q + 0x02) = t2c;  /* 0x6A */
+    *(u16 *)(q + 0x00) = t2c;  /* 0x68 */
+    func_80017DC4(q, p);
+    func_80048EAC(arg1, p);
+    *(s32 *)(buf + 0x4c) = (s32)*(s16 *)((u8 *)arg0 + 6);   /* 0x5C */
+    *(s32 *)(buf + 0x50) = (s32)*(s16 *)((u8 *)arg0 + 0xa); /* 0x60 */
+    *(s32 *)(buf + 0x54) = (s32)*(s16 *)((u8 *)arg0 + 0xe); /* 0x64 */
+    func_80017758(buf + 0x00, p);
+    *(s16 *)(buf + 0x00) = c3;    /* 0x10 */
+    *(s16 *)(buf + 0x10) = 0;     /* 0x20 */
+    *(s16 *)(buf + 0x08) = 0;     /* 0x18 */
+    *(s16 *)(buf + 0x18) = cm3;   /* 0x28 */
+    *(s16 *)(buf + 0x0a) = c7;    /* 0x1A */
+    *(s16 *)(buf + 0x1a) = 0;     /* 0x2A */
+    *(s16 *)(buf + 0x02) = 0;     /* 0x12 */
+    *(s16 *)(buf + 0x12) = cm7;   /* 0x22 */
+    func_80017758(buf + 0x00, p);
 }
 #endif

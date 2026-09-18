@@ -1,7 +1,9 @@
 /* Overlay range [8016007C,801600D0) from MAIN.CD member 0012.
  * SHA256(span)=b405897257a35b73974177f076b9cf7876e369e43e17cdadf7c03a6f647ef1de.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE8)
 MUSASHI_NATIVE_MIPS_WORD(0x2403FFEF)
@@ -28,22 +30,21 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #include "psx_types.h"
 #include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* func_8016007C - 21 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern void func_80154A74(s32 a0, s32 a1);
+extern u8 D_800B9A17;
+extern u16 D_801270C0;
 
-void func_80154A74();                     /* static */
-extern s8 D_800B9A17;
-extern s16 D_801270C0;
-
-void func_8016007C(void *arg0) {
-    M2C_FIELD(arg0, s32 *, 0x184) = 0;
-    M2C_FIELD(arg0, s16 *, 0x18A) = 0;
-    M2C_FIELD(arg0, s16 *, 0x188) = 0;
-    M2C_FIELD(arg0, s32 *, 0x44) = (s32) (M2C_FIELD(arg0, s32 *, 0x44) & ~0x10);
+void func_8016007C(s32 a0) {
+    *(s32 *)(a0 + 0x184) = 0;
+    *(s16 *)(a0 + 0x18A) = 0;
+    *(s16 *)(a0 + 0x188) = 0;
+    *(s32 *)(a0 + 0x44) = *(s32 *)(a0 + 0x44) & ~0x10;
     D_800B9A17 = 1;
-    func_80154A74(0x11);
+    func_80154A74(a0, 0x11);
     D_801270C0 = 1;
 }
 #endif

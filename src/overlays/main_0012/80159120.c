@@ -1,7 +1,9 @@
 /* Overlay range [80159120,801592CC) from MAIN.CD member 0012.
  * SHA256(span)=b4939548787246a85b100342e884caf80453ba9b38d0600043c30d54f745528d.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE0)
 MUSASHI_NATIVE_MIPS_WORD(0xAFB10014)
@@ -114,78 +116,83 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #include "psx_types.h"
 #include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
-
-void func_80029504();                            /* extern */
-void func_800298BC(void *);                   /* extern */
-void func_8002992C();                     /* extern */
-s32 func_80029A94();                         /* extern */
-void func_800CF804();                            /* extern */
-void func_800CF818();                            /* extern */
-s32 func_8013767C(void *);                       /* static */
-void func_80139914(s32);                         /* static */
-s32 func_801399F0(s32);                             /* static */
-void func_801458E0();                            /* static */
-void func_801458E8();                            /* static */
-void func_80145A2C();                            /* static */
-void func_80146C98(void *, s32);             /* static */
-void func_80175454();                            /* static */
-extern s32 *D_80078E50;
+/* func_80159120 - 107 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern s32 func_80029504(void);
+extern s32 func_801399F0(s32);
+extern void func_80139914(s32 a0);
+extern s32 func_80029A94(s32);
+extern void func_80175454(void);
+extern void func_801458E0(void);
+extern void func_800298BC(void *);
+extern void func_801458E8(void);
+extern s32 func_8013767C(s32 a0);
+extern void func_8002992C(s32);
+extern void func_80145A2C(void);
+extern void func_80146C98(s32 *a0, s16 a1);
+extern void func_800CF804(void);
+extern void func_800CF818(void);
+extern u8 D_80078E50;
 extern s32 D_80078E8C;
-extern s32 *D_80110C3C;
-extern s32 *D_80110D0C;
+extern u8 D_80110D0C[];
+extern u8 D_80110C3C[];
 
-void func_80159120(void *arg0) {
-    s32 var_a1;
-    s16 temp_v1_2;
-    s32 temp_s0;
-    s32 temp_v0;
-    void *temp_v1;
-
+void func_80159120(s32 a0) {
+    s32 r;
+    s32 v1;
+    s32 base;
     func_80029504();
-    temp_v1 = M2C_FIELD(arg0, void **, 0x20);
-    M2C_FIELD(temp_v1, u16 *, 0x12) = (u16) ((M2C_FIELD(temp_v1, u16 *, 0x12) + 0x16) & 0xFFF);
-    temp_v0 = func_801399F0(M2C_FIELD(arg0, s32 *, 0x198));
-    if (temp_v0 != 0) {
-        func_80139914(M2C_FIELD(arg0, s32 *, 0x198));
-        M2C_FIELD(arg0, s32 *, 0x198) = 0;
-        if ((temp_v0 == 1) || (temp_v0 != 2)) {
-            temp_v1_2 = M2C_FIELD(arg0, s16 *, 0x244);
-            if ((temp_v1_2 == 1) || (temp_v1_2 != 2)) {
-                if (func_80029A94(1) != 0) {
-                    func_80175454();
-                    func_801458E0();
-                    temp_s0 = D_80078E8C;
-                    func_800298BC(&D_80078E50);
-                    func_801458E8();
-                    D_80078E8C = temp_s0 / 2;
-                    goto block_11;
-                }
-                M2C_FIELD(arg0, s32 *, 0x198) = func_8013767C(&D_80110D0C);
-                var_a1 = 0xB;
-                goto block_13;
-            }
-            if (func_80029A94(0) == 0) {
-                M2C_FIELD(arg0, s32 *, 0x198) = func_8013767C(&D_80110D0C);
-                var_a1 = 0xB;
-                goto block_13;
-            }
-            func_80175454();
-            func_8002992C(0);
-            func_80145A2C();
-block_11:
-            func_80146C98(arg0, 0xC);
-            func_800CF804();
-            func_800CF818();
-            return;
-        }
-        M2C_FIELD(arg0, s32 *, 0x198) = func_8013767C(&D_80110C3C);
-        var_a1 = 9;
-block_13:
-        func_80146C98(arg0, var_a1);
+    base = *(s32 *)(a0 + 0x20);
+    *(u16 *)(base + 0x12) = (*(u16 *)(base + 0x12) + 0x16) & 0xFFF;
+    r = func_801399F0(*(s32 *)(a0 + 0x198));
+    if (r == 0) {
+        return;
     }
+    func_80139914(*(s32 *)(a0 + 0x198));
+    *(s32 *)(a0 + 0x198) = 0;
+    if (r != 1) {
+        if (r == 2) {
+            goto L290;
+        }
+    }
+    v1 = *(s16 *)(a0 + 0x244);
+    if (v1 != 1) {
+        if (v1 == 2) {
+            goto L224;
+        }
+    }
+    if (func_80029A94(1) != 0) {
+        s32 t;
+        func_80175454();
+        func_801458E0();
+        t = D_80078E8C;
+        func_800298BC(&D_80078E50);
+        func_801458E8();
+        D_80078E8C = t / 2;
+        goto L270;
+    }
+    *(s32 *)(a0 + 0x198) = func_8013767C((s32)D_80110D0C);
+    func_80146C98((s32 *)a0, 0xB);
+    return;
+L224:
+    if (func_80029A94(0) != 0) {
+        func_80175454();
+        func_8002992C(0);
+        func_80145A2C();
+        goto L270;
+    }
+    *(s32 *)(a0 + 0x198) = func_8013767C((s32)D_80110D0C);
+    func_80146C98((s32 *)a0, 0xB);
+    return;
+L270:
+    func_80146C98((s32 *)a0, 0xC);
+    func_800CF804();
+    func_800CF818();
+    return;
+L290:
+    *(s32 *)(a0 + 0x198) = func_8013767C((s32)D_80110C3C);
+    func_80146C98((s32 *)a0, 0x9);
 }
 #endif

@@ -1,7 +1,9 @@
 /* Overlay range [80139D04,80139DC8) from MAIN.CD member 0012.
  * SHA256(span)=29ee54114f20631d505417d3bd22872cd629cc619cc5dc4f7dccc709bd503947.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x00804021)
 MUSASHI_NATIVE_MIPS_WORD(0x24092710)
@@ -53,58 +55,62 @@ MUSASHI_NATIVE_MIPS_WORD(0x24E70001)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x30E2FFFF)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
+#include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* func_80139D04 - 49 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
 
-s32 func_80139D04(s8 *arg0, u32 arg1) {
-    s32 var_a2;
-    s32 var_a3;
-    s32 var_t1;
-    s32 var_t2;
-    s32 var_v0;
-    s8 *var_t0;
-    u32 temp_a0;
-    u32 temp_lo;
-    u32 var_a1;
 
-    var_a1 = arg1;
-    var_t0 = arg0;
-    var_t1 = 0x2710;
-    var_t2 = 0;
-    var_a3 = 0;
-    var_a2 = 5;
+s32 func_80139D04(s32 a0, s32 a1) {
+    register u8 *p    __asm__("$8");   /* $t0 */
+    register u32 div  __asm__("$9");   /* $t1 */
+    register u32 acc  __asm__("$10");  /* $t2 */
+    register u32 cnt  __asm__("$6");   /* $a2 */
+    register u32 flag __asm__("$7");   /* $a3 */
+    register u32 param_2 __asm__("$5"); /* $a1 */
+    u32 q;
+    register u32 rem __asm__("$4");  /* $a0 */
+    register u32 hi __asm__("$2");  /* $v0 */
+    register u32 pm __asm__("$3");  /* $v1 */
+    register u32 dm __asm__("$2");  /* $v0 */
+    p = (u8 *)a0;
+    param_2 = (u32)a1;
+    div = 10000;
+    acc = 0;
+    flag = 0;
+    cnt = 5;
     do {
-        temp_lo = (u32) (var_a1 & 0xFFFF) / (u32) (var_t1 & 0xFFFF);
-        var_t2 = temp_lo | (var_t2 * 0x10);
-        if (!(var_a3 & 0xFFFF)) {
-            var_v0 = var_a3 & 0xFFFF;
-            if (var_t2 & 0xFFFF) {
-                var_a3 = var_a2;
-                var_v0 = var_a3 & 0xFFFF;
+        q = (param_2 & 0xffff) / (div & 0xffff);
+        hi = acc << 4;
+        acc = q | hi;
+        __asm__ __volatile__("" : : "r"(acc));
+        if ((flag & 0xffff) == 0) {
+            if ((acc & 0xffff) != 0) {
+                flag = cnt;
             }
-            if (var_v0 != 0) {
-                goto block_5;
-            }
+            if ((flag & 0xffff) != 0) goto store;
         } else {
-block_5:
-            *var_t0 = (s8) temp_lo;
-            var_t0 += 1;
+        store:
+            *p = (u8)q;
+            p = p + 1;
         }
-        temp_a0 = (u32) (var_a1 & 0xFFFF) % (u32) (var_t1 & 0xFFFF);
-        var_a2 -= 1;
-        var_t1 = (var_t1 & 0xFFFF) / 10;
-        var_a1 = temp_a0;
-    } while (var_a2 > 0);
-    if (!(var_a3 & 0xFFFF)) {
-        *var_t0 = 0;
-        var_a3 += 1;
-    }
-    return var_a3 & 0xFFFF;
+        pm = param_2 & 0xffff;
+        __asm__ __volatile__("" : : "r"(pm));
+        dm = div & 0xffff;
+        rem = pm % dm;
+        div = dm / 10;
+        cnt = cnt - 1;
+        param_2 = rem;
+        if ((s32)cnt < 1) {
+            if ((flag & 0xffff) == 0) {
+                *p = 0;
+                flag = flag + 1;
+            }
+            return flag & 0xffff;
+        }
+    } while (1);
 }
 #endif

@@ -1,7 +1,9 @@
 /* Overlay range [80169584,801696D8) from MAIN.CD member 0012.
  * SHA256(span)=d9d05f10b5bbc02b6d878afeb125ccdf78598e26e88fc23530a8e9ddc38d105e.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFF88)
 MUSASHI_NATIVE_MIPS_WORD(0x00803821)
@@ -89,99 +91,70 @@ MUSASHI_NATIVE_MIPS_WORD(0x27BD0078)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
+#include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* func_80169584 - 85 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern s32 func_80017758(void *a0, void *a1);
 
-void func_80017758(s16 *, void *, s16, void *);        /* extern */
-
-void func_80169584(void *arg0) {
-    s32 sp40;
-    s8 sp3E;
-    s8 sp3D;
-    s8 sp3C;
-    s8 sp3A;
-    s8 sp39;
-    s8 sp38;
-    s8 sp36;
-    s8 sp35;
-    s8 sp34;
-    s8 sp32;
-    s8 sp31;
-    s8 sp30;
-    s16 sp2C;
-    s16 sp2A;
-    s16 sp28;
-    s16 sp24;
-    s16 sp22;
-    s16 sp20;
-    s16 sp1C;
-    s16 sp1A;
-    s16 sp18;
-    s16 sp14;
-    s16 sp12;
-    s16 sp10;
-    s16 temp_a2;
-    s8 temp_v1;
-    s8 temp_v1_2;
-    u32 var_v0;
-    void *temp_s0;
-
-    sp10 = 7;
-    sp28 = -7;
-    sp1A = 2;
-    sp20 = 0;
-    sp18 = 0;
-    sp2A = 0;
-    sp12 = 0;
-    sp22 = -2;
-    sp2C = 0;
-    sp24 = 0;
-    sp1C = 0;
-    sp14 = 0;
-    sp32 = 0;
-    sp30 = 0;
-    sp3E = 0;
-    sp3C = 0;
-    sp3D = 0;
-    sp31 = 0;
-    if (arg0->unk2C == 0) {
-        temp_v1 = -0x40 - (arg0->unk1C * 0x10);
-        var_v0 = (u32) (temp_v1 & 0xFF) >> 2;
-        sp39 = temp_v1;
-        sp35 = temp_v1;
-        sp3A = (s8) var_v0;
-        sp36 = (s8) var_v0;
+void func_80169584(s32 param_1) {
+    u8 buf[0x60];   /* spans $sp+0x10 .. (named local_<0x78-off>) */
+    s32 v1;
+    s32 v0;
+    register s32 s0 __asm__("$16");   /* param_1 + 0x38, held across both calls */
+    *(s16 *)(buf + 0x00) = 7;     /* 0x10 = local_68 */
+    *(s16 *)(buf + 0x18) = -7;    /* 0x28 = local_50 */
+    *(s16 *)(buf + 0x0a) = 2;     /* 0x1A = local_5e */
+    *(s16 *)(buf + 0x10) = 0;     /* 0x20 = local_58 */
+    *(s16 *)(buf + 0x08) = 0;     /* 0x18 = local_60 */
+    *(s16 *)(buf + 0x1a) = 0;     /* 0x2A = local_4e */
+    *(s16 *)(buf + 0x02) = 0;     /* 0x12 = local_66 */
+    *(s16 *)(buf + 0x12) = -2;    /* 0x22 = local_56 */
+    *(s16 *)(buf + 0x1c) = 0;     /* 0x2C = local_4c */
+    *(s16 *)(buf + 0x14) = 0;     /* 0x24 = local_54 */
+    *(s16 *)(buf + 0x0c) = 0;     /* 0x1C = local_5c */
+    *(s16 *)(buf + 0x04) = 0;     /* 0x14 = local_64 */
+    *(u8 *)(buf + 0x22) = 0;      /* 0x32 = local_46 */
+    *(u8 *)(buf + 0x20) = 0;      /* 0x30 = local_48 */
+    *(u8 *)(buf + 0x2e) = 0;      /* 0x3E = local_3a */
+    *(u8 *)(buf + 0x2c) = 0;      /* 0x3C = local_3c */
+    *(u8 *)(buf + 0x2d) = 0;      /* 0x3D = local_3b */
+    *(u8 *)(buf + 0x21) = 0;      /* 0x31 = local_47 */
+    if (*(s32 *)(param_1 + 0x2c) == 0) {
+        v1 = -0x40 - (*(s32 *)(param_1 + 0x1c) << 4);
+        v0 = ((u32)(v1 & 0xff)) >> 2;
+        *(s8 *)(buf + 0x29) = v1;    /* 0x39 = local_3f */
+        *(s8 *)(buf + 0x25) = v1;    /* 0x35 = local_43 */
+        *(s8 *)(buf + 0x2a) = v0;    /* 0x3A = local_3e */
+        *(s8 *)(buf + 0x26) = v0;    /* 0x36 = local_42 */
     } else {
-        temp_v1_2 = -0x40 - (arg0->unk1C * 0x10);
-        var_v0 = (u32) (temp_v1_2 & 0xFF) >> 2;
-        sp39 = temp_v1_2;
-        sp35 = temp_v1_2;
-        sp3A = temp_v1_2;
-        sp36 = temp_v1_2;
+        v1 = -0x40 - (*(s32 *)(param_1 + 0x1c) << 4);
+        v0 = ((u32)(v1 & 0xff)) >> 2;
+        *(s8 *)(buf + 0x29) = v1;    /* 0x39 */
+        *(s8 *)(buf + 0x25) = v1;    /* 0x35 */
+        *(s8 *)(buf + 0x2a) = v1;    /* 0x3A */
+        *(s8 *)(buf + 0x26) = v1;    /* 0x36 */
     }
-    sp38 = (s8) var_v0;
-    sp34 = (s8) var_v0;
-    temp_s0 = arg0 + 0x38;
-    sp40 = 0x50000000;
-    temp_a2 = arg0->unkE;
-    arg0->unk4C = (s32) arg0->unk6;
-    arg0->unk50 = (s32) arg0->unkA;
-    arg0->unk54 = (s32) temp_a2;
-    func_80017758(&sp10, temp_s0, temp_a2, arg0);
-    sp12 = 7;
-    sp2A = -7;
-    sp18 = 2;
-    sp22 = 0;
-    sp1A = 0;
-    sp28 = 0;
-    sp10 = 0;
-    sp20 = -2;
-    func_80017758(&sp10, temp_s0);
+    *(s8 *)(buf + 0x28) = v0;        /* 0x38 = local_40 */
+    *(s8 *)(buf + 0x24) = v0;        /* 0x34 = local_44 */
+    __asm__ __volatile__("" ::: "memory");
+    *(s32 *)(buf + 0x30) = 0x50000000;   /* 0x40 = local_38 */
+    s0 = param_1 + 0x38;
+    *(s32 *)(param_1 + 0x4c) = (s32)*(s16 *)(param_1 + 0x06);
+    *(s32 *)(param_1 + 0x50) = (s32)*(s16 *)(param_1 + 0x0a);
+    *(s32 *)(param_1 + 0x54) = (s32)*(s16 *)(param_1 + 0x0e);
+    func_80017758(buf + 0x00, (void *)s0);
+    *(s16 *)(buf + 0x02) = 7;     /* 0x12 = local_66 */
+    *(s16 *)(buf + 0x1a) = -7;    /* 0x2A = local_4e */
+    *(s16 *)(buf + 0x08) = 2;     /* 0x18 = local_60 */
+    *(s16 *)(buf + 0x12) = 0;     /* 0x22 = local_56 */
+    *(s16 *)(buf + 0x0a) = 0;     /* 0x1A = local_5e */
+    *(s16 *)(buf + 0x18) = 0;     /* 0x28 = local_50 */
+    *(s16 *)(buf + 0x00) = 0;     /* 0x10 = local_68 */
+    *(s16 *)(buf + 0x10) = -2;    /* 0x20 = local_58 */
+    func_80017758(buf + 0x00, (void *)s0);
 }
 #endif

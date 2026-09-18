@@ -1,7 +1,9 @@
 /* Overlay range [8013240C,801325B8) from MAIN.CD member 0012.
  * SHA256(span)=1d8a59c7470fb38abe13ee68f6efc3c56bd23947a322a1094e951025c6fad560.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFD0)
 MUSASHI_NATIVE_MIPS_WORD(0xAFB00020)
@@ -111,65 +113,58 @@ MUSASHI_NATIVE_MIPS_WORD(0x27BD0030)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
+#include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* func_8013240C - 107 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern void func_801325B8(s32 a0, s32 a1, s32 a2, s32 a3, s32 a4);
 
-void func_801325B8(s32, s32, s32, s32, s32);           /* static */
-
-void func_8013240C(void *arg0) {
-    s16 temp_v0;
-    s16 temp_v0_2;
-    s16 var_v0_2;
-    s32 temp_v1;
-    s32 temp_v1_2;
-    s32 var_v0;
-    s32 var_v1;
-    void *temp_a3;
-    void *temp_s1;
-
-    temp_s1 = arg0->unk0 + (arg0->unk4 * 8);
-    temp_a3 = temp_s1->unk0;
-    temp_v1 = arg0->unkC & 0xFFFF3FFF;
-    arg0->unkC = temp_v1;
-    if (temp_a3 == (void *)-1) {
-        var_v0 = temp_v1 | 0x4000;
-        goto block_13;
+void func_8013240C(s32 a0) {
+    s32 *node;
+    s32 ent;
+    s32 v;
+    s16 h6;
+    ent = *(s32 *)(a0 + 0x0) + (*(s16 *)(a0 + 0x4) << 3);
+    node = (s32 *)*(s32 *)(ent + 0);
+    *(s32 *)(a0 + 0xC) = *(s32 *)(a0 + 0xC) & 0xFFFF3FFF;
+    if ((s32)node == -1) {
+        *(s32 *)(a0 + 0xC) = *(s32 *)(a0 + 0xC) | 0x4000;
+        return;
     }
-    if (temp_s1->unk6 < 0) {
-        var_v1 = 0x1000 - ((s32) (arg0->unk6 << 0xC) / (s16) temp_s1->unk4);
+    if (*(s16 *)(ent + 0x6) < 0) {
+        v = 0x1000 - ((*(s16 *)(a0 + 0x6) << 12) / *(s16 *)(ent + 0x4));
     } else {
-        var_v1 = (s32) (arg0->unk6 << 0xC) / (s16) temp_s1->unk4;
+        v = (*(s16 *)(a0 + 0x6) << 12) / *(s16 *)(ent + 0x4);
     }
-    func_801325B8(arg0->unk8, temp_a3->unk0, temp_a3->unk4, temp_a3->unk8, var_v1);
-    temp_v0 = temp_s1->unk6;
-    if (temp_v0 < 0) {
-        var_v0_2 = (u16) arg0->unk6 - temp_v0;
+    func_801325B8(*(s32 *)(a0 + 0x8), node[0], node[1], node[2], v);
+    h6 = *(s16 *)(ent + 0x6);
+    if (h6 < 0) {
+        *(s16 *)(a0 + 0x6) = *(u16 *)(a0 + 0x6) - h6;
     } else {
-        var_v0_2 = (u16) arg0->unk6 + temp_v0;
+        *(s16 *)(a0 + 0x6) = *(u16 *)(a0 + 0x6) + h6;
     }
-    arg0->unk6 = var_v0_2;
-    if (arg0->unk6 >= temp_s1->unk4) {
-        arg0->unk6 = 0;
-        temp_v0_2 = (u16) arg0->unk4 + 1;
-        arg0->unk4 = temp_v0_2;
-        temp_v1_2 = *(((s32) (temp_v0_2 << 0x10) >> 0xD) + arg0->unk0);
-        if (temp_v1_2 != -1) {
-            if (temp_v1_2 == 0) {
-                arg0->unk4 = 0;
-                var_v0 = arg0->unkC | 0x8000;
-                goto block_13;
+    if (*(s16 *)(a0 + 0x6) < *(s16 *)(ent + 0x4)) {
+        return;
+    }
+    *(s16 *)(a0 + 0x6) = 0;
+    *(s16 *)(a0 + 0x4) = *(u16 *)(a0 + 0x4) + 1;
+    {
+        s32 *p = (s32 *)((*(s16 *)(a0 + 0x4) << 3) + *(s32 *)(a0 + 0x0));
+        s32 w = p[0];
+        s32 c;
+        if (w != -1) {
+            if (w != 0) {
+                return;
             }
+            *(s16 *)(a0 + 0x4) = 0;
+            c = *(s32 *)(a0 + 0xC) | 0x8000;
         } else {
-            var_v0 = arg0->unkC | 0x4000;
-block_13:
-            arg0->unkC = var_v0;
+            c = *(s32 *)(a0 + 0xC) | 0x4000;
         }
+        *(s32 *)(a0 + 0xC) = c;
     }
 }
 #endif

@@ -1,7 +1,9 @@
 /* Overlay range [80156A88,80156B74) from MAIN.CD member 0012.
  * SHA256(span)=8a592a7002ff58a1faab19d22bf618f164730462adeea1d399b5884545346d4b.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFD0)
 MUSASHI_NATIVE_MIPS_WORD(0x3C02F0FF)
@@ -66,49 +68,44 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #include "psx_types.h"
 #include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* func_80156A88 - 59 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern void func_80147324(s32 a0);
+extern s32 func_8014CA88(s32 *a0, s32 a1);
+extern s32 func_8014CA14(s32 a0, s32 a1);
+extern s32 D_801150E0[];
+extern s32 D_801151E0[];
 
-void func_80147324(s32);                         /* static */
-void func_8014CA14(s32, s32);                    /* static */
-void func_8014CA88(s32, s32);                    /* static */
-extern s32 *D_801150E0;
-extern s32 *D_801151E0;
-
-void func_80156A88(void *arg1) {
-    s32 *var_s0;
-    s32 *var_s1;
-    s32 temp_s3;
-    s32 temp_v1;
-    u32 var_s2;
-
-    temp_v1 = M2C_FIELD(arg1, s32 *, 0xC);
-    temp_s3 = temp_v1 & 0xF0FFFFFF;
-    var_s2 = 0;
-    if (temp_v1 != 0x80000000) {
-        var_s0 = &D_801150E0;
-        var_s1 = &D_801151E0;
-        do {
-            if (*var_s1 & 1) {
-                if (temp_v1 & 0x01000000) {
-                    func_80147324(temp_s3 & 0xFFFF);
-                    var_s0 += 4;
-                } else if (temp_v1 & 0x02000000) {
-                    func_8014CA88(*var_s0, temp_s3);
-                    var_s0 += 4;
-                } else {
-                    func_8014CA14(*var_s0, temp_s3);
-                    goto block_8;
-                }
-            } else {
-block_8:
-                var_s0 += 4;
-            }
-            var_s2 += 1;
-            var_s1 += 4;
-        } while (var_s2 < 3U);
+void func_80156A88(s32 a0, s32 a1) {
+    s32 v1 = *(s32 *)(a1 + 0xC);
+    s32 s3 = v1 & 0xF0FFFFFF;
+    s32 s5, s4;
+    s32 *s0;
+    s32 *s1;
+    u32 s2;
+    if (v1 == 0x80000000) {
+        return;
     }
+    s2 = 0;
+    s5 = v1 & 0x1000000;
+    s4 = v1 & 0x2000000;
+    s0 = D_801150E0;
+    s1 = D_801151E0;
+    do {
+        if (*s1 & 1) {
+            if (s5 != 0) {
+                func_80147324(s3 & 0xFFFF);
+            } else if (s4 != 0) {
+                func_8014CA88((s32 *)*s0, s3);
+            } else {
+                func_8014CA14(*s0, s3);
+            }
+        }
+        s0++;
+        s2++;
+        s1++;
+    } while (s2 < 3);
 }
 #endif

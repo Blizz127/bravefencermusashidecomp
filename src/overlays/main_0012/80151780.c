@@ -1,7 +1,9 @@
 /* Overlay range [80151780,80151878) from MAIN.CD member 0012.
  * SHA256(span)=5c2af7d11d57be248a5efd1a4109dbb27e80b77eff05b8e59dc48eaa8c9b9170.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE0)
 MUSASHI_NATIVE_MIPS_WORD(0xAFB00010)
@@ -66,45 +68,49 @@ MUSASHI_NATIVE_MIPS_WORD(0x27BD0020)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
+#include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
-
-s16 func_80029D3C(s16);                             /* extern */
-void func_80151878(void *);                            /* static */
-void func_80153B58(void *);                            /* static */
-void func_801725CC();                                  /* static */
-extern s32 D_801151FC;
+/* func_80151780 - 62 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
 extern s16 D_8011DB1A;
 extern s32 D_80127518;
+extern s32 D_801151FC;
+extern s32 func_801725CC(u8 *a0);
+extern s32 func_80029D3C(void);
+extern void func_80151878(void);
+extern void func_80153B58(s32 *a0);
 
-void func_80151780(void *arg0) {
-    u8 temp_v1;
-    void *temp_s1;
-
-    temp_v1 = arg0->unkDD;
-    temp_s1 = arg0->unk1F0;
-    if ((temp_v1 != 0) && (temp_v1 < 0x21U)) {
-        if (((temp_v1 * 4) + temp_s1)->unk-4 != 0) {
-            func_801725CC();
-            if (D_8011DB1A != 0x3E8) {
-                D_8011DB1A = func_80029D3C(D_8011DB1A);
+void func_80151780(s32 a0) {
+    u8 idx;
+    s32 *tbl;
+    s32 fp;
+    idx = *(u8 *)(a0 + 0xDD);
+    tbl = *(s32 **)(a0 + 0x1F0);
+    if (idx != 0 && idx < 0x21) {
+        fp = tbl[idx - 1];
+        if (fp != 0) {
+            ((s32 (*)(s32))func_801725CC)(a0);
+            {
+                register s32 cur __asm__("$4");
+                cur = D_8011DB1A;
+                if (cur != 1000) {
+                    D_8011DB1A = func_80029D3C();
+                }
             }
-            ((arg0->unkDD * 4) + temp_s1)->unk-4(arg0);
+            (*(void (**)(s32))((s32)tbl + (s32)(*(u8 *)(a0 + 0xDD)) * 4 - 4))(a0);
             D_801151FC = D_80127518;
         } else {
-            func_80151878(arg0);
+            ((void (*)(s32))func_80151878)(a0);
         }
     } else {
-        temp_s1->unk8(arg0);
+        (*(void (**)(s32))((s32)tbl + 8))(a0);
     }
-    if (arg0->unkF0 & 0x200) {
-        func_80153B58(arg0);
+    if ((*(u16 *)(a0 + 0xF0) & 0x200) != 0) {
+        ((void (*)(s32))func_80153B58)(a0);
     }
+    return;
 }
 #endif

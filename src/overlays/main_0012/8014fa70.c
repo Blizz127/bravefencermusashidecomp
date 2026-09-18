@@ -1,7 +1,9 @@
 /* Overlay range [8014FA70,8014FBC0) from MAIN.CD member 0012.
  * SHA256(span)=3d3ce00fdb94c3d029b8733b36017704a42d6f875dda8f4f59dd5be7825252c4.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFD0)
 MUSASHI_NATIVE_MIPS_WORD(0xAFB00020)
@@ -88,62 +90,54 @@ MUSASHI_NATIVE_MIPS_WORD(0x27BD0030)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
+#include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
-
-s32 func_80029178();                               /* extern */
-s32 func_80133784(s32, u16 *, u16 *);                 /* static */
-extern s32 D_801152B0;
+/* func_8014FA70 - 84 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern s32 func_80133784(s32 a0, void *a1, s32 a2);
+extern s32 func_80029178(s32 a0);
+extern u8 D_801152A8[];
+extern s16 D_801152B0;
 extern s32 D_801152BC;
 
-s32 func_8014FA70(void *arg0) {
-    u16 sp1C;
-    u16 sp1A;
-    u16 sp18;
-    u16 sp14;
-    u16 sp12;
-    u16 sp10;
-    s32 var_s1;
-    s32 var_v0;
-
-    sp10 = arg0->unk88;
-    sp12 = arg0->unk8A;
-    sp14 = arg0->unk8C;
-    sp18 = arg0->unk6;
-    sp1A = arg0->unkA;
-    sp1C = arg0->unkE;
-    var_s1 = func_80133784(1, &sp10, &sp18);
-    if (var_s1 != 0) {
-        arg0->unk6 = sp18;
-        arg0->unkA = sp1A;
-        arg0->unkE = sp1C;
-        if (sp1E != 0) {
-            arg0->unk16C = (u16) sp1E;
+s32 func_8014FA70(s32 a0) {
+    s32 s1;
+    s32 v0;
+    u8 in[8];
+    u8 out[8];
+    *(s16 *)(in + 0x0) = *(u16 *)(a0 + 0x88);
+    *(s16 *)(in + 0x2) = *(u16 *)(a0 + 0x8A);
+    *(s16 *)(in + 0x4) = *(u16 *)(a0 + 0x8C);
+    *(s16 *)(out + 0x0) = *(u16 *)(a0 + 0x6);
+    *(s16 *)(out + 0x2) = *(u16 *)(a0 + 0xA);
+    *(s16 *)(out + 0x4) = *(u16 *)(a0 + 0xE);
+    s1 = func_80133784(1, &in[0], (s32)&out[0]);
+    if (s1 != 0) {
+        *(s16 *)(a0 + 0x6) = *(u16 *)(out + 0x0);
+        *(s16 *)(a0 + 0xA) = *(u16 *)(out + 0x2);
+        *(s16 *)(a0 + 0xE) = *(u16 *)(out + 0x4);
+        v0 = *(u8 *)(out + 0x6);
+        if (v0 != 0) {
+            *(s16 *)(a0 + 0x16C) = v0;
         }
-        arg0->unk16E = (s16) ((u16) sp1E >> 0xD);
-        var_v0 = var_s1;
-        if (arg0->unk16C == 0x1D) {
-            if (!(func_80029178(0x21) & 0xFF)) {
-                var_s1 = (var_s1 & ~0x2000) | 0x4000;
-                D_801152B0.unk3 = (unaligned s32) M2C_ERROR(/* Unable to handle lwr; missing a corresponding lwl */);
-                D_801152B0.unk7 = (unaligned s32) M2C_ERROR(/* Unable to handle lwr; missing a corresponding lwl */);
+        *(s16 *)(a0 + 0x16E) = *(u16 *)(out + 0x6) >> 13;
+        if (*(u16 *)(a0 + 0x16C) == 0x1D) {
+            if ((func_80029178(0x21) & 0xFF) == 0) {
+                s1 &= ~0x2000;
+                s1 |= 0x4000;
+                __builtin_memcpy(&D_801152B0, &D_801152A8[0], 8);
                 D_801152BC = 1;
             }
-            return var_s1;
         }
-        /* Duplicate return node #10. Try simplifying control flow for better match */
-        return var_v0;
+        return s1;
     }
-    if (sp1E != 0) {
-        arg0->unk16C = (u16) sp1E;
+    v0 = *(u8 *)(out + 0x6);
+    if (v0 != 0) {
+        *(s16 *)(a0 + 0x16C) = v0;
     }
-    var_v0 = 0;
-    return var_v0;
+    return 0;
 }
 #endif

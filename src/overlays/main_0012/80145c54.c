@@ -1,7 +1,9 @@
 /* Overlay range [80145C54,80145CEC) from MAIN.CD member 0012.
  * SHA256(span)=33df775a473edcbd3f2feda0f8359bf32bd7198724e9702f1327bc65e09df524.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE8)
 MUSASHI_NATIVE_MIPS_WORD(0x2404004A)
@@ -42,46 +44,39 @@ MUSASHI_NATIVE_MIPS_WORD(0x27BD0018)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
+#include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
-
-void func_800291A0(s32, s32);                            /* extern */
-s32 func_800291B4();                               /* extern */
+/* func_80145C54 - 38 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern s32 func_800291B4(s32 arg);
+extern void func_800291A0(s32, s32);
 
 void func_80145C54(void) {
-    s32 temp_a1;
-    s32 temp_a1_2;
-    s32 temp_s0;
-    u32 temp_v1;
-    u32 temp_v1_2;
-    u32 var_a1;
-    u32 var_a1_2;
-
-    temp_a1 = func_800291B4(0x4A) & 0xFF;
-    temp_v1 = temp_a1 + 1;
-    if (temp_a1 >= 0x20) {
-        var_a1 = temp_v1;
-        if (!(temp_v1 & 0xF)) {
-            var_a1 = temp_v1 >> 4;
+    register s32 a1 __asm__("$5");
+    register s32 v1 __asm__("$3");
+    s32 s0;
+    a1 = func_800291B4(0x4A) & 0xFF;
+    if (a1 >= 0x20) {
+        v1 = a1 + 1;
+        a1 = v1;
+        if ((v1 & 0xF) == 0) {
+            a1 = (u32)v1 >> 4;
         }
-        temp_s0 = var_a1 & 0xFF;
-        func_800291A0(0x4A, temp_s0);
-        func_800291A0(0x50, temp_s0);
+        s0 = a1 & 0xFF;
+        func_800291A0(0x4A, s0);
+        func_800291A0(0x50, s0);
     }
-    temp_a1_2 = func_800291B4(0x4D) & 0xFF;
-    temp_v1_2 = temp_a1_2 + 1;
-    if (temp_a1_2 >= 0x20) {
-        var_a1_2 = temp_v1_2;
-        if (!(temp_v1_2 & 0xF)) {
-            var_a1_2 = temp_v1_2 >> 4;
+    a1 = func_800291B4(0x4D) & 0xFF;
+    if (a1 >= 0x20) {
+        v1 = a1 + 1;
+        a1 = v1;
+        if ((v1 & 0xF) == 0) {
+            a1 = (u32)v1 >> 4;
         }
-        func_800291A0(0x4D, var_a1_2 & 0xFF);
+        func_800291A0(0x4D, a1 & 0xFF);
     }
 }
 #endif

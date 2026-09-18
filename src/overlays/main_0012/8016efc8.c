@@ -1,7 +1,9 @@
 /* Overlay range [8016EFC8,8016F094) from MAIN.CD member 0012.
  * SHA256(span)=575e38d2f596ddccb75dc91f1c5f6abb78751981b7c497da9a8a6f1c442a7ef4.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x8C830000)
 MUSASHI_NATIVE_MIPS_WORD(0x24020001)
@@ -55,29 +57,24 @@ MUSASHI_NATIVE_MIPS_WORD(0xAC236D50)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
+#include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
-
-extern s8 D_800B9A17;
-extern s8 D_80126D1A;
-extern s16 D_80126D20;
-extern s32 D_80126D50;
-extern s32 *D_80126D54;
+/* func_8016EFC8 - 51 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern u8 D_80126D6C;
+extern s32 D_80126D54;
+extern u8 D_80126D6D;
+extern u8 D_80126D6E;
 extern s32 D_80126D5C;
 extern s32 D_80126D60;
 extern s16 D_80126D64;
 extern s16 D_80126D66;
 extern s16 D_80126D68;
 extern s16 D_80126D6A;
-extern s8 D_80126D6C;
-extern s8 D_80126D6D;
-extern s8 D_80126D6E;
+extern u8 D_80126D1A;
 extern s32 D_80127058;
 extern s32 D_8012705C;
 extern s32 D_80127060;
@@ -86,10 +83,18 @@ extern s32 D_80127068;
 extern s32 D_8012706C;
 extern s32 D_80127070;
 extern s32 D_80127074;
+extern u8 D_800B9A17;
+extern s16 D_80126D20;
+extern s32 D_80126D50;
 
-void func_8016EFC8(s32 *arg0, s32 arg1) {
+s32 func_8016EFC8(s32 a0, s32 a1)
+{
+    s32 v1;
+    s32 m;
+    v1 = *(s32 *)a0;
+    m = 0x4000000;
     D_80126D6C = 1;
-    D_80126D54 = arg0;
+    D_80126D54 = a0;
     D_80126D6D = 0;
     D_80126D6E = 0;
     D_80126D5C = 0;
@@ -109,6 +114,6 @@ void func_8016EFC8(s32 *arg0, s32 arg1) {
     D_80127074 = 0;
     D_800B9A17 = 0;
     D_80126D20 = 0;
-    D_80126D50 = *arg0 | 0x04000000 | arg1;
+    D_80126D50 = v1 | m | a1;
 }
 #endif

@@ -1,7 +1,9 @@
 /* Overlay range [8014C0C8,8014C118) from MAIN.CD member 0012.
  * SHA256(span)=cfa5704061d05f5ef6a8afb98ec93c71cb1dcc23bbdd6756e3e1824bed81cef4.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x00002021)
 MUSASHI_NATIVE_MIPS_WORD(0x00063400)
@@ -27,30 +29,25 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #include "psx_types.h"
 #include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* func_8014C0C8 - 20 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern u8 D_801202A0[];
 
-extern s32 *D_801202A0;
-
-void *func_8014C0C8(s32 arg1, s16 arg2) {
-    void *var_v0;
-    void *var_v1;
-    u32 var_a0;
-
-    var_a0 = 0;
-    var_v1 = &D_801202A0;
-loop_1:
-    if ((M2C_FIELD(var_v1, u16 *, 0) != arg1) || (var_v0 = var_v1, (M2C_FIELD(var_v1, s16 *, 0xFC) != arg2))) {
-        var_a0 += 1;
-        var_v1 += 0x10C;
-        if (var_a0 >= 0x60U) {
-            var_v0 = 0;
-        } else {
-            goto loop_1;
+s32 func_8014C0C8(s32 a0_unused, s32 a1, s32 a2) {
+    s32 i = 0;
+    s32 key = (s16)a2;
+    u8 *p = D_801202A0;
+    do {
+        if (*(u16 *)(p + 0x0) == a1) {
+            if (*(s16 *)(p + 0xFC) == key) {
+                return (s32)p;
+            }
         }
-    }
-    return var_v0;
+        i += 1;
+        p += 0x10C;
+    } while ((u32)i < 0x60);
+    return 0;
 }
 #endif

@@ -1,7 +1,9 @@
 /* Overlay range [80176D94,80176FF4) from MAIN.CD member 0012.
  * SHA256(span)=2d96f3093eb3d30c8ee0286b72aa4b1f06dfa2984685be9dabe6896141de50e8.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFC0)
 MUSASHI_NATIVE_MIPS_WORD(0xAFB20028)
@@ -156,47 +158,59 @@ MUSASHI_NATIVE_MIPS_WORD(0x27BD0040)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
+#include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
-
-s32 func_80177784(s32, s32, s32);                     /* static */
-s32 func_801777BC(s32, s16, s16, s16, s32, s32, s32); /* static */
-s16 func_801783D0(u16, s32);                          /* static */
-extern u16 D_8011F82A;
+/* func_80176D94 - 152 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern void *func_80177784(void *a0, s32 a1, s32 a2, s32 a3);
+extern u32 func_801783D0(s32 a0, s32 a1);
+extern void *func_801777BC();
 extern u16 D_8011F82C;
+extern u16 D_8011F82A;
 
-s32 func_80176D94(s32 arg1, s16 arg2) {
-    s32 temp_a2;
-    s32 temp_s0;
-    s32 temp_s0_2;
-    s32 temp_s0_3;
-    s32 temp_v1;
-    void *temp_v0;
-
-    temp_s0 = arg2 << 0x10;
-    temp_s0_2 = func_80177784(func_80177784(func_80177784(func_80177784(temp_s0 | (arg1 & 0xFFFF), 0x6B565040), temp_s0 | ((arg1 + 8) & 0xFFFF), 0x6B565808), temp_s0 | ((arg1 + 0x10) & 0xFFFF), 0x6B564060), temp_s0 | ((arg1 + 0x30) & 0xFFFF), 0x6B563858);
-    temp_s0_3 = func_801777BC(temp_s0_2, func_801783D0(D_8011F82C, 4), (s16) (arg1 + 0x18), arg2, 3, 0xAD, 0xFF);
-    temp_v0 = func_801777BC(temp_s0_3, func_801783D0(D_8011F82A, 4), (s16) (arg1 + 0x38), arg2, 3, 0xAD, 0xFF);
-    temp_v0->unk4 = 0x6000DCFF;
-    temp_v0->unk0 = (s32) (((temp_v0 - 0x14) & 0xFFFFFF) | 0x03000000);
-    temp_a2 = ((arg2 + 0xA) << 0x10) | ((arg1 + 1) & 0xFFFF);
-    temp_v0->unk8 = temp_a2;
-    temp_v0->unkC = (s32) (((s32) (D_8011F82C * 0x50E6) >> 0x10) | 0x20000);
-    temp_v0->unk14 = (s32) (((s32) temp_v0 & 0xFFFFFF) | 0x03000000);
-    temp_v0->unk28 = (s32) (((s32) (temp_v0 + 0x14) & 0xFFFFFF) | 0x03000000);
-    temp_v0->unk18 = 0x600000FF;
-    temp_v0->unk1C = temp_a2;
-    temp_v0->unk2C = 0x60000000;
-    temp_v0->unk30 = (s32) (((arg2 + 9) << 0x10) | (arg1 & 0xFFFF));
-    temp_v1 = (s32) (D_8011F82A * 0x50E6) >> 0x10;
-    temp_v0->unk20 = (s32) (temp_v1 | 0x20000);
-    temp_v0->unk34 = (s32) ((temp_v1 + 2) | 0x40000);
-    return temp_v0 + 0x3C;
+u32 *func_80176D94(void *param_1, u32 param_2, s16 param_3_)
+{
+    register s32 c3  __asm__("$21") = 3;     /* $s5 */
+    register s32 cad __asm__("$20") = 0xad;  /* $s4 */
+    register s32 cff __asm__("$19") = 0xff;  /* $s3 */
+    s32 iVar6 = (s16)param_3_;               /* -> $s1 */
+    u32 uVar5 = iVar6 << 16;                 /* -> $s0 */
+    void *uVar2;
+    void *u4, *u5;                           /* fresh single-set save vars (S2 boost) */
+    u32 *puVar3;
+    s16 sVar1;
+    u32 uVar4;
+    u32 dl;                                  /* multi-set D-load var (2 sets, no boost) */
+    s32 t;
+    uVar2 = ((void * (*)(void *, s32, s32))func_80177784)(param_1, uVar5 | (u16)param_2, 0x6b565040);
+    uVar2 = ((void * (*)(void *, s32, s32))func_80177784)(uVar2, uVar5 | ((param_2 + 8) & 0xffff), 0x6b565808);
+    uVar2 = ((void * (*)(void *, s32, s32))func_80177784)(uVar2, uVar5 | ((param_2 + 0x10) & 0xffff), 0x6b564060);
+    u4 = ((void * (*)(void *, s32, s32))func_80177784)(uVar2, uVar5 | ((param_2 + 0x30) & 0xffff), 0x6b563858);
+    sVar1 = (s16)func_801783D0(D_8011F82C, 4);
+    u5 = func_801777BC(u4, sVar1, (s32)((param_2 + 0x18) << 16) >> 16, iVar6, c3, cad, cff);
+    sVar1 = (s16)func_801783D0(D_8011F82A, 4);
+    puVar3 = (u32 *)func_801777BC(u5, sVar1, (s32)((param_2 + 0x38) << 16) >> 16, iVar6, c3, cad, cff);
+    dl = ((struct { u16 h; } *)&D_8011F82C)->h;
+    { u32 v0m = ((u32)(puVar3 - 5) & 0xffffff) | 0x3000000;
+      register u32 c6000 __asm__("$6") = 0x6000dcff;
+      puVar3[1] = c6000;
+      *puVar3 = v0m; }
+    uVar4 = ((iVar6 + 10) << 16) | ((param_2 + 1) & 0xffff);
+    puVar3[2] = uVar4;
+    puVar3[3] = ((s32)(dl * 0x50e6) >> 16) | 0x20000;
+    dl = ((struct { u16 h; } *)&D_8011F82A)->h;
+    puVar3[5] = ((u32)puVar3 & 0xffffff) | 0x3000000;
+    puVar3[10] = ((u32)(puVar3 + 5) & 0xffffff) | 0x3000000;
+    puVar3[6] = 0x600000ff;
+    puVar3[7] = uVar4;
+    puVar3[0xb] = 0x60000000;
+    puVar3[0xc] = ((iVar6 + 9) << 16) | (param_2 & 0xffff);
+    t = (s32)(dl * 0x50e6) >> 16;
+    puVar3[8] = t | 0x20000;
+    puVar3[0xd] = (t + 2) | 0x40000;
+    return puVar3 + 0xf;
 }
 #endif

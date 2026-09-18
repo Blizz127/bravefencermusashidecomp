@@ -1,7 +1,9 @@
 /* Overlay range [8013A530,8013A860) from MAIN.CD member 0012.
  * SHA256(span)=64982c855bdbc4356a1ec38bcb7252180b76dab561ac8d6750cbd143754bfaf0.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFF98)
 MUSASHI_NATIVE_MIPS_WORD(0x00803021)
@@ -208,98 +210,95 @@ MUSASHI_NATIVE_MIPS_WORD(0x27BD0068)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
+#include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* func_8013A530 - 204 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern void *memcpy(void *, const void *, u32);
+extern void func_80015D4C();
+extern void func_80015F04();
+extern void func_8013AA24(s32 a0, s32 a1);
 
-void func_80015D4C(s16, s16, s16, s16, s32, s32, s32, s32, s32); /* extern */
-void func_80015F04(s16, s16, s16, s16, s32, s32, s32, s32, s32); /* extern */
-void func_8013AA24(void *, void *, void *, s32);       /* static */
-
-void func_8013A530(void *arg0) {
-    s16 temp_a0;
-    s16 temp_a1_2;
-    s16 temp_s2;
-    s16 temp_s3;
-    s16 temp_v0;
-    s16 temp_v0_2;
-    s16 temp_v1_2;
-    s16 temp_v1_3;
-    s16 temp_v1_4;
-    s16 temp_v1_5;
-    s32 temp_a3;
-    s32 temp_s0;
-    s32 temp_s1;
-    s32 var_a0;
-    u16 temp_a1;
-    u16 temp_v1;
-    u8 temp_t0;
-    void *temp_fp;
-
-    temp_fp = arg0->unk4;
-    temp_v1 = temp_fp->unk18;
-    temp_t0 = temp_fp->unk22;
-    if ((temp_v1 != 0) && (temp_v1 < 7U)) {
-        switch (temp_v1) {                          /* irregular */
-        default:
-            temp_a1 = temp_fp->unk34;
-            var_a0 = temp_a1 + 0x10;
-            temp_a3 = temp_fp->unk36 + 0x10;
-            if (temp_fp->unk20 != 0) {
-                var_a0 = temp_a1 + 0x38;
-            }
-            temp_v1_2 = (temp_fp->unk28 * (var_a0 & 0xFFFF)) / 154;
-            arg0->unk8 = temp_v1_2;
-            if (!(temp_t0 & 8)) {
-                arg0->unk8 = (s16) -temp_v1_2;
-            }
-            if (!(temp_t0 & 0x60) || (temp_t0 & 0x80)) {
-                arg0->unk8 = (s16) -(s16) (u16) arg0->unk8;
-            }
-            temp_v1_3 = (temp_fp->unk2A * (temp_a3 & 0xFFFF)) / 42;
-            arg0->unkA = temp_v1_3;
-            if (temp_t0 & 0x10) {
-                arg0->unkA = (s16) -temp_v1_3;
-            }
-            temp_a1_2 = arg0->unkC;
-            temp_a0 = arg0->unkE;
-            if (temp_a1_2 < temp_a0) {
-                temp_v0 = temp_a1_2 + 0x400;
-                arg0->unkC = temp_v0;
-                temp_v1_4 = arg0->unkE;
-                if (temp_v1_4 < temp_v0) {
-                    arg0->unkC = temp_v1_4;
+void func_8013A530(int param_1)
+{
+    int iVar11;
+    u16 uVar2;
+    int sVar2;
+    register u8 bVar1 __asm__("$8");
+    int deadlocal[2];
+    iVar11 = *(int *)(param_1 + 4);
+    uVar2 = *(u16 *)(iVar11 + 0x18);
+    sVar2 = uVar2;
+    bVar1 = *(u8 *)(iVar11 + 0x22);
+    if (uVar2 != 0 && uVar2 < 7) {
+        if (uVar2 != 1) {
+            if (sVar2 != 0 && sVar2 < 7) {
+                register u32 f34 __asm__("$5");
+                u32 uVar2b;
+                u32 uVar6;
+                short sVar5;
+                register int fc __asm__("$5");
+                register int zr __asm__("$0");
+                int iVar7;
+                f34 = *(u16 *)(iVar11 + 0x34);
+                uVar6 = f34 + 0x10;
+                uVar2b = *(u16 *)(iVar11 + 0x36) + 0x10;
+                if (*(u8 *)(iVar11 + 0x20) != 0) {
+                    uVar6 = f34 + 0x38;
                 }
-            } else {
-                temp_v0_2 = temp_a1_2 - 0x400;
-                if (temp_a0 < temp_a1_2) {
-                    arg0->unkC = temp_v0_2;
-                    temp_v1_5 = arg0->unkE;
-                    if (temp_v0_2 < temp_v1_5) {
-                        arg0->unkC = temp_v1_5;
+                sVar5 = (short)((int)((int)*(s16 *)(iVar11 + 0x28) * (uVar6 & 0xffff)) / 0x9a);
+                *(s16 *)(param_1 + 8) = sVar5;
+                if ((bVar1 & 8) == 0) {
+                    *(s16 *)(param_1 + 8) = -sVar5;
+                }
+                if ((bVar1 & 0x60) == 0 || (bVar1 & 0x80) != 0) {
+                    *(s16 *)(param_1 + 8) = -*(s16 *)(param_1 + 8);
+                }
+                sVar5 = (short)((int)((int)*(s16 *)(iVar11 + 0x2a) * (uVar2b & 0xffff)) / 0x2a);
+                *(s16 *)(param_1 + 0xa) = sVar5;
+                if ((bVar1 & 0x10) != 0) {
+                    *(s16 *)(param_1 + 0xa) = -sVar5;
+                }
+                __asm__("" :: "r"(bVar1));
+                fc = *(s16 *)(param_1 + 0xc);
+                iVar7 = fc + zr;
+                if (fc < *(s16 *)(param_1 + 0xe)) {
+                    int t = iVar7 + 0x400;
+                    *(s16 *)(param_1 + 0xc) = (short)t;
+                    if (((t << 16) >> 16) > (int)*(s16 *)(param_1 + 0xe)) {
+                        *(s16 *)(param_1 + 0xc) = *(s16 *)(param_1 + 0xe);
+                    }
+                } else if (*(s16 *)(param_1 + 0xe) < fc) {
+                    int t = iVar7 - 0x400;
+                    __asm__("" :: "r"(iVar7), "r"(t));
+                    *(s16 *)(param_1 + 0xc) = (short)t;
+                    if (((t << 16) >> 16) < (int)*(s16 *)(param_1 + 0xe)) {
+                        *(s16 *)(param_1 + 0xc) = *(s16 *)(param_1 + 0xe);
                     }
                 }
+                __asm__("" :: "r"(fc));
+                func_8013AA24(iVar11, param_1);
             }
-            func_8013AA24(temp_fp, arg0, arg0, temp_a3);
-            return;
-        case 1:
-            arg0->unkB = (unaligned s32) M2C_ERROR(/* Unable to handle lwr; missing a corresponding lwl */);
-            temp_s0 = (s32) (((s16) temp_fp->unk34 + 0x10) * arg0->unk8) >> 0xC;
-            temp_s2 = temp_fp->unk24 - ((u32) (temp_s0 & 0xFFFF) >> 1);
-            temp_s1 = (s32) (((s16) temp_fp->unk36 + 0x10) * arg0->unkA) >> 0xC;
-            temp_s3 = temp_fp->unk26 - ((u32) (temp_s1 & 0xFFFF) >> 1);
-            func_80015F04(temp_s2, temp_s3, (s16) temp_s0, (s16) temp_s1, 0xB3, 0x99, 0x4C, (s32) temp_fp->unk1A, 4);
-            func_80015F04((s16) (temp_s2 + 1), (s16) (temp_s3 + 1), (s16) (temp_s0 - 2), (s16) (temp_s1 - 2), 0xE6, 0xCC, 0x73, (s32) temp_fp->unk1A, 4);
-            func_80015D4C(temp_s2, temp_s3, (s16) temp_s0, (s16) temp_s1, 0xFF, 0xE6, 0x99, (s32) temp_fp->unk1A, 4);
-            break;
+        } else {
+            int iVar7, iVar8;
+            u32 uVar6, uVar4;
+            memcpy((void *)(param_1 + 8), (void *)(iVar11 + 0x28), 4);
+            uVar6 = ((*(s16 *)(iVar11 + 0x34) + 0x10) * (int)*(s16 *)(param_1 + 8)) >> 0xc;
+            uVar4 = ((*(s16 *)(iVar11 + 0x36) + 0x10) * (int)*(s16 *)(param_1 + 0xa)) >> 0xc;
+            iVar7 = *(u16 *)(iVar11 + 0x24) - ((uVar6 & 0xffff) >> 1);
+            iVar8 = *(u16 *)(iVar11 + 0x26) - ((uVar4 & 0xffff) >> 1);
+            func_80015F04((int)(s16)iVar7, (int)(s16)iVar8, (int)(s16)uVar6, (int)(s16)uVar4,
+                          0xb3, 0x99, 0x4c, *(u16 *)(iVar11 + 0x1a), 4);
+            func_80015F04((int)(s16)(iVar7 + 1), (int)(s16)(iVar8 + 1),
+                          (int)(s16)(uVar6 - 2), (int)(s16)(uVar4 - 2),
+                          0xe6, 0xcc, 0x73, *(u16 *)(iVar11 + 0x1a), 4);
+            func_80015D4C((int)(s16)iVar7, (int)(s16)iVar8, (int)(s16)uVar6, (int)(s16)uVar4,
+                          0xff, 0xe6, 0x99, *(u16 *)(iVar11 + 0x1a), 4);
         }
-    } else {
-    case 0:
     }
+    return;
 }
 #endif

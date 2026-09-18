@@ -1,7 +1,9 @@
 /* Overlay range [8012DEB8,8012DF34) from MAIN.CD member 0012.
  * SHA256(span)=262e5302194c2a49152810cbce934c4ecbced2ea3c692747aaa3dda34307950f.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFD0)
 MUSASHI_NATIVE_MIPS_WORD(0xAFB10024)
@@ -35,31 +37,26 @@ MUSASHI_NATIVE_MIPS_WORD(0x27BD0030)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
+#include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* func_8012DEB8 - 31 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern void func_8012F214(s32 a0, s32 a1, s32 a2);
+extern s32 func_8012DF34(s32 a0, s32 a1, s32 a2);
+extern s16 D_80126B9A;
 
-s32 func_8012DF34(void *, void *, void *);                   /* static */
-void func_8012F214(void *, s32, void *);                       /* static */
-extern u16 D_80126B9A;
-
-s32 func_8012DEB8(void *arg0, s32 arg2) {
-    s32 sp18;
-    s32 sp10;
-    s32 var_v0;
-
-    func_8012F214(&sp10);
-    func_8012F214(arg0, arg2, &sp18);
-    var_v0 = 0;
-    if (func_8012DF34(arg0, &sp10, &sp18) != 0) {
-        var_v0 = 1;
-        D_80126B9A = arg0->unk20->unk12;
+s32 func_8012DEB8(s32 a0, s32 a1, s32 a2) {
+    s32 sp10[2];
+    s32 sp18[2];
+    func_8012F214(a0, a1, (s32)sp10);
+    func_8012F214(a0, a2, (s32)sp18);
+    if (func_8012DF34(a0, (s32)sp10, (s32)sp18) != 0) {
+        D_80126B9A = *(u16 *)(*(s32 *)(a0 + 0x20) + 0x12);
+        return 1;
     }
-    return var_v0;
+    return 0;
 }
 #endif

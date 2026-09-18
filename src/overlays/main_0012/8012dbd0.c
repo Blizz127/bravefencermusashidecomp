@@ -1,7 +1,9 @@
 /* Overlay range [8012DBD0,8012DDA4) from MAIN.CD member 0012.
  * SHA256(span)=96d01c28993e5b43c45070c263738d2013c485fea89c25bb629a2a6f6c1d4b41.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFD0)
 MUSASHI_NATIVE_MIPS_WORD(0xAFB20018)
@@ -124,100 +126,106 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #include "psx_types.h"
 #include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* func_8012DBD0 - 117 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern s32 func_8012DE2C(s32 a0);
+extern s32 func_8012DDA4(void);
+extern void func_80013350(s32 a0, void *a1);
 
-s32 func_80013350(void *, void *);                  /* extern */
-void *func_8012DDA4();                              /* static */
-void *func_8012DE2C();                              /* static */
-
-s32 func_8012DBD0(void *arg0, s16 arg1, s16 arg2, u16 arg3) {
-    s16 temp_v0;
-    s16 temp_v0_2;
-    s16 temp_v0_3;
-    s16 temp_v0_4;
-    s16 temp_v0_5;
-    s16 var_s1;
-    s16 var_s1_2;
-    s16 var_v1;
-    s16 var_v1_2;
-    s16 var_v1_3;
-    s16 var_v1_4;
-    s16 var_v1_5;
-    s32 temp_a0;
-    s32 temp_v1;
-    s32 var_lo;
-    u16 temp_v1_2;
-    void *var_s0;
-
-    var_s0 = func_8012DE2C();
-    if (var_s0 != 0) {
-        temp_v1 = M2C_FIELD(arg0, s32 *, 0x58);
-        if (temp_v1 == 0) {
-            var_s1 = 0x80;
-            goto block_25;
-        }
-        temp_a0 = temp_v1 & 0x0FFFFFFF;
-        temp_v0 = M2C_FIELD(temp_a0, s16 *, 4);
-        var_v1 = M2C_FIELD(temp_a0, s16 *, 6);
-        var_s1_2 = temp_v0;
-        if (temp_v0 < 0) {
-            var_s1_2 = -var_s1_2;
-        }
-        if (var_v1 < 0) {
-            var_v1 = -var_v1;
-        }
-        if (var_s1_2 < var_v1) {
-            var_s1_2 = var_v1;
-        }
-        temp_v0_2 = M2C_FIELD(temp_a0, s16 *, 8);
-        var_v1_2 = temp_v0_2;
-        if (temp_v0_2 < 0) {
-            var_v1_2 = -var_v1_2;
-        }
-        if (var_s1_2 < var_v1_2) {
-            var_s1_2 = var_v1_2;
-        }
-        temp_v0_3 = M2C_FIELD(temp_a0, s16 *, 0xA);
-        var_v1_3 = temp_v0_3;
-        if (temp_v0_3 < 0) {
-            var_v1_3 = -var_v1_3;
-        }
-        if (var_s1_2 < var_v1_3) {
-            var_s1_2 = var_v1_3;
-        }
-        temp_v0_4 = M2C_FIELD(temp_a0, s16 *, 0xC);
-        var_v1_4 = temp_v0_4;
-        if (temp_v0_4 < 0) {
-            var_v1_4 = -var_v1_4;
-        }
-        if (var_s1_2 < var_v1_4) {
-            var_s1_2 = var_v1_4;
-        }
-        temp_v0_5 = M2C_FIELD(temp_a0, s16 *, 0xE);
-        var_v1_5 = temp_v0_5;
-        if (temp_v0_5 < 0) {
-            var_v1_5 = -var_v1_5;
-        }
-        var_lo = var_s1_2 * var_s1_2;
-        if (var_s1_2 < var_v1_5) {
-            var_s1 = var_v1_5;
-block_25:
-            var_lo = var_s1 * var_s1;
-        }
-        do {
-            temp_v1_2 = M2C_FIELD(var_s0, u16 *, 0x5C);
-            if ((temp_v1_2 & 0x8000) && !(temp_v1_2 & 0x4000) && (M2C_FIELD(var_s0, u16 *, 0x5E) != arg3) && !(M2C_FIELD(var_s0, u16 *, 0xAE) & 1) && (func_80013350(arg0 + 4, var_s0 + 4) < var_lo)) {
-                M2C_FIELD(var_s0, s16 *, 0x60) = arg1;
-                M2C_FIELD(var_s0, s16 *, 0x62) = arg2;
-                M2C_FIELD(var_s0, u16 *, 0x5E) = arg3;
-                M2C_FIELD(var_s0, u16 *, 0x5C) = (u16) (M2C_FIELD(var_s0, u16 *, 0x5C) | 1);
-            }
-            var_s0 = func_8012DDA4();
-        } while (var_s0 != 0);
+s32 func_8012DBD0(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
+    register s32 param_1 __asm__("$18");  /* $s2 */
+    register s32 param_2 __asm__("$20");  /* $s4 */
+    register s32 param_3 __asm__("$21");  /* $s5 */
+    register s32 param_4 __asm__("$19");  /* $s3 */
+    register s32 iVar1 __asm__("$16");    /* $s0 */
+    register s32 iVar5 __asm__("$17");    /* $s1 (running max, then its square) */
+    s32 iVar4;
+    register s32 t __asm__("$2");          /* $v0: keep the loaded halfword in $v0 so abs copies $v0->$v1 */
+    u32 uVar3;
+    param_1 = arg0;
+    param_2 = arg1;
+    param_3 = arg2;
+    param_4 = arg3;
+    iVar1 = func_8012DE2C(param_1);
+    if (iVar1 == 0) {
+        return 0;
     }
+    if (*(u32 *)(param_1 + 0x58) == 0) {
+        iVar5 = 0x80;
+    } else {
+        uVar3 = *(u32 *)(param_1 + 0x58) & 0xfffffff;
+        t = (s32)*(s16 *)(uVar3 + 4);
+        iVar4 = (s32)*(s16 *)(uVar3 + 6);
+        iVar5 = t;
+        if (t < 0) {
+            iVar5 = -iVar5;
+        }
+        if (iVar4 < 0) {
+            iVar4 = -iVar4;
+        }
+        __asm__ __volatile__("" : "=r"(iVar4) : "0"(iVar4));
+        if (iVar5 < iVar4) {
+            iVar5 = iVar4;
+        }
+        t = (s32)*(s16 *)(uVar3 + 8);
+        iVar4 = t;
+        if (t < 0) {
+            iVar4 = -iVar4;
+        }
+        __asm__ __volatile__("" : "=r"(iVar4) : "0"(iVar4));
+        if (iVar5 < iVar4) {
+            iVar5 = iVar4;
+        }
+        t = (s32)*(s16 *)(uVar3 + 10);
+        iVar4 = t;
+        if (t < 0) {
+            iVar4 = -iVar4;
+        }
+        __asm__ __volatile__("" : "=r"(iVar4) : "0"(iVar4));
+        if (iVar5 < iVar4) {
+            iVar5 = iVar4;
+        }
+        t = (s32)*(s16 *)(uVar3 + 0xc);
+        iVar4 = t;
+        if (t < 0) {
+            iVar4 = -iVar4;
+        }
+        __asm__ __volatile__("" : "=r"(iVar4) : "0"(iVar4));
+        if (iVar5 < iVar4) {
+            iVar5 = iVar4;
+        }
+        t = (s32)*(s16 *)(uVar3 + 0xe);
+        iVar4 = t;
+        if (t < 0) {
+            iVar4 = -iVar4;
+        }
+        __asm__ __volatile__("" : "=r"(iVar4) : "0"(iVar4));
+        if (iVar5 < iVar4) {
+            iVar5 = iVar4;
+        }
+    }
+    iVar5 = iVar5 * iVar5;
+LAB_8012dcf8:
+    do {
+        u16 uVar6 = *(u16 *)(iVar1 + 0x5c);
+        if ((uVar6 & 0x8000) != 0) {
+            if ((uVar6 & 0x4000) == 0) {
+                if (*(u16 *)(iVar1 + 0x5e) != param_4) {
+                    if ((*(u16 *)(iVar1 + 0xae) & 1) == 0) {
+                        if (((s32(*)(s32, s32))func_80013350)(param_1 + 4, iVar1 + 4) < iVar5) {
+                            *(u16 *)(iVar1 + 0x60) = param_2;
+                            *(u16 *)(iVar1 + 0x62) = param_3;
+                            *(u16 *)(iVar1 + 0x5e) = param_4;
+                            *(u16 *)(iVar1 + 0x5c) = *(u16 *)(iVar1 + 0x5c) | 1;
+                        }
+                    }
+                }
+            }
+        }
+        iVar1 = func_8012DDA4();
+    } while (iVar1 != 0);
     return 0;
 }
 #endif

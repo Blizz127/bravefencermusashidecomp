@@ -1,7 +1,9 @@
 /* Overlay range [8014FC18,8014FCFC) from MAIN.CD member 0012.
  * SHA256(span)=579ef747b61bb1ebb0cc3a76466bf8615e605a469d8a20fa0f87b24d1cc5b0a8.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFD8)
 MUSASHI_NATIVE_MIPS_WORD(0xAFB00020)
@@ -61,45 +63,39 @@ MUSASHI_NATIVE_MIPS_WORD(0x27BD0028)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
+#include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* func_8014FC18 - 57 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern s32 func_80133784(s32 a0, void *a1, s32 a2);
 
-s32 func_80133784(s32, u16 *, u16 *);                 /* static */
-
-s32 func_8014FC18(void *arg0) {
-    u16 sp1C;
-    u16 sp1A;
-    u16 sp18;
-    u16 sp14;
-    u16 sp12;
-    u16 sp10;
-    s32 temp_v0;
-
-    sp10 = arg0->unk6;
-    sp12 = arg0->unkA;
-    sp14 = arg0->unkE;
-    sp18 = arg0->unk6;
-    sp1A = arg0->unkA + 0x10;
-    sp1C = arg0->unkE;
-    temp_v0 = func_80133784(1, &sp10, &sp18);
-    if (temp_v0 != 0) {
-        arg0->unk6 = sp18;
-        arg0->unkA = sp1A;
-        arg0->unkE = sp1C;
-        if (sp1E != 0) {
-            arg0->unk16C = (s16) sp1E;
+s32 func_8014FC18(u8 *self)
+{
+    s16 src[4];
+    s16 dst[4];
+    s32 ret;
+    src[0] = *(u16 *)(self + 0x6);
+    src[1] = *(u16 *)(self + 0xA);
+    src[2] = *(u16 *)(self + 0xE);
+    dst[0] = *(u16 *)(self + 0x6);
+    dst[1] = *(u16 *)(self + 0xA) + 0x10;
+    dst[2] = *(u16 *)(self + 0xE);
+    ret = func_80133784(1, src, (s32)dst);
+    if (ret != 0) {
+        *(u16 *)(self + 0x6) = dst[0];
+        *(u16 *)(self + 0xA) = dst[1];
+        *(u16 *)(self + 0xE) = dst[2];
+        if (*(u8 *)&dst[3] != 0) {
+            *(s16 *)(self + 0x16C) = *(u8 *)&dst[3];
         }
-        arg0->unk16E = (s16) ((u16) sp1E >> 0xD);
-        return temp_v0;
+        *(s16 *)(self + 0x16E) = (u16)dst[3] >> 13;
+        return ret;
     }
-    if (sp1E != 0) {
-        arg0->unk16C = (s16) sp1E;
+    if (*(u8 *)&dst[3] != 0) {
+        *(s16 *)(self + 0x16C) = *(u8 *)&dst[3];
     }
     return 0;
 }

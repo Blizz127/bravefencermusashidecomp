@@ -1,7 +1,9 @@
 /* Overlay range [80175590,80175624) from MAIN.CD member 0012.
  * SHA256(span)=895672119a341e9208ae72b866491331b5f6c9113feb1a06359e96b4176be4b9.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE8)
 MUSASHI_NATIVE_MIPS_WORD(0xAFB00010)
@@ -44,36 +46,34 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #include "psx_types.h"
 #include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
-
-void func_801757A0(s16);                         /* static */
-extern s16 D_800B9A02;
+/* func_80175590 - 37 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern void func_801757A0(s32 a0);
+extern short D_800B9A02;
 
 void func_80175590(void *arg0) {
-    s16 temp_v1;
     u8 temp_a0;
-    u8 temp_v0;
-    u8 temp_v0_2;
-
-    temp_a0 = M2C_FIELD(arg0, u8 *, 5);
-    temp_v0 = M2C_FIELD(arg0, u8 *, 6) - temp_a0;
+    register s16 temp_v1 __asm__("$3");
+    s32 temp_v0;
+    temp_a0 = *(u8 *)((u8 *)arg0 + 5);
+    temp_v0 = *(u8 *)((u8 *)arg0 + 6) - temp_a0;
     temp_v1 = -(temp_v0 & 0xFF);
-    M2C_FIELD(arg0, u8 *, 6) = temp_v0;
-    temp_v0_2 = M2C_FIELD(arg0, u8 *, 6);
-    M2C_FIELD(arg0, u8 *, 5) = (u8) (temp_a0 + 0xFF);
-    M2C_FIELD(arg0, s16 *, 0x10) = temp_v1;
-    M2C_FIELD(arg0, s16 *, 0xC) = temp_v1;
-    M2C_FIELD(arg0, s16 *, 0x16) = (s16) temp_v0_2;
-    M2C_FIELD(arg0, s16 *, 0x12) = (s16) temp_v0_2;
-    M2C_FIELD(arg0, s16 *, 0xE) = (s16) temp_v0_2;
-    M2C_FIELD(arg0, s16 *, 0x14) = (s16) temp_v0_2;
-    func_801757A0(D_800B9A02);
-    if (M2C_FIELD(arg0, u8 *, 5) == 0) {
-        M2C_FIELD(arg0, s8 *, 8) = 0;
-        M2C_FIELD(arg0, u8 *, 1) = (u8) (M2C_FIELD(arg0, u8 *, 1) + 1);
+    *(u8 *)((u8 *)arg0 + 6) = (u8)temp_v0;
+    __asm__ __volatile__("" : : : "memory");
+    temp_v0 = *(u8 *)((u8 *)arg0 + 6);
+    *(u8 *)((u8 *)arg0 + 5) = (u8)(temp_a0 + 0xFF);
+    *(s16 *)((u8 *)arg0 + 0x10) = temp_v1;
+    *(s16 *)((u8 *)arg0 + 0xC) = temp_v1;
+    *(s16 *)((u8 *)arg0 + 0x16) = (s16)temp_v0;
+    *(s16 *)((u8 *)arg0 + 0x12) = (s16)temp_v0;
+    *(s16 *)((u8 *)arg0 + 0xE) = (s16)temp_v0;
+    *(s16 *)((u8 *)arg0 + 0x14) = (s16)temp_v0;
+    func_801757A0((s32)D_800B9A02);
+    if (*(u8 *)((u8 *)arg0 + 5) == 0) {
+        *(u8 *)((u8 *)arg0 + 8) = 0;
+        *(u8 *)((u8 *)arg0 + 1) = (u8)(*(u8 *)((u8 *)arg0 + 1) + 1);
     }
 }
 #endif

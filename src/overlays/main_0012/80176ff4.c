@@ -1,7 +1,9 @@
 /* Overlay range [80176FF4,801770E0) from MAIN.CD member 0012.
  * SHA256(span)=61e21d2306f85dab25c02e8cd05e2eec6e6a1628e241eab03c3513c062be5f7b.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE8)
 MUSASHI_NATIVE_MIPS_WORD(0xAFB00010)
@@ -66,32 +68,26 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #include "psx_types.h"
 #include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
-
-void func_801778A8(s32, s16, s32, s32);  /* static */
-s16 func_801783D0(u16, s32);                    /* static */
-extern u16 D_8011F82A;
+/* func_80176FF4 - 59 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern u32 func_801783D0(s32 a0, s32 a1);
+extern void func_801778A8(int param_1, unsigned int param_2, short param_3, short param_4);
 extern u16 D_8011F82C;
+extern u16 D_8011F82A;
 
-void func_80176FF4(s32 arg0) {
-    s32 temp_s0;
-    s32 temp_s0_2;
-    s32 temp_v0;
-    void *temp_s0_3;
-    void *temp_s0_4;
-
-    temp_s0 = arg0 + 0x50;
-    func_801778A8(temp_s0, func_801783D0(D_8011F82C, 4), 3, 0xFF);
-    temp_s0_2 = temp_s0 + 0x3C;
-    func_801778A8(temp_s0_2, func_801783D0(D_8011F82A, 4), 3, 0xFF);
-    temp_s0_3 = temp_s0_2 + 0x3C;
-    M2C_FIELD(temp_s0_3, s16 *, 0xC) = (s16) ((u32) (D_8011F82C * 0x2873) >> 0xF);
-    temp_s0_4 = temp_s0_3 + 0x14;
-    temp_v0 = (s32) (D_8011F82A * 0x50E6) >> 0x10;
-    M2C_FIELD(temp_s0_4, s16 *, 0xC) = (s16) temp_v0;
-    M2C_FIELD(temp_s0_4, s16 *, 0x20) = (s16) (temp_v0 + 2);
+void func_80176FF4(s32 a0) {
+    s32 v0;
+    a0 += 0x50;
+    func_801778A8(a0, (s16)func_801783D0(D_8011F82C, 4), 3, 0xFF);
+    a0 += 0x3C;
+    func_801778A8(a0, (s16)func_801783D0(D_8011F82A, 4), 3, 0xFF);
+    a0 += 0x3C;
+    *(s16 *)(a0 + 0xC) = (u32)(D_8011F82C * 10355) >> 15;
+    a0 += 0x14;
+    v0 = ((s32)(D_8011F82A * 10355) << 1) >> 16;
+    *(s16 *)(a0 + 0xC) = v0;
+    *(s16 *)(a0 + 0x20) = v0 + 2;
 }
 #endif

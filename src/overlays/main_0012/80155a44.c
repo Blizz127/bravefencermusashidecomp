@@ -1,7 +1,9 @@
 /* Overlay range [80155A44,80155B20) from MAIN.CD member 0012.
  * SHA256(span)=f6563cd9958450829a3cf17b90e8091c08fc9396a8fc277ed77d3a1681c29c84.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE8)
 MUSASHI_NATIVE_MIPS_WORD(0xAFB00010)
@@ -62,31 +64,36 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #include "psx_types.h"
 #include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* func_80155A44 - 55 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern s32 func_80029178(s32 arg);
+extern u8 func_8014BEF8(void);
+extern u16 func_80148800(s32 *a0);
+extern void func_80149CB4(void);
 
-s32 func_80029178();                         /* extern */
-s32 func_80148800(void *);                          /* static */
-void func_80149CB4(void *, s32);             /* static */
-s32 func_8014BEF8(void *);                          /* static */
-
-void func_80155A44(void *arg0) {
-    u8 temp_v1;
-
-    temp_v1 = M2C_FIELD(arg0, u8 *, 0x1AA);
-    if ((s32) temp_v1 >= 0) {
-        if ((s32) temp_v1 >= 2) {
-            if (temp_v1 != 2) {
-                return;
-            }
-            if ((func_80029178(0x86) & 0xFF) && (func_80148800(arg0) & 0x10)) {
-                func_80149CB4(arg0, 3);
-            }
-        } else if ((func_80029178(0x85) & 0xFF) && (func_8014BEF8(arg0) != 0) && (M2C_FIELD(arg0, u8 *, 0x1C0) != 0) && (func_80148800(arg0) & 0x10)) {
-            func_80149CB4(arg0, 2);
+int func_80155A44(int param_1)
+{
+    int x = *(unsigned char *)(param_1 + 0x1AA);
+    switch (x) {
+    case 0:
+    case 1:
+        if ((((unsigned char (*)(int))func_80029178)(0x85) & 0xFF) &&
+            ((int (*)(int))func_8014BEF8)(param_1) &&
+            *(unsigned char *)(param_1 + 0x1C0) &&
+            (((int (*)(int))func_80148800)(param_1) & 0x10)) {
+            ((void (*)(int, int))func_80149CB4)(param_1, 2);
+            return 1;
         }
+        break;
+    case 2:
+        if ((((unsigned char (*)(int))func_80029178)(0x86) & 0xFF) &&
+            (((int (*)(int))func_80148800)(param_1) & 0x10)) {
+            ((void (*)(int, int))func_80149CB4)(param_1, 3);
+            return 1;
+        }
+        break;
     }
 }
 #endif

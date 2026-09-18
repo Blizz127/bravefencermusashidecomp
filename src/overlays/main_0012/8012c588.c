@@ -1,7 +1,9 @@
 /* Overlay range [8012C588,8012C658) from MAIN.CD member 0012.
  * SHA256(span)=34a26b7250a53782d970c26dd3362b0af8c768269cdb76c490e6dcf56d7bcd81.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFD0)
 MUSASHI_NATIVE_MIPS_WORD(0x00A03021)
@@ -59,64 +61,58 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #include "psx_types.h"
 #include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* func_8012C588 - 52 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern u8 D_801202A0[];
+extern s32 func_8012C890(s32 a0, s32 a1, s32 a2);
 
-s32 func_8012C890(u16 *, u16 *, void *);            /* static */
-extern s32 *D_80126720;
-
-s32 func_8012C588(s16 arg0, void *arg1) {
-    s32 sp20;
-    s16 sp1E;
-    s16 sp1C;
-    s16 sp1A;
-    s16 sp18;
-    s16 sp16;
-    u16 sp14;
-    u16 sp12;
-    u16 sp10;
-    s32 var_v0;
-    u16 *var_a1;
-
-    if ((arg1 != 0) && (M2C_FIELD(arg1, u16 *, 0) != 0)) {
-        sp10 = M2C_FIELD(arg1, u16 *, 6);
-        sp12 = M2C_FIELD(arg1, u16 *, 0xA);
-        sp14 = M2C_FIELD(arg1, u16 *, 0xE);
+s32 func_8012C588(s32 a0, s32 a1) {
+    s32 p;
+    s32 end;
+    s32 v0;
+    s32 q;
+    s16 sp[10];
+    if (a1 != 0 && *(u16*)a1 != 0) {
+        sp[0] = *(u16*)(a1 + 0x6);
+        sp[1] = *(u16*)(a1 + 0xA);
+        sp[2] = *(u16*)(a1 + 0xE);
     } else {
-        sp14 = 0;
-        sp12 = 0;
-        sp10 = 0;
+        sp[2] = 0;
+        sp[1] = 0;
+        sp[0] = 0;
     }
-    sp16 = arg0;
-    sp1A = 0;
-    sp18 = 0;
-    sp20 = 0;
-    sp1E = 0;
-    sp1C = 0x7FFF;
-    if (arg1 == 0) {
-        var_a1 = &D_80126720 - 0x6480;
+    sp[3] = a0;
+    q = (s32)&sp[0];
+    sp[5] = 0;
+    sp[4] = 0;
+    *(s32*)&sp[8] = 0;
+    sp[7] = 0;
+    sp[6] = 0x7FFF;
+    end = (s32)D_801202A0 + 0x6480;
+    if (a1 == 0) {
+        p = (s32)D_801202A0;
     } else {
-        var_a1 = arg1 + 0x10C;
+        p = a1 + 0x10C;
     }
-    if (var_a1 != &D_80126720) {
-loop_8:
-        if (*var_a1 != 0) {
-            var_a1 += 0x10C;
-            if (var_a1 == &D_80126720) {
-                goto block_10;
+    if (p != end) {
+        for (;;) {
+            if (*(u16*)p == 0) {
+                goto found;
             }
-            goto loop_8;
+            p += 0x10C;
+            if (p == end) {
+                break;
+            }
         }
-    } else {
-block_10:
-        var_a1 = 0;
     }
-    var_v0 = 0;
-    if (var_a1 != 0) {
-        var_v0 = func_8012C890(&sp10, var_a1, arg1);
+    p = 0;
+found:
+    v0 = 0;
+    if (p != 0) {
+        v0 = func_8012C890(q, p, a1);
     }
-    return var_v0;
+    return v0;
 }
 #endif

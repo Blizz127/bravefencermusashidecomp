@@ -1,123 +1,59 @@
 /* Overlay range [801775E0,801776EC) from MAIN.CD member 0012.
  * SHA256(span)=d8d21964ce3b9ba75342fce9751fcf3e2077b7dde02ca55d3d882a902965177a.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x3C038012)
 MUSASHI_NATIVE_MIPS_WORD(0x9063F83B)
-MUSASHI_NATIVE_MIPS_WORD(0x27BDFFD8)
-MUSASHI_NATIVE_MIPS_WORD(0xAFB10014)
-MUSASHI_NATIVE_MIPS_WORD(0x00808821)
-MUSASHI_NATIVE_MIPS_WORD(0xAFB00010)
-MUSASHI_NATIVE_MIPS_WORD(0x02208021)
-MUSASHI_NATIVE_MIPS_WORD(0xAFB20018)
-MUSASHI_NATIVE_MIPS_WORD(0x00A09021)
-MUSASHI_NATIVE_MIPS_WORD(0xAFB3001C)
-MUSASHI_NATIVE_MIPS_WORD(0x3C138012)
-MUSASHI_NATIVE_MIPS_WORD(0x2673F7F0)
-MUSASHI_NATIVE_MIPS_WORD(0x10600009)
-MUSASHI_NATIVE_MIPS_WORD(0xAFBF0020)
-MUSASHI_NATIVE_MIPS_WORD(0x04600015)
-MUSASHI_NATIVE_MIPS_WORD(0x286200F7)
-MUSASHI_NATIVE_MIPS_WORD(0x10400013)
-MUSASHI_NATIVE_MIPS_WORD(0x286200F3)
-MUSASHI_NATIVE_MIPS_WORD(0x14400012)
-MUSASHI_NATIVE_MIPS_WORD(0x240200FF)
-MUSASHI_NATIVE_MIPS_WORD(0x0805DD98)
-MUSASHI_NATIVE_MIPS_WORD(0x00000000)
-MUSASHI_NATIVE_MIPS_WORD(0x3C038012)
-MUSASHI_NATIVE_MIPS_WORD(0x9063F837)
-MUSASHI_NATIVE_MIPS_WORD(0x24020080)
-MUSASHI_NATIVE_MIPS_WORD(0x10620006)
-MUSASHI_NATIVE_MIPS_WORD(0x240200FF)
-MUSASHI_NATIVE_MIPS_WORD(0xA2020004)
-MUSASHI_NATIVE_MIPS_WORD(0x24020010)
-MUSASHI_NATIVE_MIPS_WORD(0xA2020006)
-MUSASHI_NATIVE_MIPS_WORD(0x0805DDA1)
-MUSASHI_NATIVE_MIPS_WORD(0xA2020005)
-MUSASHI_NATIVE_MIPS_WORD(0x0C05DDBB)
-MUSASHI_NATIVE_MIPS_WORD(0x02002021)
-MUSASHI_NATIVE_MIPS_WORD(0x0805DDA1)
-MUSASHI_NATIVE_MIPS_WORD(0x00000000)
-MUSASHI_NATIVE_MIPS_WORD(0x240200FF)
-MUSASHI_NATIVE_MIPS_WORD(0xA2020005)
-MUSASHI_NATIVE_MIPS_WORD(0x24020010)
-MUSASHI_NATIVE_MIPS_WORD(0xA2020006)
-MUSASHI_NATIVE_MIPS_WORD(0xA2020004)
-MUSASHI_NATIVE_MIPS_WORD(0x92620047)
-MUSASHI_NATIVE_MIPS_WORD(0x00000000)
-MUSASHI_NATIVE_MIPS_WORD(0x000218C0)
-MUSASHI_NATIVE_MIPS_WORD(0x00621821)
-MUSASHI_NATIVE_MIPS_WORD(0x00031902)
-MUSASHI_NATIVE_MIPS_WORD(0x26420048)
-MUSASHI_NATIVE_MIPS_WORD(0x00431023)
-MUSASHI_NATIVE_MIPS_WORD(0xA603000E)
-MUSASHI_NATIVE_MIPS_WORD(0xA602000A)
-MUSASHI_NATIVE_MIPS_WORD(0x92620047)
-MUSASHI_NATIVE_MIPS_WORD(0x00000000)
-MUSASHI_NATIVE_MIPS_WORD(0x10400003)
-MUSASHI_NATIVE_MIPS_WORD(0x26300014)
-MUSASHI_NATIVE_MIPS_WORD(0x0805DDB1)
-MUSASHI_NATIVE_MIPS_WORD(0x240200A0)
-MUSASHI_NATIVE_MIPS_WORD(0x24020040)
-MUSASHI_NATIVE_MIPS_WORD(0xA2020006)
-MUSASHI_NATIVE_MIPS_WORD(0xA612000A)
-MUSASHI_NATIVE_MIPS_WORD(0x8FBF0020)
-MUSASHI_NATIVE_MIPS_WORD(0x8FB3001C)
-MUSASHI_NATIVE_MIPS_WORD(0x8FB20018)
-MUSASHI_NATIVE_MIPS_WORD(0x8FB10014)
-MUSASHI_NATIVE_MIPS_WORD(0x8FB00010)
-MUSASHI_NATIVE_MIPS_WORD(0x27BD0028)
-MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
-MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
 #include "psx_types.h"
 #include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
-
-void func_801776EC(void *);                      /* static */
-extern s32 *D_8011F7F0;
-extern u8 D_8011F837;
+/* func_801775E0 - 67 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
 extern u8 D_8011F83B;
+extern u8 D_8011F837;
+extern u8 D_8011F7F0;
+extern void func_801776EC(u8 *a0);
 
-void func_801775E0(void *arg0, s16 arg1) {
-    s8 var_v0;
-    u32 temp_v1;
-    void *temp_s0;
-
-    if (D_8011F83B != 0) {
-        if (((s32) D_8011F83B >= 0) && ((s32) D_8011F83B < 0xF7)) {
-            if ((s32) D_8011F83B >= 0xF3) {
-                goto block_7;
-            }
-            goto block_9;
-        }
-block_9:
-        M2C_FIELD(arg0, s8 *, 5) = 0xFF;
-        M2C_FIELD(arg0, s8 *, 6) = 0x10;
-        M2C_FIELD(arg0, s8 *, 4) = 0x10;
-    } else if (D_8011F837 != 0x80) {
-        M2C_FIELD(arg0, s8 *, 4) = 0xFF;
-        M2C_FIELD(arg0, s8 *, 6) = 0x10;
-        M2C_FIELD(arg0, s8 *, 5) = 0x10;
-    } else {
-block_7:
-        func_801776EC(arg0);
+void func_801775E0(s32 param_1, s32 param_2) {
+    s32 s0 = param_1;
+    s32 pp = param_2;
+    u8 *base = &D_8011F7F0;
+    s16 sVar1; s32 t; s32 v;
+    s32 c = D_8011F83B;
+    if (c != 0) {
+        if (c < 0) goto store;
+        if (c >= 0xf7) goto store;
+        if (c < 0xf3) goto store;
+        goto docall;
     }
-    temp_v1 = (u32) (M2C_FIELD(&D_8011F7F0, u8 *, 0x47) * 9) >> 4;
-    M2C_FIELD(arg0, s16 *, 0xE) = (s16) temp_v1;
-    M2C_FIELD(arg0, s16 *, 0xA) = (s16) ((arg1 + 0x48) - temp_v1);
-    temp_s0 = arg0 + 0x14;
-    if (M2C_FIELD(&D_8011F7F0, u8 *, 0x47) != 0) {
-        var_v0 = 0xA0;
-    } else {
-        var_v0 = 0x40;
+    if (D_8011F837 != 0x80) {
+        *(u8 *)(s0 + 4) = 0xff;
+        *(u8 *)(s0 + 6) = 0x10;
+        *(u8 *)(s0 + 5) = 0x10;
+        goto L684;
     }
-    M2C_FIELD(temp_s0, s8 *, 6) = var_v0;
-    M2C_FIELD(temp_s0, s16 *, 0xA) = arg1;
+    func_801776EC((u8 *)s0);
+    goto L684;
+docall:
+    func_801776EC((u8 *)s0);
+    goto L684;
+store:
+    *(u8 *)(s0 + 5) = 0xff;
+    *(u8 *)(s0 + 6) = 0x10;
+    *(u8 *)(s0 + 4) = 0x10;
+L684:
+    sVar1 = (s16)((u32)(base[0x47] * 9) >> 4);
+    t = pp + 0x48;
+    *(s16 *)(s0 + 0xe) = sVar1;
+    *(s16 *)(s0 + 0xa) = t - sVar1;
+    if (base[0x47] != 0) { s0 = param_1 + 0x14; v = 0xa0; } else { s0 = param_1 + 0x14; v = 0x40; }
+    *(u8 *)(s0 + 6) = v;
+    *(s16 *)(s0 + 0xa) = pp;
 }
 #endif

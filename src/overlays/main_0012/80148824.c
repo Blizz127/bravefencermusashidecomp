@@ -1,7 +1,9 @@
 /* Overlay range [80148824,801488A8) from MAIN.CD member 0012.
  * SHA256(span)=0191bf98db38650cf3a148bccf2d1274051a2fb2d62398ea07cf56d43646b58a.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE8)
 MUSASHI_NATIVE_MIPS_WORD(0xAFBF0010)
@@ -40,42 +42,38 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #include "psx_types.h"
 #include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* func_80148824 - 33 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern s32 func_80047D3C(s32 a0);
 
-s32 func_80047D3C(s32, s32);                        /* extern */
-
-s32 func_80148824(void *arg0) {
-    s32 temp_lo;
-    s32 temp_v0_2;
-    s32 temp_v1;
-    s32 var_v0;
-    s32 var_v0_2;
-    u16 temp_v0;
-
-    temp_v0 = M2C_FIELD(arg0, u16 *, 0xAE);
-    temp_v1 = (temp_v0 >> 8) - 0x80;
-    temp_v0_2 = (temp_v0 & 0xFF) - 0x80;
-    if (temp_v1 == 0) {
-        var_v0 = temp_v0_2 & 0xFF;
-        if (temp_v0_2 < 0) {
-            var_v0_2 = -temp_v0_2;
-            goto block_7;
+s32 func_80148824(void *arg0)
+{
+    register u32 t __asm__("$2");
+    register s32 hi __asm__("$3");
+    register s32 lo __asm__("$2");
+    register s32 chi __asm__("$5");
+    register s32 clo __asm__("$4");
+    t = *(u16 *)((u8 *)arg0 + 0xAE);
+    hi = (t >> 8) - 0x80;
+    chi = hi;
+    __asm__ __volatile__("" : : "r"(chi));
+    lo = (t & 0xFF) - 0x80;
+    clo = lo;
+    if (hi == 0) {
+        if (lo < 0) {
+            return (-clo) & 0xFF;
         }
-    } else if (temp_v0_2 == 0) {
-        var_v0 = temp_v1 & 0xFF;
-        if (temp_v1 < 0) {
-            var_v0_2 = -temp_v1;
-            goto block_7;
+        return clo & 0xFF;
+    } else if (lo == 0) {
+        if (hi < 0) {
+            return (-chi) & 0xFF;
         }
-    } else {
-        temp_lo = temp_v0_2 * temp_v0_2;
-        var_v0_2 = func_80047D3C((temp_v1 * temp_v1) + temp_lo, temp_lo);
-block_7:
-        var_v0 = var_v0_2 & 0xFF;
+        return chi & 0xFF;
     }
-    return var_v0;
+    hi = hi * hi;
+    chi = lo * lo;
+    return func_80047D3C(hi + chi) & 0xFF;
 }
 #endif

@@ -1,84 +1,45 @@
 /* Overlay range [8012C0EC,8012C194) from MAIN.CD member 0012.
  * SHA256(span)=82cc2ccbce6e3f1ba28d2f581e360ac6bcc0645ad2bc55eb6c5d3878b5e8d05c.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x3C028012)
 MUSASHI_NATIVE_MIPS_WORD(0x8C4274D4)
-MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE8)
-MUSASHI_NATIVE_MIPS_WORD(0xAFB00010)
-MUSASHI_NATIVE_MIPS_WORD(0x00808021)
-MUSASHI_NATIVE_MIPS_WORD(0x1440000B)
-MUSASHI_NATIVE_MIPS_WORD(0xAFBF0014)
-MUSASHI_NATIVE_MIPS_WORD(0x3C058012)
-MUSASHI_NATIVE_MIPS_WORD(0x24A56CAC)
-MUSASHI_NATIVE_MIPS_WORD(0x0C004D1E)
-MUSASHI_NATIVE_MIPS_WORD(0x26040004)
-MUSASHI_NATIVE_MIPS_WORD(0x3C038012)
-MUSASHI_NATIVE_MIPS_WORD(0x8C6374E0)
-MUSASHI_NATIVE_MIPS_WORD(0x00000000)
-MUSASHI_NATIVE_MIPS_WORD(0x0043102A)
-MUSASHI_NATIVE_MIPS_WORD(0x0804B04E)
-MUSASHI_NATIVE_MIPS_WORD(0x38420001)
-MUSASHI_NATIVE_MIPS_WORD(0x0040F809)
-MUSASHI_NATIVE_MIPS_WORD(0x02002021)
-MUSASHI_NATIVE_MIPS_WORD(0x10400011)
-MUSASHI_NATIVE_MIPS_WORD(0x00001021)
-MUSASHI_NATIVE_MIPS_WORD(0x8E030068)
-MUSASHI_NATIVE_MIPS_WORD(0x00000000)
-MUSASHI_NATIVE_MIPS_WORD(0x1060000A)
-MUSASHI_NATIVE_MIPS_WORD(0x00000000)
-MUSASHI_NATIVE_MIPS_WORD(0x86020072)
-MUSASHI_NATIVE_MIPS_WORD(0x00000000)
-MUSASHI_NATIVE_MIPS_WORD(0x30428000)
-MUSASHI_NATIVE_MIPS_WORD(0x10400005)
-MUSASHI_NATIVE_MIPS_WORD(0x00000000)
-MUSASHI_NATIVE_MIPS_WORD(0x9462000A)
-MUSASHI_NATIVE_MIPS_WORD(0x00000000)
-MUSASHI_NATIVE_MIPS_WORD(0x30427FFF)
-MUSASHI_NATIVE_MIPS_WORD(0xA462000A)
-MUSASHI_NATIVE_MIPS_WORD(0x0C04B086)
-MUSASHI_NATIVE_MIPS_WORD(0x02002021)
-MUSASHI_NATIVE_MIPS_WORD(0x24020001)
-MUSASHI_NATIVE_MIPS_WORD(0x8FBF0014)
-MUSASHI_NATIVE_MIPS_WORD(0x8FB00010)
-MUSASHI_NATIVE_MIPS_WORD(0x27BD0018)
-MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
-MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
 #include "psx_types.h"
 #include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
-
-s32 func_80013478(s32, void *);                  /* extern */
-void func_8012C218(void *);                      /* static */
-extern s32 *D_80126CAC;
-extern s32 (*D_801274D4)(void *);
+/* func_8012C0EC - 42 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern s32 D_801274D4;
+extern s16 D_80126CAC;
 extern s32 D_801274E0;
+extern s32 func_80013478(s32 a0, s32 a1);
+extern void func_8012C218(void *a0);
 
-s32 func_8012C0EC(void *arg0) {
-    s32 var_v0;
-    s32 var_v0_2;
-    void *temp_v1;
-
-    if (D_801274D4 == 0) {
-        var_v0_2 = func_80013478(arg0 + 4, &D_80126CAC) >= D_801274E0;
+s32 func_8012C0EC(s32 a0) {
+    s32 (*fp)(s32) = (s32 (*)(s32))D_801274D4;
+    s32 cond;
+    s32 *p;
+    if (fp == 0) {
+        cond = (func_80013478(a0 + 4, (s32)&D_80126CAC) < D_801274E0) ^ 1;
     } else {
-        var_v0_2 = D_801274D4(arg0);
+        cond = fp(a0);
     }
-    var_v0 = 0;
-    if (var_v0_2 != 0) {
-        temp_v1 = M2C_FIELD(arg0, void **, 0x68);
-        if ((temp_v1 != 0) && (M2C_FIELD(arg0, s16 *, 0x72) & 0x8000)) {
-            M2C_FIELD(temp_v1, u16 *, 0xA) = (u16) (M2C_FIELD(temp_v1, u16 *, 0xA) & 0x7FFF);
+    if (cond == 0) {
+        return 0;
+    }
+    p = *(s32 **)(a0 + 0x68);
+    if (p != 0) {
+        if ((*(s16 *)(a0 + 0x72) & 0x8000) != 0) {
+            *(u16 *)((s32)p + 0xA) = *(u16 *)((s32)p + 0xA) & 0x7FFF;
         }
-        func_8012C218(arg0);
-        var_v0 = 1;
     }
-    return var_v0;
+    func_8012C218((void *)a0);
+    return 1;
 }
 #endif

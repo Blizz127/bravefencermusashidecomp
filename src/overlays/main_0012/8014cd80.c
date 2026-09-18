@@ -1,7 +1,9 @@
 /* Overlay range [8014CD80,8014CF04) from MAIN.CD member 0012.
  * SHA256(span)=273daaef7cca41d2a7cfc1ab885851dd05f83958abc15d4ff7234d0303bda392.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE0)
 MUSASHI_NATIVE_MIPS_WORD(0xAFB00010)
@@ -104,63 +106,61 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #include "psx_types.h"
 #include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* func_8014CD80 - 97 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern int func_80135A4C();
+extern int func_80135888();
+extern int func_8014C918();
 
-s32 func_80135888(s32, s32, void *, void *);        /* static */
-s32 func_80135A4C(s32, s32, void *, void *);        /* static */
-s32 func_8014C918(void *, u8);                      /* static */
-
-s32 func_8014CD80(void *arg0, void *arg1, void *arg2) {
-    s32 var_v1;
-    u16 temp_v0;
-    u16 temp_v0_2;
-    u16 temp_v0_3;
-    void *temp_s1;
-
-    temp_s1 = M2C_FIELD(arg0, void **, 0x174);
-    if (M2C_FIELD(temp_s1, u16 *, 0) != 0) {
-        if (!(M2C_FIELD(temp_s1, u16 *, 0x5C) & 0x400) || (M2C_FIELD(temp_s1, s32 *, 0x58) == 0) || (M2C_FIELD(temp_s1, s16 *, 0xA) < M2C_FIELD(arg0, s16 *, 0xA))) {
-            if (M2C_FIELD(temp_s1, u16 *, 0) != 0) {
-                M2C_FIELD(temp_s1, s8 *, 0x74) = 0;
-            }
-            goto block_6;
+int func_8014CD80(int param_1, unsigned short *param_2, unsigned short *param_3)
+{
+    short *psVar4;
+    register int iVar3 __asm__("$3");
+    unsigned short uVar1;
+    unsigned short uVar2;
+    psVar4 = *(short **)(param_1 + 0x174);
+    if (*(unsigned short *)psVar4 == 0) goto LAB_ce00;
+    if (((*(unsigned short *)((int)psVar4 + 0x5c) & 0x400) == 0) ||
+        (*(int *)((int)psVar4 + 0x58) == 0) ||
+        (*(short *)((int)psVar4 + 0xa) < *(short *)(param_1 + 0xa))) {
+        if (*(unsigned short *)psVar4 != 0) {
+            *(char *)((int)psVar4 + 0x74) = 0;
         }
-        M2C_FIELD(arg1, u16 *, 0) = (u16) M2C_FIELD(arg0, u16 *, 0x98);
-        M2C_FIELD(arg1, u16 *, 2) = (u16) (M2C_FIELD(arg0, u16 *, 0x9A) - 3);
-        M2C_FIELD(arg1, u16 *, 4) = (u16) M2C_FIELD(arg0, u16 *, 0x9C);
-        if (M2C_FIELD(temp_s1, u16 *, 0x5C) & 8) {
-            M2C_FIELD(arg2, u16 *, 2) = (u16) (M2C_FIELD(arg1, u16 *, 2) + 0xC);
-            var_v1 = func_80135A4C(M2C_FIELD(temp_s1, s32 *, 0x20), M2C_FIELD(temp_s1, s32 *, 0x58), arg1, arg2);
-            if (var_v1 != 0) {
-                temp_v0 = M2C_FIELD(arg2, u16 *, 0);
-                M2C_FIELD(arg0, u16 *, 0x78) = temp_v0;
-                M2C_FIELD(arg0, u16 *, 6) = temp_v0;
-                temp_v0_2 = M2C_FIELD(arg2, u16 *, 2);
-                M2C_FIELD(arg0, u16 *, 0x7A) = temp_v0_2;
-                M2C_FIELD(arg0, s16 *, 0xA) = (s16) temp_v0_2;
-                temp_v0_3 = M2C_FIELD(arg2, u16 *, 4);
-                M2C_FIELD(arg0, u16 *, 0x7C) = temp_v0_3;
-                M2C_FIELD(arg0, u16 *, 0xE) = temp_v0_3;
-                goto block_11;
-            }
-            goto block_12;
-        }
-        var_v1 = func_80135888(M2C_FIELD(temp_s1, s32 *, 0x20), M2C_FIELD(temp_s1, s32 *, 0x58), arg1, arg2);
-block_11:
-        if (var_v1 == 0) {
-block_12:
-            M2C_FIELD(temp_s1, s8 *, 0x74) = 0;
-            M2C_FIELD(arg0, void **, 0x174) = 0;
-            return 0;
-        }
-        M2C_FIELD(arg0, s16 *, 0x16E) = (s16) (func_8014C918(arg0, M2C_FIELD(temp_s1, u8 *, 0x75)) & 0xFF);
-        return 1;
+LAB_ce00:
+        *(int *)(param_1 + 0x174) = 0;
+        return 0;
     }
-block_6:
-    M2C_FIELD(arg0, void **, 0x174) = 0;
+    *param_2 = *(unsigned short *)(param_1 + 0x98);
+    param_2[1] = *(unsigned short *)(param_1 + 0x9a) - 3;
+    param_2[2] = *(unsigned short *)(param_1 + 0x9c);
+    if ((*(unsigned short *)((int)psVar4 + 0x5c) & 8) != 0) {
+        param_3[1] = param_2[1] + 0xc;
+        iVar3 = func_80135A4C(*(int *)((int)psVar4 + 0x20),
+                              *(int *)((int)psVar4 + 0x58), param_2, param_3);
+        if (iVar3 == 0) goto LAB_cec4;
+        uVar1 = param_3[0];
+        *(unsigned short *)(param_1 + 0x78) = uVar1;
+        *(unsigned short *)(param_1 + 6) = uVar1;
+        uVar1 = param_3[1];
+        *(unsigned short *)(param_1 + 0x7a) = uVar1;
+        *(unsigned short *)(param_1 + 0xa) = uVar1;
+        uVar1 = param_3[2];
+        *(unsigned short *)(param_1 + 0x7c) = uVar1;
+        *(unsigned short *)(param_1 + 0xe) = uVar1;
+    } else {
+        iVar3 = func_80135888(*(int *)((int)psVar4 + 0x20),
+                              *(int *)((int)psVar4 + 0x58), param_2, param_3);
+    }
+    if (iVar3 != 0) goto LAB_ced0;
+LAB_cec4:
+    *(char *)((int)psVar4 + 0x74) = 0;
+    *(int *)(param_1 + 0x174) = 0;
     return 0;
+LAB_ced0:
+    uVar2 = func_8014C918(param_1, *(unsigned char *)((int)psVar4 + 0x75)) & 0xff;
+    *(unsigned short *)(param_1 + 0x16e) = uVar2;
+    return 1;
 }
 #endif

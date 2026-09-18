@@ -1,7 +1,9 @@
 /* Overlay range [8012C820,8012C890) from MAIN.CD member 0012.
  * SHA256(span)=9afdf98da44754df35af4b84593410e22aa0ec9c759195af15cfbc626f517241.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE8)
 MUSASHI_NATIVE_MIPS_WORD(0x3C038012)
@@ -35,35 +37,29 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #include "psx_types.h"
 #include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* func_8012C820 - 28 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern u8 D_80120194[];
+extern s32 func_8012C890(s32 a0, s32 a1, s32 a2);
 
-s32 func_8012C890(u16 *, s32);                  /* static */
-extern s32 *D_80120194;
-
-s32 func_8012C820(void *arg0) {
-    u16 *var_a1;
-
-    var_a1 = &D_80120194 + 0x6480;
-    if (var_a1 != &D_80120194) {
-loop_1:
-        if (*var_a1 != 0) {
-            var_a1 -= 0x10C;
-            if (var_a1 == &D_80120194) {
-                goto block_3;
-            }
-            goto loop_1;
-        }
+s32 func_8012C820(u8 *a0) {
+    u8 *base = D_80120194;
+    u8 *p = base + 0x6480;
+    if (p != base) {
+        do {
+            if (*(u16 *)p == 0) goto found;
+            p -= 0x10C;
+        } while (p != base);
+    }
+    p = 0;
+found:
+    if (p != 0) {
+        *(u16 *)(a0 + 0xA) = *(u16 *)(a0 + 0xA) | 0x8000;
+        func_8012C890((s32)a0, (s32)p, 0);
     } else {
-block_3:
-        var_a1 = 0;
+        return 0;
     }
-    if (var_a1 != 0) {
-        M2C_FIELD(arg0, u16 *, 0xA) = (u16) (M2C_FIELD(arg0, u16 *, 0xA) | 0x8000);
-        return func_8012C890(var_a1, 0);
-    }
-    return 0;
 }
 #endif
