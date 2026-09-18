@@ -1,7 +1,9 @@
 /* Main-exec range [80041448,800414E4) from the SLUS executable.
  * SHA256(span)=9922420ca2929de3529aa1dbf318748aea600297c77e305987079796876414f8.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x3C02800B)
 MUSASHI_NATIVE_MIPS_WORD(0x9042E614)
@@ -43,35 +45,42 @@ MUSASHI_NATIVE_MIPS_WORD(0x27BD0020)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
 
-/* m2c draft from main.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
-
-void func_80040868();                                 /* static */
-extern s32 *D_80079596;
+/* func_80041448 - 39 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern s32 D_800C73D8[];
+extern s16 D_800B9B36;
 extern u8 D_800AE614;
-extern s16 D_800B9B3A;
+extern s16 D_80079590[];
+extern u8 D_80079592[];
+extern s16 D_80079596[][26];
+extern s16 D_80079598[];
+extern s16 D_8007959A[];
+extern s16 D_8007959C[];
+extern s16 D_8007959E[];
+extern u8 *D_800A6578;
+extern u8 *D_800A6580;
+extern s32 D_800A6584;
+extern s16 D_800A6434;
+extern s16 D_800B9B58[];
+extern u8 D_800A4620[];
+extern u8   D_800AE614;
+extern s16  D_80079596[][26];
+extern u16  D_800B9B3A;
+extern void func_80040868(s32);
 
-void func_80041448(s16 arg0) {
-    s32 var_s0;
-    s32 var_v0;
+void func_80041448(s16 param_1)
+{
+    u8 i;
 
-    var_s0 = 0;
-    if (D_800AE614 != 0) {
-        var_v0 = 0 & 0xFF;
-        do {
-            if (*(&D_80079596 + (var_v0 * 0x34)) == arg0) {
-                D_800B9B3A = var_s0 & 0xFF;
-                func_80040868(0);
-            }
-            var_s0 += 1;
-            var_v0 = var_s0 & 0xFF;
-        } while ((u32) (var_s0 & 0xFF) < (u8) D_800AE614);
+    for (i = 0; i < D_800AE614; i++) {
+        if (D_80079596[i][0] == param_1) {
+            D_800B9B3A = i;
+            func_80040868(0);
+        }
     }
 }
 #endif
