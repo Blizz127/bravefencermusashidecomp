@@ -120,7 +120,7 @@ def test_list_irq():
 
 @pytest.mark.parametrize('mutation', [
     ('cd_dma3','memcpy(d->memory->bytes + d->state.madr, staging, bytes);','(void)staging;'),
-    ('mips_formatter','expected = mode == 2u ? 0x8001a958u :', 'expected = cpu.r[2]; (void)'),
+    ('mips_formatter','expected = mode == 2u ? 0x8001a958u :', 'expected = mode == 2u ? 0x8001a7f4u :'),
     ('8001a338_words.inc','0x1043000du','0x1000000du'),
     ('mips_formatter','accepted = instruction == 0x03e00008u && cpu.r[31] == expected;',
      'expected = cpu.r[31]; accepted = instruction == 0x03e00008u;'),
