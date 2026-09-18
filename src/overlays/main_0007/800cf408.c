@@ -1,7 +1,9 @@
 /* Overlay range [800CF408,800CF6D0) from MAIN.CD member 0007.
  * SHA256(span)=5decf1ffd0193323d0c7efd3ffe43b7e2dcdb7a07277476b8fc36a122d286477.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the C body below is kept
+ * byte-identical (wrap only, no rewrite): the cleaned Druthulu/BFM-decomp
+ * form (vendor/bfm-decomp, same SLUS-00726 build), re-verified against
+ * retail at the recorded optimization by tools/match_function.py. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE0)
 MUSASHI_NATIVE_MIPS_WORD(0x3C03E100)
@@ -182,103 +184,152 @@ MUSASHI_NATIVE_MIPS_WORD(0x27BD0020)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
+#include "m2c_macros.h"
 
-/* m2c draft from main_0007.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* func_800CF408 - 178 words. Promoted from vendor/bfm-decomp
+ * (Druthulu, same SLUS-00726 build), split to an address-named file.
+ * Values and locals are the loosest that reproduce the bytes; they
+ * are not evidence of the original declaration. */
+extern u16 D_800B99E4;
+extern u8 D_800CFABF;
+extern u8 D_800CFAC4[];
+extern u8 D_800CFAD4[];
+extern void (*D_800CFADC[])(void);
+extern s32 D_800D1364;
+extern u8 D_800AF630[];
+extern void func_8001534C(int, void *, int, int, int, int);
+extern void func_8001C044(void);
+extern void func_80015310(void);
+extern void func_800183E0(void *a0);
+extern void func_800167B8(s32 a0);
+extern void func_800118AC(void);
+extern s8 D_800B9A11;
+extern u16 D_800B99E8;
+extern s32 D_800D130C;
+extern s32 func_800167F0(s32 a0);
+extern u16 D_800B99E6;
+extern void (*D_800D133C[])(void);
+extern void func_8001AA98(void *a0);
+extern s32 D_800D1368;
+extern s32 D_800D1370;
+extern s32 D_800D1374;
+extern void (*D_800D1344[])(void);
+extern void func_800CF408(s32 a0, s32 a1);
+extern void func_800CF6D0(s32 a0, u32 a1);
+extern s32 D_800D136C;
+extern s32 func_800CF3B0();
+extern s32 func_800149E0(s32);
+extern u8 *D_800A5E60;
+extern u32 wD_800AA60C[] __asm__("D_800AA60C");
+extern s16 D_800B9A02;
+extern u8 D_800AA60C[];
 
-extern void *D_800A5E60;
-extern s32 *D_800AA60C;
-extern u16 D_800B9A02;
+void func_800CF408(s32 x, s32 y) {
+    u8 *p;
+    u32 m24;
 
-void func_800CF408(s32 arg0, s32 arg1) {
-    s16 temp_a0;
-    s16 temp_a1;
-    s16 temp_a1_2;
-    s16 temp_s3;
-    s32 *temp_a0_2;
-    s32 *temp_a0_3;
-    s32 *temp_a2;
-    s32 *temp_a2_2;
-    void *temp_v0;
-    void *temp_v0_2;
-    void *temp_v0_3;
+    p = D_800A5E60;
+    x -= 0xA0;
+    y -= 0x78;
 
-    temp_a0 = arg0 - 0xA0;
-    temp_a1 = arg1 - 0x78;
-    temp_s3 = temp_a0 + 0xA0;
-    D_800A5E60->unk3 = 5;
-    D_800A5E60->unk4 = 0xE1000086;
-    D_800A5E60->unkB = 0x64;
-    D_800A5E60->unk12 = 0x7980;
-    D_800A5E60->unkA = 0x80;
-    D_800A5E60->unk9 = 0x80;
-    D_800A5E60->unk8 = 0x80;
-    D_800A5E60->unkC = temp_a0;
-    D_800A5E60->unkE = temp_a1;
-    D_800A5E60->unk10 = 0x20;
-    D_800A5E60->unk11 = 0;
-    D_800A5E60->unk14 = 0xA0;
-    D_800A5E60->unk16 = 0x100;
-    D_800A5E60->unk0 = (s32) ((D_800A5E60->unk0 & 0xFF000000) | (*(&D_800AA60C + (D_800B9A02 << 0xE)) & 0xFFFFFF));
-    temp_a2 = (D_800B9A02 << 0xE) + &D_800AA60C;
-    temp_v0 = D_800A5E60 + 0x18;
-    *temp_a2 = (*temp_a2 & 0xFF000000) | ((s32) D_800A5E60 & 0xFFFFFF);
-    temp_v0->unk4 = 0xE1000087;
-    temp_v0->unk3 = 5;
-    temp_v0->unkB = 0x64;
-    temp_v0->unk12 = 0x7980;
-    temp_v0->unkA = 0x80;
-    temp_v0->unk9 = 0x80;
-    temp_v0->unk8 = 0x80;
-    temp_v0->unkE = temp_a1;
-    temp_a1_2 = temp_a1 + 0x100;
-    temp_v0->unkC = temp_s3;
-    temp_v0->unk10 = 0x40;
-    temp_v0->unk11 = 0;
-    temp_v0->unk14 = 0xA0;
-    temp_v0->unk16 = 0x100;
-    D_800A5E60->unk18 = (s32) ((D_800A5E60->unk18 & 0xFF000000) | (*((D_800B9A02 << 0xE) + &D_800AA60C) & 0xFFFFFF));
-    temp_a2_2 = (D_800B9A02 << 0xE) + &D_800AA60C;
-    temp_v0_2 = temp_v0 + 0x18;
-    *temp_a2_2 = (*temp_a2_2 & 0xFF000000) | ((s32) temp_v0 & 0xFFFFFF);
-    temp_v0_2->unk3 = 5;
-    temp_v0_2->unk4 = 0xE1000096;
-    temp_v0_2->unkB = 0x64;
-    temp_v0_2->unk12 = 0x7980;
-    temp_v0_2->unkA = 0x80;
-    temp_v0_2->unk9 = 0x80;
-    temp_v0_2->unk8 = 0x80;
-    temp_v0_2->unkC = temp_a0;
-    temp_v0_2->unkE = temp_a1_2;
-    temp_v0_2->unk10 = 0x20;
-    temp_v0_2->unk11 = 0;
-    temp_v0_2->unk14 = 0xA0;
-    temp_v0_2->unk16 = 0x100;
-    temp_v0->unk18 = (s32) ((temp_v0->unk18 & 0xFF000000) | (*((D_800B9A02 << 0xE) + &D_800AA60C) & 0xFFFFFF));
-    temp_a0_2 = (D_800B9A02 << 0xE) + &D_800AA60C;
-    temp_v0_3 = temp_v0_2 + 0x18;
-    *temp_a0_2 = (*temp_a0_2 & 0xFF000000) | ((s32) temp_v0_2 & 0xFFFFFF);
-    temp_v0_3->unk3 = 5;
-    temp_v0_3->unk4 = 0xE1000097;
-    temp_v0_3->unkB = 0x64;
-    temp_v0_3->unk12 = 0x7980;
-    temp_v0_3->unkA = 0x80;
-    temp_v0_3->unk9 = 0x80;
-    temp_v0_3->unk8 = 0x80;
-    temp_v0_3->unkC = temp_s3;
-    temp_v0_3->unkE = temp_a1_2;
-    temp_v0_3->unk10 = 0x40;
-    temp_v0_3->unk11 = 0;
-    temp_v0_3->unk14 = 0xA0;
-    temp_v0_3->unk16 = 0x100;
-    temp_v0_2->unk18 = (s32) ((temp_v0_2->unk18 & 0xFF000000) | (*((D_800B9A02 << 0xE) + &D_800AA60C) & 0xFFFFFF));
-    temp_a0_3 = (D_800B9A02 << 0xE) + &D_800AA60C;
-    D_800A5E60 = temp_v0_3 + 0x18;
-    *temp_a0_3 = (*temp_a0_3 & 0xFF000000) | ((s32) temp_v0_3 & 0xFFFFFF);
+    *(u8 *)(p + 0x3) = 5;
+    *(u32 *)(p + 0x4) = 0xE1000086;
+    *(u8 *)(p + 0xB) = 0x64;
+    *(u16 *)(p + 0x12) = 0x7980;
+    *(u8 *)(p + 0x8) = *(u8 *)(p + 0x9) = *(u8 *)(p + 0xA) = 0x80;
+    *(s16 *)(p + 0xC) = x;
+    *(s16 *)(p + 0xE) = y;
+    *(u8 *)(p + 0x10) = 0x20;
+    *(u8 *)(p + 0x11) = 0;
+    *(s16 *)(p + 0x14) = 0xA0;
+    *(s16 *)(p + 0x16) = 0x100;
+    m24 = 0x00FFFFFF;
+    {
+        u32 v = (wD_800AA60C[(u16)D_800B9A02 * 0x1000] & m24) & m24;
+        u32 t = *(u32 *)p;
+        t &= 0xFF000000;
+        t |= v;
+        *(u32 *)p = t;
+    }
+    {
+        s32 oi = (u16)D_800B9A02 * 0x1000;
+        wD_800AA60C[oi] = (wD_800AA60C[oi] & 0xFF000000) | ((u32)p & m24);
+    }
+    p += 0x18;
+
+    *(u8 *)(p + 0x3) = 5;
+    *(u32 *)(p + 0x4) = 0xE1000087;
+    *(u8 *)(p + 0xB) = 0x64;
+    *(u16 *)(p + 0x12) = 0x7980;
+    *(u8 *)(p + 0x8) = *(u8 *)(p + 0x9) = *(u8 *)(p + 0xA) = 0x80;
+    *(s16 *)(p + 0xC) = x + 0xA0;
+    *(s16 *)(p + 0xE) = y;
+    *(u8 *)(p + 0x10) = 0x40;
+    *(u8 *)(p + 0x11) = 0;
+    *(s16 *)(p + 0x14) = 0xA0;
+    *(s16 *)(p + 0x16) = 0x100;
+    {
+        u32 v = (wD_800AA60C[(u16)D_800B9A02 * 0x1000] & m24) & m24;
+        u32 t = *(u32 *)p;
+        t &= 0xFF000000;
+        t |= v;
+        *(u32 *)p = t;
+    }
+    {
+        s32 oi = (u16)D_800B9A02 * 0x1000;
+        wD_800AA60C[oi] = (wD_800AA60C[oi] & 0xFF000000) | ((u32)p & m24);
+    }
+    p += 0x18;
+
+    *(u8 *)(p + 0x3) = 5;
+    *(u32 *)(p + 0x4) = 0xE1000096;
+    *(u8 *)(p + 0xB) = 0x64;
+    *(u16 *)(p + 0x12) = 0x7980;
+    *(u8 *)(p + 0x8) = *(u8 *)(p + 0x9) = *(u8 *)(p + 0xA) = 0x80;
+    *(s16 *)(p + 0xC) = x;
+    *(s16 *)(p + 0xE) = y + 0x100;
+    *(u8 *)(p + 0x10) = 0x20;
+    *(u8 *)(p + 0x11) = 0;
+    *(s16 *)(p + 0x14) = 0xA0;
+    *(s16 *)(p + 0x16) = 0x100;
+    {
+        u32 v = (wD_800AA60C[(u16)D_800B9A02 * 0x1000] & m24) & m24;
+        u32 t = *(u32 *)p;
+        t &= 0xFF000000;
+        t |= v;
+        *(u32 *)p = t;
+    }
+    {
+        s32 oi = (u16)D_800B9A02 * 0x1000;
+        wD_800AA60C[oi] = (wD_800AA60C[oi] & 0xFF000000) | ((u32)p & m24);
+    }
+    p += 0x18;
+
+    *(u8 *)(p + 0x3) = 5;
+    *(u32 *)(p + 0x4) = 0xE1000097;
+    *(u8 *)(p + 0xB) = 0x64;
+    *(u16 *)(p + 0x12) = 0x7980;
+    *(u8 *)(p + 0x8) = *(u8 *)(p + 0x9) = *(u8 *)(p + 0xA) = 0x80;
+    *(s16 *)(p + 0xC) = x + 0xA0;
+    *(s16 *)(p + 0xE) = y + 0x100;
+    *(u8 *)(p + 0x10) = 0x40;
+    *(u8 *)(p + 0x11) = 0;
+    *(s16 *)(p + 0x14) = 0xA0;
+    *(s16 *)(p + 0x16) = 0x100;
+    {
+        u32 v = (wD_800AA60C[(u16)D_800B9A02 * 0x1000] & m24) & m24;
+        u32 t = *(u32 *)p;
+        t &= 0xFF000000;
+        t |= v;
+        *(u32 *)p = t;
+    }
+    {
+        s32 oi = (u16)D_800B9A02 * 0x1000;
+        wD_800AA60C[oi] = (wD_800AA60C[oi] & 0xFF000000) | ((u32)p & m24);
+    }
+    p += 0x18;
+
+    D_800A5E60 = p;
 }
 #endif
