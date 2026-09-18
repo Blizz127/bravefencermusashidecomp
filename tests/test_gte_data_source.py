@@ -6,13 +6,13 @@ from test_gte_init_source import _run_gte_source_probe
 @pytest.mark.parametrize("variant", ["baseline", "immediate_load_mutant", "sub_swap_mutant", "srav_mutant", "div_site_mutant", "mvmva_dispatch_mutant", "swc2_site_mutant", "camera2_site_mutant", "sanitizers"])
 def test_gte_data_source(tmp_path, variant):
     def mvmva_dispatch(source):
-        old = "} else if (rs == 18u) {"
+        old = "else if (rs == 18u ||"
         assert source.count(old) == 1
-        return source.replace(old, "} else if (rs == 19u) {")
+        return source.replace(old, "else if (rs == 19u ||")
     def swc2_site(source):
-        old = "cpu->pc != 0x80048e98u || instruction != 0xe88b0010u ||"
+        old = "(pc == 0x80048e98u && word == 0xe88b0010u)"
         assert source.count(old) == 1
-        return source.replace(old, "cpu->pc != 0x80048e98u || instruction != 0xe88b0011u ||")
+        return source.replace(old, "(pc == 0x80048e98u && word == 0xe88b0011u)")
     def camera2_site(source):
         old = "{0x80048598u, 0x488b4800u, 0}"
         assert source.count(old) == 1
@@ -30,9 +30,14 @@ def test_gte_data_source(tmp_path, variant):
         assert source.count(old) == 1
         return source.replace(old, "cpu->r[rd] = cpu->r[rt] >> amount;")
     def div_site(source):
-        old = "(cpu->pc == 0x80054070u && instruction == 0x0212001au)"
-        assert source.count(old) == 1
-        return source.replace(old, "(cpu->pc == 0x80054070u && instruction == 0x0212001bu)")
+        # The explicit 0x80054070 site entry and the generic div_guard_present()
+        # each subsume the other, so a single-path mutation is undetectable.
+        # Break both: the DIV at that site must then be refused.
+        site = "(cpu->pc == 0x80054070u && instruction == 0x0212001au)"
+        guard = "nop == 0u && brk == 0x0007000du;"
+        assert source.count(site) == 1 and source.count(guard) == 1
+        return (source.replace(site, "(cpu->pc == 0x80054070u && instruction == 0x0212001bu)")
+                      .replace(guard, "nop == 0u && brk == 0x0007000eu;"))
     mutate = {"immediate_load_mutant": immediate, "sub_swap_mutant": sub_swap, "srav_mutant": srav, "div_site_mutant": div_site, "mvmva_dispatch_mutant": mvmva_dispatch, "swc2_site_mutant": swc2_site, "camera2_site_mutant": camera2_site}.get(variant)
     _run_gte_source_probe(tmp_path, variant, "gte_data_source_probe.c",
         "GTE_DATA_SOURCE_PASS fixture_only=1 positive_sqrt=298 second_caller=540D8 light_case=53EA0 camera_out0=00400010 camera2_out0=0000ffff\n",

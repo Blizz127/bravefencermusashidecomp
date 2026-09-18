@@ -18098,6 +18098,14 @@ static int lwc2_site(uint32_t pc, uint32_t word) {
     return 0;
 }
 
+/* The two light-matrix stores (80048E98, 80048FA8) publish control register
+ * 11, so they read the shared control bank; every other admitted SWC2 site
+ * reads the data bank. */
+static int swc2_control_site(uint32_t pc, uint32_t word) {
+    return (pc == 0x80048e98u && word == 0xe88b0010u) ||
+           (pc == 0x80048fa8u && word == 0xe8ab0010u);
+}
+
 /* SWC2 stores inside exported ranges: hardware SWC2 reads the GTE data bank,
  * so each site transfers through read_data. */
 static int swc2_site(uint32_t pc, uint32_t word) {
@@ -18871,11 +18879,22 @@ static int formatter_step(MusashiBootMemory *memory, FormatterCpu *cpu) {
         if (!cpu->cpu_transfer || !cpu->cpu_transfer->write_control) return formatter_refuse0(__LINE__, cpu->pc);
         /* The func_80012558 control writes carry a stale RA, so exact PC/word
          * plus the bound control transfer is the whole gate for them; every
-         * other CTC2 site keeps its index-based caller check. */
+         * other CTC2 site keeps its index-based caller check. The stale-RA
+         * bank profile must not shadow the caller-gated camera rows (table
+         * indices 13..22), which are gated by the gte_48d9c_caller and
+         * gte_484ec_caller checks below. */
         unsigned eac_ctl = 99;
+        int exact_site = 0;
+        int caller_gated = 0;
+        for (i=0;i<sizeof(sites)/sizeof(sites[0]);++i)
+            if (sites[i][0]==cpu->pc && sites[i][1]==instruction) {
+                exact_site = 1;
+                caller_gated = i >= 13u && i < 23u;
+                break;
+            }
         if ((gte_20f34_caller(cpu->r[31]) &&
              gte_20f34_site(cpu->pc, instruction, &eac_ctl) && eac_ctl == 0u) ||
-            (gte_bank_site(cpu->pc, instruction, &eac_ctl) && eac_ctl == 0u) ||
+            (!caller_gated && gte_bank_site(cpu->pc, instruction, &eac_ctl) && eac_ctl == 0u) ||
             (gte_12558_site(cpu->pc, instruction, &lib_slot) && lib_slot == 0u) ||
             (gte_48eac_caller(cpu->r[31]) &&
              gte_48eac_site(cpu->pc, instruction, &eac_ctl) && eac_ctl == 0u) ||
@@ -18885,9 +18904,7 @@ static int formatter_step(MusashiBootMemory *memory, FormatterCpu *cpu) {
              gte_48b6c_site(cpu->pc, instruction, &eac_ctl) && eac_ctl == 0u)) {
             /* admitted */
         } else {
-        for (i=0;i<sizeof(sites)/sizeof(sites[0]);++i)
-            if (sites[i][0]==cpu->pc && sites[i][1]==instruction) break;
-        if (i==sizeof(sites)/sizeof(sites[0])) return formatter_refuse0(__LINE__, cpu->pc);
+        if (!exact_site) return formatter_refuse0(__LINE__, cpu->pc);
         if (i < 7u) {
             /* Both retail InitGeom callers share the persistent CPU/GTE
              * owners and run the instruction-image publication themselves. */
@@ -18964,6 +18981,7 @@ static int formatter_step(MusashiBootMemory *memory, FormatterCpu *cpu) {
          * an audited 80048D9C caller and 80048FA8 under a func_80048EAC
          * caller. No pending MFC2 load may be live: every load of those two
          * routines retires at its admitted successor. */
+        int control_swc2 = swc2_control_site(cpu->pc, instruction);
         int swc2 = swc2_site(cpu->pc, instruction) ||
                    (cpu->pc == 0x80048e98u && instruction == 0xe88b0010u &&
                     gte_48d9c_caller(cpu->r[31])) ||
@@ -18978,7 +18996,8 @@ static int formatter_step(MusashiBootMemory *memory, FormatterCpu *cpu) {
             (cpu->gte_load_pending && !gte_load_successor_pc(cpu->pc)) ||
             cpu->npc != cpu->pc+4u ||
             cpu->delay_slot || cpu->branch_pc ||
-            !cpu->cpu_transfer->read_data) return formatter_refuse0(__LINE__, cpu->pc);
+            !(control_swc2 ? cpu->cpu_transfer->read_control
+                           : cpu->cpu_transfer->read_data)) return formatter_refuse0(__LINE__, cpu->pc);
     }
     merge_kind = merge_kind_for(cpu->pc, instruction);
     if ((opcode == 34u || opcode == 38u || opcode == 42u || opcode == 46u) &&
@@ -19290,14 +19309,19 @@ static int formatter_step(MusashiBootMemory *memory, FormatterCpu *cpu) {
     case 58: {
         MusashiCpuContext context;
         uint32_t control;
-        /* The SC02 transform stores data IR3; the earlier admitted site
-         * retains its separate control-bank transfer. */
+        /* The SC02 transform stores data IR3; the earlier admitted sites
+         * publish light-matrix control 11 from the shared control bank. */
         if (!musashi_boot_cpu_context(cpu, MUSASHI_CPU_CONTEXT_SOURCE, &context)) goto gte_transfer_refused;
         /* SWC2 reads the GTE data bank on hardware (PsyCross: "returns cop2
-         * register value. SWC2 is the same kind" of MFC2), so every admitted
-         * site transfers through read_data. */
-        if (!cpu->cpu_transfer->read_data(cpu->cpu_transfer->userdata,
-                                          &context, rt, &control)) goto gte_transfer_refused;
+         * register value. SWC2 is the same kind" of MFC2), so the ordinary
+         * sites transfer through read_data; the light-matrix sites read the
+         * control bank, which is what the retail routine actually stored. */
+        if (swc2_control_site(cpu->pc, instruction)
+                ? !cpu->cpu_transfer->read_control(cpu->cpu_transfer->userdata,
+                                                   &context, rt, &control)
+                : !cpu->cpu_transfer->read_data(cpu->cpu_transfer->userdata,
+                                                &context, rt, &control))
+            goto gte_transfer_refused;
         if (!cpu_write32(memory, cpu, cpu->r[rs] + (int32_t)signed_immediate, control)) goto gte_transfer_refused;
         break;
     }
