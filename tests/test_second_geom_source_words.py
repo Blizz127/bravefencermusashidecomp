@@ -268,7 +268,7 @@ EXPECTED = {
     "800419b0.c": (0x800419B0, 0x80041A20, 28),
     "80041a80.c": (0x80041A80, 0x80041AB0, 12),
     "80041ab0.c": (0x80041AB0, 0x80041E8C, 247),
-    "80041e8c.c": (0x80041E8C, 0x80042004, 94),
+    "80041e8c.c": (0x80041E8C, 0x80042154, 178),
     "80042374.c": (0x80042374, 0x8004239C, 10),
     "800439d4.c": (0x800439D4, 0x800439F8, 9),
     "80046630.c": (0x80046630, 0x8004674C, 71),
@@ -373,6 +373,44 @@ EXPECTED = {
 }
 
 
+def _range_in_fmt(fmt, lo, hi):
+    """True when the formatter dispatches [lo, hi).
+
+    The 2026-09-15 refactor (d9f78a3a8) moved most of formatter_fetch's
+    per-PC `else if (pc >= lo && pc < hi)` branches into sorted
+    kFormatterRanges* tables. A range is therefore present either as the
+    original literal guard or as a table row `{ 0xlo, 0xhi, ... }`.
+    """
+    if f"cpu->pc >= 0x{lo:x}u && cpu->pc < 0x{hi:x}u" in fmt:
+        return True
+    return re.search(rf"\{{\s*0x{lo:x}u\s*,\s*0x{hi:x}u\s*,", fmt) is not None
+
+
+def _dispatch_pos(fmt, symbol):
+    """Source position of the fetch branch that serves the word array `symbol`.
+
+    A symbol is either assigned directly (`instruction = <symbol>`) or a row in
+    a kFormatterRanges* table consulted by `formatter_range_word(<table>, ...)`.
+    Comparing these positions is how the ordering tests below express overlay
+    precedence, which the range-table refactor preserved.
+    """
+    literal = fmt.find(f"instruction = {symbol}")
+    if literal != -1:
+        return literal
+    row = re.search(rf"\{{\s*0x[0-9a-f]+u\s*,\s*0x[0-9a-f]+u\s*,\s*{re.escape(symbol)}\s*\}}", fmt)
+    if row is None:
+        return -1
+    table = None
+    for m in re.finditer(r"static const FormatterRange (\w+)\[\]", fmt):
+        if m.start() < row.start():
+            table = m.group(1)
+        else:
+            break
+    if table is None:
+        return -1
+    return fmt.find(f"formatter_range_word({table},")
+
+
 def test_second_geometry_exports_match_asm_and_pinned_exe():
     exe = (ROOT / "extracted/disc/files/SLUS_007.26").read_bytes()
     assert hashlib.sha256(exe).hexdigest() == (
@@ -389,7 +427,7 @@ def test_second_geometry_exports_match_asm_and_pinned_exe():
         (ROOT / "artifacts/second-geom-source-exports.json").read_text()
     )
     assert manifest["status"] == "SOURCE_EXPORTS_PUBLISHED"
-    assert manifest["total_words"] == 22399
+    assert manifest["total_words"] == 22483
     assert manifest["c_match_claim"] is False
     assert manifest["licensed_payload_copied"] is False
 
@@ -425,7 +463,7 @@ def test_8005cea8_testevent_veneer_matches_pinned_exe():
     assert [int(w, 16) for w in WORD_RE.findall(source)] == expected
     fmt = (ROOT / "pc_port/mips_formatter.c").read_text()
     assert "kFile8005CEA8Words" in fmt
-    assert "cpu->pc >= 0x8005cea8u && cpu->pc < 0x8005ceb4u" in fmt
+    assert _range_in_fmt(fmt, 0x8005cea8, 0x8005ceb4)
 
 
 def test_8003ac08_sh_matches_pinned_exe_and_export():
@@ -456,7 +494,7 @@ def test_overlay_0010_800cefd0_matches_main_cd_member0010():
     assert draw == overlay[doff:doff + len(draw)]
     fmt = (ROOT / "pc_port/mips_formatter.c").read_text()
     assert "kOverlay0010_800CEDFCWords" in fmt
-    assert "0x800cedfcu && cpu->pc < 0x800cf104u" in fmt
+    assert _range_in_fmt(fmt, 0x800cedfc, 0x800cf104)
     cf94c = (ROOT / "src/overlays/main_0010/800cf94c.c").read_text()
     cwords = [int(word, 16) for word in WORD_RE.findall(cf94c)]
     assert len(cwords) == 17
@@ -464,7 +502,7 @@ def test_overlay_0010_800cefd0_matches_main_cd_member0010():
     coff = 0x20000 + (0x800CF94C - 0x800CEDF8)
     assert craw == overlay[coff:coff + len(craw)]
     assert "kOverlay0010_800CF94CWords" in fmt
-    assert "0x800cf94cu && cpu->pc < 0x800cf990u" in fmt
+    assert _range_in_fmt(fmt, 0x800cf94c, 0x800cf990)
     ov12 = (ROOT / "extracted/overlays/main/0012.bin").read_bytes()
     s12 = (ROOT / "src/overlays/main_0012/80128228.c").read_text()
     w12 = [int(word, 16) for word in WORD_RE.findall(s12)]
@@ -487,7 +525,7 @@ def test_overlay_0010_800cefd0_matches_main_cd_member0010():
     off12c = 0x28000 + (0x8017BEBC - 0x80128158)
     assert raw12c == ov12[off12c:off12c + len(raw12c)]
     assert "kOverlay0012_8017BEBCWords" in fmt
-    assert "0x8017bebcu && cpu->pc < 0x8017bee4u" in fmt
+    assert _range_in_fmt(fmt, 0x8017bebc, 0x8017bee4)
     s12d = (ROOT / "src/overlays/main_0012/8017bee4.c").read_text()
     w12d = [int(word, 16) for word in WORD_RE.findall(s12d)]
     assert len(w12d) == 21
@@ -495,7 +533,7 @@ def test_overlay_0010_800cefd0_matches_main_cd_member0010():
     off12d = 0x28000 + (0x8017BEE4 - 0x80128158)
     assert raw12d == ov12[off12d:off12d + len(raw12d)]
     assert "kOverlay0012_8017BEE4Words" in fmt
-    assert "0x8017bee4u && cpu->pc < 0x8017bf38u" in fmt
+    assert _range_in_fmt(fmt, 0x8017bee4, 0x8017bf38)
     s12e = (ROOT / "src/overlays/main_0012/8017bf38.c").read_text()
     w12e = [int(word, 16) for word in WORD_RE.findall(s12e)]
     assert len(w12e) == 14
@@ -503,7 +541,7 @@ def test_overlay_0010_800cefd0_matches_main_cd_member0010():
     off12e = 0x28000 + (0x8017BF38 - 0x80128158)
     assert raw12e == ov12[off12e:off12e + len(raw12e)]
     assert "kOverlay0012_8017BF38Words" in fmt
-    assert "0x8017bf38u && cpu->pc < 0x8017bf70u" in fmt
+    assert _range_in_fmt(fmt, 0x8017bf38, 0x8017bf70)
     s12f = (ROOT / "src/overlays/main_0012/8017c008.c").read_text()
     w12f = [int(word, 16) for word in WORD_RE.findall(s12f)]
     assert len(w12f) == 30
@@ -511,7 +549,7 @@ def test_overlay_0010_800cefd0_matches_main_cd_member0010():
     off12f = 0x28000 + (0x8017C008 - 0x80128158)
     assert raw12f == ov12[off12f:off12f + len(raw12f)]
     assert "kOverlay0012_8017C008Words" in fmt
-    assert "0x8017c008u && cpu->pc < 0x8017c080u" in fmt
+    assert _range_in_fmt(fmt, 0x8017c008, 0x8017c080)
 
 
 def test_overlay_800cedfc_matches_main_cd_member0000():
@@ -523,10 +561,10 @@ def test_overlay_800cedfc_matches_main_cd_member0000():
     assert raw == overlay[0x804:0x804 + len(raw)]
     fmt = (ROOT / "pc_port/mips_formatter.c").read_text()
     assert "kOverlay800CEDFCWords" in fmt
-    assert "0x800cedfcu && cpu->pc < 0x800cee40u" in fmt
+    assert _range_in_fmt(fmt, 0x800cedfc, 0x800cee40)
     words2 = struct.unpack_from("<49I", overlay, 0x848)
     assert "kOverlay800CEE40Words" in fmt
-    assert "0x800cee40u && cpu->pc < 0x800cef04u" in fmt
+    assert _range_in_fmt(fmt, 0x800cee40, 0x800cef04)
     for word in words2:
         assert f"0x{word:08x}u" in fmt.lower()
     overlay_funcs = [
@@ -558,11 +596,11 @@ def test_overlay_800cee2c_matches_main_cd_member0007():
     assert raw == overlay[offset:offset + len(raw)]
     fmt = (ROOT / "pc_port/mips_formatter.c").read_text()
     assert "kOverlay800CEE2CWords" in fmt
-    assert "0x800cee2cu && cpu->pc < 0x800cf02cu" in fmt
-    member0 = fmt.find("instruction = kOverlay800CEE40Words")
-    member7 = fmt.find("instruction = kOverlay800CEE2CWords")
-    cedfc = fmt.find("instruction = kOverlay800CEDFCWords")
-    member10 = fmt.find("instruction = kOverlay0010_800CEDFCWords")
+    assert _range_in_fmt(fmt, 0x800cee2c, 0x800cf02c)
+    member0 = _dispatch_pos(fmt, "kOverlay800CEE40Words")
+    member7 = _dispatch_pos(fmt, "kOverlay800CEE2CWords")
+    cedfc = _dispatch_pos(fmt, "kOverlay800CEDFCWords")
+    member10 = _dispatch_pos(fmt, "kOverlay0010_800CEDFCWords")
     assert member7 != -1 and member0 != -1 and member7 < member0
     # kOverlay800CEDFCWords includes 800CEE2C as member0000's epilogue
     # (lw ra,0x10(sp) → 80078E78). Overlay 0007 must win that PC first.
@@ -588,10 +626,10 @@ def test_overlay_800cf02c_remainder_matches_main_cd_member0007():
     assert raw == overlay[offset:offset + len(raw)]
     fmt = (ROOT / "pc_port/mips_formatter.c").read_text()
     assert "kOverlay800CF02CWords" in fmt
-    assert "0x800cf02cu && cpu->pc < 0x800d1378u" in fmt
-    remainder = fmt.find("cpu->pc >= 0x800cf02cu && cpu->pc < 0x800d1378u")
-    member0 = fmt.find("cpu->pc >= 0x800cee40u && cpu->pc < 0x800cef04u")
-    cf038 = fmt.find("cpu->pc >= 0x800cf038u && cpu->pc < 0x800cf0c4u")
+    assert _range_in_fmt(fmt, 0x800cf02c, 0x800d1378)
+    remainder = _dispatch_pos(fmt, "kOverlay800CF02CWords")
+    member0 = _dispatch_pos(fmt, "kOverlay800CEE40Words")
+    cf038 = _dispatch_pos(fmt, "kOverlay800CF038Words")
     assert remainder != -1 and member0 != -1 and remainder < member0
     assert cf038 != -1 and remainder < cf038
     assert "cpu->pc = 0x800cf3b0u" not in fmt
@@ -608,46 +646,46 @@ def test_overlay_800cf02c_remainder_matches_main_cd_member0007():
 def test_8005d9c4_tap_complete_matches_pinned_exe():
     """8005D9C4 TAP/29B4 serial continuation is word-identical to EXE/asm."""
     fmt = (ROOT / "pc_port/mips_formatter.c").read_text()
-    assert "cpu->pc >= 0x8005d8a0u && cpu->pc < 0x8005d8b4u" in fmt
-    assert "cpu->pc >= 0x8005d980u && cpu->pc < 0x8005d9c4u" in fmt
-    assert "cpu->pc >= 0x8005d9c4u && cpu->pc < 0x8005dbd8u" in fmt
+    assert _range_in_fmt(fmt, 0x8005d8a0, 0x8005d8b4)
+    assert _range_in_fmt(fmt, 0x8005d980, 0x8005d9c4)
+    assert _range_in_fmt(fmt, 0x8005d9c4, 0x8005dbd8)
     assert "kInputSerialStartWords" in fmt
 
 
 def test_8005dbd8_eae8_tap_complete_path_is_fetched():
     """8005DBD8 dispatch and 8005EAE8 digital TAP are on the native fetch seam."""
     fmt = (ROOT / "pc_port/mips_formatter.c").read_text()
-    assert "cpu->pc >= 0x8005dbd8u && cpu->pc < 0x8005dca0u" in fmt
-    assert "cpu->pc >= 0x8005eae8u && cpu->pc < 0x8005eb28u" in fmt
-    assert "cpu->pc >= 0x8005dca0u && cpu->pc < 0x8005de78u" in fmt
-    assert "cpu->pc >= 0x8005e0acu && cpu->pc < 0x8005e13cu" in fmt
-    assert "cpu->pc >= 0x8005fba8u && cpu->pc < 0x8005fbc8u" in fmt
-    assert "cpu->pc >= 0x8005f75cu && cpu->pc < 0x8005f830u" in fmt
+    assert _range_in_fmt(fmt, 0x8005dbd8, 0x8005dca0)
+    assert _range_in_fmt(fmt, 0x8005eae8, 0x8005eb28)
+    assert _range_in_fmt(fmt, 0x8005dca0, 0x8005de78)
+    assert _range_in_fmt(fmt, 0x8005e0ac, 0x8005e13c)
+    assert _range_in_fmt(fmt, 0x8005fba8, 0x8005fbc8)
+    assert _range_in_fmt(fmt, 0x8005f75c, 0x8005f830)
 
 
 def test_8005ed4c_f290_29b4_path_is_fetched():
     """8005ED4C TAP stage and 8005F290 29B4 zeroing are on the native fetch seam."""
     fmt = (ROOT / "pc_port/mips_formatter.c").read_text()
-    assert "cpu->pc >= 0x8005ed4cu && cpu->pc < 0x8005f0c8u" in fmt
-    assert "cpu->pc >= 0x8005f290u && cpu->pc < 0x8005f384u" in fmt
-    assert "cpu->pc >= 0x8005fa94u && cpu->pc < 0x8005fb70u" in fmt
-    assert "cpu->pc >= 0x8005f394u && cpu->pc < 0x8005f450u" in fmt
-    assert "cpu->pc >= 0x8005f450u && cpu->pc < 0x8005f6ccu" in fmt
-    assert "cpu->pc >= 0x8005f6ccu && cpu->pc < 0x8005f704u" in fmt
-    assert "cpu->pc >= 0x8005de78u && cpu->pc < 0x8005e0acu" in fmt
-    assert "cpu->pc >= 0x8005eb28u && cpu->pc < 0x8005ec00u" in fmt
-    assert "cpu->pc >= 0x8005ec00u && cpu->pc < 0x8005ecc0u" in fmt
-    assert "cpu->pc >= 0x8005ecc0u && cpu->pc < 0x8005ed4cu" in fmt
-    assert "cpu->pc >= 0x8005f384u && cpu->pc < 0x8005f394u" in fmt
+    assert _range_in_fmt(fmt, 0x8005ed4c, 0x8005f0c8)
+    assert _range_in_fmt(fmt, 0x8005f290, 0x8005f384)
+    assert _range_in_fmt(fmt, 0x8005fa94, 0x8005fb70)
+    assert _range_in_fmt(fmt, 0x8005f394, 0x8005f450)
+    assert _range_in_fmt(fmt, 0x8005f450, 0x8005f6cc)
+    assert _range_in_fmt(fmt, 0x8005f6cc, 0x8005f704)
+    assert _range_in_fmt(fmt, 0x8005de78, 0x8005e0ac)
+    assert _range_in_fmt(fmt, 0x8005eb28, 0x8005ec00)
+    assert _range_in_fmt(fmt, 0x8005ec00, 0x8005ecc0)
+    assert _range_in_fmt(fmt, 0x8005ecc0, 0x8005ed4c)
+    assert _range_in_fmt(fmt, 0x8005f384, 0x8005f394)
 
 
 def test_8005e374_e3ac_unmapped_tap_callees_are_fetched():
     """8005E228 jals 8005E374/8005E3AC; those TAP callees are now fetched 1:1."""
     fmt = (ROOT / "pc_port/mips_formatter.c").read_text()
-    assert "cpu->pc >= 0x8005e374u && cpu->pc < 0x8005e3acu" in fmt
-    assert "cpu->pc >= 0x8005e3acu && cpu->pc < 0x8005e79cu" in fmt
-    assert "cpu->pc >= 0x8005ea88u && cpu->pc < 0x8005eaa8u" in fmt
-    assert "cpu->pc >= 0x8005eac8u && cpu->pc < 0x8005eae8u" in fmt
+    assert _range_in_fmt(fmt, 0x8005e374, 0x8005e3ac)
+    assert _range_in_fmt(fmt, 0x8005e3ac, 0x8005e79c)
+    assert _range_in_fmt(fmt, 0x8005ea88, 0x8005eaa8)
+    assert _range_in_fmt(fmt, 0x8005eac8, 0x8005eae8)
     assert "0x8005e31cu" in fmt and "0x8005e374u" in fmt
     assert "0x8005e34cu" in fmt and "0x8005e3acu" in fmt
 
@@ -681,7 +719,7 @@ def test_overlay_0010_800cfbbc_live_stop_matches_member():
     offset = 0x20000 + 0x800CFBBC - 0x800CEDF8
     assert struct.pack('<4I', *words) == overlay[offset:offset + 16]
     fmt = (ROOT / 'pc_port/mips_formatter.c').read_text()
-    assert 'cpu->pc >= 0x800cfbbcu && cpu->pc < 0x800cfbccu' in fmt
+    assert _range_in_fmt(fmt, 0x800cfbbc, 0x800cfbcc)
     assert 'kOverlay0010_800CFBBCWords' in fmt
 
 
@@ -693,7 +731,7 @@ def test_overlay_0010_800d0488_live_stop_matches_member():
     offset = 0x20000 + 0x800D0488 - 0x800CEDF8
     assert struct.pack('<64I', *words) == overlay[offset:offset + 256]
     fmt = (ROOT / 'pc_port/mips_formatter.c').read_text()
-    assert 'cpu->pc >= 0x800d0488u && cpu->pc < 0x800d0588u' in fmt
+    assert _range_in_fmt(fmt, 0x800d0488, 0x800d0588)
     assert 'kOverlay0010_800D0488Words' in fmt
 
 
@@ -705,7 +743,7 @@ def test_overlay_0010_800cf370_live_stop_matches_member():
     offset = 0x20000 + 0x800CF370 - 0x800CEDF8
     assert struct.pack('<10I', *words) == overlay[offset:offset + 40]
     fmt = (ROOT / 'pc_port/mips_formatter.c').read_text()
-    assert 'cpu->pc >= 0x800cf370u && cpu->pc < 0x800cf398u' in fmt
+    assert _range_in_fmt(fmt, 0x800cf370, 0x800cf398)
     assert 'kOverlay0010_800CF370Words' in fmt
 
 
@@ -717,15 +755,15 @@ def test_overlay_0010_800cf398_live_stop_matches_member():
     offset = 0x20000 + 0x800CF398 - 0x800CEDF8
     assert struct.pack('<8I', *words) == overlay[offset:offset + 32]
     fmt = (ROOT / 'pc_port/mips_formatter.c').read_text()
-    assert 'cpu->pc >= 0x800cf398u && cpu->pc < 0x800cf3b8u' in fmt
+    assert _range_in_fmt(fmt, 0x800cf398, 0x800cf3b8)
     assert 'kOverlay0010_800CF398Words' in fmt
 
 
 def test_title_overlay_unmapped_words_do_not_fall_back_to_member_zero():
     fmt = (ROOT / 'pc_port/mips_formatter.c').read_text()
     guard = fmt.index('else if (g_overlay_0004_words || g_overlay_0007_words || g_overlay_0010_words)\n        return 0;')
-    fallback = fmt.index('instruction = kOverlay800CF290Words')
-    title = fmt.index('instruction = kOverlay0010_800CF398Words')
+    fallback = _dispatch_pos(fmt, 'kOverlay800CF290Words')
+    title = _dispatch_pos(fmt, 'kOverlay0010_800CF398Words')
     assert title < guard < fallback
 
 
@@ -737,5 +775,5 @@ def test_overlay_0010_800cf3b8_live_stop_matches_member():
     offset = 0x20000 + 0x800CF3B8 - 0x800CEDF8
     assert struct.pack('<49I', *words) == overlay[offset:offset + 196]
     fmt = (ROOT / 'pc_port/mips_formatter.c').read_text()
-    assert 'cpu->pc >= 0x800cf3b8u && cpu->pc < 0x800cf47cu' in fmt
+    assert _range_in_fmt(fmt, 0x800cf3b8, 0x800cf47c)
     assert 'kOverlay0010_800CF3B8Words' in fmt
