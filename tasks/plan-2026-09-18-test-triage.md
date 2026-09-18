@@ -12,10 +12,12 @@ and were not modified.
 | | failed | passed | errors | xfail |
 | --- | --- | --- | --- | --- |
 | baseline | 40 | 2,452 | 11 | 0 |
-| after this session | **8** | **2,495** | **0** | 1 |
+| after this session | **8 stable** (9 reported) | **2,494** | **0** | 1 |
 
-(`test_native_smoke` was the ninth; it passes after the SDL config fix below but
-the table counts the last full-suite run plus that individual re-run.)
+The residual eight are the behavioral cluster in section 6. A ninth slot in
+each full run is a load-flaky live probe: `test_native_smoke`'s `ctest` step or
+`test_audio_sdl_live_probe`, depending on the run. Both pass alone (130 s and
+1.0 s); the suite saturates the host.
 
 `python3 tools/verify_registry.py` is still **2,730/2,730, exit 0**.
 
