@@ -1817,3 +1817,33 @@ startup continuation, or menu boot. Focused tests cover provider ordering and
 refusal effects. The guard-zero diagnostic route now has the same tested
 provider behavior: it diagnoses first, then delegates B0:17 without touching
 the active flag. A real scheduler must still own the actual exception frame.
+
+### Startup-chain recovery ranking, 2026-09-18
+
+`80010178` call order with registry status, ranked by boot-path reachability.
+`C` = portable native-executable; `asm` = word-exact only; `part` =
+C/unclassified (extent unproven); `--` = unmatched. This is the work order
+for making the executed path native: top first.
+
+| order | function | status | note |
+| --- | --- | --- | --- |
+| 1 | `800100A0` | asm | principled-assembly boundary, stays |
+| 2 | `80043060` | C | done |
+| 3 | `800141F0` | C | done |
+| 4 | `8005FC68` | part | promote extent next: 48 B leaf |
+| 5 | `8005FCB8` | part | promote extent next: 96 B leaf |
+| 6 | `80018918` | C | done |
+| 7 | `80043300` | C | matched 38/38 this turn (goto-vs-LICM idiom) |
+| 7a | `80043450` | C | matched 27/27 this turn (taken-block delay-sink idiom) |
+| 7b | `8004359C` | C | done |
+| 7c | `800435B4` | C | done |
+| 7d | `8004654C` | C | done |
+| 7e | `80046564` | -- | second unmatched callee of 7; draft only |
+| 7f | `8005C604` | C | done (varargs wrapper) |
+| 8 | `8002C8F4` | -- | next unmatched after 7 returns; m2c draft 7 words long (221 vs 214), scattered $a-reg allocation diffs = temp-to-register mapping puzzle, plus a possible store-target misalignment near word 48; fix allocator mapping first, likely fixes many sites at once |
+| 9 | `8001971C` | -- | follows 8 |
+| 10 | `80010214` | -- | 0x724 tail; the large one |
+
+Callbacks `80043398/C0/E8` are C. Net: the path is native-executable
+through step 7 except the two unmatched leaves 7a/7e, which currently run
+as word exports; steps 8-10 are the next matching targets in order.

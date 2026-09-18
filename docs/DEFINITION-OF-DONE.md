@@ -90,17 +90,24 @@ following. Concretely, all of the following must hold:
 Reaching 60% does **not** require the native port; it is a decompilation
 milestone. The port resumes once decompilation is far enough along.
 
-## Honest current status (2026-09-14)
+## Honest current status (2026-09-18)
 
 | Measure | Value |
 | --- | --- |
-| Qualifying coverage | **246,368 / 806,272 = 30.56%** |
+| Qualifying coverage | **257,868 / 806,272 = 31.98%** |
+| Portable C-only subset | **176,324 / 806,272 = 21.87%** |
 | 30% threshold (241,882) | **met** |
-| To the 60% checkpoint (483,764) | **+237,396 bytes** |
+| To the 60% checkpoint (483,764) | **+225,896 bytes** |
 | Reachable ceiling | 697,632 / 806,272 = 86.53% |
-| Unmatched complete functions | ~1,434 functions, ~451,264 bytes |
-| Registry | 2,530 / 2,530 re-verified through the oracle |
+| Unmatched to the ceiling | ~439,764 bytes |
+| Registry | 2,730 / 2,730 re-verified through the oracle |
 | Native menu | **NOT_REACHED** (display disabled; port stops at `80053CF8`) |
+
+The C-only subset is now reported because it, not the total, predicts a
+playable native build. The 2026-09-18 batch moved 152 bytes of that gap
+back: `func_80043300`, the startup retry dispatcher, is no longer an
+instruction `__asm__` overlay but source C that rebuilds 38/38 words, and
+the boot-path leaf `func_80046564` was recovered as C (6/6) as well.
 
 Two corrections to the 2026-09-11 status below, both load-bearing:
 

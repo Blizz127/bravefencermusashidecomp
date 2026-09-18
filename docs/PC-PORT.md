@@ -829,6 +829,46 @@ implements. `GR_ClearVRAM` instead writes `r | (g << 5) | (b << 11)` with
 `0x001F`. Read-back of rendered content follows the first; do not calibrate
 against `GR_ClearVRAM`.
 
+### GPU seam decisions: integer commit, depth policy, reference hierarchy
+
+Decided 2026-09-18 from reading the vendored backend, not from experimenting.
+These pin the seam between decomp-owned geometry and PsyCross so later
+graphics work does not re-litigate them.
+
+**Vertices commit as integers; subpixel is opt-in per vertex, never ambient.**
+`MakeVertexTriangle/Quad` (`tools/third_party/psycross/src/gpu/PsyX_GPU.cpp`)
+read integer packet shorts, add the float drawing offset, and store into
+`GrVertex.x/y`, which are `short` while `USE_PGXP=0` (forced in `CMakeLists.txt`).
+The only subpixel path is `ApplyVertexPGXP` overriding `x/y/z` from the PGXP
+cache on a per-vertex hit, falling back to `z = 0, scr_h = 0` on a miss. So the
+integer packet is the commit point today, and turning PGXP on later must go
+through the `_HF()` conversion hazard already recorded above — nothing may
+reinterpret C-written shorts as `half` implicitly.
+
+**Depth is the OT order, not a Z-buffer; keep it that way until PGXP earns an
+exception.** The PS1 has no depth buffer, and the backend agrees by
+construction: without PGXP every vertex takes the constant-`z` ortho path
+(`Projection * vec4(xy, 0.5, 1.0)` in `PsyX_render.cpp`), so `GL_LEQUAL` passes
+in draw order and the painter's algorithm *is* the depth system. Two
+consequences. First, the opaque/depth-on vs blended/depth-off split in
+`GR_EnableDepth` is harmless while `z` is constant and must be re-audited the
+moment real `z` flows, because it changes blended-vs-opaque interleave versus
+retail. Second, `ParsePrimitivesLinkedList` deliberately does not capture the
+OT bucket index — draw order is preserved, bucket numbers are dropped. If depth
+synthesis from OT position is ever wanted, it needs a new hook there; do not
+smuggle it in through `z` without deciding the fight policy for PGXP-`z` vs
+OT order first.
+
+**Reference hierarchy: retail framebuffer first, N64 art intent second,
+synthetic pixels always.** The standing gate stays the synthetic pixel tests
+(quad/TMD under `xvfb-run`, judged by `tools/vram_pixel.py` at tolerance 3 in
+5-bit units). The next rung is retail framebuffer comparison once the boot
+reaches a stable scene: same frame number, emulator VRAM dump as ground truth.
+The N64 version of the game is art-intent reference only — different renderer,
+different hardware, never pixel truth. PGXP stays off until (a) real GTE
+transforms feed the cache on the path being tested, (b) the `_HF()` boundary
+is converted, and (c) the `z`-vs-OT policy above is written down.
+
 ## Vendor matched intake (cleaned)
 
 Raw Druthulu matched sources live under `vendor/bfm-decomp/` (see `VENDOR.md`).
