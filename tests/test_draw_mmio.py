@@ -35,13 +35,13 @@ def test_checked_draw_mmio_and_source_guards(tmp_path, mutation):
             # rather than a compiler warning about an uninitialized local.
             new += "\n        accepted = *value;"
         elif mutation == "remove_pointer_guard":
-            old = "if (instruction != word || !musashi_boot_read32(memory,cell,&actual) || actual != expected ||\n            cpu->r[reg] != expected) return 0;"
+            old = "if (instruction != word || !musashi_boot_read32(memory,cell,&actual) || actual != expected ||\n            cpu->r[reg] != expected) return formatter_refuse0(__LINE__, cpu->pc);"
             new = "(void)cell; (void)actual; (void)expected; (void)reg; (void)word;"
         else:
             old = ("if (instruction != 0x0040f809u ||\n"
                    "            !musashi_boot_read32(memory,0x8006cb84u,&table) || table != 0x8006cb64u ||\n"
                    "            !musashi_boot_read32(memory,table+0xcu,&target) || target != 0x80042718u ||\n"
-                   "            cpu->r[2] != target) return 0;")
+                   "            cpu->r[2] != target) return formatter_refuse0(__LINE__, cpu->pc);")
             new = "(void)table; (void)target;"
         assert source.count(old) == 1
         mutant = tmp_path / "formatter_mutant.c"
