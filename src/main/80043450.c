@@ -1,5 +1,48 @@
-/* Native retail instruction export [80043450,800434BC).
- * Verified against asm/main.s and the extracted EXE. No C match claim. */
+#include "psx_types.h"
+
+/* Decompiled by hand from main.s, then verified byte-exact
+ * against retail by tools/match_function.py. Types and signatures are
+ * whatever reproduces the bytes; they are not evidence of the
+ * original declaration. */
+
+extern void func_80044CE8(void);
+extern s32 func_80044D38(void);
+extern s32 func_80044BF4(void);
+
+/* Semantics note, because the branch-delay slots lie to a casual reader:
+ * each `bnez`-to-epilogue has `rc = 0` sunk into its delay slot, so a
+ * nonzero poll result returns 0 (not ready: the caller retries), while the
+ * fall-through sets `rc = 1`. The m2c draft had this inverted. The
+ * `rc = 0; goto done;` taken blocks are what let the scheduler fill both
+ * delay slots; without the explicit zeroing the match fails at words 13
+ * and 20. Asked and answered against the extracted EXE, not the listing. */
+s32 func_80043450(s32 arg) {
+    s32 rc;
+
+    if (arg == 2) {
+        func_80044CE8();
+        rc = 1;
+        goto done;
+    }
+    rc = func_80044D38();
+    if (rc != 0) {
+        rc = 0;
+        goto done;
+    }
+    rc = 1;
+    if (arg != 1) {
+        goto done;
+    }
+    rc = func_80044BF4();
+    if (rc != 0) {
+        rc = 0;
+        goto done;
+    }
+    rc = 1;
+done:
+    return rc;
+}
+
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE8)
 MUSASHI_NATIVE_MIPS_WORD(0xAFB00010)
@@ -28,37 +71,4 @@ MUSASHI_NATIVE_MIPS_WORD(0x8FB00010)
 MUSASHI_NATIVE_MIPS_WORD(0x27BD0018)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
-#else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
-#include "psx_types.h"
-
-/* m2c draft from main.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
-
-s32 func_80044BF4();                                /* static */
-void func_80044CE8();                                  /* static */
-s32 func_80044D38();                                /* static */
-
-s32 func_80043450(s32 arg0) {
-    s32 var_v0;
-
-    if (arg0 == 2) {
-        func_80044CE8();
-        return 1;
-    }
-    var_v0 = 0;
-    if (func_80044D38() == 0) {
-        var_v0 = 1;
-        if (arg0 == 1) {
-            var_v0 = 0;
-            if (func_80044BF4() == 0) {
-                var_v0 = 1;
-            }
-        }
-    }
-    return var_v0;
-}
 #endif

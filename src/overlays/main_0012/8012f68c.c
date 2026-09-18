@@ -59,13 +59,10 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #include "psx_types.h"
 #include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* Verified byte-exact against retail by tools/match_function.py (52/52 words at 0x8012F68C). Types and signatures are whatever reproduces the bytes; they are not evidence of the original declaration. */
 
 s32 func_8012BEE8(void *);                          /* static */
-s32 func_8012CBCC();                                /* static */
+s32 func_8012CBCC(void *);                            /* static */
 void func_80131C78(void *);                      /* static */
 void func_80131CA8(void *, s32);             /* static */
 void func_80131E00(void *, s32);             /* static */
@@ -76,7 +73,7 @@ void func_8012F68C(void *arg0) {
 
     var_s1 = 0;
     if (!(M2C_FIELD(arg0, s32 *, 0xC4) & 2) && (M2C_FIELD(arg0, s32 *, 0xB4) & 1)) {
-        if ((func_8012CBCC() & 0xFF) == 2) {
+        if ((func_8012CBCC(arg0) & 0xFF) == 2) {
             func_80131E00(arg0, 0x12);
             return;
         }

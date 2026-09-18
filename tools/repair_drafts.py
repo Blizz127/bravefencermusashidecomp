@@ -88,6 +88,31 @@ def _variants_byte_array(body: str):
             yield f"bytes-{symbol}", rewritten
 
 
+_SCALED_BASE_RE = re.compile(r"\(([^()]+?)\)\s*\+\s*&(D_[0-9A-Fa-f]{8})\b")
+
+
+def _variants_indexed_base(body: str):
+    """`(i * K) + &D` scales the whole byte offset again.
+
+    m2c types the global as a pointer, so `&D` is a pointer-to-pointer and
+    adding an already-computed byte offset multiplies it by four. Retail's
+    `sll $v0,$v0,0x2` against the draft's `sll $v0,$v0,0x4` is this bug.
+    The array form makes the name the label's own address and the offset
+    stay bytes. Distinct from _variants_byte_array, which only handles a
+    literal displacement.
+    """
+
+    for offset, symbol in set(_SCALED_BASE_RE.findall(body)):
+        rewritten = body.replace(f"({offset}) + &{symbol}", f"&{symbol}[{offset}]")
+        for kind in ("s32", "u32", "s16", "u16", "s8", "u8", "void"):
+            declaration = f"extern {kind} *{symbol};"
+            if declaration in rewritten:
+                rewritten = rewritten.replace(declaration, f"extern u8 {symbol}[];")
+                break
+        if rewritten != body:
+            yield f"base-{symbol}", rewritten
+
+
 def _variants_volatile(body: str):
     """Volatile stores are not scheduled into a branch delay slot."""
 
@@ -170,7 +195,55 @@ def _variants_narrow(body: str):
             )
 
 
+M2C_FIELD_RE = re.compile(
+    r"M2C_FIELD\((?P<expr>[^,]+),\s*(?P<type>[us](?:8|16|32))\s*\*\s*,\s*(?P<offset>[^)]+)\)"
+)
+ACCESS_TYPES = ("s8", "u8", "s16", "u16", "s32", "u32")
+
+
+def _variants_field_type(body: str):
+    """m2c guesses the access width and signedness from one instruction.
+
+    A `lh` where the draft emits `lhu`, or a `sb` where it emits `sw`, is
+    this guess being wrong. Vary one access at a time: changing them all
+    together would mostly produce nonsense, and the offsets are what tie a
+    site to a field, so each site is independent.
+    """
+
+    sites = list(M2C_FIELD_RE.finditer(body))
+    if not sites:
+        return
+    for site in sites:
+        for access in ACCESS_TYPES:
+            if access == site.group("type"):
+                continue
+            replacement = (
+                f"M2C_FIELD({site.group('expr')}, {access} *, {site.group('offset')})"
+            )
+            rewritten = body[: site.start()] + replacement + body[site.end():]
+            yield f"field-{site.group('offset').strip()}-{access}", rewritten
+    # A whole draft is often consistently wrong about one width, e.g. every
+    # halfword access read as unsigned. Try the sweeping version too.
+    kinds = {site.group("type") for site in sites}
+    for kind in kinds:
+        for access in ACCESS_TYPES:
+            if access == kind:
+                continue
+            rewritten = M2C_FIELD_RE.sub(
+                lambda m: "M2C_FIELD({}, {} *, {})".format(
+                    m.group("expr"),
+                    access if m.group("type") == kind else m.group("type"),
+                    m.group("offset"),
+                ),
+                body,
+            )
+            if rewritten != body:
+                yield f"field-all-{kind}-{access}", rewritten
+
+
 GENERATORS = (
+    _variants_field_type,
+    _variants_indexed_base,
     _variants_pointer_scale,
     _variants_byte_array,
     _variants_address_of,

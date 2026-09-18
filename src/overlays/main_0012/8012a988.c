@@ -77,13 +77,12 @@ MUSASHI_NATIVE_MIPS_WORD(0x27BD0020)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
+/* Verified byte-exact against retail by tools/match_function.py
+ * (73/73 words at 0x8012A988). Types and signatures are whatever
+ * reproduces the bytes; they are not evidence of the original
+ * declaration. */
 #include "psx_types.h"
 #include "m2c_macros.h"
-
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
 
 void func_8012AAAC(void *);                      /* static */
 s32 func_8012ACE0(void *);                          /* static */
@@ -114,12 +113,12 @@ void func_8012A988(void *arg0) {
             M2C_FIELD(arg0, s32 *, 0x94) = temp_v0_4;
             if (temp_v0_4 < 0) {
                 temp_v0_5 = func_8012ACE0(arg0);
-                var_v0 = temp_v0_5 - 1;
                 if (M2C_FIELD(((temp_v0_5 * 8) + M2C_FIELD(arg0, s32 *, 0x90)), s16 *, 4) != -1) {
                     M2C_FIELD(arg0, s32 *, 0x94) = 0;
                     M2C_FIELD(arg0, s16 *, 0x98) = 0;
                     return;
                 }
+                var_v0 = temp_v0_5 - 1;
                 goto block_13;
             }
             goto block_14;

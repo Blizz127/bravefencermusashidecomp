@@ -28,14 +28,14 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
  * evidence of the original declaration. */
 
 void func_80038908(void *);                            /* static */
-extern s32 *D_800B9CD8;
-extern s32 *D_800B9ED2;
+extern u8 D_800B9CD8[];
+extern u8 D_800B9ED2[];
 
 void func_80038308(s32 arg0) {
     s32 temp_v0;
 
     temp_v0 = arg0 * 0x1FC;
-    *(&D_800B9ED2 + temp_v0) = 1;
-    func_80038908(temp_v0 + &D_800B9CD8);
+    D_800B9ED2[temp_v0] = 1;
+    func_80038908(&D_800B9CD8[temp_v0]);
 }
 #endif

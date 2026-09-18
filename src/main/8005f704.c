@@ -18,14 +18,14 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
  * and signatures are whatever the decompiler guessed; they are not
  * evidence of the original declaration. */
 
-extern s32 *D_80078A48;
+extern u8 D_80078A48[];
 
 void *func_8005F704(s32 arg0) {
     void *var_v0;
 
     var_v0 = &D_80078A48;
     if (arg0 & 0xF0) {
-        var_v0 = &D_80078A48 + 0xF0;
+        var_v0 = &D_80078A48[0xF0];
     }
     return var_v0;
 }

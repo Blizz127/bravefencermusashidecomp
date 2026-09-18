@@ -31,6 +31,7 @@ void func_8003A098(u8 **arg0, s16 arg1) {
 
     temp_v1 = *arg0;
     *arg0 = temp_v1 + 1;
-    M2C_FIELD((arg0 + (arg1 * 0x1A)), u8 *, 0x1A) = (u8) *temp_v1;
+    arg0 = (u8 **) ((u8 *) arg0 + (arg1 * 0x1A));
+    M2C_FIELD(arg0, u8 *, 0x1A) = (u8) *temp_v1;
 }
 #endif

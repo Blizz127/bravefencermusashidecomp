@@ -1,49 +1,39 @@
-/* Native retail instruction export [8005C2C8,8005C2F8).
- * Verified against asm/main.s and the extracted EXE. No C match claim. */
+/* Exact retail word export for [8005C2C8,8005C2F8); EXE and assembly verified. */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x10800009)
 MUSASHI_NATIVE_MIPS_WORD(0x00001021)
-MUSASHI_NATIVE_MIPS_WORD(0x1CA00003)
+MUSASHI_NATIVE_MIPS_WORD(0x1ca00003)
 MUSASHI_NATIVE_MIPS_WORD(0x00801021)
-MUSASHI_NATIVE_MIPS_WORD(0x080170BC)
+MUSASHI_NATIVE_MIPS_WORD(0x080170bc)
 MUSASHI_NATIVE_MIPS_WORD(0x00001021)
-MUSASHI_NATIVE_MIPS_WORD(0xA0800000)
-MUSASHI_NATIVE_MIPS_WORD(0x24A5FFFF)
-MUSASHI_NATIVE_MIPS_WORD(0x1CA0FFFD)
+MUSASHI_NATIVE_MIPS_WORD(0xa0800000)
+MUSASHI_NATIVE_MIPS_WORD(0x24a5ffff)
+MUSASHI_NATIVE_MIPS_WORD(0x1ca0fffd)
 MUSASHI_NATIVE_MIPS_WORD(0x24840001)
-MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
+MUSASHI_NATIVE_MIPS_WORD(0x03e00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
+/* Verified byte-exact against retail by tools/match_function.py
+ * (12/12 words at 0x8005C2C8). Types and signatures are whatever
+ * reproduces the bytes; they are not evidence of the original
+ * declaration. */
 #include "psx_types.h"
 
-/* m2c draft from main.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+u8 *func_8005C2C8(u8 *p, s32 n) {
+    u8 *start;
 
-s8 *func_8005C2C8(s8 *arg0, s32 arg1) {
-    s32 var_a1;
-    s8 *var_a0;
-    s8 *var_v0;
-
-    var_a0 = arg0;
-    var_a1 = arg1;
-    var_v0 = 0;
-    if (var_a0 != 0) {
-        var_v0 = var_a0;
-        if (var_a1 <= 0) {
-            return 0;
-        }
-        do {
-            *var_a0 = 0;
-            var_a1 -= 1;
-            var_a0 += 1;
-        } while (var_a1 > 0);
-        /* Duplicate return node #4. Try simplifying control flow for better match */
-        return var_v0;
+    if (p == 0) {
+        return 0;
     }
-    return var_v0;
+    if (n <= 0) {
+        return 0;
+    }
+    start = p;
+    do {
+        *p = 0;
+        n -= 1;
+        p += 1;
+    } while (n > 0);
+    return start;
 }
 #endif

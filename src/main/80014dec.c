@@ -19,16 +19,23 @@ MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
 #include "psx_types.h"
-#include "m2c_macros.h"
 
-/* m2c draft from main.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* Decompiled by hand from main.s, then verified byte-exact
+ * against retail by tools/match_function.py. Types and signatures are
+ * whatever reproduces the bytes; they are not evidence of the
+ * original declaration. */
 
-extern s32 *D_80078D98;
+extern u8 D_80078D98[];
 
-u8 func_80014DEC(s32 arg0, s32 arg1) {
-    return M2C_FIELD((((arg0 & 0xFF) * 0x4C) + &D_80078D98 + (arg1 & 0xFF)), u8 *, 0x32);
+/* Staged so each step pins its codegen: the `u8` parameters emit the
+ * two `andi` masks just before their first uses (early for the long
+ * index chain, late for the single offset add), the explicit index
+ * temp carries the `* 76` strength-reduced chain, and the address
+ * temp forces base materialization instead of folding. */
+u8 func_80014DEC(u8 arg0, u8 arg1) {
+    s32 idx = arg0 * 76;
+    u8 *p = &D_80078D98[idx];
+
+    return *(p + arg1 + 0x32);
 }
 #endif

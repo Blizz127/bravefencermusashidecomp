@@ -15,27 +15,29 @@ MUSASHI_NATIVE_MIPS_WORD(0x90229ED2)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
 
-/* m2c draft from main.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* Decompiled by hand from main.s, then verified byte-exact
+ * against retail by tools/match_function.py. Types and signatures are
+ * whatever reproduces the bytes; they are not evidence of the
+ * original declaration. */
 
-extern s32 *D_800B9ED2;
-extern s32 *D_800B9ED3;
+extern u8 D_800B9ED3[];
+extern u8 D_800B9ED2[];
 
-u8 func_8003836C(s32 arg0) {
-    s32 temp_v1;
-    u8 var_v0;
+/* The shared `i * 4` keeps `i` live in `$v0`, so the scaled index lands
+ * in `$v1` instead of folding back into `$v0`; the convergent `rc`
+ * keeps the taken block falling through into the shared `jr` with the
+ * zero delivered in the `beqz` delay slot. */
+s32 func_8003836C(s32 arg0) {
+    s32 i = arg0 * 127;
+    s32 rc;
 
-    temp_v1 = arg0 * 0x1FC;
-    var_v0 = 0;
-    if (*(&D_800B9ED3 + temp_v1) != 0) {
-        var_v0 = *(&D_800B9ED2 + temp_v1);
+    if (D_800B9ED3[i * 4] != 0) {
+        rc = D_800B9ED2[i * 4];
+    } else {
+        rc = 0;
     }
-    return var_v0;
+    return rc;
 }
 #endif

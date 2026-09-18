@@ -22,21 +22,25 @@ MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
 #include "psx_types.h"
-#include "m2c_macros.h"
 
-/* m2c draft from main.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* Decompiled by hand from main.s, then verified byte-exact
+ * against retail by tools/match_function.py. Types and signatures are
+ * whatever reproduces the bytes; they are not evidence of the
+ * original declaration. */
 
-void func_80048FBC(void *, void *);           /* static */
+typedef struct { s32 x[2]; } __attribute__((packed)) T8_80014168;
+extern void func_80048FBC(void *, void *, void *);
 
-void func_80014168(void *arg1) {
-    s32 sp17;
-    s32 sp13;
-    s32 sp10;
-    sp13 = M2C_UNALIGNED32(M2C_ERROR(/* Unable to handle lwr; missing a corresponding lwl */));
-    sp17 = M2C_UNALIGNED32(M2C_ERROR(/* Unable to handle lwr; missing a corresponding lwl */));
-    func_80048FBC(&sp10, arg1);
+/* Unaligned 8-byte struct copy (`packed` forces `lwl`/`lwr` +
+ * `swl`/`swr` instead of plain `lw`/`sw`). The source pointer is
+ * staged into a copy because it is also passed through as the third
+ * call argument — that copy is what keeps it alive past the `a1`
+ * clobber for the buffer address. m2c dropped the third argument
+ * and choked on the unaligned pair. */
+void func_80014168(void *arg0, u8 *arg1) {
+    u8 *s = arg1;
+    T8_80014168 buf = *(T8_80014168 *)s;
+
+    func_80048FBC(arg0, &buf, s);
 }
 #endif

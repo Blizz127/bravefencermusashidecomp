@@ -16,21 +16,30 @@ MUSASHI_NATIVE_MIPS_WORD(0x27bd0018)
 MUSASHI_NATIVE_MIPS_WORD(0x03e00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
 
-/* m2c draft from main.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* Decompiled by hand from main.s, then verified byte-exact
+ * against retail by tools/match_function.py. Types and signatures are
+ * whatever reproduces the bytes; they are not evidence of the
+ * original declaration. */
 
-s32 func_800478B8(s32);                             /* static */
+extern s32 func_800478B8(s32);
 
+/* Structured `if/else`-return form inverts the test to `bgez` and swaps
+ * the blocks. The convergent `goto` form keeps `bltz`-to-`neg` with the
+ * positive path falling through, both `andi` setups sinking into the
+ * call delay slots, and a bare `nop` in the join jump. */
 s32 func_8004787C(s32 arg0) {
-    if (arg0 >= 0) {
-        return func_800478B8(arg0 & 0xFFF);
+    s32 rc;
+
+    if (arg0 < 0) {
+        goto neg;
     }
-    return -func_800478B8(-arg0 & 0xFFF);
+    rc = func_800478B8(arg0 & 0xFFF);
+    goto done;
+neg:
+    rc = -func_800478B8((-arg0) & 0xFFF);
+done:
+    return rc;
 }
 #endif

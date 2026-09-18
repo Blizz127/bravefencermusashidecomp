@@ -827,11 +827,227 @@ out to be; each entry was confirmed by fixing it and getting a MATCH.
   (`func_8003B0B8`, `func_8005B710`.)
 * **Commuted operands.** `v1 = v1 + v0` and `v1 = v0 + v1` are the same
   value and different instructions. Write the operand order retail shows.
+* **Shared-base CSE.** Two uses `&D[0x1A0]` and `&D[0x1F0]` fold to a base
+  of `&D[0x1A0]` with a small second offset (`a1=s0; a1=s0+80`), while
+  retail keeps the base at `&D` (`s0=D; a1=s0+0x1A0; a1=s0+0x1F0`). An
+  explicit `u8 *base = &D[0];` with `base + 0x1A0` / `base + 0x1F0`
+  reproduces the retail shape. (`func_80014444`.)
+* **Pointer-form increment.** `D += 1` on a `u16` scalar compiles to a
+  direct `lhu`-offset/`sh`-offset pair, while retail holds the address in
+  a register (`lui+addiu; lhu 0(v1); sh 0(v1)`). A `{ u16 *p = &D;
+  *p = *p + 1; }` block reproduces it. (`func_800304C8`.)
+* **Negative inner test with shared tail.** `if (x) goto shared` emits
+  `bnez`-to-call plus `j`, while retail has `bne`-to-skip plus `j`-to-call
+  with a `nop` slot. Flipping to `if (x != V) goto skip;` with the call
+  hoisted to a single shared tail reproduces it. (`func_8012C218`;
+  `func_8012F68C` was the pass-through-argument variant of the same
+  family.)   `func_801301E8` resists this shape: GCC cross-jumps the two
+  `==0 -> end` tests into one `beqz`, going 4 words short, and is still
+  open.
+* **Address held across the block.** Retail `lui $a0,%hi(D); addiu
+  $a0,$a0,%lo(D); lw $v1,0($a0)` followed later by `sw $s2,0($a0)`
+  (same `$a0`) where the draft emits direct `lui $v1` + `lw $v1,off`
+  pairs means the source keeps `&D` in a local across the block:
+  `{ void **pp = &D; if (*pp != 0) {...} *pp = arg; }`.
+  (`func_801377B4`.)
+* **Hoisted mask constant seeks a branch delay slot**
+  (`func_80131A34`, open, best 33/37). The else branch computes
+  `field & ~4` while retail holds the mask in `$v1` from an `li` sitting
+  in the *last* comparison's delay slot (`bne` + `li $v1,-5`). A named
+  `s32 mask = ~4` temp fixes the register mirror (`and $v0,$v0,$v1`)
+  and gains 2 words, but where the temp is assigned decides which delay
+  slot the `li` sinks into: before the `if`-chain it lands in the
+  *second* comparison's slot (words 12/18 swapped, 33/37); inside the
+  `else` it stays at the use site (31/37). Still open: the `sw $s0` /
+  `sw $ra` prologue save order (words 3-4) never flips under any
+  declaration order, signature, or toolchain tried — likely a deeper
+  allocation-order effect of the true source.
+* **-O0 frame size.** At `-O0` the frame immediate is the only difference
+  (e.g. retail `addiu $sp,$sp,-0x20` vs draft `-0x18`, with the six
+  prologue/epilogue offset words following): the body already matches.
+  Any 4-byte unused stack slot (`s32 pad;` plus a `(void)` cast to keep
+  `cc1` quiet — verified to emit no code) grows the frame to retail's
+  without touching the body. This is a codegen constraint, not source
+  evidence; the original may have had an unused parameter or local.
+  (`func_800110CC`, `func_80011144`.)
+* **Assignment sinks below its use.** `var = call() - 1` before the `if`
+  that indexes with `call()` makes GCC reuse the decremented register for
+  the index (`addiu $a0,$v0,-1` then `sll $v0,$a0,3`); retail keeps the
+  raw result for the index (`addu $a0,$v0,$zero`, `sll $v0,$a0,3`) and
+  computes the decrement in the branch delay slot (`addiu $v0,$a0,-1`).
+  Moving the assignment below the `if` reproduces it.
+  (`func_8012A988`.)
+* **Positive test into the body.** `if (call(...) == 0) return 0; body;
+  return 1;` emits `beqz`-to-exit, while retail has `bnez`-into-body
+  with the next call's first constant hoisted into the delay slot
+  (`bnez $v0,label` + `addiu $a0,$zero,1`). Writing it as
+  `if (call(...) != 0) { body; return 1; } return 0;` reproduces it.
+  (`func_8012DF34`, together with a hoisted `s32 *p = D;` base so the
+  two `p[8]`/`p[14]` loads share one `lui+addiu` instead of folding
+  each offset into its own `lui`.)
+* **One variable, sequential ranges, shared register.**
+  (`func_80132288`, 388 bytes.) A temp pointer computed early
+  (`sz = **arg1`, used for a length) and a size base needed late live
+  in the SAME register (`$a2`) in retail, while the draft's two temps
+  split across `$a1`/`$a0`. Merging them into one `void *sz` variable —
+  reassigned (`sz = arg2`) unconditionally just before each use block —
+  reproduces it. The unconditional staging assignment is hoisted by the
+  scheduler into the preceding branch's delay slot (`bne` + `move
+  $a2,$s0`), which is the fingerprint that the assignment dominates
+  both paths. A conditional staging (`sz = arg2` only on one path)
+  instead emits the move after the branch and costs words. Corollary:
+  when the size always comes from one pointer on every path, the
+  path-dependent-pointer reading is wrong — recheck the delay slots
+  before believing it.
+* **Unused middle parameters.** Retail `move $s1,$a3` + `lw $s2,0x30($sp)`
+  where the draft has `move $s1,$a1` + `move $s2,$a2`: the live values
+  arrive in `$a3` and on the stack, so the signature must declare (and
+  ignore) the `$a1`/`$a2` slots. m2c already names them positionally
+  (`arg0, arg3, arg4`); adding `s32 unused1, s32 unused2` between them
+  reproduces the prologue. (`func_80046ABC`.)
+* **Saved copy for late uses.** Retail `move $s0,$v0` right after a call,
+  then `sw $v0,...` + `bnez $v0,...` (immediate uses stay in `$v0`),
+  while the draft uses the saved `$s0`/`$s1` everywhere: introduce
+  `save = temp;` and keep immediate store/test on the raw return,
+  switching later uses to the copy. Companion: the call arg may be the
+  *address* cast to integer (`(s32) &D_...`, `lui+addiu`) where the
+  draft loads the value — check the callee, which may already store it
+  as a word. (`func_80142DC4`, `func_80142E38`, `func_80142EC0`.)
+* **Mask-into-$v0 cascade** (`func_8005CF68`, open, best 33/39).
+  Three identical `arg2 & 0x1000` masks must all target `$v0`;
+  variants put them in `$v1` (then CSE merges two and the JOIN tests
+  `$v1`). With `$v0`, everything else is forced: the mask sinks into
+  the `bne` delay slot, the `li $v0,2` setup clobbers it, the fallthrough
+  recomputes it, and the JOIN tests `$v0`. Forcing `$v0` is the unsolved
+  part — it needs `$v1` busy at the mask site, and nothing found does
+  that (decl orders, temp-type swaps, operand swaps). Also open here:
+  a `sh`-then-`beqz` vs `beqz`-then-`sh` delay-fill swap at the top.
+  True-arm restucture (mask conditional) lengthens to 40 words; the
+  draft's unconditional-mask shape is closer.
+* **First-OR target resists flipping** (`func_8016EE94`, open, best
+  56/57). For `D = arg0 | 0x04000000 | arg1`, retail folds the constant
+  into `$a0` first (`or $a0,$a0,$v0`) while every variant folds into
+  `$a1` first. Ruled out: top-level operand swap (cascades to 51/57),
+  right-nested parens reasoning, `u32`/`s32` decl swaps on either/both
+  params (all still 56/57). Same-source-different-codegen puzzle;
+  likely an allocator canonicalization input not yet identified.
+* **Symmetric call temps resist register swap** (`func_80140E6C`,
+  open, best 32/37). Two identical-shape calls feed one OR-chain;
+  retail accumulates into `$s1` (`or $s1,$s1,$s0`, first call result
+  in `$s1`) while every variant accumulates into `$s0`. Ruled out:
+  all 4+ declaration orders, moving the third temp between/after the
+  calls (breaks the prologue instead), swapping call/assignment order
+  (moves matched `jal` setups). The accumulator follows the first
+  call result's home by an unknown rule.
+* **Shift/address interleave rotation** (`func_8003EAB4`, `func_8003E248`,
+  open). For `temp = ((x << 16) >> 14) + &D`, retail emits
+  `sll, lui, addiu, sra, addu` (address materialization between the
+  shifts) while every tried tree emits `sll, sra, lui, addiu, addu`.
+  Scaling must be right first (`u8[]` retype, else the shifts merge to
+  `sra 12`); after that, int-vs-pointer trees, operand swaps, split
+  statements, `-O1`/`-O3`, and alternate toolchains all keep the
+  non-interleaved order. Best 60/63 and 36/39; improved-but-unverified
+  drafts banked in-tree.
+* **Phantom 8-byte -O2 frame** (`func_80016110`, open, best 59/69).
+  Retail frame is 24 (`vars= 0`) while every compilable variant reports
+  `.frame $sp,32 (vars= 8)` with zero `$sp`-relative accesses — 8 dead
+  bytes. Bisected: any *use* of a second pointer temp forces it (an
+  assigned-but-unused temp keeps 24; `*tmp = *tmp` flips to 32), yet
+  deleting the temp and inlining its double-deref address three times
+  keeps 32 as well. Scalar temps do not trigger it. Separately, the
+  middle expression resists register assignment: retail evaluates the
+  `u16` index into `$a1` then the field word into `$a0`, while every
+  variant puts the index in `$a0` (explicit `idx`/`f0` temps get forward-
+  propagated back; a shared temp over-folds to 60 words). Retail also
+  reloads the index global fresh for each of its three uses — a shared
+  `idx` temp is a trap (60-word over-fold), not a fix.
+* **Address-taken dead local for phantom frame bytes.** When the body
+  matches but retail's frame is 8 bytes bigger with zero `$sp` traffic
+  on either side (`sub $sp,32` + saves at +0x18/0x1C vs `sub $sp,24` +
+  saves at +0x10/0x14), an address-taken dead local reserves exactly
+  that: `s32 du; (void) &du;` emits no code (verified) but flips
+  `.frame` to `vars= 8`. Probes.excluded everything else (unused
+  locals/params vanish; calls, saves, alignment, `-O1`/`-O3`, `-G`
+  don't move it). It likely stands in for a leftover or debug local
+  in the original; file it as a codegen constraint either way.
+  (`func_80141B90`, `func_8013ED6C`.) Larger gaps scale the same
+  way: 16 dead bytes need e.g. a dead `s32 du[4]`
+  (`func_80155E30`, `func_801576A8`); probe `.frame vars` directly
+  (`--keep-intermediates`) rather than guessing.
 * **Equality against a constant.** `x == 0xFF` returning 0 or 1 compiles to
   `xori`/`sltu`, not to a branch. Retail's `li $v0,255; beq` shape has not
   been reproduced from any of the sixteen source shapes tried for
   `func_8005FB70`; it is still open, and is the one idiom in this list with
   no known fix.
+* **Retry loop: `goto` back-edge defeats LICM, convergent return keeps
+  fall-through.** (`func_80043300`, 38/38.) Three faults, each found by
+  bisecting 13/38 to 37/38 to 38/38. First, a structured `do-while` lets
+  GCC hoist the loop-invariant `li` constants (`== 1`, `!= -1`) into saved
+  registers, growing the frame `0x18 -> 0x20` with two extra saves; a
+  `goto retry` back-edge is not recognised as a loop, so `li $v1,1` and
+  `li $v0,-1` stay per-iteration immediates. Second, an early `return 1`
+  in the success block gets reordered out of line (`beq`-to-success);
+  converging both paths into a single `return rc` keeps the success block
+  falling through from `bne`, with the 1 delivered in the delay slot of
+  the `j`-to-shared-epilogue that the convergent return produces.
+  Third, a tooling fault, not a source fault: an internal absolute `j`
+  resolves against the link base, so the default `0x80010000` breaks
+  exactly one word (37/38). `batch_match` and `verify_registry` already
+  pass `--link-base 0x<VRAM>`; hand-built candidates need it too.
+* **Taken-block assignment sinks into the branch delay slot.**
+  (`func_80043450`, 27/27.) Retail `bnez $v0,epi` with `move $v0,$zero`
+  in the delay slot, where the fall-through then sets `$v0 = 1`, means
+  the taken path returns 0 and the fall-through returns 1 — the delay
+  slot always executes, so a casual read that the nonzero call result
+  is returned is wrong (the m2c draft had it inverted, and the boot
+  narrative's "return-delay clear" already said so). Source shape:
+  `rc = call(); if (rc != 0) { rc = 0; goto done; } rc = 1; ...` —
+  the taken block's single assignment is what the scheduler sinks into
+  the delay slot. Without the explicit `rc = 0` the match fails at
+  exactly the delay words. Corollary: never trust the listing comment
+  words over the extracted binary when they disagree; the EXE is truth.
+* **Convergent `goto` defeats test inversion and block swap.**
+  (`func_8004787C`, 15/15; `func_80043300` was the first case.)
+  Structured `if/else`-return compiles the test inverted (`bgez`
+  for `< 0`, `beq` for `!=`) with the taken block moved out of line,
+  because the reorder pass calls the early return cold. Routing both
+  paths through one `rc` variable with explicit `goto`s keeps the
+  written test and the written fall-through: `bltz`-to-`neg`,
+  positive path inline, call setups sinking into delay slots.
+  (`func_8002A04C` is the same family: `== 0` plus `goto done` lays
+  out `bnez`-to-body with the zero sunk into the join-jump delay.)
+  (`func_80043450`, 27/27.) Retail `bnez $v0,epi` with `move $v0,$zero`
+  in the delay slot, where the fall-through then sets `$v0 = 1`, means
+  the taken path returns 0 and the fall-through returns 1 — the delay
+  slot always executes, so a casual read that the nonzero call result
+  is returned is wrong (the m2c draft had it inverted, and the boot
+  narrative's "return-delay clear" already said so). Source shape:
+  `rc = call(); if (rc != 0) { rc = 0; goto done; } rc = 1; ...` —
+  the taken block's single assignment is what the scheduler sinks into
+  the delay slot. Without the explicit `rc = 0` the match fails at
+  exactly the delay words. Corollary: never trust the listing comment
+  words over the extracted binary when they disagree; the EXE is truth.
+* **Small-constant multiply is strength-reduced, not folded.**
+  (`func_8003834C` family, 4/4.) Retail `sll; subu; sll` is `* 127`
+  then `* 4`, never `* 0x1FC` (mult) — m2c's `arg0 * 0x1FC` is the same
+  value and different instructions. Write the factored form.
+* **Index/address temps force evaluation order.**
+  (`func_80038638`, `func_80038668`.) `((u8 *)&D[i])[a1] |= 1` lets
+  the scheduler materialize the base first and add the offset second;
+  `s32 i = arg0 * 127; u8 *p = (u8 *)&D[i]; p[arg1] |= 1;` pins
+  index, then base, then offset. The single statement is 2/12.
+* **Shared scaled index keeps the unscaled base live.**
+  (`func_8003836C`.) Two uses of `i * 4` keep `i` in `$v0`, so the
+  scaled index lands in `$v1` instead of folding back; the convergent
+  `rc` keeps the taken block falling through into the shared `jr`
+  with the zero in the `beqz` delay slot.
+* **Single-use address folds, multi-use address materializes.**
+  One address use compiles to `lui $at + addu $at + memop(lo)`;
+  two uses (load then store) materialize the base once
+  (`lui $v1 + addiu`) with zero-offset memops. Read the use count
+  before choosing the source shape; this is the same force behind
+  the `func_80046564` puzzle (still open: its two uses fold where
+  `func_8004359C`'s identical pair does not).
 
 ### Splat promotes jump targets to function symbols
 

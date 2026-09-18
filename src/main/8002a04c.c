@@ -20,22 +20,28 @@ MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
 #include "psx_types.h"
-#include "m2c_macros.h"
 
-/* m2c draft from main.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* Decompiled by hand from main.s, then verified byte-exact
+ * against retail by tools/match_function.py. Types and signatures are
+ * whatever reproduces the bytes; they are not evidence of the
+ * original declaration. */
 
-s32 func_8002A088(s16);                             /* static */
+extern s32 func_8002A088(s32);
 
-s32 func_8002A04C(void *arg0) {
-    void *temp_v0;
+/* The `== 0` test with a convergent `goto done` tail lays out as
+ * `bnez`-to-body with the zero assignment sunk into the `j`-to-shared-
+ * epilogue delay slot. Structured early-`return` form inverts the
+ * branch and costs a word. */
+s32 func_8002A04C(u8 *arg0) {
+    u8 *v0 = *(u8 **)(arg0 + 0x78);
+    s32 rc;
 
-    temp_v0 = M2C_FIELD(arg0, void **, 0x78);
-    if (temp_v0 == 0) {
-        return 0;
+    if (v0 == 0) {
+        rc = 0;
+        goto done;
     }
-    return func_8002A088(M2C_FIELD(temp_v0, s16 *, 0x2E));
+    rc = func_8002A088(*(s16 *)(v0 + 0x2E));
+done:
+    return rc;
 }
 #endif

@@ -1,7 +1,7 @@
 /* Overlay range [80151C54,80151D24) from MAIN.CD member 0012.
  * SHA256(span)=a24fe564318f19429ab832edda13b2e958c6e73ee9a1111554218a7e143c84b0.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the body below is a
+ * verified MATCH (52/52 words at 0x80151C54, -O2). */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE8)
 MUSASHI_NATIVE_MIPS_WORD(0xAFB00010)
@@ -59,16 +59,17 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #include "psx_types.h"
 #include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* Verified byte-exact against retail by tools/match_function.py
+ * (52/52 words at 0x80151C54). Dropped-leading-parameter fix: the call
+ * takes (arg0, value), loading straight into $a1 with $a0 still holding
+ * the incoming arg. Types and signatures are whatever reproduces the
+ * bytes; they are not evidence of the original declaration. */
 
 void func_801470AC(void *);                      /* static */
 void func_801472B4(void *);                      /* static */
 void func_801477E8(void *, s32);             /* static */
 void func_8014BC44(void *, s16);                 /* static */
-void func_8014BD60(s16);                         /* static */
+void func_8014BD60(void *, s16);                  /* static */
 void func_80153C18(void *);                      /* static */
 void func_80154A74(void *, s32);             /* static */
 void func_801553C0(void *);                      /* static */
@@ -78,7 +79,7 @@ void func_80151C54(void *arg0) {
 
     temp_v1 = M2C_FIELD(arg0, u8 *, 0xDD);
     if ((temp_v1 != 1) && (temp_v1 == 0x11)) {
-        func_8014BD60(M2C_FIELD(arg0, s16 *, 0xF2));
+        func_8014BD60(arg0, M2C_FIELD(arg0, s16 *, 0xF2));
     } else {
         func_8014BC44(arg0, M2C_FIELD(arg0, s16 *, 0xF2));
     }

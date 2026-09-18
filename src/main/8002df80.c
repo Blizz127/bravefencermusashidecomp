@@ -111,17 +111,16 @@ MUSASHI_NATIVE_MIPS_WORD(0x27BD0020)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
 
-/* m2c draft from main.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* Verified: 110/110 words at vram 0x8002DF80.
+ * Decompiled by m2c from main.s, then verified byte-exact
+ * against retail by tools/match_function.py. Types and signatures are
+ * whatever reproduces the bytes; they are not evidence of the
+ * original declaration. */
 
-extern s32 D_8006A982;
-extern s32 D_8006A984;
+extern s16 D_8006A982;
+extern u8 D_8006A984;
 void func_8002D320();                                  /* static */
 void func_8002DC68(s32, s32);                            /* static */
 void func_8002E138(s32, s32, s32);                           /* static */

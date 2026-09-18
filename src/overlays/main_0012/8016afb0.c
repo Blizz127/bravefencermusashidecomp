@@ -107,7 +107,7 @@ void func_8016B234();                            /* static */
 void func_8016AFB0(void *arg0) {
     s32 temp_v0_2;
     s32 temp_v1_2;
-    s8 var_v1;
+    s32 var_v1;
     u32 temp_v1;
     u8 temp_v0;
     void *temp_s1;

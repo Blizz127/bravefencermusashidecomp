@@ -32,14 +32,11 @@ MUSASHI_NATIVE_MIPS_WORD(0x00001021)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x27BD0018)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
+/* Verified byte-exact against retail by tools/match_function.py
+ * (28/28 words at 0x800304C8). Types and signatures are whatever
+ * reproduces the bytes; they are not evidence of the original
+ * declaration. */
 #include "psx_types.h"
-
-/* m2c draft from main.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
 
 s32 func_8003C4F0();                               /* static */
 extern u8 D_8006AEF4;
@@ -51,7 +48,7 @@ s32 func_800304C8(void) {
             D_8006AEF4 &= 0xFE;
         }
     } else {
-        D_800A46CC += 1;
+        { u16 *p = &D_800A46CC; *p = *p + 1; }
     }
     return 0;
 }

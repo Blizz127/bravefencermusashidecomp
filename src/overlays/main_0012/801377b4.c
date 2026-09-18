@@ -39,13 +39,12 @@ MUSASHI_NATIVE_MIPS_WORD(0x27BD0020)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
+/* Verified byte-exact against retail by tools/match_function.py
+ * (35/35 words at 0x801377B4). Types and signatures are whatever
+ * reproduces the bytes; they are not evidence of the original
+ * declaration. */
 #include "psx_types.h"
 #include "m2c_macros.h"
-
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
 
 void func_80137840(void *);                      /* static */
 extern void *D_80127524;
@@ -56,12 +55,17 @@ void func_801377B4(s32 arg0, s16 arg1, void *arg2) {
     M2C_FIELD(arg2, s16 *, 4) = 1;
     M2C_FIELD(arg2, s32 *, 0) = arg0;
     M2C_FIELD(arg2, s32 *, 8) = (s32) arg1;
-    if (!(arg1 & 0x2000)) {
-        if (D_80127524 != 0) {
-            D_80127528 = D_80127524;
-            M2C_FIELD(D_80127524, s16 *, 0x1A) = 2;
-        }
-        D_80127524 = arg2;
+    if (arg1 & 0x2000) {
+        goto skip;
     }
+    {
+        void **pp = &D_80127524;
+        if (*pp != 0) {
+            D_80127528 = *pp;
+            M2C_FIELD(*pp, s16 *, 0x1A) = 2;
+        }
+        *pp = arg2;
+    }
+skip:;
 }
 #endif

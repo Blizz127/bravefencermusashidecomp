@@ -96,7 +96,8 @@ extern s32 D_80127070;
 extern s32 D_80127074;
 
 void func_8016EE94(s32 arg0, s32 arg1) {
-    D_80126D50 = arg0 | 0x04000000 | arg1;
+    s32 t = arg0 | 0x04000000;
+    D_80126D50 = t | arg1;
     D_80126D54 = 0;
     D_80126D6C = 0;
     D_80126D6D = 0;

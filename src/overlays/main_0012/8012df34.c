@@ -38,31 +38,28 @@ MUSASHI_NATIVE_MIPS_WORD(0x27BD0020)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
+/* Verified byte-exact against retail by tools/match_function.py
+ * (34/34 words at 0x8012DF34). Types and signatures are whatever
+ * reproduces the bytes; they are not evidence of the original
+ * declaration. */
 #include "psx_types.h"
 #include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
-
 void func_8012F568(s32, s32, s32, s32, s32, void *); /* static */
 s32 func_80135888(s32, s32, s32, s32);          /* static */
-extern s32 *D_801152A8;
-extern s32 *D_80126B58;
+extern s32 D_80126B58[];
+extern s32 D_801152A8[];
 
 s32 func_8012DF34(void *arg0, s32 arg1, s32 arg2) {
-    s32 var_v0;
+    s32 *p = D_80126B58;
 
-    if ((arg0 == 0) || (var_v0 = 0, (M2C_FIELD(arg0, s16 *, 0xAA) == 0))) {
-        if (func_80135888(M2C_FIELD(&D_80126B58, s32 *, 0x20), M2C_FIELD(&D_80126B58, s32 *, 0x38), arg1, arg2) == 0) {
-            return 0;
-        }
-        func_8012F568(1, 1, 0, 0xA, arg2, &D_801152A8);
-        var_v0 = 1;
-        /* Duplicate return node #5. Try simplifying control flow for better match */
-        return var_v0;
+    if ((arg0 != 0) && (M2C_FIELD(arg0, s16 *, 0xAA) != 0)) {
+        return 0;
     }
-    return var_v0;
+    if (func_80135888(p[8], p[14], arg1, arg2) != 0) {
+        func_8012F568(1, 1, 0, 0xA, arg2, D_801152A8);
+        return 1;
+    }
+    return 0;
 }
 #endif

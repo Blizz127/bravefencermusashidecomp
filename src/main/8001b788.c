@@ -16,19 +16,23 @@ MUSASHI_NATIVE_MIPS_WORD(0x8C22E830)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
 
-/* m2c draft from main.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* Decompiled by hand from main.s, then verified byte-exact
+ * against retail by tools/match_function.py. Types and signatures are
+ * whatever reproduces the bytes; they are not evidence of the
+ * original declaration. */
 
-extern s32 *D_80063138;
-extern s32 *D_800AE830;
+typedef struct { s16 v; u8 pad[4]; } T_8001B788;
+extern T_8001B788 D_80063138[];
+extern u8 D_800AE830[];
 
-s32 func_8001B788(s16 arg0) {
-    return *(&D_800AE830 + (*(&D_80063138 + (arg0 * 6)) * 8));
+/* Same struct-stride family as func_80014BFC: the 6-byte stride with
+ * a halfword member makes the compiler emit the `* 6` chain plus a
+ * folding address, and the final table is byte-indexed (no scaling). */
+s32 func_8001B788(s32 arg0) {
+    s32 k = D_80063138[(s16)arg0].v << 3;
+
+    return *(s32 *)&D_800AE830[k];
 }
 #endif

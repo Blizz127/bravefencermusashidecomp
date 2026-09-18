@@ -6,22 +6,25 @@ MUSASHI_NATIVE_MIPS_WORD(0x8C620000)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0xAC640000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
 
-/* m2c draft from main.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* Decompiled by hand from main.s, then verified byte-exact
+ * against retail by tools/match_function.py. Types and signatures are
+ * whatever reproduces the bytes; they are not evidence of the
+ * original declaration. */
 
 extern s32 D_800B9B54;
 
+/* Swap-and-return through a held pointer: the address materializes
+ * once (`lui` + `addiu`) with zero-offset accesses. Same shape as
+ * func_8004359C's family; whether the `addiu` survives or folds into
+ * the memops is symbol-dependent (compare func_80046564, still
+ * open, whose identical source folds). */
 s32 func_80046994(s32 arg0) {
-    s32 temp_v0;
+    s32 *p = &D_800B9B54;
+    s32 old = *p;
 
-    temp_v0 = D_800B9B54;
-    D_800B9B54 = arg0;
-    return temp_v0;
+    *p = arg0;
+    return old;
 }
 #endif

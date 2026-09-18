@@ -10,24 +10,24 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 MUSASHI_NATIVE_MIPS_WORD(0x03e00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
 
-/* m2c draft from main.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* Decompiled by hand from main.s, then verified byte-exact
+ * against retail by tools/match_function.py. Types and signatures are
+ * whatever reproduces the bytes; they are not evidence of the
+ * original declaration. */
 
-extern s32 *D_80076251;
+extern u8 D_80076251[];
 
+/* Byte table zeroed top-down in `0x10` steps; the `u8` element type
+ * keeps the index unscaled so the address folds to `lui` + `addu`
+ * recomputed each iteration. Identical twin: func_80037334. */
 void func_80037004(void) {
-    s32 var_v0;
+    s32 i = 0x40;
 
-    var_v0 = 0x40;
     do {
-        *(&D_80076251 + var_v0) = 0;
-        var_v0 -= 0x10;
-    } while (var_v0 >= 0);
+        D_80076251[i] = 0;
+        i -= 0x10;
+    } while (i >= 0);
 }
 #endif

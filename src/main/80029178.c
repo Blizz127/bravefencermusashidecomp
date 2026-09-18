@@ -11,18 +11,26 @@ MUSASHI_NATIVE_MIPS_WORD(0x00431024)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x0002102B)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
 
-/* m2c draft from main.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* Decompiled by hand from main.s, then verified byte-exact
+ * against retail by tools/match_function.py. Types and signatures are
+ * whatever reproduces the bytes; they are not evidence of the
+ * original declaration. */
 
-extern s32 *D_800AE648;
+extern u8 D_800AE648[];
 
+/* Staged into explicit temps: the single-expression form lets the
+ * combiner rewrite `(x & (1 << n)) != 0` as `(x >> n) & 1`, and the
+ * scheduler folds the table load ahead of the mask setup. Staging
+ * pins index, mask-bit, constant, load, shifted mask, test. */
 s32 func_80029178(u32 arg0) {
-    return (*(&D_800AE648 + (arg0 >> 3)) & (1 << (arg0 & 7))) != 0;
+    u32 i = arg0 >> 3;
+    u32 a = arg0 & 7;
+    u32 one = 1;
+    u32 v = D_800AE648[i];
+    u32 m = one << a;
+
+    return (v & m) != 0;
 }
 #endif

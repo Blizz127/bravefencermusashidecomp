@@ -30,7 +30,7 @@ s32 func_8005D03C(s32 arg0) {
     s32 temp_v0;
 
     temp_v0 = arg0 & 0xFFFF;
-    M2C_FIELD(D_80072934, s32 *, 4) = (s32) (M2C_FIELD(D_80072934, s32 *, 4) | *(func_8007293C + (temp_v0 * 4)));
+    M2C_FIELD(D_80072934, s32 *, 4) = (s32) (M2C_FIELD(D_80072934, s32 *, 4) | func_8007293C[temp_v0]);
     return temp_v0 < 3;
 }
 #endif

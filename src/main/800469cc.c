@@ -37,33 +37,43 @@ MUSASHI_NATIVE_MIPS_WORD(0x27BD0018)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
 
-/* m2c draft from main.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* Decompiled by hand from main.s, then verified byte-exact
+ * against retail by tools/match_function.py. Types and signatures are
+ * whatever reproduces the bytes; they are not evidence of the
+ * original declaration. */
 
-extern s32 D_80078800;
-extern s32 D_80078804;
-extern s32 (*D_800A5E80)();
-extern s32 D_800AE644;
-extern s32 D_800C6D38;
+typedef struct { u32 w; } __attribute__((packed)) U32_800469CC;
 extern s32 D_800C6D3C;
 extern s32 D_800C7C94;
+extern s32 D_800C6D38;
+extern void (*D_800A5E80)(void);
+extern u8 D_80078800[];
+extern s32 D_80078804;
+extern s32 D_800AE644;
 
+/* Mixed-alignment views over one computed base: the `s16` store and
+ * the `+8` word load go through plain types (`sh`, `lw`), while the
+ * `+0x1C` word copy goes through packed `u32` (`lwl`/`swl`). All
+ * three share one base register. The callback takes no arguments
+ * (m2c's two-arg guess would emit setups retail lacks). */
 void func_800469CC(void) {
-    void *temp_v1;
+    s32 i = D_800C6D3C;
+    s32 base = D_800C7C94;
+    u8 *pu = (u8 *)base + (i << 5);
+    s32 *p32 = (s32 *)pu;
+    u8 *a2 = &D_80078800[0];
 
-    temp_v1 = D_800C7C94 + (D_800C6D3C << 5);
-    temp_v1->unk0 = 2;
-    D_80078800.unk3 = (unaligned s32) M2C_ERROR(/* Unable to handle lwr; missing a corresponding lwl */);
-    D_80078804 = temp_v1->unk8;
+    *(s16 *)pu = 2;
+    *(U32_800469CC *)a2 = *(U32_800469CC *)(pu + 0x1C);
+    {
+        s32 x = p32[2];
+        D_80078804 = x;
+    }
     D_800C6D3C = D_800C6D38;
     if (D_800A5E80 != 0) {
-        D_800A5E80(D_800A5E80, &D_80078800);
+        D_800A5E80();
     }
     D_800AE644 = 0;
 }

@@ -1,7 +1,7 @@
 /* Overlay range [80155C64,80155D70) from MAIN.CD member 0012.
  * SHA256(span)=730fe3e31e0901fd13695efa38cfa7a0c81e1443d8e066cee1bdfa48d8666fb8.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the body below is a
+ * verified MATCH (67/67 words at 0x80155C64, -O2). */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFE8)
 MUSASHI_NATIVE_MIPS_WORD(0xAFB00010)
@@ -74,15 +74,17 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #include "psx_types.h"
 #include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* Verified byte-exact against retail by tools/match_function.py
+ * (67/67 words at 0x80155C64). Dropped-leading-parameter fix: the call
+ * takes (arg0, 0x30000), materializing straight into $a1 with $a0 still
+ * holding the incoming arg. Types and signatures are whatever
+ * reproduces the bytes; they are not evidence of the original
+ * declaration. */
 
 void func_80146CA0(void *);                      /* static */
 void func_80146D90(void *);                      /* static */
 void func_80147460(void *);                      /* static */
-void func_80148038();                     /* static */
+void func_80148038(void *, s32);            /* static */
 void func_8014C010(void *, s32);             /* static */
 s32 func_8014CC28(void *);                          /* static */
 s32 func_8014ED28(void *);                          /* static */
@@ -98,7 +100,7 @@ void func_80155C64(void *arg0) {
     s32 temp_v0;
 
     M2C_FIELD(arg0, s32 *, 0x44) = (s32) (M2C_FIELD(arg0, s32 *, 0x44) | 2);
-    func_80148038(0x30000);
+    func_80148038(arg0, 0x30000);
     func_80147460(arg0);
     if (func_8014ED28(arg0) != 0) {
         func_80146D90(arg0);

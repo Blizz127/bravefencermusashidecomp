@@ -1,7 +1,7 @@
 /* Overlay range [80132288,8013240C) from MAIN.CD member 0012.
  * SHA256(span)=48248273db7c6e298b2f0886afb9cd0f06a341f4f8cd66284da34241b43ad073.
- * Word export for the native seam; the body below is an
- * UNVERIFIED draft, not an oracle match claim. */
+ * Word export for the native seam; the body below is a
+ * verified MATCH (97/97 words at 0x80132288, -O2). */
 #ifdef MUSASHI_NATIVE_MIPS_WORD_EXPORT
 MUSASHI_NATIVE_MIPS_WORD(0x27BDFFD8)
 MUSASHI_NATIVE_MIPS_WORD(0xAFB1001C)
@@ -104,10 +104,10 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #include "psx_types.h"
 #include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* Verified byte-exact against retail by tools/match_function.py
+ * (97/97 words at 0x80132288). Types and signatures are whatever
+ * reproduces the bytes; they are not evidence of the original
+ * declaration. */
 
 void func_8005C324(void *, void *, s32);         /* extern */
 void func_801325B8(void *, void *, s32, s32, s32); /* static */
@@ -117,8 +117,7 @@ void func_80132288(void *arg0, void *arg1, void *arg2) {
     u32 var_a0_2;
     u32 var_a1;
     u32 var_a1_2;
-    void *temp_a2;
-    void *temp_a2_2;
+    void *sz;
     void *temp_v1;
     void *temp_v1_2;
 
@@ -126,32 +125,34 @@ void func_80132288(void *arg0, void *arg1, void *arg2) {
     M2C_FIELD(arg0, s16 *, 4) = 0;
     M2C_FIELD(arg0, s16 *, 6) = 0;
     M2C_FIELD(arg0, void **, 8) = arg2;
-    temp_a2 = M2C_FIELD(M2C_FIELD(arg1, void **, 0), void **, 0);
-    if (M2C_FIELD(temp_a2, s32 *, 4) == 1) {
-        var_a1 = M2C_FIELD(temp_a2, u32 *, 0xC);
+    sz = M2C_FIELD(M2C_FIELD(arg1, void **, 0), void **, 0);
+    if (M2C_FIELD(sz, s32 *, 4) == 1) {
+        var_a1 = M2C_FIELD(sz, u32 *, 0xC);
     } else {
-        var_a1 = (u32) (temp_a2 + ((((u32) M2C_FIELD(temp_a2, u32 *, 0xC) >> 2) * 4) + 0xC));
+        var_a1 = (u32) (sz + ((((u32) M2C_FIELD(sz, u32 *, 0xC) >> 2) * 4) + 0xC));
     }
+    sz = arg2;
     if (M2C_FIELD(arg2, s32 *, 4) == 1) {
         var_a0 = M2C_FIELD(arg2, u32 *, 0xC);
     } else {
         var_a0 = (u32) (arg2 + ((((u32) M2C_FIELD(arg2, u32 *, 0xC) >> 2) * 4) + 0xC));
     }
-    func_8005C324((void *) var_a0, (void *) var_a1, M2C_FIELD(arg2, s32 *, 0x10) * 8);
+    func_8005C324((void *) var_a0, (void *) var_a1, M2C_FIELD(sz, s32 *, 0x10) * 8);
     temp_v1 = M2C_FIELD(arg1, void **, 0);
     if (M2C_FIELD(temp_v1, s32 *, 8) != 0) {
-        temp_a2_2 = M2C_FIELD(temp_v1, void **, 0);
-        if (M2C_FIELD(temp_a2_2, s32 *, 4) == 1) {
-            var_a1_2 = M2C_FIELD(temp_a2_2, u32 *, 0x14);
+        sz = M2C_FIELD(temp_v1, void **, 0);
+        if (M2C_FIELD(sz, s32 *, 4) == 1) {
+            var_a1_2 = M2C_FIELD(sz, u32 *, 0x14);
         } else {
-            var_a1_2 = (u32) (temp_a2_2 + ((((u32) M2C_FIELD(temp_a2_2, u32 *, 0x14) >> 2) * 4) + 0xC));
+            var_a1_2 = (u32) (sz + ((((u32) M2C_FIELD(sz, u32 *, 0x14) >> 2) * 4) + 0xC));
         }
+        sz = arg2;
         if (M2C_FIELD(arg2, s32 *, 4) == 1) {
             var_a0_2 = M2C_FIELD(arg2, u32 *, 0x14);
         } else {
             var_a0_2 = (u32) (arg2 + ((((u32) M2C_FIELD(arg2, u32 *, 0x14) >> 2) * 4) + 0xC));
         }
-        func_8005C324((void *) var_a0_2, (void *) var_a1_2, M2C_FIELD(arg2, s32 *, 0x18) * 8);
+        func_8005C324((void *) var_a0_2, (void *) var_a1_2, M2C_FIELD(sz, s32 *, 0x18) * 8);
     }
     if (M2C_FIELD(arg1, s16 *, 6) < 0) {
         temp_v1_2 = M2C_FIELD(arg1, void **, 0);

@@ -41,14 +41,14 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 void func_80147060(void *);                      /* static */
 void func_80148634(void *);                      /* static */
 void func_801511A8(void *);                      /* static */
-void func_8017196C();                     /* static */
+void func_8017196C(void *, s32);            /* static */
 extern u16 D_80078EB4;
 extern s8 D_800B9A17;
 
 void func_8016F0E4(void *arg0) {
     M2C_FIELD(arg0, s32 *, 0x1F8) = 0;
     M2C_FIELD(arg0, s32 *, 0x1FC) = 0;
-    func_8017196C(0);
+    func_8017196C(arg0, 0);
     func_80147060(arg0);
     func_801511A8(arg0);
     if (D_80078EB4 != 0) {

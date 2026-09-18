@@ -22,27 +22,22 @@ MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
 #include "psx_types.h"
-#include "m2c_macros.h"
 
-/* m2c draft from main.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* Decompiled by hand from main.s, then verified byte-exact
+ * against retail by tools/match_function.py. Types and signatures are
+ * whatever reproduces the bytes; they are not evidence of the
+ * original declaration. */
 
-void func_800484EC(s32 *, void *, s32);          /* static */
+typedef struct { s32 x[4]; } T16_800141AC;
+extern void func_800484EC(void *, void *, void *);
 
-void func_800141AC(void *arg1) {
-    s32 sp1C;
-    s32 sp18;
-    s32 sp14;
-    s32 sp10;
-    s32 temp_a3;
+/* Sibling of func_80014168 with an aligned 16-byte copy (plain
+ * struct: `lw`/`sw`, no `lwl`/`swl`). Same staged source pointer
+ * passed through as the third call argument. */
+void func_800141AC(void *arg0, u8 *arg1) {
+    u8 *s = arg1;
+    T16_800141AC buf = *(T16_800141AC *)s;
 
-    temp_a3 = M2C_FIELD(arg1, s32 *, 0xC);
-    sp10 = M2C_FIELD(arg1, s32 *, 0);
-    sp14 = M2C_FIELD(arg1, s32 *, 4);
-    sp18 = M2C_FIELD(arg1, s32 *, 8);
-    sp1C = temp_a3;
-    func_800484EC(&sp10, arg1, temp_a3);
+    func_800484EC(arg0, &buf, s);
 }
 #endif

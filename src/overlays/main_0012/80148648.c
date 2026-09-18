@@ -111,13 +111,15 @@ MUSASHI_NATIVE_MIPS_WORD(0x27BD0020)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
+/* Verified byte-exact against retail by tools/match_function.py
+ * (107/107 words at 0x80148648). Three signedness fixes: temp_v1_2
+ * u8->s32 (slti vs sltiu against 84) and temp_a0/temp_a1 u16->s32
+ * (sra vs srl for the 0x8000-bit fold). Loads stay lbu/lhu and field
+ * stores stay (u16)-truncated, so only the comparison/shift kinds
+ * change. Types and signatures are whatever reproduces the bytes;
+ * they are not evidence of the original declaration. */
 #include "psx_types.h"
 #include "m2c_macros.h"
-
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
 
 void func_800120DC(void *, void *);              /* extern */
 s32 func_80014CF8(s32, s32);                    /* extern */
@@ -131,11 +133,11 @@ void func_80148648(void *arg0, s32 arg1) {
     s32 temp_s0;
     s32 temp_s0_2;
     s32 temp_v1_3;
-    u16 temp_a0;
-    u16 temp_a1;
+    s32 temp_a0;
+    s32 temp_a1;
     u16 temp_v1;
     u16 var_a2;
-    u8 temp_v1_2;
+    s32 temp_v1_2;
 
     if (D_800B9A64 == 0) {
         temp_s0 = arg1 & 0xFF;

@@ -53,7 +53,7 @@ extern s32 D_80127090;
 extern s32 D_80127094;
 extern s32 D_80127098;
 
-void func_8016325C(void *arg0, s32 arg2, s32 arg3) {
+void func_8016325C(void *arg0, s32 unused, s32 arg2, s32 arg3) {
     func_80162F60();
     func_80162F80(arg0, arg2);
     func_80162FA0(arg0, arg3);

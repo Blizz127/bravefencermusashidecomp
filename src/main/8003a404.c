@@ -22,6 +22,8 @@ MUSASHI_NATIVE_MIPS_WORD(0x00021403)
  * evidence of the original declaration. */
 
 s16 func_8003A404(u32 arg0) {
-    return (s16) (((arg0 >> 8) & 0xFF) + ((arg0 & 0xFF) << 8));
+    s32 hi = arg0 >> 8;
+    s32 lo = (arg0 & 0xFF) << 8;
+    return (s16) ((hi & 0xFF) + lo);
 }
 #endif

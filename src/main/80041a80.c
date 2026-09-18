@@ -13,18 +13,20 @@ MUSASHI_NATIVE_MIPS_WORD(0x00021403)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x27BD0018)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
 #include "psx_types.h"
 
-/* m2c draft from main.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* Decompiled by hand from main.s, then verified byte-exact
+ * against retail by tools/match_function.py. Types and signatures are
+ * whatever reproduces the bytes; they are not evidence of the
+ * original declaration. */
 
-s16 func_80041AB0(s16, s32, s32);                       /* static */
+extern s32 func_80041AB0(s32, s32, s32, s32);
 
-s16 func_80041A80(s16 arg1, s32 arg2) {
-    return func_80041AB0(arg1, 1, arg2);
+/* m2c dropped the leading `$a0` passthrough and the trailing `$a3 = $a2`
+ * duplicate: the callee takes four arguments. The `(s16)` cast on the
+ * middle argument and on the return are what emit the `sll`/`sra`
+ * pairs around the call. */
+s16 func_80041A80(s32 arg0, s32 arg1, s32 arg2) {
+    return (s16)func_80041AB0(arg0, (s16)arg1, 1, arg2);
 }
 #endif

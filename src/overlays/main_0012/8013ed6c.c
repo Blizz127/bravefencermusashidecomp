@@ -45,14 +45,14 @@ MUSASHI_NATIVE_MIPS_WORD(0x27BD0020)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
-/* Body below is an UNVERIFIED draft, not an oracle match
- * claim; promotion requires tools/match_function.py MATCH. */
+/* Verified byte-exact against retail by tools/match_function.py
+ * (41/41 words at 0x8013ED6C). Index has no *4 (plain s32-indexed
+ * load), and like twin func_80141B90 the 32-byte frame needs an
+ * address-taken dead local — see that function for the full account.
+ * These constructs are codegen constraints, not claims about the
+ * original source. Other types and signatures are whatever reproduces
+ * the bytes; they are not evidence of the original declaration. */
 #include "psx_types.h"
-
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
 
 void func_8013E958();                                  /* static */
 void func_8013F350();                                  /* static */
@@ -66,7 +66,9 @@ extern s32 *D_801151C8;
 extern s32 D_801151D0;
 
 void func_8013ED6C(void) {
-    if (((func_80141C50() << 0x10) == 0) && ((D_801151D0 = *(&D_801151C8 + (D_800B9A02 * 4)), func_8013F350(), func_8013FAF8(7, 8), (D_8011511A != 7)) || (D_8011511E & 0x810))) {
+    s32 du;
+    (void) &du;
+    if (((func_80141C50() << 0x10) == 0) && ((D_801151D0 = *(&D_801151C8 + D_800B9A02), func_8013F350(), func_8013FAF8(7, 8), (D_8011511A != 7)) || (D_8011511E & 0x810))) {
         func_8013E958();
         D_80115112 = 4;
     }

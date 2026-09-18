@@ -49,14 +49,14 @@ extern s32 D_80180180;
 void func_80146CA0(void *);                      /* static */
 void func_80147324();                     /* static */
 void func_80149020(void *);                      /* static */
-void func_80154274(void *, s32 (*)());       /* static */
+void func_80154274(void *, void *);            /* static */
 extern s16 D_800B9A08;
 
 void func_80153D7C(void *arg0) {
     s8 var_v0;
 
     func_80147324(0x451);
-    func_80154274(arg0, D_80180180);
+    func_80154274(arg0, &D_80180180);
     func_80149020(arg0);
     M2C_FIELD(arg0, u16 *, 0x244) = (u16) M2C_FIELD(arg0, u16 *, 6);
     M2C_FIELD(arg0, u16 *, 0x246) = (u16) M2C_FIELD(arg0, u16 *, 0xA);

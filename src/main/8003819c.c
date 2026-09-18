@@ -27,14 +27,14 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
  * and signatures are whatever the decompiler guessed; they are not
  * evidence of the original declaration. */
 
-extern s32 *D_800B9CD8;
+extern u8 D_800B9CD8[];
 
 void func_8003819C(s32 arg0, s16 arg1, s16 arg2, s16 arg3) {
     void *temp_v0;
     void *temp_v1;
 
     if (arg1 <= 0) {
-        temp_v0 = (arg0 * 0x1FC) + &D_800B9CD8;
+        temp_v0 = &D_800B9CD8[arg0 * 0x1FC];
         temp_v1 = temp_v0 + (arg1 * 8);
         M2C_FIELD(temp_v1, s16 *, 0x16) = arg2;
         M2C_FIELD(temp_v1, s16 *, 0x14) = arg3;

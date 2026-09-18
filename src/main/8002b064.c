@@ -27,7 +27,7 @@ s32 func_8002B064(u8 *arg0) {
     s32 temp_a1;
     s32 var_v1;
     u8 *var_a0;
-    u8 temp_v0;
+    s32 temp_v0;
 
     var_a0 = arg0;
     var_v1 = 0;

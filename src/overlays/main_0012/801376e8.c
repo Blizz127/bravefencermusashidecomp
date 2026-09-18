@@ -55,15 +55,14 @@ MUSASHI_NATIVE_MIPS_WORD(0x27BD0020)
 MUSASHI_NATIVE_MIPS_WORD(0x03E00008)
 MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #else
+/* Verified byte-exact against retail by tools/match_function.py
+ * (51/51 words at 0x801376E8). Types and signatures are whatever
+ * reproduces the bytes; they are not evidence of the original
+ * declaration. */
 #include "psx_types.h"
 #include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
-
-void func_801377B4(s32, void *);          /* static */
+void func_801377B4(s32, s32, void *);          /* static */
 void func_80139BE0(void *);                   /* static */
 extern s32 *D_801269F0;
 extern s8 D_801269FD;
@@ -74,8 +73,8 @@ extern s16 D_80126A22;
 extern s16 D_80126A24;
 extern u16 D_80126A26;
 
-void *func_801376E8(void *arg1) {
-    func_801377B4(0x6200, &D_801269F0);
+void *func_801376E8(s32 arg0, void *arg1) {
+    func_801377B4(arg0, 0x6200, &D_801269F0);
     D_80126A1C = 0x1C;
     D_801269FD = 0;
     if (arg1 != 0) {

@@ -42,7 +42,7 @@ void func_80148038(void *arg0, s32 arg1) {
     var_a1 = arg1;
     temp_v1 = M2C_FIELD(arg0, s32 *, 0x34);
     if (temp_v1 < 0) {
-        if ((var_a1 < 0) && (temp_v1 <= 0xFFE10000)) {
+        if ((var_a1 < 0) && (temp_v1 <= -0x1F0000)) {
             var_a1 = 0;
         }
     } else if ((var_a1 > 0) && (temp_v1 > 0x1EFFFF)) {

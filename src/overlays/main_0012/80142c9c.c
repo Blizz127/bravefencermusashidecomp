@@ -46,21 +46,25 @@ MUSASHI_NATIVE_MIPS_WORD(0x00000000)
 #include "psx_types.h"
 #include "m2c_macros.h"
 
-/* m2c draft from main_0012.s: NOT verified against retail. C89-gated only;
- * promotion requires an oracle MATCH (tools/match_function.py). Types
- * and signatures are whatever the decompiler guessed; they are not
- * evidence of the original declaration. */
+/* Verified byte-exact against retail by tools/match_function.py
+ * (39/39 words at 0x80142C9C). The raw call result is kept in its own
+ * variable with the `& 0x6000` sunk below the range check, letting the
+ * scheduler place the `andi` in the branch delay slot. Types and
+ * signatures are whatever reproduces the bytes; they are not evidence
+ * of the original declaration. */
 
 s32 func_8012CBF4();                                /* static */
 
 void func_80142C9C(void *arg0) {
     s32 temp_v0;
+    s32 raw;
 
     if (M2C_FIELD(arg0, s16 *, 0x102) < 2) {
-        temp_v0 = func_8012CBF4() & 0x6000;
+        raw = func_8012CBF4();
         if (M2C_FIELD(arg0, s32 *, 0x14) > 0x180000) {
             M2C_FIELD(arg0, s32 *, 0x14) = 0x180000;
         }
+        temp_v0 = raw & 0x6000;
         if ((temp_v0 != 0) || (M2C_FIELD(arg0, s16 *, 0xA) >= 0x101)) {
             if (M2C_FIELD(arg0, s16 *, 0x102) == 0) {
                 M2C_FIELD(arg0, s32 *, 0x14) = -0x80000;
