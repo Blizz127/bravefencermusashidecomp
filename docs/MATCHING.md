@@ -850,6 +850,17 @@ out to be; each entry was confirmed by fixing it and getting a MATCH.
   pairs means the source keeps `&D` in a local across the block:
   `{ void **pp = &D; if (*pp != 0) {...} *pp = arg; }`.
   (`func_801377B4`.)
+* **Volatile local pointer over a store/load pair on one global.**
+  Retail `lui $v1,%hi(D); addiu $v1,$v1,%lo(D); lw $v0,0($v1); sw $a0,0($v1)`
+  (one base register for both accesses, store before `jr`, delay slot `nop`)
+  where the plain `s32 old = D; D = arg; return old;` draft gives two
+  separate `lui` bases, and a plain local pointer gives one base but sinks
+  the store into the `jr` delay slot (one word short). Marking the local
+  pointer `volatile` (`volatile s32 *p = &D; s32 old = *p; *p = arg;
+  return old;`) stops the sink *and* keeps the single base, matching
+  6/6. The neighbouring `func_8004654C` is the same two-base shape and
+  stays the plain form, so do not sweep the volatile in — it is per-site.
+  (`func_80046564`.)
 * **Hoisted mask constant seeks a branch delay slot**
   (`func_80131A34`, open, best 33/37). The else branch computes
   `field & ~4` while retail holds the mask in `$v1` from an `li` sitting

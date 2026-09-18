@@ -5742,6 +5742,16 @@
       "extent": "function"
     },
     {
+      "name": "func_80046564",
+      "vram": 2147771748,
+      "size": 24,
+      "region": "main",
+      "source": "src/main/80046564.c",
+      "recovery": "c",
+      "extent": "function",
+      "optimization": "-O2"
+    },
+    {
       "name": "func_80046610",
       "vram": 2147771920,
       "size": 32,
