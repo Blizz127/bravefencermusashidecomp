@@ -42,9 +42,18 @@ Pipeline that worked:
 4. Build with the pinned toolchain at `-O2` then `-O0`; keep the first exact
    (0 differing word) result. The vendor uses per-segment optimisation flags,
    and boot-adjacent main leaves are `-O0` while overlay bodies are `-O2`.
-5. Write the dual-shape source (word export regenerated from the checked
-   assembly, vendor body in the `#else`) and a registry entry with the winning
-   optimisation, then run `tools/verify_registry.py`.
+5. Write the dual-shape source (vendor body in the `#else`) and a registry
+   entry with the winning optimisation, then run `tools/verify_registry.py`.
+
+**Do not regenerate the word-export block from the function's own
+`glabel`/`endlabel` span.** Several files retain a larger member span than
+the single function they start with: `main_0007/800cee2c.c` keeps 128 words
+for a 52-word function, `main_0007/800cf02c.c` keeps 2,259, and
+`main/80040de8.c` keeps 347 for a 347-byte body. Regenerating truncated 26
+files and broke `test_overlay_800cee2c_matches_main_cd_member0007` and its
+`800cf02c` sibling. The safe rule is to keep the existing
+`MUSASHI_NATIVE_MIPS_WORD_EXPORT` block verbatim and replace only the body;
+`/tmp/bfm_fix_words.py` (session scratch) restored the 26.
 
 Results:
 

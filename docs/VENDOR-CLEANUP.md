@@ -56,10 +56,10 @@ Samples: `src/main/80012ab0.c`, `src/main/80012e6c.c`, `src/main/80013154.c`.
 ## 2026-09-18 intake result
 
 278 functions promoted in one pass (23 `main`, 250 `main_0012`, all 5 remaining
-`main_0007`), worth 63,012 bytes: portable C-only coverage went 180,900 ->
-237,300 / 806,272 (21.87% -> 29.43%) and `main_0007` is complete. The working
-algorithm and its two traps are recorded in
-`tasks/plan-2026-09-18-vendor-promotion.md`:
+`main_0007`), worth 64,500 bytes once two more `main` leaves landed: portable
+C-only coverage went 180,900 -> 240,824 / 806,272 (21.87% -> 29.87%) and
+`main_0007` is complete. The working algorithm and its three traps are recorded
+in `tasks/plan-2026-09-18-vendor-promotion.md`:
 
 - The preamble must be the vendor TU's `extern`/`#define` lines only. Adding
   the TU's function prototypes changes codegen and loses matches.
@@ -67,7 +67,10 @@ algorithm and its two traps are recorded in
   big TUs (`boot.c`, `800.c`), while `main_0012` matches from the exact-stem
   shared body. A candidate may need every mentioning file tried before it
   scores, so a fixed first-match index under-reports.
+- Keep the existing `MUSASHI_NATIVE_MIPS_WORD_EXPORT` block verbatim; several
+  files retain a member span much larger than the function they start with
+  (up to 2,259 words), so regenerating it from the function's own
+  `glabel`/`endlabel` truncates the native carve.
 
-`tools/verify_registry.py` gates every batch; the word-export blocks are
-regenerated from the checked assembly, so the native carve is unchanged.
+`tools/verify_registry.py` gates every batch (3,010 / 3,010 after this intake).
 
