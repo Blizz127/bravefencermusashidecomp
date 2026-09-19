@@ -94,13 +94,13 @@ milestone. The port resumes once decompilation is far enough along.
 
 | Measure | Value |
 | --- | --- |
-| Qualifying coverage | **257,868 / 806,272 = 31.98%** |
-| Portable C-only subset | **176,324 / 806,272 = 21.87%** |
+| Qualifying coverage | **322,368 / 806,272 = 39.98%** |
+| Portable C-only subset | **240,824 / 806,272 = 29.87%** |
 | 30% threshold (241,882) | **met** |
-| To the 60% checkpoint (483,764) | **+225,896 bytes** |
+| To the 60% checkpoint (483,764) | **+161,396 bytes** |
 | Reachable ceiling | 697,632 / 806,272 = 86.53% |
-| Unmatched to the ceiling | ~439,764 bytes |
-| Registry | 2,730 / 2,730 re-verified through the oracle |
+| Unmatched to the ceiling | ~375,264 bytes |
+| Registry | 3,010 / 3,010 re-verified through the oracle |
 | Native menu | **NOT_REACHED** (display disabled; port stops at `80053CF8`) |
 
 The C-only subset is now reported because it, not the total, predicts a
@@ -108,6 +108,15 @@ playable native build. The 2026-09-18 batch moved 152 bytes of that gap
 back: `func_80043300`, the startup retry dispatcher, is no longer an
 instruction `__asm__` overlay but source C that rebuilds 38/38 words, and
 the boot-path leaf `func_80046564` was recovered as C (6/6) as well.
+
+The same day's second batch is much larger: the vendored Druthulu/BFM-decomp
+tree is a matching decompilation of the same disc, and
+`docs/VENDOR-CLEANUP.md` already authorized intake. Sweeping it against the
+oracle and promoting every exact body added 280 functions / 64,500 bytes,
+which is what moved portable C-only coverage from 21.87% to 29.87% and
+completed `main_0007`. See `tasks/plan-2026-09-18-vendor-promotion.md` for the
+pipeline and the two traps (prototypes must not join the preamble; the
+defining file varies per function).
 
 Two corrections to the 2026-09-11 status below, both load-bearing:
 
